@@ -1,0 +1,9 @@
+*.mcs
+*.mcw
+*.map
+*.cof
+*.hex
+*.orig
+*.mptags
+*.o
+*.tagsrc
