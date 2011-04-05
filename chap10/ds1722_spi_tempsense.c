@@ -58,15 +58,15 @@ void configSPI1(void) {
   SPI1STATbits.SPIEN = 1;  //enable SPI mode
 }
 
-void writeConfigDS1722(uint8 u8_i) {
+void writeConfigDS1722(uint8_t u8_i) {
   SLAVE_ENABLE();       //assert chipselect
   ioMasterSPI1(0x80);   //config address
   ioMasterSPI1(u8_i);   //config value
   SLAVE_DISABLE();
 }
 
-int16 readTempDS1722() {
-  uint16 u16_lo, u16_hi;
+int16_t readTempDS1722() {
+  uint16_t u16_lo, u16_hi;
   SLAVE_ENABLE();       //assert chipselect
   ioMasterSPI1(0x01);   //LSB address
   u16_lo = ioMasterSPI1(0x00); //read LSByte
@@ -76,7 +76,7 @@ int16 readTempDS1722() {
 }
 
 int main (void) {
-  int16 i16_temp;
+  int16_t i16_temp;
   float  f_tempC,f_tempF;
   configBasic(HELLO_MSG);
   configSPI1();
@@ -90,7 +90,7 @@ int main (void) {
 #ifdef SMALLRAM
     {
       //use integers to avoid floating point printf which does not fit in this data space
-      int16 i16_tempC,i16_tempF;
+      int16_t i16_tempC,i16_tempF;
       i16_tempC = f_tempC;
       i16_tempF = f_tempF;
       printf("Temp is: 0x%0X, %d (C), %d (F)\n",  i16_temp, i16_tempC, i16_tempF);

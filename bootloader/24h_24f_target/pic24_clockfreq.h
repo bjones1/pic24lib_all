@@ -439,6 +439,6 @@ static inline void configClock() {
  *
  * \param u8_source The clock source to switch to.
  */
-void switchClock(uint8 u8_source);
+void switchClock(uint8_t u8_source);
 
 #endif

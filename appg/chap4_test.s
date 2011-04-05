@@ -48,20 +48,20 @@ p36:
 
 p37:
        mov.b u8_p,WREG
-       ze W0,W1         ;W1 = (uint16) u8_p
+       ze W0,W1         ;W1 = (uint16_t) u8_p
        sl u16_j,WREG    ;W0 = u16_j << 1
-       add W0,W1,W0     ;W0 = (uint16) u8_p +  ((uint16) u8_p)
+       add W0,W1,W0     ;W0 = (uint16_t) u8_p +  ((uint16_t) u8_p)
        mov #0x30,W1
-       sub W0,W1,W0     ;W0 = (uint16) u8_p +  ((uint16) u8_p) - 0x30
+       sub W0,W1,W0     ;W0 = (uint16_t) u8_p +  ((uint16_t) u8_p) - 0x30
        mov WREG,u16_k
 
 p38:  
        mov.b u8_p,WREG
-       ze W0,W1         ;W1 = (uint16) u8_p
+       ze W0,W1         ;W1 = (uint16_t) u8_p
        mov u16_k,WREG
-       sub W0,W1,W0     ;W0 = ((u16_k – (uint8) u8_q)
-       lsr W0,#4,W0     ;W0 = ((u16_k – (uint8) u8_q) >> 4
-       and W0,#0x0F,W0  ;W0 = (((u16_k – (uint8) u8_q) >> 4) & 0x0F
+       sub W0,W1,W0     ;W0 = ((u16_k – (uint8_t) u8_q)
+       lsr W0,#4,W0     ;W0 = ((u16_k – (uint8_t) u8_q) >> 4
+       and W0,#0x0F,W0  ;W0 = (((u16_k – (uint8_t) u8_q) >> 4) & 0x0F
        mov WREG,u16_k
 
 p39:

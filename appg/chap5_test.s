@@ -209,64 +209,64 @@ p23_end_if:
 
 p24:
     mov.b i8_p, WREG
-    se W0,W1           ;W1 = (int16) i8_p  (sign extend)
+    se W0,W1           ;W1 = (int16_t) i8_p  (sign extend)
     sl i16_j,WREG      ;W0 = i16_j << 1
-    add W1,W0,W0       ;W0 = (int16) i8_p + (i16_j << 1)
+    add W1,W0,W0       ;W0 = (int16_t) i8_p + (i16_j << 1)
     mov #256,W1
-    sub W0,W1,W0       ;W0 = (int16) i8_p + (i16_j << 1) - 256
+    sub W0,W1,W0       ;W0 = (int16_t) i8_p + (i16_j << 1) - 256
     mov WREG,i16_k
 
 p25:
     mov.b u8_q, WREG
-    ze W0,W1           ;W1 = (int16) u8_q (zero extend)
-    lsr W1,#2,W1       ;W1 = (int16) u8_q >> 2
+    ze W0,W1           ;W1 = (int16_t) u8_q (zero extend)
+    lsr W1,#2,W1       ;W1 = (int16_t) u8_q >> 2
     mov u16_k,W0
-    sub W0,W1,W0       ;W0 = ((u16_k – (uint8) u8_q) >> 2)
+    sub W0,W1,W0       ;W0 = ((u16_k – (uint8_t) u8_q) >> 2)
     mov #0xA34D,W1
-    and W0,W1,W0       ;W0 = ((u16_k – (uint8) u8_q) >> 2) & 0xA34D;
+    and W0,W1,W0       ;W0 = ((u16_k – (uint8_t) u8_q) >> 2) & 0xA34D;
     mov WREG,u16_i
  
 p26:
     mov i16_k,W2
     clr W3
     btsc W2,#15
-    mov  #0xFFFF,W3     ;W3:W2 = (int32) i16_k
+    mov  #0xFFFF,W3     ;W3:W2 = (int32_t) i16_k
     sl   i32_s,WREG
     mov  W0,W4
     rlc  i32_s+2,WREG
     mov  W0,W5        ;W5:W4 = (i32_s << 1)
     add  W2,W4,W2
-    addc W3,W5,W3     ;W3:W2 = (int32) i16_k + (i32_s << 1)
+    addc W3,W5,W3     ;W3:W2 = (int32_t) i16_k + (i32_s << 1)
     mov  #1024,W0
-    clr  W1           ;W1:W0 = (int32) 1024
+    clr  W1           ;W1:W0 = (int32_t) 1024
     sub  W2,W0,W0
-    subb W3,W1,W1     ;W1:W0 = (int32) i16_k + (i32_s << 1) - 1024
+    subb W3,W1,W1     ;W1:W0 = (int32_t) i16_k + (i32_s << 1) - 1024
     mov W0,i32_r
     mov W1,i32_r+2
 
 p27:
     mov.b i8_q,WREG
-    se    W0,W0       ; W0 = (int16) i8_q
+    se    W0,W0       ; W0 = (int16_t) i8_q
     clr   W1
     btsc W0,#15
-    setm W1            ;W1:W0 = (int32) i8_q 
+    setm W1            ;W1:W0 = (int32_t) i8_q 
     asr  W1,W1
-    rrc  W0,W0          ;W1:W0 = (int32) i8_q >> 2
-    mov.d W0,W2         ;W3:W2 = (int32) i8_q >> 2
+    rrc  W0,W0          ;W1:W0 = (int32_t) i8_q >> 2
+    mov.d W0,W2         ;W3:W2 = (int32_t) i8_q >> 2
     mov i32_s,W0
     mov i32_s+2,W1      ;W1 = i32_s
     sub W0,W2,W0
-    subb W1,W3,W1         ;W1:W0 = i32_s - (int32) i8_q >> 2
+    subb W1,W3,W1         ;W1:W0 = i32_s - (int32_t) i8_q >> 2
     mov #0x807F,W2
     mov #0x38DB,W3      ;W3:W2 = 0x38DB807F
     ior W0,W2,W0
-    ior W1,W3,W1        ;W1:W0 = (i32_s - (int32) i8_q >> 2)| 0x38DB807F
+    ior W1,W3,W1        ;W1:W0 = (i32_s - (int32_t) i8_q >> 2)| 0x38DB807F
     mov W0,i32_r
     mov W1,i32_r+2
 
 p28:
     mov.b i8_q,WREG
-    se    W0,W0       ; W0 = (int16) i8_q
+    se    W0,W0       ; W0 = (int16_t) i8_q
     clr   W1
     clr   W2
     clr   W3

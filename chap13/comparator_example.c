@@ -47,7 +47,7 @@ void configComparator(void) {
 }
 
 int main (void) {
-  uint8 u8_i;
+  uint8_t u8_i;
   configBasic(HELLO_MSG);
   configComparator();
   u8_i = _C1OUT;  //intial read to set trigger
@@ -58,7 +58,7 @@ int main (void) {
     _CMIF = 0;
     u8_i = _C1OUT;  //current value
     outString("\n Comparator fired: ");
-    outUint8(u8_i);
+    outUint8_t(u8_i);
     DELAY_MS(100);
   } //end while
 }//end main

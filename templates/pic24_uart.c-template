@@ -73,7 +73,7 @@
 *
 */
 void checkRxErrorUART${x}(void) {
-  uint8 u8_c;
+  uint8_t u8_c;
 //check for errors, reset if detected.
   if (U${x}STAbits.PERR) {
     u8_c = U${x}RXREG; //clear error
@@ -104,16 +104,16 @@ void checkRxErrorUART${x}(void) {
 #define UART${x}_TX_INTERRUPT_PRIORITY 1
 #endif
 
-volatile uint8 au8_txFifo${x}[UART${x}_TX_FIFO_SIZE];
-volatile uint16 u16_txFifo${x}Head = 0;
-volatile uint16 u16_txFifo${x}Tail = 0;
+volatile uint8_t au8_txFifo${x}[UART${x}_TX_FIFO_SIZE];
+volatile uint16_t u16_txFifo${x}Head = 0;
+volatile uint16_t u16_txFifo${x}Tail = 0;
 
 /**
 * Output \em u8_c to UART${x} TX.
 * \param u8_c Character to write
 */
-void outChar${x}(uint8 u8_c) {
-  uint16 u16_tmp;
+void outChar${x}(uint8_t u8_c) {
+  uint16_t u16_tmp;
 
   u16_tmp = u16_txFifo${x}Head;
   u16_tmp++;
@@ -147,7 +147,7 @@ void _ISR _U${x}TXInterrupt (void) {
 * Output \em u8_c to UART${x} TX.
 * \param u8_c Character to write
 */
-void outChar${x}(uint8 u8_c) {
+void outChar${x}(uint8_t u8_c) {
   //wait for transmit buffer to be empty
   while (IS_TRANSMIT_BUFFER_FULL_UART${x}())
     doHeartbeat();
@@ -165,14 +165,14 @@ void outChar${x}(uint8 u8_c) {
 #define UART${x}_RX_INTERRUPT_PRIORITY 1
 #endif
 
-volatile uint8 au8_rxFifo${x}[UART${x}_RX_FIFO_SIZE];
-volatile uint16 u16_rxFifo${x}Head = 0;
-volatile uint16 u16_rxFifo${x}Tail = 0;
+volatile uint8_t au8_rxFifo${x}[UART${x}_RX_FIFO_SIZE];
+volatile uint16_t u16_rxFifo${x}Head = 0;
+volatile uint16_t u16_rxFifo${x}Tail = 0;
 
 /**
 * Return true if character is ready to be read
 */
-uint8 isCharReady${x}(void) {
+uint8_t isCharReady${x}(void) {
   return(u16_rxFifo${x}Head != u16_rxFifo${x}Tail);
 }
 
@@ -180,7 +180,7 @@ uint8 isCharReady${x}(void) {
 * Wait for a byte to be available from UART${x} RX.
 * \return Character read from UART${x} RX.
 */
-uint8 inChar${x}(void) {
+uint8_t inChar${x}(void) {
   while (u16_rxFifo${x}Head == u16_rxFifo${x}Tail)
     doHeartbeat();
   u16_rxFifo${x}Tail++;
@@ -189,7 +189,7 @@ uint8 inChar${x}(void) {
 }
 
 void _ISR _U${x}RXInterrupt (void) {
-  int8 u8_c;
+  int8_t u8_c;
 
   _U${x}RXIF = 0;        //clear the UART RX interrupt bit
   checkRxErrorUART${x}();
@@ -208,7 +208,7 @@ void _ISR _U${x}RXInterrupt (void) {
 /**
 * Return true if character is ready to be read
 */
-uint8 isCharReady${x}(void) {
+uint8_t isCharReady${x}(void) {
   return(IS_CHAR_READY_UART${x}());
 }
 
@@ -216,7 +216,7 @@ uint8 isCharReady${x}(void) {
 * Wait for a byte to be available from UART${x} RX.
 * \return Character read from UART${x} RX.
 */
-uint8 inChar${x}(void) {
+uint8_t inChar${x}(void) {
   //do heartbeat while waiting for character.
   // Use a do-while to insure error checks
   // are always run.
@@ -249,9 +249,9 @@ uint8 inChar${x}(void) {
  *
  *  \param u32_baudRate The baud rate to use.
  */
-void configUART${x}(uint32 u32_baudRate) {
+void configUART${x}(uint32_t u32_baudRate) {
 #ifdef _NOFLOAT
-  uint32 u32_brg;
+  uint32_t u32_brg;
 #else
   float f_brg;
 #endif
@@ -313,7 +313,7 @@ void configUART${x}(uint32 u32_baudRate) {
   f_brg = (((float) FCY)/((float) u32_baudRate)/4.0) - 1.0;
 #endif
   ASSERT(f_brg < 65535.5);
-  U${x}BRG = roundFloatToUint16(f_brg);
+  U${x}BRG = roundFloatToUint16_t(f_brg);
 #endif
 
   // Set up the UART mode register

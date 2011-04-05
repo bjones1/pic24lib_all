@@ -37,24 +37,24 @@ Program uses the Real Time Clock module and an external 32.768 kHZ crystal for t
 
 typedef union _unionRTCC {
   struct {  //four 16 bit registers
-    uint8 yr;
-    uint8 null;
-    uint8 date;
-    uint8 month;
-    uint8 hour;
-    uint8 wday;
-    uint8 sec;
-    uint8 min;
+    uint8_t yr;
+    uint8_t null;
+    uint8_t date;
+    uint8_t month;
+    uint8_t hour;
+    uint8_t wday;
+    uint8_t sec;
+    uint8_t min;
   } u8;
-  uint16 regs[4];
+  uint16_t regs[4];
 } unionRTCC;
 
 unionRTCC u_RTCC;
 
-uint8 getBCDvalue(char *sz_1) {
+uint8_t getBCDvalue(char *sz_1) {
   char sz_buff[8];
-  uint16 u16_bin;
-  uint8  u8_bcd;
+  uint16_t u16_bin;
+  uint8_t  u8_bcd;
   outString(sz_1);
   inStringEcho(sz_buff,7);
   sscanf(sz_buff,"%d", (int *)&u16_bin);
@@ -76,7 +76,7 @@ void getDateFromUser(void) {
 
 //set date
 void setRTCC(void) {
-  uint8 u8_i;
+  uint8_t u8_i;
   __builtin_write_RTCWEN();   //enable write to RTCC, sets RTCWEN
   RCFGCALbits.RTCEN = 0;      //disable the RTCC
   RCFGCALbits.RTCPTR = 3;     //set pointer reg to start
@@ -86,15 +86,15 @@ void setRTCC(void) {
 }
 
 void readRTCC(void) {
-  uint8 u8_i;
+  uint8_t u8_i;
   RCFGCALbits.RTCPTR = 3;     //set pointer reg to start
   for (u8_i=0; u8_i<4; u8_i++) u_RTCC.regs[u8_i] = RTCVAL;
 }
 
 void printRTCC(void) {
   printf ("day(wday)/mon/yr: %2x(%2x)/%2x/%2x, %02x:%02x:%02x \n",
-          (uint16) u_RTCC.u8.date,(uint16) u_RTCC.u8.wday, (uint16) u_RTCC.u8.month,
-          (uint16) u_RTCC.u8.yr, (uint16) u_RTCC.u8.hour, (uint16) u_RTCC.u8.min, (uint16) u_RTCC.u8.sec);
+          (uint16_t) u_RTCC.u8.date,(uint16_t) u_RTCC.u8.wday, (uint16_t) u_RTCC.u8.month,
+          (uint16_t) u_RTCC.u8.yr, (uint16_t) u_RTCC.u8.hour, (uint16_t) u_RTCC.u8.min, (uint16_t) u_RTCC.u8.sec);
 }
 
 int main(void) {

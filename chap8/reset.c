@@ -38,8 +38,8 @@ draw of the processor is monitored before/after the power down
 modes.
 */
 
-uint8 printMenuGetChoice() {
-  uint8 u8_c;
+uint8_t printMenuGetChoice() {
+  uint8_t u8_c;
   outString("'1' enable watchdog timer\n");
   outString("'2' enter sleep mode\n");
   outString("'3' enter idle mode\n");
@@ -55,7 +55,7 @@ uint8 printMenuGetChoice() {
 }
 
 //persistent variables are not touched at reset
-_PERSISTENT uint8 u8_resetCount;
+_PERSISTENT uint8_t u8_resetCount;
 
 
 int main(void) {
@@ -77,11 +77,11 @@ int main(void) {
   printResetCause();        //print statement about what caused reset
   //print the reset count
   outString("The reset count is ");
-  outUint8(u8_resetCount);
+  outUint8_t(u8_resetCount);
   outString("\n");
 
   while (1) {
-    uint8 u8_c;
+    uint8_t u8_c;
     u8_c = printMenuGetChoice();
     DELAY_MS(1);  //let characters clear the UART before executing choice
     switch (u8_c) {

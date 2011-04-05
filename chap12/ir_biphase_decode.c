@@ -35,16 +35,16 @@
 */
 
 #define IR_FIFO_SIZE 32
-volatile uint8 au8_irFIFO[32];
-volatile uint16 u16_irFifoHead = 0;
-volatile uint16 u16_irFifoTail = 0;
+volatile uint8_t au8_irFIFO[32];
+volatile uint16_t u16_irFifoHead = 0;
+volatile uint16_t u16_irFifoTail = 0;
 
-void irFifoWrite(uint8 u8_x) {
+void irFifoWrite(uint8_t u8_x) {
   u16_irFifoHead++;
   if (u16_irFifoHead == IR_FIFO_SIZE) u16_irFifoHead = 0;
   au8_irFIFO[u16_irFifoHead] = u8_x;
 }
-uint8 irFifoRead() {
+uint8_t irFifoRead() {
   while (u16_irFifoHead == u16_irFifoTail) {
     doHeartbeat();
   }
@@ -71,8 +71,8 @@ void  configTimer2(void) {
 #define COMMAND_LENGTH  13            //number of bits expected in IR command
 #define IR_INPUT _RB7                 //using RB9 for IR input
 
-volatile uint16 u16_lastCapture, u16_thisCapture,u16_delta, u16_twoThirdsPeriodTicks;
-volatile uint8 u8_bitCount,u8_bitCountTotal,u8_currentByte;
+volatile uint16_t u16_lastCapture, u16_thisCapture,u16_delta, u16_twoThirdsPeriodTicks;
+volatile uint8_t u8_bitCount,u8_bitCountTotal,u8_currentByte;
 //some one-bit flags
 typedef struct tagFLAGBITS {
 unsigned u1_bitEdge:
@@ -166,7 +166,7 @@ void configInputCapture1(void) {
 }
 
 int main (void) {
-  uint8 u8_x, u8_y;
+  uint8_t u8_x, u8_y;
   configBasic(HELLO_MSG);
   configTimer2();
   configInputCapture1();
@@ -177,9 +177,9 @@ int main (void) {
     if (u8_x & 0x20) outString("Toggle = 1, ");
     else outString("Toggle = 0, ");
     outString("Addr: ");
-    outUint8(u8_x & 0x1F);
+    outUint8_t(u8_x & 0x1F);
     outString(",Cmd: ");
-    outUint8(u8_y);
+    outUint8_t(u8_y);
     outString("\n");
   }
 }

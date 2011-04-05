@@ -67,7 +67,7 @@
 #define   LED1            _LATB15
 #else
 #define   CONFIG_LED1()   printf("called CONFIG_LED1()\n");
-uint8     LED1 = TRUE;      // LED1 is initially "on"
+uint8_t     LED1 = TRUE;      // LED1 is initially "on"
 #endif
 
 // PROTOTYPEs go here

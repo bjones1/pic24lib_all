@@ -43,7 +43,7 @@ Problem 8.20
 #define GATE_Y  _RB3
 
 //written in a simple style
-uint8 testGate(void) {
+uint8_t testGate(void) {
   GATE_A = 0;
   GATE_B = 0;
   DELAY_US(1);

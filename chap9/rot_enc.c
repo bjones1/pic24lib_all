@@ -34,9 +34,9 @@ A 2-bit incremental Gray code rotary encoder example
 */
 
 //clips cntr between 0 and max
-uint8 processRotaryData(volatile uint8 u8_curr, volatile uint8 u8_last,
-                        volatile uint8 *cntr, volatile uint8 max) {
-  int8 delta = 0;
+uint8_t processRotaryData(volatile uint8_t u8_curr, volatile uint8_t u8_last,
+                        volatile uint8_t *cntr, volatile uint8_t max) {
+  int8_t delta = 0;
   //states listed in Gray code order for clarity
   switch (u8_curr) {
     case 0:
@@ -81,10 +81,10 @@ inline void configRotaryEncoder() {
 
 #define ROT_MAX  32            //arbitrary limit
 
-volatile uint8 u8_valueROT = 0;
-volatile uint8 u8_lastvalueROT = 0;
-volatile uint8 u8_errROT = 0;
-volatile uint8 u8_cntrROT = 0;
+volatile uint8_t u8_valueROT = 0;
+volatile uint8_t u8_lastvalueROT = 0;
+volatile uint8_t u8_errROT = 0;
+volatile uint8_t u8_cntrROT = 0;
 
 //Interrupt Service Routine for Timer3
 void _ISRFAST _T3Interrupt (void) {
@@ -115,7 +115,7 @@ void  configTimer3(void) {
 }
 
 int main (void) {
-  uint8 u8_lastCnt;
+  uint8_t u8_lastCnt;
   configBasic(HELLO_MSG);
   /** PIO config ******/
   configRotaryEncoder();
@@ -127,7 +127,7 @@ int main (void) {
   while (1) {
     if (u8_lastCnt != u8_cntrROT) {
       u8_lastCnt = u8_cntrROT;
-      outUint8(u8_lastCnt);
+      outUint8_t(u8_lastCnt);
       outString("\n");
       if  (u8_errROT) {
         outString("Rotary state error\n");

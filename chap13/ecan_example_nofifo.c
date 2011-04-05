@@ -107,7 +107,7 @@ void configDMA1(void) {
 #define RX_BUFFER_ID  1
 
 void configECAN1() {
-  uint8 u8_i;
+  uint8_t u8_i;
   CHANGE_MODE_ECAN1(ECAN_MODE_CONFIGURE);
   configBaudECAN1();
 
@@ -129,7 +129,7 @@ void configECAN1() {
   CHANGE_MODE_ECAN1(ECAN_MODE_NORMAL);
 }
 
-uint32 rrot32(uint32 u32_x) {
+uint32_t rrot32(uint32_t u32_x) {
   if (u32_x & 0x1) {
     u32_x = u32_x >> 1;
     u32_x = u32_x | 0x8000;
@@ -138,8 +138,8 @@ uint32 rrot32(uint32 u32_x) {
 }
 
 int main (void) {
-  uint32 u32_out0, u32_out1, u32_in0, u32_in1;
-  uint8 rx_buff_id, u8_cnt;
+  uint32_t u32_out0, u32_out1, u32_in0, u32_in1;
+  uint8_t rx_buff_id, u8_cnt;
 
   configBasic(HELLO_MSG);
   configECAN1();

@@ -69,8 +69,8 @@ void configOutputCapture1(void) {
            OC_PWM_FAULT_PIN_DISABLE;  //PWM, no fault detection
 }
 
-volatile uint8 u8_updateFlag = 0;
-volatile uint16 u16_newOC1RS;
+volatile uint8_t u8_updateFlag = 0;
+volatile uint16_t u16_newOC1RS;
 
 void _ISR _T2Interrupt(void) {
   _T2IF = 0;    //clear the timer interrupt bit
@@ -86,7 +86,7 @@ void _ISR _T2Interrupt(void) {
 char sz1[32];
 
 int main(void) {
-  uint16 u16_mv;
+  uint16_t u16_mv;
   float f_tmp;
   configBasic(HELLO_MSG);
   CONFIG_RB9_AS_DIG_OUTPUT();

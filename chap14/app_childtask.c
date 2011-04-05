@@ -67,7 +67,7 @@
 #define   LED1            _LATB15
 #else
 #define   CONFIG_LED1()   printf("called CONFIG_LED1()\n");
-uint8     LED1 = TRUE;      // LED1 is initially "on"
+uint8_t     LED1 = TRUE;      // LED1 is initially "on"
 #endif
 
 // PROTOTYPEs go here
@@ -139,8 +139,8 @@ ESOS_USER_TIMER( swTimerLED ) {
  * arbitrary increment.  Will continue echoing characters
  * until user sends an exclamation point "!"
  */
-ESOS_CHILD_TASK(echo_child, uint8 u8_in) {
-  static  uint8           u8_char;
+ESOS_CHILD_TASK(echo_child, uint8_t u8_in) {
+  static  uint8_t           u8_char;
   ESOS_TASK_BEGIN();
   do {
     ESOS_TASK_WAIT_ON_AVAILABLE_IN_COMM();
@@ -164,7 +164,7 @@ ESOS_CHILD_TASK(echo_child, uint8 u8_in) {
  * echo operation.
  */
 ESOS_USER_TASK(prompter) {
-  static  uint8             u8_char;
+  static  uint8_t             u8_char;
   static ESOS_TASK_HANDLE   th_child;
 
   ESOS_TASK_BEGIN();

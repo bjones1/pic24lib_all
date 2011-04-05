@@ -27,7 +27,7 @@ __reset:                 ; first instruction located at __reset label
 ;User Code starts here.
 ; C Program equivalent
 ;  #define avalue 2047
-;  uint16 i,j,k;
+;  uint16_t i,j,k;
 ;
 ;     i = avalue;   /* myvalue = 2047 (0x7FF) */
 ;     i = i + 1;   /* i++, i = 2048 (0x800)  */

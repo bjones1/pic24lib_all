@@ -148,7 +148,7 @@ void printNewState (STATE e_currentState) {
 
 int main (void) {
   STATE e_mystate;
-  uint8 u8_count;
+  uint8_t u8_count;
 
   configBasic(HELLO_MSG);      // Set up heartbeat, UART, print hello message and diags
   /** GPIO config ***************************/

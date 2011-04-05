@@ -161,7 +161,7 @@ modes.
 */
 
 //persistent variables are not touched at reset
-uint8 u8_resetCount __attribute__((persistent));
+uint8_t u8_resetCount __attribute__((persistent));
 
 
 int main(void) {

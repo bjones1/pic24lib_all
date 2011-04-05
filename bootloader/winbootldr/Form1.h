@@ -1286,7 +1286,7 @@ private:
     sic[0]->Text = gcnew String(psz_buf);
 
     // Send it
-    uint8 u8_size = pXferVar->u8_size + 1;
+    uint8_t u8_size = pXferVar->u8_size + 1;
     ASSERT(u8_size <= sizeof(u64_value));
     memcpy(pXferVar->pu8_data, &u64_value, u8_size);
     sendVar(e->Item);

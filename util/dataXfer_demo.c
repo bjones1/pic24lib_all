@@ -38,9 +38,9 @@
 enum { I16_VAL_NDX, U16_INDEX_NDX, C_NDX, C1_NDX };
 
 int main(void) {
-  int16 i16_val = -1;
+  int16_t i16_val = -1;
   char c;
-  uint16 u16_index;
+  uint16_t u16_index;
 
   configBasic(HELLO_MSG);
   initDataXfer();
@@ -54,7 +54,7 @@ int main(void) {
   while (1) {
     sendVar(I16_VAL_NDX); // Send i16_val to the PC
     outString("\nCurrent sum is ");
-    outUint16(i16_val);
+    outUint16_t(i16_val);
     outString(". Enter digit to sum (0-9): ");
 
     // Receive one character or variable.
@@ -69,7 +69,7 @@ int main(void) {
     if (u16_index == CHAR_RECEIVED_INDEX) {
       outChar(c);
       outString("  (0x");
-      outUint8Decimal(c);
+      outUint8_tDecimal(c);
       outString(") ");
       if ( (c >= '0') && (c <= '9') )
         i16_val += c - '0';  // A plain char received, so turn it into

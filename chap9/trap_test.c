@@ -41,7 +41,7 @@ int main (void) {
   // If u8_zero is not declared as volatile, then the
   // compiler will optimize out
   // the 1/u8_zero code, NOT producing a divide by zero!
-  volatile uint8 u8_zero;
+  volatile uint8_t u8_zero;
 
   configBasic(HELLO_MSG);
   /** start **/

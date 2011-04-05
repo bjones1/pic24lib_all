@@ -73,11 +73,11 @@ volatile STATE e_mystate = STATE_WAIT_FOR_ADDR;
 #define BUFSIZE 64
 volatile char  sz_1[BUFSIZE+1];
 volatile char  sz_2[BUFSIZE+1];
-volatile uint16 u16_index;
+volatile uint16_t u16_index;
 
 
 void _ISRFAST _SI2C1Interrupt(void) {
-  uint8 u8_c;
+  uint8_t u8_c;
   _SI2C1IF = 0;
   switch (e_mystate) {
     case STATE_WAIT_FOR_ADDR:

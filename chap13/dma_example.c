@@ -38,8 +38,8 @@ capture data from the UART, write it to the
 #define BLKSIZE 64
 
 //Assumes WDT is configured for longer than EEPROM write time
-void waitForWriteCompletion(uint8 u8_i2cAddr) {
-  uint8 u8_ack, u8_savedSWDTEN;
+void waitForWriteCompletion(uint8_t u8_i2cAddr) {
+  uint8_t u8_ack, u8_savedSWDTEN;
   u8_savedSWDTEN = _SWDTEN;
   _SWDTEN = 1; //enable WDT so that do not get stuck in infinite loop!
   u8_i2cAddr = I2C_WADDR(u8_i2cAddr);  //write operation, R/W# = 0;
@@ -52,9 +52,9 @@ void waitForWriteCompletion(uint8 u8_i2cAddr) {
 }
 
 //this version just expects a block of 64 data bytes
-void memWriteLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
-  uint8 u8_AddrLo, u8_AddrHi;
-  uint16 u16_i;
+void memWriteLC515(uint8_t u8_i2cAddr,  uint16_t u16_MemAddr, uint8_t *pu8_buf) {
+  uint8_t u8_AddrLo, u8_AddrHi;
+  uint16_t u16_i;
   u8_AddrLo = u16_MemAddr & 0x00FF;
   u8_AddrHi = (u16_MemAddr >> 8);
   if (u16_MemAddr & 0x8000) {
@@ -74,9 +74,9 @@ void memWriteLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
   stopI2C1();
 }
 
-void memReadLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
+void memReadLC515(uint8_t u8_i2cAddr,  uint16_t u16_MemAddr, uint8_t *pu8_buf) {
 
-  uint8 u8_AddrLo, u8_AddrHi;
+  uint8_t u8_AddrLo, u8_AddrHi;
 
   u8_AddrLo = u16_MemAddr & 0x00FF;
   u8_AddrHi = (u16_MemAddr >> 8);
@@ -94,8 +94,8 @@ void memReadLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
 
 #define DMA_TRANSFER_SIZE  BLKSIZE
 //DMA buffers
-uint8 au8_bufferA[DMA_TRANSFER_SIZE] __attribute__((space(dma)));
-uint8 au8_bufferB[DMA_TRANSFER_SIZE] __attribute__((space(dma)));
+uint8_t au8_bufferA[DMA_TRANSFER_SIZE] __attribute__((space(dma)));
+uint8_t au8_bufferB[DMA_TRANSFER_SIZE] __attribute__((space(dma)));
 //some one-bit flags
 typedef struct tagFLAGBITS {
 unsigned u1_activeBuffer:
@@ -146,9 +146,9 @@ void _ISRFAST _DMA0Interrupt(void) {
 }
 
 int main (void) {
-  uint8 au8_eepromBuf[BLKSIZE];  //holds read data from EEPROM
-  uint16 u16_MemAddr;
-  uint8 u8_mode, u8_pause;
+  uint8_t au8_eepromBuf[BLKSIZE];  //holds read data from EEPROM
+  uint16_t u16_MemAddr;
+  uint8_t u8_mode, u8_pause;
   configBasic(HELLO_MSG);
   configI2C1(400);            //configure I2C for 400 KHz
   outString("\nEnter 'w' for write mode, anything else reads: ");
@@ -157,7 +157,7 @@ int main (void) {
   u16_MemAddr = 0;     //start at location 0 in memory
   u8_pause = 0;
   while (1) {
-    uint8 u8_i;
+    uint8_t u8_i;
     if (u8_mode == 'w') {
       configDMA0();
       while (1) {

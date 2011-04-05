@@ -56,8 +56,8 @@ typedef enum  {
   STATE_WAIT_FOR_RELEASE,
 } ISRSTATE;
 
-volatile uint8 u8_valueSW1  = 1;    //initially high
-volatile uint8 u8_pnrSW1 = 0;       ///< True when SW1 has been Pressed-N-Released
+volatile uint8_t u8_valueSW1  = 1;    //initially high
+volatile uint8_t u8_pnrSW1 = 0;       ///< True when SW1 has been Pressed-N-Released
 
 //Interrupt Service Routine for Timer3
 void _ISRFAST _T3Interrupt (void) {

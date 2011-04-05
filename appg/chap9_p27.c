@@ -77,7 +77,7 @@ typedef enum  {
 STATE e_mystate;
 
 volatile u8_blinkFlag = 1;
-volatile uint8 u8_valueSW1  = 1;    //initially high
+volatile uint8_t u8_valueSW1  = 1;    //initially high
 //Interrupt Service Routine for Timer3
 void _ISRFAST _T3Interrupt (void) {
   u8_valueSW1 = SW1_RAW;     //sample the switch

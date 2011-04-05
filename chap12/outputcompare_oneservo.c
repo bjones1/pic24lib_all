@@ -56,8 +56,8 @@ void  configTimer2(void) {
   _T2IE = 1;    //enable the Timer2 interrupt
 }
 
-uint16 u16_minPWTicks;
-uint16 u16_maxPWTicks;
+uint16_t u16_minPWTicks;
+uint16_t u16_maxPWTicks;
 void configOutputCapture1(void) {
   u16_minPWTicks = usToU16Ticks(MIN_PW, getTimerPrescale(T2CONbits));
   u16_maxPWTicks = usToU16Ticks(MAX_PW, getTimerPrescale(T2CONbits));
@@ -74,7 +74,7 @@ void configOutputCapture1(void) {
 
 
 void _ISR _T2Interrupt(void) {
-  uint32 u32_temp;
+  uint32_t u32_temp;
   _T2IF = 0;    //clear the timer interrupt bit
   //update the PWM duty cycle from the ADC value
   u32_temp = ADC1BUF0;  //use 32-bit value for range
@@ -86,7 +86,7 @@ void _ISR _T2Interrupt(void) {
 }
 
 int main(void) {
-  uint32 u32_pw;
+  uint32_t u32_pw;
   configBasic(HELLO_MSG);
   configTimer2();
   configOutputCapture1();

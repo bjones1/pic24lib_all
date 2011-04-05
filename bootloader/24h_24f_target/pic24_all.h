@@ -43,20 +43,20 @@ Header file that includes all pic24*.h files
 #endif
 
 
-typedef unsigned char       uint8;   //8 bits
-typedef unsigned short      uint16;  //16 bits
-typedef unsigned long       uint32;  //32 bits
+typedef unsigned char       uint8_t;   //8 bits
+typedef unsigned short      uint16_t;  //16 bits
+typedef unsigned long       uint32_t;  //32 bits
 typedef unsigned long long  uint64;  //64 bits
 
 
-typedef signed char         int8;    //8 bits
-typedef signed short        int16;   //16 bits
-typedef signed long         int32;   //32 bits
+typedef signed char         int8_t;    //8 bits
+typedef signed short        int16_t;   //16 bits
+typedef signed long         int32_t;   //32 bits
 typedef signed long long    int64;   //64 bits
 
-#define BITS2WORD(sfrBitfield)  ( *((uint16*) &sfrBitfield) )
-#define BITS2BYTEL(sfrBitfield) ( ((uint8*)  &sfrBitfield)[0] )
-#define BITS2BYTEH(sfrBitfield) ( ((uint8*)  &sfrBitfield)[1] )
+#define BITS2WORD(sfrBitfield)  ( *((uint16_t*) &sfrBitfield) )
+#define BITS2BYTEL(sfrBitfield) ( ((uint8_t*)  &sfrBitfield)[0] )
+#define BITS2BYTEH(sfrBitfield) ( ((uint8_t*)  &sfrBitfield)[1] )
 
 #define ASSERT(test)
 
@@ -125,14 +125,14 @@ map the UART pins to your needed RPx pins.
 //baud rate %error  - you may see framing errors
 
 #if DEFAULT_BAUDRATE==230400
-static inline void CONFIG_UART1_BAUDRATE(uint32 x) {
+static inline void CONFIG_UART1_BAUDRATE(uint32_t x) {
   //for high baud rates, don't compute.
   U1BRG = 10; // 230400 baud assuming FCY = 40 MHZ, change to match your FCY
   U1MODEbits.BRGH = 0;
 }
 #else
-static inline void CONFIG_UART1_BAUDRATE(uint32 x) {
-  uint32 brg = FCY/x;
+static inline void CONFIG_UART1_BAUDRATE(uint32_t x) {
+  uint32_t brg = FCY/x;
   //simple rounding
   if ((brg&0x0F) >= 8) brg = brg/16;
   else brg = brg/16-1;
@@ -174,14 +174,14 @@ static inline void DISABLE_UART1() {
 #define CONFIG_UART2_ONE_STOPBIT()     U2MODEbits.STSEL = 0
 
 #if DEFAULT_BAUDRATE==230400
-static inline void CONFIG_UART2_BAUDRATE(uint32 x) {
+static inline void CONFIG_UART2_BAUDRATE(uint32_t x) {
   //for high baud rates, don't compute.
   U2BRG = 10; // 230400 baud assuming FCY = 40 MHZ, change to match your FCY
   U2MODEbits.BRGH = 0;
 }
 #else
-static inline void CONFIG_UART2_BAUDRATE(uint32 x) {
-  uint32 brg = FCY/x;
+static inline void CONFIG_UART2_BAUDRATE(uint32_t x) {
+  uint32_t brg = FCY/x;
   //simple rounding
   if ((brg&0x0F) >= 8) brg = brg/16;
   else brg = brg/16-1;
@@ -210,14 +210,14 @@ static inline void DISABLE_UART2() {
 #define CONFIG_UART3_ONE_STOPBIT()     U3MODEbits.STSEL = 0
 
 #if DEFAULT_BAUDRATE==230400
-static inline void CONFIG_UART3_BAUDRATE(uint32 x) {
+static inline void CONFIG_UART3_BAUDRATE(uint32_t x) {
   //for high baud rates, don't compute.
   U3BRG = 10; // 230400 baud assuming FCY = 40 MHZ, change to match your FCY
   U3MODEbits.BRGH = 0;
 }
 #else
-static inline void CONFIG_UART3_BAUDRATE(uint32 x) {
-  uint32 brg = FCY/x;
+static inline void CONFIG_UART3_BAUDRATE(uint32_t x) {
+  uint32_t brg = FCY/x;
   //simple rounding
   if ((brg&0x0F) >= 8) brg = brg/16;
   else brg = brg/16-1;
@@ -245,14 +245,14 @@ static inline void DISABLE_UART3() {
 #define CONFIG_UART4_8DATA_NOPARITY()  U4MODEbits.PDSEL = 00
 #define CONFIG_UART4_ONE_STOPBIT()     U4MODEbits.STSEL = 0
 #if DEFAULT_BAUDRATE==230400
-static inline void CONFIG_UART4_BAUDRATE(uint32 x) {
+static inline void CONFIG_UART4_BAUDRATE(uint32_t x) {
   //for high baud rates, don't compute.
   U4BRG = 10; // 230400 baud assuming FCY = 40 MHZ, change to match your FCY
   U4MODEbits.BRGH = 0;
 }
 #else
-static inline void CONFIG_UART4_BAUDRATE(uint32 x) {
-  uint32 brg = FCY/x;
+static inline void CONFIG_UART4_BAUDRATE(uint32_t x) {
+  uint32_t brg = FCY/x;
   //simple rounding
   if ((brg&0x0F) >= 8) brg = brg/16;
   else brg = brg/16-1;

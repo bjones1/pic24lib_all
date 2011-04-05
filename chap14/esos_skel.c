@@ -65,14 +65,14 @@
 #define   LED1            _LATB15
 #else
 #define   CONFIG_LED1()   printf("called CONFIG_LED1()\n");
-uint8     LED1 = TRUE;      // LED1 is initially "on"
+uint8_t     LED1 = TRUE;      // LED1 is initially "on"
 #endif
 
 // PROTOTYPEs go here
 
 // GLOBALs go here
 //  Generally, the user-created semaphores will be defined/allocated here
-static uint8 psz_CRNL[3]= {0x0D, 0x0A, 0};
+static uint8_t psz_CRNL[3]= {0x0D, 0x0A, 0};
 
 
 #ifdef __linux
@@ -135,7 +135,7 @@ ESOS_USER_TASK(heartbeat_LED) {
  * letters to uppercase, and send those chars back out the "out" stream
  */
 ESOS_USER_TASK(upper_case) {
-  static  uint8           u8_char;
+  static  uint8_t           u8_char;
 
   ESOS_TASK_BEGIN();
   while (TRUE) {

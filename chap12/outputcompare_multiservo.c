@@ -60,14 +60,14 @@ void  configTimer2(void) {
 #define MAX_PW 2400            //minimum pulse width, in us
 #define SLOT_WIDTH 2800        //slot width, in us
 
-volatile uint16 au16_servoPWidths[NUM_SERVOS];
-volatile uint8 u8_currentServo =0;
-volatile uint8 u8_servoEdge = 1;  //1 = RISING, 0 = FALLING
-volatile uint16 u16_slotWidthTicks = 0;
+volatile uint16_t au16_servoPWidths[NUM_SERVOS];
+volatile uint8_t u8_currentServo =0;
+volatile uint8_t u8_servoEdge = 1;  //1 = RISING, 0 = FALLING
+volatile uint16_t u16_slotWidthTicks = 0;
 
 void initServos(void) {
-  uint8 u8_i;
-  uint16 u16_initPW;
+  uint8_t u8_i;
+  uint16_t u16_initPW;
 
   u8_currentServo = 0;
   CONFIG_RB2_AS_DIG_OUTPUT();
@@ -87,7 +87,7 @@ void initServos(void) {
 
 
 
-void setServoOutput (uint8 u8_servo, uint8 u8_val) {
+void setServoOutput (uint8_t u8_servo, uint8_t u8_val) {
   switch (u8_servo) {
     case 0:
       SERVO0 = u8_val;
@@ -142,8 +142,8 @@ void configOutputCapture1(void) {
 char sz_buf[32];
 
 void getServoValue(void) {
-  int16 u16_servo;
-  int16 u16_pw;
+  int16_t u16_servo;
+  int16_t u16_pw;
   printf("Choose servo (1,2,3,4): ");
   inStringEcho(sz_buf,31);
   sscanf(sz_buf,"%d",(int *) &u16_servo);

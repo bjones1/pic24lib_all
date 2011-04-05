@@ -30,8 +30,8 @@
 #define _PIC24_REFLOW_H_
 
 typedef struct _PSET {
-  uint8 u8_dc;
-  uint8 u8_period;
+  uint8_t u8_dc;
+  uint8_t u8_period;
 } PSET;
 
 #if defined(__PIC24HJ64GP502__) || defined(__PIC24FJ64GA002__)
@@ -64,16 +64,16 @@ Tin-solder mix works ok
 
 
 typedef struct _PROFILE {
-  int16 i16_preheatTemp;   //target temperature
-  uint16 u16_preheatTime ;  //ramp
-  int16 i16_soakTemp;      //target temperature
-  uint16 u16_soakTime;
-  int16 i16_reflowTemp;    //time to maintain reflow in seconds
-  uint16 u16_reflowTime;
-  uint16 u16_reflowHoldTime;
-  int16 i16_coolTemp;
-  uint16 u16_coolTime;
-  int16 i16_wetTemp;
+  int16_t i16_preheatTemp;   //target temperature
+  uint16_t u16_preheatTime ;  //ramp
+  int16_t i16_soakTemp;      //target temperature
+  uint16_t u16_soakTime;
+  int16_t i16_reflowTemp;    //time to maintain reflow in seconds
+  uint16_t u16_reflowTime;
+  uint16_t u16_reflowHoldTime;
+  int16_t i16_coolTemp;
+  uint16_t u16_coolTime;
+  int16_t i16_wetTemp;
 } PROFILE;
 
 /* first profile is Tin/Lead mix, 2nd is lead free */
@@ -81,7 +81,7 @@ typedef struct _PROFILE {
 extern const PROFILE profiles[NUM_PROFILES];
 
 typedef struct _CALDATA {
-  uint16 temp[100];    //temp data from 1 to 100
+  uint16_t temp[100];    //temp data from 1 to 100
 } CALDATA;
 
 
@@ -106,20 +106,20 @@ extern UFDATA fdata;
 
 #define ZEROCROSS _RB6
 
-extern uint8 u8_currPowerSetting;
-extern uint8 u8_currentProfile;
-extern uint16 readMAX6675(void);
+extern uint8_t u8_currPowerSetting;
+extern uint8_t u8_currentProfile;
+extern uint16_t readMAX6675(void);
 extern void decrementPower(void);
 extern void incrementPower(void);
-extern void setPower(uint8 newPower);
+extern void setPower(uint8_t newPower);
 extern void doDebugMenu(void);
 extern void doProfileMenu(void);
-extern char *getProfileDesc(uint8 u8_p);
-extern int16 getCelsiusI16Temp(void);
+extern char *getProfileDesc(uint8_t u8_p);
+extern int16_t getCelsiusI16Temp(void);
 extern float getCelsiusFloatTemp(void);
 extern void doReflow(void);
-extern uint16 volatile u16_tenthSeconds;
-extern uint8 getPower(void);
+extern uint16_t volatile u16_tenthSeconds;
+extern uint8_t getPower(void);
 extern void doRead(UFDATA* p_ufdata);
 
 

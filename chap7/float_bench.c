@@ -9,15 +9,15 @@ is not included.
 
 
 float f_a[10],f_b[10],f_c[10];
-uint32 u32_a[10],u32_b[10],u32_c[10];
+uint32_t u32_a[10],u32_b[10],u32_c[10];
 
 //#define OP +
 //#define OP *
 #define OP /
 
-void float_op (float *ptra, float *ptrb, float *ptrc, uint8 u8_cnt) {
+void float_op (float *ptra, float *ptrb, float *ptrc, uint8_t u8_cnt) {
 
-  uint8 u8_i;
+  uint8_t u8_i;
   for (u8_i=0; u8_i< u8_cnt; u8_i++) {
     *ptrc = *ptra OP *ptrb;   // add contents of two arrays
     ptra++;
@@ -26,9 +26,9 @@ void float_op (float *ptra, float *ptrb, float *ptrc, uint8 u8_cnt) {
   }
 }
 
-void uint32_op (uint32 *ptra, uint32 *ptrb, uint32 *ptrc, uint8 u8_cnt) {
+void uint32_t_op (uint32_t *ptra, uint32_t *ptrb, uint32_t *ptrc, uint8_t u8_cnt) {
 
-  uint8 u8_i;
+  uint8_t u8_i;
   for (u8_i=0; u8_i< u8_cnt; u8_i++) {
     *ptrc = *ptra OP *ptrb;   // add contents of two arrays
     ptra++;
@@ -74,7 +74,7 @@ int main(void) {
 
 
   float_op(f_a,f_b,f_c,10);
-  uint32_op(u32_a,u32_b,u32_c,10);
+  uint32_t_op(u32_a,u32_b,u32_c,10);
 
   while (1) {
   } // end while (1)

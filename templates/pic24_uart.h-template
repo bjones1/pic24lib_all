@@ -32,7 +32,7 @@
 #define _PIC24_UART${x}_H_
 
 #include "pic24_libconfig.h"
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_chip.h"
 #include "pic24_util.h"
 
@@ -76,10 +76,10 @@ inline static void WAIT_UNTIL_TRANSMIT_COMPLETE_UART${x}() {
     doHeartbeat();
 }
 
-void outChar${x}(uint8 u8_c);
-uint8 inChar${x}(void);
-void configUART${x}(uint32 u32_baudRate);
-uint8 isCharReady${x}(void);
+void outChar${x}(uint8_t u8_c);
+uint8_t inChar${x}(void);
+void configUART${x}(uint32_t u32_baudRate);
+uint8_t isCharReady${x}(void);
 void checkRxErrorUART${x}(void); //check for UART RX error
 
 #endif // #if (NUM_UART_MODS >= ${x})

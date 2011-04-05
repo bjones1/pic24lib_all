@@ -85,7 +85,7 @@ void configKeypad(void) {
 }
 
 //drive one row low
-void setOneRowLow(uint8 u8_x) {
+void setOneRowLow(uint8_t u8_x) {
   switch (u8_x) {
     case 0:
       R0 = 0;
@@ -106,7 +106,7 @@ void setOneRowLow(uint8 u8_x) {
 }
 #define NUM_ROWS 3
 #define NUM_COLS 4
-const uint8 au8_keyTable[NUM_ROWS][NUM_COLS] = { {'1', '4', '7', '*'},
+const uint8_t au8_keyTable[NUM_ROWS][NUM_COLS] = { {'1', '4', '7', '*'},
   {'2', '5', '8', '0'},
   {'3', '6', '9', '#'}
 };
@@ -114,8 +114,8 @@ const uint8 au8_keyTable[NUM_ROWS][NUM_COLS] = { {'1', '4', '7', '*'},
 #define KEY_PRESSED() (!C0 || !C1 || !C2 || !C3)   //any low
 #define KEY_RELEASED() (C0 && C1 && C2 && C3)  //all high
 
-uint8 doKeyScan(void) {
-  uint8 u8_row, u8_col;
+uint8_t doKeyScan(void) {
+  uint8_t u8_row, u8_col;
   //determine column
   if (!C0) u8_col = 0;
   else if (!C1) u8_col = 1;
@@ -142,7 +142,7 @@ typedef enum  {
 } ISRSTATE;
 
 ISRSTATE e_isrState = STATE_WAIT_FOR_PRESS;
-volatile uint8 u8_newKey = 0;
+volatile uint8_t u8_newKey = 0;
 
 //Interrupt Service Routine for Timer3
 void _ISR _T3Interrupt (void) {

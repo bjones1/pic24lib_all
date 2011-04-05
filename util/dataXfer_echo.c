@@ -43,7 +43,7 @@ enum { U16_NUMCHARS_NDX, C_NDX };
 
 int main(void) {
   char c;
-  uint16 u16_numChars = 0;
+  uint16_t u16_numChars = 0;
 
   // Initialize
   configBasic(HELLO_MSG);

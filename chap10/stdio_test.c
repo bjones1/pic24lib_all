@@ -41,8 +41,8 @@
 char  sz_1[BUFSIZE+1];
 
 int main (void) {
-  int32 i32_i;
-  uint32 ui32_k;
+  int32_t i32_i;
+  uint32_t ui32_k;
   double d_n;
   float f_n;
 

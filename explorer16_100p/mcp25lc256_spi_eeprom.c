@@ -63,7 +63,7 @@ void configSPI2(void) {
 
 //Assumes WDT is configured for longer than EEPROM write time
 void waitForWriteCompletion() {
-  uint8 u8_spidata,u8_savedSWDTEN;
+  uint8_t u8_spidata,u8_savedSWDTEN;
   u8_savedSWDTEN = _SWDTEN;
   _SWDTEN = 1; //enable WDT so that do not get stuck in infinite loop!
   do {
@@ -82,9 +82,9 @@ void writeEnable() {
   SLAVE_DISABLE();
 }
 
-void memWrite25LC256(uint16 u16_MemAddr, uint8 *pu8_buf) {
-  uint8 u8_AddrLo, u8_AddrHi;
-  uint8 u8_i;
+void memWrite25LC256(uint16_t u16_MemAddr, uint8_t *pu8_buf) {
+  uint8_t u8_AddrLo, u8_AddrHi;
+  uint8_t u8_i;
 
   u8_AddrLo = u16_MemAddr & 0x00FF;
   u8_AddrHi = (u16_MemAddr >> 8);
@@ -101,9 +101,9 @@ void memWrite25LC256(uint16 u16_MemAddr, uint8 *pu8_buf) {
   SLAVE_DISABLE();
 }
 
-void memRead25LC256(uint16 u16_MemAddr, uint8 *pu8_buf) {
-  uint8 u8_AddrLo, u8_AddrHi;
-  uint8 u8_i;
+void memRead25LC256(uint16_t u16_MemAddr, uint8_t *pu8_buf) {
+  uint8_t u8_AddrLo, u8_AddrHi;
+  uint8_t u8_i;
 
   waitForWriteCompletion();
   u8_AddrLo = u16_MemAddr & 0x00FF;
@@ -120,9 +120,9 @@ void memRead25LC256(uint16 u16_MemAddr, uint8 *pu8_buf) {
 
 
 int main (void) {
-  uint8 au8_buf[BLKSIZE];  //holds data for EEPROM I/O
-  uint16 u16_MemAddr;
-  uint8 u8_Mode;
+  uint8_t au8_buf[BLKSIZE];  //holds data for EEPROM I/O
+  uint16_t u16_MemAddr;
+  uint8_t u8_Mode;
 
   configBasic(HELLO_MSG);
   configSPI2();             //configure SPI2 Module
@@ -131,7 +131,7 @@ int main (void) {
   outString("\n");
   u16_MemAddr = 0;     //start at location 0 in memory
   while (1) {
-    uint8 u8_i;
+    uint8_t u8_i;
     if (u8_Mode == 'w') {
       outString("Enter 64 chars.\n");
       //first two buffer locations reserved for starting address

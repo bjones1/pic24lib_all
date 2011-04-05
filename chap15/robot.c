@@ -34,11 +34,11 @@ Capstone project for a small 3-wheeled robot with
 IR control and collision detection.
 */
 
-extern uint8 irFifoRead(void);
+extern uint8_t irFifoRead(void);
 extern void  configTimer2(void);
 extern void configInputCapture1(void);
 extern void configOutputCapture1(void);
-extern uint8 irFifoDataRdy(void);
+extern uint8_t irFifoDataRdy(void);
 
 #define WHEEL_PWM_STEPS 10        //number of PWM steps
 #define WHEEL_PWM_STEPSIZE 500    //in microseconds
@@ -49,9 +49,9 @@ extern uint8 irFifoDataRdy(void);
 #define BLOCKAGE_CLEAR       434   //1.4 V
 
 
-uint8 u8_leftDC, u8_rightDC;  //left, right duty cycles, left period
-uint8 u8_leftPeriod,u8_rightPeriod ; //left/right period counters
-uint16 u16_adcVal;
+uint8_t u8_leftDC, u8_rightDC;  //left, right duty cycles, left period
+uint8_t u8_leftPeriod,u8_rightPeriod ; //left/right period counters
+uint16_t u16_adcVal;
 
 
 typedef struct tagFLAGBITS {
@@ -94,7 +94,7 @@ static inline void configRightWheel(void) {
 
 
 void _ISRFAST _T3Interrupt (void) {
-  uint16 u16_temp;
+  uint16_t u16_temp;
   _T3IF = 0;                 //clear the timer interrupt bit
   if (u8_rightDC) {
     if ( u8_rightPeriod == WHEEL_PWM_STEPS || !u8_rightPeriod) {
@@ -168,7 +168,7 @@ void configWheels(void) {
 #define DEFAULT_SPEED    4
 #define BACK_SPEED       6
 
-void doSpeedUp(uint8 u8_speed) {
+void doSpeedUp(uint8_t u8_speed) {
   u8_leftDC = 0;
   u8_rightDC = 0;
   do {
@@ -187,19 +187,19 @@ void allStop(void) {
   }
 }
 
-void goForward(uint8 u8_speed) {
+void goForward(uint8_t u8_speed) {
   WHEEL_LEFT_FORWARD();
   WHEEL_RIGHT_FORWARD();
   doSpeedUp(u8_speed);
 }
 
-void goReverse(uint8 u8_speed) {
+void goReverse(uint8_t u8_speed) {
   WHEEL_LEFT_REVERSE();
   WHEEL_RIGHT_REVERSE();
   doSpeedUp(u8_speed);
 }
 
-void processCmd(uint8 u8_cmd) {
+void processCmd(uint8_t u8_cmd) {
   switch (u8_cmd) {
     case CMD_SPEEDUP:
       if (u8_leftDC < WHEEL_PWM_STEPS) u8_leftDC += 1;
@@ -241,16 +241,16 @@ void processCmd(uint8 u8_cmd) {
   }
 }
 
-uint8 getIRCMD(void) {
-  uint8 u8_x, u8_cmd;
+uint8_t getIRCMD(void) {
+  uint8_t u8_x, u8_cmd;
   u8_x = irFifoRead();
   u8_cmd = irFifoRead();
   if (u8_x & 0x20) outString("Toggle = 1, ");
   else outString("Toggle = 0, ");
   outString("Addr: ");
-  outUint8(u8_x & 0x1F);
+  outUint8_t(u8_x & 0x1F);
   outString(",Cmd: ");
-  outUint8(u8_cmd);
+  outUint8_t(u8_cmd);
   outString("\n");
   if (flags.u1_irCmdFlag) flags.u1_irCmdFlag = 0;
   else flags.u1_irCmdFlag = 1;
@@ -259,14 +259,14 @@ uint8 getIRCMD(void) {
 }
 
 void checkIR(void) {
-  uint8 u8_cmd;
+  uint8_t u8_cmd;
   if (irFifoDataRdy()) {
     u8_cmd = getIRCMD();
     processCmd(u8_cmd);
   }
 }
 
-void doTurn(uint8 u8_ltarg, uint8 u8_rtarg) {
+void doTurn(uint8_t u8_ltarg, uint8_t u8_rtarg) {
   u8_leftDC = 0;
   u8_rightDC = 0;
   while ((u8_leftDC != u8_ltarg) ||

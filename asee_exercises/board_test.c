@@ -115,7 +115,7 @@ void ledSWtest(void) {
 }
 
 void lm60Test(void) {
-  uint16 u16_adcVal,f_tempC,f_tempF;
+  uint16_t u16_adcVal,f_tempC,f_tempF;
   float f_adcVal;
   CONFIG_AN0_AS_ANALOG();
   // Configure A/D to sample AN0 for 31 Tad periods in 12-bit mode
@@ -142,7 +142,7 @@ void lm60Test(void) {
 
 
 void anaPotTest(void) {
-  uint16 u16_adcVal;
+  uint16_t u16_adcVal;
   float f_adcVal;
   CONFIG_AN0_AS_ANALOG();
   // Configure A/D to sample AN0 for 31 Tad periods in 12-bit mode
@@ -186,12 +186,12 @@ void configSPI1(void) {
 
 #define POT_STEPS 256
 
-uint8 testPotVoltage (uint8 u8_i) {
-  uint16 u16_adcVal;
+uint8_t testPotVoltage (uint8_t u8_i) {
+  uint16_t u16_adcVal;
   float f_adcVal;
   float f_potVal;
   float f_err, f_tol;
-  uint8 rval;
+  uint8_t rval;
 
   rval = 0;
   //set POT wiper
@@ -210,7 +210,7 @@ uint8 testPotVoltage (uint8 u8_i) {
   if (f_err < 0) f_err = 0 - f_err;
   if (f_err > f_tol) {
     printf("Digital pot test failed, Setting: %u, Expected: %4.2f V, Actual: %4.2f V, Diff; %4.4f V\n",
-           (uint16) u8_i,(double) f_potVal, (double) f_adcVal,(double) f_err);
+           (uint16_t) u8_i,(double) f_potVal, (double) f_adcVal,(double) f_err);
     rval = 1;
   }
   return(rval);
@@ -219,8 +219,8 @@ uint8 testPotVoltage (uint8 u8_i) {
 #define POT_STEP_TEST 50
 void digPotTest(void) {
 
-  uint16 u16_setting;
-  uint8 u8_rval;
+  uint16_t u16_setting;
+  uint8_t u8_rval;
 
   CONFIG_POT_ENABLE();       //chip select for MCP41xxx
   POT_DISABLE();             //disable the chip select
@@ -246,12 +246,12 @@ void digPotTest(void) {
 
 #define DAC_STEPS 256
 
-uint8 testDACVoltage (uint8 u8_i) {
-  uint16 u16_adcVal;
+uint8_t testDACVoltage (uint8_t u8_i) {
+  uint16_t u16_adcVal;
   float f_adcVal;
   float f_dacVal;
   float f_err, f_tol;
-  uint8 rval;
+  uint8_t rval;
 
   rval = 0;
   //set DAC value
@@ -270,7 +270,7 @@ uint8 testDACVoltage (uint8 u8_i) {
   if (f_err < 0) f_err = 0 - f_err;
   if (f_err > f_tol) {
     printf("SPI DAC test failed, Setting: %u, Expected: %4.2f V, Actual: %4.2f V, Diff; %4.4f V\n",
-           (uint16) u8_i,(double) f_dacVal, (double) f_adcVal,(double) f_err);
+           (uint16_t) u8_i,(double) f_dacVal, (double) f_adcVal,(double) f_err);
     rval = 1;
   }
   return(rval);
@@ -282,8 +282,8 @@ uint8 testDACVoltage (uint8 u8_i) {
 #define DAC_STEP_TEST 50
 void spiDACTest(void) {
 
-  uint16 u16_setting;
-  uint8 u8_rval;
+  uint16_t u16_setting;
+  uint8_t u8_rval;
 
   CONFIG_DAC_ENABLE();       //chip select for MAX548
   DAC_DISABLE();             //disable the chip select
@@ -306,8 +306,8 @@ void spiDACTest(void) {
 #define BLKSIZE 64
 
 //Assumes WDT is configured for longer than EEPROM write time
-void waitForWriteCompletion(uint8 u8_i2cAddr) {
-  uint8 u8_ack, u8_savedSWDTEN;
+void waitForWriteCompletion(uint8_t u8_i2cAddr) {
+  uint8_t u8_ack, u8_savedSWDTEN;
   u8_savedSWDTEN = _SWDTEN;
   _SWDTEN = 1; //enable WDT so that do not get stuck in infinite loop!
   u8_i2cAddr = I2C_WADDR(u8_i2cAddr);  //write operation, R/W# = 0;
@@ -319,8 +319,8 @@ void waitForWriteCompletion(uint8 u8_i2cAddr) {
   _SWDTEN = u8_savedSWDTEN;  //restore WDT to original state
 }
 
-void memWriteLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
-  uint8 u8_AddrLo, u8_AddrHi;
+void memWriteLC515(uint8_t u8_i2cAddr,  uint16_t u16_MemAddr, uint8_t *pu8_buf) {
+  uint8_t u8_AddrLo, u8_AddrHi;
 
   u8_AddrLo = u16_MemAddr & 0x00FF;
   u8_AddrHi = (u16_MemAddr >> 8);
@@ -335,9 +335,9 @@ void memWriteLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
   writeNI2C1(u8_i2cAddr,pu8_buf,BLKSIZE+2);
 }
 
-void memReadLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
+void memReadLC515(uint8_t u8_i2cAddr,  uint16_t u16_MemAddr, uint8_t *pu8_buf) {
 
-  uint8 u8_AddrLo, u8_AddrHi;
+  uint8_t u8_AddrLo, u8_AddrHi;
 
   u8_AddrLo = u16_MemAddr & 0x00FF;
   u8_AddrHi = (u16_MemAddr >> 8);
@@ -353,11 +353,11 @@ void memReadLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
   readNI2C1(u8_i2cAddr,pu8_buf, BLKSIZE);
 }
 
-uint8 au8_buf[64+2];  //2 extra bytes for address
-uint8 au8_rbuf[64+2];  //2 extra bytes for address
+uint8_t au8_buf[64+2];  //2 extra bytes for address
+uint8_t au8_rbuf[64+2];  //2 extra bytes for address
 
-uint8 checkEEPROMBlock(uint16 u16_address) {
-  uint8 u8_i, u8_rval;
+uint8_t checkEEPROMBlock(uint16_t u16_address) {
+  uint8_t u8_i, u8_rval;
   memWriteLC515(EEPROM,u16_address, au8_buf);  //write
   memReadLC515(EEPROM,u16_address,au8_rbuf); //read
 //compare
@@ -372,7 +372,7 @@ uint8 checkEEPROMBlock(uint16 u16_address) {
 }
 
 void testEEPROM() {
-  uint8 u8_i;
+  uint8_t u8_i;
 
   //first write zeros to first two blocks in memory
   for (u8_i=2; u8_i<66; u8_i++) au8_buf[u8_i] = 0;
@@ -394,15 +394,15 @@ EEPROM_FAIL:
 #define DS1722_ENABLE()        _LATB2 = 1  //high true assertion
 #define DS1722_DISABLE()       _LATB2 = 0
 
-void writeConfigDS1722(uint8 u8_i) {
+void writeConfigDS1722(uint8_t u8_i) {
   DS1722_ENABLE();       //assert chipselect
   ioMasterSPI1(0x80);   //config address
   ioMasterSPI1(u8_i);   //config value
   DS1722_DISABLE();
 }
 
-int16 readTempDS1722() {
-  uint16 u16_lo, u16_hi;
+int16_t readTempDS1722() {
+  uint16_t u16_lo, u16_hi;
 
   DS1722_ENABLE();       //assert chipselect
   ioMasterSPI1(0x01);   //LSB address
@@ -413,7 +413,7 @@ int16 readTempDS1722() {
 }
 
 void testDS1722 (void) {
-  int16 i16_temp;
+  int16_t i16_temp;
   float  f_tempC,f_tempF;
 
   SPI1STATbits.SPIEN = 0;  //enable SPI mode
@@ -452,13 +452,13 @@ void startConversionDS1631() {
   write1I2C1(DS1631ADDR, START_CONVERT);
 }
 
-void writeConfigDS1631(uint8 u8_i) {
+void writeConfigDS1631(uint8_t u8_i) {
   write2I2C1(DS1631ADDR, ACCESS_CONFIG, u8_i);
 }
 
-int16 readTempDS1631() {
-  uint8 u8_lo, u8_hi;
-  int16 i16_temp;
+int16_t readTempDS1631() {
+  uint8_t u8_lo, u8_hi;
+  int16_t i16_temp;
   write1I2C1(DS1631ADDR, READ_TEMP);
   read2I2C1 (DS1631ADDR, &u8_hi, &u8_lo);
   i16_temp = u8_hi;
@@ -466,7 +466,7 @@ int16 readTempDS1631() {
 }
 
 void testDS1631 (void) {
-  int16 i16_temp;
+  int16_t i16_temp;
   float  f_tempC,f_tempF;
 
   startConversionDS1631();
@@ -482,7 +482,7 @@ void testDS1631 (void) {
   inChar();
 }
 
-volatile uint16 u16_seconds = 0;
+volatile uint16_t u16_seconds = 0;
 
 //Interrupt Service Routine for Timer1
 void _ISRFAST _T1Interrupt (void) {
@@ -509,7 +509,7 @@ void testSosc(void) {
   writeConfigDS1722(0xE8); //12-bit mode
   while(1) {
     outString("Seconds: ");
-    outUint16Decimal(u16_seconds);
+    outUint16_tDecimal(u16_seconds);
     outString("\n");
     while (!IS_TRANSMIT_COMPLETE_UART1());
     SLEEP();
@@ -529,8 +529,8 @@ void testAll(void) {
   testSosc();
 }
 
-uint8 printMenuGetChoice(void) {
-  uint8 u8_c;
+uint8_t printMenuGetChoice(void) {
+  uint8_t u8_c;
   outString("0. Test all\n");
   outString("1. Test LEDs/Switches\n");
   outString("2. Test Analog Potentiometer\n");
@@ -549,7 +549,7 @@ uint8 printMenuGetChoice(void) {
 
 
 int main (void) {
-  uint8 u8_c;
+  uint8_t u8_c;
 
   configBasic(HELLO_MSG);
   configSPI1();

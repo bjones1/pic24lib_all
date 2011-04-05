@@ -63,10 +63,10 @@ Similarly, for the TL register, the three bytes are:
 The following I2C library function can be used for this transaction, which
 takes as arguments an array of bytes to write, and a count of the number of bytes:
 
-void writeNI2C1(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt);
+void writeNI2C1(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt);
 
 An illustrative code fragment would be:
- uint8 au8_buf[3];
+ uint8_t au8_buf[3];
 
  au8_buf[0] =  0xA1;  //TH register
  au8_buf[1] =  temperature_MSB;  //MSByte
@@ -75,12 +75,12 @@ An illustrative code fragment would be:
 
 As a suggested implementation, write  a function named:
 
-void setTripPoint(uint8 u8_reg, float f_tempC);
+void setTripPoint(uint8_t u8_reg, float f_tempC);
 
 in which the "u8_reg" parameter is the register number either for TH or TL,
 and the "f_tempC" parameter is the trip-point Celsius temperature. Your function
 would need to convert "f_tempC" to a 16-bit integer temperature, this can be done
-by multiplying it by 256, and then assigning it to a uint16 variable.
+by multiplying it by 256, and then assigning it to a uint16_t variable.
 
 */
 
@@ -93,7 +93,7 @@ by multiplying it by 256, and then assigning it to a uint16 variable.
 #define TL_REG 0xA2
 
 
-void writeConfigDS1631(uint8 u8_i) {
+void writeConfigDS1631(uint8_t u8_i) {
   write2I2C1(DS1631ADDR, ACCESS_CONFIG, u8_i);
 }
 
@@ -105,10 +105,10 @@ void stopConversionDS1631() {
   write1I2C1(DS1631ADDR, STOP_CONVERT);
 }
 
-uint8 au8_buf[4];
+uint8_t au8_buf[4];
 
-void setTripPoint(uint8 u8_reg, float f_tempC) {
-  int16 i16_temp;
+void setTripPoint(uint8_t u8_reg, float f_tempC) {
+  int16_t i16_temp;
   f_tempC = f_tempC * 256;
   i16_temp = f_tempC;
   au8_buf[0] = u8_reg;
@@ -119,9 +119,9 @@ void setTripPoint(uint8 u8_reg, float f_tempC) {
 
 
 
-int16 readTempDS1631() {
-  uint8 u8_lo, u8_hi;
-  int16 i16_temp;
+int16_t readTempDS1631() {
+  uint8_t u8_lo, u8_hi;
+  int16_t i16_temp;
   write1I2C1(DS1631ADDR, READ_TEMP);
   read2I2C1 (DS1631ADDR, &u8_hi, &u8_lo);
   i16_temp = u8_hi;
@@ -129,7 +129,7 @@ int16 readTempDS1631() {
 }
 
 int main (void) {
-  int16 i16_temp;
+  int16_t i16_temp;
   float  f_tempC,f_tempF;
   configBasic(HELLO_MSG);
   configI2C1(400);            //configure I2C for 400 KHz

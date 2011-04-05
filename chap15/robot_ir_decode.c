@@ -35,16 +35,16 @@
 */
 
 #define IR_FIFO_SIZE 32
-volatile uint8 au8_irFIFO[32];
-volatile uint16 u16_irFifoHead = 0;
-volatile uint16 u16_irFifoTail = 0;
+volatile uint8_t au8_irFIFO[32];
+volatile uint16_t u16_irFifoHead = 0;
+volatile uint16_t u16_irFifoTail = 0;
 
-void irFifoWrite(uint8 u8_x) {
+void irFifoWrite(uint8_t u8_x) {
   u16_irFifoHead++;
   if (u16_irFifoHead == IR_FIFO_SIZE) u16_irFifoHead = 0;
   au8_irFIFO[u16_irFifoHead] = u8_x;
 }
-uint8 irFifoRead(void) {
+uint8_t irFifoRead(void) {
   while (u16_irFifoHead == u16_irFifoTail) {
     doHeartbeat();
   }
@@ -53,7 +53,7 @@ uint8 irFifoRead(void) {
   return au8_irFIFO[u16_irFifoTail];
 }
 
-uint8 irFifoDataRdy(void) {
+uint8_t irFifoDataRdy(void) {
   return(u16_irFifoHead != u16_irFifoTail);
 }
 
@@ -80,8 +80,8 @@ void  configTimer2(void) {
 #define COMMAND_LENGTH  13            //number of bits expected in IR command
 #define IR_INPUT _RB7                 //using RB9 for IR input
 
-volatile uint16 u16_lastCapture, u16_thisCapture,u16_delta, u16_twoThirdsPeriodTicks;
-volatile uint8 u8_bitCount,u8_bitCountTotal,u8_currentByte;
+volatile uint16_t u16_lastCapture, u16_thisCapture,u16_delta, u16_twoThirdsPeriodTicks;
+volatile uint8_t u8_bitCount,u8_bitCountTotal,u8_currentByte;
 //some one-bit flags
 typedef struct tagFLAGBITS {
 unsigned u1_bitEdge:

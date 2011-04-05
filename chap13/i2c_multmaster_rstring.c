@@ -55,11 +55,11 @@ volatile STATE e_mystate = STATE_WAIT_FOR_ADDR;
 #define BUFSIZE 64
 char sz_1[BUFSIZE];
 char sz_2[BUFSIZE];
-volatile uint8 u8_gotString = 0;
-volatile uint16 u16_index;
+volatile uint8_t u8_gotString = 0;
+volatile uint16_t u16_index;
 
 void _ISRFAST _SI2C1Interrupt(void) {
-  uint8 u8_c;
+  uint8_t u8_c;
   _SI2C1IF = 0;
   switch (e_mystate) {
     case STATE_WAIT_FOR_ADDR:
@@ -80,8 +80,8 @@ void _ISRFAST _SI2C1Interrupt(void) {
   }
 }
 
-int16 getStringLength(char* psz_1) {
-  uint16 u16_len;
+int16_t getStringLength(char* psz_1) {
+  uint16_t u16_len;
   u16_len = 0;
   while (*psz_1) {
     psz_1++;
@@ -116,7 +116,7 @@ void reverseString(char *psz_s1, char *psz_s2) {
 
 
 int main (void) {
-  uint16 u16_len;
+  uint16_t u16_len;
   configBasic(HELLO_MSG);
   configI2C1(400);            //configure I2C for 400 KHz
   I2C1ADD = MY_ADDR>>1;   //initialize the address register
@@ -138,7 +138,7 @@ int main (void) {
     inStringEcho(sz_2,BUFSIZE);       //get a string from the console
     if (*sz_2 == 0) continue;         //don't send empty string
     u16_len = getStringLength(sz_2);  //determine string length
-    writeNI2C1(SLAVE_I2C_ADDR,(uint8 *)sz_2,u16_len);   //send the string
+    writeNI2C1(SLAVE_I2C_ADDR,(uint8_t *)sz_2,u16_len);   //send the string
     //now wait for the reversed string to come back
     while (!u8_gotString) doHeartbeat();
     outString(sz_1);
@@ -147,7 +147,7 @@ int main (void) {
     while (!u8_gotString) doHeartbeat();  //wait from string from CPU1
     reverseString(sz_1,sz_2); //reverse it
     u16_len=getStringLength(sz_2);
-    writeNI2C1(SLAVE_I2C_ADDR,(uint8 *)sz_2,u16_len);   //send the string back
+    writeNI2C1(SLAVE_I2C_ADDR,(uint8_t *)sz_2,u16_len);   //send the string back
 #endif
 
   }

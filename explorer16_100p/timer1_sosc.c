@@ -34,7 +34,7 @@
 Program uses Timer0 and an external 32.768 kHZ crystal for timekeeping.
 */
 
-volatile uint16 u16_seconds = 0;
+volatile uint16_t u16_seconds = 0;
 
 //Interrupt Service Routine for Timer1
 void _ISRFAST _T1Interrupt (void) {
@@ -60,7 +60,7 @@ int main(void) {
   configTimer1();
   while (1) {
     outString("Seconds: ");
-    outUint16Decimal(u16_seconds);
+    outUint16_tDecimal(u16_seconds);
     outString("\n");
     while (!IS_TRANSMIT_COMPLETE_UART1());
     SLEEP();

@@ -45,7 +45,7 @@ external RC filter is assumed to be on the RB3 input.
 #define TPW  1     // in ms, pulsewidth of TOUT
 
 int main (void) {
-  uint8 u8_oldvalueTIN;
+  uint8_t u8_oldvalueTIN;
   configBasic(HELLO_MSG);
   TOUT = 1;  // TOUT drives TIN
   CONFIG_TIN();

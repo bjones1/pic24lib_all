@@ -73,7 +73,7 @@
 #define   CONFIG_SLAVE_ENABLE() printf("called CONFIG_SLAVE_ENABLE()\n")
 #define   SLAVE_ENABLE()        printf("called SLAVE_ENABLE()\n")
 #define   SLAVE_DISABLE()       printf("called SLAVE_DISABLE()\n")
-uint8     LED1 = TRUE;          // LED1 is initially "on"
+uint8_t     LED1 = TRUE;          // LED1 is initially "on"
 #endif
 
 // PROTOTYPEs go here
@@ -84,7 +84,7 @@ void configSPI1(void);
 char psz_CRNL[3]= {0x0D, 0x0A, 0};
 char psz_prompt[] = "Temp is  ";
 char psz_done[9]= {' ','D','O','N','E','!',0x0D, 0x0A, 0};
-int16 i16_temp;
+int16_t i16_temp;
 
 ESOS_SEMAPHORE(sem_dataReady);
 ESOS_SEMAPHORE(sem_dataPrinted);
@@ -168,8 +168,8 @@ ESOS_USER_TASK(start_ds1722) {
  * user task to read DS1722 SPI temerature sensor
  */
 ESOS_USER_TASK(read_ds1722) {
-  static uint16 u16_lo, u16_hi;
-  static uint16 au16_data[3];
+  static uint16_t u16_lo, u16_hi;
+  static uint16_t au16_data[3];
 
   ESOS_TASK_BEGIN();
   ESOS_TASK_WAIT_SEMAPHORE(sem_ds1722Ready, 1);

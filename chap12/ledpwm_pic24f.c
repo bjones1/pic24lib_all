@@ -68,7 +68,7 @@ void configOutputCapture1(void) {
 }
 
 void _ISR _T2Interrupt(void) {
-  uint32 u32_temp;
+  uint32_t u32_temp;
   _T2IF = 0;    //clear the timer interrupt bit
   //update the PWM duty cycle from the ADC value
   u32_temp = ADC1BUF0;  //use 32-bit value for range
@@ -80,7 +80,7 @@ void _ISR _T2Interrupt(void) {
 }
 
 int main(void) {
-  uint32 u32_pw;
+  uint32_t u32_pw;
   configBasic(HELLO_MSG);
   configTimer2();
   configOutputCapture1();

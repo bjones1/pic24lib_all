@@ -46,15 +46,15 @@ Implements a software filter for input pulses less than a specified duration.
 #define MIN_STABLECOUNT  MIN_STABLE/ISR_PERIOD
 
 
-uint16 u16_stableCountTIN = 0;
-uint8 u8_rawTIN = 0;
-uint8 u8_oldrawTIN = 0;
+uint16_t u16_stableCountTIN = 0;
+uint8_t u8_rawTIN = 0;
+uint8_t u8_oldrawTIN = 0;
 
 
 //debounced switch value that is set in the timer ISR
 //any variable written by an ISR, and accessed outside of the ISR
 //should be declared volatile
-volatile uint8 u8_valueTIN = 0;
+volatile uint8_t u8_valueTIN = 0;
 
 //Interrupt Service Routine for Timer3
 void _ISRFAST _T3Interrupt (void) {
@@ -91,7 +91,7 @@ void  configTimer3(void) {
 }
 
 
-uint8 u8_oldvalueTIN = 0;
+uint8_t u8_oldvalueTIN = 0;
 
 #define TPW  20     // in ms, pulsewidth of TOUT
 

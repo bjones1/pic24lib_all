@@ -54,16 +54,16 @@
 //DMA buffers, alignment is based on number of bytes
 /// \cond nodoxygen
 // These attributes confuse Doxygen.
-uint16 au16_bufferA[MAX_TRANSFER] __attribute__((space(dma),aligned(MAX_TRANSFER*2)));
-uint16 au16_bufferB[MAX_TRANSFER] __attribute__((space(dma),aligned(MAX_TRANSFER*2)));
+uint16_t au16_bufferA[MAX_TRANSFER] __attribute__((space(dma),aligned(MAX_TRANSFER*2)));
+uint16_t au16_bufferB[MAX_TRANSFER] __attribute__((space(dma),aligned(MAX_TRANSFER*2)));
 /// \endcond
 
 
 //For this example, we will just use ordered conversion mode,
 //and one conversion per ADC input
-void configDMA_ADC(uint8    u8_ch0Select, \
-                   uint16   u16_ch123SelectMask, \
-                   uint16   u16_numTcyMask) {
+void configDMA_ADC(uint8_t    u8_ch0Select, \
+                   uint16_t   u16_ch123SelectMask, \
+                   uint16_t   u16_numTcyMask) {
 
 
   AD1CON1bits.ADON = 0;   // turn off ADC (changing setting while ADON is not allowed)
@@ -103,22 +103,22 @@ void configDMA_ADC(uint8    u8_ch0Select, \
   AD1CON1bits.ADON = 1;   // turn on the ADC
 }
 
-uint16              au16_buffer[MAX_TRANSFER];
-volatile  uint16    au16_sum[MAX_TRANSFER];
-volatile  uint8     u8_gotData;
-volatile  uint8     u8_activeBuffer;
+uint16_t              au16_buffer[MAX_TRANSFER];
+volatile  uint16_t    au16_sum[MAX_TRANSFER];
+volatile  uint8_t     u8_gotData;
+volatile  uint8_t     u8_activeBuffer;
 
 void _ISRFAST _DMA0Interrupt(void) {
-  static uint8      u8_adcCount=64;
-  uint8       u8_i;
-  uint16*     au16_adcHWBuff = (uint16*) &au16_bufferA;
+  static uint8_t      u8_adcCount=64;
+  uint8_t       u8_i;
+  uint16_t*     au16_adcHWBuff = (uint16_t*) &au16_bufferA;
   _DMA0IF = 0;
 
   if (u8_activeBuffer) {
-    au16_adcHWBuff = (uint16*) &au16_bufferB;
+    au16_adcHWBuff = (uint16_t*) &au16_bufferB;
     u8_activeBuffer = 0;
   } else {
-    au16_adcHWBuff = (uint16*) &au16_bufferA;
+    au16_adcHWBuff = (uint16_t*) &au16_bufferA;
     u8_activeBuffer = 1;
   }
 
@@ -154,9 +154,9 @@ void _ISRFAST _DMA0Interrupt(void) {
 */
 
 int main (void) {
-  uint8   u8_i;
-  uint16  u16_pot;
-  uint32  u32_ticks;
+  uint8_t   u8_i;
+  uint16_t  u16_pot;
+  uint32_t  u32_ticks;
   float   f_pot;
 
   configBasic(HELLO_MSG);

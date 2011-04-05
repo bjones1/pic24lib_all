@@ -60,10 +60,10 @@ void  configTimer2(void) {
 #define TRIAC_PW_HIGH  100  //in microseconds, triac gate pulse width high
 #define HALF_CYCLE 8000     //in microseconds, part of half-cycle to use for triggering
 #define CYCLE_OFFSET 200    //don't start right at zero crossing
-uint8 u8_currPowerSetting;
-uint16 u16_halfCycleTicks;
-uint16 u16_triacPWHighTicks;
-uint16 u16_cycleOffsetTicks;
+uint8_t u8_currPowerSetting;
+uint16_t u16_halfCycleTicks;
+uint16_t u16_triacPWHighTicks;
+uint16_t u16_cycleOffsetTicks;
 
 void configOutputCapture1(void) {
   T2CONbits.TON = 0;       //disable Timer when configuring Output compare
@@ -83,7 +83,7 @@ void configOutputCapture1(void) {
 //the less the power. The output capture OC_SINGLE pulse mode is used to
 //generate the pulse.
 static inline void TRIAC_ON() {
-  uint32 u32_x;
+  uint32_t u32_x;
   T2CONbits.TON = 0;    //disable Timer when configuring Output compare
   TMR2 = 0;             //clear timer 2
   //later in the cycle is less power
@@ -130,8 +130,8 @@ void configSPI1(void) {
   SPI1STATbits.SPIEN = 1;    //enable SPI mode
 }
 
-uint16 readMAX6675(void) {
-  uint16 u16_x;
+uint16_t readMAX6675(void) {
+  uint16_t u16_x;
   SLAVE_ENABLE();            //assert chipselect
   u16_x = ioMasterSPI1(0);   //read theromouple
   SLAVE_DISABLE();
@@ -139,7 +139,7 @@ uint16 readMAX6675(void) {
 }
 
 float getCelsiusFloatTemp(void) {
-  uint16 u16_x;
+  uint16_t u16_x;
   float f_tempC;
   u16_x = readMAX6675();
   u16_x = u16_x >> 3;     //drop status bits
@@ -149,20 +149,20 @@ float getCelsiusFloatTemp(void) {
 }
 
 //Round to nearest degree
-int16 getCelsiusI16Temp(void) {
-  uint16 u16_x;
-  uint16 u16_frac;
+int16_t getCelsiusI16Temp(void) {
+  uint16_t u16_x;
+  uint16_t u16_frac;
 
   u16_x = readMAX6675();
   u16_frac = (u16_x & 0x1F) >> 3; //mask integer, drop status bits
   u16_x = u16_x >> 5;
   if (u16_frac >= 2) u16_x++; //round up
-  return((int16) u16_x);
+  return((int16_t) u16_x);
 }
 
 
 
-uint16 volatile u16_tenthSeconds = 0;
+uint16_t volatile u16_tenthSeconds = 0;
 
 void _ISRFAST _T3Interrupt (void) {
   _T3IF = 0;           //clear the timer interrupt bit
@@ -195,17 +195,17 @@ void incrementPower(void) {
   u8_currPowerSetting++;
 }
 
-void setPower(uint8 newPower) {
+void setPower(uint8_t newPower) {
   u8_currPowerSetting = newPower;
 }
 
-uint8 getPower(void) {
+uint8_t getPower(void) {
   return(u8_currPowerSetting);
 }
 
 
 void doMainMenu(void) {
-  uint8 u8_c;
+  uint8_t u8_c;
   printf("Current profile: %s\n", getProfileDesc(u8_currentProfile));
   printf("Reflow oven menu:\n");
   printf("   'S' - start oven for current profile  \n");

@@ -38,8 +38,8 @@ to both write and read transactions.
 
 #define SLAVE_I2C_ADDR 0x60
 
-int16 getStringLength(char* psz_1) {
-  uint16 u16_len;
+int16_t getStringLength(char* psz_1) {
+  uint16_t u16_len;
   u16_len = 0;
   while (*psz_1) {
     psz_1++;
@@ -53,15 +53,15 @@ int16 getStringLength(char* psz_1) {
 char sz_1[BUFSIZE];
 
 int main (void) {
-  uint16 u16_len;
+  uint16_t u16_len;
   configBasic(HELLO_MSG);
   configI2C1(400);            //configure I2C for 400 KHz
   while (1) {
     inStringEcho(sz_1,BUFSIZE);       //get a string from the console
     if (*sz_1 == 0) continue;         //don't send empty string
     u16_len = getStringLength(sz_1);  //determine string length
-    writeNI2C1(SLAVE_I2C_ADDR,(uint8 *)sz_1,u16_len);   //send the string
-    readNI2C1(SLAVE_I2C_ADDR, (uint8 *) sz_1,u16_len) ;  //read the reversed string
+    writeNI2C1(SLAVE_I2C_ADDR,(uint8_t *)sz_1,u16_len);   //send the string
+    readNI2C1(SLAVE_I2C_ADDR, (uint8_t *) sz_1,u16_len) ;  //read the reversed string
     outString(sz_1);
     outString("\n");
   }

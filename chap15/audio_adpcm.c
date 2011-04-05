@@ -11,14 +11,14 @@ http://multimedia.cx/mirror/dialogic-adpcm.pdf
 #include "pic24_all.h"
 
 struct ADPCMstate {
-  int16 i16_prevsample;/* Predicted sample */
-  int16 i16_previndex;/* Index into step size table */
+  int16_t i16_prevsample;/* Predicted sample */
+  int16_t i16_previndex;/* Index into step size table */
 };
 
 static struct ADPCMstate state;
 
 /* Table of index changes */
-static const int8 ai8_IndexTable[16] = {
+static const int8_t ai8_IndexTable[16] = {
   -1, -1, -1, -1, 2, 4, 6, 8,
   -1, -1, -1, -1, 2, 4, 6, 8
 };
@@ -28,7 +28,7 @@ static const int8 ai8_IndexTable[16] = {
 #define MAX_NEG -2048
 #define MAX_INDEX 48
 
-static const uint16 au16_StepSizeTable[49] = {
+static const uint16_t au16_StepSizeTable[49] = {
   16, 17, 19, 21, 23, 25, 28, 31, 34, 37, 41, 45,
   50, 55, 60, 66, 73, 80, 88, 97, 107, 118, 130, 143,
   157, 173, 190, 209, 230, 253, 279, 307, 337, 371, 408, 449,
@@ -40,22 +40,22 @@ void ADPCMEncoderInit(void) {
   state.i16_previndex=0;
 }
 
-static int16 i16_diff; /* Difference between sample and predicted sample */
-static int16 i16_step; /* Quantizer step size */
-static int16 i16_predsample; /* Output of ADPCM predictor */
-static int16 i16_diffq; /* Dequantized predicted difference */
-static int16 i16_index; /* Index into step size table */
+static int16_t i16_diff; /* Difference between sample and predicted sample */
+static int16_t i16_step; /* Quantizer step size */
+static int16_t i16_predsample; /* Output of ADPCM predictor */
+static int16_t i16_diffq; /* Dequantized predicted difference */
+static int16_t i16_index; /* Index into step size table */
 /*****************************************************************************
 * ADPCMEncoder - ADPCM encoder routine *
 ******************************************************************************
 * Input Variables: *
-* int16 sample - 16-bit signed speech sample *
+* int16_t sample - 16-bit signed speech sample *
 * Return Variable: *
 * char - 8-bit number containing the 4-bit ADPCM code *
 *****************************************************************************/
-uint8 ADPCMEncoder( int16 i16_sample) {
-  uint8 code; /* ADPCM output value */
-  int16 tempstep; /* Temporary step size */
+uint8_t ADPCMEncoder( int16_t i16_sample) {
+  uint8_t code; /* ADPCM output value */
+  int16_t tempstep; /* Temporary step size */
   /* Restore previous values of predicted sample and quantizer step
   size index
   */
@@ -141,9 +141,9 @@ void ADPCMDecoderInit(void) {
 * Input Variables: *
 * char code - 8-bit number containing the 4-bit ADPCM code *
 * Return Variable: *
-* int16 - 16-bit signed speech sample *
+* int16_t - 16-bit signed speech sample *
 *****************************************************************************/
-int16 ADPCMDecoder(uint8 u8_code) {
+int16_t ADPCMDecoder(uint8_t u8_code) {
   /* Restore previous values of predicted sample and quantizer step
   size index
   */

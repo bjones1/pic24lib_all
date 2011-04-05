@@ -64,7 +64,7 @@ void checkRxErrorSPI${x}() {
  * \return Value read from SPI RXBUF
  */
 
-uint16 ioMasterSPI${x}(uint16 u16_c) {
+uint16_t ioMasterSPI${x}(uint16_t u16_c) {
   checkRxErrorSPI${x}();
   _SPI${x}IF = 0;    //clear interrupt flag since we are about to write new value
   SPI${x}BUF = u16_c;

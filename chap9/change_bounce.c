@@ -34,7 +34,7 @@ Demonstrates the use of change notification interrupt
 to detect switch bounce.
 */
 
-volatile uint8 bcnt;
+volatile uint8_t bcnt;
 //Interrupt Service Routine for Change Notification
 void _ISRFAST _CNInterrupt (void) {
   _CNIF = 0;    //clear the change notification interrupt bit
@@ -69,7 +69,7 @@ int main (void) {
     DELAY_MS(DEBOUNCE_DLY );
     if (bcnt != 2) outString("..bounced: ");
     else outString("..no bounce: ");
-    outUint8(bcnt);
+    outUint8_t(bcnt);
     outString("\n");
   }
 }

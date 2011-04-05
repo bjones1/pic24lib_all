@@ -37,13 +37,13 @@ Contains the functions for executing a reflow profile
 #define MIN_WETTING_TIME 60  //seconds
 
 //stat variables
-uint16 u16_peakTime;
-int16 i16_maxTemp;
-uint16 u16_startWetting;
-uint16 u16_endWetting;
-uint8 coolingFlag;
-uint16 u16_startReflow;
-uint16 u16_endReflow;
+uint16_t u16_peakTime;
+int16_t i16_maxTemp;
+uint16_t u16_startWetting;
+uint16_t u16_endWetting;
+uint8_t coolingFlag;
+uint16_t u16_startReflow;
+uint16_t u16_endReflow;
 
 void resetStats(void) {
   i16_maxTemp = 0;
@@ -53,8 +53,8 @@ void resetStats(void) {
 }
 
 void printStats (void) {
-  uint16 u16_wettingTime;
-  uint16 u16_reflowTime;
+  uint16_t u16_wettingTime;
+  uint16_t u16_reflowTime;
   if (u16_endWetting == 0) u16_wettingTime = u16_tenthSeconds - u16_startWetting;
   else u16_wettingTime = u16_endWetting - u16_startWetting;
   if (u16_endReflow == 0) u16_reflowTime = u16_tenthSeconds - u16_startReflow;
@@ -65,8 +65,8 @@ void printStats (void) {
           u16_wettingTime/10, u16_reflowTime/10, u16_tenthSeconds/10 );
 }
 
-int16 updateStats(void) {
-  int16 i16_tempC;
+int16_t updateStats(void) {
+  int16_t i16_tempC;
   i16_tempC = getCelsiusI16Temp();
   if (i16_tempC > i16_maxTemp) i16_maxTemp  = i16_tempC;
   if (i16_tempC > profiles[u8_currentProfile].i16_wetTemp &&
@@ -82,8 +82,8 @@ int16 updateStats(void) {
   return(i16_tempC);
 }
 
-uint16 tempToPower(int16 i16_t) {
-  uint16 u16_i;
+uint16_t tempToPower(int16_t i16_t) {
+  uint16_t u16_i;
 
   for (u16_i=0; u16_i <= 100; u16_i++) {
     if (fdata.caldata.temp[u16_i] >= i16_t) return(u16_i);
@@ -92,10 +92,10 @@ uint16 tempToPower(int16 i16_t) {
   return(0);
 }
 
-void doRampUp(int16 i16_targetTemp, uint16 u16_targetTime) {
-  int16 i16_tempC, i16_lastTemp;
-  uint8  u8_endPower;
-  uint16 u16_endTime;
+void doRampUp(int16_t i16_targetTemp, uint16_t u16_targetTime) {
+  int16_t i16_tempC, i16_lastTemp;
+  uint8_t  u8_endPower;
+  uint16_t u16_endTime;
 
   u16_endTime =  u16_tenthSeconds + u16_targetTime*10;  //end time does not change
   i16_tempC = updateStats();  //get current temp;
@@ -124,8 +124,8 @@ void doRampUp(int16 i16_targetTemp, uint16 u16_targetTime) {
 /* Oven cools down so slowly just turn off power and wait
  for target time */
 #if 0
-void doRampDown (int16 i16_targetTemp, uint16 u16_targetTime) {
-  int16 i16_tempC;
+void doRampDown (int16_t i16_targetTemp, uint16_t u16_targetTime) {
+  int16_t i16_tempC;
 
   setPower(0);
   while (u16_targetTime) {
@@ -137,9 +137,9 @@ void doRampDown (int16 i16_targetTemp, uint16 u16_targetTime) {
 }
 #endif
 void doRampDown(void) {
-  int16 i16_tempC;
-  uint16 u16_wetTime;
-  uint8  u8_openDoorFlag;
+  int16_t i16_tempC;
+  uint16_t u16_wetTime;
+  uint8_t  u8_openDoorFlag;
 
   setPower(0);
   u8_openDoorFlag = 0;
@@ -156,10 +156,10 @@ void doRampDown(void) {
 }
 
 
-void doHold (int16 i16_targetTemp, uint16 u16_targetTime) {
-  uint16 u16_endTime, u16_maxExitTime;
-  int16 i16_tempC, i16_lastTemp;
-  uint8 u8_endPower;
+void doHold (int16_t i16_targetTemp, uint16_t u16_targetTime) {
+  uint16_t u16_endTime, u16_maxExitTime;
+  int16_t i16_tempC, i16_lastTemp;
+  uint8_t u8_endPower;
 
   //maximum time to wait before reaching target temp
   u16_maxExitTime =  u16_tenthSeconds + u16_targetTime*10*5;
@@ -189,8 +189,8 @@ void doHold (int16 i16_targetTemp, uint16 u16_targetTime) {
 
 void doReflow(void) {
 
-  uint8 u8_rdyFlag,u8_c;
-  uint16 i16_tempC;
+  uint8_t u8_rdyFlag,u8_c;
+  uint16_t i16_tempC;
 
   u8_rdyFlag = 0;
   do {

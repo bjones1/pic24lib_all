@@ -68,7 +68,7 @@ void configOutputCapture1(void) {
 }
 
 void _ISR _T2Interrupt(void) {
-  uint32 u32_temp;
+  uint32_t u32_temp;
   _T2IF = 0;    //clear the timer interrupt bit
   //update the PWM duty cycle from the ADC value
   u32_temp = ADC1BUF0;  //use 32-bit value for range
@@ -80,8 +80,8 @@ void _ISR _T2Interrupt(void) {
 }
 
 int main(void) {
-  uint16 u16_oc1rs;
-  uint32 u32_pw;
+  uint16_t u16_oc1rs;
+  uint32_t u32_pw;
   float f_dacV;
   configBasic(HELLO_MSG);
   configTimer2();
@@ -97,7 +97,7 @@ int main(void) {
     f_dacV = f_dacV * 3.3/(PR2+1);
 #ifdef SMALLRAM
     {
-      uint16 ui16_dacValmv;
+      uint16_t ui16_dacValmv;
       ui16_dacValmv = f_dacV * 1000;
       printf("PWM PW (us): %ld, PWM DAC voltage: %d\n",u32_pw, ui16_dacValmv);
     }

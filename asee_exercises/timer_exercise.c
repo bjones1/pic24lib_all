@@ -48,10 +48,10 @@
 
 
 //contains the 8-bit data to serial bit-bang
-volatile uint8 u8_serData;
+volatile uint8_t u8_serData;
 
 //set to '1' to indicate to ISR that serial bit-banging should start, ISR should clear it.
-volatile uint8 u8_startFlag;
+volatile uint8_t u8_startFlag;
 
 
 //Interrupt Service Routine for Timer2
@@ -68,7 +68,7 @@ void _ISRFAST _T2Interrupt (void) {
 
 //this function places data into u8_serData and sets the u8_startFlag, then
 //waits for the ISR to do the work.
-void BitBangSerialOut(uint8 u8_c) {
+void BitBangSerialOut(uint8_t u8_c) {
   u8_serData = u8_c;
   u8_startFlag = 1;
   while (u8_startFlag) doHeartbeat();  //wait for serial out to finish, ISR clears flag
@@ -95,7 +95,7 @@ void  configTimer2(void) {
 
 
 int main (void) {
-  uint8 u8_c;
+  uint8_t u8_c;
 
   configBasic(HELLO_MSG);
   CONFIG_SEROUT();

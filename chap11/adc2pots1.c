@@ -50,7 +50,7 @@
 */
 
 int main (void) {
-  uint16  u16_pot1, u16_pot2;
+  uint16_t  u16_pot1, u16_pot2;
   float   f_pot1, f_pot2;
 
   configBasic(HELLO_MSG);
@@ -71,7 +71,7 @@ int main (void) {
 #ifdef SMALLRAM
     {
       //use integers to avoid floating point printf which does not fit in this data space
-      uint16 ui16_pot1mv,ui16_pot2mv;
+      uint16_t ui16_pot1mv,ui16_pot2mv;
       ui16_pot1mv = f_pot1*1000;
       ui16_pot2mv = f_pot2*1000;
       printf("AN0 is 0x%0X or %d mV. |  AN1 is 0x%0X or %d mV.\n",    \

@@ -41,7 +41,7 @@ Use float operations for simplicity.
 #define VREF 3.3  //assume Vref = 3.3 volts
 
 int main (void) {
-  uint16 u16_adcVal;
+  uint16_t u16_adcVal;
   float f_adcVal;
   float f_tempC, f_tempF;
 

@@ -35,7 +35,7 @@
 */
 
 void debugPower(void) {
-  uint8 u8_c;
+  uint8_t u8_c;
   u8_c = 0;
   outString("\n");
   do {
@@ -48,7 +48,7 @@ void debugPower(void) {
 
 
 void debugZeroCross(void) {
-  uint8 u8_x;
+  uint8_t u8_x;
   u8_x = ZEROCROSS;
   do {
     while ((u8_x == ZEROCROSS) && !isCharReady()) doHeartbeat();
@@ -72,7 +72,7 @@ void debugThermocouple(void) {
 }
 
 void doDebugMenu(void) {
-  uint8 u8_c;
+  uint8_t u8_c;
   printf("Debug menu:\n");
   printf("   't' - read thermocouple, hit any key to exit\n");
   printf("   'z' - read zerocross, hit any key to exit \n");

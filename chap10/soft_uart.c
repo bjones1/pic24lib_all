@@ -39,22 +39,22 @@
 #define CONFIG_SRX() CONFIG_RB3_AS_DIG_INPUT()
 #define SRX _RB3     //SRX state
 #define DEFAULT_SOFT_BAUDRATE 19200
-uint16 u16_softBaudRate = DEFAULT_SOFT_BAUDRATE;
+uint16_t u16_softBaudRate = DEFAULT_SOFT_BAUDRATE;
 
-void doBitDelay (uint16 u16_baudRate) {
+void doBitDelay (uint16_t u16_baudRate) {
   if (u16_baudRate == 9600) {
     DELAY_US(106);
   } else if (u16_baudRate == 19200) DELAY_US(52);
 }
 
-void doBitHalfDelay (uint16 u16_baudRate) {
+void doBitHalfDelay (uint16_t u16_baudRate) {
   if (u16_baudRate == 9600) {
     DELAY_US(53);
   } else if (u16_baudRate == 19200) DELAY_US(26);
 }
 
-void outCharSoft(uint8 u8_c) {
-  uint8 u8_i;
+void outCharSoft(uint8_t u8_c) {
+  uint8_t u8_i;
   STX = 0;
   doBitDelay(u16_softBaudRate);
   for (u8_i=0; u8_i<8; u8_i++) {
@@ -68,8 +68,8 @@ void outCharSoft(uint8 u8_c) {
   doBitDelay(u16_softBaudRate);
 }
 
-uint8 inCharSoft(void) {
-  uint8 u8_i, u8_c;
+uint8_t inCharSoft(void) {
+  uint8_t u8_i, u8_c;
 
   u8_c = 0x00;
   while (SRX) doHeartbeat();
@@ -86,7 +86,7 @@ uint8 inCharSoft(void) {
 
 
 int main (void) {
-  uint8 u8_c;
+  uint8_t u8_c;
 
   configClock();
   configHeartbeat();

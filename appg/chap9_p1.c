@@ -34,9 +34,9 @@
 #include "pic24_all.h"
 
 int main (void) {
-  volatile uint16 u16_val;
-  uint8* pu8_1;
-  uint16* pu16_1;
+  volatile uint16_t u16_val;
+  uint8_t* pu8_1;
+  uint16_t* pu16_1;
 
   configBasic(HELLO_MSG);
   /** start **/

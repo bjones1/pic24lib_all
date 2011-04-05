@@ -5,8 +5,8 @@
 ;; //pi16_a is a pointer to signed 16-bit integer array
 ;; //u8_cnt is the number of elements in the array
 ;; //Function returns the maximum value in the array.
-;; int16 find_max (int16* pi16_a, uint8 u8_cnt) {
-;;   int16 i16_k;
+;; int16_t find_max (int16_t* pi16_a, uint8_t u8_cnt) {
+;;   int16_t i16_k;
 ;;   i16_k = –32768;
 ;;   while (u8_cnt != 0) {
 ;;      if (*pi16_a > i16_k) i16_k = *pi16_a;
@@ -15,10 +15,10 @@
 ;;   return i16_k;
 ;; }
 ;
-;; int16 ai16_x[]= {-34, 1024, -30452, 32767, 10, 245};
-;; uint16 au16_y[]= {2048, 10, 40323,356, 290, 20000};
-;; int16  i16_signedMax;
-;; uint16 ui16_unsignedMax;
+;; int16_t ai16_x[]= {-34, 1024, -30452, 32767, 10, 245};
+;; uint16_t au16_y[]= {2048, 10, 40323,356, 290, 20000};
+;; int16_t  i16_signedMax;
+;; uint16_t ui16_unsignedMax;
 ;;
 ;; main(){
 ;;  i16_signedMax = find_max(ai16_x, 6);
@@ -70,7 +70,7 @@ done:
 
 
 ;Assembly language implementation of
-; int16 find_max (int16* pi16_a, uint8 u8_cnt)
+; int16_t find_max (int16_t* pi16_a, uint8_t u8_cnt)
 ;Register usage:
 ;W0 used for pi16_a parameter
 ;W1 used for u8_cnt parameter

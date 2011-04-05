@@ -61,7 +61,7 @@ inline void CONFIG_SW2()  {
 }
 
 int main (void) {
-  uint8 u8_sw1old, u8_sw2old;
+  uint8_t u8_sw1old, u8_sw2old;
 
   configBasic(HELLO_MSG);
   /** Configure the switch ***********/

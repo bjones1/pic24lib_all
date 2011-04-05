@@ -69,7 +69,7 @@
 #define   LED1            _LATB15
 #else
 #define   CONFIG_LED1()   printf("called CONFIG_LED1()\n");
-uint8     LED1 = TRUE;      // LED1 is initially "on"
+uint8_t     LED1 = TRUE;      // LED1 is initially "on"
 #endif
 
 // PROTOTYPEs go here
@@ -79,7 +79,7 @@ uint8     LED1 = TRUE;      // LED1 is initially "on"
 char psz_CRNL[3]= {0x0D, 0x0A, 0};
 char psz_prompt[] = "Temp is  ";
 char psz_done[9]= {' ','D','O','N','E','!',0x0D, 0x0A, 0};
-int16 i16_temp;
+int16_t i16_temp;
 UINT16 U16_raw;
 
 ESOS_SEMAPHORE(sem_dataReady);
@@ -162,7 +162,7 @@ ESOS_USER_TASK(start_ds1631) {
  * will signal when data has been successfully read
  */
 ESOS_USER_TASK(read_ds1631) {
-  static uint8 u8_lo, u8_hi;
+  static uint8_t u8_lo, u8_hi;
 
   ESOS_TASK_BEGIN();
   ESOS_TASK_WAIT_SEMAPHORE(sem_ds1631Ready, 1);

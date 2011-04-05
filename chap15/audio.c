@@ -36,8 +36,8 @@ and plays it back. Uses the internal ADC, 24LC515 serial EEPROM,
 */
 
 extern void ADPCMEncoderInit(void);
-extern uint8 ADPCMEncoder( int16 i16_sample);
-extern int16 ADPCMDecoder(uint8 u8_code);
+extern uint8_t ADPCMEncoder( int16_t i16_sample);
+extern int16_t ADPCMDecoder(uint8_t u8_code);
 extern void ADPCMDecoderInit(void);
 
 
@@ -45,8 +45,8 @@ extern void ADPCMDecoderInit(void);
 #define BLKSIZE 64
 
 //Assumes WDT is configured for longer than EEPROM write time
-void waitForWriteCompletion(uint8 u8_i2cAddr) {
-  uint8 u8_ack, u8_savedSWDTEN;
+void waitForWriteCompletion(uint8_t u8_i2cAddr) {
+  uint8_t u8_ack, u8_savedSWDTEN;
   u8_savedSWDTEN = _SWDTEN;
   _SWDTEN = 1; //enable WDT so that do not get stuck in infinite loop!
   u8_i2cAddr = I2C_WADDR(u8_i2cAddr);  //write operation, R/W# = 0;
@@ -59,9 +59,9 @@ void waitForWriteCompletion(uint8 u8_i2cAddr) {
 }
 
 //this version just expects a block of 64 data bytes
-void memWriteLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
-  uint8 u8_AddrLo, u8_AddrHi;
-  uint16 u16_i;
+void memWriteLC515(uint8_t u8_i2cAddr,  uint16_t u16_MemAddr, uint8_t *pu8_buf) {
+  uint8_t u8_AddrLo, u8_AddrHi;
+  uint16_t u16_i;
   u8_AddrLo = u16_MemAddr & 0x00FF;
   u8_AddrHi = (u16_MemAddr >> 8);
   if (u16_MemAddr & 0x8000) {
@@ -81,9 +81,9 @@ void memWriteLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
   stopI2C1();
 }
 
-void memReadLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
+void memReadLC515(uint8_t u8_i2cAddr,  uint16_t u16_MemAddr, uint8_t *pu8_buf) {
 
-  uint8 u8_AddrLo, u8_AddrHi;
+  uint8_t u8_AddrLo, u8_AddrHi;
 
   u8_AddrLo = u16_MemAddr & 0x00FF;
   u8_AddrHi = (u16_MemAddr >> 8);
@@ -124,7 +124,7 @@ void configDAC() {
   SLAVE_DISABLE();             //disable the chip select
 }
 
-void writeDAC (uint8 dacval) {
+void writeDAC (uint8_t dacval) {
   SLAVE_ENABLE();                 //assert Chipselect line to DAC
   ioMasterSPI1(0b00001001);      //control byte that enables DAC A
   ioMasterSPI1(dacval);          //write DAC value
@@ -150,8 +150,8 @@ void  configTimer3(void) {
 }
 
 
-uint8 au8_bufferA[BLKSIZE];
-uint8 au8_bufferB[BLKSIZE];
+uint8_t au8_bufferA[BLKSIZE];
+uint8_t au8_bufferB[BLKSIZE];
 //some one-bit flags
 typedef struct tagFLAGBITS {
 unsigned u1_activeBuffer:
@@ -171,14 +171,14 @@ unsigned u1_compressionFlag:
 } FLAGBITS;
 volatile FLAGBITS flags;
 
-uint8 u8_sampleCount;
-uint8 u8_bufferCount;
-uint16 u16_adcVal;
-uint8 u8_dacVal;
-int16 i16_adcval;
+uint8_t u8_sampleCount;
+uint8_t u8_bufferCount;
+uint16_t u16_adcVal;
+uint8_t u8_dacVal;
+int16_t i16_adcval;
 
 void isrRecord() {
-  uint8 u8_tmp;
+  uint8_t u8_tmp;
   if (flags.u1_compressionFlag) {
     //convert to signed value
     i16_adcval = u16_adcVal;
@@ -207,7 +207,7 @@ void isrRecord() {
 }
 
 void isrPlayback() {
-  uint8 u8_tmp;
+  uint8_t u8_tmp;
   if (flags.u1_activeBuffer) u8_tmp = au8_bufferB[u8_bufferCount];
   else u8_tmp = au8_bufferA[u8_bufferCount];
   if (flags.u1_compressionFlag) {
@@ -250,8 +250,8 @@ void _ISR _T3Interrupt (void) {
 
 #define VREF 3.3  //assume Vref = 3.3 volts
 
-void doRecord(uint8 u8_compression) {
-  uint16 u16_MemAddr;
+void doRecord(uint8_t u8_compression) {
+  uint16_t u16_MemAddr;
   flags.u1_compressionFlag = u8_compression;
   if (u8_compression) ADPCMEncoderInit();
   flags.u1_activeBuffer = 0;
@@ -276,8 +276,8 @@ void doRecord(uint8 u8_compression) {
   outString("Finished recording\n");
 }
 
-void doPlayback(uint8 u8_compression) {
-  uint16 u16_MemAddr;
+void doPlayback(uint8_t u8_compression) {
+  uint16_t u16_MemAddr;
 
   flags.u1_compressionFlag = u8_compression;
   if (u8_compression) ADPCMDecoderInit();
@@ -325,7 +325,7 @@ void doTest(void) {
     u16_adcVal = ADC1BUF0;
     //start next sample
     SET_SAMP_BIT_ADC1();
-    outUint16(u16_adcVal);
+    outUint16_t(u16_adcVal);
     outString("\n");
   }
   _T3IE = 1;
@@ -333,7 +333,7 @@ void doTest(void) {
 
 int main (void) {
 
-  uint8 u8_mode;
+  uint8_t u8_mode;
 
   configBasic(HELLO_MSG);
   CONFIG_AN0_AS_ANALOG();

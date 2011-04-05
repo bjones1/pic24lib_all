@@ -57,14 +57,14 @@
 #define   LED1            _LATB15
 #else
 #define   CONFIG_LED1()   printf("Called CONFIG_LED1()\n");
-uint8     LED1 = TRUE;      // LED1 is initially "on"
+uint8_t     LED1 = TRUE;      // LED1 is initially "on"
 #endif
 
 // PROTOTYPEs go here
 
 // GLOBALs go here
 //  Generally, the user-created semaphores will be defined/allocated here
-static uint8 psz_CRNL[3]= {0x0D, 0x0A, 0};
+static uint8_t psz_CRNL[3]= {0x0D, 0x0A, 0};
 
 
 #ifdef __linux

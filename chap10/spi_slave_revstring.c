@@ -48,10 +48,10 @@ volatile STATE e_mystate = STATE_WAIT_FOR_STRING;
 #define BUFSIZE 63
 volatile char  sz_1[BUFSIZE+1];
 volatile char  sz_2[BUFSIZE+1];
-volatile uint16 u16_index;
+volatile uint16_t u16_index;
 
 void _ISR _SPI1Interrupt (void) {
-  uint16 u16_tmp;
+  uint16_t u16_tmp;
   switch (e_mystate) {
     case STATE_WAIT_FOR_STRING:
       //character arrived, place in buffer

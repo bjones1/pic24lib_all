@@ -59,7 +59,7 @@ void configDAC() {
   SLAVE_DISABLE();             //disable the chip select
 }
 
-void writeDAC (uint8 dacval) {
+void writeDAC (uint8_t dacval) {
   SLAVE_ENABLE();                 //assert Chipselect line to DAC
   ioMasterSPI1(0b00001001);      //control byte that enables DAC A
   ioMasterSPI1(dacval);          //write DAC value
@@ -69,8 +69,8 @@ void writeDAC (uint8 dacval) {
 #define VREF 3.3  //assume Vref = 3.3 volts
 
 int main (void) {
-  uint16 u16_adcVal;
-  uint8 u8_dacVal;
+  uint16_t u16_adcVal;
+  uint8_t u8_dacVal;
   float f_adcVal;
   float f_dacVal;
 
@@ -91,7 +91,7 @@ int main (void) {
     f_dacVal = f_dacVal/256.0 * VREF;
 #ifdef SMALLRAM
     {
-      uint16 ui16_adcValmv, ui16_dacValmv;
+      uint16_t ui16_adcValmv, ui16_dacValmv;
       ui16_adcValmv = f_adcVal * 1000;
       ui16_dacValmv = f_dacVal * 1000;
       printf("ADC in: %d mV (0x%04x), To DAC: %d mV (0x%02x) \n",

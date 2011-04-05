@@ -36,7 +36,7 @@ Use the echo program to test your UART connection.
 
 
 int main(void) {
-  uint8 u8_c;
+  uint8_t u8_c;
 
   configClock();
   configPinsForLowPower();

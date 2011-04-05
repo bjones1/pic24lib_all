@@ -92,19 +92,19 @@
 #define MAX_TRANSFER (CONVERSIONS_PER_INPUT*MAX_CHANNELS)   //make power of two for alignment to work
 
 //DMA buffers, alignment is based on number of bytes
-uint16 au16_bufferA[MAX_TRANSFER] __attribute__((space(dma),aligned(MAX_TRANSFER*2)));
-uint8 u8_NumChannelsScanned;  //need this global for the main averaging code
+uint16_t au16_bufferA[MAX_TRANSFER] __attribute__((space(dma),aligned(MAX_TRANSFER*2)));
+uint8_t u8_NumChannelsScanned;  //need this global for the main averaging code
 
 //generic DMA/ADC configuration function, enables scanning, uses DMA channel 0
 //returns the number of channels that are scanned as specified by the mask.
-uint8 configDMA_ADC(uint16   u16_ch0ScanMask, \
-                    uint8    u8_autoSampleTime, \
-                    uint8    u8_use12bit,
-                    uint8    u8_useScatterGather,
-                    uint8    u8_dmaLocsPerInput) {
-  uint8     u8_i, u8_nChannels=0;
-  uint16    u16_mask = 0x0001;
-  uint16    u16_dmaMode;
+uint8_t configDMA_ADC(uint16_t   u16_ch0ScanMask, \
+                    uint8_t    u8_autoSampleTime, \
+                    uint8_t    u8_use12bit,
+                    uint8_t    u8_useScatterGather,
+                    uint8_t    u8_dmaLocsPerInput) {
+  uint8_t     u8_i, u8_nChannels=0;
+  uint16_t    u16_mask = 0x0001;
+  uint16_t    u16_dmaMode;
 
   // compute the number of Channels the user wants to scan over
   for (u8_i=0; u8_i<16; u8_i++) {
@@ -202,14 +202,14 @@ uint8 configDMA_ADC(uint16   u16_ch0ScanMask, \
 }
 
 
-volatile  uint16    au16_buffer[MAX_TRANSFER];
-volatile  uint16    au16_bufferSum[MAX_CHANNELS];
-volatile  uint8     u8_waiting;
+volatile  uint16_t    au16_buffer[MAX_TRANSFER];
+volatile  uint16_t    au16_bufferSum[MAX_CHANNELS];
+volatile  uint8_t     u8_waiting;
 
 
 void _ISRFAST _DMA0Interrupt(void) {
-  uint8       u8_i;
-  uint16*     au16_adcHWBuff = (uint16*) &au16_bufferA;
+  uint8_t       u8_i;
+  uint16_t*     au16_adcHWBuff = (uint16_t*) &au16_bufferA;
   _DMA0IF = 0;
   if (u8_waiting ) {
     for ( u8_i=0; u8_i<MAX_TRANSFER; u8_i++) {
@@ -224,8 +224,8 @@ void _ISRFAST _DMA0Interrupt(void) {
 
 
 int main (void) {
-  uint8   u8_i, u8_j, u8_k;
-  uint16  u16_pot;
+  uint8_t   u8_i, u8_j, u8_k;
+  uint16_t  u16_pot;
   float   f_pot;
 
   configBasic(HELLO_MSG);

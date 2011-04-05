@@ -52,7 +52,7 @@ rate, receive two characters. If both of the characters are received with no
 UART error, and match the SYNC_CHAR (0x30), then assume the target baudrate
 has been found, and print out the current baud rate before exiting.
 
-The macro:   CONFIG_BAUDRATE_UART1 (uint32 baudRate)
+The macro:   CONFIG_BAUDRATE_UART1 (uint32_t baudRate)
 can be used to set the baudrate.
 
 */
@@ -67,8 +67,8 @@ can be used to set the baudrate.
 #define FRAMING_ERROR 2
 #define OVERRUN_ERROR 3
 
-uint8 myCheckRxErrorUART1(void) {
-  uint8 u8_c, u8_err;
+uint8_t myCheckRxErrorUART1(void) {
+  uint8_t u8_c, u8_err;
 
   u8_err = NO_ERROR;
   if (U1STAbits.PERR) {
@@ -87,9 +87,9 @@ uint8 myCheckRxErrorUART1(void) {
 }
 
 
-uint8 u8_lastRxError;
+uint8_t u8_lastRxError;
 
-uint8 myInChar1(void) {
+uint8_t myInChar1(void) {
   //do heartbeat while waiting for character.
   while (!IS_CHAR_READY_UART1())  doHeartbeat();
   u8_lastRxError = myCheckRxErrorUART1();
@@ -99,14 +99,14 @@ uint8 myInChar1(void) {
 }
 
 #define NUM_BAUDS 5
-uint32 au32_baudRates[] = {19200,28800,38400,57600, 115200};
+uint32_t au32_baudRates[] = {19200,28800,38400,57600, 115200};
 
 
 //do not return until the sync character found
 void autoBaud(void) {
-  uint8 u8_baudIndex;
-  uint8 u8_c;
-  uint8 u8_count;
+  uint8_t u8_baudIndex;
+  uint8_t u8_c;
+  uint8_t u8_count;
 
   u8_baudIndex = 0;
   while (1) {
@@ -133,7 +133,7 @@ void autoBaud(void) {
 
 
 int main (void) {
-  uint8 u8_c;
+  uint8_t u8_c;
   configBasic(HELLO_MSG);
   CONFIG_LED1();
   while (1) {

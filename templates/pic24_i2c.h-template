@@ -30,7 +30,7 @@
 #ifndef _PIC24_I2C${x}_H_
 #define _PIC24_I2C${x}_H_
 
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_chip.h"
 
 // Only include if this I2C Module exists.
@@ -65,21 +65,21 @@
 
 
 //I2C Operations
-void configI2C${x}(uint16 u16_FkHZ);
+void configI2C${x}(uint16_t u16_FkHZ);
 void startI2C${x}(void);
 void rstartI2C${x}(void);
 void stopI2C${x}(void);
-void putI2C${x}(uint8 u8_val);
-uint8 putNoAckCheckI2C${x}(uint8 u8_val);
-uint8 getI2C${x}(uint8 u8_ack2Send);
+void putI2C${x}(uint8_t u8_val);
+uint8_t putNoAckCheckI2C${x}(uint8_t u8_val);
+uint8_t getI2C${x}(uint8_t u8_ack2Send);
 
 //I2C Transactions
-void write1I2C${x}(uint8 u8_addr,uint8 u8_d1);
-void write2I2C${x}(uint8 u8_addr,uint8 u8_d1, uint8 u8_d2);
-void writeNI2C${x}(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt);
-void read1I2C${x}(uint8 u8_addr,uint8* pu8_d1);
-void read2I2C${x}(uint8 u8_addr,uint8* pu8_d1, uint8* pu8_d2);
-void readNI2C${x}(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt);
+void write1I2C${x}(uint8_t u8_addr,uint8_t u8_d1);
+void write2I2C${x}(uint8_t u8_addr,uint8_t u8_d1, uint8_t u8_d2);
+void writeNI2C${x}(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt);
+void read1I2C${x}(uint8_t u8_addr,uint8_t* pu8_d1);
+void read2I2C${x}(uint8_t u8_addr,uint8_t* pu8_d1, uint8_t* pu8_d2);
+void readNI2C${x}(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt);
 
 #endif // #if (NUM_I2C_MODS >= ${x})
 #endif // #ifndef _PIC24_I2C${x}_H_

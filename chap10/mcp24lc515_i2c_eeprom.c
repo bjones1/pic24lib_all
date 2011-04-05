@@ -39,8 +39,8 @@ from a Microchip 24LC515 serial EEPROM.
 #define BLKSIZE 64
 
 //Assumes WDT is configured for longer than EEPROM write time
-void waitForWriteCompletion(uint8 u8_i2cAddr) {
-  uint8 u8_ack, u8_savedSWDTEN;
+void waitForWriteCompletion(uint8_t u8_i2cAddr) {
+  uint8_t u8_ack, u8_savedSWDTEN;
   u8_savedSWDTEN = _SWDTEN;
   _SWDTEN = 1; //enable WDT so that do not get stuck in infinite loop!
   u8_i2cAddr = I2C_WADDR(u8_i2cAddr);  //write operation, R/W# = 0;
@@ -52,8 +52,8 @@ void waitForWriteCompletion(uint8 u8_i2cAddr) {
   _SWDTEN = u8_savedSWDTEN;  //restore WDT to original state
 }
 
-void memWriteLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
-  uint8 u8_AddrLo, u8_AddrHi;
+void memWriteLC515(uint8_t u8_i2cAddr,  uint16_t u16_MemAddr, uint8_t *pu8_buf) {
+  uint8_t u8_AddrLo, u8_AddrHi;
 
   u8_AddrLo = u16_MemAddr & 0x00FF;
   u8_AddrHi = (u16_MemAddr >> 8);
@@ -68,9 +68,9 @@ void memWriteLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
   writeNI2C1(u8_i2cAddr,pu8_buf,BLKSIZE+2);
 }
 
-void memReadLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
+void memReadLC515(uint8_t u8_i2cAddr,  uint16_t u16_MemAddr, uint8_t *pu8_buf) {
 
-  uint8 u8_AddrLo, u8_AddrHi;
+  uint8_t u8_AddrLo, u8_AddrHi;
 
   u8_AddrLo = u16_MemAddr & 0x00FF;
   u8_AddrHi = (u16_MemAddr >> 8);
@@ -88,9 +88,9 @@ void memReadLC515(uint8 u8_i2cAddr,  uint16 u16_MemAddr, uint8 *pu8_buf) {
 
 
 int main (void) {
-  uint8 au8_buf[64+2];  //2 extra bytes for address
-  uint16 u16_MemAddr;
-  uint8 u8_Mode;
+  uint8_t au8_buf[64+2];  //2 extra bytes for address
+  uint16_t u16_MemAddr;
+  uint8_t u8_Mode;
 
   configBasic(HELLO_MSG);
   configI2C1(400);            //configure I2C for 400 KHz
@@ -99,7 +99,7 @@ int main (void) {
   outString("\n");
   u16_MemAddr = 0;     //start at location 0 in memory
   while (1) {
-    uint8 u8_i;
+    uint8_t u8_i;
     if (u8_Mode == 'w') {
       outString("Enter 64 chars.\n");
       //first two buffer locations reserved for starting address

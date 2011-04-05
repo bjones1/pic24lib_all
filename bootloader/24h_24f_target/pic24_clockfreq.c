@@ -107,7 +107,7 @@ static void configFrcUART(void) {
 #else
   float f_brg = (((float) FRC_FCY)/((float) DEFAULT_BAUDRATE)/4.0) - 1.0;
 #endif
-  uint16 UxBRG = roundFloatToUint16(f_brg);
+  uint16_t UxBRG = roundFloatToUint16_t(f_brg);
   switch (DEFAULT_UART) {
 #if (NUM_UART_MODS >= 1)
     case 1 :
@@ -139,7 +139,7 @@ static void configFrcUART(void) {
 }
 
 static void checkClockTimeout(void) {
-  static uint32 u32_timeoutCount = 0;
+  static uint32_t u32_timeoutCount = 0;
 
   // See if the clock has already failed. If so, return to allow
   // diagnostic code to perform (hopefully safe) clock switches
@@ -174,7 +174,7 @@ static void checkClockTimeout(void) {
 #endif
 
 
-void switchClock(uint8 u8_source) {
+void switchClock(uint8_t u8_source) {
   // Create a union that mirrors the OSCCON structure
   // with all its bit names but is also byte-accessable.
   OSCCONBITS OSCCONBITS_copy;

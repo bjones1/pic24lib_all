@@ -37,22 +37,22 @@
  * Remove this macro if you wish to use the internal oscillator.
 */
 
-uint8 getPeriodAdjust (uint8 ICMbits) {
+uint8_t getPeriodAdjust (uint8_t ICMbits) {
   if (ICMbits == IC_EVERY_16_RISE_EDGE) return 16;
   else if (ICMbits == IC_EVERY_4_RISE_EDGE) return 4;
   else return 1;
 }
 
-volatile uint8 u8_captureFlag = 0;
-volatile uint16 u16_lastCapture;
-volatile uint16 u16_thisCapture;
-volatile uint32 u32_period;
+volatile uint8_t u8_captureFlag = 0;
+volatile uint16_t u16_lastCapture;
+volatile uint16_t u16_thisCapture;
+volatile uint32_t u32_period;
 
 void _ISRFAST _IC1Interrupt() {
   _IC1IF = 0;
   u16_thisCapture = IC1BUF;  //always read the buffer to prevent overflow
   if (u8_captureFlag == 0) {
-    u32_period = (uint32) computeDeltaTicks(u16_lastCapture,u16_thisCapture,PR2);
+    u32_period = (uint32_t) computeDeltaTicks(u16_lastCapture,u16_thisCapture,PR2);
     u32_period = ticksToNs (u32_period, getTimerPrescale(T2CONbits));
     //adjust period if necessary
     u32_period = u32_period/getPeriodAdjust(IC1CONbits.ICM);
@@ -84,7 +84,7 @@ void  configTimer2(void) {
 }
 
 int main (void) {
-  uint32 u32_maxPeriodNs;
+  uint32_t u32_maxPeriodNs;
   configBasic(HELLO_MSG);
   configTimer2();
   configInputCapture1();

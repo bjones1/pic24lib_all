@@ -38,7 +38,7 @@
 #define VREF 3.3  //assume Vref = 3.3 volts
 
 int main (void) {
-  uint16 u16_adcVal;
+  uint16_t u16_adcVal;
   float f_adcVal;
 
   configBasic(HELLO_MSG);
@@ -54,7 +54,7 @@ int main (void) {
 #ifdef SMALLRAM
     {
       //avoid floating point printf, does not fit in this memory space
-      uint16 ui16_adcValmv;
+      uint16_t ui16_adcValmv;
       ui16_adcValmv = f_adcVal * 1000;
       printf("ADC input: %d mV (0x%04x)\n", ui16_adcValmv, u16_adcVal);
     }

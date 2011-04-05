@@ -63,7 +63,7 @@ void configSPI1(void) {
   SLAVE_DISABLE();             //disable the chip select
 }
 
-void setPotWiper(uint8 u8_i) {
+void setPotWiper(uint8_t u8_i) {
   SLAVE_ENABLE();         //assert MCP41xxx chipselect
   ioMasterSPI1(0x11);   //command byte to select wiper register
   ioMasterSPI1(u8_i);
@@ -74,8 +74,8 @@ void setPotWiper(uint8 u8_i) {
 char  sz_1[BUFSIZE+1];
 
 int main (void) {
-  uint16 u16_pv;
-  uint16 u16_adcVal;
+  uint16_t u16_pv;
+  uint16_t u16_adcVal;
   float f_adcVal;
   float f_potVal;
   float f_err;

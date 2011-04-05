@@ -45,12 +45,12 @@
 
 // prototypes provided for each DAC we support in this little example
 void configDAC(void);
-void writeDAC(uint16 u16_x, uint16 u16_y);
+void writeDAC(uint16_t u16_x, uint16_t u16_y);
 
-volatile uint8    u8_per, u8_amp;
-volatile uint16   u16_per;
+volatile uint8_t    u8_per, u8_amp;
+volatile uint16_t   u16_per;
 
-const uint8 au8_sinetbl[] = {127,133,139,146,152,158,164,170,176,181, \
+const uint8_t au8_sinetbl[] = {127,133,139,146,152,158,164,170,176,181, \
                              187,192,198,203,208,212,217,221,225,229,233,236,239,242,244,247,249,250, \
                              252,253,253,254,254,254,253,253,252,250,249,247,244,242,239,236,233,229, \
                              225,221,217,212,208,203,198,192,187,181,176,170,164,158,152,146,139,133, \
@@ -83,8 +83,8 @@ void  configDAC() {
   CONFIG_RB9_AS_DIG_OUTPUT();
 }
 
-void  writeDAC(uint16 u16_x, uint16 u16_y) {
-  uint16    u16_temp;
+void  writeDAC(uint16_t u16_x, uint16_t u16_y) {
+  uint16_t    u16_temp;
 
   u16_temp = LATB & 0xFC03;              // read PORTB removing our eight bits
   u16_temp |= ((u16_x & 0xFF00) >> 6);   // put our eight bits into PORTB value
@@ -117,7 +117,7 @@ void configDAC(void) {
   MAX548A_DISABLE();            //disable the chip select
 }
 
-void writeDAC(uint16 u16_x, uint16 u16_y) {
+void writeDAC(uint16_t u16_x, uint16_t u16_y) {
 
   // only update DAC A
   //MAX548A_ENABLE();         //assert chipselect
@@ -162,7 +162,7 @@ void configDAC(void) {
   MAX5353_DISABLE();            //disable the chip select
 }
 
-void writeDAC(uint16 u16_x, uint16 u16_y) {
+void writeDAC(uint16_t u16_x, uint16_t u16_y) {
   MAX5353_ENABLE();                 //assert chipselect
   //write DAC B data (with command bits and sub-bit cleared)
   ioMasterSPI1((u16_x>>3) & MAX5353_CMD_ANDMASK);
@@ -180,8 +180,8 @@ void configDAC(void) {
   configI2C1(400);            //configure I2C for 400 KHz
 }
 
-void writeDAC(uint16 u16_x, uint16 u16_y) {
-  write2I2C1(MAX518_I2C_ADDR, MAX518_WRITE_DACA, (uint8) (u16_x>>8) );
+void writeDAC(uint16_t u16_x, uint16_t u16_y) {
+  write2I2C1(MAX518_I2C_ADDR, MAX518_WRITE_DACA, (uint8_t) (u16_x>>8) );
 }
 #endif
 
@@ -196,11 +196,11 @@ void configDAC(void) {
   configI2C1(700);            //configure I2C for 400 KHz
 }
 
-void writeDAC(uint16 u16_x, uint16 u16_y) {
-  static  uint8   au8_buf[]= {MAX518_WRITE_DACA, 0, MAX518_WRITE_DACB, 0 };
+void writeDAC(uint16_t u16_x, uint16_t u16_y) {
+  static  uint8_t   au8_buf[]= {MAX518_WRITE_DACA, 0, MAX518_WRITE_DACB, 0 };
 
-  au8_buf[1] = (uint8) (u16_x>>8);
-  au8_buf[3] = (uint8) (u16_y>>8);
+  au8_buf[1] = (uint8_t) (u16_x>>8);
+  au8_buf[3] = (uint8_t) (u16_y>>8);
   writeNI2C1(MAX518_I2C_ADDR, &au8_buf[0], 4);
 
 }
@@ -209,16 +209,16 @@ void writeDAC(uint16 u16_x, uint16 u16_y) {
 
 
 void _ISR _T3Interrupt (void) {
-  static uint8    u8_idx;
-  static uint16   u16_idx, u16_old;
-  static uint16   u16_val;
+  static uint8_t    u8_idx;
+  static uint16_t   u16_idx, u16_old;
+  static uint16_t   u16_val;
 
   writeDAC(u16_val, u16_idx);          // write new DAC value
 
   // Compute DAC value for next time
   u16_idx+=u16_per;
-  u8_idx = (uint8) (u16_idx>>9 );
-  u16_val = ((uint16)au8_sinetbl[u8_idx])<<8;           // get sine fcn value
+  u8_idx = (uint8_t) (u16_idx>>9 );
+  u16_val = ((uint16_t)au8_sinetbl[u8_idx])<<8;           // get sine fcn value
   u16_val >>= u8_amp;                     // reduce sine amplitude based on input from pot
 
   if ((u16_idx^u16_old)&0x8000) _LATB12 = !_LATB12;
@@ -246,7 +246,7 @@ void configTimer3(void) {
  *  Conversion results are printed to screen as both HEX values and voltages.
 */
 int main (void) {
-  uint8   u8_uiCount;
+  uint8_t   u8_uiCount;
 
   configBasic(HELLO_MSG);
   // configure AN0 and AN1 to for analog input to PIC24 ADC

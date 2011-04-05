@@ -35,14 +35,14 @@ a rotary encoder.
 */
 
 #define TMAX 16
-volatile uint8 au8_tbuff[TMAX];
-volatile uint8 u8_tcnt = 0;
-volatile uint8 u8_startTrace = 0;
+volatile uint8_t au8_tbuff[TMAX];
+volatile uint8_t u8_tcnt = 0;
+volatile uint8_t u8_startTrace = 0;
 
 //clips cntr between 0 and max
-uint8 processRotaryData(volatile uint8 u8_curr, volatile uint8 u8_last,
-                        volatile uint8 *cntr, volatile uint8 max) {
-  int8 delta = 0;
+uint8_t processRotaryData(volatile uint8_t u8_curr, volatile uint8_t u8_last,
+                        volatile uint8_t *cntr, volatile uint8_t max) {
+  int8_t delta = 0;
   if (u8_startTrace && (u8_tcnt != TMAX)) {
     au8_tbuff[u8_tcnt] = u8_curr;
     u8_tcnt++;
@@ -90,10 +90,10 @@ inline void CONFIG_ROTENC()  {
 
 #define ROT_MAX  32            //arbitrary limit
 
-volatile uint8 u8_valueROT = 0;
-volatile uint8 u8_lastvalueROT = 0;
-volatile uint8 u8_errROT = 0;
-volatile uint8 u8_cntrROT = 0;
+volatile uint8_t u8_valueROT = 0;
+volatile uint8_t u8_lastvalueROT = 0;
+volatile uint8_t u8_errROT = 0;
+volatile uint8_t u8_cntrROT = 0;
 
 //Interrupt Service Routine for Timer3
 void _ISRFAST _T3Interrupt (void) {
@@ -124,7 +124,7 @@ void  configTimer3(void) {
 }
 
 int main (void) {
-  uint8 u8_i;
+  uint8_t u8_i;
   configBasic(HELLO_MSG);
   /** PIO config ******/
   CONFIG_ROTENC();
@@ -138,7 +138,7 @@ int main (void) {
     if (u8_tcnt == TMAX) {
       u8_startTrace = 0;
       for (u8_i = 0; u8_i < TMAX; u8_i++) {
-        outUint8(au8_tbuff[u8_i]);
+        outUint8_t(au8_tbuff[u8_i]);
         outString("\n");
       }
       u8_tcnt = 0;

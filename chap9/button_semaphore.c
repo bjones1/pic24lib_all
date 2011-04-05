@@ -54,7 +54,7 @@ inline void CONFIG_SW1()  {
 #define SW1_RELEASED()  (SW1==1)            //switch test
 
 //semaphore variable
-volatile uint8 u8_pressAndRelease = 0;    //initially cleared
+volatile uint8_t u8_pressAndRelease = 0;    //initially cleared
 
 typedef enum  {
   STATE_RESET = 0,

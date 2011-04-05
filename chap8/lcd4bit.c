@@ -97,7 +97,7 @@ void configBusAsInLCD(void) {
 }
 
 //Output lower 4-bits of u8_c to LCD data lines
-void outputToBusLCD(uint8 u8_c) {
+void outputToBusLCD(uint8_t u8_c) {
   LCD4O = u8_c & 0x01;          //D4
   LCD5O = (u8_c >> 1)& 0x01;    //D5
   LCD6O = (u8_c >> 2)& 0x01;    //D6
@@ -129,11 +129,11 @@ u8_DataFlag is '1' if data byte, '0' if command byte
 u8_CheckBusy is '1' if must poll busy bit before write, else simply delay before write
 u8_Send8Bits is '1' if must send all 8 bits, else send only upper 4-bits
 */
-void writeLCD(uint8 u8_Cmd, uint8 u8_DataFlag,
-              uint8 u8_CheckBusy, uint8 u8_Send8Bits) {
+void writeLCD(uint8_t u8_Cmd, uint8_t u8_DataFlag,
+              uint8_t u8_CheckBusy, uint8_t u8_Send8Bits) {
 
-  uint8 u8_BusyFlag;
-  uint8 u8_wdtState;
+  uint8_t u8_BusyFlag;
+  uint8_t u8_wdtState;
   if (u8_CheckBusy) {
     RS_LOW();            //RS = 0 to check busy
     // check busy

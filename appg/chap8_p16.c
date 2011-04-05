@@ -54,7 +54,7 @@ typedef enum  {
 
 int main(void) {
   STATE e_mystate;
-  uint8 u8_blinkFlag;
+  uint8_t u8_blinkFlag;
   configBasic(HELLO_MSG);
   CONFIG_SW1();
   CONFIG_LED1();

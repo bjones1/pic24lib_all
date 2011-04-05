@@ -1,8 +1,8 @@
 #include "pic24_all.h"
 #include <stdio.h>
 
-uint8 countOnes (uint16 u16_v) {
-  uint8 u8_cnt, u8_i;
+uint8_t countOnes (uint16_t u16_v) {
+  uint8_t u8_cnt, u8_i;
 
   u8_cnt = 0;
   for (u8_i=0; u8_i<16; u8_i++) {
@@ -15,8 +15,8 @@ uint8 countOnes (uint16 u16_v) {
 
 int main (void) {
 
-  uint16 u16_k;
-  uint8  u8_j;
+  uint16_t u16_k;
+  uint8_t  u8_j;
 
   u16_k = 0xA501;
   u8_j = countOnes(u16_k);

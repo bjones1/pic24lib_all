@@ -51,8 +51,8 @@
 #define   ADC_12BIT_FLAG    0
 #endif
 
-volatile  uint16    au16_buffer[16];
-volatile  uint8     u8_waiting;
+volatile  uint16_t    au16_buffer[16];
+volatile  uint8_t     u8_waiting;
 
 /***
  *** HERE IS THE CODE!
@@ -60,8 +60,8 @@ volatile  uint8     u8_waiting;
  ***/
 
 void _ISR _ADC1Interrupt (void) {
-  uint8       u8_i;
-  uint16*     au16_adcHWBuff = (uint16*) &ADC1BUF0;
+  uint8_t       u8_i;
+  uint16_t*     au16_adcHWBuff = (uint16_t*) &ADC1BUF0;
 
   /* If ADC is writing in the 2nd half of the buffer, so determine which
    * half of the buffer is valid (and caused this interrupt), then fetch
@@ -98,8 +98,8 @@ void _ISR _ADC1Interrupt (void) {
 */
 
 int main (void) {
-  uint8   u8_i;
-  uint16  u16_pot;
+  uint8_t   u8_i;
+  uint16_t  u16_pot;
   float   f_pot;
 
   configBasic(HELLO_MSG);
@@ -136,7 +136,7 @@ int main (void) {
         outChar( 'A'-10+u8_i );
 #ifdef SMALLRAM
       {
-        uint16 ui16_potmv;
+        uint16_t ui16_potmv;
         ui16_potmv = f_pot*1000;
         printf(":0x%04X=%d mV  ",  u16_pot, ui16_potmv );
       }

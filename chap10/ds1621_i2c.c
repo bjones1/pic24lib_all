@@ -42,7 +42,7 @@ from a Maxim DS1621 Digital Thermometer.
 #define START_CONVERT 0xEE
 #define READ_TEMP 0xAA
 
-void writeConfigDS1621(uint8 u8_i) {
+void writeConfigDS1621(uint8_t u8_i) {
   write2I2C1(DS1621ADDR, ACCESS_CONFIG, u8_i);
 }
 
@@ -50,9 +50,9 @@ void startConversionDS1621() {
   write1I2C1(DS1621ADDR, START_CONVERT);
 }
 
-int16 readTempDS161() {
-  uint8 u8_lo, u8_hi;
-  int16 i16_temp;
+int16_t readTempDS161() {
+  uint8_t u8_lo, u8_hi;
+  int16_t i16_temp;
   write1I2C1(DS1621ADDR, READ_TEMP);
   read2I2C1 (DS1621ADDR, &u8_hi, &u8_lo);
   i16_temp = u8_hi;
@@ -60,7 +60,7 @@ int16 readTempDS161() {
 }
 
 int main (void) {
-  int16 i16_temp;
+  int16_t i16_temp;
   float  f_tempC,f_tempF;
   configBasic(HELLO_MSG);
   configI2C1(400);            //configure I2C for 400 KHz
@@ -75,7 +75,7 @@ int main (void) {
 #ifdef SMALLRAM
     {
       //use integers to avoid floating point printf which does not fit in this data space
-      int16 i16_tempC,i16_tempF;
+      int16_t i16_tempC,i16_tempF;
       i16_tempC = f_tempC;
       i16_tempF = f_tempF;
       printf("Temp is: 0x%0X, %d (C), %d (F)\n",  i16_temp, i16_tempC, i16_tempF);

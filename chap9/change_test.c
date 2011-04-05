@@ -37,7 +37,7 @@
  *  interrupt occurs.
 */
 
-volatile uint8 u8_cFlag = 0;
+volatile uint8_t u8_cFlag = 0;
 
 //Interrupt Service Routine for Change Notification
 void _ISRFAST _CNInterrupt (void) {

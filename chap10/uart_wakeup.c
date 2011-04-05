@@ -34,7 +34,7 @@
  *  Demonstrates wakeup from sleep using the UART.
 */
 
-volatile uint8 u8_sleepFlag;
+volatile uint8_t u8_sleepFlag;
 
 void _ISR _U1RXInterrupt (void) {
   if (u8_sleepFlag) {
@@ -46,7 +46,7 @@ void _ISR _U1RXInterrupt (void) {
 }
 
 int main (void) {
-  uint8 u8_c;
+  uint8_t u8_c;
 
   configBasic(HELLO_MSG);
   _U1RXIP = 1;  //choose a priority

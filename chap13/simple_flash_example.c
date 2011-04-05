@@ -61,7 +61,7 @@ A simple example of run time self programming - reads/writes a single 16-bit val
 
 
 typedef struct _REC {
-  uint16 u16_val;     //single 16-bit value
+  uint16_t u16_val;     //single 16-bit value
 } REC;
 
 #define NUM_ROWS (((sizeof(REC))/FLASH_ROWBYTES) + 1)
@@ -77,17 +77,17 @@ UFDATA fdata;
 void doCommit(UFDATA* p_ufdata) {
   union32 u_memaddr;
   u_memaddr.u32 = DATA_FLASH_PAGE;
-  doWritePageFlash(u_memaddr, (uint8 *) p_ufdata, FLASH_DATA_SIZE);
+  doWritePageFlash(u_memaddr, (uint8_t *) p_ufdata, FLASH_DATA_SIZE);
 }
 
 void doRead(UFDATA* p_ufdata) {
   union32 u_memaddr;
   u_memaddr.u32 = DATA_FLASH_PAGE;
-  doReadPageFlash(u_memaddr, (uint8 *) p_ufdata, FLASH_DATA_SIZE);
+  doReadPageFlash(u_memaddr, (uint8_t *) p_ufdata, FLASH_DATA_SIZE);
 }
 
 
-uint8 printMenu() {
+uint8_t printMenu() {
   printf("1 Read 16-bit value from flash.\n");
   printf("2 Write 16-bit value to flash. \n");
   printf(" Enter number (1-2): ");
@@ -95,9 +95,9 @@ uint8 printMenu() {
 }
 
 void doMenu() {
-  uint8 u8_c;
+  uint8_t u8_c;
   char data[32];
-  uint16 u16_val;
+  uint16_t u16_val;
   u8_c = printMenu();
   printf("\n");
   switch(u8_c) {

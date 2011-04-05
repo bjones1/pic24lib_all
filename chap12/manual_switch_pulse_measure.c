@@ -58,8 +58,8 @@ inline void CONFIG_SW1()  {
 
 
 int main (void) {
-  uint16 u16_start, u16_delta;
-  uint32 u32_pulseWidth;
+  uint16_t u16_start, u16_delta;
+  uint32_t u32_pulseWidth;
   configBasic(HELLO_MSG);
   CONFIG_SW1();    //use RB13
   configTimer2();
@@ -69,7 +69,7 @@ int main (void) {
     u16_start = TMR2;
     while (SW1_PRESSED())doHeartbeat();
     u16_delta = TMR2 - u16_start;  //works because using maximum PR2 value
-    u32_pulseWidth = ticksToUs((uint32) u16_delta,getTimerPrescale(T2CONbits));
+    u32_pulseWidth = ticksToUs((uint32_t) u16_delta,getTimerPrescale(T2CONbits));
     printf(" %ld us\n",u32_pulseWidth);
   }
 }

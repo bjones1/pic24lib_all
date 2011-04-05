@@ -51,7 +51,7 @@ inline void CONFIG_SW1()  {
 
 //debounced switch value that is set in the timer ISR
 //any variable written by an ISR should be declared volatile
-volatile uint8 u8_valueSW1 = 1;        //initially high
+volatile uint8_t u8_valueSW1 = 1;        //initially high
 
 //Interrupt Service Routine for Timer3
 void _ISRFAST _T3Interrupt (void) {

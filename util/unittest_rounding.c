@@ -34,15 +34,15 @@
 
 int main (void) {
   float f_x[] = {0.0,10.1, 10.5, 100.99, 0.000001, 0.99999999, 10.49999, 10.500001, 1.3, 1.8};
-  uint16 u16_y;
-  uint32 u32_y;
-  uint8 u8_i;
+  uint16_t u16_y;
+  uint32_t u32_y;
+  uint8_t u8_i;
 
   configBasic(HELLO_MSG);
 
   for (u8_i=0; u8_i< NUM_TESTS; u8_i++) {
-    u32_y = roundFloatToUint32(f_x[u8_i]);
-    u16_y = roundFloatToUint16(f_x[u8_i]);
+    u32_y = roundFloatToUint32_t(f_x[u8_i]);
+    u16_y = roundFloatToUint16_t(f_x[u8_i]);
     printf("f: %3.9f  u16: %d, u32: %ld\n",
            (double) f_x[u8_i], u16_y, u32_y);
   }

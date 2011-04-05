@@ -47,7 +47,7 @@ Problem 8.17
 #define DFF_Q  _RB3
 
 //written in a simple style
-uint8 testDFFSync(uint8 u8_op) {
+uint8_t testDFFSync(uint8_t u8_op) {
   DFF_R =1;
   DFF_S = 1;  //negate
   DFF_CLK = 0;

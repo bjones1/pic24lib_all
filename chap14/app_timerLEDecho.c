@@ -63,7 +63,7 @@
 #define   LED1            _LATB15
 #else
 #define   CONFIG_LED1()   printf("called CONFIG_LED1()\n");
-uint8     LED1 = TRUE;      // LED1 is initially "on"
+uint8_t     LED1 = TRUE;      // LED1 is initially "on"
 #endif
 
 // PROTOTYPEs go here
@@ -133,7 +133,7 @@ ESOS_USER_TIMER( swTimerLED ) {
  * that character by one, and echo it back out the "out" stream
  */
 ESOS_USER_TASK(echo1) {
-  static  uint8           u8_char;
+  static  uint8_t           u8_char;
 
   ESOS_TASK_BEGIN();
   while (TRUE) {

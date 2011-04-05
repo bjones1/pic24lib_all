@@ -37,7 +37,7 @@
  */
 
 //Interrupt Service Routine for INT1
-volatile uint8 u8_bcnt;
+volatile uint8_t u8_bcnt;
 void _ISRFAST _INT1Interrupt (void) {
   _INT1IF = 0;    //clear the interrupt bit
   u8_bcnt++;       //increment the bounce count
@@ -54,7 +54,7 @@ inline void CONFIG_SW1()  {
 
 
 int main (void) {
-  uint8 u8_cnt;
+  uint8_t u8_cnt;
   configBasic(HELLO_MSG);
   /** Configure the switch ***********/
   CONFIG_SW1();
@@ -75,7 +75,7 @@ int main (void) {
     u8_cnt = u8_bcnt;  //copy variable so will not change
     if (u8_cnt != 1) outString("..bounced: ");
     else outString("..no bounce: ");
-    outUint8(u8_cnt);
+    outUint8_t(u8_cnt);
     outString("\n");
   }
 }

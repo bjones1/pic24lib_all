@@ -44,11 +44,11 @@ typedef enum  {
 } INT1STATE;
 
 INT1STATE e_isrINT1State = STATE_WAIT_FOR_FALL_EDGE;
-volatile uint8 u8_captureFlag = 0;
-volatile union32 u32_lastCapture; //union32 declared in pic24_generic.h
+volatile uint8_t u8_captureFlag = 0;
+volatile union32 u32_lastCapture; //union32 declared in stdint.h
 volatile union32 u32_thisCapture;
-volatile int32 u32_delta;
-volatile int32 u32_pulseWidth;
+volatile int32_t u32_delta;
+volatile int32_t u32_pulseWidth;
 
 //Interrupt Service Routine for INT1
 void _ISRFAST _INT1Interrupt (void) {

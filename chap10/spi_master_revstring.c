@@ -79,8 +79,8 @@ void sendStringSPI1(char* psz_s1) {
   SLAVE_DISABLE();
 }
 
-void getStringSPI1(char* psz_s1, uint16 u16_maxCount) {
-  uint16 u16_i = 0;
+void getStringSPI1(char* psz_s1, uint16_t u16_maxCount) {
+  uint16_t u16_i = 0;
   if (!u16_maxCount) return;
   SLAVE_ENABLE();
   do {

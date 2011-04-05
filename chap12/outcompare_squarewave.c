@@ -48,7 +48,7 @@ void  configTimer2(void) {
   TMR2  = 0;       //clear timer2 value
 }
 
-uint16 u16_sqwaveHPeriodTicks;
+uint16_t u16_sqwaveHPeriodTicks;
 void _ISRFAST _OC1Interrupt() {
   _OC1IF = 0;
   OC1R = OC1R + u16_sqwaveHPeriodTicks;

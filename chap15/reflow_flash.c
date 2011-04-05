@@ -42,28 +42,28 @@ const PROFILE profiles[NUM_PROFILES] = {
   {150,100,200,100,250,90,30,90,60, 217}
 };
 
-uint8 u8_currentProfile = 0;
+uint8_t u8_currentProfile = 0;
 
 
 void doCommit(UFDATA* p_ufdata) {
   union32 u_memaddr;
   u_memaddr.u32 = DATA_FLASH_PAGE;
-  doWritePageFlash(u_memaddr, (uint8 *) p_ufdata, FLASH_DATA_SIZE);
+  doWritePageFlash(u_memaddr, (uint8_t *) p_ufdata, FLASH_DATA_SIZE);
 }
 
 void doRead(UFDATA* p_ufdata) {
   union32 u_memaddr;
   u_memaddr.u32 = DATA_FLASH_PAGE;
-  doReadPageFlash(u_memaddr, (uint8 *) p_ufdata, FLASH_DATA_SIZE);
+  doReadPageFlash(u_memaddr, (uint8_t *) p_ufdata, FLASH_DATA_SIZE);
 }
 
-char *getProfileDesc(uint8 u8_p) {
+char *getProfileDesc(uint8_t u8_p) {
   if (u8_p == LEADTIN) return("Lead(40%)/Tin (60%) mix");
   else return("Lead-free");
 }
 
 
-void printProfile (uint8 u8_p) {
+void printProfile (uint8_t u8_p) {
   float f_ramp;
 
   if (u8_p == LEADTIN)
@@ -101,7 +101,7 @@ void printProfile (uint8 u8_p) {
 
 #define SETTLE_TIME 15   //seconds
 
-static inline void DELAY_SECONDS(uint8 u8_s) {
+static inline void DELAY_SECONDS(uint8_t u8_s) {
   while (u8_s) {
     DELAY_MS(1000);
     u8_s--;
@@ -109,8 +109,8 @@ static inline void DELAY_SECONDS(uint8 u8_s) {
 }
 
 void doTempCal(void) {
-  uint8 u8_c, u8_i;
-  uint16 tempC;
+  uint8_t u8_c, u8_i;
+  uint16_t tempC;
 
   u8_currPowerSetting = 0;
   printf("Warning: Oven must be at room temperature and door closed to do calibration.\n");
@@ -146,7 +146,7 @@ void doTempCal(void) {
 }
 
 void printTempCal(void) {
-  uint8 u8_i;
+  uint8_t u8_i;
   printf("\nPower Setting   Temp (C)\n");
   for (u8_i=0; u8_i <= 100; u8_i++) {
     printf("      %d           %u\n",
@@ -154,7 +154,7 @@ void printTempCal(void) {
   }
 }
 
-uint8 printProfileMenu(void) {
+uint8_t printProfileMenu(void) {
   printf("\n1 Print Tin/Lead mix profile\n");
   printf("2 Print Lead-free profile\n");
   printf("3 Print temperature calibration data\n");
@@ -167,7 +167,7 @@ uint8 printProfileMenu(void) {
 
 
 void doProfileMenu(void) {
-  uint8 u8_c;
+  uint8_t u8_c;
 
   do {
     u8_c = printProfileMenu();

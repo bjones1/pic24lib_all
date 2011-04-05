@@ -38,7 +38,7 @@
  * pulse width measurement this is +/- 2 us.
 */
 
-volatile uint16 u16_oflowCount = 0;
+volatile uint16_t u16_oflowCount = 0;
 
 //Interrupt Service Routine for Timer2
 void _ISRFAST _T2Interrupt (void) {
@@ -52,10 +52,10 @@ typedef enum  {
 } ICSTATE;
 
 ICSTATE e_isrICState = STATE_WAIT_FOR_FALL_EDGE;
-volatile uint8 u8_captureFlag = 0;
-volatile uint16 u16_lastCapture;
-volatile uint16 u16_thisCapture;
-volatile uint32 u32_pulseWidth;
+volatile uint8_t u8_captureFlag = 0;
+volatile uint16_t u16_lastCapture;
+volatile uint16_t u16_thisCapture;
+volatile uint32_t u32_pulseWidth;
 
 void _ISRFAST _IC1Interrupt() {
   _IC1IF = 0;

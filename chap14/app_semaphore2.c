@@ -59,7 +59,7 @@
 #define   LED1            _LATB15
 #else
 #define   CONFIG_LED1()   printf("called CONFIG_LED1()\n");
-uint8     LED1 = TRUE;      // LED1 is initially "on"
+uint8_t     LED1 = TRUE;      // LED1 is initially "on"
 #endif
 
 // PROTOTYPEs go here
@@ -100,11 +100,11 @@ ESOS_USER_TASK( __simulated_isr ) {
  */
 
 /*
- * return an uint32 that can be used for a reasonable delay
+ * return an uint32_t that can be used for a reasonable delay
  * should not be too short (~255 ticks) and not too long (~4096 ticks)
  */
-inline uint32 getRandomDelay() {
-  return ((esos_GetRandomUint32() & 0x0FFF)|0x100);
+inline uint32_t getRandomDelay() {
+  return ((esos_GetRandomUint32_t() & 0x0FFF)|0x100);
 }
 
 /*
@@ -144,7 +144,7 @@ ESOS_USER_TIMER( swTimerLED ) {
  * 0.25 - 4.1 seconds)
  */
 ESOS_USER_TASK(task1) {
-  static  uint8           u8_cnt=0;
+  static  uint8_t           u8_cnt=0;
 
   ESOS_TASK_BEGIN();
   while (u8_cnt < 10) {
@@ -169,7 +169,7 @@ ESOS_USER_TASK(task1) {
  * Print out a counter value local to this task
  */
 ESOS_USER_TASK(task2) {
-  static  uint8           u8_cnt=0;
+  static  uint8_t           u8_cnt=0;
 
   ESOS_TASK_BEGIN();
   while (u8_cnt<10) {

@@ -70,8 +70,8 @@ typedef enum  {
 } STATE;
 
 
-volatile uint8 u8_valueSW1  = 1;    //initially high
-volatile uint8 doBlink = 0;
+volatile uint8_t u8_valueSW1  = 1;    //initially high
+volatile uint8_t doBlink = 0;
 volatile STATE e_mystate;
 
 //Interrupt Service Routine for Timer3

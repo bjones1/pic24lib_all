@@ -66,7 +66,7 @@ Illustrates run time self programming of the flash memory
 #define USED_STATUS 0x5A    //arbitrarily chosen, different from FREE_STATUS
 
 typedef struct _REC {   //one record
-  uint8 status;            //indicates if free or used
+  uint8_t status;            //indicates if free or used
   char  data[RECORD_SIZE]; //holds the data
 } REC;
 
@@ -81,7 +81,7 @@ typedef union _UFDATA {
 UFDATA fdata;
 
 void doFormat(UFDATA* p_ufdata) {
-  uint16 u16_i;
+  uint16_t u16_i;
   for (u16_i = 0; u16_i < NUM_RECORDS; u16_i++) {
     p_ufdata->records[u16_i].status = FREE_STATUS;
   }
@@ -90,21 +90,21 @@ void doFormat(UFDATA* p_ufdata) {
 void doCommit(UFDATA* p_ufdata) {
   union32 u_memaddr;
   u_memaddr.u32 = DATA_FLASH_PAGE;
-  doWritePageFlash(u_memaddr, (uint8 *) p_ufdata, FLASH_DATA_SIZE);
+  doWritePageFlash(u_memaddr, (uint8_t *) p_ufdata, FLASH_DATA_SIZE);
 }
 
 void doRead(UFDATA* p_ufdata) {
   union32 u_memaddr;
   u_memaddr.u32 = DATA_FLASH_PAGE;
-  doReadPageFlash(u_memaddr, (uint8 *) p_ufdata, FLASH_DATA_SIZE);
+  doReadPageFlash(u_memaddr, (uint8_t *) p_ufdata, FLASH_DATA_SIZE);
 }
 
-void doDelete(uint16 u16_recnum) {
+void doDelete(uint16_t u16_recnum) {
   fdata.records[u16_recnum].status = FREE_STATUS;
 }
 
 void doPrint(UFDATA* p_ufdata) {
-  uint16 u16_i;
+  uint16_t u16_i;
   for (u16_i = 0; u16_i < NUM_RECORDS; u16_i++) {
     printf("%d: %s, Data: %s\n",
            u16_i, (p_ufdata->records[u16_i].status == FREE_STATUS ? "Free" : "Used"),
@@ -113,7 +113,7 @@ void doPrint(UFDATA* p_ufdata) {
 }
 
 void doInsert(UFDATA* p_ufdata, char* sz_1) {
-  uint16 u16_i, u16_j;
+  uint16_t u16_i, u16_j;
   for (u16_i = 0; u16_i < NUM_RECORDS; u16_i++) {
     if (p_ufdata->records[u16_i].status == FREE_STATUS) {
       u16_j = 0;
@@ -129,7 +129,7 @@ void doInsert(UFDATA* p_ufdata, char* sz_1) {
   }//end for
 }//end function
 
-uint8 printMenu() {
+uint8_t printMenu() {
   printf("1 Format data\n");
   printf("2 Enter one record\n");
   printf("3 Delete a record\n");
@@ -140,9 +140,9 @@ uint8 printMenu() {
 }
 
 void doMenu() {
-  uint8 u8_c;
+  uint8_t u8_c;
   char data[RECORD_SIZE];
-  uint16 u16_recnum;
+  uint16_t u16_recnum;
   u8_c = printMenu();
   printf("\n");
   switch(u8_c) {

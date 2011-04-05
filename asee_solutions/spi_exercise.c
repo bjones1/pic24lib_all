@@ -73,15 +73,15 @@ void configSPI1(void) {
   SPI1STATbits.SPIEN = 1;  //enable SPI mode
 }
 
-void writeConfigDS1722(uint8 u8_i) {
+void writeConfigDS1722(uint8_t u8_i) {
   SLAVE_ENABLE();       //assert chipselect
   ioMasterSPI1(0x80);   //config address
   ioMasterSPI1(u8_i);   //config value
   SLAVE_DISABLE();
 }
 
-uint8 readConfigDS1722() {
-  uint8 u8_i;
+uint8_t readConfigDS1722() {
+  uint8_t u8_i;
 
   SLAVE_ENABLE();       //assert chipselect
   ioMasterSPI1(0x00);   //read config address
@@ -92,8 +92,8 @@ uint8 readConfigDS1722() {
 
 
 
-int16 readTempDS1722() {
-  uint16 u16_lo, u16_hi;
+int16_t readTempDS1722() {
+  uint16_t u16_lo, u16_hi;
   SLAVE_ENABLE();       //assert chipselect
   ioMasterSPI1(0x01);   //LSB address
   u16_lo = ioMasterSPI1(0x00); //read LSByte
@@ -103,8 +103,8 @@ int16 readTempDS1722() {
 }
 
 int main (void) {
-  int16 i16_temp;
-  uint8 u8_status;
+  int16_t i16_temp;
+  uint8_t u8_status;
   float  f_tempC,f_tempF;
 
   configBasic(HELLO_MSG);

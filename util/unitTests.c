@@ -108,7 +108,7 @@ void findRepeatedCommand() {
 /// \name Tests for the receive state machine
 //@{
 
-void sendData(uint8* pu8_data, uint u_len);
+void sendData(uint8_t* pu8_data, uint u_len);
 
 
 /// Sending a normal char shold report that char receivd
@@ -142,7 +142,7 @@ void send0xFF() {
 
 /// Check sending an escaped command
 void sendEscapedCommand() {
-  uint8 au8_data[] = { CMD_TOKEN, ESCAPED_CMD };
+  uint8_t au8_data[] = { CMD_TOKEN, ESCAPED_CMD };
   sendData(au8_data, 2);
 
   ASSERT(isReceiveMachineChar());
@@ -155,7 +155,7 @@ void sendEscapedCommand() {
 /// \param u_len Length (in bytes) of data to be received
 void setupXferData(uint u_index, uint u_len) {
   // A place to store the max amount of data.
-  static uint8 au_data[256];
+  static uint8_t au_data[256];
 
   // Check params
   ASSERT(u_index < NUM_XFER_VARS);
@@ -172,7 +172,7 @@ void setupXferData(uint u_index, uint u_len) {
 void sendOneByteData() {
   // Set up index 0 for 1 byte of data
   setupXferData(0, 1);
-  uint8 au8_data[] = { CMD_TOKEN, 0x00, 0x12 };
+  uint8_t au8_data[] = { CMD_TOKEN, 0x00, 0x12 };
   sendData(au8_data, 3);
 
   ASSERT(isReceiveMachineData());
@@ -185,7 +185,7 @@ void sendOneByteData() {
 void sendFourBytesData() {
   setupXferData(0, 4);
   // 0x03: index 0, length 3 (4 bytes); following are data bytes
-  uint8 au8_data[] = { CMD_TOKEN, 0x03, 0x00, 0x01, 0x02, 0x03 };
+  uint8_t au8_data[] = { CMD_TOKEN, 0x03, 0x00, 0x01, 0x02, 0x03 };
   sendData(au8_data, 6);
 
   ASSERT(isReceiveMachineData());
@@ -202,7 +202,7 @@ void sendFourBytesData() {
 void sendFourBytesCmdTokenData() {
   setupXferData(0, 4);
   // 0x03: index 0, length 3; following are data bytes
-  uint8 au8_data[] = { CMD_TOKEN, 0x03, CMD_TOKEN, ESCAPED_CMD,
+  uint8_t au8_data[] = { CMD_TOKEN, 0x03, CMD_TOKEN, ESCAPED_CMD,
                        CMD_TOKEN, ESCAPED_CMD, CMD_TOKEN, ESCAPED_CMD, CMD_TOKEN, ESCAPED_CMD
                      };
   sendData(au8_data, 10);
@@ -211,7 +211,7 @@ void sendFourBytesCmdTokenData() {
   ASSERT(getReceiveMachineIndex() == 0);
   uint i;
   for (i = 0; i < 4; i++)
-    ASSERT(xferVar[0].pu8_data[i] == ((uint8) CMD_TOKEN));
+    ASSERT(xferVar[0].pu8_data[i] == ((uint8_t) CMD_TOKEN));
 }
 
 
@@ -219,7 +219,7 @@ void sendFourBytesCmdTokenData() {
 /// and data can be received (error recovery works).
 void sendRepeatedCommand() {
   // 0x00: index 0, length 1.
-  uint8 au8_data[] = { CMD_TOKEN, CMD_TOKEN, 0x00, 0xFF };
+  uint8_t au8_data[] = { CMD_TOKEN, CMD_TOKEN, 0x00, 0xFF };
   // Send first three bytes and check for repeated command.
   setupXferData(0, 1);
   sendData(au8_data, 2);
@@ -241,7 +241,7 @@ void sendCommandCmdToken() {
   uint u_index = getVarIndex(CMD_TOKEN);
   uint u_len = getVarLength(CMD_TOKEN);
   setupXferData(u_index, u_len);
-  uint8 au8_data[7] = { CMD_TOKEN, CMD_TOKEN, ESCAPED_CMD };
+  uint8_t au8_data[7] = { CMD_TOKEN, CMD_TOKEN, ESCAPED_CMD };
   uint u;
   for (u = 0; u < u_len; u++)
     au8_data[u + 3] = u;
@@ -261,7 +261,7 @@ void sendRepeatedCommandCmdToken() {
   uint u_index = getVarIndex(CMD_TOKEN);
   uint u_len = getVarLength(CMD_TOKEN);
   setupXferData(u_index, u_len);
-  uint8 au8_data[8] = { CMD_TOKEN, CMD_TOKEN, CMD_TOKEN, ESCAPED_CMD };
+  uint8_t au8_data[8] = { CMD_TOKEN, CMD_TOKEN, CMD_TOKEN, ESCAPED_CMD };
   uint u;
   for (u = 0; u < u_len; u++)
     au8_data[u + 4] = u;
@@ -284,7 +284,7 @@ void sendRepeatedCommandCmdToken() {
 void sendWithTimeout() {
   setupXferData(0, 4);
   // 0x03: index 0, length 3 (4 bytes); following are data bytes
-  uint8 au8_data[] = { CMD_TOKEN, 0x03, 0x00, 0x01, 0x02, 0x03 };
+  uint8_t au8_data[] = { CMD_TOKEN, 0x03, 0x00, 0x01, 0x02, 0x03 };
 
   // Create a timeout at each point in the transmission of the data
   uint u;
@@ -307,7 +307,7 @@ void sendWithTimeout() {
 void sendInterruptedCommand() {
   setupXferData(0, 4);
   // CMD_TOKEN, 0x03: index 0, length 3 (4 bytes)
-  uint8 au8_data[] = { CMD_TOKEN, 0x03, 0x00, CMD_TOKEN, 0x03, 0x00, 0x01, 0x02, 0x03 };
+  uint8_t au8_data[] = { CMD_TOKEN, 0x03, 0x00, CMD_TOKEN, 0x03, 0x00, 0x01, 0x02, 0x03 };
 
   // Send the first command then interrupt it
   sendData(au8_data, 4);
@@ -327,7 +327,7 @@ void sendInterruptedCommand() {
 /// Test sending data to an unspecified index
 void sendToUnspecifiedIndex() {
   // CMD_TOKEN, 0x03: index 0, length 3 (4 bytes)
-  uint8 au8_data[] = { CMD_TOKEN, 0x03 };
+  uint8_t au8_data[] = { CMD_TOKEN, 0x03 };
 
   sendData(au8_data, 1);
   RECEIVE_ERROR re = stepReceiveMachine(au8_data[1]);
@@ -342,7 +342,7 @@ void sendToHighIndex() {
   ASSERT(NUM_XFER_VARS < MAX_NUM_XFER_VARS);
 
   // CMD_TOKEN, 0x03: index NUM_XFER_VARS, length 3 (4 bytes)
-  uint8 au8_data[] = { CMD_TOKEN, (NUM_XFER_VARS << 2) | 0x03 };
+  uint8_t au8_data[] = { CMD_TOKEN, (NUM_XFER_VARS << 2) | 0x03 };
   sendData(au8_data, 1);
   RECEIVE_ERROR re = stepReceiveMachine(au8_data[1]);
   ASSERT(re == ERR_INDEX_TOO_HIGH);
@@ -352,7 +352,7 @@ void sendToHighIndex() {
 void sendWithWrongSize() {
   setupXferData(0, 4);
   // CMD_TOKEN, 0x03: index 0, length 2 (3 bytes)
-  uint8 au8_data[] = { CMD_TOKEN, 0x02 };
+  uint8_t au8_data[] = { CMD_TOKEN, 0x02 };
   sendData(au8_data, 1);
   RECEIVE_ERROR re = stepReceiveMachine(au8_data[1]);
   ASSERT(re == ERR_VAR_SIZE_MISMATCH);
@@ -361,7 +361,7 @@ void sendWithWrongSize() {
 /// Test sending long data to an unspecified index
 void sendLongToUnspecifiedIndex() {
   // CMD_TOKEN, CMD_LONG_VAR, 0x03: index 0, length 3 (4 bytes)
-  uint8 au8_data[] = { CMD_TOKEN, CMD_LONG_VAR, 0x03 };
+  uint8_t au8_data[] = { CMD_TOKEN, CMD_LONG_VAR, 0x03 };
 
   sendData(au8_data, 2);
   RECEIVE_ERROR re = stepReceiveMachine(au8_data[2]);
@@ -376,7 +376,7 @@ void sendLongToHighIndex() {
   ASSERT(NUM_XFER_VARS < MAX_NUM_XFER_VARS);
 
   // CMD_TOKEN, CMD_LONG_VAR, index NUM_XFER_VARS, length 3 (4 bytes)
-  uint8 au8_data[] = { CMD_TOKEN, CMD_LONG_VAR, NUM_XFER_VARS, 0x03 };
+  uint8_t au8_data[] = { CMD_TOKEN, CMD_LONG_VAR, NUM_XFER_VARS, 0x03 };
   sendData(au8_data, 2);
   RECEIVE_ERROR re = stepReceiveMachine(au8_data[2]);
   ASSERT(re == ERR_INDEX_TOO_HIGH);
@@ -386,7 +386,7 @@ void sendLongToHighIndex() {
 void sendLongWithWrongSize() {
   setupXferData(0, 4);
   // CMD_TOKEN, CMD_LONG_BAR, index 0, length 2 (3 bytes)
-  uint8 au8_data[] = { CMD_TOKEN, CMD_LONG_VAR, 0, 0x02 };
+  uint8_t au8_data[] = { CMD_TOKEN, CMD_LONG_VAR, 0, 0x02 };
   sendData(au8_data, 3);
   RECEIVE_ERROR re = stepReceiveMachine(au8_data[3]);
   ASSERT(re == ERR_VAR_SIZE_MISMATCH);
@@ -398,12 +398,12 @@ void sendLongData() {
 
   setupXferData(0, 256);
   // CMD_TOKEN, CMD_LONG_VAR, index 0, length 0xFF = 256 bytes
-  uint8 au8_data[256 + 5] = { CMD_TOKEN, CMD_LONG_VAR, 0, 0xFF };
+  uint8_t au8_data[256 + 5] = { CMD_TOKEN, CMD_LONG_VAR, 0, 0xFF };
   // Fill array with data, escaping the CMD_TOKEN.
   // Do horrible casts (to 8 bit, then to uint) to avoid sign-extension
   // problems that make this loop run too far (0xAA < 0, without a cast
   // is sign-extended to 0xFFFFFFAA, which is a *NOT* 0x00AA).
-  for (i = 0; i <= ((uint) ((uint8) CMD_TOKEN)); i++)
+  for (i = 0; i <= ((uint) ((uint8_t) CMD_TOKEN)); i++)
     au8_data[i + 4] = i;
   au8_data[i + 4] = ESCAPED_CMD;
   for (; i < 256; i++)
@@ -420,7 +420,7 @@ void sendReadOnly() {
   // Set up index 0 for 1 byte of data, read-only
   setupXferData(0, 1);
   assignBit(0, FALSE);
-  uint8 au8_data[] = { CMD_TOKEN, 0x00 };
+  uint8_t au8_data[] = { CMD_TOKEN, 0x00 };
   sendData(au8_data, 1);
 
   RECEIVE_ERROR re = stepReceiveMachine(au8_data[1]);
@@ -432,7 +432,7 @@ void sendReadOnly() {
 void sendVarSpecPic() {
   // Set up index 0 for 1 byte of data, read-only
   setupXferData(0, 1);
-  uint8 au8_data[] = { CMD_TOKEN, CMD_SEND_ONLY };
+  uint8_t au8_data[] = { CMD_TOKEN, CMD_SEND_ONLY };
   sendData(au8_data, 1);
 
   RECEIVE_ERROR re = stepReceiveMachine(au8_data[1]);
@@ -449,7 +449,7 @@ void sendVarSpecPic() {
 /// Test sending a variable specification
 void sendVarSpec() {
   //                                                   index, length, size,   format,   name,       description
-  uint8 au8_data[17] = CMD_TOKEN_STR CMD_SEND_ONLY_STR "\x00" "\x0C"  "\x03"  "%x\x00"  "test\x00"  "ing";
+  uint8_t au8_data[17] = CMD_TOKEN_STR CMD_SEND_ONLY_STR "\x00" "\x0C"  "\x03"  "%x\x00"  "test\x00"  "ing";
   sendData(au8_data, 17);
   ASSERT(isReceiveMachineSpec());
   ASSERT(xferVar[0].u8_size == 3);
@@ -464,7 +464,7 @@ void sendVarSpec() {
 void resendVarSpec() {
   sendVarSpec();
   //                                                   index, length, size,   format,   name,       description
-  uint8 au8_data[17] = CMD_TOKEN_STR CMD_SEND_ONLY_STR "\x00" "\x0C"  "\xFF"  "%y\x00"  "book\x00"  "let";
+  uint8_t au8_data[17] = CMD_TOKEN_STR CMD_SEND_ONLY_STR "\x00" "\x0C"  "\xFF"  "%y\x00"  "book\x00"  "let";
   sendData(au8_data, 17);
   ASSERT(isReceiveMachineSpec());
   ASSERT(xferVar[0].u8_size == 255);
@@ -478,7 +478,7 @@ void resendVarSpec() {
 /// Test sending a variable specification
 void sendWriteableVarSpec() {
   //                                                          index, length, size,   format,   name,       description
-  uint8 au8_data[17] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x0C"  "\x03"  "%x\x00"  "test\x00"  "ing";
+  uint8_t au8_data[17] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x0C"  "\x03"  "%x\x00"  "test\x00"  "ing";
   sendData(au8_data, 17);
   ASSERT(isReceiveMachineSpec());
   ASSERT(xferVar[0].u8_size == 3);
@@ -492,7 +492,7 @@ void sendWriteableVarSpec() {
 /// Test sending a variable specification with no strings
 void sendEmptyVarSpec() {
   //                                                         index, length, size
-  uint8 au8_data[6] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x00"  "\x03";
+  uint8_t au8_data[6] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x00"  "\x03";
   sendData(au8_data, 5);
   ASSERT(isReceiveMachineSpec());
   ASSERT(xferVar[0].u8_size == 3);
@@ -506,7 +506,7 @@ void sendEmptyVarSpec() {
 /// Test sending a variable specification with only a format
 void sendFormatOnlyVarSpec() {
   //                                                         index, length, size,  format
-  uint8 au8_data[8] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x03"  "\x03" "%x";
+  uint8_t au8_data[8] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x03"  "\x03" "%x";
   sendData(au8_data, 8);
   ASSERT(isReceiveMachineSpec());
   ASSERT(xferVar[0].u8_size == 3);
@@ -520,7 +520,7 @@ void sendFormatOnlyVarSpec() {
 /// Test sending a variable specification with only a format
 void sendNameOnlyVarSpec() {
   //                                                          index, length, size, format, name
-  uint8 au8_data[11] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x06" "\x03" "\x00"  "test";
+  uint8_t au8_data[11] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x06" "\x03" "\x00"  "test";
   sendData(au8_data, 11);
   ASSERT(isReceiveMachineSpec());
   ASSERT(xferVar[0].u8_size == 3);
@@ -536,7 +536,7 @@ void sendVarSpecAndData() {
   sendVarSpec();
 
   // 0x03: index 0, length 3 (4 bytes); following are data bytes
-  uint8 au8_data[] = { CMD_TOKEN, 0x03, 0x00, 0x01, 0x02, 0x03 };
+  uint8_t au8_data[] = { CMD_TOKEN, 0x03, 0x00, 0x01, 0x02, 0x03 };
   sendData(au8_data, 6);
 
   ASSERT(isReceiveMachineData());
@@ -549,7 +549,7 @@ void sendVarSpecAndData() {
 /// Run a sequence of characters through the receive state machine,
 /// verifying that nothing is received until the final character
 /// and that no errors occurred.
-void sendData(uint8* pu8_data, uint u_len) {
+void sendData(uint8_t* pu8_data, uint u_len) {
   while (u_len--) {
     RECEIVE_ERROR re = stepReceiveMachine(*pu8_data++);
     ASSERT(re == ERR_NONE);
@@ -569,7 +569,7 @@ static size_t st_outCharLen = 0;
 static size_t st_outCharIndex = 0;
 
 /// A pointer to an array containing the expected characters to be output.
-static uint8* au8_outCharData = NULL;
+static uint8_t* au8_outCharData = NULL;
 
 /// Reset all the OUT_CHAR associated data (the variables above).
 void clearOutChar() {
@@ -583,7 +583,7 @@ void clearOutChar() {
 #ifdef __cplusplus
 extern "C"
 #endif
-void testOutChar(uint8 c) {
+void testOutChar(uint8_t c) {
   ASSERT(au8_outCharData != NULL);
   ASSERT(st_outCharIndex < st_outCharLen);
   ASSERT(au8_outCharData[st_outCharIndex++] == c);
@@ -636,7 +636,7 @@ void testSendToReadOnly() {
 #endif
 
 /// A macro to send a variable and check the resulting output
-void checkSendVar(uint8 u8_index, uint u_len, uint8* au8_data) {
+void checkSendVar(uint8_t u8_index, uint u_len, uint8_t* au8_data) {
   au8_outCharData = au8_data;
   st_outCharLen = u_len;
   sendVar(u8_index);
@@ -650,7 +650,7 @@ void testSendOneByteVar() {
   // Assign data
   xferVar[0].pu8_data[0] = 0;
   // Expected transmission
-  uint8 au8_data[3] = { CMD_TOKEN, 0x00, 0x00 };
+  uint8_t au8_data[3] = { CMD_TOKEN, 0x00, 0x00 };
   checkSendVar(0, 3, au8_data);
 }
 
@@ -661,7 +661,7 @@ void testSendOneEscapedByteVar() {
   // Assign data
   xferVar[0].pu8_data[0] = CMD_TOKEN;
   // Expected transmission
-  uint8 au8_data[4] = { CMD_TOKEN, 0, CMD_TOKEN, ESCAPED_CMD };
+  uint8_t au8_data[4] = { CMD_TOKEN, 0, CMD_TOKEN, ESCAPED_CMD };
   checkSendVar(0, 4, au8_data);
 }
 
@@ -674,7 +674,7 @@ void testSendFourByteVar() {
   for (u_i = 0; u_i < 4; u_i++)
     xferVar[0].pu8_data[u_i] = u_i;
   // Expected transmission
-  uint8 au8_data[6] = { CMD_TOKEN, 0x03, 0x00, 0x01, 0x02, 0x03 };
+  uint8_t au8_data[6] = { CMD_TOKEN, 0x03, 0x00, 0x01, 0x02, 0x03 };
   checkSendVar(0, 6, au8_data);
 }
 
@@ -687,11 +687,11 @@ void testSend256ByteVar() {
   for (u_i = 0; u_i < 256; u_i++)
     xferVar[0].pu8_data[u_i] = u_i;
   // Expected transmission
-  uint8 au8_data[261] = { CMD_TOKEN, CMD_LONG_VAR, 0x00, 0xFF };
+  uint8_t au8_data[261] = { CMD_TOKEN, CMD_LONG_VAR, 0x00, 0xFF };
   // Do horrible casts (to 8 bit, then to uint) to avoid sign-extension
   // problems that make this loop run too far (0xAA < 0, without a cast
   // is sign-extended to 0xFFFFFFAA, which is a *NOT* 0x00AA).
-  for (u_i = 0; u_i <= ((uint) ((uint8) CMD_TOKEN)); u_i++)
+  for (u_i = 0; u_i <= ((uint) ((uint8_t) CMD_TOKEN)); u_i++)
     au8_data[u_i + 4] = u_i;
   au8_data[u_i + 4] = ESCAPED_CMD;
   for (; u_i < 256; u_i++)
@@ -702,7 +702,7 @@ void testSend256ByteVar() {
 /// Specify an index that's too high
 void testSpecifyIndexTooHigh() {
   // Dummy buffer to hold variable data
-  uint8 au8_buf[1];
+  uint8_t au8_buf[1];
   REQUIRE_ASSERT(specifyVar(NUM_XFER_VARS + 1, au8_buf, 1, TRUE, "", "", ""),
                  "specifyVar:indexTooHigh");
 }
@@ -716,7 +716,7 @@ void testSpecifyNullData() {
 /// Specify with an invalid size
 void testSpecifyInvalidSize() {
   // Dummy buffer to hold variable data
-  uint8 au8_buf[1];
+  uint8_t au8_buf[1];
   REQUIRE_ASSERT(specifyVar(0, au8_buf, 0, TRUE, "", "", ""),
                  "specifyVar:invalidSize");
   REQUIRE_ASSERT(specifyVar(0, au8_buf, 257, TRUE, "", "", ""),
@@ -726,9 +726,9 @@ void testSpecifyInvalidSize() {
 /// Minimally specify a variable
 void testSpecifyMinimalVar() {
   // Dummy buffer to hold variable data
-  uint8 au8_buf[1];
+  uint8_t au8_buf[1];
   // Expected transmission
-  uint8 au8_data[5 + 3] = { CMD_TOKEN, CMD_SEND_RECEIVE_VAR, 0 /* u_varIndex */,
+  uint8_t au8_data[5 + 3] = { CMD_TOKEN, CMD_SEND_RECEIVE_VAR, 0 /* u_varIndex */,
                             3 /* length of rest - 1 */, /* var size - 1 */ 0, /* data */ 0, 0, 0
                           };
   // Test it out
@@ -747,9 +747,9 @@ void testSpecifyMinimalVar() {
 /// Also check a send-only variable.
 void testSpecifyLongFormat() {
   // Dummy buffer to hold variable data
-  uint8 au8_buf[1];
+  uint8_t au8_buf[1];
   // Expected transmission
-  uint8 au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
+  uint8_t au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
                               255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */
                             };
   uint u_i;
@@ -778,9 +778,9 @@ void testSpecifyLongFormat() {
 /// Also check a send-only variable.
 void testSpecifyLongName() {
   // Dummy buffer to hold variable data
-  uint8 au8_buf[1];
+  uint8_t au8_buf[1];
   // Expected transmission
-  uint8 au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
+  uint8_t au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
                               255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */ 0
                             };
   uint u_i;
@@ -809,9 +809,9 @@ void testSpecifyLongName() {
 /// Also check a send-only variable.
 void testSpecifyLongDesc() {
   // Dummy buffer to hold variable data
-  uint8 au8_buf[1];
+  uint8_t au8_buf[1];
   // Expected transmission
-  uint8 au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
+  uint8_t au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
                               255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */ 0, 0
                             };
   uint u_i;

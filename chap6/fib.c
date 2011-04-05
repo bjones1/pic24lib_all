@@ -1,8 +1,8 @@
 #include "pic24_all.h"
 #include <stdio.h>
 
-uint16 fib (uint16 n) {
-  uint16 f1;
+uint16_t fib (uint16_t n) {
+  uint16_t f1;
 
   if (n == 0) return 0;
   if (n == 1) return 1;
@@ -13,7 +13,7 @@ uint16 fib (uint16 n) {
 
 main (void) {
 
-  uint16  k,j;
+  uint16_t  k,j;
   j = 13;
   k = fib(j);
 
