@@ -239,8 +239,8 @@ Output u16_x as decimal value.
 */
 void outUint16_tDecimal( uint16_t u16_x ) {
   static const uint16_t  u16_d[]= {50000, 30000, 20000, 10000, 5000, 3000, 2000, 1000, \
-                                 500, 300, 200, 100, 50, 30, 20, 10, 5, 3, 2, 1
-                                };
+                                   500, 300, 200, 100, 50, 30, 20, 10, 5, 3, 2, 1
+                                  };
   static const uint8_t   u8_f[]= {5, 3, 2, 1 };
 
   uint8_t     u8_i;
