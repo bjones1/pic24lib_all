@@ -98,7 +98,7 @@ CMD_OUTPUT stepCommandFindMachine(char c_inChar, char* c_outChar) {
 
 
 XFER_VAR xferVar[NUM_XFER_VARS];
-uint8 au8_xferVarWriteable[NUM_XFER_VARS/8 + ((NUM_XFER_VARS % 8) > 0)];
+uint8_t au8_xferVarWriteable[NUM_XFER_VARS/8 + ((NUM_XFER_VARS % 8) > 0)];
 
 
 /// \name Receive state machine
@@ -210,8 +210,8 @@ uint getVarLength(char c_cmd) {
  *  \return A pointer to the data corresponding to the index if the index
  *          is valid, or NULL if an error occurred.
  */
-static uint8* validateIndex() {
-  uint8* pu8_data = NULL;
+static uint8_t* validateIndex() {
+  uint8_t* pu8_data = NULL;
 
   // Check that the index exists
   if (u_index >= NUM_XFER_VARS) {
@@ -247,7 +247,7 @@ void assignBit(uint u_index, BOOL b_bitVal) {
   // Determine which byte this bit lives in
   uint u_byteIndex = u_index / 8;
   // Create a bit mask for this bit
-  uint8 u8_mask = 1 << (u_index % 8);
+  uint8_t u8_mask = 1 << (u_index % 8);
   // Set or clear it
   if (b_bitVal)
     au8_xferVarWriteable[u_byteIndex] |= u8_mask;
@@ -259,7 +259,7 @@ BOOL isVarWriteable(uint u_index) {
   // Determine which byte this bit lives in
   uint u_byteIndex = u_index / 8;
   // Create a bit mask for this bit
-  uint8 u8_mask = 1 << (u_index % 8);
+  uint8_t u8_mask = 1 << (u_index % 8);
   // Read it
   return (au8_xferVarWriteable[u_byteIndex] & u8_mask) != 0;
 }
@@ -283,7 +283,7 @@ static BOOL validateLength(uint u_varLength) {
 #ifndef __PIC__
 /// Temporary storage for a variable spec being received, with
 /// enough additional space to terminate 3 unterminated strings for safety.
-static uint8 au8_varSpecData[256 + 3];
+static uint8_t au8_varSpecData[256 + 3];
 
 /// The length of the var spec data
 static uint u_specLength;
@@ -309,7 +309,7 @@ static void parseVarSpec() {
   // the size stored is the actual size minus one!
   u_size = pXferVar->u8_size = au8_varSpecData[0];
   u_size++;
-  pXferVar->pu8_data = (uint8*) malloc(sizeof(uint8)*u_size);
+  pXferVar->pu8_data = (uint8_t*) malloc(sizeof(uint8_t)*u_size);
 
   // Force all three strings to be null-terminated.
   ASSERT(u_specLength + 2 < sizeof(au8_varSpecData));
@@ -323,21 +323,21 @@ static void parseVarSpec() {
   pXferVar->psz_format = (char*) malloc(sizeof(char)*st_len);
   strcpy(pXferVar->psz_format, psz_s);
   psz_s += st_len;
-  ASSERT(((uint8*) psz_s) < au8_varSpecData + sizeof(au8_varSpecData));
+  ASSERT(((uint8_t*) psz_s) < au8_varSpecData + sizeof(au8_varSpecData));
 
   // Copy the name string of the variable
   st_len = strlen(psz_s) + 1;
   pXferVar->psz_name = (char*) malloc(sizeof(char)*st_len);
   strcpy(pXferVar->psz_name, psz_s);
   psz_s += st_len;
-  ASSERT(((uint8*) psz_s) < au8_varSpecData + sizeof(au8_varSpecData));
+  ASSERT(((uint8_t*) psz_s) < au8_varSpecData + sizeof(au8_varSpecData));
 
   // Copy the description string of the variable
   st_len = strlen(psz_s) + 1;
   pXferVar->psz_desc = (char*) malloc(sizeof(char)*st_len);
   strcpy(pXferVar->psz_desc, psz_s);
   psz_s += st_len;
-  ASSERT(((uint8*) psz_s) < au8_varSpecData + sizeof(au8_varSpecData));
+  ASSERT(((uint8_t*) psz_s) < au8_varSpecData + sizeof(au8_varSpecData));
 }
 #endif
 
@@ -361,7 +361,7 @@ RECEIVE_ERROR stepReceiveMachine(char c_inChar) {
   // Bytes of a variable that still need to be read
   static uint u_varLength;
   // A pointer which variable data is read into
-  static uint8* pu8_data = NULL;
+  static uint8_t* pu8_data = NULL;
 #ifndef __PIC__
   // The last command received
   static char c_lastCommand;
@@ -553,9 +553,9 @@ RECEIVE_ERROR stepReceiveMachine(char c_inChar) {
       //  u_varLength = ((uint) c_outChar) + 1;
       // doesn't work:  C first converts c_outChar to a int, then from that to
       // a uint. Therefore, if c_outChar < 0, sign extension occurs, which is
-      // incorrect. The syntax below first converts to a uint8 then grows that
+      // incorrect. The syntax below first converts to a uint8_t then grows that
       // to a uint to guarantee zero extension rather than sign extension.
-      u_varLength = ((uint) ((uint8) c_outChar)) + 1;
+      u_varLength = ((uint) ((uint8_t) c_outChar)) + 1;
       // Validate it only if this isn't a variable spec
       if (!B_IS_SPEC && !validateLength(u_varLength))
         break;

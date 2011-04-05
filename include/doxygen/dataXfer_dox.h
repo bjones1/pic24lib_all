@@ -51,7 +51,7 @@ enum { U16_NUMCHARS_NDX, C_NDX };
 
 int main(void) {
   char c;
-  uint16 u16_numChars = 0;
+  uint16_t u16_numChars = 0;
 
   // Initialize
   configBasic(HELLO_MSG);
@@ -94,7 +94,7 @@ int main(void) {
  *    errors onto the PC. Timeouts on the PIC and PC help spot errors. The
  *    PIC reports errors via text messages, which flow through to the PC.
  *  - Reasonably efficient (> 100 Hz). Two bytes of overhead per variable (start, type).
- *  - Minimal PIC memory requirements: one pointer, one uint8, one bit per variable.
+ *  - Minimal PIC memory requirements: one pointer, one uint8_t, one bit per variable.
  *  - Can send/receive data in any order (not a fixed sequence): sendVar
  *    in any order, receiveVar receives any var (or even a non-protocol
  *    character, to make interaction via a menu work)

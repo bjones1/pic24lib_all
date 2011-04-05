@@ -42,7 +42,7 @@
 #define _PIC24_SERIAL_H_
 
 #include "pic24_libconfig.h"
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_chip.h"
 
 
@@ -53,20 +53,20 @@
 
 
 
-uint8 inChar(void);  //blocking single character input
+uint8_t inChar(void);  //blocking single character input
 void outString(const char* psz_s);
-uint16 inString (char *psz_buff, int16 u16_maxCount);
-uint16 inStringEcho (char *psz_buff, int16 u16_maxCount);
-void outChar(uint8 u8_c);
-void outUint8NoLeader (uint8 u8_x);
-void outUint8 (uint8 u8_x);
-void outUint16(uint16 u16_x);
-void outUint32(uint32 u32_x);
-void outUint8Decimal(uint8 u8_x);
-void outUint16Decimal(uint16 u16_x);
-uint8 isCharReady(void); //determine if character is available to be read
+uint16_t inString (char *psz_buff, int16_t u16_maxCount);
+uint16_t inStringEcho (char *psz_buff, int16_t u16_maxCount);
+void outChar(uint8_t u8_c);
+void outUint8_tNoLeader (uint8_t u8_x);
+void outUint8_t (uint8_t u8_x);
+void outUint16_t(uint16_t u16_x);
+void outUint32_t(uint32_t u32_x);
+void outUint8_tDecimal(uint8_t u8_x);
+void outUint16_tDecimal(uint16_t u16_x);
+uint8_t isCharReady(void); //determine if character is available to be read
 
-uint8 inCharEcho(void);
-void configDefaultUART(uint32 u32_baudRate);
+uint8_t inCharEcho(void);
+void configDefaultUART(uint32_t u32_baudRate);
 
 #endif

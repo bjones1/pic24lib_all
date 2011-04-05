@@ -108,9 +108,9 @@ enum ALLOWED_HANDLES {
 
 struct {
   void (*pfnv_outChar)(); // pointers to functions returning void need casts when set (why?)
-  uint8 (*pfn_inChar)();
-  uint16 u16_read_access;
-  uint16 u16_write_access;
+  uint8_t (*pfn_inChar)();
+  uint16_t u16_read_access;
+  uint16_t u16_write_access;
 } FILES[MAX_ALLOWED_HANDLES] = {
   { 0, 0 }, //stdin
   { 0, 0 }, //stdout
@@ -140,7 +140,7 @@ struct {
 *\return \em SUCCESS or \em FAIL.
 *
 */
-static int16 stdioOpen(void) {
+static int16_t stdioOpen(void) {
 #if (NUM_UART_MODS >= 1)
   if (__C30_UART == 1) {
     FILES[HANDLE_STDERR].pfnv_outChar = (void *)&outChar1;
@@ -214,8 +214,8 @@ static int16 stdioOpen(void) {
 int _LIBC_FUNCTION
 open(const char *name, int access, int mode) {
   enum ALLOWED_HANDLES ie_handle;
-  uint16 u16_masked_access;
-  uint16 u16_set_access;
+  uint16_t u16_masked_access;
+  uint16_t u16_set_access;
 
   switch (name[4]) { // Expedient - name[4] is unique for the allowed file names
     case 'n': //stdin
@@ -293,7 +293,7 @@ open(const char *name, int access, int mode) {
 */
 int _LIBC_FUNCTION
 read(int handle, void *buffer, unsigned int len) {
-  uint16 u16_char_count;
+  uint16_t u16_char_count;
 
   if(!RANGECK_HANDLE(handle)) return FAIL; // invalid handle
   if ((handle == HANDLE_STDIN) && !(FILES[HANDLE_STDIN].u16_read_access & ACCESS_SET_OPEN)) {
@@ -331,7 +331,7 @@ read(int handle, void *buffer, unsigned int len) {
 */
 int _LIBC_FUNCTION
 write(int handle, void *buffer, unsigned int len) {
-  uint16 u16_char_count;
+  uint16_t u16_char_count;
 
   if(!RANGECK_HANDLE(handle)) return FAIL; // invalid handle
   if ((handle == HANDLE_STDOUT) && !(FILES[HANDLE_STDOUT].u16_write_access & ACCESS_SET_OPEN)) {

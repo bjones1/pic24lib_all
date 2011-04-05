@@ -65,7 +65,7 @@ int main(void) {
  *   - A single header file to include all the files below,
  *     in pic24_all.h
  *   - Delay routines in pic24_delay.h
- *   - Definition of generic data types in pic24_generic.h
+ *   - Definition of generic data types in stdint.h
  *   - Setup of IO ports in pic24_ports.h
  *   - Unit testing / assertions, in pic24_unittest.h
  *   - Miscellanous utilities in pic24_util.h

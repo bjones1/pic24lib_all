@@ -33,6 +33,7 @@
  *  for suggestions on improving these functions.
  */
 
+#include "pic24_generic.h"
 #include "pic24_flash.h"
 #include "pic24_chip.h"
 #include "pic24_unittest.h"
@@ -46,7 +47,7 @@ Write table latch with address \em u16_addrhi:u16_addrlo, data: u16_wordhi:u16_w
 \param u16_wordlo lower data word
 */
 //doWriteLatch ;W0=TBLPAG,W1=Wn,W2=WordHi,W3=WordLo - no return values
-void doWriteLatchFlash(uint16 u16_addrhi, uint16 u16_addrlo, uint16 u16_wordhi, uint16 u16_wordlo) {
+void doWriteLatchFlash(uint16_t u16_addrhi, uint16_t u16_addrlo, uint16_t u16_wordhi, uint16_t u16_wordlo) {
   TBLPAG = u16_addrhi;
   __builtin_tblwtl(u16_addrlo,u16_wordlo); //equivalent to asm("	tblwtl W3,[W1]")
   __builtin_tblwth(u16_addrlo,u16_wordhi); //equivalent to asm("	tblwth W2,[W1]")
@@ -56,10 +57,10 @@ void doWriteLatchFlash(uint16 u16_addrhi, uint16 u16_addrlo, uint16 u16_wordhi, 
 Read table latch from address \em u16_addrhi:u16_addrlo
 \param u16_addrhi upper word of flash memory address
 \param u16_addrlo lower word of flash memory address
-\return 24-bit data value returned in \em uint32 type
+\return 24-bit data value returned in \em uint32_t type
 */
 //_ReadLatch: ;W0=TBLPAG,W1=Wn - data in W1:W0
-uint32 doReadLatchFlash(uint16 u16_addrhi, uint16 u16_addrlo) {
+uint32_t doReadLatchFlash(uint16_t u16_addrhi, uint16_t u16_addrlo) {
   union32 u32_a;
   TBLPAG = u16_addrhi;
   u32_a.u16.ls16 = __builtin_tblrdl(u16_addrlo);   //equivalent to asm("	tblrdl [W1],W0")
@@ -73,8 +74,8 @@ Erases a flash page at \em u16_addrhi:u16_addrlo flash address
 \param u16_addrhi upper word of flash memory address
 \param u16_addrlo lower word of flash memory address
 */
-void doErasePageFlash (uint16 u16_addrhi, uint16 u16_addrlo) {
-  uint16 u16_save_SR, u16_save_TBLPAG;
+void doErasePageFlash (uint16_t u16_addrhi, uint16_t u16_addrlo) {
+  uint16_t u16_save_SR, u16_save_TBLPAG;
 
 // preserve the SR and TBLPAG registers
   u16_save_SR = SR;
@@ -103,7 +104,7 @@ Write current flash row
 */
 
 void doWriteRowFlash() {
-  uint16 u16_save_SR;
+  uint16_t u16_save_SR;
   // save SR
   u16_save_SR = SR;
   // disable interrupts
@@ -128,10 +129,10 @@ from \em  pu8_data to program memory.
 (should be evenly divisible by 64*3)
 */
 
-void doWritePageFlash(union32 u32_pmemAddress, uint8* pu8_data, uint16 u16_len) {
-  uint16 u16_byteCnt;
+void doWritePageFlash(union32 u32_pmemAddress, uint8_t* pu8_data, uint16_t u16_len) {
+  uint16_t u16_byteCnt;
   union32 u32_a;
-  uint16 u16_ICnt, u16_numInstructions;
+  uint16_t u16_ICnt, u16_numInstructions;
 
   ASSERT(u16_len <= FLASH_PAGEBYTES);
   doErasePageFlash(u32_pmemAddress.u16.ms16, u32_pmemAddress.u16.ls16);  //erase page
@@ -161,8 +162,8 @@ in buffer \em  pu8_data
 \param pu8_data  pointer to byte data to write
 \param u16_len number of bytes to read
 */
-void doReadPageFlash(union32 u32_pmemAddress, uint8* pu8_data, uint16 u16_len) {
-  uint16 u16_byteCnt;
+void doReadPageFlash(union32 u32_pmemAddress, uint8_t* pu8_data, uint16_t u16_len) {
+  uint16_t u16_byteCnt;
   union32 u32_a;
 
   ASSERT(u16_len <= FLASH_PAGEBYTES);

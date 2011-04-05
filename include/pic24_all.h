@@ -46,7 +46,7 @@
 #include "pic24_libconfig.h"
 
 // Include PIC24 support library headers
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_unittest.h"
 #include "pic24_clockfreq.h"
 #include "pic24_delay.h"

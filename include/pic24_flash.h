@@ -36,7 +36,7 @@
 #ifndef _PIC24_FLASH_H_
 #define _PIC24_FLASH_H_
 
-#include "pic24_generic.h"
+#include "stdint.h"
 
 #define FLASH_ROWSIZE    64       //in number of instructions
 #define FLASH_ROWS_PER_PAGE 8
@@ -45,12 +45,12 @@
 #define FLASH_PAGEBYTES (FLASH_PAGEINSTR*3)  //total bytes is FLASH_PAGEINSTR *3 = 1536
 #define FLASH_ROWBYTES  (FLASH_ROWSIZE*3)    //bytes in one row
 
-void doWriteLatchFlash(uint16 u16_addrhi, uint16 u16_addrlo, uint16 u16_wordhi, uint16 u16_wordlo);
-uint32 doReadLatchFlash(uint16 u16_addrhi, uint16 u16_addrlo);
-void doEraseFlash (uint16 u16_addrhi, uint16 u16_addrlo);
+void doWriteLatchFlash(uint16_t u16_addrhi, uint16_t u16_addrlo, uint16_t u16_wordhi, uint16_t u16_wordlo);
+uint32_t doReadLatchFlash(uint16_t u16_addrhi, uint16_t u16_addrlo);
+void doEraseFlash (uint16_t u16_addrhi, uint16_t u16_addrlo);
 void doWriteFlash();
-void doWritePageFlash(union32 u32_pmemAddress, uint8* pu8_data, uint16 u16_len);
-void doReadPageFlash(union32 u32_pmemAddress, uint8* pu8_data, uint16 u16_len);
+void doWritePageFlash(union32 u32_pmemAddress, uint8_t* pu8_data, uint16_t u16_len);
+void doReadPageFlash(union32 u32_pmemAddress, uint8_t* pu8_data, uint16_t u16_len);
 
 
 #endif

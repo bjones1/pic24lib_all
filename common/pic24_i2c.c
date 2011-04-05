@@ -48,10 +48,10 @@
 Configure and enable the I2C1 module for operation at \em u16_FkHZ kHZ clock speed.
 \param u16_FkHZ specifies clock speed in kHZ
 */
-void configI2C1(uint16 u16_FkHZ) {
-  uint32 u32_temp;
+void configI2C1(uint16_t u16_FkHZ) {
+  uint32_t u32_temp;
 
-  u32_temp = (FCY/1000L)/((uint32) u16_FkHZ);
+  u32_temp = (FCY/1000L)/((uint32_t) u16_FkHZ);
   u32_temp = u32_temp - FCY/10000000L - 1;
   I2C1BRG = u32_temp;
   I2C1CONbits.I2CEN = 1;
@@ -61,7 +61,7 @@ void configI2C1(uint16 u16_FkHZ) {
 Operation: Perform an I2C start operation.
 */
 void startI2C1(void) {
-  uint8 u8_wdtState;
+  uint8_t u8_wdtState;
 
   sz_lastTimeoutError = "I2C1 Start";
   u8_wdtState = _SWDTEN;  //save WDT state
@@ -77,7 +77,7 @@ void startI2C1(void) {
 Operation: Perform an I2C repeated start operation.
 */
 void rstartI2C1(void) { // repeated start
-  uint8 u8_wdtState;
+  uint8_t u8_wdtState;
 
   sz_lastTimeoutError = "I2C1 RStart";
   u8_wdtState = _SWDTEN;  //save WDT state
@@ -93,7 +93,7 @@ void rstartI2C1(void) { // repeated start
 Operation: Perform an I2C stop operation.
 */
 void stopI2C1(void) {
-  uint8 u8_wdtState;
+  uint8_t u8_wdtState;
 
   sz_lastTimeoutError = "I2C1 Stop";
   u8_wdtState = _SWDTEN;  //save WDT state
@@ -109,8 +109,8 @@ void stopI2C1(void) {
 Operation: Send one byte (\em u8_val), if NAK is returned use reportError() function to save error and do software reset.
 \param u8_val byte to send
 */
-void putI2C1(uint8 u8_val) {
-  uint8 u8_wdtState;
+void putI2C1(uint8_t u8_val) {
+  uint8_t u8_wdtState;
 
   sz_lastTimeoutError = "I2C1 Put";
   u8_wdtState = _SWDTEN;  //save WDT state
@@ -131,8 +131,8 @@ function does not error out if a NAK is returned.
 \param u8_val byte to send
 \return Ack bit value returned from slave.
 */
-uint8 putNoAckCheckI2C1(uint8 u8_val) {
-  uint8 u8_wdtState;
+uint8_t putNoAckCheckI2C1(uint8_t u8_val) {
+  uint8_t u8_wdtState;
 
   sz_lastTimeoutError = "I2C1 Put";
   u8_wdtState = _SWDTEN;  //save WDT state
@@ -149,9 +149,9 @@ Operation: Wait for a byte byte on the I2C bus, send \em u8_ack2Send as the ackn
 \param u8_ack2Send ack bit to send back to slave after byte is read
 \return byte read from slave
 */
-uint8 getI2C1(uint8 u8_ack2Send) {
-  uint8 u8_wdtState;
-  uint8 u8_inByte;
+uint8_t getI2C1(uint8_t u8_ack2Send) {
+  uint8_t u8_wdtState;
+  uint8_t u8_inByte;
 
   sz_lastTimeoutError = "I2C1 Get";
   u8_wdtState = _SWDTEN;              //save WDT state
@@ -175,7 +175,7 @@ Transaction: Write 1 byte (\em u8_d1) to I2C slave at address \em u8_addr.
 \param u8_addr  Slave I2C address
 \param u8_d1 Byte to send
 */
-void write1I2C1(uint8 u8_addr,uint8 u8_d1) {
+void write1I2C1(uint8_t u8_addr,uint8_t u8_d1) {
   startI2C1();
   putI2C1(I2C_WADDR(u8_addr));
   putI2C1(u8_d1);
@@ -187,7 +187,7 @@ Transaction: Write 2 bytes (\em u8_d1, \em u8_d2) to I2C slave at address \em u8
 \param u8_d1 First byte to send
 \param u8_d2 Second byte to send
 */
-void write2I2C1(uint8 u8_addr,uint8 u8_d1, uint8 u8_d2) {
+void write2I2C1(uint8_t u8_addr,uint8_t u8_d1, uint8_t u8_d2) {
   startI2C1();
   putI2C1(I2C_WADDR(u8_addr));
   putI2C1(u8_d1);
@@ -201,8 +201,8 @@ Transaction: Write \em u16_cnt bytes stored in buffer \em *pu8_data to I2C slave
 \param pu8_data Pointer to buffer containing bytes to send
 \param u16_cnt Number of bytes to send
 */
-void writeNI2C1(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt) {
-  uint16 u16_i;
+void writeNI2C1(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt) {
+  uint16_t u16_i;
   startI2C1();
   putI2C1(I2C_WADDR(u8_addr));
   for (u16_i=0; u16_i < u16_cnt; u16_i++) {
@@ -217,7 +217,7 @@ As per the I2C standard, a NAK is returned for the last byte read from the slave
 \param u8_addr  Slave I2C address
 \param pu8_d1 Pointer to location to store byte read from slave
 */
-void read1I2C1(uint8 u8_addr,uint8* pu8_d1) {
+void read1I2C1(uint8_t u8_addr,uint8_t* pu8_d1) {
   startI2C1();
   putI2C1(I2C_RADDR(u8_addr));
   *pu8_d1 = getI2C1(I2C_NAK); //last ack bit from master to slave during read must be a NAK
@@ -230,7 +230,7 @@ As per the I2C standard, a NAK is returned for the last byte read from the slave
 \param pu8_d1 Pointer to location to store first byte read from slave
 \param pu8_d2 Pointer to location to store second byte read from slave
 */
-void read2I2C1(uint8 u8_addr,uint8* pu8_d1, uint8* pu8_d2) {
+void read2I2C1(uint8_t u8_addr,uint8_t* pu8_d1, uint8_t* pu8_d2) {
   startI2C1();
   putI2C1(I2C_RADDR(u8_addr));
   *pu8_d1 = getI2C1(I2C_ACK);
@@ -244,8 +244,8 @@ As per the I2C standard, a NAK is returned for the last byte read from the slave
 \param pu8_data Pointer to buffer for storing bytes read from slave
 \param u16_cnt Number of bytes read from slave.
 */
-void readNI2C1(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt) {
-  uint16 u16_i;
+void readNI2C1(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt) {
+  uint16_t u16_i;
   startI2C1();
   putI2C1(I2C_RADDR(u8_addr));
   for (u16_i=0; u16_i < u16_cnt; u16_i++) {
@@ -319,10 +319,10 @@ void readNI2C1(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt) {
 Configure and enable the I2C2 module for operation at \em u16_FkHZ kHZ clock speed.
 \param u16_FkHZ specifies clock speed in kHZ
 */
-void configI2C2(uint16 u16_FkHZ) {
-  uint32 u32_temp;
+void configI2C2(uint16_t u16_FkHZ) {
+  uint32_t u32_temp;
 
-  u32_temp = (FCY/1000L)/((uint32) u16_FkHZ);
+  u32_temp = (FCY/1000L)/((uint32_t) u16_FkHZ);
   u32_temp = u32_temp - FCY/10000000L - 1;
   I2C2BRG = u32_temp;
   I2C2CONbits.I2CEN = 1;
@@ -332,7 +332,7 @@ void configI2C2(uint16 u16_FkHZ) {
 Operation: Perform an I2C start operation.
 */
 void startI2C2(void) {
-  uint8 u8_wdtState;
+  uint8_t u8_wdtState;
 
   sz_lastTimeoutError = "I2C2 Start";
   u8_wdtState = _SWDTEN;  //save WDT state
@@ -348,7 +348,7 @@ void startI2C2(void) {
 Operation: Perform an I2C repeated start operation.
 */
 void rstartI2C2(void) { // repeated start
-  uint8 u8_wdtState;
+  uint8_t u8_wdtState;
 
   sz_lastTimeoutError = "I2C2 RStart";
   u8_wdtState = _SWDTEN;  //save WDT state
@@ -364,7 +364,7 @@ void rstartI2C2(void) { // repeated start
 Operation: Perform an I2C stop operation.
 */
 void stopI2C2(void) {
-  uint8 u8_wdtState;
+  uint8_t u8_wdtState;
 
   sz_lastTimeoutError = "I2C2 Stop";
   u8_wdtState = _SWDTEN;  //save WDT state
@@ -380,8 +380,8 @@ void stopI2C2(void) {
 Operation: Send one byte (\em u8_val), if NAK is returned use reportError() function to save error and do software reset.
 \param u8_val byte to send
 */
-void putI2C2(uint8 u8_val) {
-  uint8 u8_wdtState;
+void putI2C2(uint8_t u8_val) {
+  uint8_t u8_wdtState;
 
   sz_lastTimeoutError = "I2C2 Put";
   u8_wdtState = _SWDTEN;  //save WDT state
@@ -402,8 +402,8 @@ function does not error out if a NAK is returned.
 \param u8_val byte to send
 \return Ack bit value returned from slave.
 */
-uint8 putNoAckCheckI2C2(uint8 u8_val) {
-  uint8 u8_wdtState;
+uint8_t putNoAckCheckI2C2(uint8_t u8_val) {
+  uint8_t u8_wdtState;
 
   sz_lastTimeoutError = "I2C2 Put";
   u8_wdtState = _SWDTEN;  //save WDT state
@@ -420,9 +420,9 @@ Operation: Wait for a byte byte on the I2C bus, send \em u8_ack2Send as the ackn
 \param u8_ack2Send ack bit to send back to slave after byte is read
 \return byte read from slave
 */
-uint8 getI2C2(uint8 u8_ack2Send) {
-  uint8 u8_wdtState;
-  uint8 u8_inByte;
+uint8_t getI2C2(uint8_t u8_ack2Send) {
+  uint8_t u8_wdtState;
+  uint8_t u8_inByte;
 
   sz_lastTimeoutError = "I2C2 Get";
   u8_wdtState = _SWDTEN;              //save WDT state
@@ -446,7 +446,7 @@ Transaction: Write 1 byte (\em u8_d1) to I2C slave at address \em u8_addr.
 \param u8_addr  Slave I2C address
 \param u8_d1 Byte to send
 */
-void write1I2C2(uint8 u8_addr,uint8 u8_d1) {
+void write1I2C2(uint8_t u8_addr,uint8_t u8_d1) {
   startI2C2();
   putI2C2(I2C_WADDR(u8_addr));
   putI2C2(u8_d1);
@@ -458,7 +458,7 @@ Transaction: Write 2 bytes (\em u8_d1, \em u8_d2) to I2C slave at address \em u8
 \param u8_d1 First byte to send
 \param u8_d2 Second byte to send
 */
-void write2I2C2(uint8 u8_addr,uint8 u8_d1, uint8 u8_d2) {
+void write2I2C2(uint8_t u8_addr,uint8_t u8_d1, uint8_t u8_d2) {
   startI2C2();
   putI2C2(I2C_WADDR(u8_addr));
   putI2C2(u8_d1);
@@ -472,8 +472,8 @@ Transaction: Write \em u16_cnt bytes stored in buffer \em *pu8_data to I2C slave
 \param pu8_data Pointer to buffer containing bytes to send
 \param u16_cnt Number of bytes to send
 */
-void writeNI2C2(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt) {
-  uint16 u16_i;
+void writeNI2C2(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt) {
+  uint16_t u16_i;
   startI2C2();
   putI2C2(I2C_WADDR(u8_addr));
   for (u16_i=0; u16_i < u16_cnt; u16_i++) {
@@ -488,7 +488,7 @@ As per the I2C standard, a NAK is returned for the last byte read from the slave
 \param u8_addr  Slave I2C address
 \param pu8_d1 Pointer to location to store byte read from slave
 */
-void read1I2C2(uint8 u8_addr,uint8* pu8_d1) {
+void read1I2C2(uint8_t u8_addr,uint8_t* pu8_d1) {
   startI2C2();
   putI2C2(I2C_RADDR(u8_addr));
   *pu8_d1 = getI2C2(I2C_NAK); //last ack bit from master to slave during read must be a NAK
@@ -501,7 +501,7 @@ As per the I2C standard, a NAK is returned for the last byte read from the slave
 \param pu8_d1 Pointer to location to store first byte read from slave
 \param pu8_d2 Pointer to location to store second byte read from slave
 */
-void read2I2C2(uint8 u8_addr,uint8* pu8_d1, uint8* pu8_d2) {
+void read2I2C2(uint8_t u8_addr,uint8_t* pu8_d1, uint8_t* pu8_d2) {
   startI2C2();
   putI2C2(I2C_RADDR(u8_addr));
   *pu8_d1 = getI2C2(I2C_ACK);
@@ -515,8 +515,8 @@ As per the I2C standard, a NAK is returned for the last byte read from the slave
 \param pu8_data Pointer to buffer for storing bytes read from slave
 \param u16_cnt Number of bytes read from slave.
 */
-void readNI2C2(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt) {
-  uint16 u16_i;
+void readNI2C2(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt) {
+  uint16_t u16_i;
   startI2C2();
   putI2C2(I2C_RADDR(u8_addr));
   for (u16_i=0; u16_i < u16_cnt; u16_i++) {

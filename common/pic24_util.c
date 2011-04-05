@@ -68,11 +68,11 @@ void toggleHeartbeat(void) {
  *   doHeartbeat().
  * \see doHeartbeat
  */
-uint32 u32_heartbeatCount;
+uint32_t u32_heartbeatCount;
 /** When u32_heartbeatCount reaches this maximum, the
  *  heatbeat LED is toggled by doHeartbeat().
  */
-static uint32 u32_heartbeatMax;
+static uint32_t u32_heartbeatMax;
 
 
 /** Configures a GPIO pin for use with the heartbeat and sets
@@ -133,13 +133,13 @@ _PERSISTENT char* sz_lastTimeoutError;
  */
 static _PERSISTENT INTTREGBITS INTTREGBITS_last;
 /** Make the \ref INTTREGBITS_last also accessible as
- *  a word. This is like <code>uint16 u16_INTTREGlast</code>
+ *  a word. This is like <code>uint16_t u16_INTTREGlast</code>
  *  except that INTTREGBITS_last and u16_INTTREGlast
  *  refer to the same data.
  */
 #define u16_INTTREGlast BITS2WORD(INTTREGBITS_last)
 #else
-static uint16 u16_INTTREGlast;
+static uint16_t u16_INTTREGlast;
 #endif
 
 /** Provide a default interrupt handler which records what
@@ -181,10 +181,10 @@ void reportError(const char* sz_errorMessage) {
  *  \return The 24-bit program memory word at u32_address.
  *          The upper 8 bits are 0.
  */
-uint32 readProgramMemory(uint32 u32_address) {
-  uint16 u16_offset = u32_address;
+uint32_t readProgramMemory(uint32_t u32_address) {
+  uint16_t u16_offset = u32_address;
   TBLPAG = u32_address >> 16;
-  return ( ((uint32) __builtin_tblrdh(u16_offset)) << 16) |
+  return ( ((uint32_t) __builtin_tblrdh(u16_offset)) << 16) |
          __builtin_tblrdl(u16_offset);
 }
 
@@ -197,9 +197,9 @@ void checkDeviceAndRevision(void) {
 #ifdef SIM
   outString("**** SIMULATION MODE: cannot read device and revision ID ****\n");
 #else
-  uint32 devID = readProgramMemory(DEV_ID_LOCATION);
-  uint32 revision = readProgramMemory(REVISION_LOCATION);
-  uint8 correctChip = 1;
+  uint32_t devID = readProgramMemory(DEV_ID_LOCATION);
+  uint32_t revision = readProgramMemory(REVISION_LOCATION);
+  uint8_t correctChip = 1;
   char* devIDStr = "unknown";
   char* revisionStr = "unknown";
 
@@ -238,11 +238,11 @@ void checkDeviceAndRevision(void) {
   }
 
   outString("Device ID = ");
-  outUint32(devID);
+  outUint32_t(devID);
   outString(" (");
   outString(devIDStr);
   outString("), revision ");
-  outUint32(revision);
+  outUint32_t(revision);
   outString(" (");
   outString(revisionStr);
   outString(")\n");
@@ -269,7 +269,7 @@ void checkDeviceAndRevision(void) {
  *  serial port.
  */
 void checkOscOption(void) {
-  uint8 u8_x;
+  uint8_t u8_x;
 
   u8_x = _COSC;		// Get current oscillator setting
   switch (u8_x) {
@@ -316,7 +316,7 @@ void checkOscOption(void) {
  *  the \ref configBasic function.
  */
 void printResetCause(void) {
-  uint8 u8_resetIdentified;
+  uint8_t u8_resetIdentified;
 
   u8_resetIdentified = 0;
   if (_SLEEP) {
@@ -395,9 +395,9 @@ void printResetCause(void) {
     if (u16_INTTREGlast != 0) {
 #if ( defined(__PIC24H__) || defined(__dsPIC33F__) )
       outString("Priority: ");
-      outUint8(INTTREGBITS_last.ILR);
+      outUint8_t(INTTREGBITS_last.ILR);
       outString(", Vector number: ");
-      outUint8(INTTREGBITS_last.VECNUM);
+      outUint8_t(INTTREGBITS_last.VECNUM);
 #else
       outString("Unknown priority/vector");
 #endif
@@ -506,19 +506,19 @@ void configBasic(const char* sz_helloMsg) {
 
 /** Round a floating-point number to the nearest integer.
  *  \param f_x Floating-point value to round
- *  \return The nearest uint32 to f_x.
+ *  \return The nearest uint32_t to f_x.
  */
-uint32 roundFloatToUint32(float f_x) {
-  uint32 u32_y;
+uint32_t roundFloatToUint32_t(float f_x) {
+  uint32_t u32_y;
 
   u32_y = f_x;
   if ((f_x - u32_y) < 0.5) return u32_y;
   else return u32_y+1;
 }
 
-///\copydoc roundFloatToUint32
-uint16 roundFloatToUint16(float f_x) {
-  uint16 u16_y;
+///\copydoc roundFloatToUint32_t
+uint16_t roundFloatToUint16_t(float f_x) {
+  uint16_t u16_y;
 
   u16_y = f_x;
   if ((f_x - u16_y) < 0.5) return u16_y;

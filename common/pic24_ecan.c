@@ -53,7 +53,7 @@ Format a standard data frame \em u8_n  for TX
 */
 
 
-void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16 u16_id, uint8 u8_len) {
+void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len) {
   p_ecanmsg->w0.IDE = 0;
   p_ecanmsg->w0.SRR = 0;
   p_ecanmsg->w0.SID = u16_id;
@@ -73,7 +73,7 @@ Format an extended data frame \em u8_n  for TX
 \param u8_len  Number of data bytes in the message
 */
 
-void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32 u32_id, uint8 u8_len) {
+void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len) {
 
   p_ecanmsg->w0.IDE = 1;
   p_ecanmsg->w0.SRR = 0;
@@ -92,8 +92,8 @@ Extract the 29-bit message id from an extended data frame
 \return 29-bit message id
 */
 
-uint32 getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
-  uint32 u32_id, u32_tmp;
+uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
+  uint32_t u32_id, u32_tmp;
   u32_tmp = p_ecanmsg->w0.SID;
   u32_id = u32_tmp << 18;
   u32_tmp = p_ecanmsg->w1.EID17_6;
@@ -111,7 +111,7 @@ Clear full bit of buffer \em u8_bufNum
 \param u8_bufNum buffer number of full bit to clear (0 to 31)
 */
 
-void clrRxFullFlagECAN1(uint8 u8_bufNum) {
+void clrRxFullFlagECAN1(uint8_t u8_bufNum) {
   u8_bufNum &= 0x1F; //0-31
   if (u8_bufNum > 15) {
     u8_bufNum = u8_bufNum - 16;
@@ -126,7 +126,7 @@ Get full bit of buffer \em u8_bufNum, zero if empty, non-zero if ull
 \param u8_bufNum buffer number of full bit to read(0 to 31)
 */
 
-uint8 getRxFullFlagECAN1(uint8 u8_bufNum) {
+uint8_t getRxFullFlagECAN1(uint8_t u8_bufNum) {
   u8_bufNum &= 0x1F; //0-31
   if (u8_bufNum > 15) {
     u8_bufNum = u8_bufNum - 16;
@@ -152,7 +152,7 @@ Configure a buffer as either RX or TX buffer, only has to be done for first 8 bu
 \param u8_type buffer type (0 - receive, 1 transmit)
 \param u8_priority only used for TX, priority (0-3)
 */
-void configTxRxBufferECAN1(uint8 u8_bufNum, uint8 u8_type, uint8 u8_priority ) {
+void configTxRxBufferECAN1(uint8_t u8_bufNum, uint8_t u8_type, uint8_t u8_priority ) {
   u8_bufNum &= 0x07; //0-7
   switch (u8_bufNum) {
     case 0:
@@ -194,7 +194,7 @@ void configTxRxBufferECAN1(uint8 u8_bufNum, uint8 u8_type, uint8 u8_priority ) {
 Start Transmit for buffer \em u8_bufNum
 \param u8_bufNum buffer number (0 to 7)
 **/
-void startTxECAN1(uint8 u8_bufNum) {
+void startTxECAN1(uint8_t u8_bufNum) {
   u8_bufNum &= 0x07; //0-7
   switch (u8_bufNum) {
     case 0:
@@ -228,7 +228,7 @@ void startTxECAN1(uint8 u8_bufNum) {
 Start Transmit for buffer \em u8_bufNum
 \param u8_bufNum buffer number (0 to 7)
 **/
-uint8 getTxInProgressECAN1(uint8 u8_bufNum) {
+uint8_t getTxInProgressECAN1(uint8_t u8_bufNum) {
   u8_bufNum &= 0x07; //0-7
   switch (u8_bufNum) {
     case 0:
@@ -261,22 +261,22 @@ Configure an acceptance Filter
 \param u8_bufnum RX buffer (0-14) to use for filter , if 15, then use FIFO
 \param u8_maskReg Mask register (0-2) to use for filter
 */
-void configRxFilterECAN1(uint8 u8_filtNum, uint32 u32_id, uint8 u8_idType, uint8 u8_bufnum, uint8 u8_maskReg) {
-  uint16 *pu16_CxRXFySID,*pu16_CxRXFyEID, *pu16_CxFMSKSEL1, *pu16_CxBUFPNT1;
-  uint16 u16_sid;
-  uint16 u16_eid15_0;
-  uint16 u16_eid17_16;
-  uint16 u16_mask;
-  uint8 u8_startPos;
+void configRxFilterECAN1(uint8_t u8_filtNum, uint32_t u32_id, uint8_t u8_idType, uint8_t u8_bufnum, uint8_t u8_maskReg) {
+  uint16_t *pu16_CxRXFySID,*pu16_CxRXFyEID, *pu16_CxFMSKSEL1, *pu16_CxBUFPNT1;
+  uint16_t u16_sid;
+  uint16_t u16_eid15_0;
+  uint16_t u16_eid17_16;
+  uint16_t u16_mask;
+  uint8_t u8_startPos;
 
   u8_filtNum &= 0xF;  //0-15
   u8_bufnum &= 0xF;   //0-15
   u8_maskReg &= 0x07;    //0-7
 
-  pu16_CxRXFySID =  (uint16*) &C1RXF0SID + (u8_filtNum << 1);
+  pu16_CxRXFySID =  (uint16_t*) &C1RXF0SID + (u8_filtNum << 1);
   pu16_CxRXFyEID = pu16_CxRXFySID + 1;
-  pu16_CxFMSKSEL1 = (uint16*) &C1FMSKSEL1 + (u8_filtNum >> 3);
-  pu16_CxBUFPNT1 = (uint16*) &C1BUFPNT1 + (u8_filtNum >> 2);
+  pu16_CxFMSKSEL1 = (uint16_t*) &C1FMSKSEL1 + (u8_filtNum >> 3);
+  pu16_CxBUFPNT1 = (uint16_t*) &C1BUFPNT1 + (u8_filtNum >> 2);
 
   C1CTRL1bits.WIN=1; //select filter register window
 
@@ -319,13 +319,13 @@ Configure an acceptance MASK
 If nonzero, match only message types as specified by the filter (either SID or SID:EID).
 */
 
-void configRxMaskECAN1(uint8 u8_maskNum, uint32 u32_idMask, uint8 u8_idType, uint8 u8_matchType) {
-  uint16 *pu16_CxRXMySID,*pu16_CxRXMyEID;
-  uint16 u16_msid;
-  uint16 u16_meid15_0;
-  uint16 u16_meid17_16;
+void configRxMaskECAN1(uint8_t u8_maskNum, uint32_t u32_idMask, uint8_t u8_idType, uint8_t u8_matchType) {
+  uint16_t *pu16_CxRXMySID,*pu16_CxRXMyEID;
+  uint16_t u16_msid;
+  uint16_t u16_meid15_0;
+  uint16_t u16_meid17_16;
 
-  pu16_CxRXMySID =(uint16*) &C1RXM0SID + (u8_maskNum << 1);
+  pu16_CxRXMySID =(uint16_t*) &C1RXM0SID + (u8_maskNum << 1);
   pu16_CxRXMyEID = pu16_CxRXMySID + 1;
 
   C1CTRL1bits.WIN=1; //select filter register window
@@ -416,7 +416,7 @@ Format a standard data frame \em u8_n  for TX
 */
 
 
-void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16 u16_id, uint8 u8_len) {
+void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len) {
   p_ecanmsg->w0.IDE = 0;
   p_ecanmsg->w0.SRR = 0;
   p_ecanmsg->w0.SID = u16_id;
@@ -436,7 +436,7 @@ Format an extended data frame \em u8_n  for TX
 \param u8_len  Number of data bytes in the message
 */
 
-void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32 u32_id, uint8 u8_len) {
+void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len) {
 
   p_ecanmsg->w0.IDE = 1;
   p_ecanmsg->w0.SRR = 0;
@@ -455,8 +455,8 @@ Extract the 29-bit message id from an extended data frame
 \return 29-bit message id
 */
 
-uint32 getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
-  uint32 u32_id, u32_tmp;
+uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
+  uint32_t u32_id, u32_tmp;
   u32_tmp = p_ecanmsg->w0.SID;
   u32_id = u32_tmp << 18;
   u32_tmp = p_ecanmsg->w1.EID17_6;
@@ -474,7 +474,7 @@ Clear full bit of buffer \em u8_bufNum
 \param u8_bufNum buffer number of full bit to clear (0 to 31)
 */
 
-void clrRxFullFlagECAN2(uint8 u8_bufNum) {
+void clrRxFullFlagECAN2(uint8_t u8_bufNum) {
   u8_bufNum &= 0x1F; //0-31
   if (u8_bufNum > 15) {
     u8_bufNum = u8_bufNum - 16;
@@ -489,7 +489,7 @@ Get full bit of buffer \em u8_bufNum, zero if empty, non-zero if ull
 \param u8_bufNum buffer number of full bit to read(0 to 31)
 */
 
-uint8 getRxFullFlagECAN2(uint8 u8_bufNum) {
+uint8_t getRxFullFlagECAN2(uint8_t u8_bufNum) {
   u8_bufNum &= 0x1F; //0-31
   if (u8_bufNum > 15) {
     u8_bufNum = u8_bufNum - 16;
@@ -515,7 +515,7 @@ Configure a buffer as either RX or TX buffer, only has to be done for first 8 bu
 \param u8_type buffer type (0 - receive, 1 transmit)
 \param u8_priority only used for TX, priority (0-3)
 */
-void configTxRxBufferECAN2(uint8 u8_bufNum, uint8 u8_type, uint8 u8_priority ) {
+void configTxRxBufferECAN2(uint8_t u8_bufNum, uint8_t u8_type, uint8_t u8_priority ) {
   u8_bufNum &= 0x07; //0-7
   switch (u8_bufNum) {
     case 0:
@@ -557,7 +557,7 @@ void configTxRxBufferECAN2(uint8 u8_bufNum, uint8 u8_type, uint8 u8_priority ) {
 Start Transmit for buffer \em u8_bufNum
 \param u8_bufNum buffer number (0 to 7)
 **/
-void startTxECAN2(uint8 u8_bufNum) {
+void startTxECAN2(uint8_t u8_bufNum) {
   u8_bufNum &= 0x07; //0-7
   switch (u8_bufNum) {
     case 0:
@@ -591,7 +591,7 @@ void startTxECAN2(uint8 u8_bufNum) {
 Start Transmit for buffer \em u8_bufNum
 \param u8_bufNum buffer number (0 to 7)
 **/
-uint8 getTxInProgressECAN2(uint8 u8_bufNum) {
+uint8_t getTxInProgressECAN2(uint8_t u8_bufNum) {
   u8_bufNum &= 0x07; //0-7
   switch (u8_bufNum) {
     case 0:
@@ -624,22 +624,22 @@ Configure an acceptance Filter
 \param u8_bufnum RX buffer (0-14) to use for filter , if 15, then use FIFO
 \param u8_maskReg Mask register (0-2) to use for filter
 */
-void configRxFilterECAN2(uint8 u8_filtNum, uint32 u32_id, uint8 u8_idType, uint8 u8_bufnum, uint8 u8_maskReg) {
-  uint16 *pu16_CxRXFySID,*pu16_CxRXFyEID, *pu16_CxFMSKSEL1, *pu16_CxBUFPNT1;
-  uint16 u16_sid;
-  uint16 u16_eid15_0;
-  uint16 u16_eid17_16;
-  uint16 u16_mask;
-  uint8 u8_startPos;
+void configRxFilterECAN2(uint8_t u8_filtNum, uint32_t u32_id, uint8_t u8_idType, uint8_t u8_bufnum, uint8_t u8_maskReg) {
+  uint16_t *pu16_CxRXFySID,*pu16_CxRXFyEID, *pu16_CxFMSKSEL1, *pu16_CxBUFPNT1;
+  uint16_t u16_sid;
+  uint16_t u16_eid15_0;
+  uint16_t u16_eid17_16;
+  uint16_t u16_mask;
+  uint8_t u8_startPos;
 
   u8_filtNum &= 0xF;  //0-15
   u8_bufnum &= 0xF;   //0-15
   u8_maskReg &= 0x07;    //0-7
 
-  pu16_CxRXFySID =  (uint16*) &C2RXF0SID + (u8_filtNum << 1);
+  pu16_CxRXFySID =  (uint16_t*) &C2RXF0SID + (u8_filtNum << 1);
   pu16_CxRXFyEID = pu16_CxRXFySID + 1;
-  pu16_CxFMSKSEL1 = (uint16*) &C2FMSKSEL1 + (u8_filtNum >> 3);
-  pu16_CxBUFPNT1 = (uint16*) &C2BUFPNT1 + (u8_filtNum >> 2);
+  pu16_CxFMSKSEL1 = (uint16_t*) &C2FMSKSEL1 + (u8_filtNum >> 3);
+  pu16_CxBUFPNT1 = (uint16_t*) &C2BUFPNT1 + (u8_filtNum >> 2);
 
   C2CTRL1bits.WIN=1; //select filter register window
 
@@ -682,13 +682,13 @@ Configure an acceptance MASK
 If nonzero, match only message types as specified by the filter (either SID or SID:EID).
 */
 
-void configRxMaskECAN2(uint8 u8_maskNum, uint32 u32_idMask, uint8 u8_idType, uint8 u8_matchType) {
-  uint16 *pu16_CxRXMySID,*pu16_CxRXMyEID;
-  uint16 u16_msid;
-  uint16 u16_meid15_0;
-  uint16 u16_meid17_16;
+void configRxMaskECAN2(uint8_t u8_maskNum, uint32_t u32_idMask, uint8_t u8_idType, uint8_t u8_matchType) {
+  uint16_t *pu16_CxRXMySID,*pu16_CxRXMyEID;
+  uint16_t u16_msid;
+  uint16_t u16_meid15_0;
+  uint16_t u16_meid17_16;
 
-  pu16_CxRXMySID =(uint16*) &C2RXM0SID + (u8_maskNum << 1);
+  pu16_CxRXMySID =(uint16_t*) &C2RXM0SID + (u8_maskNum << 1);
   pu16_CxRXMyEID = pu16_CxRXMySID + 1;
 
   C2CTRL1bits.WIN=1; //select filter register window

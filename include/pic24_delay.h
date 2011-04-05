@@ -38,7 +38,7 @@
 #ifndef _PIC24_DELAY_H_
 #define _PIC24_DELAY_H_
 
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_util.h"  // Need u32_heartbeatCount
 #include <libpic30.h>    // Has __delay32
 
@@ -53,7 +53,7 @@
  *  \param u32_cyc Number of processor clock cycles
  *                 to delay.
  */
-inline static void delayAndUpdateHeartbeatCount(uint32 u32_cyc) {
+inline static void delayAndUpdateHeartbeatCount(uint32_t u32_cyc) {
   __delay32(u32_cyc);
 #if USE_HEARTBEAT
   u32_heartbeatCount += (u32_cyc >> 4);
@@ -65,17 +65,17 @@ inline static void delayAndUpdateHeartbeatCount(uint32 u32_cyc) {
  *  The maximum delay is ~ 100+
  *  seconds when FCY = 40 MHz, because the underlying
  *  function \ref delayAndUpdateHeartbeatCount uses
- *  a uint32 value for the number of processor clocks
+ *  a uint32_t value for the number of processor clocks
  *  to delay.
  * \param ms The number of milliseconds to delay.
  */
-#define DELAY_MS(ms)  delayAndUpdateHeartbeatCount(CYCLES_PER_MS * ((uint32) ms));
+#define DELAY_MS(ms)  delayAndUpdateHeartbeatCount(CYCLES_PER_MS * ((uint32_t) ms));
 
 /** A macro to delay the given number of microseconds.
  *  \see \ref DELAY_MS for additional information.
  * \param us The number of microseconds to delay.
  */
-#define DELAY_US(us)  delayAndUpdateHeartbeatCount(CYCLES_PER_US * ((uint32) us));
+#define DELAY_US(us)  delayAndUpdateHeartbeatCount(CYCLES_PER_US * ((uint32_t) us));
 
 
 #endif

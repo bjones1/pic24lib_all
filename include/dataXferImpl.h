@@ -101,7 +101,7 @@ else
 #if defined(__PIC24H__) || defined(__PIC24F__) || defined(__dsPIC33F__) || defined(__PIC24FK__)
 #define __PIC__
 #include "pic24_unittest.h"
-#include "pic24_generic.h"
+#include "stdint.h"
 #endif
 
 
@@ -191,7 +191,7 @@ extern "C" {
 
 #ifndef __PIC__
 /// An abbreviation for an 8-bit unsigned integer.
-  typedef unsigned char uint8;
+  typedef unsigned char uint8_t;
 #endif
 
 
@@ -316,9 +316,9 @@ extern "C" {
   typedef struct {
     /// Pointer to the data to be exchanged. NULL means this entry is not
     /// defined.
-    uint8* pu8_data;
+    uint8_t* pu8_data;
     /// Size of data in bytes – 1: 0 = 1 byte, etc.
-    uint8 u8_size;
+    uint8_t u8_size;
 #if !defined(__PIC__) || defined(__DOXYGEN__)
     /// printf format string to use in displaying the variable. <b>PC only.</b>
     char* psz_format;
@@ -346,7 +346,7 @@ extern "C" {
 /// An array of isWriteable bits for each var. Each bit is true if the PC is
 /// allowed to change this variable; false otherwise. This does *NOT*
 /// restrict the PIC to read-only access to this variable.
-  extern uint8 au8_xferVarWriteable[NUM_XFER_VARS/8 + ((NUM_XFER_VARS % 8) > 0)];
+  extern uint8_t au8_xferVarWriteable[NUM_XFER_VARS/8 + ((NUM_XFER_VARS % 8) > 0)];
 
 //@}
 

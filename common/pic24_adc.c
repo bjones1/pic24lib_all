@@ -52,8 +52,8 @@
  *  \return Integer value (10- or 12-bit, depending on ADC configuration)
  *          corresponding to the ADC conversion result.
  */
-uint16 convertADC1(void) {
-  uint8 u8_wdtState;
+uint16_t convertADC1(void) {
+  uint8_t u8_wdtState;
 
   sz_lastTimeoutError = "convertADC1()";
   u8_wdtState = _SWDTEN;                  //save WDT state
@@ -81,9 +81,9 @@ uint16 convertADC1(void) {
  *  \param u8_use12bit If TRUE, set up the ADC into 12 bit mode, else
  *          use the 10 bit mode.
  */
-void configADC1_ManualCH0(uint16 u16_ch0PositiveMask,      \
-                          uint8 u8_autoSampleTime,         \
-                          uint8 u8_use12bit) {
+void configADC1_ManualCH0(uint16_t u16_ch0PositiveMask,      \
+                          uint8_t u8_autoSampleTime,         \
+                          uint8_t u8_use12bit) {
 
   if (u8_autoSampleTime > 31) u8_autoSampleTime=31;
   AD1CON1bits.ADON = 0;   // turn off ADC (changing setting while ADON is not allowed)
@@ -129,11 +129,11 @@ void configADC1_ManualCH0(uint16 u16_ch0PositiveMask,      \
  *  \param u8_use12bit If TRUE, set up the ADC into 12 bit mode, else
  *          use the 10 bit mode.
  */
-void configADC1_AutoScanIrqCH0(uint16   u16_ch0ScanMask, \
-                               uint8    u8_autoSampleTime, \
-                               uint8    u8_use12bit) {
-  uint8     u8_i, u8_nChannels=0;
-  uint16    u16_mask = 0x0001;
+void configADC1_AutoScanIrqCH0(uint16_t   u16_ch0ScanMask, \
+                               uint8_t    u8_autoSampleTime, \
+                               uint8_t    u8_use12bit) {
+  uint8_t     u8_i, u8_nChannels=0;
+  uint16_t    u16_mask = 0x0001;
 
   // compute the number of Channels the user wants to scan over
   for (u8_i=0; u8_i<16; u8_i++) {
@@ -194,11 +194,11 @@ void configADC1_AutoScanIrqCH0(uint16   u16_ch0ScanMask, \
  *  \param u8_use12bit If TRUE, set up the ADC into 12 bit mode, else
  *          use the 10 bit mode.
  */
-void configADC1_AutoHalfScanIrqCH0(uint16   u16_ch0ScanMask, \
-                                   uint8    u8_autoSampleTime, \
-                                   uint8    u8_use12bit) {
-  uint8     u8_i, u8_nChannels=0;
-  uint16    u16_mask = 0x0001;
+void configADC1_AutoHalfScanIrqCH0(uint16_t   u16_ch0ScanMask, \
+                                   uint8_t    u8_autoSampleTime, \
+                                   uint8_t    u8_use12bit) {
+  uint8_t     u8_i, u8_nChannels=0;
+  uint16_t    u16_mask = 0x0001;
 
   // compute the number of Channels the user wants to scan over
   for (u8_i=0; u8_i<16; u8_i++) {
@@ -266,9 +266,9 @@ void configADC1_AutoHalfScanIrqCH0(uint16   u16_ch0ScanMask, \
  *          T<sub>AD</sub> > 75ns.  See AD1CON3 register and associated
  *          <i>defines</i>s in pic24_adc.h
  */
-void configADC1_Simul4ChanIrq(uint8    u8_ch0Select, \
-                              uint16   u16_ch123SelectMask, \
-                              uint16   u16_numTcyMask ) {
+void configADC1_Simul4ChanIrq(uint8_t    u8_ch0Select, \
+                              uint16_t   u16_ch123SelectMask, \
+                              uint16_t   u16_numTcyMask ) {
 
   AD1CON1bits.ADON = 0;   // turn off ADC (changing setting while ADON is not allowed)
   /** Configure the internal ADC **/

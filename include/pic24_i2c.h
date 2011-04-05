@@ -30,7 +30,7 @@
 #ifndef _PIC24_I2C1_H_
 #define _PIC24_I2C1_H_
 
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_chip.h"
 
 // Only include if this I2C Module exists.
@@ -65,21 +65,21 @@
 
 
 //I2C Operations
-void configI2C1(uint16 u16_FkHZ);
+void configI2C1(uint16_t u16_FkHZ);
 void startI2C1(void);
 void rstartI2C1(void);
 void stopI2C1(void);
-void putI2C1(uint8 u8_val);
-uint8 putNoAckCheckI2C1(uint8 u8_val);
-uint8 getI2C1(uint8 u8_ack2Send);
+void putI2C1(uint8_t u8_val);
+uint8_t putNoAckCheckI2C1(uint8_t u8_val);
+uint8_t getI2C1(uint8_t u8_ack2Send);
 
 //I2C Transactions
-void write1I2C1(uint8 u8_addr,uint8 u8_d1);
-void write2I2C1(uint8 u8_addr,uint8 u8_d1, uint8 u8_d2);
-void writeNI2C1(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt);
-void read1I2C1(uint8 u8_addr,uint8* pu8_d1);
-void read2I2C1(uint8 u8_addr,uint8* pu8_d1, uint8* pu8_d2);
-void readNI2C1(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt);
+void write1I2C1(uint8_t u8_addr,uint8_t u8_d1);
+void write2I2C1(uint8_t u8_addr,uint8_t u8_d1, uint8_t u8_d2);
+void writeNI2C1(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt);
+void read1I2C1(uint8_t u8_addr,uint8_t* pu8_d1);
+void read2I2C1(uint8_t u8_addr,uint8_t* pu8_d1, uint8_t* pu8_d2);
+void readNI2C1(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt);
 
 #endif // #if (NUM_I2C_MODS >= 1)
 #endif // #ifndef _PIC24_I2C1_H_
@@ -120,7 +120,7 @@ void readNI2C1(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt);
 #ifndef _PIC24_I2C2_H_
 #define _PIC24_I2C2_H_
 
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_chip.h"
 
 // Only include if this I2C Module exists.
@@ -155,21 +155,21 @@ void readNI2C1(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt);
 
 
 //I2C Operations
-void configI2C2(uint16 u16_FkHZ);
+void configI2C2(uint16_t u16_FkHZ);
 void startI2C2(void);
 void rstartI2C2(void);
 void stopI2C2(void);
-void putI2C2(uint8 u8_val);
-uint8 putNoAckCheckI2C2(uint8 u8_val);
-uint8 getI2C2(uint8 u8_ack2Send);
+void putI2C2(uint8_t u8_val);
+uint8_t putNoAckCheckI2C2(uint8_t u8_val);
+uint8_t getI2C2(uint8_t u8_ack2Send);
 
 //I2C Transactions
-void write1I2C2(uint8 u8_addr,uint8 u8_d1);
-void write2I2C2(uint8 u8_addr,uint8 u8_d1, uint8 u8_d2);
-void writeNI2C2(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt);
-void read1I2C2(uint8 u8_addr,uint8* pu8_d1);
-void read2I2C2(uint8 u8_addr,uint8* pu8_d1, uint8* pu8_d2);
-void readNI2C2(uint8 u8_addr,uint8* pu8_data, uint16 u16_cnt);
+void write1I2C2(uint8_t u8_addr,uint8_t u8_d1);
+void write2I2C2(uint8_t u8_addr,uint8_t u8_d1, uint8_t u8_d2);
+void writeNI2C2(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt);
+void read1I2C2(uint8_t u8_addr,uint8_t* pu8_d1);
+void read2I2C2(uint8_t u8_addr,uint8_t* pu8_d1, uint8_t* pu8_d2);
+void readNI2C2(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt);
 
 #endif // #if (NUM_I2C_MODS >= 2)
 #endif // #ifndef _PIC24_I2C2_H_

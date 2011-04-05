@@ -38,7 +38,7 @@ specifyVar(uint u_varIndex, void* pv_data, uint u_size,
   ASSERTM("specifyVar:invalidSize", (u_size > 0) && (u_size <= 256));
 
   // Update data structure
-  xferVar[u_varIndex].pu8_data = (uint8*) pv_data;
+  xferVar[u_varIndex].pu8_data = (uint8_t*) pv_data;
   xferVar[u_varIndex].u8_size = u_size - 1;
   assignBit(u_varIndex, b_isWriteable);
 
@@ -76,8 +76,8 @@ specifyVar(uint u_varIndex, void* pv_data, uint u_size,
 void
 sendVar(uint u_varIndex) {
   XFER_VAR* pXferVar;
-  uint8 u8_size;
-  uint8* pu8_data;
+  uint8_t u8_size;
+  uint8_t* pu8_data;
   // Make sure this variable exists
   ASSERTM("sendVar:indexTooHigh", u_varIndex < NUM_XFER_VARS);
   // Note: The MS C compiler flags the statement
@@ -120,7 +120,7 @@ sendVar(uint u_varIndex) {
 int
 formatVar(uint u_varIndex, char* psz_buf) {
   XFER_VAR* pXferVar;
-  uint8 u8_size;
+  uint8_t u8_size;
   unsigned long long ull_buf = 0;  // The biggest data type available
 
   // Make sure this variable exists
@@ -154,7 +154,7 @@ receiveVar(char* p_c) {
   do {
     // While there's no data, run the timeout counter
     RECEIVE_ERROR re;
-    uint32 u32_count = 0;
+    uint32_t u32_count = 0;
     while (!isCharReady()) {
       if (u32_count < RECEIVE_TIMEOUT)
         u32_count++;

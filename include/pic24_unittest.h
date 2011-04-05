@@ -39,7 +39,7 @@
 #ifndef  _PIC24_UNITTEST_H_
 #define _PIC24_UNITTEST_H_
 
-#include "pic24_generic.h"
+#include "stdint.h"
 
 // Circular includes: pic24_util needs this include, but
 // this needs reportError. Pre-declare here.
@@ -103,7 +103,7 @@ void reportError(const char* message);
  *              reset and print message.
  *  \param message Message to print if assertion fails.
  */
-static inline void picAssert(uint8 test, const char* message) {
+static inline void picAssert(uint8_t test, const char* message) {
   if (!test)
     reportError(message);
 }

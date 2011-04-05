@@ -53,14 +53,14 @@ extern "C" {
 
 /// A system-dependent macro to output one character.
 #ifndef OUT_CHAR
-  void outChar(uint8 c);
+  void outChar(uint8_t c);
 #define OUT_CHAR(c) outChar(c)
 #else
 // Hack: a command line of -DOUT_CHAR(c)=testOutChar(c) doesn't work. Just -DOUT_CHAR then
 // redefine it here.
 #undef OUT_CHAR
 #define UNIT_TESTS
-  void testOutChar(uint8 c);
+  void testOutChar(uint8_t c);
 #define OUT_CHAR(c) testOutChar(c)
 #endif
 

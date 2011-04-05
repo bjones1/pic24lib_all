@@ -10,7 +10,7 @@
 #ifndef _PIC24_TIMER_H_
 #define _PIC24_TIMER_H_
 
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_chip.h"
 #include "pic24_clockfreq.h"
 
@@ -24,15 +24,15 @@
 #define getTimerPrescale(TxCONbits) getTimerPrescaleBits(TxCONbits.TCKPS)
 
 #define MS_TO_TICKS(ms, pre) ((FCY/1000L/(pre))*ms)
-uint16 msToU16Ticks(uint16 u16_ms, uint16 u16_pre);
-uint16 usToU16Ticks(uint16 u16_us, uint16 u16_pre);
-uint32 usToU32Ticks(uint32 u32_us, uint16 u16_pre);
-uint16 getTimerPrescaleBits(uint8 u8_TCKPS);
-uint32 ticksToMs (uint32 u32_ticks, uint16 u16_tmrPre);
-uint32 ticksToUs (uint32 u32_ticks, uint16 u16_tmrPre);
-uint32 ticksToNs (uint32 u32_ticks, uint16 u16_tmrPre);
-uint32 computeDeltaTicksLong(uint16 u16_start, uint16 u16_end, uint16 u16_tmrPR, uint16 u16_oflows);
-uint16 computeDeltaTicks(uint16 u16_start, uint16 u16_end, uint16 u16_tmrPR);
+uint16_t msToU16Ticks(uint16_t u16_ms, uint16_t u16_pre);
+uint16_t usToU16Ticks(uint16_t u16_us, uint16_t u16_pre);
+uint32_t usToU32Ticks(uint32_t u32_us, uint16_t u16_pre);
+uint16_t getTimerPrescaleBits(uint8_t u8_TCKPS);
+uint32_t ticksToMs (uint32_t u32_ticks, uint16_t u16_tmrPre);
+uint32_t ticksToUs (uint32_t u32_ticks, uint16_t u16_tmrPre);
+uint32_t ticksToNs (uint32_t u32_ticks, uint16_t u16_tmrPre);
+uint32_t computeDeltaTicksLong(uint16_t u16_start, uint16_t u16_end, uint16_t u16_tmrPR, uint16_t u16_oflows);
+uint16_t computeDeltaTicks(uint16_t u16_start, uint16_t u16_end, uint16_t u16_tmrPR);
 
 /*
 The following macros are a subset of the AND/OR macros found in the

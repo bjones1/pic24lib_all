@@ -32,7 +32,7 @@
 #define _PIC24_UART1_H_
 
 #include "pic24_libconfig.h"
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_chip.h"
 #include "pic24_util.h"
 
@@ -76,10 +76,10 @@ inline static void WAIT_UNTIL_TRANSMIT_COMPLETE_UART1() {
     doHeartbeat();
 }
 
-void outChar1(uint8 u8_c);
-uint8 inChar1(void);
-void configUART1(uint32 u32_baudRate);
-uint8 isCharReady1(void);
+void outChar1(uint8_t u8_c);
+uint8_t inChar1(void);
+void configUART1(uint32_t u32_baudRate);
+uint8_t isCharReady1(void);
 void checkRxErrorUART1(void); //check for UART RX error
 
 #endif // #if (NUM_UART_MODS >= 1)
@@ -126,7 +126,7 @@ void checkRxErrorUART1(void); //check for UART RX error
 #define _PIC24_UART2_H_
 
 #include "pic24_libconfig.h"
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_chip.h"
 #include "pic24_util.h"
 
@@ -170,10 +170,10 @@ inline static void WAIT_UNTIL_TRANSMIT_COMPLETE_UART2() {
     doHeartbeat();
 }
 
-void outChar2(uint8 u8_c);
-uint8 inChar2(void);
-void configUART2(uint32 u32_baudRate);
-uint8 isCharReady2(void);
+void outChar2(uint8_t u8_c);
+uint8_t inChar2(void);
+void configUART2(uint32_t u32_baudRate);
+uint8_t isCharReady2(void);
 void checkRxErrorUART2(void); //check for UART RX error
 
 #endif // #if (NUM_UART_MODS >= 2)
@@ -220,7 +220,7 @@ void checkRxErrorUART2(void); //check for UART RX error
 #define _PIC24_UART3_H_
 
 #include "pic24_libconfig.h"
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_chip.h"
 #include "pic24_util.h"
 
@@ -264,10 +264,10 @@ inline static void WAIT_UNTIL_TRANSMIT_COMPLETE_UART3() {
     doHeartbeat();
 }
 
-void outChar3(uint8 u8_c);
-uint8 inChar3(void);
-void configUART3(uint32 u32_baudRate);
-uint8 isCharReady3(void);
+void outChar3(uint8_t u8_c);
+uint8_t inChar3(void);
+void configUART3(uint32_t u32_baudRate);
+uint8_t isCharReady3(void);
 void checkRxErrorUART3(void); //check for UART RX error
 
 #endif // #if (NUM_UART_MODS >= 3)
@@ -314,7 +314,7 @@ void checkRxErrorUART3(void); //check for UART RX error
 #define _PIC24_UART4_H_
 
 #include "pic24_libconfig.h"
-#include "pic24_generic.h"
+#include "stdint.h"
 #include "pic24_chip.h"
 #include "pic24_util.h"
 
@@ -358,10 +358,10 @@ inline static void WAIT_UNTIL_TRANSMIT_COMPLETE_UART4() {
     doHeartbeat();
 }
 
-void outChar4(uint8 u8_c);
-uint8 inChar4(void);
-void configUART4(uint32 u32_baudRate);
-uint8 isCharReady4(void);
+void outChar4(uint8_t u8_c);
+uint8_t inChar4(void);
+void configUART4(uint32_t u32_baudRate);
+uint8_t isCharReady4(void);
 void checkRxErrorUART4(void); //check for UART RX error
 
 #endif // #if (NUM_UART_MODS >= 4)

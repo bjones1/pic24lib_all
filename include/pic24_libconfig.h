@@ -123,7 +123,7 @@
 // No relevant defines in pic24_dma.h
 // No relevant defines in pic24_ecan.h
 // No relevant defines in pic24_flash.h
-// No relevant defines in pic24_generic.h
+// No relevant defines in stdint.h
 // No relevant defines in pic24_i2c.h
 // No relevant defines in pic24_ports.h
 

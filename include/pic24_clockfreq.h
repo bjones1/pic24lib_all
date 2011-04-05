@@ -74,7 +74,7 @@
 
 #include "pic24_libconfig.h"
 #include "pic24_chip.h"
-#include "pic24_generic.h"
+#include "stdint.h"
 
 // Verify that the current processor is supported by the clock
 // configuration chosen.
@@ -304,15 +304,15 @@
 
 /** A constant which gives the number of processor
  *  clock cycles in 1 millisecond. This value
- *  is cast to a uint32.
+ *  is cast to a uint32_t.
  */
-#define CYCLES_PER_MS ((uint32)(FCY * 0.001))
+#define CYCLES_PER_MS ((uint32_t)(FCY * 0.001))
 
 /** A constant which gives the number of processor
  *  clock cycles in 1 microsecond. This value
- *  is cast to a uint32.
+ *  is cast to a uint32_t.
  */
-#define CYCLES_PER_US ((uint32)(FCY * 0.000001))
+#define CYCLES_PER_US ((uint32_t)(FCY * 0.000001))
 
 
 ///@{ \name Helper macros for clock configuration
@@ -429,6 +429,6 @@ static inline void configClock() {
  *
  * \param u8_source The clock source to switch to.
  */
-void switchClock(uint8 u8_source);
+void switchClock(uint8_t u8_source);
 
 #endif

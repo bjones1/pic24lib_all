@@ -30,6 +30,7 @@
 #ifndef _PIC24_ECAN1_H_
 #define _PIC24_ECAN1_H_
 
+#include "stdint.h"
 #include "pic24_generic.h"
 #include "pic24_chip.h"
 
@@ -253,9 +254,9 @@ typedef struct _ECANMSG {
 } ECANMSG;
 
 
-void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16 u16_id, uint8 u8_len);
-void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32 u32_id, uint8 u8_len);
-uint32 getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg);
+void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len);
+void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len);
+uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg);
 
 #define ECAN_1TIME_HEADER_DEFS
 #endif
@@ -274,14 +275,14 @@ inline static void CHANGE_MODE_ECAN1(mode) {
  */
 #define GET_FIFO_READBUFFER_ECAN1() (C1FIFO & 0x1F)
 
-void clrRxFullFlagECAN1(uint8 u8_bufNum);
-uint8 getRxFullFlagECAN1(uint8 u8_bufNum);
+void clrRxFullFlagECAN1(uint8_t u8_bufNum);
+uint8_t getRxFullFlagECAN1(uint8_t u8_bufNum);
 void clrRxFullOvfFlagsECAN1(void);
-void configTxRxBufferECAN1(uint8 u8_bufNum, uint8 u8_type, uint8 u8_priority);
-void configRxFilterECAN1(uint8 u8_filtNum, uint32 u32_id, uint8 u8_idType, uint8 u8_bufnum, uint8 u8_maskReg);
-void configRxMaskECAN1(uint8 u8_maskNum, uint32 u32_idMask, uint8 u8_idType, uint8 u8_matchType);
-void startTxECAN1(uint8 u8_bufNum);
-uint8 getTxInProgressECAN1(uint8 u8_bufNum);
+void configTxRxBufferECAN1(uint8_t u8_bufNum, uint8_t u8_type, uint8_t u8_priority);
+void configRxFilterECAN1(uint8_t u8_filtNum, uint32_t u32_id, uint8_t u8_idType, uint8_t u8_bufnum, uint8_t u8_maskReg);
+void configRxMaskECAN1(uint8_t u8_maskNum, uint32_t u32_idMask, uint8_t u8_idType, uint8_t u8_matchType);
+void startTxECAN1(uint8_t u8_bufNum);
+uint8_t getTxInProgressECAN1(uint8_t u8_bufNum);
 
 #endif
 
@@ -323,6 +324,7 @@ uint8 getTxInProgressECAN1(uint8 u8_bufNum);
 #ifndef _PIC24_ECAN2_H_
 #define _PIC24_ECAN2_H_
 
+#include "stdint.h"
 #include "pic24_generic.h"
 #include "pic24_chip.h"
 
@@ -546,9 +548,9 @@ typedef struct _ECANMSG {
 } ECANMSG;
 
 
-void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16 u16_id, uint8 u8_len);
-void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32 u32_id, uint8 u8_len);
-uint32 getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg);
+void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len);
+void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len);
+uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg);
 
 #define ECAN_1TIME_HEADER_DEFS
 #endif
@@ -567,14 +569,14 @@ inline static void CHANGE_MODE_ECAN2(mode) {
  */
 #define GET_FIFO_READBUFFER_ECAN2() (C2FIFO & 0x1F)
 
-void clrRxFullFlagECAN2(uint8 u8_bufNum);
-uint8 getRxFullFlagECAN2(uint8 u8_bufNum);
+void clrRxFullFlagECAN2(uint8_t u8_bufNum);
+uint8_t getRxFullFlagECAN2(uint8_t u8_bufNum);
 void clrRxFullOvfFlagsECAN2(void);
-void configTxRxBufferECAN2(uint8 u8_bufNum, uint8 u8_type, uint8 u8_priority);
-void configRxFilterECAN2(uint8 u8_filtNum, uint32 u32_id, uint8 u8_idType, uint8 u8_bufnum, uint8 u8_maskReg);
-void configRxMaskECAN2(uint8 u8_maskNum, uint32 u32_idMask, uint8 u8_idType, uint8 u8_matchType);
-void startTxECAN2(uint8 u8_bufNum);
-uint8 getTxInProgressECAN2(uint8 u8_bufNum);
+void configTxRxBufferECAN2(uint8_t u8_bufNum, uint8_t u8_type, uint8_t u8_priority);
+void configRxFilterECAN2(uint8_t u8_filtNum, uint32_t u32_id, uint8_t u8_idType, uint8_t u8_bufnum, uint8_t u8_maskReg);
+void configRxMaskECAN2(uint8_t u8_maskNum, uint32_t u32_idMask, uint8_t u8_idType, uint8_t u8_matchType);
+void startTxECAN2(uint8_t u8_bufNum);
+uint8_t getTxInProgressECAN2(uint8_t u8_bufNum);
 
 #endif
 

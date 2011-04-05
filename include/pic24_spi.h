@@ -10,7 +10,7 @@
  */
 
 #include "pic24_chip.h"
-#include "pic24_generic.h"
+#include "stdint.h"
 
 
 #ifndef _PIC24_SPI_H_
@@ -107,12 +107,12 @@ specified in the MPLAB C30/src/peripheral_24F/spi.h header.
 
 // Only include if this UART exists.
 #if (NUM_SPI_MODS >= 1)
-uint16 ioMasterSPI1(uint16 u16_c);
+uint16_t ioMasterSPI1(uint16_t u16_c);
 #endif
 
 
 #if (NUM_SPI_MODS >= 2)
-uint16 ioMasterSPI2(uint16 u16_c);
+uint16_t ioMasterSPI2(uint16_t u16_c);
 #endif
 
 
