@@ -94,10 +94,10 @@ uint16_t au16_bufferA[MAX_TRANSFER] __attribute__((space(dma),aligned(MAX_TRANSF
 //generic DMA/ADC configuration function, enables scanning, uses DMA channel 0
 //returns the number of channels that are scanned as specified by the mask.
 uint8_t configDMA_ADC(uint16_t   u16_ch0ScanMask, \
-                    uint8_t    u8_autoSampleTime, \
-                    uint8_t    u8_use12bit,
-                    uint8_t    u8_useScatterGather,
-                    uint8_t    u8_dmaLocsPerInput) {
+                      uint8_t    u8_autoSampleTime, \
+                      uint8_t    u8_use12bit,
+                      uint8_t    u8_useScatterGather,
+                      uint8_t    u8_dmaLocsPerInput) {
   uint8_t     u8_i, u8_nChannels=0;
   uint16_t    u16_mask = 0x0001;
   uint16_t    u16_dmaMode;

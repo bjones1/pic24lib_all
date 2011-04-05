@@ -35,7 +35,7 @@ A 2-bit incremental Gray code rotary encoder example
 
 //clips cntr between 0 and max
 uint8_t processRotaryData(volatile uint8_t u8_curr, volatile uint8_t u8_last,
-                        volatile uint8_t *cntr, volatile uint8_t max) {
+                          volatile uint8_t *cntr, volatile uint8_t max) {
   int8_t delta = 0;
   //states listed in Gray code order for clarity
   switch (u8_curr) {

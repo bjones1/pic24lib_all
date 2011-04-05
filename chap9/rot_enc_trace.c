@@ -41,7 +41,7 @@ volatile uint8_t u8_startTrace = 0;
 
 //clips cntr between 0 and max
 uint8_t processRotaryData(volatile uint8_t u8_curr, volatile uint8_t u8_last,
-                        volatile uint8_t *cntr, volatile uint8_t max) {
+                          volatile uint8_t *cntr, volatile uint8_t max) {
   int8_t delta = 0;
   if (u8_startTrace && (u8_tcnt != TMAX)) {
     au8_tbuff[u8_tcnt] = u8_curr;

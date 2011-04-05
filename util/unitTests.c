@@ -203,8 +203,8 @@ void sendFourBytesCmdTokenData() {
   setupXferData(0, 4);
   // 0x03: index 0, length 3; following are data bytes
   uint8_t au8_data[] = { CMD_TOKEN, 0x03, CMD_TOKEN, ESCAPED_CMD,
-                       CMD_TOKEN, ESCAPED_CMD, CMD_TOKEN, ESCAPED_CMD, CMD_TOKEN, ESCAPED_CMD
-                     };
+                         CMD_TOKEN, ESCAPED_CMD, CMD_TOKEN, ESCAPED_CMD, CMD_TOKEN, ESCAPED_CMD
+                       };
   sendData(au8_data, 10);
 
   ASSERT(isReceiveMachineData());
@@ -729,8 +729,8 @@ void testSpecifyMinimalVar() {
   uint8_t au8_buf[1];
   // Expected transmission
   uint8_t au8_data[5 + 3] = { CMD_TOKEN, CMD_SEND_RECEIVE_VAR, 0 /* u_varIndex */,
-                            3 /* length of rest - 1 */, /* var size - 1 */ 0, /* data */ 0, 0, 0
-                          };
+                              3 /* length of rest - 1 */, /* var size - 1 */ 0, /* data */ 0, 0, 0
+                            };
   // Test it out
   au8_outCharData = au8_data;
   st_outCharLen = 8;
@@ -750,8 +750,8 @@ void testSpecifyLongFormat() {
   uint8_t au8_buf[1];
   // Expected transmission
   uint8_t au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
-                              255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */
-                            };
+                                255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */
+                              };
   uint u_i;
   for (u_i = 5; u_i < 5 + 256; u_i++)
     au8_data[u_i] = ' ';
@@ -781,8 +781,8 @@ void testSpecifyLongName() {
   uint8_t au8_buf[1];
   // Expected transmission
   uint8_t au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
-                              255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */ 0
-                            };
+                                255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */ 0
+                              };
   uint u_i;
   for (u_i = 6; u_i < 6 + 256; u_i++)
     au8_data[u_i] = ' ';
@@ -812,8 +812,8 @@ void testSpecifyLongDesc() {
   uint8_t au8_buf[1];
   // Expected transmission
   uint8_t au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
-                              255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */ 0, 0
-                            };
+                                255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */ 0, 0
+                              };
   uint u_i;
   for (u_i = 7; u_i < 7 + 256; u_i++)
     au8_data[u_i] = ' ';
