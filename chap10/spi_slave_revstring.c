@@ -120,7 +120,7 @@ void configSPI1(void) {
   SPI1CON1 =  CLK_POL_ACTIVE_HIGH |
               SPI_CKE_ON          |
               SLAVE_ENABLE_ON     |
-              SPI_MODE8_ON        |
+              SPI_MODE16_OFF      |
               MASTER_ENABLE_OFF;
   //configure pins
   CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO

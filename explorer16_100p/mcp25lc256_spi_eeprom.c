@@ -54,7 +54,7 @@ void configSPI2(void) {
              PRI_PRESCAL_4_1 |     //4:1 primary prescale
              CLK_POL_ACTIVE_HIGH | //clock active high (CKP = 0)
              SPI_CKE_ON          | //out changes active to inactive (CKE=1)
-             SPI_MODE8_ON        | //8-bit mode
+             SPI_MODE16_OFF      | //8-bit mode
              MASTER_ENABLE_ON;     //master mode
   SPI2STATbits.SPIEN = 1;  //enable SPI mode
   CONFIG_SLAVE_ENABLE();       //chip select for MCP41xxx
