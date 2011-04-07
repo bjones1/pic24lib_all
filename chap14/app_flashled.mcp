@@ -7,7 +7,7 @@ dir_src=
 dir_bin=
 dir_tmp=
 dir_sin=
-dir_inc=..\include;..\esos\include;..\esos\include\pic24
+dir_inc=..\lib\include;..\esos\include;..\esos\include\pic24
 dir_lib=
 dir_lkr=
 [CAT_FILTERS]
@@ -84,8 +84,8 @@ file_017=no
 file_018=no
 [FILE_INFO]
 file_000=..\esos\src\esos.c
-file_001=..\common\pic24_clockfreq.c
-file_002=..\common\pic24_configbits.c
+file_001=..\lib\common\pic24_clockfreq.c
+file_002=..\lib\common\pic24_configbits.c
 file_003=..\esos\src\pic24\esos_pic24_tick.c
 file_004=..\esos\src\pic24\esos_pic24_rs232.c
 file_005=..\esos\src\esos_comm.c

@@ -7,7 +7,7 @@ dir_src=
 dir_bin=
 dir_tmp=
 dir_sin=
-dir_inc=..\include
+dir_inc=..\lib\include
 dir_lib=
 dir_lkr=
 [CAT_FILTERS]
@@ -33,7 +33,7 @@ file_000=no
 file_001=no
 [FILE_INFO]
 file_000=upcase_cversion.c
-file_001=..\include\pic24_all.h
+file_001=..\lib\include\pic24_all.h
 [SUITE_INFO]
 suite_guid={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 suite_state=

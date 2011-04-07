@@ -23,48 +23,54 @@ Import('buildTargets env')
 
 ## Common sources used for the PIC24 support library
 PIC24SupportLibSources = [ 
-  'common/dataXfer.c',
-  'common/dataXferImpl.c',
-  'common/pic24_adc.c',
-  'common/pic24_clockfreq.c',
-  'common/pic24_configbits.c',
-  'common/pic24_ecan.c',
-  'common/pic24_flash.c',
-  'common/pic24_i2c.c',
-  'common/pic24_serial.c',
-  'common/pic24_spi.c',
-  'common/pic24_timer.c',
-  'common/pic24_uart.c',
-  'common/pic24_util.c' ]
+  'lib/common/dataXfer.c',
+  'lib/common/dataXferImpl.c',
+  'lib/common/pic24_adc.c',
+  'lib/common/pic24_clockfreq.c',
+  'lib/common/pic24_configbits.c',
+  'lib/common/pic24_ecan.c',
+  'lib/common/pic24_flash.c',
+  'lib/common/pic24_i2c.c',
+  'lib/common/pic24_serial.c',
+  'lib/common/pic24_spi.c',
+  'lib/common/pic24_timer.c',
+  'lib/common/pic24_uart.c',
+  'lib/common/pic24_util.c' ]
   
 PIC24SupportLibSourcesSmall = [ 
-  'common/pic24_clockfreq.c',
-  'common/pic24_configbits.c',
-  'common/pic24_serial.c',
-  'common/pic24_spi.c',
-  'common/pic24_timer.c',
-  'common/pic24_uart.c',
-  'common/pic24_util.c' ] 
+  'lib/common/pic24_clockfreq.c',
+  'lib/common/pic24_configbits.c',
+  'lib/common/pic24_serial.c',
+  'lib/common/pic24_spi.c',
+  'lib/common/pic24_timer.c',
+  'lib/common/pic24_uart.c',
+  'lib/common/pic24_util.c' ] 
   
  
 PIC24SupportLibSourcesSmall3 = [ 
-  'common/pic24_clockfreq.c',
-  'common/pic24_configbits.c',
-  'common/pic24_serial.c',
-  'common/pic24_spi.c','common/pic24_i2c.c','common/pic24_adc.c',
-  'common/pic24_timer.c',
-  'common/pic24_uart.c',
-  'common/pic24_util.c' ] 
+  'lib/common/pic24_clockfreq.c',
+  'lib/common/pic24_configbits.c',
+  'lib/common/pic24_serial.c',
+  'lib/common/pic24_spi.c',
+  'lib/common/pic24_i2c.c',
+  'lib/common/pic24_adc.c',
+  'lib/common/pic24_timer.c',
+  'lib/common/pic24_uart.c',
+  'lib/common/pic24_util.c' ] 
 
 
 PIC24SupportLibSourcesSmall2 = [ 
-  'common/pic24_clockfreq.c','common/dataXfer.c','common/dataXferImpl.c',
-  'common/pic24_configbits.c',
-  'common/pic24_serial.c',
-  'common/pic24_spi.c','common/pic24_i2c.c','common/pic24_adc.c',
-  'common/pic24_timer.c',
-  'common/pic24_uart.c',
-  'common/pic24_util.c' ] 
+  'lib/common/pic24_clockfreq.c',
+  'lib/common/dataXfer.c',
+  'lib/common/dataXferImpl.c',
+  'lib/common/pic24_configbits.c',
+  'lib/common/pic24_serial.c',
+  'lib/common/pic24_spi.c',
+  'lib/common/pic24_i2c.c',
+  'lib/common/pic24_adc.c',
+  'lib/common/pic24_timer.c',
+  'lib/common/pic24_uart.c',
+  'lib/common/pic24_util.c' ] 
 
 
 

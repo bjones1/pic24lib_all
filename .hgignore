@@ -1,1 +1,6 @@
 build/
+docs/.*\.html
+docs/.*\.css
+docs/.*\.png
+docs/.*\.js
+docs/installdox

@@ -25,10 +25,10 @@ Import('env')
 templateDir = './'
 
 ## Define the include directory destination for .h templates
-includeDir = '../include/'
+includeDir = '../lib/include/'
 
 ## Define the common directory destination for .c templates
-commonDir = '../common/'
+commonDir = '../lib/common/'
 
 ## @}
  
@@ -125,13 +125,13 @@ env.Append(BUILDERS = {'HTemplate' : hbldr})
 ###############################################################################
 
 # Specify which files are produced by templates
-env.CTemplate('../common/pic24_uart','pic24_uart')
-env.HTemplate('../include/pic24_uart','pic24_uart')
-env.CTemplate('../common/pic24_i2c','pic24_i2c')
-env.HTemplate('../include/pic24_i2c','pic24_i2c')
-env.CTemplate('../common/pic24_spi','pic24_spi')
-env.CTemplate('../common/pic24_ecan','pic24_ecan')
-env.HTemplate('../include/pic24_ecan','pic24_ecan')
+env.CTemplate('../lib/common/pic24_uart','pic24_uart')
+env.HTemplate('../lib/include/pic24_uart','pic24_uart')
+env.CTemplate('../lib/common/pic24_i2c','pic24_i2c')
+env.HTemplate('../lib/include/pic24_i2c','pic24_i2c')
+env.CTemplate('../lib/common/pic24_spi','pic24_spi')
+env.CTemplate('../lib/common/pic24_ecan','pic24_ecan')
+env.HTemplate('../lib/include/pic24_ecan','pic24_ecan')
 
 
 ## @}

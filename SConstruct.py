@@ -95,10 +95,9 @@ if os.name == 'posix':
 
 elif os.name == 'nt':
   print "Modifying environment for Windoze"
-  incDirs = Split( """include
+  incDirs = Split( """lib/include
     """)
   libDirs = Split( """.
-    lib
     """)
   # Change linux-specific environment variables    
   env.Replace(
@@ -122,7 +121,7 @@ dict = env.Dictionary()
 if dict['BOOTLDR'] == 'msu':
     env.Replace(
         LINKFLAGS = '-mcpu=${MCU} -Wl,--heap=100,$LINKERSCRIPT',
-        LINKERSCRIPT = '--script=lkr' + os.sep + 'p${MCU}_bootldr.gld',
+        LINKERSCRIPT = '--script=lib/lkr' + os.sep + 'p${MCU}_bootldr.gld',
     )
 else:
     env.Replace(
@@ -163,10 +162,8 @@ archiveFiles = [
   'bin',
   'bootloader',
   'docs',
-  'esos',
   'hex',
-  'lkr',
-  'lkr_v2',
+  'lib/lkr',
   'chap3',
   'chap4',
   'chap6',
@@ -179,8 +176,9 @@ archiveFiles = [
   'chap13',
   'chap14',
   'chap15',
-  'common',
-  'include',
+  'esos',
+  'lib/common',
+  'lib/include',
   'explorer16_100p',
   'templates',
   'util' ]
@@ -197,16 +195,16 @@ def buildTargetsSConscript(buildTargets, env, variantDirName):
 # Inform SCons about the dependencies in the template-based files
 SConscript('./templates/SConscript.py', 'env')
 
-env.Alias('template-build', ['include/pic24_uart.h', 'include/pic24_i2c.h',
-                             'include/pic24_ecan.h',
-                             'common/pic24_uart.c', 'common/pic24_i2c.c',
-                             'common/pic24_spi.c', 'common/pic24_ecan.c']);
+env.Alias('template-build', ['lib/include/pic24_uart.h', 'lib/include/pic24_i2c.h',
+                             'lib/include/pic24_ecan.h',
+                             'lib/common/pic24_uart.c',  'lib/common/pic24_i2c.c',
+                             'lib/common/pic24_spi.c',   'lib/common/pic24_ecan.c']);
 
 ## Create a target which zips up these files;
 ## otherwise, create compilation targets.
 if 'zipit' in COMMAND_LINE_TARGETS:
     # Update docs
-    env.Command(Glob('docs/*'), Glob('common/*.c'), "doxygen")
+    env.Command(Glob('docs/*'), Glob('lib/common/*.c'), "doxygen")
     # Zip it!
     zipNode = env.Zip(archiveFileName, archiveFiles)
     env.Alias('zipit', zipNode)
