@@ -248,9 +248,9 @@ uint8_t getIRCMD(void) {
   if (u8_x & 0x20) outString("Toggle = 1, ");
   else outString("Toggle = 0, ");
   outString("Addr: ");
-  outUint8_t(u8_x & 0x1F);
+  outUint8(u8_x & 0x1F);
   outString(",Cmd: ");
-  outUint8_t(u8_cmd);
+  outUint8(u8_cmd);
   outString("\n");
   if (flags.u1_irCmdFlag) flags.u1_irCmdFlag = 0;
   else flags.u1_irCmdFlag = 1;

@@ -107,7 +107,7 @@ static void configFrcUART(void) {
 #else
   float f_brg = (((float) FRC_FCY)/((float) DEFAULT_BAUDRATE)/4.0) - 1.0;
 #endif
-  uint16_t UxBRG = roundFloatToUint16_t(f_brg);
+  uint16_t UxBRG = roundFloatToUint16(f_brg);
   switch (DEFAULT_UART) {
 #if (NUM_UART_MODS >= 1)
     case 1 :

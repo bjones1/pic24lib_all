@@ -74,7 +74,7 @@ int main (void) {
     u8_cnt = u8_bcnt;  //copy variable so will not change
     if (u8_cnt != 1) outString("..bounced: ");
     else outString("..no bounce: ");
-    outUint8_t(u8_cnt);
+    outUint8(u8_cnt);
     outString("\n");
   }
 }

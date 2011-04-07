@@ -77,7 +77,7 @@ int main(void) {
   printResetCause();        //print statement about what caused reset
   //print the reset count
   outString("The reset count is ");
-  outUint8_t(u8_resetCount);
+  outUint8(u8_resetCount);
   outString("\n");
 
   while (1) {

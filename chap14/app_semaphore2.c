@@ -104,7 +104,7 @@ ESOS_USER_TASK( __simulated_isr ) {
  * should not be too short (~255 ticks) and not too long (~4096 ticks)
  */
 inline uint32_t getRandomDelay() {
-  return ((esos_GetRandomUint32_t() & 0x0FFF)|0x100);
+  return ((esos_GetRandomUint32() & 0x0FFF)|0x100);
 }
 
 /*

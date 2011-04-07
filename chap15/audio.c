@@ -325,7 +325,7 @@ void doTest(void) {
     u16_adcVal = ADC1BUF0;
     //start next sample
     SET_SAMP_BIT_ADC1();
-    outUint16_t(u16_adcVal);
+    outUint16(u16_adcVal);
     outString("\n");
   }
   _T3IE = 1;

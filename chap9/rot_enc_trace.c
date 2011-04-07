@@ -138,7 +138,7 @@ int main (void) {
     if (u8_tcnt == TMAX) {
       u8_startTrace = 0;
       for (u8_i = 0; u8_i < TMAX; u8_i++) {
-        outUint8_t(au8_tbuff[u8_i]);
+        outUint8(au8_tbuff[u8_i]);
         outString("\n");
       }
       u8_tcnt = 0;

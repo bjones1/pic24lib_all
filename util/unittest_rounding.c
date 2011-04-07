@@ -41,8 +41,8 @@ int main (void) {
   configBasic(HELLO_MSG);
 
   for (u8_i=0; u8_i< NUM_TESTS; u8_i++) {
-    u32_y = roundFloatToUint32_t(f_x[u8_i]);
-    u16_y = roundFloatToUint16_t(f_x[u8_i]);
+    u32_y = roundFloatToUint32(f_x[u8_i]);
+    u16_y = roundFloatToUint16(f_x[u8_i]);
     printf("f: %3.9f  u16: %d, u32: %ld\n",
            (double) f_x[u8_i], u16_y, u32_y);
   }

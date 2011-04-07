@@ -58,7 +58,7 @@ int main (void) {
     _CMIF = 0;
     u8_i = _C1OUT;  //current value
     outString("\n Comparator fired: ");
-    outUint8_t(u8_i);
+    outUint8(u8_i);
     DELAY_MS(100);
   } //end while
 }//end main

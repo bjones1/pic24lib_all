@@ -509,7 +509,7 @@ void testSosc(void) {
   writeConfigDS1722(0xE8); //12-bit mode
   while(1) {
     outString("Seconds: ");
-    outUint16_tDecimal(u16_seconds);
+    outUint16Decimal(u16_seconds);
     outString("\n");
     while (!IS_TRANSMIT_COMPLETE_UART1());
     SLEEP();

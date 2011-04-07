@@ -127,7 +127,7 @@ int main (void) {
   while (1) {
     if (u8_lastCnt != u8_cntrROT) {
       u8_lastCnt = u8_cntrROT;
-      outUint8_t(u8_lastCnt);
+      outUint8(u8_lastCnt);
       outString("\n");
       if  (u8_errROT) {
         outString("Rotary state error\n");

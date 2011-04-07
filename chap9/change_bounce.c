@@ -69,7 +69,7 @@ int main (void) {
     DELAY_MS(DEBOUNCE_DLY );
     if (bcnt != 2) outString("..bounced: ");
     else outString("..no bounce: ");
-    outUint8_t(bcnt);
+    outUint8(bcnt);
     outString("\n");
   }
 }

@@ -313,7 +313,7 @@ void configUART${x}(uint32_t u32_baudRate) {
   f_brg = (((float) FCY)/((float) u32_baudRate)/4.0) - 1.0;
 #endif
   ASSERT(f_brg < 65535.5);
-  U${x}BRG = roundFloatToUint16_t(f_brg);
+  U${x}BRG = roundFloatToUint16(f_brg);
 #endif
 
   // Set up the UART mode register

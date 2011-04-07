@@ -177,9 +177,9 @@ int main (void) {
     if (u8_x & 0x20) outString("Toggle = 1, ");
     else outString("Toggle = 0, ");
     outString("Addr: ");
-    outUint8_t(u8_x & 0x1F);
+    outUint8(u8_x & 0x1F);
     outString(",Cmd: ");
-    outUint8_t(u8_y);
+    outUint8(u8_y);
     outString("\n");
   }
 }
