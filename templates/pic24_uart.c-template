@@ -257,31 +257,62 @@ void configUART${x}(uint32_t u32_baudRate) {
 #endif
 
   /*************************  UART config ********************/
-  // NOTE: the following pin mappings are (for simplicity)
-  // identical for UARTS 1-4. See comments in the #warning
-  // statements below for more information.
-#if defined(EXPLORER16_100P)
-//nothing to do, pins mapped to fixed ports
-#elif (${x} == 1)             //change pin mappings for your device
-  CONFIG_RP10_AS_DIG_PIN();                //RX RP pin must be digital
+  // See comments in the #warning statements below for
+  // instructions on how to modify this configuration.
+  // More information on each of these board is given
+  // in the HARDWARE_PLATFORM section of pic24_libconfig.h.
+#if (HARDWARE_PLATFORM == EXPLORER16_100P)
+  // There's nothing to do, since pins on these boards are
+  // mapped to fixed ports.
+#elif (${x} == 1)             
+  // The following pin mappings will apply only to UART 1.
+  // Change them as necessary for your device.
+ #if (HARDWARE_PLATFORM == DANGEROUS_WEB)
+  CONFIG_RP14_AS_DIG_PIN();             // RX RP pin must be digital
+  CONFIG_U1RX_TO_RP(14);                // U1RX <- RP14
+  CONFIG_RP15_AS_DIG_PIN();             // TX RP pin must be digital
+  CONFIG_U1TX_TO_RP(15);                // U1TX -> RP15
+  CONFIG_RP10_AS_DIG_PIN();             // RX RP pin must be digital
+  // turn off any analog functionality on these pins
+  // (may be needed if pin is hardmapped and RPx does
+  // not exist)
+  DISABLE_U1TX_ANALOG();                
+  DISABLE_U1RX_ANALOG();
+ #elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
+  CONFIG_RP9_AS_DIG_PIN();              // RX RP pin must be digital
+  CONFIG_U1RX_TO_RP(9);                 // U1RX <- RP9
+  CONFIG_RP8_AS_DIG_PIN();              // TX RP pin must be digital
+  CONFIG_U1TX_TO_RP(8);                 // U1TX -> RP8
+  // turn off any analog functionality on these pins
+  // (may be needed if pin is hardmapped and RPx does
+  // not exist)
+  DISABLE_U1TX_ANALOG();                
+  DISABLE_U1RX_ANALOG();
+ #elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
   CONFIG_U${x}RX_TO_RP(10);               //U${x}RX <- RP10
   CONFIG_RP11_AS_DIG_PIN();                //TX RP pin must be digital
   CONFIG_U${x}TX_TO_RP(11);               //U${x}TX -> RP11
-  DISABLE_U${x}TX_ANALOG();               //turn off any analog functionality on pin (may be needed if pin is hardmapped and RPx does not exist)
-  DISABLE_U${x}RX_ANALOG();               //turn off any analog functionality on pin (may be needed if pin is hardmapped and RPx does not e
+  // turn off any analog functionality on these pins
+  // (may be needed if pin is hardmapped and RPx does
+  // not exist)
+  DISABLE_U1TX_ANALOG();                
+  DISABLE_U1RX_ANALOG();
+ #else
+  #error Unknown hardware platform.
+ #endif
 #else
-#warning UART${x} pin mappings not defined!!! For simplicity,
-#warning pin mappings are identical for UARTS 1-4. If your device has more than
-#warning one UART, ****** CHANGE THE MAPPING ****** since
-#warning multiple UARTs can not share the same pins.
-#warning In particular:
-#warning 1. Change the statement #if (${x} == 1) to #if 1
-#warning 2. Change the pin numbers in the next four lines
-#warning    to something valid for your device.
-#warning    If your device does not have remappable I/O,
-#warning    (typical for >44 pin packages), skip this step --
-#warning    the UART I/O pins are already assigned to something
-#warning    valid.
+  #warning UART${x} pin mappings not defined. See comments below for more info.
+  // If your device has more than
+  // one UART, ****** CHANGE THE MAPPING ****** since
+  // multiple UARTs can not share the same pins.
+  // In particular:
+  // 1. Change the statement #if (${x} == 1) to #if 1
+  // 2. Change the pin numbers in the next four lines
+  //    to something valid for your device.
+  //    If your device does not have remappable I/O,
+  //    (typical for >44 pin packages), skip this step --
+  //    the UART I/O pins are already assigned to something
+  //    valid.
 #endif
 
   // First, disable the UART, clearing all errors, terminating

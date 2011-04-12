@@ -249,13 +249,19 @@ else:
 
     # Build for the explorer board
     buildTargetsSConscript(['explorer', 'bootloader'],
-      env.Clone(MCU='24FJ128GA010', CPPDEFINES='EXPLORER16_100P'), 'default')    
+      env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')    
     buildTargetsSConscript(['explorerh', 'bootloader'],
-      env.Clone(MCU='24HJ256GP610', CPPDEFINES='EXPLORER16_100P'), 'default')    
+      env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')    
 
     # Do a no-float build of reset
     buildTargetsSConscript(['reset'], 
       env.Clone(MCU='24HJ32GP202',  CPPDEFINES='_NOFLOAT'), 'nofloat')
+      
+    # Build reset on other supported platforms
+    buildTargetsSConscript(['reset'],
+      env.Clone(MCU='24FJ64GA002',  CPPDEFINES='HARDWARE_PLATFORM=STARTER_BOARD_28P'), 'starter_board_28p')
+    buildTargetsSConscript(['reset'],
+      env.Clone(MCU='33FJ128GP204', CPPDEFINES='HARDWARE_PLATFORM=DANGEROUS_WEB'), 'dangerous_web')
 
     # Build reset with various clock options on all processors
     for clock in ['SIM_CLOCK', 'FRCPLL_FCY16MHz', 'FRC_FCY4MHz', 

@@ -286,7 +286,10 @@ static inline void DISABLE_UART4() {
 
 static inline void CONFIG_DEFAULT_UART(void) {
   DISABLE_UART1();
-#if defined(_U1RXR)
+#if defined(STARTER_BOARD_28P) && defined(_U1RXR)
+  CONFIG_U1RX_TO_RP(9);
+  CONFIG_U1TX_TO_RP(8);
+#elif defined(_U1RXR)
   CONFIG_U1RX_TO_RP(10);
   CONFIG_U1TX_TO_RP(11);
 #warning  UART1 RX pin configured to RP10, UART1 TX pin configured to RP11
