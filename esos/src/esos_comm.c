@@ -111,7 +111,7 @@ ESOS_CHILD_TASK( __esos_OutUint8AsHexString, uint8 u8_x) {
 
 } // end __esos_OutUint8AsHexString()
 
-ESOS_CHILD_TASK( __esos_OutUint8AsDecString, uint8 u8_out) {
+ESOS_CHILD_TASK( __esos_OutUint8AsDecString, uint8 u8_x) {
   // code provided by Gary Weasel
   static uint8      au8_String[5];
   static uint8      u8_c;
@@ -121,10 +121,10 @@ ESOS_CHILD_TASK( __esos_OutUint8AsDecString, uint8 u8_out) {
   ESOS_TASK_BEGIN();
   u8_digit = 0;
   if (u8_x > 99)
-    au8_String[u8_digit++] = ’0’ + u8_x / 100;
+    au8_String[u8_digit++] = '0' + u8_x / 100;
   if (u8_x > 9)
-    au8_String[u8_digit++] = ’0’ + (u8_x % 100) / 10;
-  au8_String[u8_digit++] = ’0’ + (u8_x % 10);
+    au8_String[u8_digit++] = '0' + (u8_x % 100) / 10;
+  au8_String[u8_digit++] = '0' + (u8_x % 10);
   au8_String[u8_digit] = 0;
   u8_c = 0;
   while (u8_c < u8_digit) {
