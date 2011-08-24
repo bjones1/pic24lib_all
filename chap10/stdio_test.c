@@ -31,9 +31,7 @@
 
 /** \file
  *  This file demonstrates use of 'scanf' forms, requires inclusion of "pic24_stdio_uart.c".
- *  This project uses a PIC24 with 64K of program memory because of the large code footprint
- *  of the stdio library.
-*/
+ */
 
 
 

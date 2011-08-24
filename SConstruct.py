@@ -83,7 +83,6 @@ if os.name == 'posix':
     LIBPATH = libDirs,
     AR = 'pic30-elf-ar',
     LINK = 'pic30-elf-gcc', # Copied from SCons\Tools\link.py with mods
-    MCC_BASE = '/usr/share/pic30-support/pic24h/'
   )
   #
   # add the bin2hex program to the environment as a new builder
@@ -106,7 +105,6 @@ elif os.name == 'nt':
     LIBPATH = libDirs,
     AR = 'pic30-ar',
     LINK = 'pic30-gcc', # Copied from SCons\Tools\link.py with mods
-    MCC_BASE = 'c:\\PROGRA~1\\MICROC~1\\MPLABC~2\\support\\PIC24H'
   )
   #
   # add the bin2hex program to the environment as a new builder
@@ -126,7 +124,7 @@ if dict['BOOTLDR'] == 'msu':
 else:
     env.Replace(
         LINKFLAGS = '-mcpu=${MCU} -Wl,--heap=100,$LINKERSCRIPT',
-        LINKERSCRIPT = '--script=${MCC_BASE}' + os.sep + 'gld' + os.sep + 'p${MCU}.gld',
+        LINKERSCRIPT = '--script=p${MCU}.gld',
     )
 
 ## By default, run two jobs at once (assume a dual-core PC)
@@ -235,8 +233,8 @@ else:
       env.Clone(MCU='33FJ64GP202'), 'default')
 
     # Minimally test the 24F16KA102
-    buildTargetsSConscript(['reset', 'echo',  'bootloader'],
-      env.Clone(MCU='24F16KA102'), 'default')
+#    buildTargetsSConscript(['reset', 'echo',  'bootloader'],
+#      env.Clone(MCU='24F16KA102'), 'default')
 
     # Build the PIC24HJGP502-compatible directories
     buildTargetsSConscript(['chap11dma', 'chap13', 'chap15', 'bootloader'],
@@ -270,8 +268,8 @@ else:
           env.Clone(MCU='24FJ64GA002', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
         buildTargetsSConscript(['reset'], 
           env.Clone(MCU='24FJ64GA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
-        buildTargetsSConscript(['reset'],
-          env.Clone(MCU='24F16KA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
+#        buildTargetsSConscript(['reset'],
+#          env.Clone(MCU='24F16KA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
     for clock in ['SIM_CLOCK', 'PRI_NO_PLL_7372KHzCrystal', 'FRC_FCY3685KHz',
     'FRCPLL_FCY40MHz', 'PRIPLL_7372KHzCrystal_40MHzFCY', 'PRIPLL_8MHzCrystal_40MHzFCY']:
         buildTargetsSConscript(['reset'], 
