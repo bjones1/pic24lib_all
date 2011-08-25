@@ -1,4 +1,4 @@
-bin\astyle\bin\astyle --brackets=attach --indent-switches --indent=spaces=2 --recursive --exclude=build --lineend=linux --suffix=none --formatted *.c *.h
+bin\astyle\bin\astyle --brackets=attach --indent-switches --indent=spaces=2 --recursive --exclude=build --lineend=linux --suffix=none --formatted *.c *.h templates/*.*
 @echo off
 rem Notes on options (see http://astyle.sourceforge.net/astyle.html for more information):
 rem --brackets=attach / -a :: Attach brackets to their pre-block statements ( e.g. Java / K&R style ).

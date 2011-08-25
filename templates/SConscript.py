@@ -43,10 +43,12 @@ commonDir = '../lib/common/'
 #  \param mapping A dictionary of key=value pairs used by
 #         Template to perform the search and replace operation.
 #  \param openMode Mode with which to open the destination file.
-#         Use the default of 'w' to base the overwrite the 
-#         destination file with the replaced source file. Use 'a' to
+#         Use the default of 'wb' to overwrite the 
+#         destination file with the replaced source file. Use 'ab' to
 #         append the replaced source file to the destination file.
-def searchAndReplace(sourceFile, destFileName, mapping, openMode='w'):
+#         The 'b' at end end of 'wb'/'ab' keeps line endings Unix-style,
+#         even when run under Windows.
+def searchAndReplace(sourceFile, destFileName, mapping, openMode='wb'):
   outFile = open(destFileName, openMode)
   template = Template(open(sourceFile).read())
   outFile.write(template.substitute(mapping))
@@ -61,11 +63,11 @@ def searchAndReplace(sourceFile, destFileName, mapping, openMode='w'):
 #         to make. During each iteration, $x is replaced by the
 #         iteration number.
 def genFromTemplate(templateFileName, destFileName, iters):
-  openMode = 'w'
+  openMode = 'wb'
   for i in range(1, iters + 1):
     searchAndReplace(templateFileName, destFileName, 
       {'x' : str(i)}, openMode)
-    openMode = 'a'
+    openMode = 'ab'
 
 ## Builds a .c from a template -- SCons Builder function formation.
 # Function will build the .c as requested.  Has the proper
