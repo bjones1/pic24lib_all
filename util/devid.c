@@ -1,4 +1,4 @@
-#include "p24hxxxx.h"
+#include "p24Hxxxx.h"
 #include <stdio.h>
 #include "pic24_uart.h"
 #include "pic24_delay.h"

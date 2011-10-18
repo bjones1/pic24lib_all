@@ -9,13 +9,13 @@ Header file that includes all pic24*.h files
 
 // Include processor-specific header file
 #if defined(__PIC24H__)
-#include "p24hxxxx.h"
+#include "p24Hxxxx.h"
 #elif defined(__PIC24F__)
-#include "p24fxxxx.h"
+#include "p24Fxxxx.h"
 #elif defined(__dsPIC33F__)
-#include "p33fxxxx.h"
+#include "p33Fxxxx.h"
 #elif defined(__PIC24FK__)
-#include "p24fxxxx.h"      //this is a variant of the PIC24F family
+#include "p24Fxxxx.h"      //this is a variant of the PIC24F family
 #else
 #error Unknown processor.
 #endif
