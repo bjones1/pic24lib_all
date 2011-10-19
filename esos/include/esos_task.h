@@ -59,7 +59,7 @@ struct stTask {
   uint32  u32_waitLen;
 };
 
-/**
+/** \struct ESOS_TASK_HANDLE
  * Handle to an ESOS user task.  This handle is used whenever a
  * task needs to refer to another task, or whenever a task needs
  * to retreive its own handle.
