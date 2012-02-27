@@ -36,7 +36,7 @@ from a Microchip 24LC515 serial EEPROM.
 */
 
 #define EEPROM 0xA0   //LC515 address assuming both address pins tied low.
-#define BLKSIZE 64
+#define BLKSIZE (64)
 
 //Assumes WDT is configured for longer than EEPROM write time
 void waitForWriteCompletion(uint8_t u8_i2cAddr) {
@@ -88,7 +88,7 @@ void memReadLC515(uint8_t u8_i2cAddr,  uint16_t u16_MemAddr, uint8_t *pu8_buf) {
 
 
 int main (void) {
-  uint8_t au8_buf[64+2];  //2 extra bytes for address
+  uint8_t au8_buf[BLKSIZE+2];  //2 extra bytes for address
   uint16_t u16_MemAddr;
   uint8_t u8_Mode;
 
@@ -101,23 +101,23 @@ int main (void) {
   while (1) {
     uint8_t u8_i;
     if (u8_Mode == 'w') {
-      outString("Enter 64 chars.\n");
+      outString("Enter chars.\n");
       //first two buffer locations reserved for starting address
-      for (u8_i = 2; u8_i< 64+2; u8_i++) {
+      for (u8_i = 2; u8_i< BLKSIZE+2; u8_i++) {
         au8_buf[u8_i] = inCharEcho();
       }
       outString("\nDoing Write\n");
       // write same string twice to check Write Busy polling
       memWriteLC515(EEPROM,u16_MemAddr, au8_buf); // do write
-      u16_MemAddr = u16_MemAddr +64;
+      u16_MemAddr = u16_MemAddr + BLKSIZE;
       memWriteLC515(EEPROM,u16_MemAddr,au8_buf); // do write
-      u16_MemAddr = u16_MemAddr +64;
+      u16_MemAddr = u16_MemAddr + BLKSIZE;
     } else {
       memReadLC515(EEPROM,u16_MemAddr,au8_buf); // do read
-      for (u8_i = 0; u8_i< 64; u8_i++) outChar(au8_buf[u8_i]);
+      for (u8_i = 0; u8_i< BLKSIZE; u8_i++) outChar(au8_buf[u8_i]);
       outString("\nAny key continues read...\n");
       inChar();
-      u16_MemAddr = u16_MemAddr + 64;
+      u16_MemAddr = u16_MemAddr + BLKSIZE;
     }
   }
 }
