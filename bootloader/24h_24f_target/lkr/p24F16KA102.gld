@@ -18,7 +18,7 @@ MEMORY
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x29FF
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x29FE
   eedata         : ORIGIN = 0x7FFE00,      LENGTH = 0x200
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
@@ -170,7 +170,9 @@ __NO_HANDLES = 1;          /* Suppress handles on this device  */
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x600;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0x2A00;
 
 
 /*
@@ -218,7 +220,8 @@ SECTIONS
   {
         *(.init);
         *(.user_init);
-        *(.handle);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
   } >program
@@ -810,6 +813,7 @@ _I2C1STATbits = 0x208;
 _I2C1ADD      = 0x20A;
  I2C1MSK      = 0x20C;
 _I2C1MSK      = 0x20C;
+_I2C1MSKbits  = 0x20C;
  U1MODE       = 0x220;
 _U1MODE       = 0x220;
 _U1MODEbits   = 0x220;
@@ -965,6 +969,10 @@ _RCONbits     = 0x740;
  OSCCON       = 0x742;
 _OSCCON       = 0x742;
 _OSCCONbits   = 0x742;
+ OSCCONL      = 0x742;
+_OSCCONL      = 0x742;
+ OSCCONH      = 0x743;
+_OSCCONH      = 0x743;
  CLKDIV       = 0x744;
 _CLKDIV       = 0x744;
 _CLKDIVbits   = 0x744;
@@ -980,6 +988,9 @@ _HLVDCONbits  = 0x756;
  DSCON        = 0x758;
 _DSCON        = 0x758;
 _DSCONbits    = 0x758;
+ DSWAKE       = 0x75A;
+_DSWAKE       = 0x75A;
+_DSWAKEbits   = 0x75A;
  DSWSRC       = 0x75A;
 _DSWSRC       = 0x75A;
 _DSWSRCbits   = 0x75A;
@@ -1006,7 +1017,7 @@ _PMD3bits     = 0x774;
 _PMD4         = 0x776;
 _PMD4bits     = 0x776;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
  IC1          = 0x140;

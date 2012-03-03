@@ -4,23 +4,24 @@
 */
 
 OUTPUT_ARCH("24FJ64GA106")
-EXTERN(__resetPRI)
-EXTERN(__resetALT)
+CRT0_STARTUP(crt0_standard.o)
+CRT1_STARTUP(crt1_standard.o)
 
+OPTIONAL(-lpPIC24Fxxx)
 
 /*
 ** Memory Regions
 */
 MEMORY
 {
-  data  (a!xr) : ORIGIN = 0x800,         LENGTH = 0x4000
-  reset        : ORIGIN = 0x0,           LENGTH = 0x4
-  ivt          : ORIGIN = 0x4,           LENGTH = 0xFC
-  aivt         : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr) : ORIGIN = 0x200,         LENGTH = 0xA9FA
-  config3      : ORIGIN = 0xABFA,        LENGTH = 0x2
-  config2      : ORIGIN = 0xABFC,        LENGTH = 0x2
-  config1      : ORIGIN = 0xABFE,        LENGTH = 0x2
+  data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0x4000
+  reset          : ORIGIN = 0x0,           LENGTH = 0x4
+  ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
+  aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0xA9F6
+  CONFIG3        : ORIGIN = 0xABFA,        LENGTH = 0x2
+  CONFIG2        : ORIGIN = 0xABFC,        LENGTH = 0x2
+  CONFIG1        : ORIGIN = 0xABFE,        LENGTH = 0x2
 }
 J__ReservedTrap0 = 0xc02;
 J__OscillatorFail = 0xc06;
@@ -153,10 +154,14 @@ __CONFIG3 = 0xABFA;
 __CONFIG2 = 0xABFC;
 __CONFIG1 = 0xABFE;
 
+__NO_HANDLES = 1;          /* Suppress handles on this device  */
+
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x4000;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0xA9F8;
 
 
 /*
@@ -195,26 +200,72 @@ SECTIONS
   **
   ** This section must not be assigned to __CODE_BASE,
   ** because CodeGuard(tm) sections may be located there.
+  **
+  ** Note that input sections *(.text) are not mapped here.
+  ** The best-fit allocator locates them, so that .text
+  ** may flow around PSV sections as needed.
   */
   .text :
   {
         *(.init);
-        *(.handle);
+        *(.user_init);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
-        *(.text);
   } >program
+
+
+  /*
+  ** User-Defined Section in Program Memory
+  **
+  ** note: can specify an address using
+  **       the following syntax:
+  **
+  **       usercode 0x1234 :
+  **         {
+  **           *(usercode);
+  **         } >program
+  */
+  usercode :
+  {
+        *(usercode);
+  } >program
+
+
+  /*
+  ** User-Defined Constants in Program Memory
+  **
+  ** For PSV type sections, the Load Memory Address (LMA)
+  ** should be specified as follows:
+  **
+  **       userconst : AT(0x1234)
+  **         {
+  **           *(userconst);
+  **         } >program
+  **
+  ** Note that mapping PSV sections in linker scripts
+  ** is not generally recommended.
+  **
+  ** Because of page alignment restrictions, memory is
+  ** often used more efficiently when PSV sections
+  ** do not appear in the linker script.
+  **
+  ** For more information on memory allocation,
+  ** please refer to chapter 10, 'Linker Processing'
+  ** in the Assembler, Linker manual (DS51317).
+  */
 
 
   /*
   ** Configuration Words
   */
   __CONFIG3 :
-  { *(__CONFIG3.sec)    } >config3
+  { *(__CONFIG3.sec)    } >CONFIG3
   __CONFIG2 :
-  { *(__CONFIG2.sec)    } >config2
+  { *(__CONFIG2.sec)    } >CONFIG2
   __CONFIG1 :
-  { *(__CONFIG1.sec)    } >config1
+  { *(__CONFIG1.sec)    } >CONFIG1
 
 
   /*
@@ -598,6 +649,7 @@ _TBLPAG       = 0x32;
 _PSVPAG       = 0x34;
  RCOUNT       = 0x36;
 _RCOUNT       = 0x36;
+_RCOUNTbits   = 0x36;
  SR           = 0x42;
 _SR           = 0x42;
 _SRbits       = 0x42;
@@ -768,6 +820,9 @@ _IPC22bits    = 0xD0;
  IPC23        = 0xD2;
 _IPC23        = 0xD2;
 _IPC23bits    = 0xD2;
+ INTTREG      = 0xE0;
+_INTTREG      = 0xE0;
+_INTTREGbits  = 0xE0;
  TMR1         = 0x100;
 _TMR1         = 0x100;
  PR1          = 0x102;
@@ -807,22 +862,6 @@ _T4CONbits    = 0x11E;
  T5CON        = 0x120;
 _T5CON        = 0x120;
 _T5CONbits    = 0x120;
- I2C3RCV      = 0x130;
-_I2C3RCV      = 0x130;
- I2C3TRN      = 0x132;
-_I2C3TRN      = 0x132;
- I2C3BRG      = 0x134;
-_I2C3BRG      = 0x134;
- I2C3CON      = 0x136;
-_I2C3CON      = 0x136;
-_I2C3CONbits  = 0x136;
- I2C3STAT     = 0x138;
-_I2C3STAT     = 0x138;
-_I2C3STATbits = 0x138;
- I2C3ADD      = 0x13A;
-_I2C3ADD      = 0x13A;
- I2C3MSK      = 0x13C;
-_I2C3MSK      = 0x13C;
  IC1CON1      = 0x140;
 _IC1CON1      = 0x140;
 _IC1CON1bits  = 0x140;
@@ -1061,8 +1100,10 @@ _U1STA        = 0x222;
 _U1STAbits    = 0x222;
  U1TXREG      = 0x224;
 _U1TXREG      = 0x224;
+_U1TXREGbits  = 0x224;
  U1RXREG      = 0x226;
 _U1RXREG      = 0x226;
+_U1RXREGbits  = 0x226;
  U1BRG        = 0x228;
 _U1BRG        = 0x228;
  U2MODE       = 0x230;
@@ -1073,8 +1114,10 @@ _U2STA        = 0x232;
 _U2STAbits    = 0x232;
  U2TXREG      = 0x234;
 _U2TXREG      = 0x234;
+_U2TXREGbits  = 0x234;
  U2RXREG      = 0x236;
 _U2RXREG      = 0x236;
+_U2RXREGbits  = 0x236;
  U2BRG        = 0x238;
 _U2BRG        = 0x238;
  SPI1STAT     = 0x240;
@@ -1096,8 +1139,10 @@ _U3STA        = 0x252;
 _U3STAbits    = 0x252;
  U3TXREG      = 0x254;
 _U3TXREG      = 0x254;
+_U3TXREGbits  = 0x254;
  U3RXREG      = 0x256;
 _U3RXREG      = 0x256;
+_U3RXREGbits  = 0x256;
  U3BRG        = 0x258;
 _U3BRG        = 0x258;
  SPI2STAT     = 0x260;
@@ -1111,6 +1156,22 @@ _SPI2CON2     = 0x264;
 _SPI2CON2bits = 0x264;
  SPI2BUF      = 0x268;
 _SPI2BUF      = 0x268;
+ I2C3RCV      = 0x270;
+_I2C3RCV      = 0x270;
+ I2C3TRN      = 0x272;
+_I2C3TRN      = 0x272;
+ I2C3BRG      = 0x274;
+_I2C3BRG      = 0x274;
+ I2C3CON      = 0x276;
+_I2C3CON      = 0x276;
+_I2C3CONbits  = 0x276;
+ I2C3STAT     = 0x278;
+_I2C3STAT     = 0x278;
+_I2C3STATbits = 0x278;
+ I2C3ADD      = 0x27A;
+_I2C3ADD      = 0x27A;
+ I2C3MSK      = 0x27C;
+_I2C3MSK      = 0x27C;
  SPI3STAT     = 0x280;
 _SPI3STAT     = 0x280;
 _SPI3STATbits = 0x280;
@@ -1130,22 +1191,12 @@ _U4STA        = 0x2B2;
 _U4STAbits    = 0x2B2;
  U4TXREG      = 0x2B4;
 _U4TXREG      = 0x2B4;
+_U4TXREGbits  = 0x2B4;
  U4RXREG      = 0x2B6;
 _U4RXREG      = 0x2B6;
+_U4RXREGbits  = 0x2B6;
  U4BRG        = 0x2B8;
 _U4BRG        = 0x2B8;
- TRISA        = 0x2C0;
-_TRISA        = 0x2C0;
-_TRISAbits    = 0x2C0;
- PORTA        = 0x2C2;
-_PORTA        = 0x2C2;
-_PORTAbits    = 0x2C2;
- LATA         = 0x2C4;
-_LATA         = 0x2C4;
-_LATAbits     = 0x2C4;
- ODCA         = 0x2C6;
-_ODCA         = 0x2C6;
-_ODCAbits     = 0x2C6;
  TRISB        = 0x2C8;
 _TRISB        = 0x2C8;
 _TRISBbits    = 0x2C8;
@@ -1262,12 +1313,21 @@ _AD1CON2bits  = 0x322;
  AD1CON3      = 0x324;
 _AD1CON3      = 0x324;
 _AD1CON3bits  = 0x324;
+ AD1CHS       = 0x328;
+_AD1CHS       = 0x328;
+_AD1CHSbits   = 0x328;
  AD1CHS0      = 0x328;
 _AD1CHS0      = 0x328;
 _AD1CHS0bits  = 0x328;
+ AD1PCFGH     = 0x32A;
+_AD1PCFGH     = 0x32A;
+_AD1PCFGHbits = 0x32A;
  AD1PCFG      = 0x32C;
 _AD1PCFG      = 0x32C;
 _AD1PCFGbits  = 0x32C;
+ AD1PCFGL     = 0x32C;
+_AD1PCFGL     = 0x32C;
+_AD1PCFGLbits = 0x32C;
  AD1CSSL      = 0x330;
 _AD1CSSL      = 0x330;
 _AD1CSSLbits  = 0x330;
@@ -1334,6 +1394,7 @@ _CRCCON       = 0x640;
 _CRCCONbits   = 0x640;
  CRCXOR       = 0x642;
 _CRCXOR       = 0x642;
+_CRCXORbits   = 0x642;
  CRCDAT       = 0x644;
 _CRCDAT       = 0x644;
  CRCWDAT      = 0x646;
@@ -1449,12 +1510,19 @@ _RPOR14bits   = 0x6DC;
  RPOR15       = 0x6DE;
 _RPOR15       = 0x6DE;
 _RPOR15bits   = 0x6DE;
+ ALTRP        = 0x6E2;
+_ALTRP        = 0x6E2;
+_ALTRPbits    = 0x6E2;
  RCON         = 0x740;
 _RCON         = 0x740;
 _RCONbits     = 0x740;
  OSCCON       = 0x742;
 _OSCCON       = 0x742;
 _OSCCONbits   = 0x742;
+ OSCCONL      = 0x742;
+_OSCCONL      = 0x742;
+ OSCCONH      = 0x743;
+_OSCCONH      = 0x743;
  CLKDIV       = 0x744;
 _CLKDIV       = 0x744;
 _CLKDIVbits   = 0x744;
@@ -1488,7 +1556,7 @@ _PMD5bits     = 0x778;
 _PMD6         = 0x77A;
 _PMD6bits     = 0x77A;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
  IC1          = 0x144;

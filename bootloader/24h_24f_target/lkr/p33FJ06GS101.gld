@@ -14,11 +14,11 @@ OPTIONAL(-lp33FJ06GS101)
 */
 MEMORY
 {
-  data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0xFF
+  data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0x100
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0xE00
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0xDFE
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
   FOSCSEL        : ORIGIN = 0xF80006,      LENGTH = 0x2
@@ -171,8 +171,10 @@ __NO_HANDLES = 1;          /* Suppress handles on this device  */
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x100;
 __YDATA_BASE = 0x880;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0xE00;
 
 
 /*
@@ -220,7 +222,8 @@ SECTIONS
   {
         *(.init);
         *(.user_init);
-        *(.handle);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
   } >program
@@ -1126,9 +1129,13 @@ _PMD4bits     = 0x776;
 _PMD6         = 0x77A;
 _PMD6bits     = 0x77A;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
+ ACCA         = 0x22;
+_ACCA         = 0x22;
+ ACCB         = 0x28;
+_ACCB         = 0x28;
  OC1          = 0x180;
 _OC1          = 0x180;
  SPI1         = 0x240;

@@ -18,7 +18,7 @@ MEMORY
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x5600
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x55FE
   eedata         : ORIGIN = 0x7FFE00,      LENGTH = 0x200
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
@@ -170,7 +170,9 @@ __NO_HANDLES = 1;          /* Suppress handles on this device  */
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x800;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0x5600;
 
 
 /*
@@ -218,7 +220,8 @@ SECTIONS
   {
         *(.init);
         *(.user_init);
-        *(.handle);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
   } >program
@@ -1003,14 +1006,6 @@ _LATBbits     = 0x2CC;
  ODCB         = 0x2CE;
 _ODCB         = 0x2CE;
 _ODCBbits     = 0x2CE;
- TRISC        = 0x2D0;
-_TRISC        = 0x2D0;
- PORTC        = 0x2D2;
-_PORTC        = 0x2D2;
- LATC         = 0x2D4;
-_LATC         = 0x2D4;
- ODCC         = 0x2D6;
-_ODCC         = 0x2D6;
  PADCFG1      = 0x2FC;
 _PADCFG1      = 0x2FC;
 _PADCFG1bits  = 0x2FC;
@@ -1092,15 +1087,18 @@ _AD1CTMUENHbits = 0x360;
  AD1CTMUENL   = 0x362;
 _AD1CTMUENL   = 0x362;
 _AD1CTMUENLbits = 0x362;
+ ANSA         = 0x4E0;
+_ANSA         = 0x4E0;
+_ANSAbits     = 0x4E0;
  ANSELA       = 0x4E0;
 _ANSELA       = 0x4E0;
 _ANSELAbits   = 0x4E0;
+ ANSB         = 0x4E2;
+_ANSB         = 0x4E2;
+_ANSBbits     = 0x4E2;
  ANSELB       = 0x4E2;
 _ANSELB       = 0x4E2;
 _ANSELBbits   = 0x4E2;
- ANSELC       = 0x4E4;
-_ANSELC       = 0x4E4;
-_ANSELCbits   = 0x4E4;
  ALRMVAL      = 0x620;
 _ALRMVAL      = 0x620;
  ALCFGRPT     = 0x622;
@@ -1108,12 +1106,12 @@ _ALCFGRPT     = 0x622;
 _ALCFGRPTbits = 0x622;
  RTCVAL       = 0x624;
 _RTCVAL       = 0x624;
- RCFGCAL1     = 0x626;
-_RCFGCAL1     = 0x626;
-_RCFGCAL1bits = 0x626;
- RCFGCAL2     = 0x628;
-_RCFGCAL2     = 0x628;
-_RCFGCAL2bits = 0x628;
+ RCFGCAL      = 0x626;
+_RCFGCAL      = 0x626;
+_RCFGCALbits  = 0x626;
+ RTCPWC       = 0x628;
+_RTCPWC       = 0x628;
+_RTCPWCbits   = 0x628;
  CMSTAT       = 0x630;
 _CMSTAT       = 0x630;
 _CMSTATbits   = 0x630;
@@ -1129,22 +1127,35 @@ _CM2CONbits   = 0x636;
  CM3CON       = 0x638;
 _CM3CON       = 0x638;
 _CM3CONbits   = 0x638;
- CRCCON       = 0x640;
-_CRCCON       = 0x640;
-_CRCCONbits   = 0x640;
+ CRCCON1      = 0x640;
+_CRCCON1      = 0x640;
+_CRCCON1bits  = 0x640;
  CRCCON2      = 0x642;
 _CRCCON2      = 0x642;
 _CRCCON2bits  = 0x642;
  CRCXOR       = 0x644;
 _CRCXOR       = 0x644;
+_CRCXORbits   = 0x644;
+ CRCXORL      = 0x644;
+_CRCXORL      = 0x644;
+_CRCXORLbits  = 0x644;
  CRCXORH      = 0x646;
 _CRCXORH      = 0x646;
+_CRCXORHbits  = 0x646;
  CRCDAT       = 0x648;
 _CRCDAT       = 0x648;
+ CRCDAT32     = 0x648;
+_CRCDAT32     = 0x648;
+ CRCDAT8      = 0x648;
+_CRCDAT8      = 0x648;
+ CRCDATL      = 0x648;
+_CRCDATL      = 0x648;
  CRCDATH      = 0x64A;
 _CRCDATH      = 0x64A;
  CRCWDAT      = 0x64C;
 _CRCWDAT      = 0x64C;
+ CRCWDATL     = 0x64C;
+_CRCWDATL     = 0x64C;
  CRCWDATH     = 0x64E;
 _CRCWDATH     = 0x64E;
  RCON         = 0x740;
@@ -1172,6 +1183,9 @@ _HLVDCONbits  = 0x756;
  DSCON        = 0x758;
 _DSCON        = 0x758;
 _DSCONbits    = 0x758;
+ DSWAKE       = 0x75A;
+_DSWAKE       = 0x75A;
+_DSWAKEbits   = 0x75A;
  DSWSRC       = 0x75A;
 _DSWSRC       = 0x75A;
 _DSWSRCbits   = 0x75A;
@@ -1201,7 +1215,7 @@ _PMD3bits     = 0x774;
 _PMD4         = 0x776;
 _PMD4bits     = 0x776;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
  IC1          = 0x144;

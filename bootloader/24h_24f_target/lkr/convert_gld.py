@@ -270,21 +270,24 @@ def convertDir(srcdir, dstdir):
 	
 
 	
-C30_homedir = "C:\Program Files (x86)\Microchip\MPLAB C30\support";
+C30_homedir = "C:\\Program Files (x86)\\Microchip\\mplabc30\\v3.30\\support";
 
 if (os.path.exists(C30_homedir) == False):
-	C30_homedir = "C:\Program Files\Microchip\MPLAB C30\support";
+	C30_homedir = "C:\\Program Files\\Microchip\\MPLAB C30\\support";
 	if (os.path.exists(C30_homedir) == False):
 		print "Cannot determine Microchip C30 home directory, exiting.\n"
 		exit(0);
 		
 
-dstdir = os.path.join("..","..","..","lkr");
+dstdir = os.path.join("..","..","..","lib","lkr");
 
 tdir = 	os.path.join(C30_homedir,"PIC24H","gld");
 convertDir(tdir, dstdir);
 
 tdir = 	os.path.join(C30_homedir,"PIC24F","gld");
+convertDir(tdir, dstdir);
+
+tdir = 	os.path.join(C30_homedir,"PIC24E","gld");
 convertDir(tdir, dstdir);
 
 tdir = 	os.path.join(C30_homedir,"dsPIC33F","gld");

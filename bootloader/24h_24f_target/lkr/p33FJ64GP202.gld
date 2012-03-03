@@ -18,7 +18,7 @@ MEMORY
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0xAA00
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0xA9FE
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
   FSS            : ORIGIN = 0xF80002,      LENGTH = 0x2
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
@@ -177,10 +177,12 @@ __NO_HANDLES = 1;          /* Suppress handles on this device  */
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x2000;
 __YDATA_BASE = 0x1800;
 __DMA_BASE = 0x2000;
 __DMA_END = 0x27FF;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0xAA00;
 
 
 /*
@@ -228,7 +230,8 @@ SECTIONS
   {
         *(.init);
         *(.user_init);
-        *(.handle);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
   } >program
@@ -927,11 +930,13 @@ _I2C1CON      = 0x206;
 _I2C1CONbits  = 0x206;
  I2CCON       = 0x206;
 _I2CCON       = 0x206;
+_I2CCONbits   = 0x206;
  I2C1STAT     = 0x208;
 _I2C1STAT     = 0x208;
 _I2C1STATbits = 0x208;
  I2CSTAT      = 0x208;
 _I2CSTAT      = 0x208;
+_I2CSTATbits  = 0x208;
  I2C1ADD      = 0x20A;
 _I2C1ADD      = 0x20A;
  I2CADD       = 0x20A;
@@ -1073,6 +1078,7 @@ _AD1PCFGL     = 0x32C;
 _AD1PCFGLbits = 0x32C;
  ADPCFG       = 0x32C;
 _ADPCFG       = 0x32C;
+_ADPCFGbits   = 0x32C;
  AD1CSSL      = 0x330;
 _AD1CSSL      = 0x330;
 _AD1CSSLbits  = 0x330;
@@ -1316,21 +1322,6 @@ _RPOR6bits    = 0x6CC;
  RPOR7        = 0x6CE;
 _RPOR7        = 0x6CE;
 _RPOR7bits    = 0x6CE;
- RPOR8        = 0x6D0;
-_RPOR8        = 0x6D0;
-_RPOR8bits    = 0x6D0;
- RPOR9        = 0x6D2;
-_RPOR9        = 0x6D2;
-_RPOR9bits    = 0x6D2;
- RPOR10       = 0x6D4;
-_RPOR10       = 0x6D4;
-_RPOR10bits   = 0x6D4;
- RPOR11       = 0x6D6;
-_RPOR11       = 0x6D6;
-_RPOR11bits   = 0x6D6;
- RPOR12       = 0x6D8;
-_RPOR12       = 0x6D8;
-_RPOR12bits   = 0x6D8;
  RCON         = 0x740;
 _RCON         = 0x740;
 _RCONbits     = 0x740;
@@ -1374,9 +1365,13 @@ _PMD2bits     = 0x772;
 _PMD3         = 0x774;
 _PMD3bits     = 0x774;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
+ ACCA         = 0x22;
+_ACCA         = 0x22;
+ ACCB         = 0x28;
+_ACCB         = 0x28;
  IC1          = 0x140;
 _IC1          = 0x140;
  IC2          = 0x144;
