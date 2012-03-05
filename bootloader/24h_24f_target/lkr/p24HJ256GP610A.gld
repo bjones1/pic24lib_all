@@ -18,7 +18,7 @@ MEMORY
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x2AA00
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x2A9FE
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
   FSS            : ORIGIN = 0xF80002,      LENGTH = 0x2
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
@@ -99,15 +99,15 @@ J__C2RxRdyInterrupt = 0xcfe;
 J__C2Interrupt = 0xd02;
 J__Interrupt57 = 0xd06;
 J__Interrupt58 = 0xd0a;
-J__Interrupt59 = 0xd0e;
-J__Interrupt60 = 0xd12;
-J__DMA5Interrupt = 0xd16;
+J__DCIErrInterrupt = 0xd0e;
+J__DCIInterrupt = 0xd12;
+J__Interrupt61 = 0xd16;
 J__Interrupt62 = 0xd1a;
 J__Interrupt63 = 0xd1e;
 J__Interrupt64 = 0xd22;
 J__U1ErrInterrupt = 0xd26;
 J__U2ErrInterrupt = 0xd2a;
-J__Interrupt68 = 0xd2e;
+J__Interrupt67 = 0xd2e;
 J__DMA6Interrupt = 0xd32;
 J__DMA7Interrupt = 0xd36;
 J__C1TxReqInterrupt = 0xd3a;
@@ -175,9 +175,11 @@ __FUID3 = 0xF80016;
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x4000;
 __DMA_BASE = 0x4000;
 __DMA_END = 0x47FF;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0x2AA00;
 
 
 /*
@@ -225,7 +227,8 @@ SECTIONS
   {
         *(.init);
         *(.user_init);
-        *(.handle);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
   } >program
@@ -437,15 +440,15 @@ LONG(J__C2RxRdyInterrupt);
 LONG(J__C2Interrupt);
 LONG(J__Interrupt57);
 LONG(J__Interrupt58);
-LONG(J__Interrupt59);
-LONG(J__Interrupt60);
-LONG(J__DMA5Interrupt);
+LONG(J__DCIErrInterrupt);
+LONG(J__DCIInterrupt);
+LONG(J__Interrupt61);
 LONG(J__Interrupt62);
 LONG(J__Interrupt63);
 LONG(J__Interrupt64);
 LONG(J__U1ErrInterrupt);
 LONG(J__U2ErrInterrupt);
-LONG(J__Interrupt68);
+LONG(J__Interrupt67);
 LONG(J__DMA6Interrupt);
 LONG(J__DMA7Interrupt);
 LONG(J__C1TxReqInterrupt);
@@ -571,15 +574,15 @@ LONG(J__C2RxRdyInterrupt);
 LONG(J__C2Interrupt);
 LONG(J__Interrupt57);
 LONG(J__Interrupt58);
-LONG(J__Interrupt59);
-LONG(J__Interrupt60);
-LONG(J__DMA5Interrupt);
+LONG(J__DCIErrInterrupt);
+LONG(J__DCIInterrupt);
+LONG(J__Interrupt61);
 LONG(J__Interrupt62);
 LONG(J__Interrupt63);
 LONG(J__Interrupt64);
 LONG(J__U1ErrInterrupt);
 LONG(J__U2ErrInterrupt);
-LONG(J__Interrupt68);
+LONG(J__Interrupt67);
 LONG(J__DMA6Interrupt);
 LONG(J__DMA7Interrupt);
 LONG(J__C1TxReqInterrupt);
@@ -682,16 +685,6 @@ _TBLPAG       = 0x32;
 _PSVPAG       = 0x34;
  RCOUNT       = 0x36;
 _RCOUNT       = 0x36;
- DCOUNT       = 0x38;
-_DCOUNT       = 0x38;
- DOSTARTL     = 0x3A;
-_DOSTARTL     = 0x3A;
- DOSTARTH     = 0x3C;
-_DOSTARTH     = 0x3C;
- DOENDL       = 0x3E;
-_DOENDL       = 0x3E;
- DOENDH       = 0x40;
-_DOENDH       = 0x40;
  SR           = 0x42;
 _SR           = 0x42;
 _SRbits       = 0x42;
@@ -987,11 +980,13 @@ _I2C1CON      = 0x206;
 _I2C1CONbits  = 0x206;
  I2CCON       = 0x206;
 _I2CCON       = 0x206;
+_I2CCONbits   = 0x206;
  I2C1STAT     = 0x208;
 _I2C1STAT     = 0x208;
 _I2C1STATbits = 0x208;
  I2CSTAT      = 0x208;
 _I2CSTAT      = 0x208;
+_I2CSTATbits  = 0x208;
  I2C1ADD      = 0x20A;
 _I2C1ADD      = 0x20A;
  I2CADD       = 0x20A;
@@ -1154,6 +1149,7 @@ _AD1PCFGL     = 0x32C;
 _AD1PCFGLbits = 0x32C;
  ADPCFG       = 0x32C;
 _ADPCFG       = 0x32C;
+_ADPCFGbits   = 0x32C;
  AD1CSSH      = 0x32E;
 _AD1CSSH      = 0x32E;
 _AD1CSSHbits  = 0x32E;
@@ -1755,9 +1751,13 @@ _PMD2bits     = 0x772;
 _PMD3         = 0x774;
 _PMD3bits     = 0x774;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
+ CAN1         = 0x440;
+_CAN1         = 0x440;
+ CAN2         = 0x540;
+_CAN2         = 0x540;
  IC1          = 0x140;
 _IC1          = 0x140;
  IC2          = 0x144;

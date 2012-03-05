@@ -18,11 +18,10 @@ MEMORY
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x209F8
-  config4        : ORIGIN = 0x20BF8,       LENGTH = 0x2
-  config3        : ORIGIN = 0x20BFA,       LENGTH = 0x2
-  config2        : ORIGIN = 0x20BFC,       LENGTH = 0x2
-  config1        : ORIGIN = 0x20BFE,       LENGTH = 0x2
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x209F6
+  CONFIG3        : ORIGIN = 0x20BFA,       LENGTH = 0x2
+  CONFIG2        : ORIGIN = 0x20BFC,       LENGTH = 0x2
+  CONFIG1        : ORIGIN = 0x20BFE,       LENGTH = 0x2
 }
 J__ReservedTrap0 = 0xc02;
 J__OscillatorFail = 0xc06;
@@ -158,7 +157,9 @@ __CONFIG1 = 0x20BFE;
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x4000;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0x209F8;
 
 
 /*
@@ -206,7 +207,8 @@ SECTIONS
   {
         *(.init);
         *(.user_init);
-        *(.handle);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
   } >program
@@ -257,11 +259,11 @@ SECTIONS
   ** Configuration Words
   */
   __CONFIG3 :
-  { *(__CONFIG3.sec)    } >config3
+  { *(__CONFIG3.sec)    } >CONFIG3
   __CONFIG2 :
-  { *(__CONFIG2.sec)    } >config2
+  { *(__CONFIG2.sec)    } >CONFIG2
   __CONFIG1 :
-  { *(__CONFIG1.sec)    } >config1
+  { *(__CONFIG1.sec)    } >CONFIG1
 
 
   /*
@@ -815,6 +817,9 @@ _IPC22bits    = 0xD0;
  IPC23        = 0xD2;
 _IPC23        = 0xD2;
 _IPC23bits    = 0xD2;
+ INTTREG      = 0xE0;
+_INTTREG      = 0xE0;
+_INTTREGbits  = 0xE0;
  TMR1         = 0x100;
 _TMR1         = 0x100;
  PR1          = 0x102;
@@ -1540,7 +1545,7 @@ _PMD5bits     = 0x778;
 _PMD6         = 0x77A;
 _PMD6bits     = 0x77A;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
  IC1          = 0x144;

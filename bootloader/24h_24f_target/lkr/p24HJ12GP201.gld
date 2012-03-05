@@ -18,7 +18,7 @@ MEMORY
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x1E00
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x1DFE
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
   FOSCSEL        : ORIGIN = 0xF80006,      LENGTH = 0x2
@@ -36,7 +36,7 @@ J__OscillatorFail = 0xc06;
 J__AddressError = 0xc0a;
 J__StackError = 0xc0e;
 J__MathError = 0xc12;
-J__ReservedTrap5 = 0xc16;
+J__DMACError = 0xc16;
 J__ReservedTrap6 = 0xc1a;
 J__ReservedTrap7 = 0xc1e;
 J__INT0Interrupt = 0xc22;
@@ -175,7 +175,9 @@ __NO_HANDLES = 1;          /* Suppress handles on this device  */
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x400;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0x1E00;
 
 
 /*
@@ -223,7 +225,8 @@ SECTIONS
   {
         *(.init);
         *(.user_init);
-        *(.handle);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
   } >program
@@ -371,7 +374,7 @@ LONG(J__OscillatorFail);
 LONG(J__AddressError);
 LONG(J__StackError);
 LONG(J__MathError);
-LONG(J__ReservedTrap5);
+LONG(J__DMACError);
 LONG(J__ReservedTrap6);
 LONG(J__ReservedTrap7);
 LONG(J__INT0Interrupt);
@@ -505,7 +508,7 @@ LONG(J__OscillatorFail);
 LONG(J__AddressError);
 LONG(J__StackError);
 LONG(J__MathError);
-LONG(J__ReservedTrap5);
+LONG(J__DMACError);
 LONG(J__ReservedTrap6);
 LONG(J__ReservedTrap7);
 LONG(J__INT0Interrupt);
@@ -710,12 +713,6 @@ _IFS0bits     = 0x84;
  IFS1         = 0x86;
 _IFS1         = 0x86;
 _IFS1bits     = 0x86;
- IFS2         = 0x88;
-_IFS2         = 0x88;
-_IFS2bits     = 0x88;
- IFS3         = 0x8A;
-_IFS3         = 0x8A;
-_IFS3bits     = 0x8A;
  IFS4         = 0x8C;
 _IFS4         = 0x8C;
 _IFS4bits     = 0x8C;
@@ -725,12 +722,6 @@ _IEC0bits     = 0x94;
  IEC1         = 0x96;
 _IEC1         = 0x96;
 _IEC1bits     = 0x96;
- IEC2         = 0x98;
-_IEC2         = 0x98;
-_IEC2bits     = 0x98;
- IEC3         = 0x9A;
-_IEC3         = 0x9A;
-_IEC3bits     = 0x9A;
  IEC4         = 0x9C;
 _IEC4         = 0x9C;
 _IEC4bits     = 0x9C;
@@ -833,11 +824,13 @@ _I2C1CON      = 0x206;
 _I2C1CONbits  = 0x206;
  I2CCON       = 0x206;
 _I2CCON       = 0x206;
+_I2CCONbits   = 0x206;
  I2C1STAT     = 0x208;
 _I2C1STAT     = 0x208;
 _I2C1STATbits = 0x208;
  I2CSTAT      = 0x208;
 _I2CSTAT      = 0x208;
+_I2CSTATbits  = 0x208;
  I2C1ADD      = 0x20A;
 _I2C1ADD      = 0x20A;
  I2CADD       = 0x20A;
@@ -977,6 +970,7 @@ _AD1PCFGL     = 0x32C;
 _AD1PCFGLbits = 0x32C;
  ADPCFG       = 0x32C;
 _ADPCFG       = 0x32C;
+_ADPCFGbits   = 0x32C;
  AD1CSSL      = 0x330;
 _AD1CSSL      = 0x330;
 _AD1CSSLbits  = 0x330;
@@ -1053,7 +1047,7 @@ _PMD1bits     = 0x770;
 _PMD2         = 0x772;
 _PMD2bits     = 0x772;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
  IC1          = 0x140;

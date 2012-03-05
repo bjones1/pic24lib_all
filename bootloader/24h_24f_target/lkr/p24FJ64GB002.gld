@@ -14,11 +14,11 @@ OPTIONAL(-lpPIC24Fxxx)
 */
 MEMORY
 {
-  data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0x1FFF
+  data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0x2000
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0xA9F8
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0xA9F6
   CONFIG4        : ORIGIN = 0xABF8,        LENGTH = 0x2
   CONFIG3        : ORIGIN = 0xABFA,        LENGTH = 0x2
   CONFIG2        : ORIGIN = 0xABFC,        LENGTH = 0x2
@@ -161,7 +161,9 @@ __NO_HANDLES = 1;          /* Suppress handles on this device  */
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x2000;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0xA9F8;
 
 
 /*
@@ -209,7 +211,8 @@ SECTIONS
   {
         *(.init);
         *(.user_init);
-        *(.handle);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
   } >program
@@ -1254,6 +1257,10 @@ _CRCXORH      = 0x646;
 _CRCXORHbits  = 0x646;
  CRCDAT       = 0x648;
 _CRCDAT       = 0x648;
+ CRCDAT32     = 0x648;
+_CRCDAT32     = 0x648;
+ CRCDAT8      = 0x648;
+_CRCDAT8      = 0x648;
  CRCDATL      = 0x648;
 _CRCDATL      = 0x648;
  CRCDATH      = 0x64A;
@@ -1394,7 +1401,7 @@ _PMD3bits     = 0x774;
 _PMD4         = 0x776;
 _PMD4bits     = 0x776;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
  IC1          = 0x144;

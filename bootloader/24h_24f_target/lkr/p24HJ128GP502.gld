@@ -18,7 +18,7 @@ MEMORY
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x15600
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x155FE
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
   FSS            : ORIGIN = 0xF80002,      LENGTH = 0x2
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
@@ -175,9 +175,11 @@ __FUID3 = 0xF80016;
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x2000;
 __DMA_BASE = 0x2000;
 __DMA_END = 0x27FF;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0x15600;
 
 
 /*
@@ -225,7 +227,8 @@ SECTIONS
   {
         *(.init);
         *(.user_init);
-        *(.handle);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
   } >program
@@ -885,11 +888,13 @@ _I2C1CON      = 0x206;
 _I2C1CONbits  = 0x206;
  I2CCON       = 0x206;
 _I2CCON       = 0x206;
+_I2CCONbits   = 0x206;
  I2C1STAT     = 0x208;
 _I2C1STAT     = 0x208;
 _I2C1STATbits = 0x208;
  I2CSTAT      = 0x208;
 _I2CSTAT      = 0x208;
+_I2CSTATbits  = 0x208;
  I2C1ADD      = 0x20A;
 _I2C1ADD      = 0x20A;
  I2CADD       = 0x20A;
@@ -997,6 +1002,7 @@ _AD1PCFGL     = 0x32C;
 _AD1PCFGLbits = 0x32C;
  ADPCFG       = 0x32C;
 _ADPCFG       = 0x32C;
+_ADPCFGbits   = 0x32C;
  AD1CSSL      = 0x330;
 _AD1CSSL      = 0x330;
 _AD1CSSLbits  = 0x330;
@@ -1474,9 +1480,11 @@ _PMD2bits     = 0x772;
 _PMD3         = 0x774;
 _PMD3bits     = 0x774;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
+ CAN1         = 0x440;
+_CAN1         = 0x440;
  IC1          = 0x140;
 _IC1          = 0x140;
  IC2          = 0x144;

@@ -18,7 +18,7 @@ MEMORY
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x2A9F8
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x2A9F6
   CONFIG4        : ORIGIN = 0x2ABF8,       LENGTH = 0x2
   CONFIG3        : ORIGIN = 0x2ABFA,       LENGTH = 0x2
   CONFIG2        : ORIGIN = 0x2ABFC,       LENGTH = 0x2
@@ -159,7 +159,9 @@ __CONFIG1 = 0x2ABFE;
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x7800;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0x2A9F8;
 
 
 /*
@@ -207,7 +209,8 @@ SECTIONS
   {
         *(.init);
         *(.user_init);
-        *(.handle);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
   } >program
@@ -1423,12 +1426,6 @@ _U1TOKbits    = 0x49E;
  U1SOF        = 0x4A0;
 _U1SOF        = 0x4A0;
 _U1SOFbits    = 0x4A0;
- U1BDTP2      = 0x4A2;
-_U1BDTP2      = 0x4A2;
-_U1BDTP2bits  = 0x4A2;
- U1BDTP3      = 0x4A4;
-_U1BDTP3      = 0x4A4;
-_U1BDTP3bits  = 0x4A4;
  U1CNFG1      = 0x4A6;
 _U1CNFG1      = 0x4A6;
 _U1CNFG1bits  = 0x4A6;
@@ -1544,6 +1541,12 @@ _CRCXORLbits  = 0x644;
  CRCXORH      = 0x646;
 _CRCXORH      = 0x646;
 _CRCXORHbits  = 0x646;
+ CRCDAT       = 0x648;
+_CRCDAT       = 0x648;
+ CRCDAT32     = 0x648;
+_CRCDAT32     = 0x648;
+ CRCDAT8      = 0x648;
+_CRCDAT8      = 0x648;
  CRCDATL      = 0x648;
 _CRCDATL      = 0x648;
  CRCDATH      = 0x64A;
@@ -1775,8 +1778,6 @@ _CLKDIV2bits  = 0x746;
  OSCTUN       = 0x748;
 _OSCTUN       = 0x748;
 _OSCTUNbits   = 0x748;
- RSIBCON      = 0x74A;
-_RSIBCON      = 0x74A;
  REFOCON      = 0x74E;
 _REFOCON      = 0x74E;
 _REFOCONbits  = 0x74E;
@@ -1804,7 +1805,7 @@ _PMD5bits     = 0x778;
 _PMD6         = 0x77A;
 _PMD6bits     = 0x77A;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
  IC1          = 0x144;

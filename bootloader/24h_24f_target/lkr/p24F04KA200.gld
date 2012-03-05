@@ -18,8 +18,7 @@ MEMORY
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x8FF
-  FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x8FE
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
   FOSCSEL        : ORIGIN = 0xF80006,      LENGTH = 0x2
   FOSC           : ORIGIN = 0xF80008,      LENGTH = 0x2
@@ -168,7 +167,9 @@ __NO_HANDLES = 1;          /* Suppress handles on this device  */
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
+__DATA_LENGTH = 0x200;
 __CODE_BASE = 0x200;
+__CODE_LENGTH = 0x900;
 
 
 /*
@@ -216,7 +217,8 @@ SECTIONS
   {
         *(.init);
         *(.user_init);
-        *(.handle);
+        KEEP (*(.handle));
+        KEEP (*(.isr*));
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
   } >program
@@ -797,6 +799,7 @@ _I2C1STATbits = 0x208;
 _I2C1ADD      = 0x20A;
  I2C1MSK      = 0x20C;
 _I2C1MSK      = 0x20C;
+_I2C1MSKbits  = 0x20C;
  U1MODE       = 0x220;
 _U1MODE       = 0x220;
 _U1MODEbits   = 0x220;
@@ -805,8 +808,10 @@ _U1STA        = 0x222;
 _U1STAbits    = 0x222;
  U1TXREG      = 0x224;
 _U1TXREG      = 0x224;
+_U1TXREGbits  = 0x224;
  U1RXREG      = 0x226;
 _U1RXREG      = 0x226;
+_U1RXREGbits  = 0x226;
  U1BRG        = 0x228;
 _U1BRG        = 0x228;
  SPI1STAT     = 0x240;
@@ -921,6 +926,10 @@ _RCONbits     = 0x740;
  OSCCON       = 0x742;
 _OSCCON       = 0x742;
 _OSCCONbits   = 0x742;
+ OSCCONL      = 0x742;
+_OSCCONL      = 0x742;
+ OSCCONH      = 0x743;
+_OSCCONH      = 0x743;
  CLKDIV       = 0x744;
 _CLKDIV       = 0x744;
 _CLKDIVbits   = 0x744;
@@ -948,6 +957,7 @@ _NVMCON       = 0x760;
 _NVMCONbits   = 0x760;
  NVMKEY       = 0x766;
 _NVMKEY       = 0x766;
+_NVMKEYbits   = 0x766;
  PMD1         = 0x770;
 _PMD1         = 0x770;
 _PMD1bits     = 0x770;
@@ -961,7 +971,7 @@ _PMD3bits     = 0x774;
 _PMD4         = 0x776;
 _PMD4bits     = 0x776;
 /*
-** ======= Base Addresses for Various Peripherals ======
+** ======= Base Addresses for Various Peripherals and ACC ======
 */
 
  IC1          = 0x140;
