@@ -24,10 +24,10 @@
 #  \todo
 #  - Figure out how to get Doxygen to generate valid links in the output
 #    produced by parsing this file
-# - ESOS build (chap 14)
-# - Some flags for I2C master/slave not done yet
-# - Create some reset replacement that uses more of the functionality
-#   (calls functions from all our .c/.h files
+#  - ESOS build (chap 14)
+#  - Some flags for I2C master/slave not done yet
+#  - Create some reset replacement that uses more of the functionality
+#    (calls functions from all our .c/.h files
 
 
 import os
