@@ -30,7 +30,7 @@
 #ifndef _PIC24_ECAN${x}_H_
 #define _PIC24_ECAN${x}_H_
 
-#include "stdint.h"
+#include <stdint.h>
 #include "pic24_generic.h"
 #include "pic24_chip.h"
 
