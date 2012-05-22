@@ -214,6 +214,10 @@ if 'chap10large' in buildTargets:   # These files usually need a larger device (
                           'chap10/reverse_string_stdio.c', 'chap10/ds1621_i2c.c', 'chap10/ds1631_i2c.c','chap10/ds1722_spi_tempsense.c',
                           'chap10/mcp41xxx_spi_pot.c',], 
     PIC24SupportLibObjects, env, {}, 'chap10stdio')
+if 'chap11_24E' in buildTargets:
+  buildWithCommonSources([ 'chap11/adc_spidac_test.c', 
+     'chap11/adc_test.c', 
+    'chap11/adc_test_12bit.c'], PIC24SupportLibSourcesSmall3, env, {}, 'chap11')
 if 'chap11nodma' in buildTargets:
   buildWithCommonSources([ 'chap11/adc2pots1.c','chap11/adc4simul.c','chap11/adc7scan1.c', 'chap11/adc7scan2.c', 'chap11/adc_spidac_test.c', 
      'chap11/adc_test.c', 
@@ -222,6 +226,12 @@ if 'chap11dma' in buildTargets:
   buildWithCommonSources(['chap11/adc4simul_dma.c', 'chap11/adc7scan1_dma_conv_order.c', 
     'chap11/adc7scan1_dma_scatter_gather_1.c'],
     PIC24SupportLibObjects, env, {}, 'chap11dma')
+if 'chap12_24E' in buildTargets:
+  buildWithCommonSources(['chap12/incap_freqmeasure.c','chap12/incap_switch_pulse_measure.c',
+  'chap12/ir_biphase_decode.c', 'chap12/manual_switch_pulse_measure.c',
+  'chap12/outcompare_contpulse.c', 'chap12/outcompare_squarewave.c',
+  'chap12/outputcompare_multiservo.c','chap12/outputcompare_oneservo.c',
+  'chap12/pwm_dac.c', 'chap12/pwm_dac_test.c', 'chap12/timer32bit_switch_pulse_measure.c'], PIC24SupportLibSourcesSmall3, env, {}, 'chap12')
 if 'chap12' in buildTargets:
   buildWithCommonSources(['chap12/incap_freqmeasure.c','chap12/incap_switch_pulse_measure.c',
   'chap12/ir_biphase_decode.c', 'chap12/ledpwm_pic24f.c', 'chap12/manual_switch_pulse_measure.c',

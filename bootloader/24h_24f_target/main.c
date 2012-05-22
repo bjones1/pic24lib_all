@@ -115,7 +115,7 @@ is evenly divisible by 1536, then do an erase.
 //This family can only erase up to four rows instead of 8 rows, and the programming word has changed
 #define PM_ROW_ERASE   0x405A //erases 4 rows
 #define PM_ROW_WRITE   0x4004 //write 1 row
-#elif (defined(__PIC24H__) || defined(__PIC24F__))
+#elif (defined(__PIC24H__) || defined(__PIC24F__)  || defined(__dsPIC33F__))
 //for PIC24F, PIC24H
 #define PM_ROW_ERASE   0x4042 //erase entire page (8 rows)
 #define PM_ROW_WRITE   0x4001 //write 1 row

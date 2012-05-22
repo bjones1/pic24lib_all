@@ -244,7 +244,13 @@ else:
     buildTargetsSConscript(['chap8', 'chap9', 'chap10', 'chap10stdio', 'chap11dma',  'chap12big','chap12',
                             'chap13', 'chap15', 'bootloader'],
       env.Clone(MCU='33FJ128GP802'), 'default')
-
+    
+    # Build some for the PIC24E device
+    buildTargetsSConscript(['chap8', 'chap9', 'chap10', 'chap11_24E',  'chap12big','chap12_24E',
+                            'bootloader'],
+      env.Clone(MCU='24EP64GP202'), 'default')
+       
+   
     # Build for the explorer board
     buildTargetsSConscript(['explorer', 'bootloader'],
       env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')    
