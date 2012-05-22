@@ -1,6 +1,7 @@
 [HEADER]
 magic_cookie={66E99B07-E706-4689-9E80-9B2582898A13}
 file_version=1.0
+device=PIC24HJ32GP202
 [PATH_INFO]
 BuildDirPolicy=BuildDirIsProjectDir
 dir_src=
@@ -104,14 +105,14 @@ file_014=..\lib\include\pic24_uart.h
 file_015=..\lib\include\pic24_util.h
 file_016=..\lib\include\pic24_serial.h
 file_017=..\lib\include\pic24_unittest.h
-file_018=C:\repos\ece3724\trunk\PIC24\code\include\pic24_adc.h
+file_018=..\lib\include\pic24_adc.h
 file_019=..\lib\lkr\p24HJ32GP202_bootldr.gld
 [SUITE_INFO]
 suite_guid={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 suite_state=
 [TOOL_SETTINGS]
 TS{7D9C6ECE-785D-44CB-BA22-17BF2E119622}=-g
-TS{25AC22BD-2378-4FDB-BFB6-7345A15512D3}=-g -Wall -DCLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY -O1
+TS{25AC22BD-2378-4FDB-BFB6-7345A15512D3}=-g -Wall -O1
 TS{7DAC9A1D-4C45-45D6-B25A-D117C74E8F5A}=--heap=100 -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TS{509E5861-1E2A-483B-8B6B-CA8DB7F2DD78}=
 [INSTRUMENTED_TRACE]

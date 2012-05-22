@@ -45,7 +45,13 @@ void _ISRFAST _T3Interrupt (void) {
   _T3IF = 0;    //clear the timer interrupt bit
 }
 
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+//for these families, need shorter period because of potentially faster clock
+//which will overflow 16-bit timer
+#define ISR_PERIOD     150      // in ms
+#else
 #define ISR_PERIOD     300      // in ms
+#endif
 
 void  configTimer3(void) {
   //ensure that Timer2,3 configured as separate timers.

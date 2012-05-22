@@ -49,10 +49,18 @@ void configSPI1(void) {
              MASTER_ENABLE_ON;     //master mode
   SPI1STATbits.SPIEN = 1;  //enable SPI mode
   //configure pins. Only need SDO, SCLK since POT is output only
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  //nothing to do here. On this family, the SPI1 port uses dedicated
+  //pins for higher speed. The SPI2 port can be used with remappable pins.
+  //you may need to add code to disable analog functionality if the SPI ports
+  //are on analog-capable pins.
+#else
+  //all other families (PIC24H/PIC24F/dsPIC33F)
   CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
   CONFIG_RP6_AS_DIG_PIN();   //ensure that analog is disabled
   CONFIG_SCK1OUT_TO_RP(7);   //use RP7 for SCLK
   CONFIG_RP7_AS_DIG_PIN();   //ensure that analog is disabled
+#endif
   CONFIG_SLAVE_ENABLE();       //chip select for MCP41xxx
   SLAVE_DISABLE();             //disable the chip select
 }

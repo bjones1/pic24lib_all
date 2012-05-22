@@ -16,6 +16,10 @@ Header file that includes all pic24*.h files
 #include "p33Fxxxx.h"
 #elif defined(__PIC24FK__)
 #include "p24Fxxxx.h"      //this is a variant of the PIC24F family
+#elif defined(__PIC24E__)
+#include "p24Exxxx.h"      //this is a variant of the PIC24F family
+#elif defined(__dsPIC33E__)
+#include "p33Exxxx.h"      //this is a variant of the dsPIC family
 #else
 #error Unknown processor.
 #endif
@@ -37,6 +41,11 @@ Header file that includes all pic24*.h files
 #define CLOCK_CONFIG FRCPLL_FCY16MHz
 #elif defined(__dsPIC33F__)
 #define CLOCK_CONFIG FRCPLL_FCY40MHz
+#elif defined(__dsPIC33E__)
+#define CLOCK_CONFIG FRCPLL_FCY60MHz
+#elif defined(__PIC24E__)
+#define CLOCK_CONFIG FRCPLL_FCY60MHz
+//#define CLOCK_CONFIG PRIPLL_8MHzCrystal_40MHzFCY
 #else
 #error Unknown processor
 #endif
@@ -62,13 +71,22 @@ typedef signed long long    int64;   //64 bits
 
 #include  "pic24_clockfreq.h"
 
+#if defined(__PIC24E__) || defined(__dsPIC33F__)
+#define RPMAP_U1TX 		1
+#define RPMAP_U2TX  	3
+#else
+
+#define RPMAP_U1TX 		3
+#define RPMAP_U2TX  	5
+#endif
+
 #if defined(_U1RXR)
 #define CONFIG_U1RX_TO_RP(pin) _U1RXR = pin
 #else
 #define CONFIG_U1RX_TO_RP(pin)
 #endif
-#if defined(_RP0R)
-#define CONFIG_U1TX_TO_RP(pin) _RP##pin##R = 3
+#if defined(_U1RXR)
+#define CONFIG_U1TX_TO_RP(pin) _RP##pin##R = RPMAP_U1TX
 #else
 #define CONFIG_U1TX_TO_RP(pin)
 #endif
@@ -78,8 +96,8 @@ typedef signed long long    int64;   //64 bits
 #else
 #define CONFIG_U2RX_TO_RP(pin)
 #endif
-#if defined(_RP0R)
-#define CONFIG_U2TX_TO_RP(pin) _RP##pin##R = 5
+#if defined(_U2RXR)
+#define CONFIG_U2TX_TO_RP(pin) _RP##pin##R = RPMAP_U2TX
 #else
 #define CONFIG_U2TX_TO_RP(pin)
 #endif
@@ -289,10 +307,14 @@ static inline void CONFIG_DEFAULT_UART(void) {
 #if defined(STARTER_BOARD_28P) && defined(_U1RXR)
   CONFIG_U1RX_TO_RP(9);
   CONFIG_U1TX_TO_RP(8);
+#elif (defined(__PIC24E__) || defined(__dsPIC33E__))
+  CONFIG_U1RX_TO_RP(42);
+  CONFIG_U1TX_TO_RP(43);
+#warning  UART1 RX pin configured to RP42(RB10), UART1 TX pin configured to RP43(RB11)
 #elif defined(_U1RXR)
   CONFIG_U1RX_TO_RP(10);
   CONFIG_U1TX_TO_RP(11);
-#warning  UART1 RX pin configured to RP10, UART1 TX pin configured to RP11
+#warning  UART1 RX pin configured to RP10(RB10), UART1 TX pin configured to RP11(RB11)
 #endif
 #if defined(__PIC24FK__)
 #if ( defined(__PIC24F16KA102__) || defined(__PIC24F08KA102__))

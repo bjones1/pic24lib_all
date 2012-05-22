@@ -82,6 +82,8 @@ does not occur.
 #define FRC_FCY 40000000L
 #elif ( defined(__PIC24F__) || defined(__PIC24FK__) )
 #define FRC_FCY 16000000L
+#elif ( defined(__PIC24E__) || defined(__dsPIC33F__) )
+#define FRC_FCY 60000000L
 #else
 #error Unknown processor.
 #endif
@@ -347,6 +349,34 @@ void configClockFRCPLL_FCY40MHz(void) {
   _PLLDIV = 185; // Multiply = PLLDIV + 2
   // Final desired Fosc = 80 MHz for an Fcy = 40 MHz.
   // (See 7.7 of the FRM rev B). Pick 80 MHz, so postscale by 2.
+  _PLLPOST = 0; // Postscale = 2 * (PLLPOST + 1)
+  switchClock(GET_OSC_SEL_BITS(FNOSC_FRCPLL));
+}
+#endif
+
+#if IS_CLOCK_CONFIG(FRCPLL_FCY60MHz)
+#warning Clock configured for FRCPLL, FCY = 60 MHz
+#endif
+#if GET_IS_SUPPORTED(FRCPLL_FCY60MHz)
+void configClockFRCPLL_FCY60MHz(void) {
+  // To be safe: if this was run by a bootloader that chose FRCPLL mode,
+  // then we can't change the bits below. To do so, first switch to FRC,
+  // change bits, then switch back to FRCPLL.
+  switchClock(GET_OSC_SEL_BITS(FNOSC_FRC));
+  
+  _TUN = 0;  // Correct setting assuming the RC oscillator is exactly 7.37MHz.
+  // It may need to be tweaked however. Use the echo.c program, and a baud rate
+  // of 115,200 and increase/decrease TUN until you get no framing errors
+
+  // For PIC24E Family, Fref must be
+  // between 3 MHz and 5.5 MHz. Choose a prescale of 2
+  // for Fref of 3.685 MHz.
+  _PLLPRE = 0; // Prescale = PLLPRE + 2
+  // Fvco after multiply must be between 120 and 340 MHz.
+  // Pick 240 MHz, so multiply by 65.
+  _PLLDIV = 63; // Multiply = PLLDIV + 2
+  // Final desired Fosc = 120 MHz for an Fcy = 60 MHz.
+  //  Pick 120 MHz, so postscale by 2.
   _PLLPOST = 0; // Postscale = 2 * (PLLPOST + 1)
   switchClock(GET_OSC_SEL_BITS(FNOSC_FRCPLL));
 }

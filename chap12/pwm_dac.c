@@ -35,8 +35,8 @@ output and vary the pulse width of the PWM signal, and monitor
 the DC value on the capacitor. The RC time constant should
 be at least 10x greater than the PWM period. Examples values
 used for testing were R=6.8k, C = 1.0u, PWM period= 500 us
-This projects uses an external crystal for accuracy.
-CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY is defined in the MPLAB project.
+For better accuracy, use an external crystal and define
+CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY in the MPLAB project.
 Remove this macro if you wish to use the internal oscillator.
 */
 
@@ -48,7 +48,7 @@ void  configTimer2(void) {
   T2CON = T2_OFF | T2_IDLE_CON | T2_GATE_OFF
           | T2_32BIT_MODE_OFF
           | T2_SOURCE_INT
-          | T2_PS_1_64 ;  //1 tick = 1.6 us at FCY=40 MHz
+          | T2_PS_1_8 ;  //1 tick = 1.6 us at FCY=40 MHz
   PR2 = usToU16Ticks(PWM_PERIOD, getTimerPrescale(T2CONbits)) - 1;
   TMR2  = 0;       //clear timer2 value
   _T2IF = 0;
@@ -57,14 +57,23 @@ void  configTimer2(void) {
 }
 
 void configOutputCapture1(void) {
-  T2CONbits.TON = 0;       //disable Timer when configuring Output compare
-  CONFIG_RB3_AS_DIG_OUTPUT();
-  CONFIG_OC1_TO_RP(3);        //map OC1 to RP3/RB3
+  T2CONbits.TON = 0;       //disable Timer when configuring Output compare 
+  OC1R = 0;
+  OC1RS = 0;  //initially off 
 //assumes TIMER2 initialized before OC1 so PRE bits are set
-  OC1RS = 0;  //initially off
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  CONFIG_OC1_TO_RP(35);        //map OC1 to RP35/RB3
+//turn on the compare toggle mode using Timer2
+  OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
+           OC_PWM_CENTER_ALIGN;  //PWM
+  OC1CON2 = 0x000C;           //sync source is Timer2.
+#else
+  CONFIG_RB3_AS_DIG_OUTPUT();
+  CONFIG_OC1_TO_RP(3);        //map OC1 to RP3/RB3  
 //turn on the compare toggle mode using Timer2
   OC1CON = OC_TIMER2_SRC |     //Timer2 source
            OC_PWM_FAULT_PIN_DISABLE;  //PWM, no fault detection
+#endif
 }
 
 void _ISR _T2Interrupt(void) {
@@ -87,7 +96,7 @@ int main(void) {
   configTimer2();
   configOutputCapture1();
   CONFIG_AN0_AS_ANALOG();
-  configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN0, 31, 1 );
+  configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN0, 31, 0 );
   SET_SAMP_BIT_ADC1();      //start sampling and conversion
   T2CONbits.TON = 1;       //turn on Timer2 to start PWM
   while (1) {

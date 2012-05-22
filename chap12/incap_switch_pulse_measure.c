@@ -31,11 +31,15 @@
 
 /** \file
  *  Measures the pulse width of pushbutton switching using input capture and Timer2
- * This projects uses an external crystal for accuracy.
- * CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY is defined in the MPLAB project.
+ * For more accuracy, use an external crystal and define
+ * CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY in the MPLAB project.
  * Remove this macro if you wish to use the internal oscillator.
  * Typical crystal accuracy for through hole is +/-20 pmm, so for a 100000 us
  * pulse width measurement this is +/- 2 us.
+ *
+ * This code works with PIC24E/dsPIC33 but a better way of measuring long capture periods
+ * with this family would be to use cascaded input captures to form
+ * a 32-bit input capture register.
 */
 
 volatile uint16_t u16_oflowCount = 0;
@@ -89,11 +93,18 @@ inline void CONFIG_SW1()  {
 }
 
 void configInputCapture1(void) {
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  CONFIG_IC1_TO_RP(45);        //map IC1 to RP45/RB13
+  IC1CON1 = IC_TIMER2_SRC |     //Timer2 source
+           IC_INT_1CAPTURE |   //Interrupt every capture
+           IC_EVERY_EDGE;      //Capture every edge
+  IC1CON2 = 0x000C;            //sync to timer2
+#else
   CONFIG_IC1_TO_RP(13);        //map IC1 to RP13/RB13
   IC1CON = IC_TIMER2_SRC |     //Timer2 source
            IC_INT_1CAPTURE |   //Interrupt every capture
            IC_EVERY_EDGE;      //Capture every edge
-
+#endif
   _IC1IF = 0;
   _IC1IP = 2;   //higher than Timer2 so that Timer2 does not interrupt IC1
   _IC1IE = 1;   //enable
@@ -116,8 +127,9 @@ void  configTimer2(void) {
 int main (void) {
   configBasic(HELLO_MSG);
   CONFIG_SW1();    //use RB13
-  configTimer2();
   configInputCapture1();
+  configTimer2();
+  
 
   while (1) {
     outString("Press button...");

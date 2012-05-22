@@ -70,6 +70,48 @@
 #ifndef _PIC24_CLOCKFREQ_H_
 #define _PIC24_CLOCKFREQ_H_
 
+// Verify that the current processor is supported by the clock
+// configuration chosen.
+// 1. Set up some #defines as booleans which tell which processor
+//    is selected for this compile.
+/// \cond nodoxygen
+#ifdef __PIC24F__
+#define PIC24F_DEFINED 1
+#else
+#define PIC24F_DEFINED 0
+#endif
+
+#ifdef __PIC24H__
+#define PIC24H_DEFINED 1
+#else
+#define PIC24H_DEFINED 0
+#endif
+
+#ifdef __dsPIC33F__
+#define dsPIC33F_DEFINED 1
+#else
+#define dsPIC33F_DEFINED 0
+#endif
+
+#ifdef __PIC24FK__
+#define PIC24FK_DEFINED 1
+#else
+#define PIC24FK_DEFINED 0
+#endif
+
+#ifdef __PIC24E__
+#define PIC24E_DEFINED 1
+#else
+#define PIC24E_DEFINED 0
+#endif
+
+#ifdef __dsPIC33E__
+#define dsPIC33E_DEFINED 1
+#else
+#define dsPIC33E_DEFINED 0
+#endif
+
+
 /** Clock configuration for the PIC24 - set CLOCK_CONFIG
  *  to one of the following. Naming convention is
  *  OSCTYPE_[PRIFREQ]_FCYFREQ where OSCTYPE gives the
@@ -139,9 +181,11 @@
 #define FRC_FCY3685KHz                  4,            FNOSC_FRC,     3685000L, POSCMD_NONE,       -1,  (PIC24H_DEFINED || dsPIC33F_DEFINED),                     configClockFRC_FCY3685KHz,                 498
 #define FRCPLL_FCY40MHz                 5,            FNOSC_FRCPLL, 40000000L, POSCMD_NONE,       -1,  (PIC24H_DEFINED || dsPIC33F_DEFINED),                     configClockFRCPLL_FCY40MHz,                498
 #define PRIPLL_7372KHzCrystal_40MHzFCY  6,            FNOSC_PRIPLL, 40000000L, POSCMD_XT,   7372800L,  (PIC24H_DEFINED || dsPIC33F_DEFINED),                     configClockPRIPLL_7372KHzCrystal_40MHzFCY, 498
-#define PRIPLL_8MHzCrystal_40MHzFCY     7,            FNOSC_PRIPLL, 40000000L, POSCMD_XT,   8000000L,  (PIC24H_DEFINED || dsPIC33F_DEFINED),                     configClockPRIPLL_8MHzCrystal_40MHzFCY,    498
+#define PRIPLL_8MHzCrystal_40MHzFCY     7,            FNOSC_PRIPLL, 40000000L, POSCMD_XT,   8000000L,  (PIC24H_DEFINED || dsPIC33F_DEFINED || PIC24E_DEFINED || dsPIC33E_DEFINED),                     configClockPRIPLL_8MHzCrystal_40MHzFCY,    498
 #define PRIPLL_8MHzCrystal_16MHzFCY     8,            FNOSC_PRIPLL, 16000000L, POSCMD_XT,   8000000L,  (PIC24F_DEFINED || PIC24FK_DEFINED),                     configClockPRIPLL_8MHzCrystal_16MHzFCY,    498
 #define PRI_8MHzCrystal_4MHzFCY         9,            FNOSC_PRI,     4000000L, POSCMD_XT,   8000000L,  (PIC24F_DEFINED || PIC24FK_DEFINED || PIC24H_DEFINED || dsPIC33F_DEFINED), configClockPRI_8MHzCrystal_4MHzFCY,        498
+#define FRCPLL_FCY60MHz                 10,           FNOSC_FRCPLL, 60000000L, POSCMD_NONE,       -1,  (PIC24E_DEFINED || dsPIC33E_DEFINED),                     configClockFRCPLL_FCY60MHz,                498
+
 ///@}
 
 
@@ -203,31 +247,6 @@
 #define POSC_FREQ               GET_POSC_FREQ(CLOCK_CONFIG)
 #define CONFIG_DEFAULT_CLOCK()  GET_CONFIG_DEFAULT_CLOCK(CLOCK_CONFIG)()
 
-// Verify that the current processor is supported by the clock
-// configuration chosen.
-// 1. Set up some #defines as booleans which tell which processor
-//    is selected for this compile.
-/// \cond nodoxygen
-#ifdef __PIC24F__
-#define PIC24F_DEFINED 1
-#else
-#define PIC24F_DEFINED 0
-#endif
-#ifdef __PIC24H__
-#define PIC24H_DEFINED 1
-#else
-#define PIC24H_DEFINED 0
-#endif
-#ifdef __dsPIC33F__
-#define dsPIC33F_DEFINED 1
-#else
-#define dsPIC33F_DEFINED 0
-#endif
-#ifdef __PIC24FK__
-#define PIC24FK_DEFINED 1
-#else
-#define PIC24FK_DEFINED 0
-#endif
 
 // 2. Check to see if this clock configuration supports that processor.
 #if !GET_IS_SUPPORTED(CLOCK_CONFIG)
@@ -243,6 +262,7 @@
 #error The HS oscialltor chosen in POSCMD_SEL does not support this frequency!
 #error Valid ranges are from 10 MHz to 32 MHz.
 #endif
+
 /// \endcond
 
 /// @{
@@ -345,6 +365,8 @@
 /// \cond nodoxygen
 #if defined(__PIC24H__) || defined(__dsPIC33F__) || defined(__DOXYGEN__)
 #define _GET_OSC_SEL_BITS(bits) ((bits >> 0) & 0x07)
+#elif defined(__PIC24E__) || defined(__dsPIC33E__) 
+#define _GET_OSC_SEL_BITS(bits) ((bits >> 0) & 0x07)
 #elif defined (__PIC24F__)
 #define _GET_OSC_SEL_BITS(bits) ((bits >> 8) & 0x07)
 #elif defined (__PIC24FK__)
@@ -398,6 +420,10 @@ void configClockFRC_FCY3685KHz(void);
 
 #if GET_IS_SUPPORTED(FRCPLL_FCY40MHz)
 void configClockFRCPLL_FCY40MHz(void);
+#endif
+
+#if GET_IS_SUPPORTED(FRCPLL_FCY60MHz)
+void configClockFRCPLL_FCY60MHz(void);
 #endif
 
 #if GET_IS_SUPPORTED(PRI_NO_PLL_7372KHzCrystal)

@@ -17,7 +17,9 @@ enum class eFamily {
   dsPIC33F,
   PIC24H,
   PIC24F,
-  PIC24FK
+  PIC24FK,
+  dsPIC33E,
+  PIC24E
 };
 
 enum class eType {

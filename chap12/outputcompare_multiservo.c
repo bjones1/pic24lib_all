@@ -33,9 +33,11 @@
 Demonstrates pulse width modulation using four digital outputs
 and the OC1 module to create four PWM outputs for hobby servos.
 A table is used to control the pulse widths of the four servos.
-This projects uses an external crystal for accuracy.
-CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY is defined in the MPLAB project.
+For more accuracy, use an external crystal and define the following
+CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY in the MPLAB project.
 Remove this macro if you wish to use the internal oscillator.
+
+The PIC24E/dsPIC33E code is differs from other families.
 */
 
 #define PWM_PERIOD 20000   //in microseconds  
@@ -105,7 +107,46 @@ void setServoOutput (uint8_t u8_servo, uint8_t u8_val) {
       break;
   }
 }
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+//use Timer2 interrupt to kick off the first servo output,
+//the OC1 interrupt handles the rest.
+void _ISRFAST _T2Interrupt (void) {
+ _T2IF = 0;                 //clear the timer interrupt bit
+ u8_currentServo = 0;
+ setServoOutput(u8_currentServo, 1);
+ OC1R = au16_servoPWidths[u8_currentServo];
+ OC1RS = au16_servoPWidths[u8_currentServo];
+ _OC1IF = 0;
+ _OC1IP = 1;
+ _OC1IE = 1;    //enable the OC1 interrupt
+ //turn on the compare toggle mode using Timer2
+ OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
+          OC_TOGGLE_PULSE;    //use toggle mode, just care about compare event
+ OC1CON2 = 0x001F;              //reset internal timer when OCxRS match occurs
+}
 
+void _ISR _OC1Interrupt(void) {
+  _OC1IF = 0;
+//change the servo's value
+  setServoOutput(u8_currentServo, 0); //turn off current servo
+  u8_currentServo++;                  //increment to next servo
+  if (u8_currentServo != NUM_SERVOS) {
+   setServoOutput(u8_currentServo, 1); //turn on this servo
+   OC1R = au16_servoPWidths[u8_currentServo];  //set the pulse width
+   OC1RS = au16_servoPWidths[u8_currentServo];
+  } else {
+  //last servo, disable OC1
+   OC1CON1 = 0x0; //done disable the OC1 module
+   _OC1IE = 0;    //disable the OC1 interrupt
+  }
+}
+
+//this does nothing since configuration done in Timer2 interrupt.
+void configOutputCapture1(void) {}
+
+
+
+#else
 void _ISR _OC1Interrupt(void) {
   _OC1IF = 0;
 //change the servo's value
@@ -138,6 +179,8 @@ void configOutputCapture1(void) {
   _OC1IP = 1;
   _OC1IE = 1;    //enable the OC1 interrupt
 }
+#endif
+
 
 char sz_buf[32];
 
@@ -158,10 +201,19 @@ void getServoValue(void) {
     printf("Invalid pulse width..\n");
     return;
   }
-  //set the pulse width
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+//set the pulse width
+  _T2IE = 0;                       //enable the timer interrupt
   _OC1IE = 0; //disable the interrupt while changing
   au16_servoPWidths[u16_servo-1]=usToU16Ticks(u16_pw, getTimerPrescale(T2CONbits));
   _OC1IE = 1;
+  _T2IE = 0;                       //enable the timer interrupt
+#else
+  //set the pulse width
+  _OC1IE = 0; //disable the interrupt while changing
+  au16_servoPWidths[u16_servo-1]=usToU16Ticks(u16_pw, getTimerPrescale(T2CONbits));
+  _OC1IE = 1;  
+#endif
 }
 
 int main(void) {
@@ -169,7 +221,12 @@ int main(void) {
   configTimer2();
   initServos();
   configOutputCapture1();
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  _T2IP = 1;                       //choose a priority
+  _T2IE = 1;                       //enable the timer interrupt
+#endif
   T2CONbits.TON = 1;       //turn on Timer2 to start PWM
+
   while (1) {
     getServoValue();       //prints menu, gets new servo value from console.
   }

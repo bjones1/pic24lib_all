@@ -30,8 +30,8 @@
 
 /** \file
  * Generate an asymmetric square wave using output compare (OC1), continuous pulse mode.
- * This projects uses an external crystal for accuracy.
- * CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY is defined in the MPLAB project.
+ * If you wish greater accuracy, then use a clock choice with an external crystal, such as:
+ * CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY
  * Remove this macro if you wish to use the internal oscillator.
 */
 
@@ -55,14 +55,24 @@ void  configTimer2(void) {
 void configOutputCapture1(void) {
   T2CONbits.TON = 0;       //disable Timer when configuring Output compare
   CONFIG_RB8_AS_DIG_OUTPUT();
-  CONFIG_OC1_TO_RP(8);        //map OC1 to RP8/RP13
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  CONFIG_OC1_TO_RP(40);        //map OC1 to RB8/RP40
+#else
+  CONFIG_OC1_TO_RP(8);        //map OC1 to RB8/RP13
+#endif
 //initialized the primary,secondary compare registers
 //assumes TIMER2 initialized before OC1 so PRE bits are set
   OC1R = 0;   //go high when Timer2 == 0
   OC1RS = usToU16Ticks(SQWAVE_PWHIGH, getTimerPrescale(T2CONbits)); //go low when Timer2 == u16_sqwavePWHighTicks
 //turn on the compare toggle mode using Timer2
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+ OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
+           OC_CONTINUE_PULSE;  //Continuous pulse mode
+ OC1CON2 = 0x000C;           //sync source is Timer2.
+#else
   OC1CON = OC_TIMER2_SRC |     //Timer2 source
            OC_CONTINUE_PULSE;  //Continuous pulse mode
+#endif
   _OC1IF = 0;
 }
 

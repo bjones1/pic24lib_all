@@ -55,7 +55,11 @@ void _ISRFAST _IC1Interrupt() {
     u32_period = (uint32_t) computeDeltaTicks(u16_lastCapture,u16_thisCapture,PR2);
     u32_period = ticksToNs (u32_period, getTimerPrescale(T2CONbits));
     //adjust period if necessary
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+    u32_period = u32_period/getPeriodAdjust(IC1CON1bits.ICM);
+#else
     u32_period = u32_period/getPeriodAdjust(IC1CONbits.ICM);
+#endif
     u8_captureFlag = 1;
   }
   u16_lastCapture = u16_thisCapture;
@@ -63,10 +67,18 @@ void _ISRFAST _IC1Interrupt() {
 
 void configInputCapture1(void) {
   CONFIG_RB13_AS_DIG_INPUT();
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  CONFIG_IC1_TO_RP(45);        //map IC1 to RP45/RB13
+  IC1CON1 = IC_TIMER2_SRC |     //Timer2 source
+           IC_INT_1CAPTURE |   //Interrupt every capture
+           IC_EVERY_EDGE;      //Capture every edge
+  IC1CON2 = 0x000C;            //sync to timer2
+#else
   CONFIG_IC1_TO_RP(13);        //map IC1 to RP13/RB13
   IC1CON = IC_TIMER2_SRC |     //Timer2 source
            IC_INT_1CAPTURE |        //Interrupt every capture
            IC_EVERY_16_RISE_EDGE;   //capture every 16th edge
+#endif
   _IC1IF = 0;
   _IC1IP = 1;   //pick a priority
   _IC1IE = 1;   //enable
@@ -88,7 +100,11 @@ int main (void) {
   configBasic(HELLO_MSG);
   configTimer2();
   configInputCapture1();
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  u32_maxPeriodNs = ticksToNs (65536, getTimerPrescale(T2CONbits))/getPeriodAdjust(IC1CON1bits.ICM);
+#else
   u32_maxPeriodNs = ticksToNs (65536, getTimerPrescale(T2CONbits))/getPeriodAdjust(IC1CONbits.ICM);
+#endif
   printf("Maximum period is %ld ns\n",u32_maxPeriodNs);
   while (1) {
     outString("Press button...");

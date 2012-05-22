@@ -122,7 +122,14 @@ void configSPI1(void) {
               SLAVE_ENABLE_ON     |
               SPI_MODE8_ON        |
               MASTER_ENABLE_OFF;
+
   //configure pins
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  //nothing to do here. On this family, the SPI1 port uses dedicated
+  //pins for higher speed. The SPI2 port can be used with remappable pins.
+  //you may need to add code to disable analog functionality if the SPI ports
+  //are on analog-capable pins.
+#else
   CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
   CONFIG_RP6_AS_DIG_PIN();   //Ensure that this is a digital pin
   CONFIG_SCK1IN_TO_RP(7);    //use RP7 for SCLK input
@@ -131,6 +138,7 @@ void configSPI1(void) {
   CONFIG_RP5_AS_DIG_PIN();   //Ensure that this is a digital pin
   CONFIG_SS1IN_TO_RP(3);     //use RP3 for SS#
   CONFIG_RP3_AS_DIG_PIN();   //Ensure that this is a digital pin
+#endif
   CONFIG_SLAVE_ORDY();       //handshake to indicate output ready
   SLAVE_ORDY = 0;            //output is not ready
   u16_index = 0;             //no data yet

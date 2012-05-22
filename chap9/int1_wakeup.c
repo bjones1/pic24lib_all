@@ -51,7 +51,11 @@ int main (void) {
   configBasic(HELLO_MSG);
   /** Configure the switch ***********/
   CONFIG_SW1();
-  CONFIG_INT1_TO_RP(13);   //map INT1 to RP13
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  CONFIG_INT1_TO_RP(45);   //RPI45 shares RB13 pin on these families
+#else
+  CONFIG_INT1_TO_RP(13);   //RP13 shares RB13 pin
+#endif
   /** Configure INT1 interrupt  */
   _INT1IF = 0;     //Clear the interrupt flag
   _INT1IP = 2;     //Choose a priority

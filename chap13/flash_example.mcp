@@ -1,7 +1,7 @@
 [HEADER]
 magic_cookie={66E99B07-E706-4689-9E80-9B2582898A13}
 file_version=1.0
-device=dsPIC33FJ128GP802
+device=PIC24HJ64GP502
 [PATH_INFO]
 BuildDirPolicy=BuildDirIsProjectDir
 dir_src=
@@ -118,7 +118,7 @@ file_018=..\lib\include\pic24_timer.h
 file_019=..\lib\include\pic24_dma.h
 file_020=..\lib\include\pic24_ecan.h
 file_021=..\lib\include\pic24_flash.h
-file_022=..\lib\lkr\p24HJ32GP202_bootldr.gld
+file_022=..\lib\lkr\p24HJ64GP502_bootldr.gld
 [SUITE_INFO]
 suite_guid={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 suite_state=

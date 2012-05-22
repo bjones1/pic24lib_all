@@ -289,9 +289,15 @@ void configUART${x}(uint32_t u32_baudRate) {
   DISABLE_U1TX_ANALOG();
   DISABLE_U1RX_ANALOG();
  #elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
+ #if ( defined(__PIC24E__) || defined(__dsPIC33E__))
+  CONFIG_U${x}RX_TO_RP(42);               //U${x}RX <- RP42
+  CONFIG_RP43_AS_DIG_PIN();                //TX RP pin must be digital
+  CONFIG_U${x}TX_TO_RP(43);               //U${x}TX -> RP43
+ #else
   CONFIG_U${x}RX_TO_RP(10);               //U${x}RX <- RP10
   CONFIG_RP11_AS_DIG_PIN();                //TX RP pin must be digital
   CONFIG_U${x}TX_TO_RP(11);               //U${x}TX -> RP11
+ #endif
   // turn off any analog functionality on these pins
   // (may be needed if pin is hardmapped and RPx does
   // not exist)

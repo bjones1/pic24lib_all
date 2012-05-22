@@ -45,13 +45,16 @@ A simple example of run time self programming - reads/writes a single 16-bit val
 #define LAST_IMPLEMENTED_PMEM 0x0057FF
 #elif defined(__dsPIC33FJ128GP802__)
 #define LAST_IMPLEMENTED_PMEM 0x0157FF
+#elif defined(__PIC24EP64GP202__)     //PIC24E test
+#define LAST_IMPLEMENTED_PMEM 0x00AFFF
 #else
 #error "Define LAST_IMPLEMENTED_PMEM for your processor!
 #endif
 
 
 //calculate starting address of a flash page to store data
-#ifdef __PIC24F__
+//some PIC24H/dsPIC33 store configuration bits on last page, so skip that
+#if (defined(__PIC24F__) || defined(__PIC24E__)|| defined(__dsPIC33E__))
 #define DATA_FLASH_PAGE (((LAST_IMPLEMENTED_PMEM/FLASH_PAGESIZE)*FLASH_PAGESIZE)-FLASH_PAGESIZE)  //2nd to last page of flash
 #endif
 #if (defined(__PIC24H__)|| defined(__dsPIC33F__))

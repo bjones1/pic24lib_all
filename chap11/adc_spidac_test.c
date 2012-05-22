@@ -48,9 +48,15 @@ void configSPI1(void) {
              SPI_CKE_ON          | //out changes active to inactive (CKE=1)
              SPI_MODE8_ON        | //8-bit mode
              MASTER_ENABLE_ON;     //master mode
-  //configure pins. Only need SDO, SCLK since POT is output only
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  //nothing to do here. On this family, the SPI1 port uses dedicated
+  //pins for higher speed. The SPI2 port can be used with remappable pins.
+  //you may need to add code to disable analog functionality if the SPI ports
+  //are on analog-capable pins.
+#else 
   CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
   CONFIG_SCK1OUT_TO_RP(7);   //use RP7 for SCLK
+#endif
 
   SPI1STATbits.SPIEN = 1;  //enable SPI mode
 }

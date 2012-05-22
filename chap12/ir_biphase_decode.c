@@ -152,14 +152,25 @@ void _ISRFAST _IC1Interrupt() {
 //configure input capture.
 void configInputCapture1(void) {
   CONFIG_RB7_AS_DIG_INPUT();   //use RB7 for IR Input (must be 5 V tolerant)
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+ CONFIG_IC1_TO_RP(39);        //map IC1 to RP39/R7
+#else
   CONFIG_IC1_TO_RP(7);         //map IC1 to RP7/R7
+#endif
   e_isrICState = STATE_START_PULSE_FALL;
   u16_irFifoHead = 0;
   u16_irFifoTail = 0;
   u16_twoThirdsPeriodTicks = usToU16Ticks(TWOTHIRDS_PERIOD_US, getTimerPrescale(T2CONbits));
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))  
+  IC1CON1 = IC_TIMER2_SRC |     //Timer2 source
+           IC_INT_1CAPTURE |   //Interrupt every capture
+           IC_EVERY_EDGE;      //Capture every edge
+  IC1CON2 = 0x000C;            //sync to timer2
+#else
   IC1CON = IC_TIMER2_SRC |     //Timer2 source
            IC_INT_1CAPTURE |   //Interrupt every capture
            IC_EVERY_EDGE;      //Interrupt every edge
+#endif
   _IC1IF = 0;
   _IC1IP = 1;
   _IC1IE = 1;   //enable

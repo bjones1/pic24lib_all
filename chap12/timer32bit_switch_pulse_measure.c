@@ -31,9 +31,8 @@
 
 /** \file
  * Measures the pulse width of pushbutton switch using Timer2/3 in 32-bit mode with INT1 for edge detection.
- * This projects uses an external crystal for accuracy.
- * CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY is defined in the MPLAB project.
- * Remove this macro if you wish to use the internal oscillator.
+ * For more accuracy,  use an external crystal and define
+ * CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY in your MPLAB project.
  * Typical crystal accuracy for through hole is +/-20 pmm, so for a 100000 us
  * pulse width measurement this is +/- 2 us.
 */
@@ -80,7 +79,11 @@ void _ISRFAST _INT1Interrupt (void) {
 inline void CONFIG_SW1()  {
   CONFIG_RB13_AS_DIG_INPUT();   //use RB13 for switch input
   ENABLE_RB13_PULLUP();         //enable the pullup
-  CONFIG_INT1_TO_RP(13);   //map INT1 to RP13
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+ CONFIG_INT1_TO_RP(45);   //map INT1 to RP45/RB13
+#else
+  CONFIG_INT1_TO_RP(13);   //map INT1 to RP13/RB13
+#endif
   DELAY_US(1);             //Wait for pullup
   /** Configure INT1 interrupt  */
   _INT1IF = 0;     //Clear the interrupt flag

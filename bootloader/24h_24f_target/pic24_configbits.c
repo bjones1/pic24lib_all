@@ -431,6 +431,8 @@ _FICD(JTAGEN_OFF & ICS_PGD1);
 ///\endcond
 #endif
 
+
+
 #ifdef __PIC24F__
 
 #ifndef BKBUG_OFF
@@ -505,6 +507,63 @@ _FICD(JTAGEN_OFF & ICS_PGD1);
 #define CONFIG_BITS_DEFINED
 ///\endcond
 #endif
+
+
+#ifdef __PIC24E__
+_FGS( GCP_OFF & GWRP_OFF);
+//28 pin devices only have ALT2IC1 pins!!?
+_FPOR(ALTI2C1_ON & 0xFFFF);
+
+
+#ifdef IOL1WAY_OFF
+_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_ON & POSCMD_SEL);
+#else
+_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL);
+#endif
+_FOSCSEL(FNOSC_FRC & IESO_OFF);
+_FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512 & PLLKEN_ON);
+
+_FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
+//_FICD(JTAGEN_ON & ICS_PGD1 & 0xFFEF);
+
+
+#warning Warning: Using default config bit settings in 'common/pic24_configbits.c' for PIC24E family.
+#warning edit 'common/pic24_configbits.c' to define bits for your processor!
+///\cond doxygen_ignore
+#define CONFIG_BITS_DEFINED
+///\endcond
+#endif
+
+
+
+#ifdef __dsPIC33E__
+_FGS( GCP_OFF & GWRP_OFF);
+
+//28 pin devices only have ALT2IC1 pins!!?
+_FPOR(ALTI2C1_ON & 0xFFFF);
+#ifdef IOL1WAY_OFF
+_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_ON & POSCMD_SEL);
+#else
+_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL);
+#endif
+_FOSCSEL(FNOSC_FRC & IESO_OFF);
+_FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512 & PLLKEN_ON);
+
+_FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
+//_FICD(JTAGEN_ON & ICS_PGD1 & 0xFFEF);
+
+
+#warning Warning: Using default config bit settings in 'common/pic24_configbits.c' for dsPIC33E family.
+#warning edit 'common/pic24_configbits.c' to define bits for your processor!
+///\cond doxygen_ignore
+#define CONFIG_BITS_DEFINED
+///\endcond
+#endif
+
+
+
+
+
 #endif
 
 

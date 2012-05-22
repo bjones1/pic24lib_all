@@ -3,7 +3,7 @@
 
 import os, sys, string, re
 
-def makeAppGld(infileName, bootGldName, vectorList, startAddr):
+def makeAppGld(infileName, bootGldName, vectorList, startAddr, family):
 	
 	#open input file
 	try:
@@ -31,13 +31,17 @@ def makeAppGld(infileName, bootGldName, vectorList, startAddr):
 				
 		if (state == 1):
 			if (len(words) > 3 and words[0] == 'program'):
-				s = '  j_ivt          : ORIGIN = 0x%x,   	   LENGTH = 0x200\n' % (startAddr-2)
+				if (family == 'PIC24E' or family == 'dsPIC33E'):
+					s = '  j_ivt          : ORIGIN = 0x%x,   	   LENGTH = 0x300\n' % (startAddr-2)
+					progStart = startAddr + 0x300 -2;
+				else:
+					s = '  j_ivt          : ORIGIN = 0x%x,   	   LENGTH = 0x200\n' % (startAddr-2)
+					progStart = startAddr + 0x200 -2;
 				outfile.write(s)
 				origin = words[5]
 				origin = origin.replace(',','')
 				origin = int(origin,16)
 				length = int(words[8],16)
-				progStart = startAddr + 0x200 -2;
 				delta = progStart - origin
 				newLength = length - delta
 				s = '  program (xr)   : ORIGIN = 0x%x,         LENGTH = 0x%x\n' % (progStart,newLength)
@@ -136,7 +140,7 @@ def makeAppGld(infileName, bootGldName, vectorList, startAddr):
 	return
 	
 
-def makeBootGld(infileName, bootGldName, vectorList, startAddr):
+def makeBootGld(infileName, bootGldName, vectorList, startAddr, family):
 	
 	#open input file
 	try:
@@ -218,7 +222,7 @@ def makeBootGld(infileName, bootGldName, vectorList, startAddr):
 	return
 	
 
-def parseGldFile(infileName, bootGldName, appGldName):
+def parseGldFile(infileName, bootGldName, appGldName, family):
 
 	
 	#first read all vectors
@@ -247,16 +251,19 @@ def parseGldFile(infileName, bootGldName, appGldName):
 	
 	infile.close()
 	# now create the bootloader GLD file
-	startAddr = 0xC02;
-	makeBootGld(infileName, bootGldName, vectorList, startAddr)
-	makeAppGld(infileName, appGldName, vectorList, startAddr)
+	if (family == 'PIC24E' or family == 'dsPIC33E'):
+		startAddr = 0x1002  # this is because of larger erase page size on most PIC24E/PIC33E family members
+	else:
+		startAddr = 0xC02
+	makeBootGld(infileName, bootGldName, vectorList, startAddr,family)
+	makeAppGld(infileName, appGldName, vectorList, startAddr, family)
 	
 	return
 	
 	
 	
 	
-def convertDir(srcdir, dstdir):
+def convertDir(srcdir, dstdir, family):
 	for infile in os.listdir(srcdir):
 		(root,ext) = os.path.splitext(infile)
 		if (ext == ".gld"):
@@ -265,15 +272,15 @@ def convertDir(srcdir, dstdir):
 			srcpath = os.path.join(srcdir,infile)
 			bootfile = infile;
 			print "Converting: ",bootfile
-			parseGldFile(srcpath,infile,apppath)
+			parseGldFile(srcpath,infile,apppath,family)
 
 	
 
 	
-C30_homedir = "C:\\Program Files (x86)\\Microchip\\mplabc30\\v3.30\\support";
+C30_homedir = "C:\\Program Files (x86)\\Microchip\\mplabc30\\v3.30c\\support";
 
 if (os.path.exists(C30_homedir) == False):
-	C30_homedir = "C:\\Program Files\\Microchip\\MPLAB C30\\support";
+	C30_homedir = "C:\\Program Files\\Microchip\\mplabc30\\v3.30c\\support";
 	if (os.path.exists(C30_homedir) == False):
 		print "Cannot determine Microchip C30 home directory, exiting.\n"
 		exit(0);
@@ -282,17 +289,19 @@ if (os.path.exists(C30_homedir) == False):
 dstdir = os.path.join("..","..","..","lib","lkr");
 
 tdir = 	os.path.join(C30_homedir,"PIC24H","gld");
-convertDir(tdir, dstdir);
+convertDir(tdir, dstdir,"PIC24H");
 
 tdir = 	os.path.join(C30_homedir,"PIC24F","gld");
-convertDir(tdir, dstdir);
+convertDir(tdir, dstdir,"PIC24F");
 
 tdir = 	os.path.join(C30_homedir,"PIC24E","gld");
-convertDir(tdir, dstdir);
+convertDir(tdir, dstdir,"PIC24E");
 
 tdir = 	os.path.join(C30_homedir,"dsPIC33F","gld");
-convertDir(tdir, dstdir);
+convertDir(tdir, dstdir,"dsPIC33F");
 
+tdir = 	os.path.join(C30_homedir,"dsPIC33E","gld");
+convertDir(tdir, dstdir,"dsPIC33E");
 
 
 

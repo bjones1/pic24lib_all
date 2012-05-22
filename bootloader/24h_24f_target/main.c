@@ -87,6 +87,19 @@ is evenly divisible by 1536, then do an erase.
 #define INSTR_PER_ROW 64   //number of instructions per row
 #define PM_ROW_SIZE INSTR_PER_ROW * 4     //number of instructions transferred to RAM to be programmed 
 #define PM_ERASE_SIZE INSTR_PER_ROW*8     //erases a full page, but RAM can only hold 1/2 page
+#elif ( defined(__PIC24E__) || defined(__dsPIC33E__))
+#define INSTR_PER_ROW 2   //number of instructions per row
+#define PM_ROW_SIZE 512   //page size downloaded, will be 512 instructions
+
+//some processors have an erase size of 512.
+#if (defined(__PIC24EP32GP202__) || defined(__PIC24EP32GP203__) || defined(__PIC24EP32GP204__) )
+#define PM_ERASE_SIZE 512 
+#elif (defined(__dsPIC33EP32GP502__) || defined(__dsPIC33EP32GP503__) || defined(__dsPIC33EP32GP504__) )
+#define PM_ERASE_SIZE 512 
+#else
+#define PM_ERASE_SIZE 1024 //default erase size.
+#endif
+
 
 #else
 //this processor has enough memory for a full page size.
@@ -102,10 +115,15 @@ is evenly divisible by 1536, then do an erase.
 //This family can only erase up to four rows instead of 8 rows, and the programming word has changed
 #define PM_ROW_ERASE   0x405A //erases 4 rows
 #define PM_ROW_WRITE   0x4004 //write 1 row
-#else
+#elif (defined(__PIC24H__) || defined(__PIC24F__))
 //for PIC24F, PIC24H
 #define PM_ROW_ERASE   0x4042 //erase entire page (8 rows)
 #define PM_ROW_WRITE   0x4001 //write 1 row
+#elif (defined(__PIC24E__) || defined(__dsPIC33E__))
+#define PM_ROW_ERASE   0x4003 //erase entire page 
+#define PM_ROW_WRITE   0x4001 //write double word
+#else
+#error This family is not supported by bootloader.
 #endif
 
 #define CONFIG_WORD_WRITE 0x4000
@@ -167,13 +185,16 @@ int main(void)
   T3CON = 0x0000;
   U1MODE = 0x0000;
 
-
-
   configClock();          //clock configuration
+ 
 
   RCONbits.SWDTEN=0;            /* Disable Watch Dog Timer*/
 
+#if (defined(__PIC24E__) || defined(__dsPIC33E__))
+ SourceAddr.Val32 = 0x1000;
+#else
   SourceAddr.Val32 = 0xc00;
+#endif
 
   Delay.Val32 = ReadLatch(SourceAddr.Word.HW, SourceAddr.Word.LW);
 
@@ -204,7 +225,7 @@ int main(void)
   }
 
   CONFIG_DEFAULT_UART();
-
+ 
   while (1) {
     char Command;
 
@@ -421,6 +442,39 @@ void PutChar(char Char) {
 
 
 /******************************************************************************/
+#if (defined(__PIC24E__) || defined(__dsPIC33E__))
+//this does double word programming, works for all PIC24E, PIC33E
+void WritePM(char * ptrData, uReg32 SourceAddr) {
+  int    Size,Size1;
+  uReg32 Temp;
+  uReg32 Temp2;
+  uReg32 TempAddr;
+  uReg32 TempData;
+
+  
+  for (Size = 0,Size1=0; Size < PM_ROW_SIZE; Size = Size+2) {
+
+    Temp.Val[0]=ptrData[Size1+0];
+    Temp.Val[1]=ptrData[Size1+1];
+    Temp.Val[2]=ptrData[Size1+2];
+    Temp.Val[3]=0;
+    Size1+=3;
+
+    Temp2.Val[0]=ptrData[Size1+0];
+    Temp2.Val[1]=ptrData[Size1+1];
+    Temp2.Val[2]=ptrData[Size1+2];
+    Temp2.Val[3]=0;
+    Size1+=3;
+
+    LoadTwoWords(SourceAddr.Word.HW, SourceAddr.Word.LW, Temp.Word.HW,Temp.Word.LW, Temp2.Word.HW,Temp2.Word.LW);
+    //WriteLatch(SourceAddr.Word.HW, SourceAddr.Word.LW,Temp.Word.HW,Temp.Word.LW);
+    WriteMem2(SourceAddr.Word.HW, SourceAddr.Word.LW, PM_ROW_WRITE);
+    
+    SourceAddr.Val32 = SourceAddr.Val32 + 4;
+  }
+}
+
+#else
 void WritePM(char * ptrData, uReg32 SourceAddr) {
   int    Size,Size1;
   uReg32 Temp;
@@ -455,6 +509,8 @@ void WritePM(char * ptrData, uReg32 SourceAddr) {
 
 
 }
+#endif
+
 
 /******************************************************************************/
 

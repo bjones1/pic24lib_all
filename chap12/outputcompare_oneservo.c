@@ -33,8 +33,8 @@
 Demonstrates pulse width modulation using the OC1 output to control a
 hobby servo. The ADC input value on AN0 is used to
 vary the pulse width between its min and maximum values.
-This projects uses an external crystal for accuracy.
-CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY is defined in the MPLAB project.
+For additional accuracy, use an external crystal and define the following
+CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY in the MPLAB project.
 Remove this macro if you wish to use the internal oscillator.
 */
 
@@ -63,12 +63,23 @@ void configOutputCapture1(void) {
   u16_maxPWTicks = usToU16Ticks(MAX_PW, getTimerPrescale(T2CONbits));
   T2CONbits.TON = 0;       //disable Timer when configuring Output compare
   CONFIG_RB3_AS_DIG_OUTPUT();
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  CONFIG_OC1_TO_RP(35);        //map OC1 to RP35/RB3
+#else
   CONFIG_OC1_TO_RP(3);        //map OC1 to RP3/RB3
+#endif
 //assumes TIMER2 initialized before OC1 so PRE bits are set
   OC1RS = 0;  //initially off
 //turn on the compare toggle mode using Timer2
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+//turn on the compare toggle mode using Timer2
+  OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
+           OC_PWM_CENTER_ALIGN;  //PWM
+  OC1CON2 = 0x000C;           //sync source is Timer2.
+#else
   OC1CON = OC_TIMER2_SRC |     //Timer2 source
            OC_PWM_FAULT_PIN_DISABLE;  //PWM, no fault detection
+#endif
 }
 
 

@@ -33,8 +33,8 @@
 Illustrates run time self programming of the flash memory
 */
 
-#ifdef __PIC24F__
-#warning For a PIC24F, the DATA_FLASH_PAGE is set to the second to last flash page instead of the last page,
+#if (defined(__PIC24F__) || defined(__PIC24E__)|| defined(__dsPIC33E__))
+#warning For all PIC24F and some PIC24E/dsPIC33E family members, the DATA_FLASH_PAGE is set to the second to last flash page instead of the last page,
 #warning as the last flash page in the 24F family contains the configuration bits.
 #endif
 
@@ -45,13 +45,15 @@ Illustrates run time self programming of the flash memory
 #define LAST_IMPLEMENTED_PMEM 0x0057FF
 #elif defined(__dsPIC33FJ128GP802__)
 #define LAST_IMPLEMENTED_PMEM 0x0157FF
+#elif defined(__PIC24EP64GP202__)     //PIC24E test
+#define LAST_IMPLEMENTED_PMEM 0x00AFFF
 #else
 #error "Define LAST_IMPLEMENTED_PMEM for your processor!
 #endif
 
 
 //calculate starting address of a flash page to store data
-#ifdef __PIC24F__
+#if (defined(__PIC24F__) || defined(__PIC24E__)|| defined(__dsPIC33E__))
 #define DATA_FLASH_PAGE (((LAST_IMPLEMENTED_PMEM/FLASH_PAGESIZE)*FLASH_PAGESIZE)-FLASH_PAGESIZE)  //2nd to last page of flash
 #endif
 #if (defined(__PIC24H__)|| defined(__dsPIC33F__))
@@ -78,7 +80,7 @@ typedef union _UFDATA {
   char fill[FLASH_DATA_SIZE];  //worst case allocates extra row, but ensures RAM data block is multiple of row size
 } UFDATA;
 
-UFDATA fdata;
+UFDATA fdata __attribute__ ((aligned(4)));
 
 void doFormat(UFDATA* p_ufdata) {
   uint16_t u16_i;
@@ -166,7 +168,7 @@ void doMenu() {
     case '5':
       doRead(&fdata);
       doPrint(&fdata);
-      break;
+      break;     
   }
 }
 
