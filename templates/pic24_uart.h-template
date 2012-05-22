@@ -31,9 +31,9 @@
 #ifndef _PIC24_UART${x}_H_
 #define _PIC24_UART${x}_H_
 
-#include "pic24_libconfig.h"
-#include "stdint.h"
+#include <stdint.h>
 #include "pic24_chip.h"
+#include "pic24_libconfig.h"
 #include "pic24_util.h"
 
 // Only include if this UART module exists.

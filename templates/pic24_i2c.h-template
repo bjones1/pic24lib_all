@@ -30,7 +30,7 @@
 #ifndef _PIC24_I2C${x}_H_
 #define _PIC24_I2C${x}_H_
 
-#include "stdint.h"
+#include <stdint.h>
 #include "pic24_chip.h"
 
 // Only include if this I2C Module exists.
