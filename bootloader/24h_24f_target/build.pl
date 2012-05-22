@@ -25,6 +25,7 @@ use File::Copy;
 &do_compile("SConstruct","p",["DEVICE=24HJ64GP502","DEFAULT_BAUDRATE=57600"],"_57600baud_bootldr");
 &do_compile("SConstruct","p",["DEVICE=24HJ128GP502","DEFAULT_BAUDRATE=57600"],"_57600baud_bootldr");
 &do_compile("SConstruct","p",["DEVICE=24FJ64GB004","DEFAULT_BAUDRATE=57600"],"_57600baud_bootldr");
+&do_compile("SConstruct","p",["DEVICE=24EP64GP202","DEFAULT_BAUDRATE=57600"],"_57600baud_bootldr");
 
 
 ## misc
