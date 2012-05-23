@@ -74,7 +74,7 @@ void configOutputCapture1(void) {
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
 //turn on the compare toggle mode using Timer2
   OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
-           OC_PWM_CENTER_ALIGN;  //PWM
+            OC_PWM_CENTER_ALIGN;  //PWM
   OC1CON2 = 0x000C;           //sync source is Timer2.
 #else
   OC1CON = OC_TIMER2_SRC |     //Timer2 source

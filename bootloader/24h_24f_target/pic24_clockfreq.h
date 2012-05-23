@@ -365,7 +365,7 @@
 /// \cond nodoxygen
 #if defined(__PIC24H__) || defined(__dsPIC33F__) || defined(__DOXYGEN__)
 #define _GET_OSC_SEL_BITS(bits) ((bits >> 0) & 0x07)
-#elif defined(__PIC24E__) || defined(__dsPIC33E__) 
+#elif defined(__PIC24E__) || defined(__dsPIC33E__)
 #define _GET_OSC_SEL_BITS(bits) ((bits >> 0) & 0x07)
 #elif defined (__PIC24F__)
 #define _GET_OSC_SEL_BITS(bits) ((bits >> 8) & 0x07)

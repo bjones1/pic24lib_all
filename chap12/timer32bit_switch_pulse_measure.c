@@ -80,7 +80,7 @@ inline void CONFIG_SW1()  {
   CONFIG_RB13_AS_DIG_INPUT();   //use RB13 for switch input
   ENABLE_RB13_PULLUP();         //enable the pullup
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
- CONFIG_INT1_TO_RP(45);   //map INT1 to RP45/RB13
+  CONFIG_INT1_TO_RP(45);   //map INT1 to RP45/RB13
 #else
   CONFIG_INT1_TO_RP(13);   //map INT1 to RP13/RB13
 #endif

@@ -11,7 +11,7 @@ typedef unsigned long  UWord32;
 void WriteMem(UWord16 val) {
   asm("mov	W0,NVMCON");
   __builtin_write_NVM();
-  
+
   asm("1:	btsc NVMCON,#15");    //	;Wait for write end
   asm("	bra 1b");
 
@@ -105,14 +105,14 @@ void ResetDeviceasPOR(void) {
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
 void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val ) {
 
- 
+
   asm("mov	W2,NVMCON");
 
   asm("mov     w0,NVMADRU");           //; Init Pointer to page to be erased
   asm("mov     w1,NVMADR");           //; Init Pointer to offset to be erased
 
   //__builtin_write_NVM();
-  
+
   asm("disi #06");
   asm("mov #0x55,W0");
   asm("mov W0, NVMKEY");
@@ -125,7 +125,7 @@ void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val ) {
   asm("1:	btsc NVMCON,#15");    //	;Wait for write end
   asm("	bra 1b");
 
-  
+
 }
 #else
 //_Erase:

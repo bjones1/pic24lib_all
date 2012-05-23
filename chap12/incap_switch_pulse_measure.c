@@ -96,8 +96,8 @@ void configInputCapture1(void) {
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
   CONFIG_IC1_TO_RP(45);        //map IC1 to RP45/RB13
   IC1CON1 = IC_TIMER2_SRC |     //Timer2 source
-           IC_INT_1CAPTURE |   //Interrupt every capture
-           IC_EVERY_EDGE;      //Capture every edge
+            IC_INT_1CAPTURE |   //Interrupt every capture
+            IC_EVERY_EDGE;      //Capture every edge
   IC1CON2 = 0x000C;            //sync to timer2
 #else
   CONFIG_IC1_TO_RP(13);        //map IC1 to RP13/RB13
@@ -129,7 +129,7 @@ int main (void) {
   CONFIG_SW1();    //use RB13
   configInputCapture1();
   configTimer2();
-  
+
 
   while (1) {
     outString("Press button...");

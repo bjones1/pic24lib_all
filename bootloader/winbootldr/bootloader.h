@@ -135,18 +135,18 @@ public:
 
   //checks if page starts at 0x400, if so, this page definitely clashes with bootloader.
   Boolean CheckAddressClash(UInt32 Address, eFamily Family) {
-    if (( (Family == eFamily::PIC24H) ||(Family == eFamily::dsPIC33F) 
-           ||(Family == eFamily::PIC24E) ||(Family == eFamily::dsPIC33E)
-		   ||(Family == eFamily::PIC24FK) ||(Family == eFamily::PIC24F)) &&
+    if (( (Family == eFamily::PIC24H) ||(Family == eFamily::dsPIC33F)
+          ||(Family == eFamily::PIC24E) ||(Family == eFamily::dsPIC33E)
+          ||(Family == eFamily::PIC24FK) ||(Family == eFamily::PIC24F)) &&
         (Address == 0x400)) return false;
     return true;
   }
 
   //ensures that each word between >= 0x200 and <0xC00 is == 0xFFFF or else we clash with bootloader!
   Boolean CheckAddressClash2(UInt32 Address, array<Byte>^ pData, Int32 base, eFamily Family) {
-    if ( (Family == eFamily::PIC24H) ||(Family == eFamily::PIC24F) 
-		 ||(Family == eFamily::PIC24E) ||(Family == eFamily::dsPIC33E)
-		 ||(Family == eFamily::PIC24FK) ||(Family == eFamily::dsPIC33F) ) {
+    if ( (Family == eFamily::PIC24H) ||(Family == eFamily::PIC24F)
+         ||(Family == eFamily::PIC24E) ||(Family == eFamily::dsPIC33E)
+         ||(Family == eFamily::PIC24FK) ||(Family == eFamily::dsPIC33F) ) {
       if (Address >= 0x200 && Address < 0xC00 && Hex4ToUInt16(pData, base) != 0xFFFF)
         return false;
     }
@@ -159,8 +159,8 @@ public:
     if ( (Family == eFamily::PIC24F) || (Family == eFamily::PIC24E) ||(Family == eFamily::dsPIC33E)) {
       if (m_ConfigBitEnable) return true;
       if (Address >= ConfigPage && Address < (ConfigWord) && Hex4ToUInt16(pData, base) != 0xFFFF)
-       return false;
-	}
+        return false;
+    }
 
     return true;
   }
@@ -180,7 +180,7 @@ public:
     }
 
     if ((Family == eFamily::PIC24F || Family == eFamily::PIC24E || Family == eFamily::dsPIC33E)
-		   && m_ConfigBitEnable == false) {
+        && m_ConfigBitEnable == false) {
 
       //check config bit page
       if ((i >= CurrentDevice->ConfigPage) && (thisRow->GetRowEmpty()==false)) {
@@ -276,11 +276,10 @@ public:
     myDebugOut->AppendText("Reading HexFile...\r\n");
 
     //FileStream^ fs = File::Open( path, FileMode::Open, FileAccess::Read, FileShare::None );
-	StreamReader^ sr;
-	try {
-          sr = gcnew StreamReader( path );
-	}
-	catch ( Exception^ e ) {
+    StreamReader^ sr;
+    try {
+      sr = gcnew StreamReader( path );
+    } catch ( Exception^ e ) {
       myDebugOut->AppendText(String::Concat("Exception while opening hex file: ",e->Message,"\r\n"));
       return;
     }
@@ -471,12 +470,12 @@ public:
     Boolean VerifyOk;
     VerifyOk = true;
     //just verify program memory
-	Int32 address;
-	address = 0;
+    Int32 address;
+    address = 0;
     for (Int32 Row = 0; Row < (PM_SIZE); Row++) {
       if (SkipRowPM(ppMemory[Row], Family, myDebugOut) == true) continue;
       if (ppMemory[Row]->ReadData(Port, myDebugOut) == true) {
-	    address = ppMemory[Row]->GetRowAddress();
+        address = ppMemory[Row]->GetRowAddress();
         for (Int32 index = 0; index < ppMemory[Row]->GetRowSize(); index++) {
           Int32 instrExpected, instrGot;
           instrExpected = ((ppMemoryVerify[Row]->GetRowByte(3*index + 2)) << 16) +
@@ -489,15 +488,15 @@ public:
           if (instrExpected != instrGot) {
             VerifyOk = false;
             myDebugOut->AppendText("Verfication failed @address: ");
-			myDebugOut->AppendText(Convert::ToString(address,16));
-			myDebugOut->AppendText(", expected: ");
+            myDebugOut->AppendText(Convert::ToString(address,16));
+            myDebugOut->AppendText(", expected: ");
             myDebugOut->AppendText(Convert::ToString(instrExpected,16));
             myDebugOut->AppendText("  , got: ");
             myDebugOut->AppendText(Convert::ToString(instrGot,16));
             myDebugOut->AppendText("\r\n");
             break;
           }
-		  address = address + 2;
+          address = address + 2;
         }
       } else {
         myDebugOut->AppendText("Problem reading program memory during verification.\r\n");
@@ -568,7 +567,7 @@ public:
       Family = eFamily::PIC24FK;
     } else if (!String::Compare(famName,"PIC24E", true)) {
       Family = eFamily::PIC24E;
-	  } else if (!String::Compare(famName,"dsPIC33E", true)) {
+    } else if (!String::Compare(famName,"dsPIC33E", true)) {
       Family = eFamily::dsPIC33E;
     } else {
       myDebugOut->AppendText(String::Concat("Problem parsing device file, unrecognized family: ",famName,"\r\n"));

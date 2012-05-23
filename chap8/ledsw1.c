@@ -101,7 +101,7 @@ int main (void) {
   STATE e_mystate;
 
   configBasic(HELLO_MSG);      // Set up heartbeat, UART, print hello message and diags
-  
+
   /** GPIO config ***************************/
   CONFIG_SW1();        //configure switch
   CONFIG_SW2();        //configure switch

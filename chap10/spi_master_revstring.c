@@ -54,7 +54,7 @@ void configSPI1(void) {
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
   //nothing to do here. On this family, the SPI1 port uses dedicated
   //pins for higher speed. The SPI2 port can be used with remappable pins.
-#else 
+#else
   CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
   CONFIG_RP6_AS_DIG_PIN();   //Ensure that this is a digital pin
   CONFIG_SCK1OUT_TO_RP(7);   //use RP7 for SCLK

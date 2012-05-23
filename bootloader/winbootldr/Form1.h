@@ -1016,7 +1016,7 @@ private:
     writeToDebugOutput("      Careful - the MCLR input of PIC24 micros is not 5 V tolerant, so ensure that the RTS# (or DTR#) high state is 3.3 V or less.");
     writeToDebugOutput("");
     writeToDebugOutput("After the device is programmed, the Send button can be used to send text in the adjacent type-in box to the COM port.");
-	writeToDebugOutput("NOTE: Configuration bit programming has not been tested for PIC24E or any dsPIC devices.");
+    writeToDebugOutput("NOTE: Configuration bit programming has not been tested for PIC24E or any dsPIC devices.");
   }
 
 private:
