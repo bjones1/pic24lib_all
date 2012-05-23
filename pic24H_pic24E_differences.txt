@@ -12,7 +12,7 @@ In most cases, modules have considerable new capability but also retain the same
 same modules in the PIC24H family.
 
 Clock Speed:
-Max clock speed is 60 MHz (instead of 40 MHz) over full temperature range, 70Mhz over reduced ranged.
+The maximum clock speed is 60 MHz (instead of 40 MHz) over full temperature range, and 70Mhz over reduced ranged.
 The library default is 60 MHz for PIC24E devices (there is a clock macro for 70MHz if you want to use it).
 The clock configurations that use a crystal for the PIC24H are compatible with the PIC24E.
 
