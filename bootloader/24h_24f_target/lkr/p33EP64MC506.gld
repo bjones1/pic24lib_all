@@ -14,7 +14,7 @@ OPTIONAL(-lp33EP64MC506)
 */
 MEMORY
 {
-  data  (a!xr)   : ORIGIN = 0x1000,        LENGTH = 0x6000
+  data  (a!xr)   : ORIGIN = 0x1000,        LENGTH = 0x2000
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0x1FC
   program (xr)   : ORIGIN = 0x200,         LENGTH = 0xADEA
@@ -24,6 +24,10 @@ MEMORY
   FOSC           : ORIGIN = 0xAFF6,        LENGTH = 0x2
   FOSCSEL        : ORIGIN = 0xAFF8,        LENGTH = 0x2
   FGS            : ORIGIN = 0xAFFA,        LENGTH = 0x2
+  FUID0          : ORIGIN = 0x800FF8,      LENGTH = 0x2
+  FUID1          : ORIGIN = 0x800FFA,      LENGTH = 0x2
+  FUID2          : ORIGIN = 0x800FFC,      LENGTH = 0x2
+  FUID3          : ORIGIN = 0x800FFE,      LENGTH = 0x2
 }
 J__OscillatorFail = 0x1002;
 J__AddressError = 0x1006;
@@ -191,12 +195,16 @@ __FWDT = 0xAFF4;
 __FOSC = 0xAFF6;
 __FOSCSEL = 0xAFF8;
 __FGS = 0xAFFA;
+__FUID0 = 0x800FF8;
+__FUID1 = 0x800FFA;
+__FUID2 = 0x800FFC;
+__FUID3 = 0x800FFE;
 
 __NO_HANDLES = 1;          /* Suppress handles on this device  */
 
 __IVT_BASE  = 0x4;
 __DATA_BASE = 0x1000;
-__DATA_LENGTH = 0x6000;
+__DATA_LENGTH = 0x2000;
 __YDATA_BASE = 0x2000;
 __CODE_BASE = 0x200;
 __CODE_LENGTH = 0xADEC;
@@ -299,17 +307,25 @@ SECTIONS
   ** Configuration Words
   */
   __FICD :
-  { *(__FICD.sec)    } >FICD
+  { KEEP (*(__FICD.sec*))    } >FICD
   __FPOR :
-  { *(__FPOR.sec)    } >FPOR
+  { KEEP (*(__FPOR.sec*))    } >FPOR
   __FWDT :
-  { *(__FWDT.sec)    } >FWDT
+  { KEEP (*(__FWDT.sec*))    } >FWDT
   __FOSC :
-  { *(__FOSC.sec)    } >FOSC
+  { KEEP (*(__FOSC.sec*))    } >FOSC
   __FOSCSEL :
-  { *(__FOSCSEL.sec)    } >FOSCSEL
+  { KEEP (*(__FOSCSEL.sec*))    } >FOSCSEL
   __FGS :
-  { *(__FGS.sec)    } >FGS
+  { KEEP (*(__FGS.sec*))    } >FGS
+  __FUID0 :
+  { KEEP (*(__FUID0.sec*))    } >FUID0
+  __FUID1 :
+  { KEEP (*(__FUID1.sec*))    } >FUID1
+  __FUID2 :
+  { KEEP (*(__FUID2.sec*))    } >FUID2
+  __FUID3 :
+  { KEEP (*(__FUID3.sec*))    } >FUID3
 
 
   /*
@@ -1679,6 +1695,12 @@ _PHASE1       = 0xC28;
 _DTR1         = 0xC2A;
  ALTDTR1      = 0xC2C;
 _ALTDTR1      = 0xC2C;
+ TRIG1        = 0xC32;
+_TRIG1        = 0xC32;
+_TRIG1bits    = 0xC32;
+ TRGCON1      = 0xC34;
+_TRGCON1      = 0xC34;
+_TRGCON1bits  = 0xC34;
  LEBCON1      = 0xC3A;
 _LEBCON1      = 0xC3A;
 _LEBCON1bits  = 0xC3A;
@@ -1705,6 +1727,12 @@ _PHASE2       = 0xC48;
 _DTR2         = 0xC4A;
  ALTDTR2      = 0xC4C;
 _ALTDTR2      = 0xC4C;
+ TRIG2        = 0xC52;
+_TRIG2        = 0xC52;
+_TRIG2bits    = 0xC52;
+ TRGCON2      = 0xC54;
+_TRGCON2      = 0xC54;
+_TRGCON2bits  = 0xC54;
  LEBCON2      = 0xC5A;
 _LEBCON2      = 0xC5A;
 _LEBCON2bits  = 0xC5A;
@@ -1731,6 +1759,12 @@ _PHASE3       = 0xC68;
 _DTR3         = 0xC6A;
  ALTDTR3      = 0xC6C;
 _ALTDTR3      = 0xC6C;
+ TRIG3        = 0xC72;
+_TRIG3        = 0xC72;
+_TRIG3bits    = 0xC72;
+ TRGCON3      = 0xC74;
+_TRGCON3      = 0xC74;
+_TRGCON3bits  = 0xC74;
  LEBCON3      = 0xC7A;
 _LEBCON3      = 0xC7A;
 _LEBCON3bits  = 0xC7A;

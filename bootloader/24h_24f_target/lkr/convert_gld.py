@@ -277,10 +277,10 @@ def convertDir(srcdir, dstdir, family):
 	
 
 	
-C30_homedir = "C:\\Program Files (x86)\\Microchip\\mplabc30\\v3.30c\\support";
+C30_homedir = "C:\\Program Files (x86)\\Microchip\\mplabc30\\v3.31\\support";
 
 if (os.path.exists(C30_homedir) == False):
-	C30_homedir = "C:\\Program Files\\Microchip\\mplabc30\\v3.30c\\support";
+	C30_homedir = "C:\\Program Files\\Microchip\\mplabc30\\v3.31\\support";
 	if (os.path.exists(C30_homedir) == False):
 		print "Cannot determine Microchip C30 home directory, exiting.\n"
 		exit(0);

@@ -18,7 +18,7 @@ MEMORY
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0x1FC
   program (xr)   : ORIGIN = 0x200,         LENGTH = 0x2A9FE
-  auxflash (xr)  : ORIGIN = 0x7FC004,      LENGTH = 0x3FFA
+  auxflash (xr)  : ORIGIN = 0x7FC000,      LENGTH = 0x3FF8
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
   FOSCSEL        : ORIGIN = 0xF80006,      LENGTH = 0x2
   FOSC           : ORIGIN = 0xF80008,      LENGTH = 0x2
@@ -179,6 +179,7 @@ J__IC15Interrupt = 0x124e;
 J__OC16Interrupt = 0x1252;
 J__IC16Interrupt = 0x1256;
 J__ICDInterrupt = 0x125a;
+J__JTAGInterrupt = 0x125e;
 
 __FGS = 0xF80004;
 __FOSCSEL = 0xF80006;
@@ -195,8 +196,8 @@ __DATA_LENGTH = 0x7000;
 __YDATA_BASE = 0x5000;
 __DMA_BASE = 0x7000;
 __DMA_END = 0x7FFF;
-__CODE_BASE = 0x7FC004;
-__CODE_LENGTH = 0x3FFC;
+__CODE_BASE = 0x7FC000;
+__CODE_LENGTH = 0x3FFA;
 
 
 /*
@@ -296,21 +297,21 @@ SECTIONS
   ** Configuration Words
   */
   __FGS :
-  { *(__FGS.sec)    } >FGS
+  { KEEP (*(__FGS.sec*))    } >FGS
   __FOSCSEL :
-  { *(__FOSCSEL.sec)    } >FOSCSEL
+  { KEEP (*(__FOSCSEL.sec*))    } >FOSCSEL
   __FOSC :
-  { *(__FOSC.sec)    } >FOSC
+  { KEEP (*(__FOSC.sec*))    } >FOSC
   __FWDT :
-  { *(__FWDT.sec)    } >FWDT
+  { KEEP (*(__FWDT.sec*))    } >FWDT
   __FPOR :
-  { *(__FPOR.sec)    } >FPOR
+  { KEEP (*(__FPOR.sec*))    } >FPOR
   __FICD :
-  { *(__FICD.sec)    } >FICD
+  { KEEP (*(__FICD.sec*))    } >FICD
   __FAS :
-  { *(__FAS.sec)    } >FAS
+  { KEEP (*(__FAS.sec*))    } >FAS
   __FUID0 :
-  { *(__FUID0.sec)    } >FUID0
+  { KEEP (*(__FUID0.sec*))    } >FUID0
 
 
   /*
@@ -533,6 +534,7 @@ LONG(J__IC15Interrupt);
 LONG(J__OC16Interrupt);
 LONG(J__IC16Interrupt);
 LONG(J__ICDInterrupt);
+LONG(J__JTAGInterrupt);
   } >ivt
 } /* SECTIONS */
 

@@ -19,7 +19,7 @@ MEMORY
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
   program (xr)   : ORIGIN = 0x200,         LENGTH = 0x13FE
-  eedata         : ORIGIN = 0x7FFE00,      LENGTH = 0x200
+  eedata         : ORIGIN = 0x7FFF00,      LENGTH = 0x100
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
   FOSCSEL        : ORIGIN = 0xF80006,      LENGTH = 0x2
@@ -270,19 +270,19 @@ SECTIONS
   ** Configuration Words
   */
   __FBS :
-  { *(__FBS.sec)    } >FBS
+  { KEEP (*(__FBS.sec*))    } >FBS
   __FGS :
-  { *(__FGS.sec)    } >FGS
+  { KEEP (*(__FGS.sec*))    } >FGS
   __FOSCSEL :
-  { *(__FOSCSEL.sec)    } >FOSCSEL
+  { KEEP (*(__FOSCSEL.sec*))    } >FOSCSEL
   __FOSC :
-  { *(__FOSC.sec)    } >FOSC
+  { KEEP (*(__FOSC.sec*))    } >FOSC
   __FWDT :
-  { *(__FWDT.sec)    } >FWDT
+  { KEEP (*(__FWDT.sec*))    } >FWDT
   __FPOR :
-  { *(__FPOR.sec)    } >FPOR
+  { KEEP (*(__FPOR.sec*))    } >FPOR
   __FICD :
-  { *(__FICD.sec)    } >FICD
+  { KEEP (*(__FICD.sec*))    } >FICD
 
 
   /*
@@ -773,6 +773,9 @@ _IPC18bits    = 0xC8;
  IPC20        = 0xCC;
 _IPC20        = 0xCC;
 _IPC20bits    = 0xCC;
+ INTTREG      = 0xE0;
+_INTTREG      = 0xE0;
+_INTTREGbits  = 0xE0;
  TMR1         = 0x100;
 _TMR1         = 0x100;
  PR1          = 0x102;
@@ -811,8 +814,6 @@ _CCP1CONbits  = 0x190;
  ECCP1CON     = 0x190;
 _ECCP1CON     = 0x190;
 _ECCP1CONbits = 0x190;
- CCPR1        = 0x192;
-_CCPR1        = 0x192;
  CCPR1L       = 0x192;
 _CCPR1L       = 0x192;
  CCPR1H       = 0x194;
@@ -832,8 +833,6 @@ _PSTR1CONbits = 0x19A;
  CCP2CON      = 0x19C;
 _CCP2CON      = 0x19C;
 _CCP2CONbits  = 0x19C;
- CCPR2        = 0x19E;
-_CCPR2        = 0x19E;
  CCPR2L       = 0x19E;
 _CCPR2L       = 0x19E;
  CCPR2H       = 0x1A0;
@@ -841,8 +840,6 @@ _CCPR2H       = 0x1A0;
  CCP3CON      = 0x1A8;
 _CCP3CON      = 0x1A8;
 _CCP3CONbits  = 0x1A8;
- CCPR3        = 0x1AA;
-_CCPR3        = 0x1AA;
  CCPR3L       = 0x1AA;
 _CCPR3L       = 0x1AA;
  CCPR3H       = 0x1AC;

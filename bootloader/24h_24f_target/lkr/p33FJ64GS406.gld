@@ -17,6 +17,7 @@ MEMORY
   data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0x2000
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
+  _reserved      : ORIGIN = 0x100,         LENGTH = 0x4
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
   program (xr)   : ORIGIN = 0x200,         LENGTH = 0xA9FE
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
@@ -138,9 +139,9 @@ J__PWM6Interrupt = 0xdae;
 J__Interrupt100 = 0xdb2;
 J__Interrupt101 = 0xdb6;
 J__Interrupt102 = 0xdba;
-J__CMP2Interrupt = 0xdbe;
-J__CMP3Interrupt = 0xdc2;
-J__CMP4Interrupt = 0xdc6;
+J__Interrupt103 = 0xdbe;
+J__Interrupt104 = 0xdc2;
+J__Interrupt105 = 0xdc6;
 J__Interrupt106 = 0xdca;
 J__Interrupt107 = 0xdce;
 J__Interrupt108 = 0xdd2;
@@ -270,19 +271,19 @@ SECTIONS
   ** Configuration Words
   */
   __FBS :
-  { *(__FBS.sec)    } >FBS
+  { KEEP (*(__FBS.sec*))    } >FBS
   __FGS :
-  { *(__FGS.sec)    } >FGS
+  { KEEP (*(__FGS.sec*))    } >FGS
   __FOSCSEL :
-  { *(__FOSCSEL.sec)    } >FOSCSEL
+  { KEEP (*(__FOSCSEL.sec*))    } >FOSCSEL
   __FOSC :
-  { *(__FOSC.sec)    } >FOSC
+  { KEEP (*(__FOSC.sec*))    } >FOSC
   __FWDT :
-  { *(__FWDT.sec)    } >FWDT
+  { KEEP (*(__FWDT.sec*))    } >FWDT
   __FPOR :
-  { *(__FPOR.sec)    } >FPOR
+  { KEEP (*(__FPOR.sec*))    } >FPOR
   __FICD :
-  { *(__FICD.sec)    } >FICD
+  { KEEP (*(__FICD.sec*))    } >FICD
 
 
   /*
@@ -465,9 +466,9 @@ LONG(J__PWM6Interrupt);
 LONG(J__Interrupt100);
 LONG(J__Interrupt101);
 LONG(J__Interrupt102);
-LONG(J__CMP2Interrupt);
-LONG(J__CMP3Interrupt);
-LONG(J__CMP4Interrupt);
+LONG(J__Interrupt103);
+LONG(J__Interrupt104);
+LONG(J__Interrupt105);
 LONG(J__Interrupt106);
 LONG(J__Interrupt107);
 LONG(J__Interrupt108);
@@ -599,9 +600,9 @@ LONG(J__PWM6Interrupt);
 LONG(J__Interrupt100);
 LONG(J__Interrupt101);
 LONG(J__Interrupt102);
-LONG(J__CMP2Interrupt);
-LONG(J__CMP3Interrupt);
-LONG(J__CMP4Interrupt);
+LONG(J__Interrupt103);
+LONG(J__Interrupt104);
+LONG(J__Interrupt105);
 LONG(J__Interrupt106);
 LONG(J__Interrupt107);
 LONG(J__Interrupt108);
@@ -821,9 +822,6 @@ _IPC16bits    = 0xC4;
  IPC18        = 0xC8;
 _IPC18        = 0xC8;
 _IPC18bits    = 0xC8;
- IPC20        = 0xCC;
-_IPC20        = 0xCC;
-_IPC20bits    = 0xCC;
  IPC21        = 0xCE;
 _IPC21        = 0xCE;
 _IPC21bits    = 0xCE;

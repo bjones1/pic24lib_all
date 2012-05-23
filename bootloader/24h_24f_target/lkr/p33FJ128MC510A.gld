@@ -17,6 +17,7 @@ MEMORY
   data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0x2000
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
+  _reserved      : ORIGIN = 0x100,         LENGTH = 0x4
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
   program (xr)   : ORIGIN = 0x200,         LENGTH = 0x155FE
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
@@ -97,14 +98,14 @@ J__INT3Interrupt = 0xcf6;
 J__INT4Interrupt = 0xcfa;
 J__C2RxRdyInterrupt = 0xcfe;
 J__C2Interrupt = 0xd02;
-J__Interrupt57 = 0xd06;
-J__Interrupt58 = 0xd0a;
+J__PWMInterrupt = 0xd06;
+J__QEIInterrupt = 0xd0a;
 J__DCIErrInterrupt = 0xd0e;
 J__DCIInterrupt = 0xd12;
 J__DMA5Interrupt = 0xd16;
 J__RTCCInterrupt = 0xd1a;
-J__Interrupt63 = 0xd1e;
-J__Interrupt64 = 0xd22;
+J__FLTAInterrupt = 0xd1e;
+J__FLTBInterrupt = 0xd22;
 J__U1ErrInterrupt = 0xd26;
 J__U2ErrInterrupt = 0xd2a;
 J__CRCInterrupt = 0xd2e;
@@ -280,29 +281,29 @@ SECTIONS
   ** Configuration Words
   */
   __FBS :
-  { *(__FBS.sec)    } >FBS
+  { KEEP (*(__FBS.sec*))    } >FBS
   __FSS :
-  { *(__FSS.sec)    } >FSS
+  { KEEP (*(__FSS.sec*))    } >FSS
   __FGS :
-  { *(__FGS.sec)    } >FGS
+  { KEEP (*(__FGS.sec*))    } >FGS
   __FOSCSEL :
-  { *(__FOSCSEL.sec)    } >FOSCSEL
+  { KEEP (*(__FOSCSEL.sec*))    } >FOSCSEL
   __FOSC :
-  { *(__FOSC.sec)    } >FOSC
+  { KEEP (*(__FOSC.sec*))    } >FOSC
   __FWDT :
-  { *(__FWDT.sec)    } >FWDT
+  { KEEP (*(__FWDT.sec*))    } >FWDT
   __FPOR :
-  { *(__FPOR.sec)    } >FPOR
+  { KEEP (*(__FPOR.sec*))    } >FPOR
   __FICD :
-  { *(__FICD.sec)    } >FICD
+  { KEEP (*(__FICD.sec*))    } >FICD
   __FUID0 :
-  { *(__FUID0.sec)    } >FUID0
+  { KEEP (*(__FUID0.sec*))    } >FUID0
   __FUID1 :
-  { *(__FUID1.sec)    } >FUID1
+  { KEEP (*(__FUID1.sec*))    } >FUID1
   __FUID2 :
-  { *(__FUID2.sec)    } >FUID2
+  { KEEP (*(__FUID2.sec*))    } >FUID2
   __FUID3 :
-  { *(__FUID3.sec)    } >FUID3
+  { KEEP (*(__FUID3.sec*))    } >FUID3
 
 
   /*
@@ -439,14 +440,14 @@ LONG(J__INT3Interrupt);
 LONG(J__INT4Interrupt);
 LONG(J__C2RxRdyInterrupt);
 LONG(J__C2Interrupt);
-LONG(J__Interrupt57);
-LONG(J__Interrupt58);
+LONG(J__PWMInterrupt);
+LONG(J__QEIInterrupt);
 LONG(J__DCIErrInterrupt);
 LONG(J__DCIInterrupt);
 LONG(J__DMA5Interrupt);
 LONG(J__RTCCInterrupt);
-LONG(J__Interrupt63);
-LONG(J__Interrupt64);
+LONG(J__FLTAInterrupt);
+LONG(J__FLTBInterrupt);
 LONG(J__U1ErrInterrupt);
 LONG(J__U2ErrInterrupt);
 LONG(J__CRCInterrupt);
@@ -573,14 +574,14 @@ LONG(J__INT3Interrupt);
 LONG(J__INT4Interrupt);
 LONG(J__C2RxRdyInterrupt);
 LONG(J__C2Interrupt);
-LONG(J__Interrupt57);
-LONG(J__Interrupt58);
+LONG(J__PWMInterrupt);
+LONG(J__QEIInterrupt);
 LONG(J__DCIErrInterrupt);
 LONG(J__DCIInterrupt);
 LONG(J__DMA5Interrupt);
 LONG(J__RTCCInterrupt);
-LONG(J__Interrupt63);
-LONG(J__Interrupt64);
+LONG(J__FLTAInterrupt);
+LONG(J__FLTBInterrupt);
 LONG(J__U1ErrInterrupt);
 LONG(J__U2ErrInterrupt);
 LONG(J__CRCInterrupt);

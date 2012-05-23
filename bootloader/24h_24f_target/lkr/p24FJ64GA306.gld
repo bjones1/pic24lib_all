@@ -17,6 +17,7 @@ MEMORY
   data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0x2000
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
+  _reserved      : ORIGIN = 0x100,         LENGTH = 0x4
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
   program (xr)   : ORIGIN = 0x200,         LENGTH = 0xA9F6
   CONFIG4        : ORIGIN = 0xABF8,        LENGTH = 0x2
@@ -263,13 +264,13 @@ SECTIONS
   ** Configuration Words
   */
   __CONFIG4 :
-  { *(__CONFIG4.sec)    } >CONFIG4
+  { KEEP (*(__CONFIG4.sec*))    } >CONFIG4
   __CONFIG3 :
-  { *(__CONFIG3.sec)    } >CONFIG3
+  { KEEP (*(__CONFIG3.sec*))    } >CONFIG3
   __CONFIG2 :
-  { *(__CONFIG2.sec)    } >CONFIG2
+  { KEEP (*(__CONFIG2.sec*))    } >CONFIG2
   __CONFIG1 :
-  { *(__CONFIG1.sec)    } >CONFIG1
+  { KEEP (*(__CONFIG1.sec*))    } >CONFIG1
 
 
   /*
@@ -1748,9 +1749,9 @@ _CLKDIVbits   = 0x744;
  OSCTUN       = 0x748;
 _OSCTUN       = 0x748;
 _OSCTUNbits   = 0x748;
- REFOCON      = 0x74C;
-_REFOCON      = 0x74C;
-_REFOCONbits  = 0x74C;
+ REFOCON      = 0x74E;
+_REFOCON      = 0x74E;
+_REFOCONbits  = 0x74E;
  HLVDCON      = 0x756;
 _HLVDCON      = 0x756;
 _HLVDCONbits  = 0x756;

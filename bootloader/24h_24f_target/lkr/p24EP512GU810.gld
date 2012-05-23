@@ -18,7 +18,7 @@ MEMORY
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0x1FC
   program (xr)   : ORIGIN = 0x200,         LENGTH = 0x555FE
-  auxflash (xr)  : ORIGIN = 0x7FC004,      LENGTH = 0x3FFA
+  auxflash (xr)  : ORIGIN = 0x7FC000,      LENGTH = 0x3FF8
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
   FOSCSEL        : ORIGIN = 0xF80006,      LENGTH = 0x2
   FOSC           : ORIGIN = 0xF80008,      LENGTH = 0x2
@@ -95,8 +95,8 @@ J__C2RxRdyInterrupt = 0x10fe;
 J__C2Interrupt = 0x1102;
 J__Interrupt57 = 0x1106;
 J__Interrupt58 = 0x110a;
-J__Interrupt59 = 0x110e;
-J__Interrupt60 = 0x1112;
+J__DCIEInterrupt = 0x110e;
+J__DCIInterrupt = 0x1112;
 J__DMA5Interrupt = 0x1116;
 J__RTCCInterrupt = 0x111a;
 J__Interrupt63 = 0x111e;
@@ -179,6 +179,7 @@ J__IC15Interrupt = 0x124e;
 J__OC16Interrupt = 0x1252;
 J__IC16Interrupt = 0x1256;
 J__ICDInterrupt = 0x125a;
+J__JTAGInterrupt = 0x125e;
 
 __FGS = 0xF80004;
 __FOSCSEL = 0xF80006;
@@ -194,8 +195,8 @@ __DATA_BASE = 0x1000;
 __DATA_LENGTH = 0xD000;
 __DMA_BASE = 0xD000;
 __DMA_END = 0xDFFF;
-__CODE_BASE = 0x7FC004;
-__CODE_LENGTH = 0x3FFC;
+__CODE_BASE = 0x7FC000;
+__CODE_LENGTH = 0x3FFA;
 
 
 /*
@@ -295,21 +296,21 @@ SECTIONS
   ** Configuration Words
   */
   __FGS :
-  { *(__FGS.sec)    } >FGS
+  { KEEP (*(__FGS.sec*))    } >FGS
   __FOSCSEL :
-  { *(__FOSCSEL.sec)    } >FOSCSEL
+  { KEEP (*(__FOSCSEL.sec*))    } >FOSCSEL
   __FOSC :
-  { *(__FOSC.sec)    } >FOSC
+  { KEEP (*(__FOSC.sec*))    } >FOSC
   __FWDT :
-  { *(__FWDT.sec)    } >FWDT
+  { KEEP (*(__FWDT.sec*))    } >FWDT
   __FPOR :
-  { *(__FPOR.sec)    } >FPOR
+  { KEEP (*(__FPOR.sec*))    } >FPOR
   __FICD :
-  { *(__FICD.sec)    } >FICD
+  { KEEP (*(__FICD.sec*))    } >FICD
   __FAS :
-  { *(__FAS.sec)    } >FAS
+  { KEEP (*(__FAS.sec*))    } >FAS
   __FUID0 :
-  { *(__FUID0.sec)    } >FUID0
+  { KEEP (*(__FUID0.sec*))    } >FUID0
 
 
   /*
@@ -448,8 +449,8 @@ LONG(J__C2RxRdyInterrupt);
 LONG(J__C2Interrupt);
 LONG(J__Interrupt57);
 LONG(J__Interrupt58);
-LONG(J__Interrupt59);
-LONG(J__Interrupt60);
+LONG(J__DCIEInterrupt);
+LONG(J__DCIInterrupt);
 LONG(J__DMA5Interrupt);
 LONG(J__RTCCInterrupt);
 LONG(J__Interrupt63);
@@ -532,6 +533,7 @@ LONG(J__IC15Interrupt);
 LONG(J__OC16Interrupt);
 LONG(J__IC16Interrupt);
 LONG(J__ICDInterrupt);
+LONG(J__JTAGInterrupt);
   } >ivt
 } /* SECTIONS */
 

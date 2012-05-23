@@ -17,6 +17,7 @@ MEMORY
   data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0x800
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
+  _reserved      : ORIGIN = 0x100,         LENGTH = 0x4
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
   program (xr)   : ORIGIN = 0x200,         LENGTH = 0x29FE
   eedata         : ORIGIN = 0x7FFE00,      LENGTH = 0x200
@@ -272,21 +273,21 @@ SECTIONS
   ** Configuration Words
   */
   __FBS :
-  { *(__FBS.sec)    } >FBS
+  { KEEP (*(__FBS.sec*))    } >FBS
   __FGS :
-  { *(__FGS.sec)    } >FGS
+  { KEEP (*(__FGS.sec*))    } >FGS
   __FOSCSEL :
-  { *(__FOSCSEL.sec)    } >FOSCSEL
+  { KEEP (*(__FOSCSEL.sec*))    } >FOSCSEL
   __FOSC :
-  { *(__FOSC.sec)    } >FOSC
+  { KEEP (*(__FOSC.sec*))    } >FOSC
   __FWDT :
-  { *(__FWDT.sec)    } >FWDT
+  { KEEP (*(__FWDT.sec*))    } >FWDT
   __FPOR :
-  { *(__FPOR.sec)    } >FPOR
+  { KEEP (*(__FPOR.sec*))    } >FPOR
   __FICD :
-  { *(__FICD.sec)    } >FICD
+  { KEEP (*(__FICD.sec*))    } >FICD
   __FDS :
-  { *(__FDS.sec)    } >FDS
+  { KEEP (*(__FDS.sec*))    } >FDS
 
 
   /*

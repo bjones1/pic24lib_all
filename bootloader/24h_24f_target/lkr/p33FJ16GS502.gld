@@ -17,6 +17,7 @@ MEMORY
   data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0x800
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
+  _reserved      : ORIGIN = 0x100,         LENGTH = 0x4
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
   program (xr)   : ORIGIN = 0x200,         LENGTH = 0x29FE
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
@@ -151,8 +152,8 @@ J__ADCP0Interrupt = 0xdda;
 J__ADCP1Interrupt = 0xdde;
 J__ADCP2Interrupt = 0xde2;
 J__ADCP3Interrupt = 0xde6;
-J__ADCP4Interrupt = 0xdea;
-J__ADCP5Interrupt = 0xdee;
+J__Interrupt114 = 0xdea;
+J__Interrupt115 = 0xdee;
 J__ADCP6Interrupt = 0xdf2;
 J__Interrupt117 = 0xdf6;
 
@@ -274,23 +275,23 @@ SECTIONS
   ** Configuration Words
   */
   __FBS :
-  { *(__FBS.sec)    } >FBS
+  { KEEP (*(__FBS.sec*))    } >FBS
   __FGS :
-  { *(__FGS.sec)    } >FGS
+  { KEEP (*(__FGS.sec*))    } >FGS
   __FOSCSEL :
-  { *(__FOSCSEL.sec)    } >FOSCSEL
+  { KEEP (*(__FOSCSEL.sec*))    } >FOSCSEL
   __FOSC :
-  { *(__FOSC.sec)    } >FOSC
+  { KEEP (*(__FOSC.sec*))    } >FOSC
   __FWDT :
-  { *(__FWDT.sec)    } >FWDT
+  { KEEP (*(__FWDT.sec*))    } >FWDT
   __FPOR :
-  { *(__FPOR.sec)    } >FPOR
+  { KEEP (*(__FPOR.sec*))    } >FPOR
   __FICD :
-  { *(__FICD.sec)    } >FICD
+  { KEEP (*(__FICD.sec*))    } >FICD
   __FUID0 :
-  { *(__FUID0.sec)    } >FUID0
+  { KEEP (*(__FUID0.sec*))    } >FUID0
   __FUID1 :
-  { *(__FUID1.sec)    } >FUID1
+  { KEEP (*(__FUID1.sec*))    } >FUID1
 
 
   /*
@@ -484,8 +485,8 @@ LONG(J__ADCP0Interrupt);
 LONG(J__ADCP1Interrupt);
 LONG(J__ADCP2Interrupt);
 LONG(J__ADCP3Interrupt);
-LONG(J__ADCP4Interrupt);
-LONG(J__ADCP5Interrupt);
+LONG(J__Interrupt114);
+LONG(J__Interrupt115);
 LONG(J__ADCP6Interrupt);
 LONG(J__Interrupt117);
   } >ivt
@@ -618,8 +619,8 @@ LONG(J__ADCP0Interrupt);
 LONG(J__ADCP1Interrupt);
 LONG(J__ADCP2Interrupt);
 LONG(J__ADCP3Interrupt);
-LONG(J__ADCP4Interrupt);
-LONG(J__ADCP5Interrupt);
+LONG(J__Interrupt114);
+LONG(J__Interrupt115);
 LONG(J__ADCP6Interrupt);
 LONG(J__Interrupt117);
   } >aivt

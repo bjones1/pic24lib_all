@@ -269,19 +269,19 @@ SECTIONS
   ** Configuration Words
   */
   __FBS :
-  { *(__FBS.sec)    } >FBS
+  { KEEP (*(__FBS.sec*))    } >FBS
   __FGS :
-  { *(__FGS.sec)    } >FGS
+  { KEEP (*(__FGS.sec*))    } >FGS
   __FOSCSEL :
-  { *(__FOSCSEL.sec)    } >FOSCSEL
+  { KEEP (*(__FOSCSEL.sec*))    } >FOSCSEL
   __FOSC :
-  { *(__FOSC.sec)    } >FOSC
+  { KEEP (*(__FOSC.sec*))    } >FOSC
   __FWDT :
-  { *(__FWDT.sec)    } >FWDT
+  { KEEP (*(__FWDT.sec*))    } >FWDT
   __FPOR :
-  { *(__FPOR.sec)    } >FPOR
+  { KEEP (*(__FPOR.sec*))    } >FPOR
   __FICD :
-  { *(__FICD.sec)    } >FICD
+  { KEEP (*(__FICD.sec*))    } >FICD
 
 
   /*
@@ -751,7 +751,6 @@ _IPC5         = 0xAE;
 _IPC5bits     = 0xAE;
  IPC6         = 0xB0;
 _IPC6         = 0xB0;
-_IPC6bits     = 0xB0;
  IPC7         = 0xB2;
 _IPC7         = 0xB2;
 _IPC7bits     = 0xB2;
@@ -760,7 +759,6 @@ _IPC9         = 0xB6;
 _IPC9bits     = 0xB6;
  IPC12        = 0xBC;
 _IPC12        = 0xBC;
-_IPC12bits    = 0xBC;
  IPC16        = 0xC4;
 _IPC16        = 0xC4;
 _IPC16bits    = 0xC4;
@@ -770,6 +768,9 @@ _IPC18bits    = 0xC8;
  IPC20        = 0xCC;
 _IPC20        = 0xCC;
 _IPC20bits    = 0xCC;
+ INTTREG      = 0xE0;
+_INTTREG      = 0xE0;
+_INTTREGbits  = 0xE0;
  TMR1         = 0x100;
 _TMR1         = 0x100;
  PR1          = 0x102;
@@ -795,8 +796,6 @@ _T3CONbits    = 0x110;
  CCP1CON      = 0x190;
 _CCP1CON      = 0x190;
 _CCP1CONbits  = 0x190;
- CCPR1        = 0x192;
-_CCPR1        = 0x192;
  CCPR1L       = 0x192;
 _CCPR1L       = 0x192;
  CCPR1H       = 0x194;
@@ -804,8 +803,6 @@ _CCPR1H       = 0x194;
  CCP2CON      = 0x19C;
 _CCP2CON      = 0x19C;
 _CCP2CONbits  = 0x19C;
- CCPR2        = 0x19E;
-_CCPR2        = 0x19E;
  CCPR2L       = 0x19E;
 _CCPR2L       = 0x19E;
  CCPR2H       = 0x1A0;
@@ -881,6 +878,18 @@ _ODCBbits     = 0x2CE;
  PADCFG1      = 0x2FC;
 _PADCFG1      = 0x2FC;
 _PADCFG1bits  = 0x2FC;
+ ANSA         = 0x4E0;
+_ANSA         = 0x4E0;
+_ANSAbits     = 0x4E0;
+ ANSELA       = 0x4E0;
+_ANSELA       = 0x4E0;
+_ANSELAbits   = 0x4E0;
+ ANSB         = 0x4E2;
+_ANSB         = 0x4E2;
+_ANSBbits     = 0x4E2;
+ ANSELB       = 0x4E2;
+_ANSELB       = 0x4E2;
+_ANSELBbits   = 0x4E2;
  CMSTAT       = 0x630;
 _CMSTAT       = 0x630;
 _CMSTATbits   = 0x630;
