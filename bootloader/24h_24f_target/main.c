@@ -166,6 +166,10 @@ void LoadAddr(UWord16 nvmadru, UWord16 nvmadr);
 void WriteLatch(UWord16 addrhi,UWord16 addrlo, UWord16 wordhi, UWord16 wordlo);
 void ResetDevice(void);
 void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val );
+#if (defined(__PIC24E__) || defined(__dsPIC33E__))
+void LoadTwoWords(UWord16 addrhi, UWord16 addrlo, UWord16 wordhi, UWord16 wordlo, UWord16 word2hi, UWord16 word2lo);
+void WriteMem2(UWord16 addrhi, UWord16 addrlo, UWord16 val);
+#endif
 
 /* this needs to be persistent so as to not step on persisent variables
 in user's program
@@ -448,8 +452,6 @@ void WritePM(char * ptrData, uReg32 SourceAddr) {
   int    Size,Size1;
   uReg32 Temp;
   uReg32 Temp2;
-  uReg32 TempAddr;
-  uReg32 TempData;
 
 
   for (Size = 0,Size1=0; Size < PM_ROW_SIZE; Size = Size+2) {
