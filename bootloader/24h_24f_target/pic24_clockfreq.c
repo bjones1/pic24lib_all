@@ -363,7 +363,7 @@ void configClockFRCPLL_FCY60MHz(void) {
   // then we can't change the bits below. To do so, first switch to FRC,
   // change bits, then switch back to FRCPLL.
   switchClock(GET_OSC_SEL_BITS(FNOSC_FRC));
-  
+
   _TUN = 0;  // Correct setting assuming the RC oscillator is exactly 7.37MHz.
   // It may need to be tweaked however. Use the echo.c program, and a baud rate
   // of 115,200 and increase/decrease TUN until you get no framing errors

@@ -56,7 +56,7 @@ void  configTimer2(void) {
 void configOutputCapture1(void) {
   T2CONbits.TON = 0;       //disable Timer when configuring Output compare
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
- CONFIG_OC1_TO_RP(36);        //map OC1 to RP36/RB4
+  CONFIG_OC1_TO_RP(36);        //map OC1 to RP36/RB4
 #else
   CONFIG_OC1_TO_RP(14);        //map OC1 to RP14/RB14
 #endif
@@ -65,7 +65,7 @@ void configOutputCapture1(void) {
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
 //turn on the compare toggle mode using Timer2
   OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
-           OC_PWM_CENTER_ALIGN;  //PWM
+            OC_PWM_CENTER_ALIGN;  //PWM
   OC1CON2 = 0x000C;           //sync source is Timer2.
 #else
 //turn on the compare toggle mode using Timer2

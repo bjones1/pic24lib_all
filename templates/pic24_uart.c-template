@@ -56,15 +56,6 @@
 */
 
 
-/*********************************
- * Function private to this file *
- *********************************/
-
-
-
-
-
-
 /*********************************************************
  * Public functions intended to be called by other files *
  *********************************************************/
@@ -74,7 +65,7 @@
 */
 void checkRxErrorUART${x}(void) {
   uint8_t u8_c;
-//check for errors, reset if detected.
+  //check for errors, reset if detected.
   if (U${x}STAbits.PERR) {
     u8_c = U${x}RXREG; //clear error
     reportError("UART${x} parity error\n");
@@ -289,15 +280,15 @@ void configUART${x}(uint32_t u32_baudRate) {
   DISABLE_U1TX_ANALOG();
   DISABLE_U1RX_ANALOG();
  #elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
- #if ( defined(__PIC24E__) || defined(__dsPIC33E__))
+  #if ( defined(__PIC24E__) || defined(__dsPIC33E__))
   CONFIG_U${x}RX_TO_RP(42);               //U${x}RX <- RP42
   CONFIG_RP43_AS_DIG_PIN();                //TX RP pin must be digital
   CONFIG_U${x}TX_TO_RP(43);               //U${x}TX -> RP43
- #else
+  #else
   CONFIG_U${x}RX_TO_RP(10);               //U${x}RX <- RP10
   CONFIG_RP11_AS_DIG_PIN();                //TX RP pin must be digital
   CONFIG_U${x}TX_TO_RP(11);               //U${x}TX -> RP11
- #endif
+  #endif
   // turn off any analog functionality on these pins
   // (may be needed if pin is hardmapped and RPx does
   // not exist)
@@ -308,12 +299,10 @@ void configUART${x}(uint32_t u32_baudRate) {
  #endif
 #else
   #warning UART${x} pin mappings not defined. See comments below for more info.
-  // If your device has more than
-  // one UART, ****** CHANGE THE MAPPING ****** since
-  // multiple UARTs can not share the same pins.
-  // In particular:
+  // If your device has more than one UART, ****** CHANGE THE MAPPING ******
+  // since multiple UARTs can not share the same pins. In particular:
   // 1. Change the statement #if (${x} == 1) to #if 1
-  // 2. Change the pin numbers in the next four lines
+  // 2. Change the pin numbers above
   //    to something valid for your device.
   //    If your device does not have remappable I/O,
   //    (typical for >44 pin packages), skip this step --

@@ -53,7 +53,7 @@ void configSPI1(void) {
   //pins for higher speed. The SPI2 port can be used with remappable pins.
   //you may need to add code to disable analog functionality if the SPI ports
   //are on analog-capable pins.
-#else 
+#else
   CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
   CONFIG_SCK1OUT_TO_RP(7);   //use RP7 for SCLK
 #endif

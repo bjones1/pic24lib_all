@@ -93,9 +93,9 @@ is evenly divisible by 1536, then do an erase.
 
 //some processors have an erase size of 512.
 #if (defined(__PIC24EP32GP202__) || defined(__PIC24EP32GP203__) || defined(__PIC24EP32GP204__) )
-#define PM_ERASE_SIZE 512 
+#define PM_ERASE_SIZE 512
 #elif (defined(__dsPIC33EP32GP502__) || defined(__dsPIC33EP32GP503__) || defined(__dsPIC33EP32GP504__) )
-#define PM_ERASE_SIZE 512 
+#define PM_ERASE_SIZE 512
 #else
 #define PM_ERASE_SIZE 1024 //default erase size.
 #endif
@@ -166,6 +166,10 @@ void LoadAddr(UWord16 nvmadru, UWord16 nvmadr);
 void WriteLatch(UWord16 addrhi,UWord16 addrlo, UWord16 wordhi, UWord16 wordlo);
 void ResetDevice(void);
 void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val );
+#if (defined(__PIC24E__) || defined(__dsPIC33E__))
+void LoadTwoWords(UWord16 addrhi, UWord16 addrlo, UWord16 wordhi, UWord16 wordlo, UWord16 word2hi, UWord16 word2lo);
+void WriteMem2(UWord16 addrhi, UWord16 addrlo, UWord16 val);
+#endif
 
 /* this needs to be persistent so as to not step on persisent variables
 in user's program
@@ -186,12 +190,12 @@ int main(void)
   U1MODE = 0x0000;
 
   configClock();          //clock configuration
- 
+
 
   RCONbits.SWDTEN=0;            /* Disable Watch Dog Timer*/
 
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
- SourceAddr.Val32 = 0x1000;
+  SourceAddr.Val32 = 0x1000;
 #else
   SourceAddr.Val32 = 0xc00;
 #endif
@@ -225,7 +229,7 @@ int main(void)
   }
 
   CONFIG_DEFAULT_UART();
- 
+
   while (1) {
     char Command;
 
@@ -448,10 +452,8 @@ void WritePM(char * ptrData, uReg32 SourceAddr) {
   int    Size,Size1;
   uReg32 Temp;
   uReg32 Temp2;
-  uReg32 TempAddr;
-  uReg32 TempData;
 
-  
+
   for (Size = 0,Size1=0; Size < PM_ROW_SIZE; Size = Size+2) {
 
     Temp.Val[0]=ptrData[Size1+0];
@@ -469,7 +471,7 @@ void WritePM(char * ptrData, uReg32 SourceAddr) {
     LoadTwoWords(SourceAddr.Word.HW, SourceAddr.Word.LW, Temp.Word.HW,Temp.Word.LW, Temp2.Word.HW,Temp2.Word.LW);
     //WriteLatch(SourceAddr.Word.HW, SourceAddr.Word.LW,Temp.Word.HW,Temp.Word.LW);
     WriteMem2(SourceAddr.Word.HW, SourceAddr.Word.LW, PM_ROW_WRITE);
-    
+
     SourceAddr.Val32 = SourceAddr.Val32 + 4;
   }
 }

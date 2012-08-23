@@ -11,14 +11,14 @@ typedef unsigned long  UWord32;
 void WriteMem(UWord16 val) {
   asm("mov	W0,NVMCON");
   __builtin_write_NVM();
-  
+
   asm("1:	btsc NVMCON,#15");    //	;Wait for write end
   asm("	bra 1b");
 
 }
 
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
-void WriteMem2(UWord16 addrhi,UWord16 addrlo,UWord16 val) {
+void WriteMem2(UWord16 addrhi, UWord16 addrlo, UWord16 val) {
   asm("mov     w0,NVMADRU");           //; Init Pointer to page to be erased
   asm("mov     w1,NVMADR");           //; Init Pointer to offset to be erased
   asm("mov	W2,NVMCON");
@@ -55,7 +55,7 @@ void WriteLatch(UWord16 addrhi,UWord16 addrlo, UWord16 wordhi, UWord16 wordlo) {
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
 //_LoadTwoWords: ;W0=TBLPAG,W1=Wn,W2=WordHi,W3=WordLo W4=Word2Hi,W5=Word2Lo
 //W0,W1 not really used
-void LoadTwoWords(UWord16 addrhi,UWord16 addrlo,UWord16 wordhi, UWord16 wordlo, UWord16 word2hi, UWord16 word2lo) {
+void LoadTwoWords(UWord16 addrhi, UWord16 addrlo, UWord16 wordhi, UWord16 wordlo, UWord16 word2hi, UWord16 word2lo) {
   asm("	mov	#0xFA,W0");
   asm(" mov W0, TBLPAG");
   asm("	mov	#0,W1");
@@ -105,14 +105,14 @@ void ResetDeviceasPOR(void) {
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
 void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val ) {
 
- 
+
   asm("mov	W2,NVMCON");
 
   asm("mov     w0,NVMADRU");           //; Init Pointer to page to be erased
   asm("mov     w1,NVMADR");           //; Init Pointer to offset to be erased
 
   //__builtin_write_NVM();
-  
+
   asm("disi #06");
   asm("mov #0x55,W0");
   asm("mov W0, NVMKEY");
@@ -125,7 +125,7 @@ void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val ) {
   asm("1:	btsc NVMCON,#15");    //	;Wait for write end
   asm("	bra 1b");
 
-  
+
 }
 #else
 //_Erase:

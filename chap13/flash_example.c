@@ -168,7 +168,7 @@ void doMenu() {
     case '5':
       doRead(&fdata);
       doPrint(&fdata);
-      break;     
+      break;
   }
 }
 
