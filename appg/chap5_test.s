@@ -251,6 +251,8 @@ p27:
     btsc W0,#15
     setm W1            ;W1:W0 = (int32_t) i8_q 
     asr  W1,W1
+    rrc  W0,W0          ;W1:W0 = (int32_t) i8_q >> 1
+    asr  W1,W1
     rrc  W0,W0          ;W1:W0 = (int32_t) i8_q >> 2
     mov.d W0,W2         ;W3:W2 = (int32_t) i8_q >> 2
     mov i32_s,W0
