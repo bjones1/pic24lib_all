@@ -57,7 +57,7 @@ void  configTimer2(void) {
 }
 
 
-void configOutputCapture1(void) {
+void configOutputCompare1(void) {
   T2CONbits.TON = 0;       //disable Timer when configuring Output compare
   CONFIG_OC1_TO_RP(14);        //map OC1 to RP14/RB14
 //assumes TIMER2 initialized before OC1 so PRE bits are set
@@ -83,7 +83,7 @@ int main(void) {
   uint32_t u32_pw;
   configBasic(HELLO_MSG);
   configTimer2();
-  configOutputCapture1();
+  configOutputCompare1();
   CONFIG_AN0_AS_ANALOG();
   configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN0, 2, 0 );
   SET_SAMP_BIT_ADC1();      //start sampling and conversion

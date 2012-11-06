@@ -26,29 +26,27 @@
  *
  *
  */
-#include "pic24_all.h"
-#include <stdio.h>
+#include <pic24_all.h>
+#include <dataXfer.h>
 
 /** \file
-Demonstrates a PWM DAC - connect an RC filter on the OC1
-output and vary the pulse width of the PWM signal, and monitor
-the DC value on the capacitor. The RC time constant should
-be at least 10x greater than the PWM period. Examples values
-used for testing were R=6.8k, C = 1.0u, PWM period= 500 us
-For better accuracy, use an external crystal and define
-CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY in the MPLAB project.
-Remove this macro if you wish to use the internal oscillator.
+Demonstrates pulse width modulation by
+controlling the intensity of an LED. The
+ADC input value on AN0 is used to vary the PWM
+period.
+Also demonstates the use of the variable 
+monitoring capability in Bully Bootloader.
 */
 
 #ifndef PWM_PERIOD
-#define PWM_PERIOD 500  // desired period, in us
+#define PWM_PERIOD 1000  // desired period, in us
 #endif
 
 void  configTimer2(void) {
   T2CON = T2_OFF | T2_IDLE_CON | T2_GATE_OFF
           | T2_32BIT_MODE_OFF
           | T2_SOURCE_INT
-          | T2_PS_1_8 ;  //1 tick = 1.6 us at FCY=40 MHz
+          | T2_PS_1_8;
   PR2 = usToU16Ticks(PWM_PERIOD, getTimerPrescale(T2CONbits)) - 1;
   TMR2  = 0;       //clear timer2 value
   _T2IF = 0;
@@ -56,20 +54,22 @@ void  configTimer2(void) {
   _T2IE = 1;    //enable the Timer2 interrupt
 }
 
+
 void configOutputCompare1(void) {
-  T2CONbits.TON = 0;       //disable Timer when configuring Output compare 
-  OC1R = 0;
-  OC1RS = 0;  //initially off 
-//assumes TIMER2 initialized before OC1 so PRE bits are set
+  T2CONbits.TON = 0;       //disable Timer when configuring Output compare
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
-  CONFIG_OC1_TO_RP(35);        //map OC1 to RP35/RB3
+ CONFIG_OC1_TO_RP(36);        //map OC1 to RP36/RB4
+#else
+  CONFIG_OC1_TO_RP(14);        //map OC1 to RP14/RB14
+#endif
+//assumes TIMER2 initialized before OC1 so PRE bits are set
+  OC1RS = 0;  //initially off
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
 //turn on the compare toggle mode using Timer2
   OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
            OC_PWM_CENTER_ALIGN;  //PWM
   OC1CON2 = 0x000C;           //sync source is Timer2.
 #else
-  CONFIG_RB3_AS_DIG_OUTPUT();
-  CONFIG_OC1_TO_RP(3);        //map OC1 to RP3/RB3  
 //turn on the compare toggle mode using Timer2
   OC1CON = OC_TIMER2_SRC |     //Timer2 source
            OC_PWM_FAULT_PIN_DISABLE;  //PWM, no fault detection
@@ -82,37 +82,45 @@ void _ISR _T2Interrupt(void) {
   //update the PWM duty cycle from the ADC value
   u32_temp = ADC1BUF0;  //use 32-bit value for range
   //compute new pulse width that is 0 to 99% of PR2
-  // pulse width (PR2) * ADC/1024
-  u32_temp = (u32_temp * (PR2))>> 10 ;  // >>10 is same as divide/1024
+  // pulse width (PR2) * ADC/4096
+  u32_temp = (u32_temp * (PR2))>> 12 ;  // >>12 is same as divide/4096
   OC1RS = u32_temp;  //update pulse width value
-  AD1CON1bits.SAMP = 1; //start next ADC conversion for next interrupt
+  SET_SAMP_BIT_ADC1();      //start sampling and conversion
 }
 
+/// Indexes of all the variables to be transferred.
+enum { U32_PW_NDX, OC1RS_NDX, ADC1BUF0_NDX };
+
+
+
 int main(void) {
-  uint16_t u16_oc1rs;
   uint32_t u32_pw;
-  float f_dacV;
+
+  // Initialize
   configBasic(HELLO_MSG);
+  initDataXfer();
+
+  // All variables received by the PIC must be specified.
+  // Params:  Index         Variable  PC can change  Format  Description
+  SPECIFY_VAR(U32_PW_NDX,   u32_pw,   FALSE,         "%u",   "PWM pulse width (us)");
+  SPECIFY_VAR(OC1RS_NDX,    OC1RS,    FALSE,         "%hu",  "Raw PWM value");
+  SPECIFY_VAR(ADC1BUF0_NDX, ADC1BUF0, FALSE,         "%hu",  "Raw ADC value");
+
+  // Configure PWM
   configTimer2();
   configOutputCompare1();
   CONFIG_AN0_AS_ANALOG();
-  configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN0, 31, 0 );
+  configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN0, 31, 1 );
   SET_SAMP_BIT_ADC1();      //start sampling and conversion
   T2CONbits.TON = 1;       //turn on Timer2 to start PWM
+
+  // Report results only
   while (1) {
-    u16_oc1rs = OC1RS;
-    u32_pw= ticksToUs(u16_oc1rs, getTimerPrescale(T2CONbits));
-    f_dacV = u16_oc1rs;
-    f_dacV = f_dacV * 3.3/(PR2+1);
-#ifdef SMALLRAM
-    {
-      uint16_t ui16_dacValmv;
-      ui16_dacValmv = f_dacV * 1000;
-      printf("PWM PW (us): %ld, PWM DAC voltage: %d\n",u32_pw, ui16_dacValmv);
-    }
-#else
-    printf("PWM PW (us): %ld, PWM DAC voltage: %4.2f\n",u32_pw, (double) f_dacV);
-#endif
+    u32_pw = ticksToUs(OC1RS, getTimerPrescale(T2CONbits));
+    sendVar(U32_PW_NDX);
+    sendVar(OC1RS_NDX);
+    sendVar(ADC1BUF0_NDX);
     DELAY_MS(100);
+    doHeartbeat();
   }
 }

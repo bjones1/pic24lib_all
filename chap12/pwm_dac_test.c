@@ -37,7 +37,7 @@ be at least 10x greater than the PWM period. Example values
 used for testing were R=6.8k, C = 1.0u, PWM period= 500 us.
 Measured ripple was 80 mv, time for the DAC to change voltage
 from 1.0 V to 3.0 V and vice versa was ~ 30 ms (about 60 PWM periods)
-For more accuracy, use an external crystal and define
+For more accuracy, use an external crystal and define 
 CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY in the MPLAB project.
 Remove this macro if you wish to use the internal oscillator.
 */
@@ -58,7 +58,7 @@ void  configTimer2(void) {
   _T2IE = 1;    //enable the Timer2 interrupt
 }
 
-void configOutputCapture1(void) {
+void configOutputCompare1(void) {
   T2CONbits.TON = 0;       //disable Timer when configuring Output compare
   OC1R = 0;
   OC1RS = 0;  //initially off
@@ -66,13 +66,13 @@ void configOutputCapture1(void) {
   CONFIG_OC1_TO_RP(35);        //map OC1 to RP35/RB3
 //turn on the compare toggle mode using Timer2
   OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
-            OC_PWM_CENTER_ALIGN;  //PWM
+           OC_PWM_CENTER_ALIGN;  //PWM
   OC1CON2 = 0x000C;           //sync source is Timer2.
 #else
   CONFIG_RB3_AS_DIG_OUTPUT();
   CONFIG_OC1_TO_RP(3);        //map OC1 to RP3/RB3
 //assumes TIMER2 initialized before OC1 so PRE bits are set
-
+  
 //turn on the compare toggle mode using Timer2
   OC1CON = OC_TIMER2_SRC |     //Timer2 source
            OC_PWM_FAULT_PIN_DISABLE;  //PWM, no fault detection
@@ -102,7 +102,7 @@ int main(void) {
   CONFIG_RB9_AS_DIG_OUTPUT();
   _LATB9 = 0;
   configTimer2();
-  configOutputCapture1();
+  configOutputCompare1();
   T2CONbits.TON = 1;       //turn on Timer2 to start PWM
   while (1) {
     outString("Input voltage 0 to 3300 (mv): \n");

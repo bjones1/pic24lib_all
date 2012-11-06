@@ -58,7 +58,7 @@ void  configTimer2(void) {
 
 uint16_t u16_minPWTicks;
 uint16_t u16_maxPWTicks;
-void configOutputCapture1(void) {
+void configOutputCompare1(void) {
   u16_minPWTicks = usToU16Ticks(MIN_PW, getTimerPrescale(T2CONbits));
   u16_maxPWTicks = usToU16Ticks(MAX_PW, getTimerPrescale(T2CONbits));
   T2CONbits.TON = 0;       //disable Timer when configuring Output compare
@@ -74,7 +74,7 @@ void configOutputCapture1(void) {
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
 //turn on the compare toggle mode using Timer2
   OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
-            OC_PWM_CENTER_ALIGN;  //PWM
+           OC_PWM_CENTER_ALIGN;  //PWM
   OC1CON2 = 0x000C;           //sync source is Timer2.
 #else
   OC1CON = OC_TIMER2_SRC |     //Timer2 source
@@ -100,7 +100,7 @@ int main(void) {
   uint32_t u32_pw;
   configBasic(HELLO_MSG);
   configTimer2();
-  configOutputCapture1();
+  configOutputCompare1();
   CONFIG_AN0_AS_ANALOG();
   configADC1_ManualCH0(ADC_CH0_POS_SAMPLEA_AN0, 31, 1);
   SET_SAMP_BIT_ADC1();      //start sampling and conversion

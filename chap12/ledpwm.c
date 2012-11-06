@@ -37,14 +37,14 @@ period.
 */
 
 #ifndef PWM_PERIOD
-#define PWM_PERIOD 1000  // desired period, in us
+#define PWM_PERIOD 20000  // desired period, in us
 #endif
 
 void  configTimer2(void) {
   T2CON = T2_OFF | T2_IDLE_CON | T2_GATE_OFF
           | T2_32BIT_MODE_OFF
           | T2_SOURCE_INT
-          | T2_PS_1_8;
+          | T2_PS_1_64;
   PR2 = usToU16Ticks(PWM_PERIOD, getTimerPrescale(T2CONbits)) - 1;
   TMR2  = 0;       //clear timer2 value
   _T2IF = 0;
@@ -53,10 +53,10 @@ void  configTimer2(void) {
 }
 
 
-void configOutputCapture1(void) {
+void configOutputCompare1(void) {
   T2CONbits.TON = 0;       //disable Timer when configuring Output compare
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
-  CONFIG_OC1_TO_RP(36);        //map OC1 to RP36/RB4
+ CONFIG_OC1_TO_RP(36);        //map OC1 to RP36/RB4
 #else
   CONFIG_OC1_TO_RP(14);        //map OC1 to RP14/RB14
 #endif
@@ -65,7 +65,7 @@ void configOutputCapture1(void) {
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
 //turn on the compare toggle mode using Timer2
   OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
-            OC_PWM_CENTER_ALIGN;  //PWM
+           OC_PWM_CENTER_ALIGN;  //PWM
   OC1CON2 = 0x000C;           //sync source is Timer2.
 #else
 //turn on the compare toggle mode using Timer2
@@ -86,26 +86,15 @@ void _ISR _T2Interrupt(void) {
   SET_SAMP_BIT_ADC1();      //start sampling and conversion
 }
 
-/// Indexes of all the variables to be transferred.
-enum { U32_PW_NDX, OC1RS_NDX, ADC1BUF0_NDX };
-
 
 int main(void) {
   uint32_t u32_pw;
 
   // Initialize
   configBasic(HELLO_MSG);
-  initDataXfer();
-
-  // All variables received by the PIC must be specified.
-  // Params:  Index         Variable  PC can change  Format  Description
-  SPECIFY_VAR(U32_PW_NDX,   u32_pw,   FALSE,         "%u",   "PWM pulse width (us)");
-  SPECIFY_VAR(OC1RS_NDX,    OC1RS,    FALSE,         "%hu",  "Raw PWM value");
-  SPECIFY_VAR(ADC1BUF0_NDX, ADC1BUF0, FALSE,         "%hu",  "Raw ADC value");
-
-  // Configure PWM
+    // Configure PWM
   configTimer2();
-  configOutputCapture1();
+  configOutputCompare1();
   CONFIG_AN0_AS_ANALOG();
   configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN0, 31, 1 );
   SET_SAMP_BIT_ADC1();      //start sampling and conversion
@@ -114,9 +103,7 @@ int main(void) {
   // Report results only
   while (1) {
     u32_pw = ticksToUs(OC1RS, getTimerPrescale(T2CONbits));
-    sendVar(U32_PW_NDX);
-    sendVar(OC1RS_NDX);
-    sendVar(ADC1BUF0_NDX);
+    printf("PWM PW (us): %ld \n",u32_pw);
     DELAY_MS(100);
     doHeartbeat();
   }

@@ -52,7 +52,7 @@ void  configTimer2(void) {
   TMR2  = 0;       //clear timer2 value
 }
 
-void configOutputCapture1(void) {
+void configOutputCompare1(void) {
   T2CONbits.TON = 0;       //disable Timer when configuring Output compare
   CONFIG_RB8_AS_DIG_OUTPUT();
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
@@ -66,9 +66,9 @@ void configOutputCapture1(void) {
   OC1RS = usToU16Ticks(SQWAVE_PWHIGH, getTimerPrescale(T2CONbits)); //go low when Timer2 == u16_sqwavePWHighTicks
 //turn on the compare toggle mode using Timer2
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
-  OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
-            OC_CONTINUE_PULSE;  //Continuous pulse mode
-  OC1CON2 = 0x000C;           //sync source is Timer2.
+ OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
+           OC_CONTINUE_PULSE;  //Continuous pulse mode
+ OC1CON2 = 0x000C;           //sync source is Timer2.
 #else
   OC1CON = OC_TIMER2_SRC |     //Timer2 source
            OC_CONTINUE_PULSE;  //Continuous pulse mode
@@ -79,7 +79,7 @@ void configOutputCapture1(void) {
 int main (void) {
   configBasic(HELLO_MSG);
   configTimer2();
-  configOutputCapture1();
+  configOutputCompare1();
   T2CONbits.TON = 1;       //turn on Timer2 to start sqwave
   while (1) doHeartbeat(); //nothing to do, squarewave generated in hardware
 }
