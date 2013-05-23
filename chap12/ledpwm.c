@@ -26,8 +26,10 @@
  *
  *
  */
+#include <stdio.h>
 #include <pic24_all.h>
 #include <dataXfer.h>
+
 
 /** \file
 Demonstrates pulse width modulation by
@@ -103,7 +105,7 @@ int main(void) {
   // Report results only
   while (1) {
     u32_pw = ticksToUs(OC1RS, getTimerPrescale(T2CONbits));
-    printf("PWM PW (us): %ld \n",u32_pw);
+    printf("PWM PW (us): %ld \n", u32_pw);
     DELAY_MS(100);
     doHeartbeat();
   }

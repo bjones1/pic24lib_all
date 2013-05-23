@@ -4,3 +4,6 @@ docs/.*\.css
 docs/.*\.png
 docs/.*\.js
 docs/installdox
+syntax: glob
+.sconsign.dblite
+err*.txt
