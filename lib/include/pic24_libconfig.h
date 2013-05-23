@@ -82,7 +82,7 @@
     (HARDWARE_PLATFORM != DANGEROUS_WEB)     && \
     (HARDWARE_PLATFORM != STARTER_BOARD_28P) && \
     (HARDWARE_PLATFORM != DEFAULT_DESIGN)
-#error Invalid hardware platform selected.
+#error "Invalid hardware platform selected."
 #endif
 //@}
 
@@ -152,7 +152,7 @@
 #elif defined(__dsPIC33E__)
 #define CLOCK_CONFIG FRCPLL_FCY60MHz
 #else
-#error Unknown processor
+#error "Unknown processor."
 #endif
 #endif
 
@@ -207,7 +207,7 @@
 #if (SERIAL_EOL_DEFAULT != SERIAL_EOL_CR_LF) && \
 	  (SERIAL_EOL_DEFAULT != SERIAL_EOL_CR)    && \
     (SERIAL_EOL_DEFAULT != SERIAL_EOL_LF)
-#error Invalid choice for SERIAL_EOF_DEFAULT
+#error "Invalid choice for SERIAL_EOF_DEFAULT."
 #endif
 
 /// @}
@@ -254,7 +254,7 @@
 #endif
 
 #if (DEFAULT_BRGH != 0) && (DEFAULT_BRGH != 1)
-#error Invalid value for DEFAULT_BRGH
+#error "Invalid value for DEFAULT_BRGH."
 #endif
 
 /// @}

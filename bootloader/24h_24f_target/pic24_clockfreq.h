@@ -195,10 +195,10 @@
 // confusing errors. Cute hack: the last value in the #define
 // above (the magic number) is what the #if tests in gcc.
 #if (CLOCK_CONFIG != 498)
-#error ***********************************************************************
-#error * Value chosen for CLOCK_CONFIG does not exist or is not valid!       *
-#error * This produces very confusing compiler errors below.                 *
-#error ***********************************************************************
+#error "***********************************************************************"
+#error "* Value chosen for CLOCK_CONFIG does not exist or is not valid!       *"
+#error "* This produces very confusing compiler errors below.                 *"
+#error "***********************************************************************"
 #endif
 #endif
 
@@ -250,17 +250,17 @@
 
 // 2. Check to see if this clock configuration supports that processor.
 #if !GET_IS_SUPPORTED(CLOCK_CONFIG)
-#error The clock configuration chosen is not supported by this processor.
+#error "The clock configuration chosen is not supported by this processor."
 #endif
 // 3. Check that the primary oscillator type chosen works for the
 //    oscilallator frequency selected. If the primary
 #if (POSCMD_SEL == POSCMD_XT) && ( (POSC_FREQ < 3500000L) || (POSC_FREQ > 10000000L) )
-#error The XT oscialltor chosen in POSCMD_SEL does not support this frequency!
-#error Valid ranges are from 3.5 MHz to 10 MHz.
+#error "The XT oscialltor chosen in POSCMD_SEL does not support this frequency!"
+#error "Valid ranges are from 3.5 MHz to 10 MHz."
 #endif
 #if (POSCMD_SEL == POSCMD_HS) && ( (POSC_FREQ < 10000000L) || (POSC_FREQ > 32000000L) )
-#error The HS oscialltor chosen in POSCMD_SEL does not support this frequency!
-#error Valid ranges are from 10 MHz to 32 MHz.
+#error "The HS oscialltor chosen in POSCMD_SEL does not support this frequency!"
+#error "Valid ranges are from 10 MHz to 32 MHz."
 #endif
 
 /// \endcond
@@ -372,7 +372,7 @@
 #elif defined (__PIC24FK__)
 #define _GET_OSC_SEL_BITS(bits) ((bits >> 0) & 0x07)
 #else
-#error Unknown processor
+#error "Unknown processor"
 #endif
 // Note: putting the \ endcond here causes Doxygen 1.5.6
 // to complain. ???
@@ -382,7 +382,7 @@
 
 // Double check to make sure the oscillator selection above is valid.
 #if ( (OSC_SEL_BITS < 0) || (OSC_SEL_BITS > 7) )
-#error Invalid oscillator selection FNOSC_SEL.
+#error "Invalid oscillator selection FNOSC_SEL."
 #endif
 
 /** @{

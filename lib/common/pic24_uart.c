@@ -228,7 +228,7 @@ uint8_t inChar1(void) {
 #endif
 
 #if (DEFAULT_BRGH1 != 0) && (DEFAULT_BRGH1 != 1)
-#error Invalid value specified for DEFAULT_BRGH1
+#error "Invalid value specified for DEFAULT_BRGH1."
 #endif
 
 
@@ -295,7 +295,7 @@ void configUART1(uint32_t u32_baudRate) {
   DISABLE_U1TX_ANALOG();
   DISABLE_U1RX_ANALOG();
  #else
-  #error Unknown hardware platform.
+  #error "Unknown hardware platform."
  #endif
 #else
   #warning UART1 pin mappings not defined. See comments below for more info.
@@ -647,7 +647,7 @@ uint8_t inChar2(void) {
 #endif
 
 #if (DEFAULT_BRGH2 != 0) && (DEFAULT_BRGH2 != 1)
-#error Invalid value specified for DEFAULT_BRGH2
+#error "Invalid value specified for DEFAULT_BRGH2."
 #endif
 
 
@@ -714,7 +714,7 @@ void configUART2(uint32_t u32_baudRate) {
   DISABLE_U1TX_ANALOG();
   DISABLE_U1RX_ANALOG();
  #else
-  #error Unknown hardware platform.
+  #error "Unknown hardware platform."
  #endif
 #else
   #warning UART2 pin mappings not defined. See comments below for more info.
@@ -1066,7 +1066,7 @@ uint8_t inChar3(void) {
 #endif
 
 #if (DEFAULT_BRGH3 != 0) && (DEFAULT_BRGH3 != 1)
-#error Invalid value specified for DEFAULT_BRGH3
+#error "Invalid value specified for DEFAULT_BRGH3."
 #endif
 
 
@@ -1133,7 +1133,7 @@ void configUART3(uint32_t u32_baudRate) {
   DISABLE_U1TX_ANALOG();
   DISABLE_U1RX_ANALOG();
  #else
-  #error Unknown hardware platform.
+  #error "Unknown hardware platform."
  #endif
 #else
   #warning UART3 pin mappings not defined. See comments below for more info.
@@ -1485,7 +1485,7 @@ uint8_t inChar4(void) {
 #endif
 
 #if (DEFAULT_BRGH4 != 0) && (DEFAULT_BRGH4 != 1)
-#error Invalid value specified for DEFAULT_BRGH4
+#error "Invalid value specified for DEFAULT_BRGH4."
 #endif
 
 
@@ -1552,7 +1552,7 @@ void configUART4(uint32_t u32_baudRate) {
   DISABLE_U1TX_ANALOG();
   DISABLE_U1RX_ANALOG();
  #else
-  #error Unknown hardware platform.
+  #error "Unknown hardware platform."
  #endif
 #else
   #warning UART4 pin mappings not defined. See comments below for more info.

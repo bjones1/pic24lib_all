@@ -71,7 +71,7 @@ const uint8_t au8_sinetbl[] = {127,133,139,146,152,158,164,170,176,181, \
 
 
 #ifdef __DAC_R2R
-#warning "DAC_R2R.C built for explicit R-2R DAC connected to RB9(MSb)-RB2(LSb)"
+#warning "DAC_R2R.C built for explicit R-2R DAC connected to RB9(MSb)-RB2(LSb)."
 void  configDAC() {
   CONFIG_RB2_AS_DIG_OUTPUT();
   CONFIG_RB3_AS_DIG_OUTPUT();
@@ -93,7 +93,7 @@ void  writeDAC(uint16_t u16_x, uint16_t u16_y) {
 #endif
 
 #ifdef __DAC_MAX548A
-#warning "DAC_R2R.C built for SPI-based dual 8-bit MAX548A DAC connected to RP14(SDO) and RP13(SCLK)"
+#warning "DAC_R2R.C built for SPI-based dual 8-bit MAX548A DAC connected to RP14(SDO) and RP13(SCLK)."
 #define CONFIG_MAX548A_ENABLE()    CONFIG_RA2_AS_DIG_OUTPUT()
 #define MAX548A_ENABLE()            _LATA2 = 0
 #define MAX548A_DISABLE()           _LATA2 = 1
@@ -137,7 +137,7 @@ void writeDAC(uint16_t u16_x, uint16_t u16_y) {
 #endif
 
 #ifdef __DAC_MAX5353
-#warning "DAC_R2R.C built for SPI-based 12-bit MAX5353 DAC connected to RP14(SDO) and RP13(SCLK)"
+#warning "DAC_R2R.C built for SPI-based 12-bit MAX5353 DAC connected to RP14(SDO) and RP13(SCLK)."
 #define CONFIG_MAX5353_ENABLE()    CONFIG_RA3_AS_DIG_OUTPUT()
 #define MAX5353_CMD_ANDMASK        0x1FFE
 #define MAX5353_ENABLE()           _LATA3 = 0
@@ -171,7 +171,7 @@ void writeDAC(uint16_t u16_x, uint16_t u16_y) {
 #endif
 
 #ifdef __DAC_MAX518
-#warning "DAC_R2R.C built for I2C-based single output 8-bit MAX518 DAC connected to RB9(SDA) and RB8(SCL)"
+#warning "DAC_R2R.C built for I2C-based single output 8-bit MAX518 DAC connected to RB9(SDA) and RB8(SCL)."
 #define   MAX518_I2C_ADDR       0x58        // see MAX518 datasheet 19-0393 Figure 6
 #define   MAX518_WRITE_DACA     0x00        // see MAX518 datasheet 19-0393 Figure 7
 #define   MAX518_WRITE_DACB     0x01        // see MAX518 datasheet 19-0393 Figure 7
@@ -186,7 +186,7 @@ void writeDAC(uint16_t u16_x, uint16_t u16_y) {
 #endif
 
 #ifdef __DAC_MAX518_DUAL
-#warning "DAC_R2R.C built for I2C-based DUAL output 8-bit MAX518 DAC connected to RB9(SDA) and RB8(SCL)"
+#warning "DAC_R2R.C built for I2C-based DUAL output 8-bit MAX518 DAC connected to RB9(SDA) and RB8(SCL)."
 #warning "In this example, I2C SCL is beyond specification for the MAX518 DAC."
 #define   MAX518_I2C_ADDR       0x58        // see MAX518 datasheet 19-0393 Figure 6
 #define   MAX518_WRITE_DACA     0x00        // see MAX518 datasheet 19-0393 Figure 7

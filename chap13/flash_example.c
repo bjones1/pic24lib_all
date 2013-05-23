@@ -34,8 +34,8 @@ Illustrates run time self programming of the flash memory
 */
 
 #if (defined(__PIC24F__) || defined(__PIC24E__)|| defined(__dsPIC33E__))
-#warning For all PIC24F and some PIC24E/dsPIC33E family members, the DATA_FLASH_PAGE is set to the second to last flash page instead of the last page,
-#warning as the last flash page in the 24F family contains the configuration bits.
+#warning "For all PIC24F and some PIC24E/dsPIC33E family members, the DATA_FLASH_PAGE is set to the second to last flash page instead of the last page,"
+#warning "as the last flash page in the 24F family contains the configuration bits."
 #endif
 
 
@@ -48,7 +48,7 @@ Illustrates run time self programming of the flash memory
 #elif defined(__PIC24EP64GP202__)     //PIC24E test
 #define LAST_IMPLEMENTED_PMEM 0x00AFFF
 #else
-#error "Define LAST_IMPLEMENTED_PMEM for your processor!
+#error "Define LAST_IMPLEMENTED_PMEM for your processor!"
 #endif
 
 

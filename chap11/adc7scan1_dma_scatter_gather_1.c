@@ -219,7 +219,7 @@ void _ISRFAST _DMA0Interrupt(void) {
 
 int main (void) {
   uint8_t   u8_i, u8_j, u8_k;
-  uint16_t  u16_sum;
+  uint16_t  u16_sum = 0;
   uint16_t  u16_pot;
   float   f_pot;
 

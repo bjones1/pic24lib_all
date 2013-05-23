@@ -53,7 +53,7 @@
 #elif defined(__dsPIC33E__)
 #include "p33Exxxx.h"
 #else
-#error Unknown processor.
+#error "Unknown processor."
 #endif
 
 #ifdef _ISR
@@ -114,7 +114,7 @@
 #elif defined(_U1RXIF) || defined(__DOXYGEN__)
 #define NUM_UART_MODS 1
 #else
-#error UxRXIF flag not defined!
+#error "UxRXIF flag not defined!"
 #endif
 
 /** Define the number of I2C modules supported by this chip.
@@ -125,7 +125,7 @@
 #elif defined(_SI2C1IF) || defined(__DOXYGEN__)
 #define NUM_I2C_MODS 1
 #else
-#error SI2CxIF flag not defined!
+#error "SI2CxIF flag not defined!"
 #endif
 
 /** Define the number of SPI modules supported by this chip.
@@ -136,7 +136,7 @@
 #elif defined(_SPI1IF) || defined(__DOXYGEN__)
 #define NUM_SPI_MODS 1
 #else
-#error SPIxIF flag not defined!
+#error "SPIxIF flag not defined!"
 #endif
 
 /** Define the number of ECAN modules supported by this chip.
@@ -1109,19 +1109,19 @@
 #define DEV_ID_STR "unknown"
 #define EXPECTED_REVISION1 0
 #define EXPECTED_REVISION1_STR "unknown"
-#warning *********************************************
-#warning * Unknown chip type! Define a device ID and *
-#warning * revision ID in the lines above for this   *
-#warning * chip to remove this warning message.      *
-#warning * These values can be found by              *
-#warning * executing the checkDeviceAndRevision()    *
-#warning * function, which is typically called after *
-#warning * reset via calling printResetCause().      *
-#warning * This check allows you to ensure that the  *
-#warning * programmed hex file is running on the     *
-#warning * same device type it was compiled for.     *
-#warning * This is only a warning.                   *
-#warning *********************************************
+#warning "*********************************************"
+#warning "* Unknown chip type! Define a device ID and *"
+#warning "* revision ID in the lines above for this   *"
+#warning "* chip to remove this warning message.      *"
+#warning "* These values can be found by              *"
+#warning "* executing the checkDeviceAndRevision()    *"
+#warning "* function, which is typically called after *"
+#warning "* reset via calling printResetCause().      *"
+#warning "* This check allows you to ensure that the  *"
+#warning "* programmed hex file is running on the     *"
+#warning "* same device type it was compiled for.     *"
+#warning "* This is only a warning.                   *"
+#warning "*********************************************"
 #endif
 
 //@}

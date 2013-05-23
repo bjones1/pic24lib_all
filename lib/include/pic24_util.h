@@ -74,9 +74,9 @@
                   "****************************************************\n" \
                   "\n" __FILE__ ", built on " __DATE__ " at " __TIME__ "\n"
 // Output a warning during compilation also
-#warning ***********************************************
-#warning * SIMULATION MODE - DO NOT RUN ON A REAL PIC! *
-#warning ***********************************************
+#warning "***********************************************"
+#warning "* SIMULATION MODE - DO NOT RUN ON A REAL PIC! *"
+#warning "***********************************************"
 #else
 #define HELLO_MSG "\n" __FILE__ ", built on " __DATE__ " at " __TIME__ "\n"
 #endif

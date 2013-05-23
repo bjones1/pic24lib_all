@@ -424,8 +424,8 @@ _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FPOR(FPWRT_PWR16);
 _FICD(JTAGEN_OFF & ICS_PGD1);
 
-#warning Using default config bit settings for the PIC24H family.
-#warning Edit this file to define bits for your processor!
+#warning "Using default config bit settings for the PIC24H family."
+#warning "Edit this file to define bits for your processor!"
 ///\cond doxygen_ignore
 #define CONFIG_BITS_DEFINED
 ///\endcond
@@ -447,8 +447,8 @@ _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF & BKBUG_OFF & COE_OFF & ICS_PGx1 & FWDT
 #endif
 _CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_ON & IOL1WAY_OFF & POSCMD_SEL);
 
-#warning Using default config bit settings for the PIC24F family.
-#warning Edit this file to define bits for your processor!
+#warning "Using default config bit settings for the PIC24F family."
+#warning "Edit this file to define bits for your processor!"
 ///\cond doxygen_ignore
 #define CONFIG_BITS_DEFINED
 ///\endcond
@@ -478,8 +478,8 @@ _FICD(BKBUG_OFF & ICS_PGx1);
 //new config word for deep sleep operation, set these for your needs
 _FDS(DSWDTEN_OFF & DSBOREN_OFF & RTCOSC_LPRC & DSWDTOSC_SOSC);
 
-#warning Using default config bit settings for the PIC24FK family.
-#warning Edit this file to define bits for your processor!
+#warning "Using default config bit settings for the PIC24FK family."
+#warning "Edit this file to define bits for your processor!"
 ///\cond doxygen_ignore
 #define CONFIG_BITS_DEFINED
 ///\endcond
@@ -501,8 +501,8 @@ _FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL);
 _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FPOR(FPWRT_PWR16);
 _FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
-#warning Using default config bit settings for the dsPIC33F family.
-#warning Edit this file to define bits for your processor!
+#warning "Using default config bit settings for the dsPIC33F family."
+#warning "Edit this file to define bits for your processor!"
 ///\cond doxygen_ignore
 #define CONFIG_BITS_DEFINED
 ///\endcond
@@ -527,8 +527,8 @@ _FOSCSEL(FNOSC_FRC & IESO_OFF);
 _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
 
-#warning Using default config bit settings for the PIC24E family.
-#warning Edit this file to define bits for your processor!
+#warning "Using default config bit settings for the PIC24E family."
+#warning "Edit this file to define bits for your processor!"
 ///\cond doxygen_ignore
 #define CONFIG_BITS_DEFINED
 ///\endcond
@@ -555,8 +555,8 @@ _FOSCSEL(FNOSC_FRC & IESO_OFF);
 _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
 
-#warning Using default config bit settings for the dsPIC33E family.
-#warning Edit this file to define bits for your processor!
+#warning "Using default config bit settings for the dsPIC33E family."
+#warning "Edit this file to define bits for your processor!"
 ///\cond doxygen_ignore
 #define CONFIG_BITS_DEFINED
 ///\endcond
@@ -567,7 +567,7 @@ _FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
 
 
 #ifndef CONFIG_BITS_DEFINED
-#error Edit 'common/pic24_configbits.c' to add config bits for your processor!
+#error "Edit common/pic24_configbits.c to add config bits for your processor!"
 #endif
 
 

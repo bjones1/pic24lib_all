@@ -34,8 +34,8 @@ A simple example of run time self programming - reads/writes a single 16-bit val
 */
 
 #ifdef __PIC24F__
-#warning For a PIC24F, the DATA_FLASH_PAGE is set to the second to last flash page instead of the last page,
-#warning as the last flash page in the 24F family contains the configuration bits.
+#warning "For a PIC24F, the DATA_FLASH_PAGE is set to the second to last flash page instead of the last page,"
+#warning "as the last flash page in the 24F family contains the configuration bits."
 #endif
 
 
@@ -48,7 +48,7 @@ A simple example of run time self programming - reads/writes a single 16-bit val
 #elif defined(__PIC24EP64GP202__)     //PIC24E test
 #define LAST_IMPLEMENTED_PMEM 0x00AFFF
 #else
-#error "Define LAST_IMPLEMENTED_PMEM for your processor!
+#error "Define LAST_IMPLEMENTED_PMEM for your processor!"
 #endif
 
 

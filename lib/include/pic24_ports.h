@@ -1495,14 +1495,14 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
 #else
 
 
-#error -- processor ID not specified in pic24_ports.h
+#error "Processor ID not specified in pic24_ports.h."
 
 #endif
 
 
 #ifndef _PIC24_DIGIO_DEFINED
-#warning Digital IO macros not defined for this device!
-#warning Edit common\pic24_ports.h file!
+#warning "Digital IO macros not defined for this device!"
+#warning "Edit common\pic24_ports.h file!"
 #endif
 
 #endif

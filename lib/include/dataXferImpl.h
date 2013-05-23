@@ -337,7 +337,7 @@ extern "C" {
 /// the \ref MAX_NUM_XFER_VARS.
 #define NUM_XFER_VARS 62
 #if NUM_XFER_VARS > MAX_NUM_XFER_VARS
-#error Too many transfer variables; there must be MAX_NUM_XFER_VARS or fewer.
+#error "Too many transfer variables; there must be MAX_NUM_XFER_VARS or fewer."
 #endif
 
 /// A table to hold the state of transfer variables.

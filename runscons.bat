@@ -4,7 +4,7 @@ findstr /V /C:"warning: Options have been disabled due to expired license" /C:"#
 
 findstr /V /C:"#warning UART2 pin mappings not defined. See comments below for more info." /C:"#warning UART1 RX pin configured to RP10(RB10), UART1 TX pin configured to RP11(RB11)" /C:"#warning UART1 RX pin configured to RP42(RB10), UART1 TX pin configured to RP43(RB11)" err1.txt > err2.txt
 
-findstr /V /C:"\bootloader\24h_24f_target\mem.c:76: warning: control reaches end of non-void function" err2.txt > err3.txt
+findstr /V /C:"\bootloader\24h_24f_target\mem.c:76:1: warning: control reaches end of non-void function" /C:"warning: Taking the address of '" err2.txt > err3.txt
 
 echo Errors and warnings:
 findstr /C:"warning" /C:"error" err3.txt

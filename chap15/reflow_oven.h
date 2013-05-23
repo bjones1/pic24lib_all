@@ -41,7 +41,7 @@ typedef struct _PSET {
 #elif defined(__dsPIC33FJ128GP802__)
 #define LAST_IMPLEMENTED_PMEM 0x0157FF
 #else
-#error "Define LAST_IMPLEMENTED_PMEM for your processor!
+#error "Define LAST_IMPLEMENTED_PMEM for your processor!"
 #endif
 
 

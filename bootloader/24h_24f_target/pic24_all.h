@@ -21,7 +21,7 @@ Header file that includes all pic24*.h files
 #elif defined(__dsPIC33E__)
 #include "p33Exxxx.h"      //this is a variant of the dsPIC family
 #else
-#error Unknown processor.
+#error "Unknown processor."
 #endif
 
 // For convenience, choose the fastest
@@ -47,7 +47,7 @@ Header file that includes all pic24*.h files
 #define CLOCK_CONFIG FRCPLL_FCY60MHz
 //#define CLOCK_CONFIG PRIPLL_8MHzCrystal_40MHzFCY
 #else
-#error Unknown processor
+#error "Unknown processor"
 #endif
 #endif
 
@@ -310,17 +310,17 @@ static inline void CONFIG_DEFAULT_UART(void) {
 #elif (defined(__PIC24E__) || defined(__dsPIC33E__))
   CONFIG_U1RX_TO_RP(42);
   CONFIG_U1TX_TO_RP(43);
-#warning  UART1 RX pin configured to RP42(RB10), UART1 TX pin configured to RP43(RB11)
+#warning  "UART1 RX pin configured to RP42(RB10), UART1 TX pin configured to RP43(RB11)."
 #elif defined(_U1RXR)
   CONFIG_U1RX_TO_RP(10);
   CONFIG_U1TX_TO_RP(11);
-#warning  UART1 RX pin configured to RP10(RB10), UART1 TX pin configured to RP11(RB11)
+#warning  "UART1 RX pin configured to RP10(RB10), UART1 TX pin configured to RP11(RB11)."
 #endif
 #if defined(__PIC24FK__)
 #if ( defined(__PIC24F16KA102__) || defined(__PIC24F08KA102__))
   AD1PCFG=0xFFFF; //disable analog pin functionality since  UART hard-mapped.
 #else
-#error UART not configured! Edit pic24_all.h
+#error "UART not configured! Edit pic24_all.h."
 #endif
 #endif
   CONFIG_UART1_BAUDRATE(DEFAULT_BAUDRATE);
@@ -347,7 +347,7 @@ static inline void CONFIG_DEFAULT_UART(void) {
 static inline void CONFIG_DEFAULT_UART(void) {
   DISABLE_UART2();
 #ifdef _U2RXR
-#error UART2 RX,TX pins must be configured to RPxx pins!!! Edit pic24_all.h to chose your RP pins!
+#error "UART2 RX,TX pins must be configured to RPxx pins!!! Edit pic24_all.h to chose your RP pins!"
 #endif
   CONFIG_UART2_BAUDRATE(DEFAULT_BAUDRATE);
   // 2. Set the number of data bits, number of Stop bits and
@@ -374,7 +374,7 @@ static inline void CONFIG_DEFAULT_UART(void) {
 static inline void CONFIG_DEFAULT_UART(void) {
   DISABLE_UART3();
 #ifdef _U3RXR
-#error UART3 RX,TX pins must be configured to RPxx pins!!! Edit pic24_all.h to chose your RP pins!
+#error "UART3 RX,TX pins must be configured to RPxx pins!!! Edit pic24_all.h to chose your RP pins!"
 #endif
   CONFIG_UART3_BAUDRATE(DEFAULT_BAUDRATE);
   // 2. Set the number of data bits, number of Stop bits and
@@ -401,7 +401,7 @@ static inline void CONFIG_DEFAULT_UART(void) {
 static inline void CONFIG_DEFAULT_UART(void) {
   DISABLE_UART4();
 #ifdef _U4RXR
-#error UART4 RX,TX pins must be configured to RPxx pins!!! Edit pic24_all.h to chose your RP pins!
+#error "UART4 RX,TX pins must be configured to RPxx pins!!! Edit pic24_all.h to chose your RP pins!"
 #endif
   CONFIG_UART4_BAUDRATE(DEFAULT_BAUDRATE);
   // 2. Set the number of data bits, number of Stop bits and

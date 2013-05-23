@@ -298,7 +298,7 @@ void checkOscOption(void) {
       outString("Fast RC Osc with Postscale");
       break;
 #else
-#error Unknown processor
+#error "Unknown processor."
 #endif
     default :
       reportError("Unknown oscillator type.");
@@ -434,7 +434,7 @@ void configPinsForLowPower(void) {
 #elif defined(__PIC24H__)
   AD1PCFGL = 0xFFFF;
 #else
-#error Unknown processor
+#error "Unknown processor."
 #endif
   // Enable all pullups, except those which clocks are
   // connected to.
@@ -471,7 +471,7 @@ void configPinsForLowPower(void) {
 #elif defined(__PIC24F__) || defined(__PIC24FK__)
       _SOSCEN) {
 #else
-#error Unsupported processor.
+#error "Unsupported processor."
 #endif
     // The crystal driving the secondary oscillator is on
     // SOSCI/SOSCO, which is CN1 and CN0.
@@ -483,7 +483,7 @@ void configPinsForLowPower(void) {
   }
 }
 #else
-#warning Using dummy function for configPinsForLowPower() in 'common/pic24_util.c'
+#warning "Using dummy function for configPinsForLowPower() in common/pic24_util.c."
 void configPinsForLowPower(void) {
 }
 #endif

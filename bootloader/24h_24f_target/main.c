@@ -123,7 +123,7 @@ is evenly divisible by 1536, then do an erase.
 #define PM_ROW_ERASE   0x4003 //erase entire page 
 #define PM_ROW_WRITE   0x4001 //write double word
 #else
-#error This family is not supported by bootloader.
+#error "This family is not supported by bootloader."
 #endif
 
 #define CONFIG_WORD_WRITE 0x4000

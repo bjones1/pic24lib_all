@@ -49,7 +49,7 @@
 
 // Consistency check
 #if (DEFAULT_UART > NUM_UART_MODS) || (DEFAULT_UART < 1)
-#error Invalid choice of DEFAULT_UART
+#error "Invalid choice of DEFAULT_UART."
 #endif
 
 

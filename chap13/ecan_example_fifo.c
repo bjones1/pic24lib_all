@@ -54,7 +54,7 @@ void configBaudECAN1(void) { //set baud rate
   C1CFG1 = ECAN_SYNC_JUMP_4 |    //use maximum sync jump width
            ECAN_PRE_2x1;         //prescalers to 2x1
 #else
-#warning ECAN module not configured! Edit function configECAN1()
+#warning "ECAN module not configured! Edit function configECAN1()."
 #endif
 }
 

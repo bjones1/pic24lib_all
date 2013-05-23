@@ -56,7 +56,7 @@ void configBaudECAN1(void) {
            ECAN_PRE_2x1;         //prescalers to 2x1
 
 #else
-#warning ECAN module not configured! Edit function configECAN1()
+#warning "ECAN module not configured! Edit function configECAN1()."
 #endif
 }
 

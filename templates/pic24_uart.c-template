@@ -228,7 +228,7 @@ uint8_t inChar${x}(void) {
 #endif
 
 #if (DEFAULT_BRGH${x} != 0) && (DEFAULT_BRGH${x} != 1)
-#error Invalid value specified for DEFAULT_BRGH${x}
+#error "Invalid value specified for DEFAULT_BRGH${x}."
 #endif
 
 
@@ -295,10 +295,10 @@ void configUART${x}(uint32_t u32_baudRate) {
   DISABLE_U1TX_ANALOG();
   DISABLE_U1RX_ANALOG();
  #else
-  #error Unknown hardware platform.
+  #error "Unknown hardware platform."
  #endif
 #else
-  #warning UART${x} pin mappings not defined. See comments below for more info.
+  #warning "UART${x} pin mappings not defined. See comments below for more info."
   // If your device has more than one UART, ****** CHANGE THE MAPPING ******
   // since multiple UARTs can not share the same pins. In particular:
   // 1. Change the statement #if (${x} == 1) to #if 1
