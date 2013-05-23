@@ -69,9 +69,7 @@
  *    that function in this file.
  */
 
-#ifndef _PIC24_CLOCKFREQ_H_
-#define _PIC24_CLOCKFREQ_H_
-
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -170,24 +168,24 @@
 // exists and is valid. Otherwise, the compiler emits some very
 // confusing errors. Cute hack: the last value in the #define
 // above (the magic number) is what the #if tests in gcc.
-#if (CLOCK_CONFIG != 498)
-#error "***********************************************************************"
-#error "* Value chosen for CLOCK_CONFIG does not exist or is not valid!       *"
-#error "* This produces very confusing compiler errors below.                 *"
-#error "***********************************************************************"
-#endif
+  #if (CLOCK_CONFIG != 498)
+    #error "***********************************************************************"
+    #error "* Value chosen for CLOCK_CONFIG does not exist or is not valid!       *"
+    #error "* This produces very confusing compiler errors below.                 *"
+    #error "***********************************************************************"
+  #endif
 #endif
 
 // For some reason, primary oscillator selections are named
 // POSCMD_xx in the PIC24H and POSCMOD_xx in the PIC24F.
 // Work around this.
-// Hopefully, this will be defined in PIC24F headers at some point
+// Hopefully, this will be defined in PIC24F headers at some point.
 /// \cond nodoxygen
 #ifndef POSCMD_EC
-#define POSCMD_EC   POSCMOD_EC
-#define POSCMD_XT   POSCMOD_XT
-#define POSCMD_HS   POSCMOD_HS
-#define POSCMD_NONE POSCMOD_NONE
+  #define POSCMD_EC   POSCMOD_EC
+  #define POSCMD_XT   POSCMOD_XT
+  #define POSCMD_HS   POSCMOD_HS
+  #define POSCMD_NONE POSCMOD_NONE
 #endif
 /// \endcond
 
@@ -213,6 +211,7 @@
 #define _GET_POSC_FREQ(ndx, oscSel, Fcy, posCmdSel, poscFreq, isSupported, configClockFunc, magic)             poscFreq
 #define _GET_IS_SUPPORTED(ndx, oscSel, Fcy, posCmdSel, poscFreq, isSupported, configClockFunc, magic)          isSupported
 #define _GET_CONFIG_DEFAULT_CLOCK(ndx, oscSel, Fcy, posCmdSel, poscFreq, isSupported, configClockFunc, magic)  configClockFunc
+
 // Step 3. Call the macros above to set constants based on the
 //         clock config selected.
 /// \endcond
@@ -223,19 +222,20 @@
 #define POSC_FREQ               GET_POSC_FREQ(CLOCK_CONFIG)
 #define CONFIG_DEFAULT_CLOCK()  GET_CONFIG_DEFAULT_CLOCK(CLOCK_CONFIG)()
 
-// 2. Check to see if this clock configuration supports that processor.
+// Check to see if this clock configuration supports that processor.
 #if !GET_IS_SUPPORTED(CLOCK_CONFIG)
-#error "The clock configuration chosen is not supported by this processor."
+  #error "The clock configuration chosen is not supported by this processor."
 #endif
-// 3. Check that the primary oscillator type chosen works for the
-//    oscilallator frequency selected. If the primary
+
+// Check that the primary oscillator type chosen works for the
+// oscilallator frequency selected.
 #if (POSCMD_SEL == POSCMD_XT) && ( (POSC_FREQ < 3500000L) || (POSC_FREQ > 10000000L) )
-#error "The XT oscialltor chosen in POSCMD_SEL does not support this frequency!"
-#error "Valid ranges are from 3.5 MHz to 10 MHz."
-#endif
+  #error "The XT oscialltor chosen in POSCMD_SEL does not support this frequency!"
+  #error "Valid ranges are from 3.5 MHz to 10 MHz."
+  #endif
 #if (POSCMD_SEL == POSCMD_HS) && ( (POSC_FREQ < 10000000L) || (POSC_FREQ > 32000000L) )
-#error "The HS oscialltor chosen in POSCMD_SEL does not support this frequency!"
-#error "Valid ranges are from 10 MHz to 32 MHz."
+  #error "The HS oscialltor chosen in POSCMD_SEL does not support this frequency!"
+  #error "Valid ranges are from 10 MHz to 32 MHz."
 #endif
 
 /// @{
@@ -349,11 +349,11 @@
 #define GET_OSC_SEL_BITS(bits) _GET_OSC_SEL_BITS(bits)
 /// \cond nodoxygen
 #if defined(__PIC24H__) || defined (__PIC24FK__) || defined(__dsPIC33F__) || defined(__PIC24E__) || defined(__dsPIC33E__) || defined(__DOXYGEN__)
-#define _GET_OSC_SEL_BITS(bits) ((bits >> 0) & 0x07)
+  #define _GET_OSC_SEL_BITS(bits) ((bits >> 0) & 0x07)
 #elif defined (__PIC24F__)
-#define _GET_OSC_SEL_BITS(bits) ((bits >> 8) & 0x07)
+  #define _GET_OSC_SEL_BITS(bits) ((bits >> 8) & 0x07)
 #else
-#error "Unknown processor."
+  #error "Unknown processor."
 #endif
 // Note: putting the \ endcond here causes Doxygen 1.5.6
 // to complain. ???
@@ -363,7 +363,7 @@
 
 // Double check to make sure the oscillator selection above is valid.
 #if ( (OSC_SEL_BITS < 0) || (OSC_SEL_BITS > 7) )
-#error "Invalid oscillator selection FNOSC_SEL."
+  #error "Invalid oscillator selection FNOSC_SEL."
 #endif
 
 /** @{
@@ -451,5 +451,3 @@ static inline void configClock() {
  * \param u8_source The clock source to switch to.
  */
 void switchClock(uint8_t u8_source);
-
-#endif
