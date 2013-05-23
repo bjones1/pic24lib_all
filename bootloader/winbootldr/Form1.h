@@ -320,7 +320,7 @@ private:
   /// Required designer variable.
   /// </summary>
 
-#pragma region Windows Form Designer generated code
+  #pragma region Windows Form Designer generated code
   /// <summary>
   /// Required method for Designer support - do not modify
   /// the contents of this method with the code editor.
@@ -732,7 +732,7 @@ private:
     this->PerformLayout();
 
   }
-#pragma endregion
+  #pragma endregion
 
 private:
   System::Void scheduleStatusClear() {

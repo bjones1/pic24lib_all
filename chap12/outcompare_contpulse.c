@@ -66,9 +66,9 @@ void configOutputCompare1(void) {
   OC1RS = usToU16Ticks(SQWAVE_PWHIGH, getTimerPrescale(T2CONbits)); //go low when Timer2 == u16_sqwavePWHighTicks
 //turn on the compare toggle mode using Timer2
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
- OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
-           OC_CONTINUE_PULSE;  //Continuous pulse mode
- OC1CON2 = 0x000C;           //sync source is Timer2.
+  OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
+            OC_CONTINUE_PULSE;  //Continuous pulse mode
+  OC1CON2 = 0x000C;           //sync source is Timer2.
 #else
   OC1CON = OC_TIMER2_SRC |     //Timer2 source
            OC_CONTINUE_PULSE;  //Continuous pulse mode
