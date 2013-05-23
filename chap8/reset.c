@@ -38,6 +38,40 @@ draw of the processor is monitored before/after the power down
 modes.
 */
 
+/** This function puts the PIC24 in low-power mode by:
+ *  - Configuring all digital I/O pins as inputs
+ *  - Configuring all analog I/O pins shared with
+ *    digital I/O pins to be digital only
+ *  - Enables pullups on all pins not used by the
+ *    oscillator.
+ *
+ * WARNING: if pullups are enabled on pins used by
+ * the oscillator, the clock typically stops running.
+ * Currently, this code works for demo purposes with
+ * the FRC oscillator when used in the reset.c program.
+ */
+//this function is processor specific
+#if (defined(__PIC24HJ32GP202__))
+void configPinsForLowPower(void) {
+  // Configure all digital I/O pins for input.
+  TRISB = 0xFFFF;
+  TRISA = 0xFFFF;
+  AD1PCFGL = 0xFFFF;
+  // The primary oscillator is not used, so
+  // turn on all the pull-ups.
+  CNPU2 = 0xFFFF;
+  // The secondary osciallator is not used, so
+  // turn on all the pull-ups.
+  CNPU1 = 0xFFFF;
+  }
+}
+#else
+#warning "Using dummy function for configPinsForLowPower() in common/pic24_util.c."
+void configPinsForLowPower(void) {
+}
+#endif
+
+
 uint8_t printMenuGetChoice() {
   uint8_t u8_c;
   outString("'1' enable watchdog timer\n");

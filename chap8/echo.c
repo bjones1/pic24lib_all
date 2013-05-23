@@ -39,7 +39,6 @@ int main(void) {
   uint8_t u8_c;
 
   configClock();
-  configPinsForLowPower();
   configHeartbeat();
   configDefaultUART(DEFAULT_BAUDRATE);
   printResetCause();       //print statement about what caused reset
