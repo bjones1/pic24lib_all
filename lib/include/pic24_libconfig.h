@@ -68,21 +68,21 @@
  *  2. The Microchip Microstik for dsPIC33F and PIC24H Development Board,
  *     part number DM330013.
  *  3. The Sparkfun Breakout Board for PIC24HJ32 - mini-Bully
- *    sku: BOB-08787
+ *     sku: BOB-08787
  */
 #define DEFAULT_DESIGN 3
 
 
 /** Select one of the hardware platform above to compile for. */
 #ifndef HARDWARE_PLATFORM
-#define HARDWARE_PLATFORM DEFAULT_DESIGN
+#  define HARDWARE_PLATFORM DEFAULT_DESIGN
 #endif
 // Verify that a valid hardware platform is selectd
 #if (HARDWARE_PLATFORM != EXPLORER16_100P)   && \
     (HARDWARE_PLATFORM != DANGEROUS_WEB)     && \
     (HARDWARE_PLATFORM != STARTER_BOARD_28P) && \
     (HARDWARE_PLATFORM != DEFAULT_DESIGN)
-#error "Invalid hardware platform selected."
+#  error "Invalid hardware platform selected."
 #endif
 //@}
 
@@ -115,7 +115,7 @@
  */
 // Uncomment one of the #defines below to make
 // a clock choice. If all the #defines below
-// are commentend, code below
+// are commentend, code in pic24_clockfreq.h
 // will pick a default clock choice.
 #ifndef CLOCK_CONFIG
 //#define CLOCK_CONFIG SIM_CLOCK
@@ -129,33 +129,6 @@
 //#define CLOCK_CONFIG PRIPLL_8MHzCrystal_40MHzFCY
 #endif
 
-// For convenience, choose the fastest
-// possible clock depending on which
-// processor we're using. If simulation mode is
-// selected, then use the simulation clock.
-#ifndef CLOCK_CONFIG
-#if defined(SIM)
-#define CLOCK_CONFIG SIM_CLOCK
-#elif (HARDWARE_PLATFORM == EXPLORER16_100P) && defined(__PIC24H__)
-#define CLOCK_CONFIG PRIPLL_8MHzCrystal_40MHzFCY
-#elif (HARDWARE_PLATFORM == EXPLORER16_100P) && defined(__PIC24F__)
-#define CLOCK_CONFIG PRIPLL_8MHzCrystal_16MHzFCY
-#elif defined(__PIC24H__) || defined(__DOXYGEN__)
-#define CLOCK_CONFIG FRCPLL_FCY40MHz
-#elif defined(__PIC24F__)  || defined(__PIC24FK__)
-#define CLOCK_CONFIG FRCPLL_FCY16MHz
-#elif defined(__dsPIC33F__)
-#define CLOCK_CONFIG FRCPLL_FCY40MHz
-//60MHz clock is conservative max choice for PIC24E, 70MHz has a more limited temp. range.
-#elif defined(__PIC24E__)
-#define CLOCK_CONFIG FRCPLL_FCY60MHz
-#elif defined(__dsPIC33E__)
-#define CLOCK_CONFIG FRCPLL_FCY60MHz
-#else
-#error "Unknown processor."
-#endif
-#endif
-
 /// @}
 
 /** \name Defines configuring  pic24_delay.h
@@ -166,7 +139,7 @@
  *  switches. The value is specified in milliseconds.
  */
 #ifndef DEBOUNCE_DLY
-#define DEBOUNCE_DLY  15   //in milliseconds
+#  define DEBOUNCE_DLY  15   //in milliseconds
 #endif
 
 /// @}

@@ -27,8 +27,7 @@
  *
  */
 
-#ifndef _PIC24_I2C1_H_
-#define _PIC24_I2C1_H_
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -54,10 +53,10 @@
 
 
 #ifndef I2C_ACK
-#define I2C_ACK 0
+# define I2C_ACK 0
 #endif
 #ifndef I2C_NAK
-#define I2C_NAK 1
+# define I2C_NAK 1
 #endif
 
 #define I2C_WADDR(x) (x & 0xFE) //clear R/W bit of I2C addr
@@ -82,7 +81,6 @@ void read2I2C1(uint8_t u8_addr,uint8_t* pu8_d1, uint8_t* pu8_d2);
 void readNI2C1(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt);
 
 #endif // #if (NUM_I2C_MODS >= 1)
-#endif // #ifndef _PIC24_I2C1_H_
 
 
 
@@ -117,8 +115,7 @@ void readNI2C1(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt);
  *
  */
 
-#ifndef _PIC24_I2C2_H_
-#define _PIC24_I2C2_H_
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -144,10 +141,10 @@ void readNI2C1(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt);
 
 
 #ifndef I2C_ACK
-#define I2C_ACK 0
+# define I2C_ACK 0
 #endif
 #ifndef I2C_NAK
-#define I2C_NAK 1
+# define I2C_NAK 1
 #endif
 
 #define I2C_WADDR(x) (x & 0xFE) //clear R/W bit of I2C addr
@@ -172,7 +169,6 @@ void read2I2C2(uint8_t u8_addr,uint8_t* pu8_d1, uint8_t* pu8_d2);
 void readNI2C2(uint8_t u8_addr,uint8_t* pu8_data, uint16_t u16_cnt);
 
 #endif // #if (NUM_I2C_MODS >= 2)
-#endif // #ifndef _PIC24_I2C2_H_
 
 
 

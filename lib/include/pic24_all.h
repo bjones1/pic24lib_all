@@ -36,26 +36,26 @@
  *  processor-specific include file.
  */
 
-#ifndef _PIC24_ALL_H_
-#define _PIC24_ALL_H_
+#pragma once
 
-// Include processor-specific header file
+#include <stdint.h>
+
+// Include processor-specific information
 #include "pic24_chip.h"
 
 // Include user-configurable options
 #include "pic24_libconfig.h"
 
 // Include PIC24 support library headers
-#include <stdint.h>
 #include "pic24_unittest.h"
 #include "pic24_clockfreq.h"
 #include "pic24_delay.h"
 #include "pic24_ports.h"
 
 #ifndef BUILT_ON_ESOS
-#include "pic24_uart.h"
-#include "pic24_util.h"
-#include "pic24_serial.h"
+# include "pic24_uart.h"
+# include "pic24_util.h"
+# include "pic24_serial.h"
 #endif
 
 #include "pic24_timer.h"
@@ -66,5 +66,3 @@
 #include "pic24_ecan.h"
 #include "pic24_flash.h"
 #include "pic24_comparator.h"
-
-#endif // #ifndef  _PIC24_ALL_H_

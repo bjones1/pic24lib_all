@@ -9,12 +9,11 @@
  *  SPI module support functions.
  */
 
+#pragma once
+
 #include <stdint.h>
 #include "pic24_chip.h"
 
-
-#ifndef _PIC24_SPI_H_
-#define _PIC24_SPI_H_
 /*
 The following macros are a subset of the AND/OR macros found in the
 the MPLAB C30/src/peripheral_24F/spi.h file and placed
@@ -113,7 +112,4 @@ uint16_t ioMasterSPI1(uint16_t u16_c);
 
 #if (NUM_SPI_MODS >= 2)
 uint16_t ioMasterSPI2(uint16_t u16_c);
-#endif
-
-
 #endif

@@ -8,8 +8,7 @@
  */
 
 
-#ifndef _PIC24_COMPARATOR_H_
-#define _PIC24_COMPARATOR_H_
+#pragma once
 
 /*
  *  Changes:
@@ -134,6 +133,3 @@ Changed the mixed case macros to all uppercase
 #define CMP_0P65_CVRR_0     0x000D
 #define CMP_0P68_CVRR_0     0x000E
 #define CMP_0P71_CVRR_0     0x000F
-
-
-#endif

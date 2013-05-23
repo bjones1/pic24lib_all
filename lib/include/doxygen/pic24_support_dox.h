@@ -62,12 +62,12 @@ int main(void) {
  *   - A single header file to include all the files below,
  *     in pic24_all.h
  *   - Delay routines in pic24_delay.h
- *   - Definition of generic data types in stdint.h
  *   - Setup of IO ports in pic24_ports.h
  *   - Unit testing / assertions, in pic24_unittest.h
  *   - Miscellanous utilities in pic24_util.h
  *   - Processor-specific information in pic24_chip.h
  *   - Debug/data tranfer abilities in dataXfer.h
+ *   - A byte-wise access to multibyte data in pic24_unions.h
  * - Peripheral support
  *   - Analog to digital converter routines, in pic24_adc.h
  *   - Direct memory access (DMA) routines, in pic24_dma.h

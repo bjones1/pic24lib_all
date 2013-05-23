@@ -27,11 +27,10 @@
  *
  */
 
-#ifndef _PIC24_ECAN1_H_
-#define _PIC24_ECAN1_H_
+#pragma once
 
 #include <stdint.h>
-#include "pic24_generic.h"
+#include "pic24_unions.h"
 #include "pic24_chip.h"
 
 // Only include if this ECAN Module exists.
@@ -288,7 +287,6 @@ uint8_t getTxInProgressECAN1(uint8_t u8_bufNum);
 
 
 #endif // #if (NUM_ECAN_MODS >= 1)
-#endif // #define _PIC24_ECAN1_H_
 
 
 
@@ -321,11 +319,10 @@ uint8_t getTxInProgressECAN1(uint8_t u8_bufNum);
  *
  */
 
-#ifndef _PIC24_ECAN2_H_
-#define _PIC24_ECAN2_H_
+#pragma once
 
 #include <stdint.h>
-#include "pic24_generic.h"
+#include "pic24_unions.h"
 #include "pic24_chip.h"
 
 // Only include if this ECAN Module exists.
@@ -582,7 +579,6 @@ uint8_t getTxInProgressECAN2(uint8_t u8_bufNum);
 
 
 #endif // #if (NUM_ECAN_MODS >= 2)
-#endif // #define _PIC24_ECAN2_H_
 
 
 

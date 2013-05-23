@@ -28,8 +28,7 @@
  */
 
 
-#ifndef _PIC24_UART1_H_
-#define _PIC24_UART1_H_
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -83,7 +82,6 @@ uint8_t isCharReady1(void);
 void checkRxErrorUART1(void); //check for UART RX error
 
 #endif // #if (NUM_UART_MODS >= 1)
-#endif // #ifndef _PIC24_UART1_H_
 
 
 
@@ -122,8 +120,7 @@ void checkRxErrorUART1(void); //check for UART RX error
  */
 
 
-#ifndef _PIC24_UART2_H_
-#define _PIC24_UART2_H_
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -177,7 +174,6 @@ uint8_t isCharReady2(void);
 void checkRxErrorUART2(void); //check for UART RX error
 
 #endif // #if (NUM_UART_MODS >= 2)
-#endif // #ifndef _PIC24_UART2_H_
 
 
 
@@ -216,8 +212,7 @@ void checkRxErrorUART2(void); //check for UART RX error
  */
 
 
-#ifndef _PIC24_UART3_H_
-#define _PIC24_UART3_H_
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -271,7 +266,6 @@ uint8_t isCharReady3(void);
 void checkRxErrorUART3(void); //check for UART RX error
 
 #endif // #if (NUM_UART_MODS >= 3)
-#endif // #ifndef _PIC24_UART3_H_
 
 
 
@@ -310,8 +304,7 @@ void checkRxErrorUART3(void); //check for UART RX error
  */
 
 
-#ifndef _PIC24_UART4_H_
-#define _PIC24_UART4_H_
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -365,7 +358,6 @@ uint8_t isCharReady4(void);
 void checkRxErrorUART4(void); //check for UART RX error
 
 #endif // #if (NUM_UART_MODS >= 4)
-#endif // #ifndef _PIC24_UART4_H_
 
 
 

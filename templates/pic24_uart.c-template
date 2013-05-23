@@ -87,13 +87,13 @@ void checkRxErrorUART${x}(void) {
 /**
 
 */
-#ifndef UART${x}_TX_FIFO_SIZE
-#define UART${x}_TX_FIFO_SIZE 32  //choose a size
-#endif
+# ifndef UART${x}_TX_FIFO_SIZE
+#   define UART${x}_TX_FIFO_SIZE 32  //choose a size
+# endif
 
-#ifndef UART${x}_TX_INTERRUPT_PRIORITY
-#define UART${x}_TX_INTERRUPT_PRIORITY 1
-#endif
+# ifndef UART${x}_TX_INTERRUPT_PRIORITY
+#   define UART${x}_TX_INTERRUPT_PRIORITY 1
+# endif
 
 volatile uint8_t au8_txFifo${x}[UART${x}_TX_FIFO_SIZE];
 volatile uint16_t u16_txFifo${x}Head = 0;
@@ -148,13 +148,13 @@ void outChar${x}(uint8_t u8_c) {
 
 #ifdef UART${x}_RX_INTERRUPT
 //Interrupt driven RX
-#ifndef UART${x}_RX_FIFO_SIZE
-#define UART${x}_RX_FIFO_SIZE 32  //choose a size
-#endif
+# ifndef UART${x}_RX_FIFO_SIZE
+#   define UART${x}_RX_FIFO_SIZE 32  //choose a size
+# endif
 
-#ifndef UART${x}_RX_INTERRUPT_PRIORITY
-#define UART${x}_RX_INTERRUPT_PRIORITY 1
-#endif
+# ifndef UART${x}_RX_INTERRUPT_PRIORITY
+#   define UART${x}_RX_INTERRUPT_PRIORITY 1
+# endif
 
 volatile uint8_t au8_rxFifo${x}[UART${x}_RX_FIFO_SIZE];
 volatile uint16_t u16_rxFifo${x}Head = 0;
@@ -224,11 +224,11 @@ uint8_t inChar${x}(void) {
  *  \ref configUART${x} to set up UART${x}.
  */
 #ifndef DEFAULT_BRGH${x}
-#define DEFAULT_BRGH${x}  DEFAULT_BRGH
+# define DEFAULT_BRGH${x}  DEFAULT_BRGH
 #endif
 
 #if (DEFAULT_BRGH${x} != 0) && (DEFAULT_BRGH${x} != 1)
-#error "Invalid value specified for DEFAULT_BRGH${x}."
+# error "Invalid value specified for DEFAULT_BRGH${x}."
 #endif
 
 
@@ -258,7 +258,7 @@ void configUART${x}(uint32_t u32_baudRate) {
 #elif (${x} == 1)
   // The following pin mappings will apply only to UART 1.
   // Change them as necessary for your device.
- #if (HARDWARE_PLATFORM == DANGEROUS_WEB)
+# if (HARDWARE_PLATFORM == DANGEROUS_WEB)
   CONFIG_RP14_AS_DIG_PIN();             // RX RP pin must be digital
   CONFIG_U1RX_TO_RP(14);                // U1RX <- RP14
   CONFIG_RP15_AS_DIG_PIN();             // TX RP pin must be digital
@@ -269,7 +269,7 @@ void configUART${x}(uint32_t u32_baudRate) {
   // not exist)
   DISABLE_U1TX_ANALOG();
   DISABLE_U1RX_ANALOG();
- #elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
+# elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
   CONFIG_RP9_AS_DIG_PIN();              // RX RP pin must be digital
   CONFIG_U1RX_TO_RP(9);                 // U1RX <- RP9
   CONFIG_RP8_AS_DIG_PIN();              // TX RP pin must be digital
@@ -279,24 +279,24 @@ void configUART${x}(uint32_t u32_baudRate) {
   // not exist)
   DISABLE_U1TX_ANALOG();
   DISABLE_U1RX_ANALOG();
- #elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
-  #if ( defined(__PIC24E__) || defined(__dsPIC33E__))
+# elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
+#   if ( defined(__PIC24E__) || defined(__dsPIC33E__))
   CONFIG_U${x}RX_TO_RP(42);               //U${x}RX <- RP42
   CONFIG_RP43_AS_DIG_PIN();                //TX RP pin must be digital
   CONFIG_U${x}TX_TO_RP(43);               //U${x}TX -> RP43
-  #else
+#   else
   CONFIG_U${x}RX_TO_RP(10);               //U${x}RX <- RP10
   CONFIG_RP11_AS_DIG_PIN();                //TX RP pin must be digital
   CONFIG_U${x}TX_TO_RP(11);               //U${x}TX -> RP11
-  #endif
+#   endif
   // turn off any analog functionality on these pins
   // (may be needed if pin is hardmapped and RPx does
   // not exist)
   DISABLE_U1TX_ANALOG();
   DISABLE_U1RX_ANALOG();
- #else
-  #error "Unknown hardware platform."
- #endif
+# else
+#   error "Unknown hardware platform."
+# endif
 #else
   #warning "UART${x} pin mappings not defined. See comments below for more info."
   // If your device has more than one UART, ****** CHANGE THE MAPPING ******
@@ -323,21 +323,21 @@ void configUART${x}(uint32_t u32_baudRate) {
    */
 #ifdef _NOFLOAT
   u32_brg = FCY/u32_baudRate;
-#if (DEFAULT_BRGH${x} == 0)
+# if (DEFAULT_BRGH${x} == 0)
   if ((u32_brg & 0x0FL) >= 8) u32_brg = u32_brg/16;
   else u32_brg = u32_brg/16 - 1;
-#else
+# else
   if ((brg & 0x03L) >= 2) u32_brg = u32_brg/4;
   else u32_brg = u32_brg/4 - 1;
-#endif
+# endif
   ASSERT(u32_brg < 65536);
   U${x}BRG = u32_brg;
 #else
-#if (DEFAULT_BRGH${x} == 0)
+# if (DEFAULT_BRGH${x} == 0)
   f_brg = (((float) FCY)/((float) u32_baudRate)/16.0) - 1.0;
-#else
+# else
   f_brg = (((float) FCY)/((float) u32_baudRate)/4.0) - 1.0;
-#endif
+# endif
   ASSERT(f_brg < 65535.5);
   U${x}BRG = roundFloatToUint16(f_brg);
 #endif
@@ -348,18 +348,18 @@ void configUART${x}(uint32_t u32_baudRate) {
     (0u   << 13) |      // USIDL = 0  (continue operation in idle mode)
     (0u   << 12) |      // IREN = 0   (IrDA encoder and decoder disabled)
     (0u   << 11) |      // RTSMD = 0  (UxRTS# in flow control mode. Given
-                        //  the UEN setting below, this doesn't matter.)
+    //                  //  the UEN setting below, this doesn't matter.)
     (0b00 <<  8) |      // UEN = 00   (UxTX and UxRx pins are enabled and used;
-                        //  used; UxCTS, UxRTS, and BCLKx pins are
-                        //  controlled by port latches)
+    //                  //  used; UxCTS, UxRTS, and BCLKx pins are
+    //                  //  controlled by port latches)
     (0u   <<  7) |      // WAKE = 0   (Wake-up on start bit detect during
-                        //  sleep mode disabled)
+    //                  //  sleep mode disabled)
     (0u   <<  6) |      // LPBACK = 0 (UARTx loopback mode is disabled)
     (0u   <<  5) |      // ABAUD = 0  (Auto-baud disabled)
     (0u   <<  4) |      // URXINV = 0 (Receve polarity inversion bit:
-                        //  UxRX idle state is 1)
+    //                  //  UxRX idle state is 1)
     (DEFAULT_BRGH${x} << 3) | // BRGH (High/low baud rate select bit:
-                        //  1 = high speed, 0 = low speed)
+    //                  //  1 = high speed, 0 = low speed)
     (0b00 <<  1) |      // PDSEL = 00 (8-bit data, no parity)
     (0u   <<  0);       // STSEL = 0  (1 stop bit)
 
@@ -367,16 +367,16 @@ void configUART${x}(uint32_t u32_baudRate) {
   U${x}STA =
     (0u   << 15) |      // UTXISEL1 = 0  (See bit 13 below for explanation)
     (0u   << 14) |      // UTXINV = 0    (UxTX idle state is 1 (though docs
-                        //  say 0))
+    //                  //  say 0))
     (0u   << 13) |      // UTXISEL0 = 0  (With bit 15 above, UTXISEL = 00:
-                        //  Interrupt generated when any character
-                        //  is transferred to the Transmit Shift Register).
+    //                  //  Interrupt generated when any character
+    //                  //  is transferred to the Transmit Shift Register).
     (0u   << 11) |      // UTXBRK = 0    (Sync break transmission disabled)
     (1u   << 10) |      // UTXEN = 0     (UARTx transmitter enabled. NOTE: per
-                        //  the data sheet, this must be set *AFTER* UARTEN
-                        //  is set to 1 (see UxMODE assignment above).
+    //                  //  the data sheet, this must be set *AFTER* UARTEN
+    //                  //  is set to 1 (see UxMODE assignment above).
     (0b00 <<  6) |      // URXISEL = 00  (Interrupt flag bit is set when a
-                        //  character is received)
+    //                  //  character is received)
     (0u   <<  5) |      // ADDEN = 0     (Address detect mode disabled)
     (0u   <<  1);       // OERR = 0      (Clear any overrun errors)
 

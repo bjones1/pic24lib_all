@@ -33,20 +33,21 @@
  *  FLASH memory read/write support functions
  */
 
-#ifndef _PIC24_FLASH_H_
-#define _PIC24_FLASH_H_
+#pragma once
 
 #include <stdint.h>
+#include "pic24_unions.h"
 
 #if (defined(__dsPIC33E__) || defined(__PIC24E__))
 //this family will use double word programming.
 //assume a page size of 1024 instructions as this is true for most of these family members
-#define FLASH_ROWSIZE    2       //in number of instructions
-#define FLASH_ROWS_PER_PAGE (1024/FLASH_ROWSIZE)
+# define FLASH_ROWSIZE    2       //in number of instructions
+# define FLASH_ROWS_PER_PAGE (1024/FLASH_ROWSIZE)
 #else
-#define FLASH_ROWSIZE    64       //in number of instructions
-#define FLASH_ROWS_PER_PAGE 8
+# define FLASH_ROWSIZE    64       //in number of instructions
+# define FLASH_ROWS_PER_PAGE 8
 #endif
+
 #define FLASH_PAGEINSTR (FLASH_ROWSIZE * FLASH_ROWS_PER_PAGE)  //8 rows of 64 instructions
 #define FLASH_PAGESIZE (FLASH_PAGEINSTR*2)     //each instruction appears to occupy 2 program memory addresses
 #define FLASH_PAGEBYTES (FLASH_PAGEINSTR*3)  //total bytes is FLASH_PAGEINSTR *3 = 1536
@@ -58,6 +59,3 @@ void doEraseFlash (uint16_t u16_addrhi, uint16_t u16_addrlo);
 void doWriteFlash();
 void doWritePageFlash(union32 u32_pmemAddress, uint8_t* pu8_data, uint16_t u16_len);
 void doReadPageFlash(union32 u32_pmemAddress, uint8_t* pu8_data, uint16_t u16_len);
-
-
-#endif

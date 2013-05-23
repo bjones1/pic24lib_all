@@ -33,7 +33,6 @@
  *  for suggestions on improving these functions.
  */
 
-#include "pic24_generic.h"
 #include "pic24_flash.h"
 #include "pic24_chip.h"
 #include "pic24_unittest.h"

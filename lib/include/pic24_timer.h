@@ -7,8 +7,7 @@
  *  To do.
  */
 
-#ifndef _PIC24_TIMER_H_
-#define _PIC24_TIMER_H_
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -398,7 +397,3 @@ specified in the MPLAB C30/src/peripheral_24F/outcompare.h header.
 #define OC_OFF                      0x0000 /* OutputCompare x Off*/
 #define OC_PWM_MODE_MASK            (~OC_PWM_FAULT_PIN_ENABLE)
 #endif
-
-
-#endif
-

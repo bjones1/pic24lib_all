@@ -36,8 +36,7 @@
  *  these functions were implemented.
  */
 
-#ifndef  _PIC24_UTIL_H_
-#define _PIC24_UTIL_H_
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -69,16 +68,16 @@
 #define REPORT_ERROR(msg) reportError(ERROR_FILE_LINE(msg))
 
 #ifdef SIM
-#define HELLO_MSG "****************************************************\n" \
-                  "*    SIMULATION MODE - DO NOT RUN ON A REAL PIC!   *\n" \
-                  "****************************************************\n" \
-                  "\n" __FILE__ ", built on " __DATE__ " at " __TIME__ "\n"
+#  define HELLO_MSG "****************************************************\n" \
+                    "*    SIMULATION MODE - DO NOT RUN ON A REAL PIC!   *\n" \
+                    "****************************************************\n" \
+                    "\n" __FILE__ ", built on " __DATE__ " at " __TIME__ "\n"
 // Output a warning during compilation also
-#warning "***********************************************"
-#warning "* SIMULATION MODE - DO NOT RUN ON A REAL PIC! *"
-#warning "***********************************************"
+# warning "***********************************************"
+# warning "* SIMULATION MODE - DO NOT RUN ON A REAL PIC! *"
+# warning "***********************************************"
 #else
-#define HELLO_MSG "\n" __FILE__ ", built on " __DATE__ " at " __TIME__ "\n"
+# define HELLO_MSG "\n" __FILE__ ", built on " __DATE__ " at " __TIME__ "\n"
 #endif
 
 
@@ -101,5 +100,3 @@ extern uint32_t u32_heartbeatCount;
 void configHeartbeat(void);
 void doHeartbeat(void);
 void toggleHeartbeat(void);
-
-#endif

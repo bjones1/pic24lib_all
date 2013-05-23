@@ -38,23 +38,10 @@
  *  peripherals.
  */
 
-#ifndef _PIC24_CHIP_ALL_H_
-#define _PIC24_CHIP_ALL_H_
+#pragma once
 
 // Include processor-specific header file
-#if defined(__PIC24H__)
-#include "p24Hxxxx.h"
-#elif defined(__PIC24F__) || defined(__PIC24FK__)
-#include "p24Fxxxx.h"
-#elif defined(__dsPIC33F__)
-#include "p33Fxxxx.h"
-#elif defined(__PIC24E__)
-#include "p24Exxxx.h"
-#elif defined(__dsPIC33E__)
-#include "p33Exxxx.h"
-#else
-#error "Unknown processor."
-#endif
+#include <xc.h>
 
 #ifdef _ISR
 #undef _ISR
@@ -106,48 +93,48 @@
  *  in uart.h.)
  */
 #if   defined(_U4RXIF)
-#define NUM_UART_MODS 4
+# define NUM_UART_MODS 4
 #elif defined(_U3RXIF)
-#define NUM_UART_MODS 3
+# define NUM_UART_MODS 3
 #elif defined(_U2RXIF)
-#define NUM_UART_MODS 2
+# define NUM_UART_MODS 2
 #elif defined(_U1RXIF) || defined(__DOXYGEN__)
-#define NUM_UART_MODS 1
+# define NUM_UART_MODS 1
 #else
-#error "UxRXIF flag not defined!"
+# error "UxRXIF flag not defined!"
 #endif
 
 /** Define the number of I2C modules supported by this chip.
  *  See \ref NUM_UART_MODS for details on this methodology.
  */
 #if   defined(_SI2C2IF)
-#define NUM_I2C_MODS 2
+# define NUM_I2C_MODS 2
 #elif defined(_SI2C1IF) || defined(__DOXYGEN__)
-#define NUM_I2C_MODS 1
+# define NUM_I2C_MODS 1
 #else
-#error "SI2CxIF flag not defined!"
+# error "SI2CxIF flag not defined!"
 #endif
 
 /** Define the number of SPI modules supported by this chip.
  *  See \ref NUM_UART_MODS for details on this methodology.
  */
 #if   defined(_SPI2IF)
-#define NUM_SPI_MODS 2
+# define NUM_SPI_MODS 2
 #elif defined(_SPI1IF) || defined(__DOXYGEN__)
-#define NUM_SPI_MODS 1
+# define NUM_SPI_MODS 1
 #else
-#error "SPIxIF flag not defined!"
+# error "SPIxIF flag not defined!"
 #endif
 
 /** Define the number of ECAN modules supported by this chip.
  *  See \ref NUM_UART_MODS for details on this methodology.
  */
 #if   defined(_C2IF)
-#define NUM_ECAN_MODS 2
+# define NUM_ECAN_MODS 2
 #elif defined(_C1IF) || defined(__DOXYGEN__)
-#define NUM_ECAN_MODS 1
+# define NUM_ECAN_MODS 1
 #else
-#define NUM_ECAN_MODS 0
+# define NUM_ECAN_MODS 0
 #endif
 //@}
 
@@ -1125,5 +1112,3 @@
 #endif
 
 //@}
-
-#endif // #ifndef  _PIC24_CHIP_ALL_H_

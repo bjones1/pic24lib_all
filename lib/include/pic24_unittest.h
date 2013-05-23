@@ -36,8 +36,7 @@
  * http://www.jera.com/techinfo/jtns/jtn002.html.
  */
 
-#ifndef  _PIC24_UNITTEST_H_
-#define _PIC24_UNITTEST_H_
+#pragma once
 
 #include <stdint.h>
 
@@ -63,10 +62,10 @@ void reportError(const char* message);
 // from the program:
 //#define _NOASSERT
 #ifdef _NOASSERT
-#define ASSERT(placeholder) (void)0
-#define _COMPILE_ASSERT_SYMBOL_INNER(line, msg)
-#define _COMPILE_ASSERT_SYMBOL(line, msg)
-#define COMPILE_ASSERT(test, msg)
+# define ASSERT(placeholder) (void)0
+# define _COMPILE_ASSERT_SYMBOL_INNER(line, msg)
+# define _COMPILE_ASSERT_SYMBOL(line, msg)
+# define COMPILE_ASSERT(test, msg)
 #else
 /** A useful compile-time assert macro.
  * USAGE:  COMPILE_ASSERT( condition, message_to_print_if_fails)
@@ -78,12 +77,12 @@ void reportError(const char* message);
  *       naming rules, i.e. no spaces or funny characters.  Use underscores
  *       or CamelCase to separate words.
  */
-#define COMPILE_ASSERT(test, msg)                      \
-		typedef char _COMPILE_ASSERT_SYMBOL(__LINE__, msg) [ ((test) ? 1 : -1) ]
+# define COMPILE_ASSERT(test, msg)                      \
+    typedef char _COMPILE_ASSERT_SYMBOL(__LINE__, msg) [ ((test) ? 1 : -1) ]
 // A helper macro used by \ref COMPILE_ASSERT.
-#define _COMPILE_ASSERT_SYMBOL_INNER(line, msg) __COMPILE_ASSERT_ ## line ## _____ ## msg
+# define _COMPILE_ASSERT_SYMBOL_INNER(line, msg) __COMPILE_ASSERT_ ## line ## _____ ## msg
 // A helper macro used by \ref COMPILE_ASSERT.
-#define _COMPILE_ASSERT_SYMBOL(line, msg) _COMPILE_ASSERT_SYMBOL_INNER(line, msg)
+# define _COMPILE_ASSERT_SYMBOL(line, msg) _COMPILE_ASSERT_SYMBOL_INNER(line, msg)
 
 /** Assert that test is true. See \ref picAssert for
  *  details. NOTE: only test results; DO NOT include main-line
@@ -92,7 +91,7 @@ void reportError(const char* message);
  *  since <code>myFunc()</code> will no longer be called if
  *  ASSERT is disabled by defining _NDEBUG.
  */
-#define ASSERT(test) picAssert(test, ERROR_FILE_LINE("ASSERT(" #test ") failed.\n"))
+# define ASSERT(test) picAssert(test, ERROR_FILE_LINE("ASSERT(" #test ") failed.\n"))
 
 /** A function to reset the chip and report a message
  *  if the test is false. Assumes \ref reportError
@@ -108,5 +107,3 @@ static inline void picAssert(uint8_t test, const char* message) {
     reportError(message);
 }
 #endif
-
-#endif // #ifndef  _PIC24_UNITTEST_H_

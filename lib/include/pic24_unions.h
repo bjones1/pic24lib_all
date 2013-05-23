@@ -27,51 +27,39 @@
  *
  */
 
+
 // Documentation for this file. If the \file tag isn't present,
 // this file won't be documented.
 /** \file
- *  Provides simple software delays. They are not cycle-accurate, however.
- *  These routines are integrated with a \ref doHeartbeat "heartbeat LED",
- *  so the heartbeat count is updated during a delay.
+ *  Typedefs and structures to allow for generic 8-, 16-, 32-, and 64-bit
+ *  variables.
  */
 
 #pragma once
 
 #include <stdint.h>
-#include "pic24_util.h"  // Need u32_heartbeatCount
-#include <libpic30.h>    // Has __delay32
 
+/// A union type for byte or word access for 16 bit values.
+typedef union _union16 {
+  uint16_t u16;
+  uint8_t u8[2];
+} union16;
 
+/// A union type for byte, word, or dword access for 32 bit values.
+typedef union _union32 {
+  uint32_t u32;
 
-/** Delay the given number of processor clock cycles,
- *  then notify the heartbeat that time passed.
- *  Scale the time added to the heartbeat because
- *  we are not incurring the same
- *  overhead as if we repeatedly called
- *  <code>doHeartbeat()</code>.
- *  \param u32_cyc Number of processor clock cycles
- *                 to delay.
- */
-inline static void delayAndUpdateHeartbeatCount(uint32_t u32_cyc) {
-  __delay32(u32_cyc);
-#if USE_HEARTBEAT
-  u32_heartbeatCount += (u32_cyc >> 4);
-#endif
-}
+  struct {
+    uint16_t ls16;
+    uint16_t ms16;
+  } u16;
 
+  uint8_t u8[4];
+} union32;
 
-/** A macro to delay the given number of milliseconds.
- *  The maximum delay is ~ 100+
- *  seconds when FCY = 40 MHz, because the underlying
- *  function \ref delayAndUpdateHeartbeatCount uses
- *  a uint32_t value for the number of processor clocks
- *  to delay.
- * \param ms The number of milliseconds to delay.
- */
-#define DELAY_MS(ms)  delayAndUpdateHeartbeatCount(CYCLES_PER_MS * ((uint32_t) ms));
-
-/** A macro to delay the given number of microseconds.
- *  \see \ref DELAY_MS for additional information.
- * \param us The number of microseconds to delay.
- */
-#define DELAY_US(us)  delayAndUpdateHeartbeatCount(CYCLES_PER_US * ((uint32_t) us));
+/// A union type for byte, word, or dword access for 64 bit values.
+typedef union _union64 {
+  uint32_t u32[2];
+  uint16_t u16[4];
+  uint8_t u8[8];
+} union64;

@@ -28,8 +28,7 @@
  */
 
 
-#ifndef _PIC24_UART${x}_H_
-#define _PIC24_UART${x}_H_
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -83,7 +82,6 @@ uint8_t isCharReady${x}(void);
 void checkRxErrorUART${x}(void); //check for UART RX error
 
 #endif // #if (NUM_UART_MODS >= ${x})
-#endif // #ifndef _PIC24_UART${x}_H_
 
 
 

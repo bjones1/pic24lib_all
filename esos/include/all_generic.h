@@ -35,17 +35,16 @@
  * \note This file is to be included in ESOS builds on all platforms.
 */
 
-#ifndef __ALL_GENERIC_H
-#define __ALL_GENERIC_H
+#pragma once
 
-
+#include <stdint.h>
 #ifdef  __linux
 //#warning    Compiling for 32-bit Linux
 #include "pc_generic.h"
 #define HELLO_MSG "\n" __FILE__ ", built on " __DATE__ " at " __TIME__ "\n"
 #else
 //#warning    Compiling for Microchip PIC24 microcontrollers
-#include "pic24_generic.h"
+#include "pic24_unions.h"
 #endif
 
 
@@ -58,9 +57,9 @@
  */
 typedef union _UINT8 {
   /** uint8 viewed as an uint8 */
-  uint8 _uint8;
+  uint8_t _uint8;
   /** uint8 viewed as an uint8 */
-  uint8 u8;
+  uint8_t u8;
   struct {
     /** bit 0 (the LSb) of the uint8 */
 unsigned b0:
@@ -108,14 +107,14 @@ unsigned b7:
  */
 typedef union _UINT16 {
   /** uint16 viewed as an uint16 */
-  uint16 _uint16;
+  uint16_t _uint16;
   /** uint16 viewed as an uint16 */
-  uint16 u16;
+  uint16_t u16;
   struct {
     /** LSB (uint8) of the uint16 */
-    uint8 u8Lsb;
+    uint8_t u8Lsb;
     /** MSB (uint8) of the uint16 */
-    uint8 u8Msb;
+    uint8_t u8Msb;
   };
   struct {
     /** The uint16 viewed as an array of two (2) uint8s */
@@ -212,32 +211,32 @@ unsigned b15:
  */
 typedef union _UINT32 {
   /** uint32 viewed as an uint32 */
-  uint32 _uint32;
+  uint32_t _uint32;
   /** uint32 viewed as an uint32 */
-  uint32 u32;
+  uint32_t u32;
   struct {
     /** The LSB of the least-signficant uint16 in the 32-bit data */
-    uint8 u8LoLsb;
+    uint8_t u8LoLsb;
     /** The MSB of the least-signficant uint16 in the 32-bit data */
-    uint8 u8LoMsb;
+    uint8_t u8LoMsb;
     /** The LSB of the most-signficant uint16 in the 32-bit data */
-    uint8 u8HiLsb;
+    uint8_t u8HiLsb;
     /** The MSB of the most-signficant uint16 in the 32-bit data */
-    uint8 u8HiMsb;
+    uint8_t u8HiMsb;
   };
   struct {
     /** The least-significant uint16 in the 32-bit data */
-    uint16 u16LoWord;
+    uint16_t u16LoWord;
     /** The most-significant uint16 in the 32-bit data */
-    uint16 u16HiWord;
+    uint16_t u16HiWord;
   };
   struct {
     /** The uint32 viewed as an array of two (2) uint16s */
-    uint16 u16Words[2];
+    uint16_t u16Words[2];
   };
   struct {
     /** The uint32 viewed as an array of four (4) uint8s */
-    uint8 u8Bytes[4];
+    uint8_t u8Bytes[4];
   };
   struct {
 unsigned b0:
@@ -515,5 +514,3 @@ typedef enum _BOOL {
  * \hideinitializer
  */
 #define IS_BIT_CLEAR(var, bitnum)        (~(var) & ((1 << (bitnum))))
-
-#endif //ALL_GENERIC_H

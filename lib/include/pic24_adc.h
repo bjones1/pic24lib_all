@@ -7,8 +7,7 @@
  *  To do.
  */
 
-#ifndef  _PIC24_ADC_H_
-#define _PIC24_ADC_H_
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -602,8 +601,3 @@ minor typos.
 #define ADC_32_WORD_PER_INPUT       5
 #define ADC_64_WORD_PER_INPUT       6
 #define ADC_128_WORD_PER_INPUT      7
-
-
-
-
-#endif          // _PIC24_ADC_H_

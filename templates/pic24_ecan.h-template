@@ -27,11 +27,10 @@
  *
  */
 
-#ifndef _PIC24_ECAN${x}_H_
-#define _PIC24_ECAN${x}_H_
+#pragma once
 
 #include <stdint.h>
-#include "pic24_generic.h"
+#include "pic24_unions.h"
 #include "pic24_chip.h"
 
 // Only include if this ECAN Module exists.
@@ -288,7 +287,6 @@ uint8_t getTxInProgressECAN${x}(uint8_t u8_bufNum);
 
 
 #endif // #if (NUM_ECAN_MODS >= ${x})
-#endif // #define _PIC24_ECAN${x}_H_
 
 
 

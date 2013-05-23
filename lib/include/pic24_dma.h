@@ -9,11 +9,7 @@
  *  DMA module support functions.
  */
 
-
-
-#ifndef _PIC24_DMA_H_
-#define _PIC24_DMA_H_
-
+#pragma once
 
 /* And/OR Macros */
 #define DMA_MODULE_ON               0x8000 /* A/D Converter on */
@@ -68,6 +64,3 @@
 #define DMA_IRQ_ECAN2RX				0x0037
 #define DMA_IRQ_ECAN1TX				0x0046
 #define DMA_IRQ_ECAN2TX				0x0047
-
-
-#endif

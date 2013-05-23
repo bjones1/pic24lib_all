@@ -163,6 +163,32 @@
 ///@}
 
 
+// If no click was selected, pick a default: choose the fastest
+// possible clock depending on which
+// processor we're using. If simulation mode is
+// selected, then use the simulation clock.
+#ifndef CLOCK_CONFIG
+# if defined(SIM)
+#   define CLOCK_CONFIG SIM_CLOCK
+# elif (HARDWARE_PLATFORM == EXPLORER16_100P) && defined(__PIC24H__)
+#   define CLOCK_CONFIG PRIPLL_8MHzCrystal_40MHzFCY
+# elif (HARDWARE_PLATFORM == EXPLORER16_100P) && defined(__PIC24F__)
+#   define CLOCK_CONFIG PRIPLL_8MHzCrystal_16MHzFCY
+# elif defined(__PIC24H__) || defined(__DOXYGEN__)
+#   define CLOCK_CONFIG FRCPLL_FCY40MHz
+# elif defined(__PIC24F__) || defined(__PIC24FK__)
+#   define CLOCK_CONFIG FRCPLL_FCY16MHz
+# elif defined(__dsPIC33F__)
+#   define CLOCK_CONFIG FRCPLL_FCY40MHz
+# elif defined(__PIC24E__) || defined(__dsPIC33E__)
+    //60MHz clock is conservative max choice for PIC24E, 70MHz has a more limited temp. range.
+#   define CLOCK_CONFIG FRCPLL_FCY60MHz
+# else
+#   error "Unknown processor."
+# endif
+#endif
+
+
 #ifndef __DOXYGEN__ // The following non-standard #if confuses Doxygen
 // Check to make sure the CLOCK_CONFIG choice selected
 // exists and is valid. Otherwise, the compiler emits some very

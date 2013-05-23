@@ -38,8 +38,7 @@
  *  intended for use when \em printf overhead is too costly.
  */
 
-#ifndef _PIC24_SERIAL_H_
-#define _PIC24_SERIAL_H_
+#pragma once
 
 #include <stdint.h>
 #include "pic24_chip.h"
@@ -49,7 +48,7 @@
 
 // Consistency check
 #if (DEFAULT_UART > NUM_UART_MODS) || (DEFAULT_UART < 1)
-#error "Invalid choice of DEFAULT_UART."
+#  error "Invalid choice of DEFAULT_UART."
 #endif
 
 
@@ -69,5 +68,3 @@ uint8_t isCharReady(void); //determine if character is available to be read
 
 uint8_t inCharEcho(void);
 void configDefaultUART(uint32_t u32_baudRate);
-
-#endif
