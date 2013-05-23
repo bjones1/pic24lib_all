@@ -101,15 +101,15 @@ elif os.name == 'nt':
   # Change linux-specific environment variables    
   env.Replace(
     CPPPATH = incDirs,
-    CC = 'pic30-gcc',
+    CC = 'xc16-gcc',
     LIBPATH = libDirs,
-    AR = 'pic30-ar',
-    LINK = 'pic30-gcc', # Copied from SCons\Tools\link.py with mods
+    AR = 'xc16-ar',
+    LINK = 'xc16-gcc', # Copied from SCons\Tools\link.py with mods
   )
   #
   # add the bin2hex program to the environment as a new builder
   #
-  b2h = Builder(action = 'pic30-bin2hex $SOURCE',
+  b2h = Builder(action = 'xc16-bin2hex $SOURCE',
             suffix = 'hex',
             src_suffix = 'cof')
   env.Append(BUILDERS = {'Hex' : b2h})
