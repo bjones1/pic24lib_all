@@ -1,4 +1,4 @@
-:call scons -j 1 %* > err.txt 2>&1
+call scons -j 1 %* > err.txt 2>&1
 
 : Note: the > errn.txt was placed immediately after findstr, since the use of \" confuses cmd.exe (but not findstr). Placing it at the end prevents cmd.exe from capturing output to the errn.txt file.
 
