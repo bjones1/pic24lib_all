@@ -33,7 +33,19 @@
 /**
 \page history History and release notes for this library collection.
 
-24-May-2012 (r55 / TBD):
+23-May-2013 (r65 / f5e398dc9af3):
+- Merge the lib/ subrepo into the main repo.
+- Clean up Doxygen / compiler warnings.
+- Updated to AStyle 2.03, ran AStyle.
+
+11-Nov-2013 (r61 / 3dfae4d8075a)
+- Changed function names 'ConfigOutputCapture1' to 'ConfigOutputCompare1' as that is what is really being configured.
+- Changed ledpwm.c back to reflect what is in the book/notes.
+- Added ledpwm_bullymon project that demonstrates  usage of variable monitoring in Bully Bootloader.
+- Add: batch files to flash bootloader images
+- Fixed error in chapter 5 problem 27 solution.
+
+24-May-2012 (r55 / 0a577da868fe):
 - Made warnings in pic24_configbits.c consistent
 - Made formatting consistent (ran AStyle)
 - Fixed a few misc compiler warnings
