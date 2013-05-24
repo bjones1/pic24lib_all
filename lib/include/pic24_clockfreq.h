@@ -41,11 +41,10 @@
  *  To choose a clock configuration, simply
  *  select a value for \ref CLOCK_CONFIG from the table there.
  *  The default selection used by most of the PIC24H examples is FRCPLL_FCY40MHz
- *  (the internal FRC+ PLL configured for FCY = 40 MHz). Some of the examples
+ *  (the internal FRC+PLL configured for FCY = 40 MHz). Some of the examples
  *  in Chapter 12 expect an external 8 MHz crystal, and use the PRIPLL_8MHzCrystal_40MHzFCY option
  *  (external 8 MHz crystal + PLL confgured for FCY = 40 MHz). If \ref CLOCK_CONFIG is not
- *  defined, the default choice for PIC24H processors is FRCPLL_FCY40MHz, while for PIC24F
- *  processors the default is FRCPLL_FCY16MHz (internal FRC+ PLL configured for FCY = 16 MHz).
+ *  defined, code below selects a default.
  *
  *  This file provides several useful defines as a result of the
  *  clock selection above:
@@ -64,7 +63,7 @@
  *  - Add a \#define to the table (see the section
  *    "#defines for CLOCK_CONFIG").
  *  - Add a configClockXxx() function which sets up
- *    and typically switches to that clock to
+ *    and typically switches to that clock in
  *    pic24_clockfreq.c and a prototype for
  *    that function in this file.
  */
@@ -151,24 +150,26 @@
  *    for that variable.
  */
 //  Table entries are:
-//      #define name                    Unique index  FNOSC_SEL     FCY        POSCMD_SEL   POSC_FREQ  Processor                              configClock name                           Magic number of 498
-//      ------------------------------  ------------  ------------  ---------  ----------   ---------  -------------------------------------  ----------------                           -------------------
-#define SIM_CLOCK                       0,            -1,            1000000L, POSCMD_NONE,       -1,  1,                                     configClockSim,                            498
-#define FRCPLL_FCY16MHz                 1,            FNOSC_FRCPLL, 16000000L, POSCMD_NONE,       -1,  (PIC24F_DEFINED || PIC24FK_DEFINED),   configClockFRCPLL_FCY16MHz,                498
-#define FRC_FCY4MHz                     2,            FNOSC_FRC,     4000000L, POSCMD_NONE,       -1,  (PIC24F_DEFINED || PIC24FK_DEFINED),   configClockFRC_FCY4MHz,                    498
-#define PRI_NO_PLL_7372KHzCrystal       3,            FNOSC_PRI,     3686400L, POSCMD_XT,   7372800L,  (PIC24F_DEFINED || PIC24FK_DEFINED || PIC24H_DEFINED || dsPIC33F_DEFINED), configClockPRI_NO_PLL_7372KHzCrystal, 498
-#define FRC_FCY3685KHz                  4,            FNOSC_FRC,     3685000L, POSCMD_NONE,       -1,  (PIC24E_DEFINED || dsPIC33E_DEFINED|| PIC24H_DEFINED || dsPIC33F_DEFINED),  configClockFRC_FCY3685KHz,                 498
-#define FRCPLL_FCY40MHz                 5,            FNOSC_FRCPLL, 40000000L, POSCMD_NONE,       -1,  (PIC24H_DEFINED || dsPIC33F_DEFINED),  configClockFRCPLL_FCY40MHz,                498
-#define PRIPLL_7372KHzCrystal_40MHzFCY  6,            FNOSC_PRIPLL, 40000000L, POSCMD_XT,   7372800L,  (PIC24H_DEFINED || dsPIC33F_DEFINED),  configClockPRIPLL_7372KHzCrystal_40MHzFCY, 498
-#define PRIPLL_8MHzCrystal_40MHzFCY     7,            FNOSC_PRIPLL, 40000000L, POSCMD_XT,   8000000L,  (PIC24H_DEFINED || dsPIC33F_DEFINED || PIC24E_DEFINED || dsPIC33E_DEFINED),  configClockPRIPLL_8MHzCrystal_40MHzFCY,    498
-#define PRIPLL_8MHzCrystal_16MHzFCY     8,            FNOSC_PRIPLL, 16000000L, POSCMD_XT,   8000000L,  (PIC24F_DEFINED || PIC24FK_DEFINED),   configClockPRIPLL_8MHzCrystal_16MHzFCY,    498
-#define PRI_8MHzCrystal_4MHzFCY         9,            FNOSC_PRI,     4000000L, POSCMD_XT,   8000000L,  (PIC24F_DEFINED || PIC24FK_DEFINED || PIC24H_DEFINED || dsPIC33F_DEFINED), configClockPRI_8MHzCrystal_4MHzFCY, 498
-#define FRCPLL_FCY60MHz                 10,           FNOSC_FRCPLL, 60000000L, POSCMD_NONE,       -1,  (PIC24E_DEFINED || dsPIC33E_DEFINED),                     configClockFRCPLL_FCY60MHz,                498
-#define FRCPLL_FCY70MHz                 11,           FNOSC_FRCPLL, 70000000L, POSCMD_NONE,       -1,  (PIC24E_DEFINED || dsPIC33E_DEFINED),                     configClockFRCPLL_FCY70MHz,                498
+//                                      Unique
+//      #define name                    index  FNOSC_SEL     FCY        POSCMD_SEL   POSC_FREQ  configClock name                            Valid for processor(s)                 Magic number of 498
+//      ------------------------------  -----  ------------  ---------  ----------   ---------  ----------------                            -------------------------------------  -------------------
+#define SIM_CLOCK                       0,     -1,            1000000L, POSCMD_NONE,       -1,  configClockSim,                             1,                                     498
+#define FRCPLL_FCY16MHz                 1,     FNOSC_FRCPLL, 16000000L, POSCMD_NONE,       -1,  configClockFRCPLL_FCY16MHz,                 (PIC24F_DEFINED || PIC24FK_DEFINED),   498
+#define FRC_FCY4MHz                     2,     FNOSC_FRC,     4000000L, POSCMD_NONE,       -1,  configClockFRC_FCY4MHz,                     (PIC24F_DEFINED || PIC24FK_DEFINED),   498
+#define PRI_NO_PLL_7372KHzCrystal       3,     FNOSC_PRI,     3686400L, POSCMD_XT,   7372800L,  configClockPRI_NO_PLL_7372KHzCrystal,       (PIC24F_DEFINED || PIC24FK_DEFINED || PIC24H_DEFINED || dsPIC33F_DEFINED), 498
+#define FRC_FCY3685KHz                  4,     FNOSC_FRC,     3685000L, POSCMD_NONE,       -1,  configClockFRC_FCY3685KHz,                  (PIC24E_DEFINED || dsPIC33E_DEFINED|| PIC24H_DEFINED || dsPIC33F_DEFINED), 498
+#define FRCPLL_FCY40MHz                 5,     FNOSC_FRCPLL, 40000000L, POSCMD_NONE,       -1,  configClockFRCPLL_FCY40MHz,                 (PIC24H_DEFINED || dsPIC33F_DEFINED),  498
+#define PRIPLL_7372KHzCrystal_40MHzFCY  6,     FNOSC_PRIPLL, 40000000L, POSCMD_XT,   7372800L,  configClockPRIPLL_7372KHzCrystal_40MHzFCY,  (PIC24H_DEFINED || dsPIC33F_DEFINED),  498
+#define PRIPLL_8MHzCrystal_40MHzFCY     7,     FNOSC_PRIPLL, 40000000L, POSCMD_XT,   8000000L,  configClockPRIPLL_8MHzCrystal_40MHzFCY,     (PIC24H_DEFINED || dsPIC33F_DEFINED || PIC24E_DEFINED || dsPIC33E_DEFINED), 498
+#define PRIPLL_8MHzCrystal_16MHzFCY     8,     FNOSC_PRIPLL, 16000000L, POSCMD_XT,   8000000L,  configClockPRIPLL_8MHzCrystal_16MHzFCY,     (PIC24F_DEFINED || PIC24FK_DEFINED),   498
+#define PRI_8MHzCrystal_4MHzFCY         9,     FNOSC_PRI,     4000000L, POSCMD_XT,   8000000L,  configClockPRI_8MHzCrystal_4MHzFCY,         (PIC24F_DEFINED || PIC24FK_DEFINED || PIC24H_DEFINED || dsPIC33F_DEFINED), 498
+#define FRCPLL_FCY60MHz                 10,    FNOSC_FRCPLL, 60000000L, POSCMD_NONE,       -1,  configClockFRCPLL_FCY60MHz,                 (PIC24E_DEFINED || dsPIC33E_DEFINED),  498
+#define FRCPLL_FCY70MHz                 11,    FNOSC_FRCPLL, 70000000L, POSCMD_NONE,       -1,  configClockFRCPLL_FCY70MHz,                 (PIC24E_DEFINED || dsPIC33E_DEFINED),  498
+
 ///@}
 
 
-// If no click was selected, pick a default: choose the fastest
+// If no clock was selected, pick a default: choose the fastest
 // possible clock depending on which
 // processor we're using. If simulation mode is
 // selected, then use the simulation clock.
@@ -194,17 +195,17 @@
 #endif
 
 
-#ifndef __DOXYGEN__ // The following non-standard #if confuses Doxygen
+#ifndef __DOXYGEN__   // The following non-standard #if confuses Doxygen.
 // Check to make sure the CLOCK_CONFIG choice selected
 // exists and is valid. Otherwise, the compiler emits some very
 // confusing errors. Cute hack: the last value in the #define
 // above (the magic number) is what the #if tests in gcc.
-#if (CLOCK_CONFIG != 498)
-#error "***********************************************************************"
-#error "* Value chosen for CLOCK_CONFIG does not exist or is not valid!       *"
-#error "* This produces very confusing compiler errors below.                 *"
-#error "***********************************************************************"
-#endif
+# if (CLOCK_CONFIG != 498)
+#   error "***********************************************************************"
+#   error "* Value chosen for CLOCK_CONFIG does not exist or is not valid!       *"
+#   error "* This produces very confusing compiler errors below.                 *"
+#   error "***********************************************************************"
+# endif
 #endif
 
 // For some reason, primary oscillator selections are named
@@ -213,10 +214,10 @@
 // Hopefully, this will be defined in PIC24F headers at some point.
 /// \cond nodoxygen
 #ifndef POSCMD_EC
-#define POSCMD_EC   POSCMOD_EC
-#define POSCMD_XT   POSCMOD_XT
-#define POSCMD_HS   POSCMOD_HS
-#define POSCMD_NONE POSCMOD_NONE
+# define POSCMD_EC   POSCMOD_EC
+# define POSCMD_XT   POSCMOD_XT
+# define POSCMD_HS   POSCMOD_HS
+# define POSCMD_NONE POSCMOD_NONE
 #endif
 /// \endcond
 
@@ -230,18 +231,18 @@
 #define GET_FCY(params)                   _GET_FCY(params)
 #define GET_POSCMD_SEL(params)            _GET_POSCMD_SEL(params)
 #define GET_POSC_FREQ(params)             _GET_POSC_FREQ(params)
-#define GET_IS_SUPPORTED(params)          _GET_IS_SUPPORTED(params)
 #define GET_CONFIG_DEFAULT_CLOCK(params)  _GET_CONFIG_DEFAULT_CLOCK(params)
+#define GET_IS_SUPPORTED(params)          _GET_IS_SUPPORTED(params)
 
 // Step 2. Return the desired parameter, now that params are seen as
 //         individual arguments.
-#define _GET_CLOCK_CONFIG_INDEX(ndx, oscSel, Fcy, posCmdSel, poscFreq, isSupported, configClock, magic)        ndx
-#define _GET_FNOSC_SEL(ndx, oscSel, Fcy, posCmdSel, poscFreq, isSupported, configClockFunc, magic)             oscSel
-#define _GET_FCY(ndx, oscSel, Fcy, posCmdSel, poscFreq, isSupported, configClockFunc, magic)                   Fcy
-#define _GET_POSCMD_SEL(ndx, oscSel, Fcy, posCmdSel, poscFreq, isSupported, configClockFunc, magic)            posCmdSel
-#define _GET_POSC_FREQ(ndx, oscSel, Fcy, posCmdSel, poscFreq, isSupported, configClockFunc, magic)             poscFreq
-#define _GET_IS_SUPPORTED(ndx, oscSel, Fcy, posCmdSel, poscFreq, isSupported, configClockFunc, magic)          isSupported
-#define _GET_CONFIG_DEFAULT_CLOCK(ndx, oscSel, Fcy, posCmdSel, poscFreq, isSupported, configClockFunc, magic)  configClockFunc
+#define _GET_CLOCK_CONFIG_INDEX(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic)    ndx
+#define _GET_FNOSC_SEL(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic)             oscSel
+#define _GET_FCY(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic)                   Fcy
+#define _GET_POSCMD_SEL(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic)            posCmdSel
+#define _GET_POSC_FREQ(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic)             poscFreq
+#define _GET_CONFIG_DEFAULT_CLOCK(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic)  configClockFunc
+#define _GET_IS_SUPPORTED(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic)          isSupported
 
 // Step 3. Call the macros above to set constants based on the
 //         clock config selected.
@@ -255,18 +256,18 @@
 
 // Check to see if this clock configuration supports that processor.
 #if !GET_IS_SUPPORTED(CLOCK_CONFIG)
-#error "The clock configuration chosen is not supported by this processor."
+# error "The clock configuration chosen is not supported by this processor."
 #endif
 
 // Check that the primary oscillator type chosen works for the
 // oscilallator frequency selected.
 #if (POSCMD_SEL == POSCMD_XT) && ( (POSC_FREQ < 3500000L) || (POSC_FREQ > 10000000L) )
-#error "The XT oscialltor chosen in POSCMD_SEL does not support this frequency!"
-#error "Valid ranges are from 3.5 MHz to 10 MHz."
+# error "The XT oscialltor chosen in POSCMD_SEL does not support this frequency!"
+# error "Valid ranges are from 3.5 MHz to 10 MHz."
 #endif
 #if (POSCMD_SEL == POSCMD_HS) && ( (POSC_FREQ < 10000000L) || (POSC_FREQ > 32000000L) )
-#error "The HS oscialltor chosen in POSCMD_SEL does not support this frequency!"
-#error "Valid ranges are from 10 MHz to 32 MHz."
+# error "The HS oscialltor chosen in POSCMD_SEL does not support this frequency!"
+# error "Valid ranges are from 10 MHz to 32 MHz."
 #endif
 
 /// @{
@@ -299,6 +300,8 @@
  *      FNOSC_FRCDIV16       Fast RC oscillator w/ divide by 16                       X
  *      FNOSC_LPRCDIVN       Low power Fast RC oscillator w/divide by N               X
  \endcode
+ *
+ * \todo Add PIC24FK, PIC24E, dsPIC33E to this table.
  */
 
 /** \def FCY
@@ -380,11 +383,11 @@
 #define GET_OSC_SEL_BITS(bits) _GET_OSC_SEL_BITS(bits)
 /// \cond nodoxygen
 #if defined(__PIC24H__) || defined (__PIC24FK__) || defined(__dsPIC33F__) || defined(__PIC24E__) || defined(__dsPIC33E__) || defined(__DOXYGEN__)
-#define _GET_OSC_SEL_BITS(bits) ((bits >> 0) & 0x07)
+# define _GET_OSC_SEL_BITS(bits) ((bits >> 0) & 0x07)
 #elif defined (__PIC24F__)
-#define _GET_OSC_SEL_BITS(bits) ((bits >> 8) & 0x07)
+# define _GET_OSC_SEL_BITS(bits) ((bits >> 8) & 0x07)
 #else
-#error "Unknown processor."
+# error "Unknown processor."
 #endif
 // Note: putting the \ endcond here causes Doxygen 1.5.6
 // to complain. ???
@@ -394,7 +397,7 @@
 
 // Double check to make sure the oscillator selection above is valid.
 #if ( (OSC_SEL_BITS < 0) || (OSC_SEL_BITS > 7) )
-#error "Invalid oscillator selection FNOSC_SEL."
+# error "Invalid oscillator selection FNOSC_SEL."
 #endif
 
 /** @{

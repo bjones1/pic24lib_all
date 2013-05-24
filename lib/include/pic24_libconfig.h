@@ -90,7 +90,8 @@
  *  \name Defines configuring pic24_clockfreq.h
  */
 
-/** Clock configuration for the PIC24 - set \ref CLOCK_CONFIG
+/** \def CLOCK_CONFIG
+ *  Clock configuration for the PIC24 - set CLOCK_CONFIG
  *  to one of the following. Naming convention is
  *  OSCTYPE_[PRIFREQ]_FCYFREQ where OSCTYPE gives the
  *  oscillator type (see \ref FNOSC_SEL for details),
@@ -99,34 +100,38 @@
  *  (F<sub>CY</sub>) frequency. The "#defines for CLOCK_CONFIG"
  *  section gives the definition of the values below.
  *
- *  \code
- *  Name                            uP
- *  ---------------                 ---
- *  SIM_CLOCK (simulator)           any
- *  FRCPLL_FCY16MHz                 24F
- *  FRC_FCY4MHz                     24F
- *  PRIPLL_8MHzCrystal_16MHzFCY     24F
- *  PRI_NO_PLL_7372KHzCrystal       24F, 24H
- *  FRC_FCY3685KHz                  24H
- *  FRCPLL_FCY40MHz                 24H
- *  PRIPLL_7372KHzCrystal_40MHzFCY  24H
- *  PRIPLL_8MHzCrystal_40MHzFCY     24H
- *  \endcode
+ *  Name                           | uP
+ *  ---------------                | ---
+ *  SIM_CLOCK (simulator)          | any
+ *  FRCPLL_FCY16MHz                | PIC24F, PIC24FK
+ *  FRC_FCY4MHz                    | PIC24F, PIC24FK
+ *  PRI_NO_PLL_7372KHzCrystal      | PIC24F, PIC24FK, PIC24H, dsPIC33F
+ *  FRC_FCY3685KHz                 | PIC24H, dsPIC33F, PIC24E, dsPIC33E
+ *  FRCPLL_FCY40MHz                | PIC24H, dsPIC33F
+ *  PRIPLL_7372KHzCrystal_40MHzFCY | PIC24H, dsPIC33F
+ *  PRIPLL_8MHzCrystal_40MHzFCY    | PIC24H, dsPIC33F, PIC24E, dsPIC33E
+ *  PRIPLL_8MHzCrystal_16MHzFCY    | PIC24F, PIC24FK
+ *  PRI_8MHzCrystal_4MHzFCY        | PIC24F, PIC24FK, PIC24H, dsPIC33F
+ *  FRCPLL_FCY60MHz                | PIC24E, dsPIC33E
+ *  FRCPLL_FCY70MHz                | PIC24E, dsPIC33E (limited temp. range)
  */
 // Uncomment one of the #defines below to make
 // a clock choice. If all the #defines below
-// are commentend, code in pic24_clockfreq.h
+// are commented out, code in pic24_clockfreq.h
 // will pick a default clock choice.
 #ifndef CLOCK_CONFIG
 //#define CLOCK_CONFIG SIM_CLOCK
 //#define CLOCK_CONFIG FRCPLL_FCY16MHz
 //#define CLOCK_CONFIG FRC_FCY4MHz
-//#define CLOCK_CONFIG PRIPLL_8MHzCrystal_16MHzFCY
 //#define CLOCK_CONFIG PRI_NO_PLL_7372KHzCrystal
 //#define CLOCK_CONFIG FRC_FCY3685KHz
 //#define CLOCK_CONFIG FRCPLL_FCY40MHz
 //#define CLOCK_CONFIG PRIPLL_7372KHzCrystal_40MHzFCY
 //#define CLOCK_CONFIG PRIPLL_8MHzCrystal_40MHzFCY
+//#define CLOCK_CONFIG PRIPLL_8MHzCrystal_16MHzFCY
+//#define CLOCK_CONFIG PRI_8MHzCrystal_4MHzFCY
+//#define CLOCK_CONFIG FRCPLL_FCY60MHz
+//#define CLOCK_CONFIG FRCPLL_FCY70MHz
 #endif
 
 /// @}
