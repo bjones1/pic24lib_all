@@ -68,20 +68,8 @@ int main (void) {
 
     f_pot1 = 3.30 / ADC_NSTEPS * u16_pot1;
     f_pot2 = 3.30 / ADC_NSTEPS * u16_pot2;
-#ifdef SMALLRAM
-    {
-      //use integers to avoid floating point printf which does not fit in this data space
-      uint16_t ui16_pot1mv,ui16_pot2mv;
-      ui16_pot1mv = f_pot1*1000;
-      ui16_pot2mv = f_pot2*1000;
-      printf("AN0 is 0x%0X or %d mV. |  AN1 is 0x%0X or %d mV.\n",    \
-             u16_pot1, ui16_pot1mv, u16_pot2, ui16_pot2mv );
-    }
-
-#else
     printf("AN0 is 0x%0X or %1.4fV. |  AN1 is 0x%0X or %1.4fV.\n",    \
            u16_pot1, (double) f_pot1, u16_pot2, (double) f_pot2 );
-#endif
     DELAY_MS(1500);
 
   } //endof while()

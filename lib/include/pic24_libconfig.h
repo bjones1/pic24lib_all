@@ -324,14 +324,4 @@
 # endif //if (HARDWARE_PLATFORM == EXPLORER16_100P)
 #endif // #ifndef HB_LED
 
-
-#if (defined(__PIC24HJ12GP202__) || \
-     defined(__PIC24HJ12GP201__) || \
-     defined(__PIC24HJ32GP202__) || \
-     defined(__PIC24HJ32GP202__) || \
-     defined(__dsPIC33FJ32GP202__) || \
-     defined(__PIC24HJ16GP304__) )
-# define SMALLRAM
-#endif
-
 /// @}

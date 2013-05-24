@@ -139,15 +139,7 @@ int main (void) {
       f_pot = (3.3 / 1023 / 64 ) * u16_pot;
       printf("r");
       outChar( '0'+u8_i );
-#ifdef SMALLRAM
-      {
-        uint16_t ui16_potmv;
-        ui16_potmv = f_pot*1000;
-        printf(":0x%04X=%d mV  ",  u16_pot, ui16_potmv );
-      }
-#else
       printf(":0x%04X=%1.3fV  ",  u16_pot, (double) f_pot );
-#endif
     } //end for()
     printf("\n");
   } //endof while()

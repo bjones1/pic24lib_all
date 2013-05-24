@@ -92,16 +92,6 @@ int main (void) {
     f_tempC = i16_temp;  //convert to floating point
     f_tempC = f_tempC/256;  //divide by precision
     f_tempF = f_tempC*9/5 + 32;
-#ifdef SMALLRAM
-    {
-      //use integers to avoid floating point printf which does not fit in this data space
-      int16_t i16_tempC,i16_tempF;
-      i16_tempC = f_tempC;
-      i16_tempF = f_tempF;
-      printf("Temp is: 0x%0X, %d (C), %d (F)\n",  i16_temp, i16_tempC, i16_tempF);
-    }
-#else
     printf("Temp is: 0x%0X, %4.4f (C), %4.4f (F)\n", i16_temp, (double) f_tempC, (double) f_tempF);
-#endif
   }
 }

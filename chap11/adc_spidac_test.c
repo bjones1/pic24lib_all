@@ -95,18 +95,8 @@ int main (void) {
     f_adcVal = f_adcVal/4096.0 * VREF;  //convert to float 0.0 to VREF
     f_dacVal = u8_dacVal;
     f_dacVal = f_dacVal/256.0 * VREF;
-#ifdef SMALLRAM
-    {
-      uint16_t ui16_adcValmv, ui16_dacValmv;
-      ui16_adcValmv = f_adcVal * 1000;
-      ui16_dacValmv = f_dacVal * 1000;
-      printf("ADC in: %d mV (0x%04x), To DAC: %d mV (0x%02x) \n",
-             ui16_adcValmv, u16_adcVal, ui16_dacValmv, u8_dacVal);
-    }
-#else
     printf("ADC in: %4.3f V (0x%04x), To DAC: %4.3f V (0x%02x) \n",
            (double) f_adcVal, u16_adcVal, (double) f_dacVal, u8_dacVal);
-#endif
     DELAY_MS(300);   //delay so that we do not flood the UART.
   } //end while(1)
 

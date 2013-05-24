@@ -104,15 +104,7 @@ int main(void) {
     u32_pw= ticksToUs(u16_oc1rs, getTimerPrescale(T2CONbits));
     f_dacV = u16_oc1rs;
     f_dacV = f_dacV * 3.3/(PR2+1);
-#ifdef SMALLRAM
-    {
-      uint16_t ui16_dacValmv;
-      ui16_dacValmv = f_dacV * 1000;
-      printf("PWM PW (us): %ld, PWM DAC voltage: %d\n",u32_pw, ui16_dacValmv);
-    }
-#else
     printf("PWM PW (us): %ld, PWM DAC voltage: %4.2f\n",u32_pw, (double) f_dacV);
-#endif
     DELAY_MS(100);
   }
 }

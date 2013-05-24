@@ -51,16 +51,7 @@ int main (void) {
     u16_adcVal = convertADC1();   //get ADC value
     f_adcVal = u16_adcVal;
     f_adcVal = f_adcVal/4096.0 * VREF;  //convert to float in range 0.0 to VREF
-#ifdef SMALLRAM
-    {
-      //avoid floating point printf, does not fit in this memory space
-      uint16_t ui16_adcValmv;
-      ui16_adcValmv = f_adcVal * 1000;
-      printf("ADC input: %d mV (0x%04x)\n", ui16_adcValmv, u16_adcVal);
-    }
-#else
     printf("ADC input: %4.2f V (0x%04x)\n", (double) f_adcVal, u16_adcVal);
-#endif
     DELAY_MS(300);   //delay so that we do not flood the UART.
     doHeartbeat();
   } //end while(1)
