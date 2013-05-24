@@ -63,10 +63,9 @@ void configPinsForLowPower(void) {
   // The secondary osciallator is not used, so
   // turn on all the pull-ups.
   CNPU1 = 0xFFFF;
-  }
 }
 #else
-#warning "Using dummy function for configPinsForLowPower() in common/pic24_util.c."
+# warning "Using dummy function for configPinsForLowPower() in common/pic24_util.c."
 void configPinsForLowPower(void) {
 }
 #endif

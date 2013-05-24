@@ -298,7 +298,7 @@ void configUART${x}(uint32_t u32_baudRate) {
 #   error "Unknown hardware platform."
 # endif
 #else
-  #warning "UART${x} pin mappings not defined. See comments below for more info."
+# warning "UART${x} pin mappings not defined. See comments below for more info."
   // If your device has more than one UART, ****** CHANGE THE MAPPING ******
   // since multiple UARTs can not share the same pins. In particular:
   // 1. Change the statement #if (${x} == 1) to #if 1

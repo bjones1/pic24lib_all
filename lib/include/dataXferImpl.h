@@ -109,13 +109,13 @@ else
 extern "C" {
 #endif
 
-  /** \name Constants
-   *  These values are \#defined as necessary so that the work under:
-   *  - Pre-C99 (no bool, true, or false); this is MSVC++ in C mode
-   *    and GCC for the PIC24.
-   *  - C++ (bool, true, and false built in)
-   *  - C++/CLI (NULL not defined)
-   */
+/** \name Constants
+ *  These values are \#defined as necessary so that the work under:
+ *  - Pre-C99 (no bool, true, or false); this is MSVC++ in C mode
+ *    and GCC for the PIC24.
+ *  - C++ (bool, true, and false built in)
+ *  - C++/CLI (NULL not defined)
+ */
 // @{
 #if defined(__cplusplus)
 # ifndef NULL
@@ -190,7 +190,7 @@ extern "C" {
 
 #ifndef __PIC__
 /// An abbreviation for an 8-bit unsigned integer.
-typedef unsigned char uint8_t;
+  typedef unsigned char uint8_t;
 #endif
 
 
@@ -235,74 +235,74 @@ typedef unsigned char uint8_t;
 
 /// State of the command-finding state machine. See \ref stepCommandFindMachine
 /// for more information.
-typedef enum {
-  /// The machine is in its starting state.
-  STATE_CMD_START,
-  /// The machine is waiting for another character; c_outChar is not valid.
-  STATE_CMD_WAIT1,
-  /// The machine is waiting for an additional character; c_outChar is not valid.
-  STATE_CMD_WAIT2
-} CMD_STATE;
+  typedef enum {
+    /// The machine is in its starting state.
+    STATE_CMD_START,
+    /// The machine is waiting for another character; c_outChar is not valid.
+    STATE_CMD_WAIT1,
+    /// The machine is waiting for an additional character; c_outChar is not valid.
+    STATE_CMD_WAIT2
+  } CMD_STATE;
 
 /// The output of the command-finding state machine. See \ref stepCommandFindMachine
 /// for more information.
-typedef enum {
-  /// The state machine produced no output, but is waiting for additional input.
-  OUTPUT_CMD_NONE,
-  /// A character was received; c_outChar contains the character.
-  OUTPUT_CMD_CHAR,
-  /// A command was received; c_outChar contains the command.
-  OUTPUT_CMD_CMD,
-  /// A repeated command was received; c_outChar contains the command.
-  OUTPUT_CMD_REPEATED_CMD,
-  /// The machine received a \ref CMD_TOKEN \ref CMD_TOKEN \ref CMD_TOKEN,
-  /// so report a repeated command and wait for the next character to
-  /// finish decoding.
-  OUTPUT_CMD_REPEATED_WAIT
-} CMD_OUTPUT;
+  typedef enum {
+    /// The state machine produced no output, but is waiting for additional input.
+    OUTPUT_CMD_NONE,
+    /// A character was received; c_outChar contains the character.
+    OUTPUT_CMD_CHAR,
+    /// A command was received; c_outChar contains the command.
+    OUTPUT_CMD_CMD,
+    /// A repeated command was received; c_outChar contains the command.
+    OUTPUT_CMD_REPEATED_CMD,
+    /// The machine received a \ref CMD_TOKEN \ref CMD_TOKEN \ref CMD_TOKEN,
+    /// so report a repeated command and wait for the next character to
+    /// finish decoding.
+    OUTPUT_CMD_REPEATED_WAIT
+  } CMD_OUTPUT;
 
 /// Resets the command-finding state machine; see \ref stepCommandFindMachine
 /// for more information.
-void resetCommandFindMachine();
+  void resetCommandFindMachine();
 
-/** The command-finding state machine looks for commands in the data
- *  passed to it. Sequences it recognizes:
- *  - c, where c != \ref CMD_TOKEN, outputs the character c.
- *  - \ref CMD_TOKEN \ref ESCAPED_CMD outputs the character \ref CMD_TOKEN
- *    (known as an escaped command).
- *  - \ref CMD_TOKEN c, where c != \ref CMD_TOKEN and c != \ref ESCAPED_CMD,
- *    outputs the command c.
- *  - \ref CMD_TOKEN \ref CMD_TOKEN \ref ESCAPED_CMD outputs the command
- *    \ref CMD_TOKEN (note that the second \ref CMD_TOKEN is "escaped",
- *    so it is treated as a character specifying the command, not as the
- *    beginning of a command).
- *  - \ref CMD_TOKEN \ref CMD_TOKEN \ref CMD_TOKEN outputs a repeated
- *    command then waits for the next character. See the state machine
- *    sketch below for more information.
- *  - \ref CMD_TOKEN \ref CMD_TOKEN c, where c != \ref CMD_TOKEN and
- *    c != \ref ESCAPED_CMD, outputs
- *    a repeated command c. This is a protocol violation, but must be
- *    reported at a higher level; this routine merely reports a repeated command.
- *  A sketch of the state machine: <pre>
- *  case START :
- *    if (c == CMD_TOKEN) state = WAIT1
- *    else output c as a character
- *  case WAIT1 :
- *    if (c == CMD_TOKEN) state = WAIT2
- *    if (c == ESCAPED_CMD) state = START, output CMD_TOKEN as a character
- *    else output c as a command
- *  case WAIT2 :
- *    if (c == ESCAPED_CMD) state = START, output command CMD_TOKEN
- *    if (c == CMD_TOKEN) output repeated command, remain in this state
- *    else output repeated command c
- *  </pre>
- *  \param c_inChar A character input to the machine.
- *  \param c_outChar The character/command output by the machine when
- *                   the returned state is not CMD_WAIT.
- *  \return The output of the machine, which indicates if a
- *          command or character is available.
- */
-CMD_OUTPUT stepCommandFindMachine(char c_inChar, char* c_outChar);
+  /** The command-finding state machine looks for commands in the data
+   *  passed to it. Sequences it recognizes:
+   *  - c, where c != \ref CMD_TOKEN, outputs the character c.
+   *  - \ref CMD_TOKEN \ref ESCAPED_CMD outputs the character \ref CMD_TOKEN
+   *    (known as an escaped command).
+   *  - \ref CMD_TOKEN c, where c != \ref CMD_TOKEN and c != \ref ESCAPED_CMD,
+   *    outputs the command c.
+   *  - \ref CMD_TOKEN \ref CMD_TOKEN \ref ESCAPED_CMD outputs the command
+   *    \ref CMD_TOKEN (note that the second \ref CMD_TOKEN is "escaped",
+   *    so it is treated as a character specifying the command, not as the
+   *    beginning of a command).
+   *  - \ref CMD_TOKEN \ref CMD_TOKEN \ref CMD_TOKEN outputs a repeated
+   *    command then waits for the next character. See the state machine
+   *    sketch below for more information.
+   *  - \ref CMD_TOKEN \ref CMD_TOKEN c, where c != \ref CMD_TOKEN and
+   *    c != \ref ESCAPED_CMD, outputs
+   *    a repeated command c. This is a protocol violation, but must be
+   *    reported at a higher level; this routine merely reports a repeated command.
+   *  A sketch of the state machine: <pre>
+   *  case START :
+   *    if (c == CMD_TOKEN) state = WAIT1
+   *    else output c as a character
+   *  case WAIT1 :
+   *    if (c == CMD_TOKEN) state = WAIT2
+   *    if (c == ESCAPED_CMD) state = START, output CMD_TOKEN as a character
+   *    else output c as a command
+   *  case WAIT2 :
+   *    if (c == ESCAPED_CMD) state = START, output command CMD_TOKEN
+   *    if (c == CMD_TOKEN) output repeated command, remain in this state
+   *    else output repeated command c
+   *  </pre>
+   *  \param c_inChar A character input to the machine.
+   *  \param c_outChar The character/command output by the machine when
+   *                   the returned state is not CMD_WAIT.
+   *  \return The output of the machine, which indicates if a
+   *          command or character is available.
+   */
+  CMD_OUTPUT stepCommandFindMachine(char c_inChar, char* c_outChar);
 //@}
 
 
@@ -312,22 +312,22 @@ CMD_OUTPUT stepCommandFindMachine(char c_inChar, char* c_outChar);
 
 /// Struct to hold send/receive data. An array of these entries holds all the
 /// necessary state.
-typedef struct {
-  /// Pointer to the data to be exchanged. NULL means this entry is not
-  /// defined.
-  uint8_t* pu8_data;
-  /// Size of data in bytes – 1: 0 = 1 byte, etc.
-  uint8_t u8_size;
+  typedef struct {
+    /// Pointer to the data to be exchanged. NULL means this entry is not
+    /// defined.
+    uint8_t* pu8_data;
+    /// Size of data in bytes – 1: 0 = 1 byte, etc.
+    uint8_t u8_size;
 #if !defined(__PIC__) || defined(__DOXYGEN__)
-  /// printf format string to use in displaying the variable. <b>PC only.</b>
-  char* psz_format;
-  /// Name of this variable, typically the same as used
-  /// in the code. <b>PC only.</b>
-  char* psz_name;
-  /// Description of this variable. <b>PC only.</b>
-  char* psz_desc;
+    /// printf format string to use in displaying the variable. <b>PC only.</b>
+    char* psz_format;
+    /// Name of this variable, typically the same as used
+    /// in the code. <b>PC only.</b>
+    char* psz_name;
+    /// Description of this variable. <b>PC only.</b>
+    char* psz_desc;
 #endif
-} XFER_VAR;
+  } XFER_VAR;
 
 /// Maximum number of transfer variables supported
 #define MAX_NUM_XFER_VARS ((1 << (8 - VAR_SIZE_BITS)) - 1)
@@ -340,12 +340,12 @@ typedef struct {
 #endif
 
 /// A table to hold the state of transfer variables.
-extern XFER_VAR xferVar[NUM_XFER_VARS];
+  extern XFER_VAR xferVar[NUM_XFER_VARS];
 
 /// An array of isWriteable bits for each var. Each bit is true if the PC is
 /// allowed to change this variable; false otherwise. This does *NOT*
 /// restrict the PIC to read-only access to this variable.
-extern uint8_t au8_xferVarWriteable[NUM_XFER_VARS/8 + ((NUM_XFER_VARS % 8) > 0)];
+  extern uint8_t au8_xferVarWriteable[NUM_XFER_VARS/8 + ((NUM_XFER_VARS % 8) > 0)];
 
 //@}
 
@@ -361,7 +361,7 @@ extern uint8_t au8_xferVarWriteable[NUM_XFER_VARS/8 + ((NUM_XFER_VARS % 8) > 0)]
 
 /// States of the receive state machine. See
 /// \ref stepReceiveMachine for more information.
-typedef enum {
+  typedef enum {
   /// At the start of the machine
   STATE_RECV_START,
   /// Waiting for a command or escaped \ref CMD_TOKEN

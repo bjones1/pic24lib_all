@@ -298,7 +298,7 @@ void configUART1(uint32_t u32_baudRate) {
 #   error "Unknown hardware platform."
 # endif
 #else
-  #warning "UART1 pin mappings not defined. See comments below for more info."
+# warning "UART1 pin mappings not defined. See comments below for more info."
   // If your device has more than one UART, ****** CHANGE THE MAPPING ******
   // since multiple UARTs can not share the same pins. In particular:
   // 1. Change the statement #if (1 == 1) to #if 1
@@ -717,7 +717,7 @@ void configUART2(uint32_t u32_baudRate) {
 #   error "Unknown hardware platform."
 # endif
 #else
-  #warning "UART2 pin mappings not defined. See comments below for more info."
+# warning "UART2 pin mappings not defined. See comments below for more info."
   // If your device has more than one UART, ****** CHANGE THE MAPPING ******
   // since multiple UARTs can not share the same pins. In particular:
   // 1. Change the statement #if (2 == 1) to #if 1
@@ -1136,7 +1136,7 @@ void configUART3(uint32_t u32_baudRate) {
 #   error "Unknown hardware platform."
 # endif
 #else
-  #warning "UART3 pin mappings not defined. See comments below for more info."
+# warning "UART3 pin mappings not defined. See comments below for more info."
   // If your device has more than one UART, ****** CHANGE THE MAPPING ******
   // since multiple UARTs can not share the same pins. In particular:
   // 1. Change the statement #if (3 == 1) to #if 1
@@ -1555,7 +1555,7 @@ void configUART4(uint32_t u32_baudRate) {
 #   error "Unknown hardware platform."
 # endif
 #else
-  #warning "UART4 pin mappings not defined. See comments below for more info."
+# warning "UART4 pin mappings not defined. See comments below for more info."
   // If your device has more than one UART, ****** CHANGE THE MAPPING ******
   // since multiple UARTs can not share the same pins. In particular:
   // 1. Change the statement #if (4 == 1) to #if 1
