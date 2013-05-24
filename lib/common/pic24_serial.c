@@ -44,7 +44,7 @@
  *********************************************************/
 
 #ifdef BUILT_ON_ESOS
-#define outChar			esos_PutUint8ToCommOut
+# define outChar			esos_PutUint8ToCommOut
 #else
 /** Write a character to the serial port.
  *  This function blocks until a character is
@@ -88,15 +88,15 @@ See file documentation for End-of-line behavior when passed a "\n" (newline).
 void outString(const char* psz_s) {
   while (*psz_s) {
 
-#if (SERIAL_EOL_DEFAULT==SERIAL_EOL_CR_LF)
+#if (SERIAL_EOL_DEFAULT == SERIAL_EOL_CR_LF)
     if (*psz_s == '\n') outChar(0x0D);
     outChar(*psz_s);
 #endif
-#if (SERIAL_EOL_DEFAULT==SERIAL_EOL_CR)
+#if (SERIAL_EOL_DEFAULT == SERIAL_EOL_CR)
     if (*psz_s == '\n') outChar(0x0D);
     else outChar(*psz_s);
 #endif
-#if (SERIAL_EOL_DEFAULT==SERIAL_EOL_LF)
+#if (SERIAL_EOL_DEFAULT == SERIAL_EOL_LF)
 //no translation
     outChar(*psz_s);
 #endif
@@ -107,7 +107,7 @@ void outString(const char* psz_s) {
 
 
 
-static uint16_t inStringInternal (char *psz_buff, uint16_t u16_maxCount, uint8_t echoFlag) {
+static uint16_t inStringInternal(char *psz_buff, uint16_t u16_maxCount, uint8_t echoFlag) {
   uint8_t u8_c;
   uint16_t u16_i;
 
@@ -135,7 +135,7 @@ An input string of just '\n' returns a null string.
 \param psz_buff pointer to buffer for storing string read from console
 \param u16_maxCount maximum number of characters to read from console.
 */
-uint16_t inString (char *psz_buff, int16_t u16_maxCount) {
+uint16_t inString(char *psz_buff, int16_t u16_maxCount) {
   return inStringInternal(psz_buff,u16_maxCount,0);
 }
 
@@ -202,7 +202,7 @@ void outUint32(uint32_t u32_x) {
 Output u8_x as decimal value.
 \param u8_x value to output.
 */
-void outUint8Decimal( uint8_t u8_x ) {
+void outUint8Decimal(uint8_t u8_x ) {
   static const uint8_t  u8_d[]= {50, 30, 20, 10, 5, 3, 2, 1 };
   static const uint8_t  u8_f[]= {5, 3, 2, 1, 5, 3, 2, 1 };
 
@@ -237,7 +237,7 @@ void outUint8Decimal( uint8_t u8_x ) {
 Output u16_x as decimal value.
 \param u16_x value to output.
 */
-void outUint16Decimal( uint16_t u16_x ) {
+void outUint16Decimal(uint16_t u16_x) {
   static const uint16_t  u16_d[]= {50000, 30000, 20000, 10000, 5000, 3000, 2000, 1000, \
                                    500, 300, 200, 100, 50, 30, 20, 10, 5, 3, 2, 1
                                   };
@@ -372,4 +372,3 @@ void configDefaultUART(uint32_t u32_baudRate) {
       REPORT_ERROR("Invalid UART");
   }
 }
-

@@ -43,8 +43,7 @@
  *  The default selection used by most of the PIC24H examples is FRCPLL_FCY40MHz
  *  (the internal FRC+PLL configured for FCY = 40 MHz). Some of the examples
  *  in Chapter 12 expect an external 8 MHz crystal, and use the PRIPLL_8MHzCrystal_40MHzFCY option
- *  (external 8 MHz crystal + PLL confgured for FCY = 40 MHz). If \ref CLOCK_CONFIG is not
- *  defined, code below selects a default.
+ *  (external 8 MHz crystal + PLL confgured for FCY = 40 MHz).
  *
  *  This file provides several useful defines as a result of the
  *  clock selection above:
@@ -169,32 +168,6 @@
 ///@}
 
 
-// If no clock was selected, pick a default: choose the fastest
-// possible clock depending on which
-// processor we're using. If simulation mode is
-// selected, then use the simulation clock.
-#ifndef CLOCK_CONFIG
-# if defined(SIM)
-#   define CLOCK_CONFIG SIM_CLOCK
-# elif (HARDWARE_PLATFORM == EXPLORER16_100P) && defined(__PIC24H__)
-#   define CLOCK_CONFIG PRIPLL_8MHzCrystal_40MHzFCY
-# elif (HARDWARE_PLATFORM == EXPLORER16_100P) && defined(__PIC24F__)
-#   define CLOCK_CONFIG PRIPLL_8MHzCrystal_16MHzFCY
-# elif defined(__PIC24H__) || defined(__DOXYGEN__)
-#   define CLOCK_CONFIG FRCPLL_FCY40MHz
-# elif defined(__PIC24F__) || defined(__PIC24FK__)
-#   define CLOCK_CONFIG FRCPLL_FCY16MHz
-# elif defined(__dsPIC33F__)
-#   define CLOCK_CONFIG FRCPLL_FCY40MHz
-# elif defined(__PIC24E__) || defined(__dsPIC33E__)
-//  60MHz clock is a conservative max choice for PIC24E, 70MHz has a more limited temp. range.
-#   define CLOCK_CONFIG FRCPLL_FCY60MHz
-# else
-#   error "Unknown processor."
-# endif
-#endif
-
-
 #ifndef __DOXYGEN__   // The following non-standard #if confuses Doxygen.
 // Check to make sure the CLOCK_CONFIG choice selected
 // exists and is valid. Otherwise, the compiler emits some very
@@ -209,9 +182,8 @@
 #endif
 
 // For some reason, primary oscillator selections are named
-// POSCMD_xx in the PIC24H and POSCMOD_xx in the PIC24F.
+// POSCMD_xx in the PIC24H/E, dsPIC33F/E but POSCMOD_xx in the PIC24F/FK.
 // Work around this.
-// Hopefully, this will be defined in PIC24F headers at some point.
 /// \cond nodoxygen
 #ifndef POSCMD_EC
 # define POSCMD_EC   POSCMOD_EC

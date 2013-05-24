@@ -90,8 +90,7 @@
  *  \name Defines configuring pic24_clockfreq.h
  */
 
-/** \def CLOCK_CONFIG
- *  Clock configuration for the PIC24 - set CLOCK_CONFIG
+/** Clock configuration for the PIC24 - set CLOCK_CONFIG
  *  to one of the following. Naming convention is
  *  OSCTYPE_[PRIFREQ]_FCYFREQ where OSCTYPE gives the
  *  oscillator type (see \ref FNOSC_SEL for details),
@@ -134,9 +133,34 @@
 //#define CLOCK_CONFIG FRCPLL_FCY70MHz
 #endif
 
+// If no clock was selected, pick a default: choose the fastest
+// possible clock depending on which
+// processor we're using. If simulation mode is
+// selected, then use the simulation clock.
+#ifndef CLOCK_CONFIG
+# if defined(SIM)
+#   define CLOCK_CONFIG SIM_CLOCK
+# elif (HARDWARE_PLATFORM == EXPLORER16_100P) && defined(__PIC24H__)
+#   define CLOCK_CONFIG PRIPLL_8MHzCrystal_40MHzFCY
+# elif (HARDWARE_PLATFORM == EXPLORER16_100P) && defined(__PIC24F__)
+#   define CLOCK_CONFIG PRIPLL_8MHzCrystal_16MHzFCY
+# elif defined(__PIC24H__) || defined(__DOXYGEN__)
+#   define CLOCK_CONFIG FRCPLL_FCY40MHz
+# elif defined(__PIC24F__) || defined(__PIC24FK__)
+#   define CLOCK_CONFIG FRCPLL_FCY16MHz
+# elif defined(__dsPIC33F__)
+#   define CLOCK_CONFIG FRCPLL_FCY40MHz
+# elif defined(__PIC24E__) || defined(__dsPIC33E__)
+//  60MHz clock is a conservative max choice for PIC24E, 70MHz has a more limited temp. range.
+#   define CLOCK_CONFIG FRCPLL_FCY60MHz
+# else
+#   error "Unknown processor."
+# endif
+#endif
+
 /// @}
 
-/** \name Defines configuring  pic24_delay.h
+/** \name Defines configuring pic24_delay.h
  *  @{
  */
 
@@ -144,7 +168,7 @@
  *  switches. The value is specified in milliseconds.
  */
 #ifndef DEBOUNCE_DLY
-#  define DEBOUNCE_DLY  15   //in milliseconds
+# define DEBOUNCE_DLY  15   //in milliseconds
 #endif
 
 /// @}
@@ -179,13 +203,13 @@
  *  \ref SERIAL_EOL_LF.
  */
 #ifndef SERIAL_EOL_DEFAULT   //can be overridden in project file
-#define SERIAL_EOL_DEFAULT SERIAL_EOL_LF
+# define SERIAL_EOL_DEFAULT SERIAL_EOL_LF
 #endif
 
 #if (SERIAL_EOL_DEFAULT != SERIAL_EOL_CR_LF) && \
 	  (SERIAL_EOL_DEFAULT != SERIAL_EOL_CR)    && \
     (SERIAL_EOL_DEFAULT != SERIAL_EOL_LF)
-#error "Invalid choice for SERIAL_EOF_DEFAULT."
+# error "Invalid choice for SERIAL_EOF_DEFAULT."
 #endif
 
 /// @}
@@ -198,11 +222,11 @@
  *  until the _C30_UART variable is changed.
  */
 #ifndef DEFAULT_UART
-#if (HARDWARE_PLATFORM == EXPLORER16_100P)
-#define DEFAULT_UART 2
-#else
-#define DEFAULT_UART 1
-#endif
+# if (HARDWARE_PLATFORM == EXPLORER16_100P)
+#   define DEFAULT_UART 2
+# else
+#   define DEFAULT_UART 1
+# endif
 #endif
 
 
@@ -212,27 +236,38 @@
  */
 #ifndef DEFAULT_BAUDRATE
 // For convenience, common baud rates (uncomment one):
-#define DEFAULT_BAUDRATE  230400
-//#define DEFAULT_BAUDRATE  115200
-//#define DEFAULT_BAUDRATE   57600
-//#define DEFAULT_BAUDRATE   38400
-//#define DEFAULT_BAUDRATE   19200
-//#define DEFAULT_BAUDRATE    9600
+// If none are select, a default will be chosen below.
+//# define DEFAULT_BAUDRATE  230400
+//# define DEFAULT_BAUDRATE  115200
+//# define DEFAULT_BAUDRATE   57600
+//# define DEFAULT_BAUDRATE   38400
+//# define DEFAULT_BAUDRATE   19200
+//# define DEFAULT_BAUDRATE    9600
+#endif
+
+#ifndef DEFAULT_BAUDRATE
+# if defined(__PIC24F__) || defined(__PIC24FK__)
+//  The PIC24F/FK's 16 MHz max frequency using the inaccurate FRC means a lower default baud rate is a safer choice.
+#   define DEFAULT_BAUDRATE   57600
+# else
+#   define DEFAULT_BAUDRATE  230400
+# endif
 #endif
 
 /** Default BRGH value used by \ref configUART1 to 4
  *  when configurating a UART. This value may be
  *  overridden on a per-UART basis by \#defineing
- *  \ref DEFAULT_BRGH1 to 4. Allowed values:
+ *  DEFAULT_BRGHn (where n = the UART to override)
+ *  to the values given below. Allowed values:
  *  - BRGH = 0 - the baud rate divisor is 16
  *  - BRGH = 1 - the baud rate divisor is 4
  */
 #ifndef DEFAULT_BRGH
-#define DEFAULT_BRGH  0
+# define DEFAULT_BRGH  0
 #endif
 
 #if (DEFAULT_BRGH != 0) && (DEFAULT_BRGH != 1)
-#error "Invalid value for DEFAULT_BRGH."
+# error "Invalid value for DEFAULT_BRGH."
 #endif
 
 /// @}
@@ -246,11 +281,11 @@
  *  message on failure. See also checkClockTimeout().
  */
 #ifndef USE_CLOCK_TIMEOUT
-#ifdef BUILT_ON_ESOS
-#define USE_CLOCK_TIMEOUT 0
-#else
-#define USE_CLOCK_TIMEOUT 1
-#endif
+# ifdef BUILT_ON_ESOS
+#   define USE_CLOCK_TIMEOUT 0
+# else
+#   define USE_CLOCK_TIMEOUT 1
+# endif
 #endif
 
 /* \name Heartbeat
@@ -263,42 +298,40 @@
 /** If this macro is true, heartbeat functionality is enabled.
  *  If false, heartbeat is disabled.
  */
-#define USE_HEARTBEAT 1
+# define USE_HEARTBEAT 1
 #endif
 
 
 #ifndef HB_LED
-#if (HARDWARE_PLATFORM == EXPLORER16_100P)
-#define HB_LED _LATA7
-#define CONFIG_HB_LED() CONFIG_RA7_AS_DIG_OUTPUT()
-#elif (HARDWARE_PLATFORM == DANGEROUS_WEB)
-#define HB_LED _LATA8
-#define CONFIG_HB_LED() CONFIG_RA8_AS_DIG_OUTPUT()
-#else // All other hardware platforms
+# if (HARDWARE_PLATFORM == EXPLORER16_100P)
+#   define HB_LED _LATA7
+#   define CONFIG_HB_LED() CONFIG_RA7_AS_DIG_OUTPUT()
+# elif (HARDWARE_PLATFORM == DANGEROUS_WEB)
+#   define HB_LED _LATA8
+#   define CONFIG_HB_LED() CONFIG_RA8_AS_DIG_OUTPUT()
+# else // All other hardware platforms
 /** Choose a pin for the heartbeat.
  *  If \ref USE_HEARTBEAT is false, the heartbeat is disabled.
  */
-#define HB_LED _LATB15
+#   define HB_LED _LATB15
 /** Define a config function for the heartbeat pin. */
-#if (defined(_ODCB15) || defined(_ODB15))
-#define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OD_OUTPUT()
-#else
-#warning "Heartbeat pin not open drain."
-#define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
-#endif
-
-#endif //if (HARDWARE_PLATFORM..
+#   if (defined(_ODCB15) || defined(_ODB15))
+#     define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OD_OUTPUT()
+#   else
+#     warning "Heartbeat pin not open drain."
+#     define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
+#   endif
+# endif //if (HARDWARE_PLATFORM == EXPLORER16_100P)
 #endif // #ifndef HB_LED
 
 
 #if (defined(__PIC24HJ12GP202__) || \
-defined(__PIC24HJ12GP201__) || \
-defined(__PIC24HJ32GP202__) || \
-defined(__PIC24HJ32GP202__) || \
-defined(__dsPIC33FJ32GP202__) || \
-defined(__PIC24HJ16GP304__) )
-#define SMALLRAM
+     defined(__PIC24HJ12GP201__) || \
+     defined(__PIC24HJ32GP202__) || \
+     defined(__PIC24HJ32GP202__) || \
+     defined(__dsPIC33FJ32GP202__) || \
+     defined(__PIC24HJ16GP304__) )
+# define SMALLRAM
 #endif
-
 
 /// @}
