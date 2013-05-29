@@ -58,25 +58,17 @@
  *
  * Implementation notes
  * --------------------
- * This is primarify a table-driven approach, which maps from the PIC's various naming
- * conventions to the Rxy naming convention. The mapping consists of two tables.
- * The table is indexed by Rxy, and matched every Rxy pin on the chip with
- * its its remappable (RPy) number, analog (ANn) number, and its change notification
+ * This is a table-driven approach, which maps from the PIC's various naming
+ * conventions to the Rxy naming convention. The mapping consists of one tables.
+ * The table is indexed by Rxy, and matches every Rxy pin on the chip with
+ * its remappable (RPy) number, analog (ANn) number, and its change notification
  * (CNm) number. For example:
  * //      Rxy       RPy,  ANn  CNm
  * #define RA0_GPIO    0,   4,   3
  * indiates that pin RA0 is also RP0, AN4, and CN3.
  *
- * To implement this approach, each of the following macros takes as input a table
+ * To implement this approach, each of the following function-like macros takes as input a table
  * entry Rxy_GPIO, which gives information about that pin of the chip.
- * * RXY_HAS_ANALOG(Rxy_GPIO) - This macro valuates to true if the pin has analog capability.
- * * RXY_GPIO_PCFG(Rxy_GPIO) - If the above macro was true, this macro produces the
- *   corresponding _PCFG name: if the Rxy pin maps to AN3, the it returns _PCFG3.
- * * RXY_HAS_CHANGE_NOTIFICATION(Rxy_GPIO) - This macro valuates to true if the
- *   pin has change notification capability.
- * * RXY_GPIO_CNPUE(Rxy_GPIO) - If the above macro was true, this macro produces the
- *   corresponding _CNmPUE name: if the Rxy pin maps to CN5, the it returns _CN5PUE.
- *
  * These macros always require a two-step approach: first, split the table entry
  * into invidiual values; then extract the desired value. For example:
  * //                RPy,        ANn         CNm
@@ -86,6 +78,9 @@
  * Then RXY_GPIO_PCFG(RB14_GPIO) evaluates to _RXY_GPIO_PCFG(3, 1, GPIO_NONE).
  * _RXY_GPIO_PCFG(3, 1, GPIO_NONE) evaluates to _PCFG ## 1, which is _PCFG1.
  */
+
+#include <stdint.h>
+
 
 // This value indicates that this Rxy pin does not provide the given functionality.
 #define GPIO_NONE -1
@@ -99,7 +94,7 @@
 // ---------------
 // Return true if the given Rxy_GPIO pin is remappable.
 #define RXY_HAS_REMAPPABLE(Rxy_GPIO) _RXY_HAS_REMAPPABLE(Rxy_GPIO)
-#define RXY_HAS_REMAPPABLE(RPy, ANn, CNm) (RPy != GPIO_NONE)
+#define _RXY_HAS_REMAPPABLE(RPy, ANn, CNm) (RPy != GPIO_NONE)
 // Return the remappable pin number for the given Rxy_GPIO value.
 #define RXY_REMAPPABLE_PIN(Rxy_GPIO) _RXY_REMAPPABLE_PIN(Rxy_GPIO)
 #define _RXY_REMAPPABLE_PIN(RPy, ANn, CNm) (RPy)
@@ -142,13 +137,13 @@
 /// create some dummy values for testing for the non-existing test port RT.
 #define _RT1
 #define _RT2
-#define _RT3
 
 //                RPy,        ANn         CNm
-#define RT1_GPIO  GPIO_NONE,  200,        300
-#define RB2_GPIO  400,        GPIO_NONE,  500
-#define RT3_GPIO  600,        700,        GPIO_NONE
+#define RT1_GPIO  100,        200,        300
+#define RT2_GPIO  GPIO_NONE,  GPIO_NONE,  GPIO_NONE
 
+#define _CN300PDE
+#define _ODCT1
 
 
 
@@ -157,7 +152,10 @@
 // ====================
 #ifdef _RT1
 # ifndef RT1_GPIO
-#   error RT1_GPIO not defined, but pin RT1 exists.
+#   warning "RT1_GPIO not defined, but pin RT1 exists. No GPIO and related"
+#   warning "configuration macros will be provided for this pin. Edit the table"
+#   warning "in this file to provide the information needed to generate this"
+#   warning "configuration macros."
 # endif
 
 // Low-level config
@@ -203,8 +201,8 @@
 #     define DISABLE_RT1_PULLDOWN() ((void) 0)
 #   endif
 
-#   define ENABLE_RT1_CN_INTERRUPT()  (RXY_GPIO_CNIE) = 1)
-#   define DISABLE_RT1_CN_INTERRUPT() (RXY_GPIO_CNIE) = 0)
+#   define ENABLE_RT1_CN_INTERRUPT()  (RXY_GPIO_CNIE(RT1_GPIO) = 1)
+#   define DISABLE_RT1_CN_INTERRUPT() (RXY_GPIO_CNIE(RT1_GPIO) = 0)
 
 # else
 #   define DISABLE_RT1_PULLUP() ((void) 0)
@@ -232,65 +230,49 @@ void CONFIG_RT1_AS_DIG_INPUT() {
 
 
 
-#include <stdint.h>
 
-#define _AN200 123
-#define _CN300PUE 456
-#define _CN500PUE 789
-#define _CN300PDE
-
-#if RXY_HAS_CNPDE(RT1_GPIO)
-# error 0
-#else
-# error 1
-#endif
-
-// RT1 should have no RPy equivalent.
-#ifdef RT1_REMAPPABLE
-# error
-#endif
-
+// Undefine these, now that macro testing is done, to test them as local variables below.
+#undef _CN300PDE
+#undef _ODCT1
 // RT1 should have the following:
-// TODO!
 void test_rt1_low_level() {
   uint16_t _PCFG200 = 0;
   uint16_t _TRIST1 = 0;
+  uint16_t _ODCT1 = 0;
   uint16_t _CN300PUE = 0;
   uint16_t _CN300PDE = 0;
-  uint16_t _bCN300IE = 0;
+  uint16_t _CN300IE = 0;
+
+  ASSERT(RT1_REMAPPABLE == 100);
 
   ENABLE_RT1_ANALOG();
   ASSERT(_PCFG200 == 1);
+  DISABLE_RT1_ANALOG();
+  ASSERT(_PCFG200 == 0);
+
 
   CONFIG_RT1_AS_INPUT();
   ASSERT(_TRIST1 == 1);
+  CONFIG_RT1_AS_OUTPUT();
+  ASSERT(_TRIST1 == 0);
+
+  ENABLE_RT1_OPENDRAIN();
+  ASSERT(_ODCT1 == 1);
+  DISABLE_RT1_OPENDRAIN();
+  ASSERT(_ODCT1 == 0);
 
   ENABLE_RT1_PULLUP();
   ASSERT(_CN300PUE == 1);
+  DISABLE_RT1_PULLUP();
+  ASSERT(_CN300PUE == 0);
 
   ENABLE_RT1_PULLDOWN();
   ASSERT(_CN300PDE == 1);
+  DISABLE_RT1_PULLDOWN();
+  ASSERT(_CN300PDE == 0);
 
   ENABLE_RT1_CN_INTERRUPT();
   ASSERT(_CN300IE == 1);
+  DISABLE_RT1_CN_INTERRUPT();
+  ASSERT(_CN300IE == 0);
 }
-
-#if RXY_HAS_ANALOG(RB15_GPIO)
-# error
-#endif
-
-#if !RXY_HAS_ANALOG(RB14_GPIO)
-# error
-#endif
-
-#if RXY_HAS_CHANGE_NOTIFICATION(RB14_GPIO)
-# error
-#endif
-
-#if !RXY_HAS_CHANGE_NOTIFICATION(RB15_GPIO)
-# error
-#endif
-
-
-
-
