@@ -464,7 +464,8 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
  */
 //@{
 
-/// Define peripheral pins
+/// Define peripheral pins.
+/// \todo Isn't this defined in the Microchip includes somewhere?
 #if defined(__PIC24E__) || defined(__dsPIC33F__)
 #define RPMAP_C1OUT 	24
 #define RPMAP_C2OUT 	25
