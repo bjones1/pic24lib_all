@@ -54,7 +54,10 @@
  *   the given Rxy port. Typical usage: configADC1_ManualCH0(RB4_AN_PORT, 31, 0).
  *
  * Combining these produces higher-level configuration:
- * * CONFIG_Rxy_AS_ANALOG(), CONFIG_Rxy_AS_DIG_INPUT/OUTPUT() TODO
+ * * CONFIG_Rxy_AS_ANALOG(): disables pullups/pulldowns, makes pin an input, and
+ *   of course enables analog.
+ * * CONFIG_Rxy_AS_DIG_INPUT/OUTPUT(): disables analog, pullups/pulldowns, and
+ *   open-drain.
  *
  * Implementation notes
  * --------------------
@@ -212,15 +215,32 @@
 
 // High-level config
 // -----------------
-#if 0
-void CONFIG_RT1_AS_DIG_INPUT() {
-  DISABLE_RT1_ANALOG();
-  CONFIG_RT1_AS_INPUT();
-  //DISABLE_RT1_OPENDRAIN();
-  //DISABLE_RT1_PULLUP();
-  //DISABLE_RB14_PULLDOWN();
-}
-#endif
+# define CONFIG_RT1_AS_ANALOG()       \
+    do {                              \
+      ENABLE_RT1_ANALOG();            \
+      CONFIG_RT1_AS_INPUT();          \
+      DISABLE_RT1_OPENDRAIN();        \
+      DISABLE_RT1_PULLUP();           \
+      DISABLE_RT1_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RT1_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RT1_ANALOG();           \
+      CONFIG_RT1_AS_INPUT();          \
+      DISABLE_RT1_OPENDRAIN();        \
+      DISABLE_RT1_PULLUP();           \
+      DISABLE_RT1_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RT1_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RT1_ANALOG();           \
+      CONFIG_RT1_AS_OUTPUT();         \
+      DISABLE_RT1_OPENDRAIN();        \
+      DISABLE_RT1_PULLUP();           \
+      DISABLE_RT1_PULLDOWN();         \
+    } while (0)
 
 #endif // #ifdef _RT1: Provide GPIO for RT1
 
@@ -234,7 +254,6 @@ void CONFIG_RT1_AS_DIG_INPUT() {
 // Undefine these, now that macro testing is done, to test them as local variables below.
 #undef _CN300PDE
 #undef _ODCT1
-// RT1 should have the following:
 void test_rt1_low_level() {
   uint16_t _PCFG200 = 0;
   uint16_t _TRIST1 = 0;
@@ -275,4 +294,35 @@ void test_rt1_low_level() {
   ASSERT(_CN300IE == 1);
   DISABLE_RT1_CN_INTERRUPT();
   ASSERT(_CN300IE == 0);
+}
+
+
+// RT1 should have the following:
+void test_rt1_high_level() {
+  uint16_t _PCFG200 = 0;
+  uint16_t _TRIST1 = 0;
+  uint16_t _ODCT1 = 0;
+  uint16_t _CN300PUE = 0;
+  uint16_t _CN300PDE = 0;
+
+  CONFIG_RT1_AS_ANALOG();
+  ASSERT(_PCFG200 == 1);
+  ASSERT(_TRIST1 == 1);
+  ASSERT(_ODCT1 == 0);
+  ASSERT(_CN300PUE == 0);
+  ASSERT(_CN300PDE == 0);
+
+  CONFIG_RT1_AS_DIG_INPUT();
+  ASSERT(_PCFG200 == 0);
+  ASSERT(_TRIST1 == 1);
+  ASSERT(_ODCT1 == 0);
+  ASSERT(_CN300PUE == 0);
+  ASSERT(_CN300PDE == 0);
+
+  CONFIG_RT1_AS_DIG_OUTPUT();
+  ASSERT(_PCFG200 == 0);
+  ASSERT(_TRIST1 == 0);
+  ASSERT(_ODCT1 == 0);
+  ASSERT(_CN300PUE == 0);
+  ASSERT(_CN300PDE == 0);
 }
