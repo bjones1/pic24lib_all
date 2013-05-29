@@ -1,9 +1,21 @@
-build/
-docs/.*\.html
-docs/.*\.css
-docs/.*\.png
-docs/.*\.js
-docs/installdox
 syntax: glob
+# Doxygen generated files
+docs/*.html
+docs/*.css
+docs/*.png
+docs/*.js
+docs/installdox
+docs/search/
+# SCONS generated flies
 .sconsign.dblite
 err*.txt
+build/
+# MPLAB X generated files
+*.X/build/
+*.X/dist/
+*.X/nbproject/private/
+*.X/nbproject/Makefile-default.mk
+*.X/nbproject/Makefile-impl.mk
+*.X/nbproject/Makefile-local-default.mk
+*.X/nbproject/Makefile-variables.mk
+*.X/nbproject/Package-default.bash
