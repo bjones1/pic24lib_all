@@ -263,6 +263,7 @@ void test_rt1_low_level() {
   uint16_t _CN300IE = 0;
 
   ASSERT(RT1_REMAPPABLE == 100);
+  ASSERT(RT1_AN_PORT == 200);
 
   ENABLE_RT1_ANALOG();
   ASSERT(_PCFG200 == 1);
