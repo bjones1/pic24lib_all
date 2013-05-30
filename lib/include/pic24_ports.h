@@ -28,54 +28,67 @@
  */
 
 
-#ifndef _PIC24_PORTS_H_
-#define _PIC24_PORTS_H_
+#pragma once
+
 // Documentation for this file. If the \file tag isn't present,
 // this file won't be documented.
 /** \file
- *  This file supports configuration of IO ports on the PIC24. Support includes:
- *  - Configuring a pin for analog or digital operation by changing the
- *    corresponding _PCFGn bit. For digital
- *    operation:
- *    - Configure a pin as an input or an output by changing the
- *      corresponding _TRISxy bit.
- *    - Choose an open-drain or standard output driver by changing
- *      the corresponding _CNmPU bit.
- *    - Enable or disable pull-ups by changing the corresponding
- *      _ODCxy bit.
- *    - Enable or disable the interrupt on change mechanism by
- *      changing the corresponding _CNmIE bit.
- *  - A convenient mechanism for mapping a remappable peripheral to
- *    input or output pins.
+ * This file defines a series of macros which provide GPIO and related configuration for
+ * each pin of a given PIC24/dsPIC33. Configuration is first defined at a low level,
+ * by providing the following:
  *
- *  \section portSummary Summary of port configuration macros
- *  The port configuration macros are available in two forms.
- *  <a href="#highLevelPortConfig">Higher-level</a> routines
- *  completely configure a pin for a specific
- *  operation, while <a href="#lowLevelPortConfig">low-level</a> routines
- *  provide a more readable name
- *  for changing the value of a single bit (_PCFGn, _TRISxy, _CNmPU, or
- *  _ODCxy).
+ * * Analog/digital configuration: ENABLE/DISABLE_Rxy_ANALOG(). The DISABLE version
+ *   will always exist; the ENABLE version exists only if the given pin has analog
+ *   capability.
+ * * Input/output configuration: CONFIG_Rxy_AS_INPUT/OUTPUT(). This exists for every pin.
+ * * Open collector/normal (totem-pole) output driver configuration:
+ *   ENABLE/DISABLE_Rxy_OPENDRAIN().  The DISABLE version
+ *   will always exist; the ENABLE version exists only if the given pin has open-drain
+ *   capability.
+ * * Pullup/pulldown configuration: ENABLE/DISABLE_Rxy_PULLUP/DOWN().  The DISABLE version
+ *   will always exist; the ENABLE version exists only if the given pin has pullup/pulldown
+ *   capability.
  *
- *  To reduce the confusing variety of naming schemes for these bits,
- *  the macros refer to a pin either by its port letter \a x plus pin
- *  number \a y (for example, _TRISB3 for the TRIS bit of port B, pin 3)
- *  or by the analog input number \a n (for example, AN0 refers to
- *  analog input 0).
+ * Related low-level configuration:
+ * * Change notification interrupts: ENABLE/DISABLE_Rxy_CN_INTERRUPT().  The DISABLE version
+ *   will always exist; the ENABLE version exists only if the given pin has change notification
+ *   capability.
+ * * Remappable pin to Rxy translation: the Rxy_REMAPPABLE macro identifies the RPy value for
+ *   the given Rxy port. Typical usage with the remappable macros: CONFIG_INT1_TO(RB4_REMAPPABLE);
+ * * Analog port to Rxy translation: The Rxy_AN_PORT macro identifies the ANn value for
+ *   the given Rxy port. Typical usage: configADC1_ManualCH0(RB4_AN_PORT, 31, 0).
  *
- *  The macros provided as "smart" - only functions applicable to that
- *  pin are contained in a given macro. For example,
- *  CONFIG_RA1_AS_DIG_OUTPUT on the PIC24HJ32GP202 disables the pin's
- *  pullup, disables the open-drain driver, disables analog functionality,
- *  then sets the pin as an output. CONFIG_RA7_AS_DIG_OUTPUT on the
- *  PIC24HJ32GP204 only disables the open-drain driver and sets the pin
- *  as an output, because that pin supports neither analog nor pullup
- *  functionality.
+ * Combining these produces higher-level configuration:
+ * * CONFIG_Rxy_AS_ANALOG(): disables pullups/pulldowns, makes pin an input, and
+ *   of course enables analog.
+ * * CONFIG_Rxy_AS_DIG_INPUT/OUTPUT(): disables analog, pullups/pulldowns, and
+ *   open-drain.
+ *
+ * Implementation notes
+ * --------------------
+ * This is a table-driven approach, which maps from the PIC's various naming
+ * conventions to the Rxy naming convention. The mapping consists of one tables.
+ * The table is indexed by Rxy, and matches every Rxy pin on the chip with
+ * its remappable (RPy) number, analog (ANn) number, and its change notification
+ * (CNm) number. For example:
+ * //      Rxy       RPy,  ANn  CNm
+ * #define RA0_GPIO    0,   4,   3
+ * indiates that pin RA0 is also RP0, AN4, and CN3.
+ *
+ * To implement this approach, each of the following function-like macros takes as input a table
+ * entry Rxy_GPIO, which gives information about that pin of the chip.
+ * These macros always require a two-step approach: first, split the table entry
+ * into invidiual values; then extract the desired value. For example:
+ * //                RPy,        ANn         CNm
+ * #define RB14_GPIO 3,          1,          GPIO_NONE
+ * #define RXY_GPIO_PCFG(Rxy_GPIO) _RXY_GPIO_PCFG(Rxy_GPIO), where Rxy_GPIO
+ * #define _RXY_GPIO_PCFG(RPy, ANn, CNm) _PCFG ## ANn
+ * Then RXY_GPIO_PCFG(RB14_GPIO) evaluates to _RXY_GPIO_PCFG(3, 1, GPIO_NONE).
+ * _RXY_GPIO_PCFG(3, 1, GPIO_NONE) evaluates to _PCFG ## 1, which is _PCFG1.
  *
  *  \todo
  *  - Put stub documentation for ALL port macros (doxygen only) so
  *    they hyperlink in source code
- *  - Add a macro in for TRIS bit configuration
  */
 
 // Dummy macros for documentation only
@@ -185,6 +198,62 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
 #define DISABLE_Rxy_CN_INTERRUPT() _CNmIE = 0
 //@}
 #endif // #ifdef __DOXYGEN__
+
+
+
+
+
+
+
+
+
+// Remappable pins
+// ---------------
+// Return true if the given Rxy_GPIO pin is remappable.
+#define RXY_HAS_REMAPPABLE(Rxy_GPIO) _RXY_HAS_REMAPPABLE(Rxy_GPIO)
+#define _RXY_HAS_REMAPPABLE(RPy, ANn, CNm) (RPy >= 0)
+// Return the remappable pin number for the given Rxy_GPIO value.
+#define RXY_REMAPPABLE_PIN(Rxy_GPIO) _RXY_REMAPPABLE_PIN(Rxy_GPIO)
+#define _RXY_REMAPPABLE_PIN(RPy, ANn, CNm) (RPy)
+
+// Analog
+// ------
+// Return true if the given Rxy_GPIO pin has analog capabilities.
+#define RXY_HAS_ANALOG(Rxy_GPIO) _RXY_HAS_ANALOG(Rxy_GPIO)
+#define _RXY_HAS_ANALOG(RPy, ANn, CNm) (ANn >= 0)
+// Return the analog port number (the n in ANn) for the given Rxy_GPIO value.
+#define RXY_AN_PORT(Rxy_GPIO) _RXY_AN_PORT(Rxy_GPIO)
+#define _RXY_AN_PORT(RPy, ANn, CNm) (ANn)
+// Return the PCFG pin for the given Rxy_GPIO value.
+#define RXY_GPIO_PCFG(Rxy_GPIO) _RXY_GPIO_PCFG(Rxy_GPIO)
+#define _RXY_GPIO_PCFG(RPy, ANn, CNm) (_PCFG ## ANn)
+
+// Change notification / pullups and pulldowns
+// -------------------------------------------
+// Return true if the given Rxy_GPIO pin has change notification capabilities.
+#define RXY_HAS_CHANGE_NOTIFICATION(Rxy_GPIO) _RXY_HAS_CHANGE_NOTIFICATION(Rxy_GPIO)
+#define _RXY_HAS_CHANGE_NOTIFICATION(RPy, ANn, CNm) (CNm >= 0)
+// Return the _CNmPUE pin for the given Rxy_GPIO value.
+#define RXY_GPIO_CNPUE(Rxy_GPIO) _RXY_GPIO_CNPUE(Rxy_GPIO)
+#define _RXY_GPIO_CNPUE(RPy, ANn, CNm) (_CN ## CNm ## PUE)
+// Return the _CNmIE pin  for the given Rxy_GPIO value.
+#define RXY_GPIO_CNIE(Rxy_GPIO) _RXY_GPIO_CNIE(Rxy_GPIO)
+#define _RXY_GPIO_CNIE(RPy, ANn, CNm) (_CN ## CNm ## IE)
+
+// Return true if the given Rxy_GPIO pin has pulldown capabilities. This
+// should only be called if RXY_HAS_CHANGE_NOTIFICATION for the given pin is true.
+#define RXY_HAS_CNPDE(Rxy_GPIO) _RXY_HAS_CNPDE(Rxy_GPIO)
+#define _RXY_HAS_CNPDE(RPy, ANn, CNm) defined(_CN ## CNm ## PDE)
+// Return the _CNmPDE pin for the given Rxy_GPIO value.
+#define RXY_GPIO_CNPDE(Rxy_GPIO) _RXY_GPIO_CNPDE(Rxy_GPIO)
+#define _RXY_GPIO_CNPDE(RPy, ANn, CNm) (_CN ## CNm ## PDE)
+
+
+
+
+
+
+
 
 /** \name Remappable peripheral input support
  *  <a name="remappableInputs">These</a> funcions map an input internal
@@ -1504,6 +1573,4 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
 #ifndef _PIC24_DIGIO_DEFINED
 #warning "Digital IO macros not defined for this device!"
 #warning "Edit common\pic24_ports.h file!"
-#endif
-
 #endif
