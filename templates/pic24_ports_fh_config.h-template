@@ -62,14 +62,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_R${x}_AS_ANALOG()       \
-      do {                              \
-        ENABLE_R${x}_ANALOG();            \
-        CONFIG_R${x}_AS_INPUT();          \
-        DISABLE_R${x}_OPENDRAIN();        \
-        DISABLE_R${x}_PULLUP();           \
-        DISABLE_R${x}_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(R${x}_GPIO)
+#     define CONFIG_R${x}_AS_ANALOG()       \
+        do {                              \
+          ENABLE_R${x}_ANALOG();            \
+          CONFIG_R${x}_AS_INPUT();          \
+          DISABLE_R${x}_OPENDRAIN();        \
+          DISABLE_R${x}_PULLUP();           \
+          DISABLE_R${x}_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_R${x}_AS_DIG_INPUT()    \
       do {                              \

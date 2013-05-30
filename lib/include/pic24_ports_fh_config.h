@@ -93,14 +93,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA0_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA0_ANALOG();            \
-        CONFIG_RA0_AS_INPUT();          \
-        DISABLE_RA0_OPENDRAIN();        \
-        DISABLE_RA0_PULLUP();           \
-        DISABLE_RA0_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA0_GPIO)
+#     define CONFIG_RA0_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA0_ANALOG();            \
+          CONFIG_RA0_AS_INPUT();          \
+          DISABLE_RA0_OPENDRAIN();        \
+          DISABLE_RA0_PULLUP();           \
+          DISABLE_RA0_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA0_AS_DIG_INPUT()    \
       do {                              \
@@ -191,14 +193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA1_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA1_ANALOG();            \
-        CONFIG_RA1_AS_INPUT();          \
-        DISABLE_RA1_OPENDRAIN();        \
-        DISABLE_RA1_PULLUP();           \
-        DISABLE_RA1_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA1_GPIO)
+#     define CONFIG_RA1_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA1_ANALOG();            \
+          CONFIG_RA1_AS_INPUT();          \
+          DISABLE_RA1_OPENDRAIN();        \
+          DISABLE_RA1_PULLUP();           \
+          DISABLE_RA1_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA1_AS_DIG_INPUT()    \
       do {                              \
@@ -289,14 +293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA2_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA2_ANALOG();            \
-        CONFIG_RA2_AS_INPUT();          \
-        DISABLE_RA2_OPENDRAIN();        \
-        DISABLE_RA2_PULLUP();           \
-        DISABLE_RA2_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA2_GPIO)
+#     define CONFIG_RA2_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA2_ANALOG();            \
+          CONFIG_RA2_AS_INPUT();          \
+          DISABLE_RA2_OPENDRAIN();        \
+          DISABLE_RA2_PULLUP();           \
+          DISABLE_RA2_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA2_AS_DIG_INPUT()    \
       do {                              \
@@ -387,14 +393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA3_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA3_ANALOG();            \
-        CONFIG_RA3_AS_INPUT();          \
-        DISABLE_RA3_OPENDRAIN();        \
-        DISABLE_RA3_PULLUP();           \
-        DISABLE_RA3_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA3_GPIO)
+#     define CONFIG_RA3_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA3_ANALOG();            \
+          CONFIG_RA3_AS_INPUT();          \
+          DISABLE_RA3_OPENDRAIN();        \
+          DISABLE_RA3_PULLUP();           \
+          DISABLE_RA3_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA3_AS_DIG_INPUT()    \
       do {                              \
@@ -485,14 +493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA4_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA4_ANALOG();            \
-        CONFIG_RA4_AS_INPUT();          \
-        DISABLE_RA4_OPENDRAIN();        \
-        DISABLE_RA4_PULLUP();           \
-        DISABLE_RA4_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA4_GPIO)
+#     define CONFIG_RA4_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA4_ANALOG();            \
+          CONFIG_RA4_AS_INPUT();          \
+          DISABLE_RA4_OPENDRAIN();        \
+          DISABLE_RA4_PULLUP();           \
+          DISABLE_RA4_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA4_AS_DIG_INPUT()    \
       do {                              \
@@ -583,14 +593,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA5_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA5_ANALOG();            \
-        CONFIG_RA5_AS_INPUT();          \
-        DISABLE_RA5_OPENDRAIN();        \
-        DISABLE_RA5_PULLUP();           \
-        DISABLE_RA5_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA5_GPIO)
+#     define CONFIG_RA5_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA5_ANALOG();            \
+          CONFIG_RA5_AS_INPUT();          \
+          DISABLE_RA5_OPENDRAIN();        \
+          DISABLE_RA5_PULLUP();           \
+          DISABLE_RA5_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA5_AS_DIG_INPUT()    \
       do {                              \
@@ -681,14 +693,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA6_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA6_ANALOG();            \
-        CONFIG_RA6_AS_INPUT();          \
-        DISABLE_RA6_OPENDRAIN();        \
-        DISABLE_RA6_PULLUP();           \
-        DISABLE_RA6_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA6_GPIO)
+#     define CONFIG_RA6_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA6_ANALOG();            \
+          CONFIG_RA6_AS_INPUT();          \
+          DISABLE_RA6_OPENDRAIN();        \
+          DISABLE_RA6_PULLUP();           \
+          DISABLE_RA6_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA6_AS_DIG_INPUT()    \
       do {                              \
@@ -779,14 +793,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA7_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA7_ANALOG();            \
-        CONFIG_RA7_AS_INPUT();          \
-        DISABLE_RA7_OPENDRAIN();        \
-        DISABLE_RA7_PULLUP();           \
-        DISABLE_RA7_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA7_GPIO)
+#     define CONFIG_RA7_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA7_ANALOG();            \
+          CONFIG_RA7_AS_INPUT();          \
+          DISABLE_RA7_OPENDRAIN();        \
+          DISABLE_RA7_PULLUP();           \
+          DISABLE_RA7_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA7_AS_DIG_INPUT()    \
       do {                              \
@@ -877,14 +893,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA8_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA8_ANALOG();            \
-        CONFIG_RA8_AS_INPUT();          \
-        DISABLE_RA8_OPENDRAIN();        \
-        DISABLE_RA8_PULLUP();           \
-        DISABLE_RA8_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA8_GPIO)
+#     define CONFIG_RA8_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA8_ANALOG();            \
+          CONFIG_RA8_AS_INPUT();          \
+          DISABLE_RA8_OPENDRAIN();        \
+          DISABLE_RA8_PULLUP();           \
+          DISABLE_RA8_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA8_AS_DIG_INPUT()    \
       do {                              \
@@ -975,14 +993,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA9_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA9_ANALOG();            \
-        CONFIG_RA9_AS_INPUT();          \
-        DISABLE_RA9_OPENDRAIN();        \
-        DISABLE_RA9_PULLUP();           \
-        DISABLE_RA9_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA9_GPIO)
+#     define CONFIG_RA9_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA9_ANALOG();            \
+          CONFIG_RA9_AS_INPUT();          \
+          DISABLE_RA9_OPENDRAIN();        \
+          DISABLE_RA9_PULLUP();           \
+          DISABLE_RA9_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA9_AS_DIG_INPUT()    \
       do {                              \
@@ -1073,14 +1093,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA10_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA10_ANALOG();            \
-        CONFIG_RA10_AS_INPUT();          \
-        DISABLE_RA10_OPENDRAIN();        \
-        DISABLE_RA10_PULLUP();           \
-        DISABLE_RA10_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA10_GPIO)
+#     define CONFIG_RA10_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA10_ANALOG();            \
+          CONFIG_RA10_AS_INPUT();          \
+          DISABLE_RA10_OPENDRAIN();        \
+          DISABLE_RA10_PULLUP();           \
+          DISABLE_RA10_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA10_AS_DIG_INPUT()    \
       do {                              \
@@ -1171,14 +1193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA11_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA11_ANALOG();            \
-        CONFIG_RA11_AS_INPUT();          \
-        DISABLE_RA11_OPENDRAIN();        \
-        DISABLE_RA11_PULLUP();           \
-        DISABLE_RA11_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA11_GPIO)
+#     define CONFIG_RA11_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA11_ANALOG();            \
+          CONFIG_RA11_AS_INPUT();          \
+          DISABLE_RA11_OPENDRAIN();        \
+          DISABLE_RA11_PULLUP();           \
+          DISABLE_RA11_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA11_AS_DIG_INPUT()    \
       do {                              \
@@ -1269,14 +1293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA12_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA12_ANALOG();            \
-        CONFIG_RA12_AS_INPUT();          \
-        DISABLE_RA12_OPENDRAIN();        \
-        DISABLE_RA12_PULLUP();           \
-        DISABLE_RA12_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA12_GPIO)
+#     define CONFIG_RA12_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA12_ANALOG();            \
+          CONFIG_RA12_AS_INPUT();          \
+          DISABLE_RA12_OPENDRAIN();        \
+          DISABLE_RA12_PULLUP();           \
+          DISABLE_RA12_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA12_AS_DIG_INPUT()    \
       do {                              \
@@ -1367,14 +1393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA13_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA13_ANALOG();            \
-        CONFIG_RA13_AS_INPUT();          \
-        DISABLE_RA13_OPENDRAIN();        \
-        DISABLE_RA13_PULLUP();           \
-        DISABLE_RA13_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA13_GPIO)
+#     define CONFIG_RA13_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA13_ANALOG();            \
+          CONFIG_RA13_AS_INPUT();          \
+          DISABLE_RA13_OPENDRAIN();        \
+          DISABLE_RA13_PULLUP();           \
+          DISABLE_RA13_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA13_AS_DIG_INPUT()    \
       do {                              \
@@ -1465,14 +1493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA14_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA14_ANALOG();            \
-        CONFIG_RA14_AS_INPUT();          \
-        DISABLE_RA14_OPENDRAIN();        \
-        DISABLE_RA14_PULLUP();           \
-        DISABLE_RA14_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA14_GPIO)
+#     define CONFIG_RA14_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA14_ANALOG();            \
+          CONFIG_RA14_AS_INPUT();          \
+          DISABLE_RA14_OPENDRAIN();        \
+          DISABLE_RA14_PULLUP();           \
+          DISABLE_RA14_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA14_AS_DIG_INPUT()    \
       do {                              \
@@ -1563,14 +1593,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RA15_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RA15_ANALOG();            \
-        CONFIG_RA15_AS_INPUT();          \
-        DISABLE_RA15_OPENDRAIN();        \
-        DISABLE_RA15_PULLUP();           \
-        DISABLE_RA15_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RA15_GPIO)
+#     define CONFIG_RA15_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RA15_ANALOG();            \
+          CONFIG_RA15_AS_INPUT();          \
+          DISABLE_RA15_OPENDRAIN();        \
+          DISABLE_RA15_PULLUP();           \
+          DISABLE_RA15_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RA15_AS_DIG_INPUT()    \
       do {                              \
@@ -1661,14 +1693,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB0_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB0_ANALOG();            \
-        CONFIG_RB0_AS_INPUT();          \
-        DISABLE_RB0_OPENDRAIN();        \
-        DISABLE_RB0_PULLUP();           \
-        DISABLE_RB0_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB0_GPIO)
+#     define CONFIG_RB0_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB0_ANALOG();            \
+          CONFIG_RB0_AS_INPUT();          \
+          DISABLE_RB0_OPENDRAIN();        \
+          DISABLE_RB0_PULLUP();           \
+          DISABLE_RB0_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB0_AS_DIG_INPUT()    \
       do {                              \
@@ -1759,14 +1793,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB1_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB1_ANALOG();            \
-        CONFIG_RB1_AS_INPUT();          \
-        DISABLE_RB1_OPENDRAIN();        \
-        DISABLE_RB1_PULLUP();           \
-        DISABLE_RB1_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB1_GPIO)
+#     define CONFIG_RB1_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB1_ANALOG();            \
+          CONFIG_RB1_AS_INPUT();          \
+          DISABLE_RB1_OPENDRAIN();        \
+          DISABLE_RB1_PULLUP();           \
+          DISABLE_RB1_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB1_AS_DIG_INPUT()    \
       do {                              \
@@ -1857,14 +1893,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB2_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB2_ANALOG();            \
-        CONFIG_RB2_AS_INPUT();          \
-        DISABLE_RB2_OPENDRAIN();        \
-        DISABLE_RB2_PULLUP();           \
-        DISABLE_RB2_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB2_GPIO)
+#     define CONFIG_RB2_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB2_ANALOG();            \
+          CONFIG_RB2_AS_INPUT();          \
+          DISABLE_RB2_OPENDRAIN();        \
+          DISABLE_RB2_PULLUP();           \
+          DISABLE_RB2_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB2_AS_DIG_INPUT()    \
       do {                              \
@@ -1955,14 +1993,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB3_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB3_ANALOG();            \
-        CONFIG_RB3_AS_INPUT();          \
-        DISABLE_RB3_OPENDRAIN();        \
-        DISABLE_RB3_PULLUP();           \
-        DISABLE_RB3_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB3_GPIO)
+#     define CONFIG_RB3_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB3_ANALOG();            \
+          CONFIG_RB3_AS_INPUT();          \
+          DISABLE_RB3_OPENDRAIN();        \
+          DISABLE_RB3_PULLUP();           \
+          DISABLE_RB3_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB3_AS_DIG_INPUT()    \
       do {                              \
@@ -2053,14 +2093,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB4_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB4_ANALOG();            \
-        CONFIG_RB4_AS_INPUT();          \
-        DISABLE_RB4_OPENDRAIN();        \
-        DISABLE_RB4_PULLUP();           \
-        DISABLE_RB4_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB4_GPIO)
+#     define CONFIG_RB4_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB4_ANALOG();            \
+          CONFIG_RB4_AS_INPUT();          \
+          DISABLE_RB4_OPENDRAIN();        \
+          DISABLE_RB4_PULLUP();           \
+          DISABLE_RB4_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB4_AS_DIG_INPUT()    \
       do {                              \
@@ -2151,14 +2193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB5_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB5_ANALOG();            \
-        CONFIG_RB5_AS_INPUT();          \
-        DISABLE_RB5_OPENDRAIN();        \
-        DISABLE_RB5_PULLUP();           \
-        DISABLE_RB5_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB5_GPIO)
+#     define CONFIG_RB5_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB5_ANALOG();            \
+          CONFIG_RB5_AS_INPUT();          \
+          DISABLE_RB5_OPENDRAIN();        \
+          DISABLE_RB5_PULLUP();           \
+          DISABLE_RB5_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB5_AS_DIG_INPUT()    \
       do {                              \
@@ -2249,14 +2293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB6_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB6_ANALOG();            \
-        CONFIG_RB6_AS_INPUT();          \
-        DISABLE_RB6_OPENDRAIN();        \
-        DISABLE_RB6_PULLUP();           \
-        DISABLE_RB6_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB6_GPIO)
+#     define CONFIG_RB6_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB6_ANALOG();            \
+          CONFIG_RB6_AS_INPUT();          \
+          DISABLE_RB6_OPENDRAIN();        \
+          DISABLE_RB6_PULLUP();           \
+          DISABLE_RB6_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB6_AS_DIG_INPUT()    \
       do {                              \
@@ -2347,14 +2393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB7_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB7_ANALOG();            \
-        CONFIG_RB7_AS_INPUT();          \
-        DISABLE_RB7_OPENDRAIN();        \
-        DISABLE_RB7_PULLUP();           \
-        DISABLE_RB7_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB7_GPIO)
+#     define CONFIG_RB7_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB7_ANALOG();            \
+          CONFIG_RB7_AS_INPUT();          \
+          DISABLE_RB7_OPENDRAIN();        \
+          DISABLE_RB7_PULLUP();           \
+          DISABLE_RB7_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB7_AS_DIG_INPUT()    \
       do {                              \
@@ -2445,14 +2493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB8_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB8_ANALOG();            \
-        CONFIG_RB8_AS_INPUT();          \
-        DISABLE_RB8_OPENDRAIN();        \
-        DISABLE_RB8_PULLUP();           \
-        DISABLE_RB8_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB8_GPIO)
+#     define CONFIG_RB8_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB8_ANALOG();            \
+          CONFIG_RB8_AS_INPUT();          \
+          DISABLE_RB8_OPENDRAIN();        \
+          DISABLE_RB8_PULLUP();           \
+          DISABLE_RB8_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB8_AS_DIG_INPUT()    \
       do {                              \
@@ -2543,14 +2593,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB9_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB9_ANALOG();            \
-        CONFIG_RB9_AS_INPUT();          \
-        DISABLE_RB9_OPENDRAIN();        \
-        DISABLE_RB9_PULLUP();           \
-        DISABLE_RB9_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB9_GPIO)
+#     define CONFIG_RB9_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB9_ANALOG();            \
+          CONFIG_RB9_AS_INPUT();          \
+          DISABLE_RB9_OPENDRAIN();        \
+          DISABLE_RB9_PULLUP();           \
+          DISABLE_RB9_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB9_AS_DIG_INPUT()    \
       do {                              \
@@ -2641,14 +2693,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB10_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB10_ANALOG();            \
-        CONFIG_RB10_AS_INPUT();          \
-        DISABLE_RB10_OPENDRAIN();        \
-        DISABLE_RB10_PULLUP();           \
-        DISABLE_RB10_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB10_GPIO)
+#     define CONFIG_RB10_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB10_ANALOG();            \
+          CONFIG_RB10_AS_INPUT();          \
+          DISABLE_RB10_OPENDRAIN();        \
+          DISABLE_RB10_PULLUP();           \
+          DISABLE_RB10_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB10_AS_DIG_INPUT()    \
       do {                              \
@@ -2739,14 +2793,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB11_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB11_ANALOG();            \
-        CONFIG_RB11_AS_INPUT();          \
-        DISABLE_RB11_OPENDRAIN();        \
-        DISABLE_RB11_PULLUP();           \
-        DISABLE_RB11_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB11_GPIO)
+#     define CONFIG_RB11_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB11_ANALOG();            \
+          CONFIG_RB11_AS_INPUT();          \
+          DISABLE_RB11_OPENDRAIN();        \
+          DISABLE_RB11_PULLUP();           \
+          DISABLE_RB11_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB11_AS_DIG_INPUT()    \
       do {                              \
@@ -2837,14 +2893,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB12_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB12_ANALOG();            \
-        CONFIG_RB12_AS_INPUT();          \
-        DISABLE_RB12_OPENDRAIN();        \
-        DISABLE_RB12_PULLUP();           \
-        DISABLE_RB12_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB12_GPIO)
+#     define CONFIG_RB12_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB12_ANALOG();            \
+          CONFIG_RB12_AS_INPUT();          \
+          DISABLE_RB12_OPENDRAIN();        \
+          DISABLE_RB12_PULLUP();           \
+          DISABLE_RB12_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB12_AS_DIG_INPUT()    \
       do {                              \
@@ -2935,14 +2993,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB13_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB13_ANALOG();            \
-        CONFIG_RB13_AS_INPUT();          \
-        DISABLE_RB13_OPENDRAIN();        \
-        DISABLE_RB13_PULLUP();           \
-        DISABLE_RB13_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB13_GPIO)
+#     define CONFIG_RB13_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB13_ANALOG();            \
+          CONFIG_RB13_AS_INPUT();          \
+          DISABLE_RB13_OPENDRAIN();        \
+          DISABLE_RB13_PULLUP();           \
+          DISABLE_RB13_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB13_AS_DIG_INPUT()    \
       do {                              \
@@ -3033,14 +3093,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB14_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB14_ANALOG();            \
-        CONFIG_RB14_AS_INPUT();          \
-        DISABLE_RB14_OPENDRAIN();        \
-        DISABLE_RB14_PULLUP();           \
-        DISABLE_RB14_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB14_GPIO)
+#     define CONFIG_RB14_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB14_ANALOG();            \
+          CONFIG_RB14_AS_INPUT();          \
+          DISABLE_RB14_OPENDRAIN();        \
+          DISABLE_RB14_PULLUP();           \
+          DISABLE_RB14_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB14_AS_DIG_INPUT()    \
       do {                              \
@@ -3131,14 +3193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RB15_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RB15_ANALOG();            \
-        CONFIG_RB15_AS_INPUT();          \
-        DISABLE_RB15_OPENDRAIN();        \
-        DISABLE_RB15_PULLUP();           \
-        DISABLE_RB15_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RB15_GPIO)
+#     define CONFIG_RB15_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RB15_ANALOG();            \
+          CONFIG_RB15_AS_INPUT();          \
+          DISABLE_RB15_OPENDRAIN();        \
+          DISABLE_RB15_PULLUP();           \
+          DISABLE_RB15_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RB15_AS_DIG_INPUT()    \
       do {                              \
@@ -3229,14 +3293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC0_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC0_ANALOG();            \
-        CONFIG_RC0_AS_INPUT();          \
-        DISABLE_RC0_OPENDRAIN();        \
-        DISABLE_RC0_PULLUP();           \
-        DISABLE_RC0_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC0_GPIO)
+#     define CONFIG_RC0_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC0_ANALOG();            \
+          CONFIG_RC0_AS_INPUT();          \
+          DISABLE_RC0_OPENDRAIN();        \
+          DISABLE_RC0_PULLUP();           \
+          DISABLE_RC0_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC0_AS_DIG_INPUT()    \
       do {                              \
@@ -3327,14 +3393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC1_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC1_ANALOG();            \
-        CONFIG_RC1_AS_INPUT();          \
-        DISABLE_RC1_OPENDRAIN();        \
-        DISABLE_RC1_PULLUP();           \
-        DISABLE_RC1_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC1_GPIO)
+#     define CONFIG_RC1_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC1_ANALOG();            \
+          CONFIG_RC1_AS_INPUT();          \
+          DISABLE_RC1_OPENDRAIN();        \
+          DISABLE_RC1_PULLUP();           \
+          DISABLE_RC1_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC1_AS_DIG_INPUT()    \
       do {                              \
@@ -3425,14 +3493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC2_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC2_ANALOG();            \
-        CONFIG_RC2_AS_INPUT();          \
-        DISABLE_RC2_OPENDRAIN();        \
-        DISABLE_RC2_PULLUP();           \
-        DISABLE_RC2_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC2_GPIO)
+#     define CONFIG_RC2_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC2_ANALOG();            \
+          CONFIG_RC2_AS_INPUT();          \
+          DISABLE_RC2_OPENDRAIN();        \
+          DISABLE_RC2_PULLUP();           \
+          DISABLE_RC2_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC2_AS_DIG_INPUT()    \
       do {                              \
@@ -3523,14 +3593,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC3_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC3_ANALOG();            \
-        CONFIG_RC3_AS_INPUT();          \
-        DISABLE_RC3_OPENDRAIN();        \
-        DISABLE_RC3_PULLUP();           \
-        DISABLE_RC3_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC3_GPIO)
+#     define CONFIG_RC3_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC3_ANALOG();            \
+          CONFIG_RC3_AS_INPUT();          \
+          DISABLE_RC3_OPENDRAIN();        \
+          DISABLE_RC3_PULLUP();           \
+          DISABLE_RC3_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC3_AS_DIG_INPUT()    \
       do {                              \
@@ -3621,14 +3693,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC4_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC4_ANALOG();            \
-        CONFIG_RC4_AS_INPUT();          \
-        DISABLE_RC4_OPENDRAIN();        \
-        DISABLE_RC4_PULLUP();           \
-        DISABLE_RC4_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC4_GPIO)
+#     define CONFIG_RC4_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC4_ANALOG();            \
+          CONFIG_RC4_AS_INPUT();          \
+          DISABLE_RC4_OPENDRAIN();        \
+          DISABLE_RC4_PULLUP();           \
+          DISABLE_RC4_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC4_AS_DIG_INPUT()    \
       do {                              \
@@ -3719,14 +3793,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC5_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC5_ANALOG();            \
-        CONFIG_RC5_AS_INPUT();          \
-        DISABLE_RC5_OPENDRAIN();        \
-        DISABLE_RC5_PULLUP();           \
-        DISABLE_RC5_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC5_GPIO)
+#     define CONFIG_RC5_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC5_ANALOG();            \
+          CONFIG_RC5_AS_INPUT();          \
+          DISABLE_RC5_OPENDRAIN();        \
+          DISABLE_RC5_PULLUP();           \
+          DISABLE_RC5_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC5_AS_DIG_INPUT()    \
       do {                              \
@@ -3817,14 +3893,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC6_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC6_ANALOG();            \
-        CONFIG_RC6_AS_INPUT();          \
-        DISABLE_RC6_OPENDRAIN();        \
-        DISABLE_RC6_PULLUP();           \
-        DISABLE_RC6_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC6_GPIO)
+#     define CONFIG_RC6_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC6_ANALOG();            \
+          CONFIG_RC6_AS_INPUT();          \
+          DISABLE_RC6_OPENDRAIN();        \
+          DISABLE_RC6_PULLUP();           \
+          DISABLE_RC6_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC6_AS_DIG_INPUT()    \
       do {                              \
@@ -3915,14 +3993,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC7_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC7_ANALOG();            \
-        CONFIG_RC7_AS_INPUT();          \
-        DISABLE_RC7_OPENDRAIN();        \
-        DISABLE_RC7_PULLUP();           \
-        DISABLE_RC7_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC7_GPIO)
+#     define CONFIG_RC7_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC7_ANALOG();            \
+          CONFIG_RC7_AS_INPUT();          \
+          DISABLE_RC7_OPENDRAIN();        \
+          DISABLE_RC7_PULLUP();           \
+          DISABLE_RC7_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC7_AS_DIG_INPUT()    \
       do {                              \
@@ -4013,14 +4093,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC8_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC8_ANALOG();            \
-        CONFIG_RC8_AS_INPUT();          \
-        DISABLE_RC8_OPENDRAIN();        \
-        DISABLE_RC8_PULLUP();           \
-        DISABLE_RC8_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC8_GPIO)
+#     define CONFIG_RC8_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC8_ANALOG();            \
+          CONFIG_RC8_AS_INPUT();          \
+          DISABLE_RC8_OPENDRAIN();        \
+          DISABLE_RC8_PULLUP();           \
+          DISABLE_RC8_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC8_AS_DIG_INPUT()    \
       do {                              \
@@ -4111,14 +4193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC9_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC9_ANALOG();            \
-        CONFIG_RC9_AS_INPUT();          \
-        DISABLE_RC9_OPENDRAIN();        \
-        DISABLE_RC9_PULLUP();           \
-        DISABLE_RC9_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC9_GPIO)
+#     define CONFIG_RC9_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC9_ANALOG();            \
+          CONFIG_RC9_AS_INPUT();          \
+          DISABLE_RC9_OPENDRAIN();        \
+          DISABLE_RC9_PULLUP();           \
+          DISABLE_RC9_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC9_AS_DIG_INPUT()    \
       do {                              \
@@ -4209,14 +4293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC10_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC10_ANALOG();            \
-        CONFIG_RC10_AS_INPUT();          \
-        DISABLE_RC10_OPENDRAIN();        \
-        DISABLE_RC10_PULLUP();           \
-        DISABLE_RC10_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC10_GPIO)
+#     define CONFIG_RC10_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC10_ANALOG();            \
+          CONFIG_RC10_AS_INPUT();          \
+          DISABLE_RC10_OPENDRAIN();        \
+          DISABLE_RC10_PULLUP();           \
+          DISABLE_RC10_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC10_AS_DIG_INPUT()    \
       do {                              \
@@ -4307,14 +4393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC11_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC11_ANALOG();            \
-        CONFIG_RC11_AS_INPUT();          \
-        DISABLE_RC11_OPENDRAIN();        \
-        DISABLE_RC11_PULLUP();           \
-        DISABLE_RC11_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC11_GPIO)
+#     define CONFIG_RC11_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC11_ANALOG();            \
+          CONFIG_RC11_AS_INPUT();          \
+          DISABLE_RC11_OPENDRAIN();        \
+          DISABLE_RC11_PULLUP();           \
+          DISABLE_RC11_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC11_AS_DIG_INPUT()    \
       do {                              \
@@ -4405,14 +4493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC12_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC12_ANALOG();            \
-        CONFIG_RC12_AS_INPUT();          \
-        DISABLE_RC12_OPENDRAIN();        \
-        DISABLE_RC12_PULLUP();           \
-        DISABLE_RC12_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC12_GPIO)
+#     define CONFIG_RC12_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC12_ANALOG();            \
+          CONFIG_RC12_AS_INPUT();          \
+          DISABLE_RC12_OPENDRAIN();        \
+          DISABLE_RC12_PULLUP();           \
+          DISABLE_RC12_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC12_AS_DIG_INPUT()    \
       do {                              \
@@ -4503,14 +4593,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC13_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC13_ANALOG();            \
-        CONFIG_RC13_AS_INPUT();          \
-        DISABLE_RC13_OPENDRAIN();        \
-        DISABLE_RC13_PULLUP();           \
-        DISABLE_RC13_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC13_GPIO)
+#     define CONFIG_RC13_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC13_ANALOG();            \
+          CONFIG_RC13_AS_INPUT();          \
+          DISABLE_RC13_OPENDRAIN();        \
+          DISABLE_RC13_PULLUP();           \
+          DISABLE_RC13_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC13_AS_DIG_INPUT()    \
       do {                              \
@@ -4601,14 +4693,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC14_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC14_ANALOG();            \
-        CONFIG_RC14_AS_INPUT();          \
-        DISABLE_RC14_OPENDRAIN();        \
-        DISABLE_RC14_PULLUP();           \
-        DISABLE_RC14_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC14_GPIO)
+#     define CONFIG_RC14_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC14_ANALOG();            \
+          CONFIG_RC14_AS_INPUT();          \
+          DISABLE_RC14_OPENDRAIN();        \
+          DISABLE_RC14_PULLUP();           \
+          DISABLE_RC14_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC14_AS_DIG_INPUT()    \
       do {                              \
@@ -4699,14 +4793,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RC15_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RC15_ANALOG();            \
-        CONFIG_RC15_AS_INPUT();          \
-        DISABLE_RC15_OPENDRAIN();        \
-        DISABLE_RC15_PULLUP();           \
-        DISABLE_RC15_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RC15_GPIO)
+#     define CONFIG_RC15_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RC15_ANALOG();            \
+          CONFIG_RC15_AS_INPUT();          \
+          DISABLE_RC15_OPENDRAIN();        \
+          DISABLE_RC15_PULLUP();           \
+          DISABLE_RC15_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RC15_AS_DIG_INPUT()    \
       do {                              \
@@ -4797,14 +4893,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD0_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD0_ANALOG();            \
-        CONFIG_RD0_AS_INPUT();          \
-        DISABLE_RD0_OPENDRAIN();        \
-        DISABLE_RD0_PULLUP();           \
-        DISABLE_RD0_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD0_GPIO)
+#     define CONFIG_RD0_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD0_ANALOG();            \
+          CONFIG_RD0_AS_INPUT();          \
+          DISABLE_RD0_OPENDRAIN();        \
+          DISABLE_RD0_PULLUP();           \
+          DISABLE_RD0_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD0_AS_DIG_INPUT()    \
       do {                              \
@@ -4895,14 +4993,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD1_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD1_ANALOG();            \
-        CONFIG_RD1_AS_INPUT();          \
-        DISABLE_RD1_OPENDRAIN();        \
-        DISABLE_RD1_PULLUP();           \
-        DISABLE_RD1_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD1_GPIO)
+#     define CONFIG_RD1_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD1_ANALOG();            \
+          CONFIG_RD1_AS_INPUT();          \
+          DISABLE_RD1_OPENDRAIN();        \
+          DISABLE_RD1_PULLUP();           \
+          DISABLE_RD1_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD1_AS_DIG_INPUT()    \
       do {                              \
@@ -4993,14 +5093,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD2_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD2_ANALOG();            \
-        CONFIG_RD2_AS_INPUT();          \
-        DISABLE_RD2_OPENDRAIN();        \
-        DISABLE_RD2_PULLUP();           \
-        DISABLE_RD2_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD2_GPIO)
+#     define CONFIG_RD2_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD2_ANALOG();            \
+          CONFIG_RD2_AS_INPUT();          \
+          DISABLE_RD2_OPENDRAIN();        \
+          DISABLE_RD2_PULLUP();           \
+          DISABLE_RD2_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD2_AS_DIG_INPUT()    \
       do {                              \
@@ -5091,14 +5193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD3_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD3_ANALOG();            \
-        CONFIG_RD3_AS_INPUT();          \
-        DISABLE_RD3_OPENDRAIN();        \
-        DISABLE_RD3_PULLUP();           \
-        DISABLE_RD3_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD3_GPIO)
+#     define CONFIG_RD3_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD3_ANALOG();            \
+          CONFIG_RD3_AS_INPUT();          \
+          DISABLE_RD3_OPENDRAIN();        \
+          DISABLE_RD3_PULLUP();           \
+          DISABLE_RD3_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD3_AS_DIG_INPUT()    \
       do {                              \
@@ -5189,14 +5293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD4_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD4_ANALOG();            \
-        CONFIG_RD4_AS_INPUT();          \
-        DISABLE_RD4_OPENDRAIN();        \
-        DISABLE_RD4_PULLUP();           \
-        DISABLE_RD4_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD4_GPIO)
+#     define CONFIG_RD4_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD4_ANALOG();            \
+          CONFIG_RD4_AS_INPUT();          \
+          DISABLE_RD4_OPENDRAIN();        \
+          DISABLE_RD4_PULLUP();           \
+          DISABLE_RD4_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD4_AS_DIG_INPUT()    \
       do {                              \
@@ -5287,14 +5393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD5_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD5_ANALOG();            \
-        CONFIG_RD5_AS_INPUT();          \
-        DISABLE_RD5_OPENDRAIN();        \
-        DISABLE_RD5_PULLUP();           \
-        DISABLE_RD5_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD5_GPIO)
+#     define CONFIG_RD5_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD5_ANALOG();            \
+          CONFIG_RD5_AS_INPUT();          \
+          DISABLE_RD5_OPENDRAIN();        \
+          DISABLE_RD5_PULLUP();           \
+          DISABLE_RD5_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD5_AS_DIG_INPUT()    \
       do {                              \
@@ -5385,14 +5493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD6_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD6_ANALOG();            \
-        CONFIG_RD6_AS_INPUT();          \
-        DISABLE_RD6_OPENDRAIN();        \
-        DISABLE_RD6_PULLUP();           \
-        DISABLE_RD6_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD6_GPIO)
+#     define CONFIG_RD6_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD6_ANALOG();            \
+          CONFIG_RD6_AS_INPUT();          \
+          DISABLE_RD6_OPENDRAIN();        \
+          DISABLE_RD6_PULLUP();           \
+          DISABLE_RD6_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD6_AS_DIG_INPUT()    \
       do {                              \
@@ -5483,14 +5593,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD7_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD7_ANALOG();            \
-        CONFIG_RD7_AS_INPUT();          \
-        DISABLE_RD7_OPENDRAIN();        \
-        DISABLE_RD7_PULLUP();           \
-        DISABLE_RD7_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD7_GPIO)
+#     define CONFIG_RD7_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD7_ANALOG();            \
+          CONFIG_RD7_AS_INPUT();          \
+          DISABLE_RD7_OPENDRAIN();        \
+          DISABLE_RD7_PULLUP();           \
+          DISABLE_RD7_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD7_AS_DIG_INPUT()    \
       do {                              \
@@ -5581,14 +5693,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD8_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD8_ANALOG();            \
-        CONFIG_RD8_AS_INPUT();          \
-        DISABLE_RD8_OPENDRAIN();        \
-        DISABLE_RD8_PULLUP();           \
-        DISABLE_RD8_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD8_GPIO)
+#     define CONFIG_RD8_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD8_ANALOG();            \
+          CONFIG_RD8_AS_INPUT();          \
+          DISABLE_RD8_OPENDRAIN();        \
+          DISABLE_RD8_PULLUP();           \
+          DISABLE_RD8_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD8_AS_DIG_INPUT()    \
       do {                              \
@@ -5679,14 +5793,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD9_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD9_ANALOG();            \
-        CONFIG_RD9_AS_INPUT();          \
-        DISABLE_RD9_OPENDRAIN();        \
-        DISABLE_RD9_PULLUP();           \
-        DISABLE_RD9_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD9_GPIO)
+#     define CONFIG_RD9_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD9_ANALOG();            \
+          CONFIG_RD9_AS_INPUT();          \
+          DISABLE_RD9_OPENDRAIN();        \
+          DISABLE_RD9_PULLUP();           \
+          DISABLE_RD9_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD9_AS_DIG_INPUT()    \
       do {                              \
@@ -5777,14 +5893,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD10_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD10_ANALOG();            \
-        CONFIG_RD10_AS_INPUT();          \
-        DISABLE_RD10_OPENDRAIN();        \
-        DISABLE_RD10_PULLUP();           \
-        DISABLE_RD10_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD10_GPIO)
+#     define CONFIG_RD10_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD10_ANALOG();            \
+          CONFIG_RD10_AS_INPUT();          \
+          DISABLE_RD10_OPENDRAIN();        \
+          DISABLE_RD10_PULLUP();           \
+          DISABLE_RD10_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD10_AS_DIG_INPUT()    \
       do {                              \
@@ -5875,14 +5993,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD11_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD11_ANALOG();            \
-        CONFIG_RD11_AS_INPUT();          \
-        DISABLE_RD11_OPENDRAIN();        \
-        DISABLE_RD11_PULLUP();           \
-        DISABLE_RD11_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD11_GPIO)
+#     define CONFIG_RD11_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD11_ANALOG();            \
+          CONFIG_RD11_AS_INPUT();          \
+          DISABLE_RD11_OPENDRAIN();        \
+          DISABLE_RD11_PULLUP();           \
+          DISABLE_RD11_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD11_AS_DIG_INPUT()    \
       do {                              \
@@ -5973,14 +6093,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD12_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD12_ANALOG();            \
-        CONFIG_RD12_AS_INPUT();          \
-        DISABLE_RD12_OPENDRAIN();        \
-        DISABLE_RD12_PULLUP();           \
-        DISABLE_RD12_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD12_GPIO)
+#     define CONFIG_RD12_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD12_ANALOG();            \
+          CONFIG_RD12_AS_INPUT();          \
+          DISABLE_RD12_OPENDRAIN();        \
+          DISABLE_RD12_PULLUP();           \
+          DISABLE_RD12_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD12_AS_DIG_INPUT()    \
       do {                              \
@@ -6071,14 +6193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD13_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD13_ANALOG();            \
-        CONFIG_RD13_AS_INPUT();          \
-        DISABLE_RD13_OPENDRAIN();        \
-        DISABLE_RD13_PULLUP();           \
-        DISABLE_RD13_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD13_GPIO)
+#     define CONFIG_RD13_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD13_ANALOG();            \
+          CONFIG_RD13_AS_INPUT();          \
+          DISABLE_RD13_OPENDRAIN();        \
+          DISABLE_RD13_PULLUP();           \
+          DISABLE_RD13_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD13_AS_DIG_INPUT()    \
       do {                              \
@@ -6169,14 +6293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD14_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD14_ANALOG();            \
-        CONFIG_RD14_AS_INPUT();          \
-        DISABLE_RD14_OPENDRAIN();        \
-        DISABLE_RD14_PULLUP();           \
-        DISABLE_RD14_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD14_GPIO)
+#     define CONFIG_RD14_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD14_ANALOG();            \
+          CONFIG_RD14_AS_INPUT();          \
+          DISABLE_RD14_OPENDRAIN();        \
+          DISABLE_RD14_PULLUP();           \
+          DISABLE_RD14_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD14_AS_DIG_INPUT()    \
       do {                              \
@@ -6267,14 +6393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RD15_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RD15_ANALOG();            \
-        CONFIG_RD15_AS_INPUT();          \
-        DISABLE_RD15_OPENDRAIN();        \
-        DISABLE_RD15_PULLUP();           \
-        DISABLE_RD15_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RD15_GPIO)
+#     define CONFIG_RD15_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RD15_ANALOG();            \
+          CONFIG_RD15_AS_INPUT();          \
+          DISABLE_RD15_OPENDRAIN();        \
+          DISABLE_RD15_PULLUP();           \
+          DISABLE_RD15_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RD15_AS_DIG_INPUT()    \
       do {                              \
@@ -6365,14 +6493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE0_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE0_ANALOG();            \
-        CONFIG_RE0_AS_INPUT();          \
-        DISABLE_RE0_OPENDRAIN();        \
-        DISABLE_RE0_PULLUP();           \
-        DISABLE_RE0_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE0_GPIO)
+#     define CONFIG_RE0_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE0_ANALOG();            \
+          CONFIG_RE0_AS_INPUT();          \
+          DISABLE_RE0_OPENDRAIN();        \
+          DISABLE_RE0_PULLUP();           \
+          DISABLE_RE0_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE0_AS_DIG_INPUT()    \
       do {                              \
@@ -6463,14 +6593,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE1_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE1_ANALOG();            \
-        CONFIG_RE1_AS_INPUT();          \
-        DISABLE_RE1_OPENDRAIN();        \
-        DISABLE_RE1_PULLUP();           \
-        DISABLE_RE1_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE1_GPIO)
+#     define CONFIG_RE1_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE1_ANALOG();            \
+          CONFIG_RE1_AS_INPUT();          \
+          DISABLE_RE1_OPENDRAIN();        \
+          DISABLE_RE1_PULLUP();           \
+          DISABLE_RE1_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE1_AS_DIG_INPUT()    \
       do {                              \
@@ -6561,14 +6693,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE2_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE2_ANALOG();            \
-        CONFIG_RE2_AS_INPUT();          \
-        DISABLE_RE2_OPENDRAIN();        \
-        DISABLE_RE2_PULLUP();           \
-        DISABLE_RE2_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE2_GPIO)
+#     define CONFIG_RE2_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE2_ANALOG();            \
+          CONFIG_RE2_AS_INPUT();          \
+          DISABLE_RE2_OPENDRAIN();        \
+          DISABLE_RE2_PULLUP();           \
+          DISABLE_RE2_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE2_AS_DIG_INPUT()    \
       do {                              \
@@ -6659,14 +6793,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE3_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE3_ANALOG();            \
-        CONFIG_RE3_AS_INPUT();          \
-        DISABLE_RE3_OPENDRAIN();        \
-        DISABLE_RE3_PULLUP();           \
-        DISABLE_RE3_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE3_GPIO)
+#     define CONFIG_RE3_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE3_ANALOG();            \
+          CONFIG_RE3_AS_INPUT();          \
+          DISABLE_RE3_OPENDRAIN();        \
+          DISABLE_RE3_PULLUP();           \
+          DISABLE_RE3_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE3_AS_DIG_INPUT()    \
       do {                              \
@@ -6757,14 +6893,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE4_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE4_ANALOG();            \
-        CONFIG_RE4_AS_INPUT();          \
-        DISABLE_RE4_OPENDRAIN();        \
-        DISABLE_RE4_PULLUP();           \
-        DISABLE_RE4_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE4_GPIO)
+#     define CONFIG_RE4_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE4_ANALOG();            \
+          CONFIG_RE4_AS_INPUT();          \
+          DISABLE_RE4_OPENDRAIN();        \
+          DISABLE_RE4_PULLUP();           \
+          DISABLE_RE4_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE4_AS_DIG_INPUT()    \
       do {                              \
@@ -6855,14 +6993,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE5_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE5_ANALOG();            \
-        CONFIG_RE5_AS_INPUT();          \
-        DISABLE_RE5_OPENDRAIN();        \
-        DISABLE_RE5_PULLUP();           \
-        DISABLE_RE5_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE5_GPIO)
+#     define CONFIG_RE5_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE5_ANALOG();            \
+          CONFIG_RE5_AS_INPUT();          \
+          DISABLE_RE5_OPENDRAIN();        \
+          DISABLE_RE5_PULLUP();           \
+          DISABLE_RE5_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE5_AS_DIG_INPUT()    \
       do {                              \
@@ -6953,14 +7093,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE6_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE6_ANALOG();            \
-        CONFIG_RE6_AS_INPUT();          \
-        DISABLE_RE6_OPENDRAIN();        \
-        DISABLE_RE6_PULLUP();           \
-        DISABLE_RE6_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE6_GPIO)
+#     define CONFIG_RE6_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE6_ANALOG();            \
+          CONFIG_RE6_AS_INPUT();          \
+          DISABLE_RE6_OPENDRAIN();        \
+          DISABLE_RE6_PULLUP();           \
+          DISABLE_RE6_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE6_AS_DIG_INPUT()    \
       do {                              \
@@ -7051,14 +7193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE7_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE7_ANALOG();            \
-        CONFIG_RE7_AS_INPUT();          \
-        DISABLE_RE7_OPENDRAIN();        \
-        DISABLE_RE7_PULLUP();           \
-        DISABLE_RE7_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE7_GPIO)
+#     define CONFIG_RE7_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE7_ANALOG();            \
+          CONFIG_RE7_AS_INPUT();          \
+          DISABLE_RE7_OPENDRAIN();        \
+          DISABLE_RE7_PULLUP();           \
+          DISABLE_RE7_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE7_AS_DIG_INPUT()    \
       do {                              \
@@ -7149,14 +7293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE8_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE8_ANALOG();            \
-        CONFIG_RE8_AS_INPUT();          \
-        DISABLE_RE8_OPENDRAIN();        \
-        DISABLE_RE8_PULLUP();           \
-        DISABLE_RE8_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE8_GPIO)
+#     define CONFIG_RE8_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE8_ANALOG();            \
+          CONFIG_RE8_AS_INPUT();          \
+          DISABLE_RE8_OPENDRAIN();        \
+          DISABLE_RE8_PULLUP();           \
+          DISABLE_RE8_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE8_AS_DIG_INPUT()    \
       do {                              \
@@ -7247,14 +7393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE9_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE9_ANALOG();            \
-        CONFIG_RE9_AS_INPUT();          \
-        DISABLE_RE9_OPENDRAIN();        \
-        DISABLE_RE9_PULLUP();           \
-        DISABLE_RE9_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE9_GPIO)
+#     define CONFIG_RE9_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE9_ANALOG();            \
+          CONFIG_RE9_AS_INPUT();          \
+          DISABLE_RE9_OPENDRAIN();        \
+          DISABLE_RE9_PULLUP();           \
+          DISABLE_RE9_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE9_AS_DIG_INPUT()    \
       do {                              \
@@ -7345,14 +7493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE10_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE10_ANALOG();            \
-        CONFIG_RE10_AS_INPUT();          \
-        DISABLE_RE10_OPENDRAIN();        \
-        DISABLE_RE10_PULLUP();           \
-        DISABLE_RE10_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE10_GPIO)
+#     define CONFIG_RE10_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE10_ANALOG();            \
+          CONFIG_RE10_AS_INPUT();          \
+          DISABLE_RE10_OPENDRAIN();        \
+          DISABLE_RE10_PULLUP();           \
+          DISABLE_RE10_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE10_AS_DIG_INPUT()    \
       do {                              \
@@ -7443,14 +7593,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE11_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE11_ANALOG();            \
-        CONFIG_RE11_AS_INPUT();          \
-        DISABLE_RE11_OPENDRAIN();        \
-        DISABLE_RE11_PULLUP();           \
-        DISABLE_RE11_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE11_GPIO)
+#     define CONFIG_RE11_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE11_ANALOG();            \
+          CONFIG_RE11_AS_INPUT();          \
+          DISABLE_RE11_OPENDRAIN();        \
+          DISABLE_RE11_PULLUP();           \
+          DISABLE_RE11_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE11_AS_DIG_INPUT()    \
       do {                              \
@@ -7541,14 +7693,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE12_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE12_ANALOG();            \
-        CONFIG_RE12_AS_INPUT();          \
-        DISABLE_RE12_OPENDRAIN();        \
-        DISABLE_RE12_PULLUP();           \
-        DISABLE_RE12_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE12_GPIO)
+#     define CONFIG_RE12_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE12_ANALOG();            \
+          CONFIG_RE12_AS_INPUT();          \
+          DISABLE_RE12_OPENDRAIN();        \
+          DISABLE_RE12_PULLUP();           \
+          DISABLE_RE12_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE12_AS_DIG_INPUT()    \
       do {                              \
@@ -7639,14 +7793,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE13_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE13_ANALOG();            \
-        CONFIG_RE13_AS_INPUT();          \
-        DISABLE_RE13_OPENDRAIN();        \
-        DISABLE_RE13_PULLUP();           \
-        DISABLE_RE13_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE13_GPIO)
+#     define CONFIG_RE13_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE13_ANALOG();            \
+          CONFIG_RE13_AS_INPUT();          \
+          DISABLE_RE13_OPENDRAIN();        \
+          DISABLE_RE13_PULLUP();           \
+          DISABLE_RE13_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE13_AS_DIG_INPUT()    \
       do {                              \
@@ -7737,14 +7893,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE14_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE14_ANALOG();            \
-        CONFIG_RE14_AS_INPUT();          \
-        DISABLE_RE14_OPENDRAIN();        \
-        DISABLE_RE14_PULLUP();           \
-        DISABLE_RE14_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE14_GPIO)
+#     define CONFIG_RE14_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE14_ANALOG();            \
+          CONFIG_RE14_AS_INPUT();          \
+          DISABLE_RE14_OPENDRAIN();        \
+          DISABLE_RE14_PULLUP();           \
+          DISABLE_RE14_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE14_AS_DIG_INPUT()    \
       do {                              \
@@ -7835,14 +7993,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RE15_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RE15_ANALOG();            \
-        CONFIG_RE15_AS_INPUT();          \
-        DISABLE_RE15_OPENDRAIN();        \
-        DISABLE_RE15_PULLUP();           \
-        DISABLE_RE15_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RE15_GPIO)
+#     define CONFIG_RE15_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RE15_ANALOG();            \
+          CONFIG_RE15_AS_INPUT();          \
+          DISABLE_RE15_OPENDRAIN();        \
+          DISABLE_RE15_PULLUP();           \
+          DISABLE_RE15_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RE15_AS_DIG_INPUT()    \
       do {                              \
@@ -7933,14 +8093,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF0_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF0_ANALOG();            \
-        CONFIG_RF0_AS_INPUT();          \
-        DISABLE_RF0_OPENDRAIN();        \
-        DISABLE_RF0_PULLUP();           \
-        DISABLE_RF0_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF0_GPIO)
+#     define CONFIG_RF0_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF0_ANALOG();            \
+          CONFIG_RF0_AS_INPUT();          \
+          DISABLE_RF0_OPENDRAIN();        \
+          DISABLE_RF0_PULLUP();           \
+          DISABLE_RF0_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF0_AS_DIG_INPUT()    \
       do {                              \
@@ -8031,14 +8193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF1_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF1_ANALOG();            \
-        CONFIG_RF1_AS_INPUT();          \
-        DISABLE_RF1_OPENDRAIN();        \
-        DISABLE_RF1_PULLUP();           \
-        DISABLE_RF1_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF1_GPIO)
+#     define CONFIG_RF1_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF1_ANALOG();            \
+          CONFIG_RF1_AS_INPUT();          \
+          DISABLE_RF1_OPENDRAIN();        \
+          DISABLE_RF1_PULLUP();           \
+          DISABLE_RF1_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF1_AS_DIG_INPUT()    \
       do {                              \
@@ -8129,14 +8293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF2_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF2_ANALOG();            \
-        CONFIG_RF2_AS_INPUT();          \
-        DISABLE_RF2_OPENDRAIN();        \
-        DISABLE_RF2_PULLUP();           \
-        DISABLE_RF2_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF2_GPIO)
+#     define CONFIG_RF2_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF2_ANALOG();            \
+          CONFIG_RF2_AS_INPUT();          \
+          DISABLE_RF2_OPENDRAIN();        \
+          DISABLE_RF2_PULLUP();           \
+          DISABLE_RF2_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF2_AS_DIG_INPUT()    \
       do {                              \
@@ -8227,14 +8393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF3_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF3_ANALOG();            \
-        CONFIG_RF3_AS_INPUT();          \
-        DISABLE_RF3_OPENDRAIN();        \
-        DISABLE_RF3_PULLUP();           \
-        DISABLE_RF3_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF3_GPIO)
+#     define CONFIG_RF3_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF3_ANALOG();            \
+          CONFIG_RF3_AS_INPUT();          \
+          DISABLE_RF3_OPENDRAIN();        \
+          DISABLE_RF3_PULLUP();           \
+          DISABLE_RF3_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF3_AS_DIG_INPUT()    \
       do {                              \
@@ -8325,14 +8493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF4_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF4_ANALOG();            \
-        CONFIG_RF4_AS_INPUT();          \
-        DISABLE_RF4_OPENDRAIN();        \
-        DISABLE_RF4_PULLUP();           \
-        DISABLE_RF4_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF4_GPIO)
+#     define CONFIG_RF4_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF4_ANALOG();            \
+          CONFIG_RF4_AS_INPUT();          \
+          DISABLE_RF4_OPENDRAIN();        \
+          DISABLE_RF4_PULLUP();           \
+          DISABLE_RF4_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF4_AS_DIG_INPUT()    \
       do {                              \
@@ -8423,14 +8593,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF5_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF5_ANALOG();            \
-        CONFIG_RF5_AS_INPUT();          \
-        DISABLE_RF5_OPENDRAIN();        \
-        DISABLE_RF5_PULLUP();           \
-        DISABLE_RF5_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF5_GPIO)
+#     define CONFIG_RF5_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF5_ANALOG();            \
+          CONFIG_RF5_AS_INPUT();          \
+          DISABLE_RF5_OPENDRAIN();        \
+          DISABLE_RF5_PULLUP();           \
+          DISABLE_RF5_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF5_AS_DIG_INPUT()    \
       do {                              \
@@ -8521,14 +8693,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF6_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF6_ANALOG();            \
-        CONFIG_RF6_AS_INPUT();          \
-        DISABLE_RF6_OPENDRAIN();        \
-        DISABLE_RF6_PULLUP();           \
-        DISABLE_RF6_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF6_GPIO)
+#     define CONFIG_RF6_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF6_ANALOG();            \
+          CONFIG_RF6_AS_INPUT();          \
+          DISABLE_RF6_OPENDRAIN();        \
+          DISABLE_RF6_PULLUP();           \
+          DISABLE_RF6_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF6_AS_DIG_INPUT()    \
       do {                              \
@@ -8619,14 +8793,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF7_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF7_ANALOG();            \
-        CONFIG_RF7_AS_INPUT();          \
-        DISABLE_RF7_OPENDRAIN();        \
-        DISABLE_RF7_PULLUP();           \
-        DISABLE_RF7_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF7_GPIO)
+#     define CONFIG_RF7_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF7_ANALOG();            \
+          CONFIG_RF7_AS_INPUT();          \
+          DISABLE_RF7_OPENDRAIN();        \
+          DISABLE_RF7_PULLUP();           \
+          DISABLE_RF7_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF7_AS_DIG_INPUT()    \
       do {                              \
@@ -8717,14 +8893,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF8_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF8_ANALOG();            \
-        CONFIG_RF8_AS_INPUT();          \
-        DISABLE_RF8_OPENDRAIN();        \
-        DISABLE_RF8_PULLUP();           \
-        DISABLE_RF8_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF8_GPIO)
+#     define CONFIG_RF8_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF8_ANALOG();            \
+          CONFIG_RF8_AS_INPUT();          \
+          DISABLE_RF8_OPENDRAIN();        \
+          DISABLE_RF8_PULLUP();           \
+          DISABLE_RF8_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF8_AS_DIG_INPUT()    \
       do {                              \
@@ -8815,14 +8993,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF9_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF9_ANALOG();            \
-        CONFIG_RF9_AS_INPUT();          \
-        DISABLE_RF9_OPENDRAIN();        \
-        DISABLE_RF9_PULLUP();           \
-        DISABLE_RF9_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF9_GPIO)
+#     define CONFIG_RF9_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF9_ANALOG();            \
+          CONFIG_RF9_AS_INPUT();          \
+          DISABLE_RF9_OPENDRAIN();        \
+          DISABLE_RF9_PULLUP();           \
+          DISABLE_RF9_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF9_AS_DIG_INPUT()    \
       do {                              \
@@ -8913,14 +9093,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF10_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF10_ANALOG();            \
-        CONFIG_RF10_AS_INPUT();          \
-        DISABLE_RF10_OPENDRAIN();        \
-        DISABLE_RF10_PULLUP();           \
-        DISABLE_RF10_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF10_GPIO)
+#     define CONFIG_RF10_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF10_ANALOG();            \
+          CONFIG_RF10_AS_INPUT();          \
+          DISABLE_RF10_OPENDRAIN();        \
+          DISABLE_RF10_PULLUP();           \
+          DISABLE_RF10_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF10_AS_DIG_INPUT()    \
       do {                              \
@@ -9011,14 +9193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF11_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF11_ANALOG();            \
-        CONFIG_RF11_AS_INPUT();          \
-        DISABLE_RF11_OPENDRAIN();        \
-        DISABLE_RF11_PULLUP();           \
-        DISABLE_RF11_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF11_GPIO)
+#     define CONFIG_RF11_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF11_ANALOG();            \
+          CONFIG_RF11_AS_INPUT();          \
+          DISABLE_RF11_OPENDRAIN();        \
+          DISABLE_RF11_PULLUP();           \
+          DISABLE_RF11_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF11_AS_DIG_INPUT()    \
       do {                              \
@@ -9109,14 +9293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF12_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF12_ANALOG();            \
-        CONFIG_RF12_AS_INPUT();          \
-        DISABLE_RF12_OPENDRAIN();        \
-        DISABLE_RF12_PULLUP();           \
-        DISABLE_RF12_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF12_GPIO)
+#     define CONFIG_RF12_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF12_ANALOG();            \
+          CONFIG_RF12_AS_INPUT();          \
+          DISABLE_RF12_OPENDRAIN();        \
+          DISABLE_RF12_PULLUP();           \
+          DISABLE_RF12_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF12_AS_DIG_INPUT()    \
       do {                              \
@@ -9207,14 +9393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF13_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF13_ANALOG();            \
-        CONFIG_RF13_AS_INPUT();          \
-        DISABLE_RF13_OPENDRAIN();        \
-        DISABLE_RF13_PULLUP();           \
-        DISABLE_RF13_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF13_GPIO)
+#     define CONFIG_RF13_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF13_ANALOG();            \
+          CONFIG_RF13_AS_INPUT();          \
+          DISABLE_RF13_OPENDRAIN();        \
+          DISABLE_RF13_PULLUP();           \
+          DISABLE_RF13_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF13_AS_DIG_INPUT()    \
       do {                              \
@@ -9305,14 +9493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF14_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF14_ANALOG();            \
-        CONFIG_RF14_AS_INPUT();          \
-        DISABLE_RF14_OPENDRAIN();        \
-        DISABLE_RF14_PULLUP();           \
-        DISABLE_RF14_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF14_GPIO)
+#     define CONFIG_RF14_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF14_ANALOG();            \
+          CONFIG_RF14_AS_INPUT();          \
+          DISABLE_RF14_OPENDRAIN();        \
+          DISABLE_RF14_PULLUP();           \
+          DISABLE_RF14_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF14_AS_DIG_INPUT()    \
       do {                              \
@@ -9403,14 +9593,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RF15_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RF15_ANALOG();            \
-        CONFIG_RF15_AS_INPUT();          \
-        DISABLE_RF15_OPENDRAIN();        \
-        DISABLE_RF15_PULLUP();           \
-        DISABLE_RF15_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RF15_GPIO)
+#     define CONFIG_RF15_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RF15_ANALOG();            \
+          CONFIG_RF15_AS_INPUT();          \
+          DISABLE_RF15_OPENDRAIN();        \
+          DISABLE_RF15_PULLUP();           \
+          DISABLE_RF15_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RF15_AS_DIG_INPUT()    \
       do {                              \
@@ -9501,14 +9693,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG0_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG0_ANALOG();            \
-        CONFIG_RG0_AS_INPUT();          \
-        DISABLE_RG0_OPENDRAIN();        \
-        DISABLE_RG0_PULLUP();           \
-        DISABLE_RG0_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG0_GPIO)
+#     define CONFIG_RG0_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG0_ANALOG();            \
+          CONFIG_RG0_AS_INPUT();          \
+          DISABLE_RG0_OPENDRAIN();        \
+          DISABLE_RG0_PULLUP();           \
+          DISABLE_RG0_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG0_AS_DIG_INPUT()    \
       do {                              \
@@ -9599,14 +9793,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG1_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG1_ANALOG();            \
-        CONFIG_RG1_AS_INPUT();          \
-        DISABLE_RG1_OPENDRAIN();        \
-        DISABLE_RG1_PULLUP();           \
-        DISABLE_RG1_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG1_GPIO)
+#     define CONFIG_RG1_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG1_ANALOG();            \
+          CONFIG_RG1_AS_INPUT();          \
+          DISABLE_RG1_OPENDRAIN();        \
+          DISABLE_RG1_PULLUP();           \
+          DISABLE_RG1_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG1_AS_DIG_INPUT()    \
       do {                              \
@@ -9697,14 +9893,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG2_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG2_ANALOG();            \
-        CONFIG_RG2_AS_INPUT();          \
-        DISABLE_RG2_OPENDRAIN();        \
-        DISABLE_RG2_PULLUP();           \
-        DISABLE_RG2_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG2_GPIO)
+#     define CONFIG_RG2_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG2_ANALOG();            \
+          CONFIG_RG2_AS_INPUT();          \
+          DISABLE_RG2_OPENDRAIN();        \
+          DISABLE_RG2_PULLUP();           \
+          DISABLE_RG2_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG2_AS_DIG_INPUT()    \
       do {                              \
@@ -9795,14 +9993,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG3_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG3_ANALOG();            \
-        CONFIG_RG3_AS_INPUT();          \
-        DISABLE_RG3_OPENDRAIN();        \
-        DISABLE_RG3_PULLUP();           \
-        DISABLE_RG3_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG3_GPIO)
+#     define CONFIG_RG3_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG3_ANALOG();            \
+          CONFIG_RG3_AS_INPUT();          \
+          DISABLE_RG3_OPENDRAIN();        \
+          DISABLE_RG3_PULLUP();           \
+          DISABLE_RG3_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG3_AS_DIG_INPUT()    \
       do {                              \
@@ -9893,14 +10093,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG4_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG4_ANALOG();            \
-        CONFIG_RG4_AS_INPUT();          \
-        DISABLE_RG4_OPENDRAIN();        \
-        DISABLE_RG4_PULLUP();           \
-        DISABLE_RG4_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG4_GPIO)
+#     define CONFIG_RG4_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG4_ANALOG();            \
+          CONFIG_RG4_AS_INPUT();          \
+          DISABLE_RG4_OPENDRAIN();        \
+          DISABLE_RG4_PULLUP();           \
+          DISABLE_RG4_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG4_AS_DIG_INPUT()    \
       do {                              \
@@ -9991,14 +10193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG5_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG5_ANALOG();            \
-        CONFIG_RG5_AS_INPUT();          \
-        DISABLE_RG5_OPENDRAIN();        \
-        DISABLE_RG5_PULLUP();           \
-        DISABLE_RG5_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG5_GPIO)
+#     define CONFIG_RG5_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG5_ANALOG();            \
+          CONFIG_RG5_AS_INPUT();          \
+          DISABLE_RG5_OPENDRAIN();        \
+          DISABLE_RG5_PULLUP();           \
+          DISABLE_RG5_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG5_AS_DIG_INPUT()    \
       do {                              \
@@ -10089,14 +10293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG6_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG6_ANALOG();            \
-        CONFIG_RG6_AS_INPUT();          \
-        DISABLE_RG6_OPENDRAIN();        \
-        DISABLE_RG6_PULLUP();           \
-        DISABLE_RG6_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG6_GPIO)
+#     define CONFIG_RG6_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG6_ANALOG();            \
+          CONFIG_RG6_AS_INPUT();          \
+          DISABLE_RG6_OPENDRAIN();        \
+          DISABLE_RG6_PULLUP();           \
+          DISABLE_RG6_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG6_AS_DIG_INPUT()    \
       do {                              \
@@ -10187,14 +10393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG7_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG7_ANALOG();            \
-        CONFIG_RG7_AS_INPUT();          \
-        DISABLE_RG7_OPENDRAIN();        \
-        DISABLE_RG7_PULLUP();           \
-        DISABLE_RG7_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG7_GPIO)
+#     define CONFIG_RG7_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG7_ANALOG();            \
+          CONFIG_RG7_AS_INPUT();          \
+          DISABLE_RG7_OPENDRAIN();        \
+          DISABLE_RG7_PULLUP();           \
+          DISABLE_RG7_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG7_AS_DIG_INPUT()    \
       do {                              \
@@ -10285,14 +10493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG8_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG8_ANALOG();            \
-        CONFIG_RG8_AS_INPUT();          \
-        DISABLE_RG8_OPENDRAIN();        \
-        DISABLE_RG8_PULLUP();           \
-        DISABLE_RG8_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG8_GPIO)
+#     define CONFIG_RG8_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG8_ANALOG();            \
+          CONFIG_RG8_AS_INPUT();          \
+          DISABLE_RG8_OPENDRAIN();        \
+          DISABLE_RG8_PULLUP();           \
+          DISABLE_RG8_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG8_AS_DIG_INPUT()    \
       do {                              \
@@ -10383,14 +10593,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG9_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG9_ANALOG();            \
-        CONFIG_RG9_AS_INPUT();          \
-        DISABLE_RG9_OPENDRAIN();        \
-        DISABLE_RG9_PULLUP();           \
-        DISABLE_RG9_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG9_GPIO)
+#     define CONFIG_RG9_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG9_ANALOG();            \
+          CONFIG_RG9_AS_INPUT();          \
+          DISABLE_RG9_OPENDRAIN();        \
+          DISABLE_RG9_PULLUP();           \
+          DISABLE_RG9_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG9_AS_DIG_INPUT()    \
       do {                              \
@@ -10481,14 +10693,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG10_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG10_ANALOG();            \
-        CONFIG_RG10_AS_INPUT();          \
-        DISABLE_RG10_OPENDRAIN();        \
-        DISABLE_RG10_PULLUP();           \
-        DISABLE_RG10_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG10_GPIO)
+#     define CONFIG_RG10_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG10_ANALOG();            \
+          CONFIG_RG10_AS_INPUT();          \
+          DISABLE_RG10_OPENDRAIN();        \
+          DISABLE_RG10_PULLUP();           \
+          DISABLE_RG10_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG10_AS_DIG_INPUT()    \
       do {                              \
@@ -10579,14 +10793,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG11_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG11_ANALOG();            \
-        CONFIG_RG11_AS_INPUT();          \
-        DISABLE_RG11_OPENDRAIN();        \
-        DISABLE_RG11_PULLUP();           \
-        DISABLE_RG11_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG11_GPIO)
+#     define CONFIG_RG11_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG11_ANALOG();            \
+          CONFIG_RG11_AS_INPUT();          \
+          DISABLE_RG11_OPENDRAIN();        \
+          DISABLE_RG11_PULLUP();           \
+          DISABLE_RG11_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG11_AS_DIG_INPUT()    \
       do {                              \
@@ -10677,14 +10893,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG12_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG12_ANALOG();            \
-        CONFIG_RG12_AS_INPUT();          \
-        DISABLE_RG12_OPENDRAIN();        \
-        DISABLE_RG12_PULLUP();           \
-        DISABLE_RG12_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG12_GPIO)
+#     define CONFIG_RG12_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG12_ANALOG();            \
+          CONFIG_RG12_AS_INPUT();          \
+          DISABLE_RG12_OPENDRAIN();        \
+          DISABLE_RG12_PULLUP();           \
+          DISABLE_RG12_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG12_AS_DIG_INPUT()    \
       do {                              \
@@ -10775,14 +10993,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG13_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG13_ANALOG();            \
-        CONFIG_RG13_AS_INPUT();          \
-        DISABLE_RG13_OPENDRAIN();        \
-        DISABLE_RG13_PULLUP();           \
-        DISABLE_RG13_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG13_GPIO)
+#     define CONFIG_RG13_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG13_ANALOG();            \
+          CONFIG_RG13_AS_INPUT();          \
+          DISABLE_RG13_OPENDRAIN();        \
+          DISABLE_RG13_PULLUP();           \
+          DISABLE_RG13_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG13_AS_DIG_INPUT()    \
       do {                              \
@@ -10873,14 +11093,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG14_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG14_ANALOG();            \
-        CONFIG_RG14_AS_INPUT();          \
-        DISABLE_RG14_OPENDRAIN();        \
-        DISABLE_RG14_PULLUP();           \
-        DISABLE_RG14_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG14_GPIO)
+#     define CONFIG_RG14_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG14_ANALOG();            \
+          CONFIG_RG14_AS_INPUT();          \
+          DISABLE_RG14_OPENDRAIN();        \
+          DISABLE_RG14_PULLUP();           \
+          DISABLE_RG14_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG14_AS_DIG_INPUT()    \
       do {                              \
@@ -10971,14 +11193,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RG15_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RG15_ANALOG();            \
-        CONFIG_RG15_AS_INPUT();          \
-        DISABLE_RG15_OPENDRAIN();        \
-        DISABLE_RG15_PULLUP();           \
-        DISABLE_RG15_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RG15_GPIO)
+#     define CONFIG_RG15_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RG15_ANALOG();            \
+          CONFIG_RG15_AS_INPUT();          \
+          DISABLE_RG15_OPENDRAIN();        \
+          DISABLE_RG15_PULLUP();           \
+          DISABLE_RG15_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RG15_AS_DIG_INPUT()    \
       do {                              \
@@ -11069,14 +11293,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RT1_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RT1_ANALOG();            \
-        CONFIG_RT1_AS_INPUT();          \
-        DISABLE_RT1_OPENDRAIN();        \
-        DISABLE_RT1_PULLUP();           \
-        DISABLE_RT1_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RT1_GPIO)
+#     define CONFIG_RT1_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RT1_ANALOG();            \
+          CONFIG_RT1_AS_INPUT();          \
+          DISABLE_RT1_OPENDRAIN();        \
+          DISABLE_RT1_PULLUP();           \
+          DISABLE_RT1_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RT1_AS_DIG_INPUT()    \
       do {                              \
@@ -11167,14 +11393,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RT2_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RT2_ANALOG();            \
-        CONFIG_RT2_AS_INPUT();          \
-        DISABLE_RT2_OPENDRAIN();        \
-        DISABLE_RT2_PULLUP();           \
-        DISABLE_RT2_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RT2_GPIO)
+#     define CONFIG_RT2_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RT2_ANALOG();            \
+          CONFIG_RT2_AS_INPUT();          \
+          DISABLE_RT2_OPENDRAIN();        \
+          DISABLE_RT2_PULLUP();           \
+          DISABLE_RT2_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RT2_AS_DIG_INPUT()    \
       do {                              \
@@ -11265,14 +11493,16 @@
 
     // High-level config
     // -----------------
-#   define CONFIG_RT3_AS_ANALOG()       \
-      do {                              \
-        ENABLE_RT3_ANALOG();            \
-        CONFIG_RT3_AS_INPUT();          \
-        DISABLE_RT3_OPENDRAIN();        \
-        DISABLE_RT3_PULLUP();           \
-        DISABLE_RT3_PULLDOWN();         \
-      } while (0)
+#   if RXY_HAS_ANALOG(RT3_GPIO)
+#     define CONFIG_RT3_AS_ANALOG()       \
+        do {                              \
+          ENABLE_RT3_ANALOG();            \
+          CONFIG_RT3_AS_INPUT();          \
+          DISABLE_RT3_OPENDRAIN();        \
+          DISABLE_RT3_PULLUP();           \
+          DISABLE_RT3_PULLDOWN();         \
+        } while (0)
+#   endif
 
 #   define CONFIG_RT3_AS_DIG_INPUT()    \
       do {                              \
