@@ -1,5 +1,5 @@
 
-
+use Data::Dumper;
 require "pic24dev_data.pl";
 
 $rp_max = 100;    #max value for higher end devices
@@ -15,8 +15,24 @@ sub pulldowns_exist {
    return 0;
 }
 
+# Print the CSV header
+@CSV_header = ( );
+foreach $port ("A" .. "G") {
+  for ($pin = 0; $pin <= 15; $pin++) {
+    push(@CSV_header, sprintf("%s%d", $port, $pin))
+  }
+}
+print "Device port / pin, " . join(", ", @CSV_header) . "\n";
+
+
+# Goal: For each pin of each device, get RPy, ANn, CNm.
+# ANn comes from $anaref.
+# CNm comes from $pullref.
+# RPy can be derived from $rpanaref, which gives _PCFGn; then $reverse_anaref(_PCGFn) gives Rxy. Reversing this gives what we want.
 foreach $devref (@pic24_devices) {
   $devname = $$devref[0];  
+#  # For debug, just print one chip.
+#  next unless ($devname eq "pic24hj32gp202");
   $ioref =$$devref[1];
   $pullref=$$devref[2];
   $odref=$$devref[3];
@@ -29,36 +45,87 @@ foreach $devref (@pic24_devices) {
    print "Illegal family!\n";
    exit 0;
    }
-  $fname = $devname . "_ports.h";  
+  #$fname = $devname . "_ports.h";  
   $reverse_anaref = &get_reverse_hash($anaref);
-  if (-e $fname) {
-   unlink($fname);  
-   }
-  print "$fname\n";
-  open(OUTPUT, ">$fname") || die "Cannot create file $fname";
+  #if (-e $fname) {
+  # unlink($fname);  
+  # }
+  #print "$fname\n";
+  #open(OUTPUT, ">$fname") || die "Cannot create file $fname";
   
-  if ($family_type == $family_24e || $family_type == $family_33e ) {
-  #generic way of writing port files. The only arguments used are 
-   &printgenericports($anaref, $rpanaref, $family_type);
-   &printanalog_disable($disanaref);
-  } else {  
-    &printpullups($ioref, $pullref);
-    if (&pulldowns_exist($family_type)) {
-      &printpulldowns($ioref, $pullref);
-    }
-    &printcninterrupts($ioref, $pullref);
-    &printanalog($ioref, $anaref);
-    &printopendrain($ioref, $odref);
-    &printdigout($ioref, $anaref,$pullref,$odref);
-    &printdigoutod($ioref, $anaref,$pullref,$odref);
-    &printdigin($ioref, $anaref,$pullref);
-    &printrpdigin($rpanaref);
-    &printanaout($reverse_anaref);  
-    &printanalog_disable($disanaref);
+  # Create a mapping from Rxy to RPy.
+  %Rxy_to_RPy = ( );
+  foreach $RPy (keys(%$rpanaref)) {
+    $PCFGn = $$rpanaref{$RPy};
+    $Rxy = $$reverse_anaref{$PCFGn};
+    $Rxy_to_RPy{$Rxy} = $RPy;
   }
- 
-  print OUTPUT "#define _PIC24_DIGIO_DEFINED\n";
-  close(OUTPUT);
+  
+  # Iterate through all pins of all ports
+  @CSV_RPy = ();
+  @CSV_ANn = ();
+  @CSV_CNm = ();
+  foreach $port ("A" .. "G") {
+    for ($pin = 0; $pin <= 15; $pin++) {
+      # Create a Rxy string for this port/pin.
+      $Rxy = sprintf("R%s%d", $port, $pin);
+      
+      # See if there's an RPy for this Rxy.
+      if (exists $Rxy_to_RPy{$Rxy}) {
+        $RPy = $Rxy_to_RPy{$Rxy};
+      } else {
+        $RPy = "";
+      }
+      push(@CSV_RPy, $RPy);
+        
+      # See if there's an ANn for this Rxy.
+      if (exists $$anaref{$Rxy}) {
+        $ANn = $$anaref{$Rxy};
+      } else {
+        $ANn = "";
+      }
+      push(@CSV_ANn, $ANn);
+        
+      # See if there's an CNm for this Rxy.
+      if (exists $$pullref{$Rxy}) {
+        $CNm = $$pullref{$Rxy};
+      } else {
+        $CNm = "";
+      }
+      push(@CSV_CNm, $CNm);
+        
+#      # Print it out
+#      printf("#define %s_GPIO %s, %s, %s\n", $Rxy, $RPy, $ANn, $CNm);
+    }
+  }
+  
+  # Print out the resulting map in CSV format.
+  print($devname . " RPy, " . join(", ", @CSV_RPy) . "\n");
+  print($devname . " ANn, " . join(", ", @CSV_ANn) . "\n");
+  print($devname . " CNm, " . join(", ", @CSV_CNm) . "\n");
+  
+#  if ($family_type == $family_24e || $family_type == $family_33e ) {
+#  #generic way of writing port files. The only arguments used are 
+#   &printgenericports($anaref, $rpanaref, $family_type);
+#  &printanalog_disable($disanaref);
+#  } else {  
+#    &printpullups($ioref, $pullref);
+#    if (&pulldowns_exist($family_type)) {
+#      &printpulldowns($ioref, $pullref);
+#    }
+#    &printcninterrupts($ioref, $pullref);
+#    &printanalog($ioref, $anaref);
+#    &printopendrain($ioref, $odref);
+#    &printdigout($ioref, $anaref,$pullref,$odref);
+#    &printdigoutod($ioref, $anaref,$pullref,$odref);
+#    &printdigin($ioref, $anaref,$pullref);
+#    &printrpdigin($rpanaref);
+#    &printanaout($reverse_anaref);  
+#    &printanalog_disable($disanaref);
+#  }
+# 
+#  print OUTPUT "#define _PIC24_DIGIO_DEFINED\n";
+#  close(OUTPUT);
   }
  exit;
  
