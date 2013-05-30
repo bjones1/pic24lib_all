@@ -16,6 +16,7 @@
 
 import os
 from string import Template
+import csv
 
 # Import environment from calling SConstruct context
 Import('env')
@@ -89,6 +90,12 @@ def c_template_builder(target, source, env):
   if (g == "pic24_spi"):
     genFromTemplate(s, t, 2)
 
+## Enumerate all ports on a PIC24 processor, returning the result as a list.
+def enumeratePic24Ports():
+    return [chr(i) + str(j) for i in range(ord('A'), ord('G') + 1)
+                            for j in range(16)]
+
+
 ## This routine builds a pic24_ports_XX_config.h file from a template. To do so:
 #
 # #. Open the output and template files.
@@ -96,7 +103,6 @@ def c_template_builder(target, source, env):
 # #. For each port/pin, write a replaced template.
 def genConfigFromTemplate(templateFileName, destFileName):
   # Read in the template.
-  print('Generating template.')
   with open(templateFileName, "rb") as templateFile:
     template = Template(templateFile.read())
   # Open the output file.
@@ -104,13 +110,76 @@ def genConfigFromTemplate(templateFileName, destFileName):
     # Write the header
     outFile.write(c_license_header)
     # Iterate over every port
-    portlist = [chr(i) + str(j) for i in range(ord('A'), ord('G') + 1)
-                                  for j in range(16)]
+    portlist = enumeratePic24Ports()
     # Add in some extra ports for unit testing
     portlist.extend(['T1', 'T2', 'T3'])
     for Rxy in portlist:
       # Evaluate the template for this port/pin.
       outFile.write(template.substitute({'x' : Rxy}))
+
+## This routine builds pic24_ports_tables.h from a template. To do so:
+#
+# #. Open the output file and write out the header.
+# #. Load in the CSV file containing pin information:
+#    #. Load three rows; they should be labeled xxx RPy, xxx ANn, and xxx CNm, where xxx is the processor.
+#    #. For each Rxy value:
+#       #. For F/H devices: look at the corresponding RPy, ANn, and CNm. If any are non-empty, write a table entry.
+#       #. For E devices: Write a #define for RPy or ANn if either are non-empty.
+# #. Write out the footer.
+def genTablesFromTemplate(csvFileName, destFileName):
+  portlist = enumeratePic24Ports()
+  # Read in the CSV containing device information.
+  with open(csvFileName, "rb") as csvFile:
+    csv_dict_reader = csv.DictReader(csvFile).__iter__()
+    # Open the output file.
+    with open(destFileName, "wb") as outFile:
+      # Write the header
+      outFile.write(c_license_header)
+      outFile.write('#if 0\n')
+      # Walk through the file
+      while True:
+          # Read three rows
+          try:
+              RPy = csv_dict_reader.next()
+              ANn = csv_dict_reader.next()
+              CNm = csv_dict_reader.next()
+          except StopIteration:
+              break
+          # Write out processor information
+          processor_name = RPy['Device port / pin'][:-4]
+          is_e = 'EP' in processor_name
+          outFile.write('\n#elif defined(__' + processor_name + '__)\n')
+          # Walk through each Rxy on this processor
+          for Rxy in portlist:
+              # Get the specific values for this Rxy.
+              _RPy = RPy[Rxy]
+              _ANn = ANn[Rxy]
+              _CNm = CNm[Rxy]
+              if is_e:
+                  if _RPy:
+                      outFile.write('# define R%s_REMAPPABLE %s\n' % (Rxy, _RPy))
+                  if _ANn:
+                      outFile.write('# define R%s_AN_PORT %s\n' % (Rxy, _ANn))
+                  # E parts should never have CN info in them.
+                  assert not _CNm
+              elif _RPy or _ANn or _CNm:
+                  outFile.write('# define R%s_GPIO %s, %s, %s\n' % (Rxy, _RPy or '-1', _ANn or '-1', _CNm or '-1'))
+      # Write footer
+      outFile.write('#else\n# error "Port information not defined."\n#endif\n')
+
+## Builds a .h from a .csv -- SCons Builder function formation.
+# Has the proper
+# inputs, outputs and returns value to be registered SCons environment as a builder function.
+#  \param target Target file for this function to build
+#  \param source File on which target is built from
+#  \param env Environment (if needed)
+def csv_template_builder(target, source, env):
+  s=str(source[0])
+  t=str(target[0])
+  f=os.path.split(str(target[0]))[-1]
+  g=os.path.splitext(f)[0]
+  if g == "pic24_ports_tables":
+    genTablesFromTemplate(s, t)
 
 ## Builds a .h from a template -- SCons Builder function formation.
 # Function will build the .c as requested.  Has the proper
@@ -141,6 +210,10 @@ env.Append(BUILDERS = {'CTemplate' : cbldr})
 hbldr = Builder(action = h_template_builder, suffix='.h', src_suffix='.h-template')
 env.Append(BUILDERS = {'HTemplate' : hbldr})
 
+## Define and register a CVS-driven builder for .csv files
+csvbldr = Builder(action = csv_template_builder, suffix='.h', src_suffix='.csv')
+env.Append(BUILDERS = {'CSVTemplate' : csvbldr})
+
 ## @}
 
 
@@ -157,6 +230,7 @@ env.CTemplate('../lib/common/pic24_spi','pic24_spi')
 env.CTemplate('../lib/common/pic24_ecan','pic24_ecan')
 env.HTemplate('../lib/include/pic24_ecan','pic24_ecan')
 env.HTemplate('../lib/include/pic24_ports_fh_config','pic24_ports_fh_config')
+env.CSVTemplate('../lib/include/pic24_ports_tables','pic24_devices')
 
 
 ## @}
