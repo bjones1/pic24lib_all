@@ -201,7 +201,7 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
 #if defined(_INT1R) || defined(__DOXYGEN__)
 /// Maps INT1 to a remappable pin;
 /// see <a href="#remappableInputs">remappable peripheral input support</a>
-/// for more informatino.
+/// for more information.
 #define CONFIG_INT1_TO_RP(pin) _INT1R = pin
 #else
 #define CONFIG_INT1_TO_RP(pin)
