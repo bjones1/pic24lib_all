@@ -15,7 +15,6 @@
 ###############################################################################
 
 import os
-import string
 from string import Template
 
 # Import environment from calling SConstruct context
@@ -31,7 +30,7 @@ includeDir = '../lib/include/'
 commonDir = '../lib/common/'
 
 ## @}
- 
+
 ## @{
 #  \name Functions supporting template file builds
 ###############################################################################
@@ -43,7 +42,7 @@ commonDir = '../lib/common/'
 #  \param mapping A dictionary of key=value pairs used by
 #         Template to perform the search and replace operation.
 #  \param openMode Mode with which to open the destination file.
-#         Use the default of 'wb' to overwrite the 
+#         Use the default of 'wb' to overwrite the
 #         destination file with the replaced source file. Use 'ab' to
 #         append the replaced source file to the destination file.
 #         The 'b' at end end of 'wb'/'ab' keeps line endings Unix-style,
@@ -65,7 +64,7 @@ def searchAndReplace(sourceFile, destFileName, mapping, openMode='wb'):
 def genFromTemplate(templateFileName, destFileName, iters):
   openMode = 'wb'
   for i in range(1, iters + 1):
-    searchAndReplace(templateFileName, destFileName, 
+    searchAndReplace(templateFileName, destFileName,
       {'x' : str(i)}, openMode)
     openMode = 'ab'
 
@@ -89,7 +88,29 @@ def c_template_builder(target, source, env):
     genFromTemplate(s, t, 2)
   if (g == "pic24_spi"):
     genFromTemplate(s, t, 2)
-  return None
+
+## This routine builds a pic24_ports_XX_config.h file from a template. To do so:
+#
+# #. Open the output and template files.
+# #. Write the header.
+# #. For each port/pin, write a replaced template.
+def genConfigFromTemplate(templateFileName, destFileName):
+  # Read in the template.
+  print('Generating template.')
+  with open(templateFileName, "rb") as templateFile:
+    template = Template(templateFile.read())
+  # Open the output file.
+  with open(destFileName, "wb") as outFile:
+    # Write the header
+    outFile.write(c_license_header)
+    # Iterate over every port
+    portlist = [chr(i) + str(j) for i in range(ord('A'), ord('G') + 1)
+                                  for j in range(16)]
+    # Add in some extra ports for unit testing
+    portlist.extend(['T1', 'T2', 'T3'])
+    for Rxy in portlist:
+      # Evaluate the template for this port/pin.
+      outFile.write(template.substitute({'x' : Rxy}))
 
 ## Builds a .h from a template -- SCons Builder function formation.
 # Function will build the .c as requested.  Has the proper
@@ -109,7 +130,8 @@ def h_template_builder(target, source, env):
     genFromTemplate(s, t, 2)
   if ( g == "pic24_ecan"):
     genFromTemplate(s, t, 2)
-  return None
+  if g == "pic24_ports_fh_config":
+    genConfigFromTemplate(s, t)
 
 ## Define and register a template-driven builder for .c files
 cbldr = Builder(action = c_template_builder, suffix='.c', src_suffix='.c-template')
@@ -134,6 +156,42 @@ env.HTemplate('../lib/include/pic24_i2c','pic24_i2c')
 env.CTemplate('../lib/common/pic24_spi','pic24_spi')
 env.CTemplate('../lib/common/pic24_ecan','pic24_ecan')
 env.HTemplate('../lib/include/pic24_ecan','pic24_ecan')
+env.HTemplate('../lib/include/pic24_ports_fh_config','pic24_ports_fh_config')
 
 
 ## @}
+
+
+## Header, containing the license as a C comment.
+c_license_header = """/*
+ * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+ * All rights reserved.
+ * (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
+ * (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
+ * (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
+ *
+ * Permission to use, copy, modify, and distribute this software and its
+ * documentation for any purpose, without fee, and without written agreement is
+ * hereby granted, provided that the above copyright notice, the following
+ * two paragraphs and the authors appear in all copies of this software.
+ *
+ * IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
+ * DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
+ * OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
+ * HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+ * ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
+ * PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
+ *
+ * Please maintain this header in its entirety when copying/modifying
+ * these files.
+ *
+ *
+ */
+
+
+
+"""
