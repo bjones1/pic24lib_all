@@ -975,7 +975,7 @@
 # define RG8_CN 10
 # define RG9_CN 11
 
-#elif defined(__dsPIC33EP512GP806__) || defined(__dsPIC33EP512MC806__) || defined(__dsPIC33EP256MC806__) || defined(__PIC24EP512GP806__)
+#elif defined(__dsPIC33EP512GP806__) || defined(__dsPIC33EP512MC806__) || defined(__dsPIC33EP256MU806__) || defined(__dsPIC33EP512MU806__) || defined(__PIC24EP512GP806__)
 # define RB0_AN 0
 # define RB1_AN 1
 # define RB2_AN 2
