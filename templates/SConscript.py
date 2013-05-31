@@ -145,10 +145,12 @@ def genTablesFromTemplate(csvFileName, destFileName):
               CNm = csv_dict_reader.next()
           except StopIteration:
               break
-          # Write out processor information
-          processor_name = RPy['Device port / pin'][:-4]
-          is_e = 'EP' in processor_name
-          outFile.write('\n#elif defined(__' + processor_name + '__)\n')
+          # Write out processor information.
+          # Procesor names are separate by spaces; the last element is the RPy string, which we don't need.
+          processors = RPy['Device port / pin'].split(' ')
+          processors.pop()
+          #
+          outFile.write('\n#elif defined(__' + '__) || defined(__'.join(processors) + '__)\n')
           # Walk through each Rxy on this processor
           for Rxy in portlist:
               # Get the specific values for this Rxy.
@@ -160,7 +162,6 @@ def genTablesFromTemplate(csvFileName, destFileName):
               if _ANn:
                   outFile.write('# define R%s_AN %s\n' % (Rxy, _ANn))
               if _CNm:
-                  assert not is_e
                   outFile.write('# define R%s_CN %s\n' % (Rxy, _CNm))
       # Write footer
       outFile.write('#else\n# error "Port information not defined."\n#endif\n')
