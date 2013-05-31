@@ -196,6 +196,8 @@ def genTablesFromTemplate(csvFileName, destFileName):
 
         for processor in sorted(processors.keys()):
             RPy, ANn, CNm = processors[processor]
+            # Remove any duplicates
+            processor = ' '.join(set(processor.split(' ')))
             RPy['Device port / pin'] = processor + ' RPy'
             ANn['Device port / pin'] = processor + ' ANn'
             CNm['Device port / pin'] = processor + ' CNm'

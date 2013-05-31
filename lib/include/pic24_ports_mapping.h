@@ -31,7 +31,7 @@
 
 #if 0
 
-#elif defined(__PIC24EP32GP203__) || defined(__PIC24EP64GP203__) || defined(__dsPIC33EP32GP503__) || defined(__dsPIC33EP32GP503__) || defined(__dsPIC33EP64GP503__) || defined(__dsPIC33EP64GP503__) || defined(__PIC24EP32MC203__) || defined(__PIC24EP64MC203__) || defined(__PIC24EP64MC203__) || defined(__PIC24EP32MC503__) || defined(__PIC24EP64MC503__) || defined(__dsPIC33EP32MC503__) || defined(__dsPIC33EP32MC503__) || defined(__dsPIC33EP64MC503__) || defined(__dsPIC33EP64MC503__) || defined(__dsPIC33EP32MC203__) || defined(__dsPIC33EP32MC203__) || defined(__dsPIC33EP64MC203__) || defined(__dsPIC33EP64MC203__) || defined(__dsPIC33EP64MC203__) || defined(__dsPIC33EP64MC203__)
+#elif defined(__PIC24EP32MC503__) || defined(__dsPIC33EP32MC503__) || defined(__dsPIC33EP64MC503__) || defined(__dsPIC33EP64MC203__) || defined(__dsPIC33EP32GP503__) || defined(__PIC24EP64MC503__) || defined(__PIC24EP32GP203__) || defined(__dsPIC33EP64GP503__) || defined(__PIC24EP64MC203__) || defined(__PIC24EP64GP203__) || defined(__dsPIC33EP32MC203__) || defined(__PIC24EP32MC203__)
 # define RA0_AN 0
 # define RA1_AN 1
 # define RB0_AN 2
@@ -41,7 +41,7 @@
 # define RC0_AN 6
 # define RC1_AN 7
 
-#elif defined(__PIC24EP32GP204__) || defined(__PIC24EP64GP204__) || defined(__PIC24EP64GP204__) || defined(__PIC24EP64GP204__) || defined(__PIC24EP64GP204__) || defined(__PIC24EP128GP204__) || defined(__PIC24EP128GP204__) || defined(__PIC24EP128GP204__) || defined(__PIC24EP256GP204__) || defined(__PIC24EP512GP204__) || defined(__PIC24EP512GP204__) || defined(__dsPIC33EP32GP504__) || defined(__dsPIC33EP64GP504__) || defined(__dsPIC33EP64GP504__) || defined(__dsPIC33EP128GP504__) || defined(__dsPIC33EP128GP504__) || defined(__dsPIC33EP256GP504__) || defined(__dsPIC33EP256GP504__) || defined(__dsPIC33EP256GP504__) || defined(__dsPIC33EP512GP504__) || defined(__dsPIC33EP512GP504__) || defined(__dsPIC33EP512GP504__) || defined(__PIC24EP32MC204__) || defined(__PIC24EP32MC204__) || defined(__PIC24EP32MC204__) || defined(__PIC24EP32MC204__) || defined(__PIC24EP64MC204__) || defined(__PIC24EP64MC204__) || defined(__PIC24EP128MC204__) || defined(__PIC24EP128MC204__) || defined(__PIC24EP128MC204__) || defined(__PIC24EP256MC204__) || defined(__PIC24EP256MC204__) || defined(__PIC24EP512MC204__) || defined(__PIC24EP512MC204__) || defined(__PIC24EP512MC204__) || defined(__dsPIC33EP32MC504__) || defined(__dsPIC33EP32MC504__) || defined(__dsPIC33EP32MC504__) || defined(__dsPIC33EP64MC504__) || defined(__dsPIC33EP64MC504__) || defined(__dsPIC33EP128MC504__) || defined(__dsPIC33EP128MC504__) || defined(__dsPIC33EP256MC504__) || defined(__dsPIC33EP512MC504__) || defined(__dsPIC33EP512MC504__) || defined(__dsPIC33EP512MC504__) || defined(__dsPIC33EP32MC204__) || defined(__dsPIC33EP64MC204__) || defined(__dsPIC33EP64MC204__) || defined(__dsPIC33EP64MC204__) || defined(__dsPIC33EP128MC204__) || defined(__dsPIC33EP128MC204__) || defined(__dsPIC33EP128MC204__) || defined(__dsPIC33EP256MC204__) || defined(__dsPIC33EP256MC204__) || defined(__dsPIC33EP512MC204__)
+#elif defined(__dsPIC33EP512GP504__) || defined(__dsPIC33EP256GP504__) || defined(__dsPIC33EP64GP504__) || defined(__dsPIC33EP256MC504__) || defined(__dsPIC33EP32MC204__) || defined(__dsPIC33EP256MC204__) || defined(__PIC24EP256MC204__) || defined(__dsPIC33EP512MC504__) || defined(__PIC24EP64GP204__) || defined(__dsPIC33EP128MC504__) || defined(__PIC24EP128MC204__) || defined(__PIC24EP512GP204__) || defined(__dsPIC33EP128GP504__) || defined(__dsPIC33EP128MC204__) || defined(__PIC24EP32GP204__) || defined(__dsPIC33EP512MC204__) || defined(__dsPIC33EP64MC504__) || defined(__dsPIC33EP64MC204__) || defined(__PIC24EP128GP204__) || defined(__PIC24EP512MC204__) || defined(__PIC24EP32MC204__) || defined(__dsPIC33EP32MC504__) || defined(__PIC24EP256GP204__) || defined(__dsPIC33EP32GP504__) || defined(__PIC24EP64MC204__)
 # define RA0_AN 0
 # define RA1_AN 1
 # define RB0_AN 2
@@ -52,7 +52,7 @@
 # define RC1_AN 7
 # define RC2_AN 8
 
-#elif defined(__PIC24EP64GP202__) || defined(__dsPIC33EP64GP502__) || defined(__PIC24EP64MC202__) || defined(__dsPIC33EP64MC202__) || defined(__dsPIC33EP64MC202__) || defined(__dsPIC33EP64MC202__) || defined(__dsPIC33EP64MC502__)
+#elif defined(__PIC24EP64GP202__) || defined(__dsPIC33EP64MC502__) || defined(__PIC24EP64MC202__) || defined(__dsPIC33EP64MC202__) || defined(__dsPIC33EP64GP502__)
 # define RA0_AN 0
 # define RA1_AN 1
 # define RB0_AN 2
@@ -60,7 +60,7 @@
 # define RB2_AN 4
 # define RB3_AN 5
 
-#elif defined(__PIC24EP64GP206__) || defined(__PIC24EP128GP206__) || defined(__PIC24EP256GP206__) || defined(__PIC24EP512GP206__) || defined(__PIC24EP512GP206__) || defined(__PIC24EP512GP206__) || defined(__PIC24EP512GP206__) || defined(__PIC24EP512GP206__) || defined(__dsPIC33EP64GP506__) || defined(__dsPIC33EP64GP506__) || defined(__dsPIC33EP64GP506__) || defined(__dsPIC33EP128GP506__) || defined(__dsPIC33EP256GP506__) || defined(__dsPIC33EP512GP506__) || defined(__dsPIC33EP512GP506__) || defined(__dsPIC33EP512GP506__) || defined(__dsPIC33EP512GP506__) || defined(__dsPIC33EP512GP506__) || defined(__PIC24EP64MC206__) || defined(__PIC24EP64MC206__) || defined(__PIC24EP64MC206__) || defined(__PIC24EP128MC206__) || defined(__PIC24EP256MC206__) || defined(__PIC24EP256MC206__) || defined(__PIC24EP256MC206__) || defined(__PIC24EP512MC206__) || defined(__dsPIC33EP64MC206__) || defined(__dsPIC33EP64MC206__) || defined(__dsPIC33EP64MC206__) || defined(__dsPIC33EP128MC206__) || defined(__dsPIC33EP128MC206__) || defined(__dsPIC33EP256MC206__) || defined(__dsPIC33EP256MC206__) || defined(__dsPIC33EP256MC206__) || defined(__dsPIC33EP512MC206__) || defined(__dsPIC33EP64MC506__) || defined(__dsPIC33EP64MC506__) || defined(__dsPIC33EP128MC506__) || defined(__dsPIC33EP256MC506__) || defined(__dsPIC33EP256MC506__) || defined(__dsPIC33EP512MC506__)
+#elif defined(__PIC24EP256GP206__) || defined(__dsPIC33EP128GP506__) || defined(__dsPIC33EP128MC506__) || defined(__dsPIC33EP256GP506__) || defined(__dsPIC33EP512GP506__) || defined(__dsPIC33EP256MC206__) || defined(__dsPIC33EP64GP506__) || defined(__PIC24EP256MC206__) || defined(__dsPIC33EP64MC506__) || defined(__dsPIC33EP256MC506__) || defined(__PIC24EP128GP206__) || defined(__dsPIC33EP64MC206__) || defined(__dsPIC33EP512MC506__) || defined(__dsPIC33EP512MC206__) || defined(__PIC24EP512MC206__) || defined(__PIC24EP64MC206__) || defined(__dsPIC33EP128MC206__) || defined(__PIC24EP128MC206__) || defined(__PIC24EP64GP206__) || defined(__PIC24EP512GP206__)
 # define RA0_AN 0
 # define RA1_AN 1
 # define RA11_AN 9
@@ -110,7 +110,7 @@
 # define RB14_CN 12
 # define RB15_CN 11
 
-#elif defined(__PIC24FJ128GA106__) || defined(__PIC24FJ192GA106__) || defined(__PIC24FJ256GA106__) || defined(__PIC24FJ256GA106__) || defined(__PIC24FJ256GA106__)
+#elif defined(__PIC24FJ192GA106__) || defined(__PIC24FJ128GA106__) || defined(__PIC24FJ256GA106__)
 # define RB0_RP 0
 # define RB0_AN 0
 # define RB0_CN 2
@@ -192,7 +192,7 @@
 # define RG8_CN 10
 # define RG9_CN 11
 
-#elif defined(__PIC24FJ128GA108__) || defined(__PIC24FJ192GA108__) || defined(__PIC24FJ256GA108__)
+#elif defined(__PIC24FJ192GA108__) || defined(__PIC24FJ128GA108__) || defined(__PIC24FJ256GA108__)
 # define RA9_CN 41
 # define RA10_CN 42
 # define RA14_CN 43
@@ -288,7 +288,7 @@
 # define RG8_CN 10
 # define RG9_CN 11
 
-#elif defined(__PIC24FJ128GA110__) || defined(__PIC24FJ192GA110__) || defined(__PIC24FJ256GA110__) || defined(__PIC24FJ256GA110__)
+#elif defined(__PIC24FJ128GA110__) || defined(__PIC24FJ256GA110__) || defined(__PIC24FJ192GA110__)
 # define RA0_CN 33
 # define RA1_CN 34
 # define RA2_CN 35
@@ -402,7 +402,7 @@
 # define RG14_CN 81
 # define RG15_CN 82
 
-#elif defined(__PIC24FJ32GB002__) || defined(__PIC24FJ64GB002__) || defined(__PIC24FJ64GB002__)
+#elif defined(__PIC24FJ32GB002__) || defined(__PIC24FJ64GB002__)
 # define RA0_RP 5
 # define RA0_AN 0
 # define RA0_CN 2
@@ -441,7 +441,7 @@
 # define RB15_AN 9
 # define RB15_CN 11
 
-#elif defined(__PIC24FJ32GB004__) || defined(__PIC24FJ64GB004__)
+#elif defined(__PIC24FJ64GB004__) || defined(__PIC24FJ32GB004__)
 # define RA0_CN 2
 # define RA1_CN 3
 # define RA2_CN 30
@@ -472,7 +472,7 @@
 # define RC8_CN 20
 # define RC9_CN 19
 
-#elif defined(__PIC24FJ64GA006__) || defined(__PIC24FJ96GA006__) || defined(__PIC24FJ128GA006__) || defined(__PIC24FJ128GA006__) || defined(__PIC24FJ128GA006__)
+#elif defined(__PIC24FJ64GA006__) || defined(__PIC24FJ96GA006__) || defined(__PIC24FJ128GA006__)
 # define RB0_AN 0
 # define RB0_CN 2
 # define RB1_AN 1
@@ -509,7 +509,7 @@
 # define RG8_CN 10
 # define RG9_CN 11
 
-#elif defined(__PIC24FJ64GA010__) || defined(__PIC24FJ96GA010__) || defined(__PIC24FJ128GA010__) || defined(__PIC24FJ128GA010__) || defined(__PIC24FJ64GA008__) || defined(__PIC24FJ64GA008__) || defined(__PIC24FJ96GA008__) || defined(__PIC24FJ96GA008__) || defined(__PIC24FJ96GA008__) || defined(__PIC24FJ128GA008__) || defined(__PIC24FJ128GA008__) || defined(__PIC24FJ128GA008__)
+#elif defined(__PIC24FJ96GA010__) || defined(__PIC24FJ128GA010__) || defined(__PIC24FJ64GA008__) || defined(__PIC24FJ96GA008__) || defined(__PIC24FJ128GA008__) || defined(__PIC24FJ64GA010__)
 # define RB0_AN 0
 # define RB0_CN 2
 # define RB1_AN 1
@@ -549,7 +549,7 @@
 # define RG8_CN 10
 # define RG9_CN 11
 
-#elif defined(__PIC24FJ64GB106__) || defined(__PIC24FJ128GB106__) || defined(__PIC24FJ192GB106__) || defined(__PIC24FJ256GB106__)
+#elif defined(__PIC24FJ64GB106__) || defined(__PIC24FJ256GB106__) || defined(__PIC24FJ128GB106__) || defined(__PIC24FJ192GB106__)
 # define RB0_RP 0
 # define RB0_AN 0
 # define RB0_CN 2
@@ -627,7 +627,7 @@
 # define RG8_CN 10
 # define RG9_CN 11
 
-#elif defined(__PIC24FJ64GB108__) || defined(__PIC24FJ128GB108__) || defined(__PIC24FJ192GB108__) || defined(__PIC24FJ192GB108__) || defined(__PIC24FJ256GB108__) || defined(__PIC24FJ256GB108__)
+#elif defined(__PIC24FJ128GB108__) || defined(__PIC24FJ192GB108__) || defined(__PIC24FJ64GB108__) || defined(__PIC24FJ256GB108__)
 # define RA9_CN 41
 # define RA10_CN 42
 # define RA14_CN 43
@@ -719,7 +719,7 @@
 # define RG8_CN 10
 # define RG9_CN 11
 
-#elif defined(__PIC24FJ64GB110__) || defined(__PIC24FJ128GB110__) || defined(__PIC24FJ128GB110__) || defined(__PIC24FJ192GB110__) || defined(__PIC24FJ192GB110__) || defined(__PIC24FJ256GB110__)
+#elif defined(__PIC24FJ256GB110__) || defined(__PIC24FJ128GB110__) || defined(__PIC24FJ64GB110__) || defined(__PIC24FJ192GB110__)
 # define RA0_CN 33
 # define RA1_CN 34
 # define RA2_CN 35
@@ -878,7 +878,7 @@
 # define RB15_AN 9
 # define RB15_CN 11
 
-#elif defined(__PIC24HJ64GP206__) || defined(__PIC24HJ64GP206A__) || defined(__PIC24HJ64GP206A__) || defined(__PIC24HJ128GP206__) || defined(__PIC24HJ128GP206A__) || defined(__PIC24HJ128GP206A__) || defined(__PIC24HJ128GP206A__) || defined(__PIC24HJ256GP206__) || defined(__PIC24HJ256GP206__) || defined(__PIC24HJ128GP306__) || defined(__PIC24HJ128GP306A__) || defined(__PIC24HJ64GP506__) || defined(__PIC24HJ64GP506__) || defined(__PIC24HJ128GP506__) || defined(__PIC24HJ64GP506A__) || defined(__PIC24HJ64GP506A__) || defined(__PIC24HJ64GP506A__) || defined(__PIC24HJ128GP506A__) || defined(__PIC24HJ128GP506A__)
+#elif defined(__PIC24HJ64GP206A__) || defined(__PIC24HJ64GP506__) || defined(__PIC24HJ128GP306__) || defined(__PIC24HJ128GP506A__) || defined(__PIC24HJ128GP206__) || defined(__PIC24HJ64GP206__) || defined(__PIC24HJ128GP306A__) || defined(__PIC24HJ256GP206__) || defined(__PIC24HJ128GP506__) || defined(__PIC24HJ64GP506A__) || defined(__PIC24HJ128GP206A__)
 # define RB0_AN 0
 # define RB0_CN 2
 # define RB1_AN 1
@@ -917,7 +917,7 @@
 # define RG8_CN 10
 # define RG9_CN 11
 
-#elif defined(__PIC24HJ64GP210__) || defined(__PIC24HJ64GP210A__) || defined(__PIC24HJ64GP210A__) || defined(__PIC24HJ128GP210__) || defined(__PIC24HJ128GP210__) || defined(__PIC24HJ128GP210__) || defined(__PIC24HJ128GP210A__) || defined(__PIC24HJ128GP310__) || defined(__PIC24HJ128GP310__) || defined(__PIC24HJ128GP310__) || defined(__PIC24HJ128GP310A__) || defined(__PIC24HJ128GP310A__) || defined(__PIC24HJ128GP310A__) || defined(__PIC24HJ128GP310A__) || defined(__PIC24HJ256GP210__) || defined(__PIC24HJ256GP210__) || defined(__PIC24HJ64GP510__) || defined(__PIC24HJ128GP510__) || defined(__PIC24HJ128GP510__) || defined(__PIC24HJ128GP510__) || defined(__PIC24HJ64GP510A__) || defined(__PIC24HJ64GP510A__) || defined(__PIC24HJ128GP510A__) || defined(__PIC24HJ128GP510A__) || defined(__PIC24HJ256GP610__) || defined(__PIC24HJ256GP610__)
+#elif defined(__PIC24HJ128GP510A__) || defined(__PIC24HJ64GP510A__) || defined(__PIC24HJ128GP210A__) || defined(__PIC24HJ128GP310__) || defined(__PIC24HJ64GP510__) || defined(__PIC24HJ128GP210__) || defined(__PIC24HJ64GP210__) || defined(__PIC24HJ128GP310A__) || defined(__PIC24HJ256GP610__) || defined(__PIC24HJ64GP210A__) || defined(__PIC24HJ256GP210__) || defined(__PIC24HJ128GP510__)
 # define RA6_AN 22
 # define RA6_CN 22
 # define RA7_AN 23
@@ -975,7 +975,7 @@
 # define RG8_CN 10
 # define RG9_CN 11
 
-#elif defined(__dsPIC33EP256MU806__) || defined(__dsPIC33EP512MU806__) || defined(__dsPIC33EP512GP806__) || defined(__dsPIC33EP512GP806__) || defined(__PIC24EP512GP806__) || defined(__PIC24EP512GP806__) || defined(__dsPIC33EP512MC806__)
+#elif defined(__dsPIC33EP512GP806__) || defined(__dsPIC33EP512MC806__) || defined(__dsPIC33EP256MC806__) || defined(__PIC24EP512GP806__)
 # define RB0_AN 0
 # define RB1_AN 1
 # define RB2_AN 2
@@ -1001,7 +1001,7 @@
 # define RE6_AN 30
 # define RE7_AN 31
 
-#elif defined(__dsPIC33EP512MU810__) || defined(__dsPIC33EP256MU810__) || defined(__dsPIC33EP256MU810__) || defined(__dsPIC33EP256MU810__) || defined(__PIC24EP512GU810__) || defined(__PIC24EP512GU810__) || defined(__PIC24EP512GU810__) || defined(__PIC24EP512GU810__) || defined(__PIC24EP512GU810__) || defined(__PIC24EP256GU810__) || defined(__dsPIC33EP512MU814__) || defined(__dsPIC33EP512MU814__) || defined(__dsPIC33EP512MU814__) || defined(__dsPIC33EP256MU814__) || defined(__dsPIC33EP256MU814__) || defined(__PIC24EP512GU814__) || defined(__PIC24EP512GU814__) || defined(__PIC24EP512GU814__) || defined(__PIC24EP256GU814__)
+#elif defined(__PIC24EP256GU810__) || defined(__PIC24EP256GU814__) || defined(__dsPIC33EP256MU814__) || defined(__PIC24EP512GU814__) || defined(__dsPIC33EP512MU814__) || defined(__dsPIC33EP256MU810__) || defined(__dsPIC33EP512MU810__) || defined(__PIC24EP512GU810__)
 # define RA6_AN 22
 # define RA7_AN 23
 # define RB0_AN 0
@@ -1035,7 +1035,7 @@
 # define RE8_AN 20
 # define RE9_AN 21
 
-#elif defined(__dsPIC33FJ12GP201__) || defined(__PIC24HJ12GP201__) || defined(__PIC24HJ12GP201__)
+#elif defined(__PIC24HJ12GP201__) || defined(__dsPIC33FJ12GP201__)
 # define RA0_AN 0
 # define RA0_CN 2
 # define RA1_AN 1
@@ -1060,7 +1060,7 @@
 # define RB15_AN 6
 # define RB15_CN 11
 
-#elif defined(__dsPIC33FJ12GP202__) || defined(__PIC24HJ12GP202__) || defined(__PIC24HJ12GP202__)
+#elif defined(__PIC24HJ12GP202__) || defined(__dsPIC33FJ12GP202__)
 # define RA0_AN 0
 # define RA0_CN 2
 # define RA1_AN 1
@@ -1101,7 +1101,7 @@
 # define RB15_AN 6
 # define RB15_CN 11
 
-#elif defined(__dsPIC33FJ16GP304__) || defined(__dsPIC33FJ32GP204__) || defined(__dsPIC33FJ32GP304__) || defined(__dsPIC33FJ32GP304__) || defined(__dsPIC33FJ64GP204__) || defined(__dsPIC33FJ64GP204__) || defined(__dsPIC33FJ64GP804__) || defined(__dsPIC33FJ64GP804__) || defined(__dsPIC33FJ128GP204__) || defined(__dsPIC33FJ128GP204__) || defined(__dsPIC33FJ128GP804__) || defined(__PIC24HJ16GP304__) || defined(__PIC24HJ16GP304__) || defined(__PIC24HJ16GP304__) || defined(__PIC24HJ32GP204__) || defined(__PIC24HJ32GP204__) || defined(__PIC24HJ32GP304__) || defined(__PIC24HJ32GP304__) || defined(__PIC24HJ32GP304__) || defined(__PIC24HJ64GP204__) || defined(__PIC24HJ64GP204__) || defined(__PIC24HJ64GP504__) || defined(__PIC24HJ64GP504__) || defined(__PIC24HJ128GP204__) || defined(__PIC24HJ128GP504__) || defined(__PIC24FJ16GA004__) || defined(__PIC24FJ16GA004__) || defined(__PIC24FJ32GA004__) || defined(__PIC24FJ32GA004__) || defined(__PIC24FJ32GA004__) || defined(__PIC24FJ32GA004__) || defined(__PIC24FJ32GA004__) || defined(__PIC24FJ32GA004__) || defined(__PIC24FJ48GA004__) || defined(__PIC24FJ64GA004__) || defined(__PIC24FJ64GA004__) || defined(__PIC24FJ64GA004__) || defined(__PIC24FJ64GA004__) || defined(__PIC24FJ64GA004__) || defined(__PIC24FJ32GA104__) || defined(__PIC24FJ64GA104__) || defined(__PIC24FJ64GA104__)
+#elif defined(__PIC24FJ32GA004__) || defined(__PIC24FJ16GA004__) || defined(__dsPIC33FJ64GP804__) || defined(__PIC24HJ32GP204__) || defined(__PIC24FJ64GA104__) || defined(__PIC24FJ32GA104__) || defined(__PIC24HJ64GP204__) || defined(__PIC24HJ64GP504__) || defined(__PIC24FJ48GA004__) || defined(__dsPIC33FJ32GP304__) || defined(__PIC24HJ16GP304__) || defined(__dsPIC33FJ16GP304__) || defined(__dsPIC33FJ128GP804__) || defined(__dsPIC33FJ64GP204__) || defined(__PIC24HJ128GP204__) || defined(__PIC24HJ128GP504__) || defined(__dsPIC33FJ32GP204__) || defined(__PIC24FJ64GA004__) || defined(__dsPIC33FJ128GP204__) || defined(__PIC24HJ32GP304__)
 # define RA0_AN 0
 # define RA0_CN 2
 # define RA1_AN 1
@@ -1156,7 +1156,7 @@
 # define RC8_CN 20
 # define RC9_CN 19
 
-#elif defined(__dsPIC33FJ32GP202__) || defined(__dsPIC33FJ32GP302__) || defined(__dsPIC33FJ64GP202__) || defined(__dsPIC33FJ64GP202__) || defined(__dsPIC33FJ64GP802__) || defined(__dsPIC33FJ64GP802__) || defined(__dsPIC33FJ128GP202__) || defined(__dsPIC33FJ128GP802__) || defined(__dsPIC33FJ128GP802__) || defined(__PIC24HJ32GP302__) || defined(__PIC24HJ32GP302__) || defined(__PIC24HJ64GP202__) || defined(__PIC24HJ64GP202__) || defined(__PIC24HJ64GP502__) || defined(__PIC24HJ128GP202__) || defined(__PIC24HJ128GP202__) || defined(__PIC24HJ128GP202__) || defined(__PIC24HJ128GP202__) || defined(__PIC24HJ128GP502__) || defined(__PIC24HJ128GP502__) || defined(__PIC24FJ16GA002__) || defined(__PIC24FJ16GA002__) || defined(__PIC24FJ32GA002__) || defined(__PIC24FJ32GA002__) || defined(__PIC24FJ32GA002__) || defined(__PIC24FJ48GA002__) || defined(__PIC24FJ48GA002__) || defined(__PIC24FJ64GA002__) || defined(__PIC24FJ32GA102__) || defined(__PIC24FJ32GA102__) || defined(__PIC24FJ64GA102__)
+#elif defined(__dsPIC33FJ64GP802__) || defined(__PIC24FJ16GA002__) || defined(__PIC24HJ128GP202__) || defined(__PIC24FJ32GA002__) || defined(__PIC24HJ64GP502__) || defined(__PIC24FJ32GA102__) || defined(__PIC24FJ64GA102__) || defined(__dsPIC33FJ128GP202__) || defined(__dsPIC33FJ128GP802__) || defined(__PIC24HJ64GP202__) || defined(__PIC24FJ48GA002__) || defined(__dsPIC33FJ32GP302__) || defined(__dsPIC33FJ64GP202__) || defined(__PIC24HJ32GP302__) || defined(__PIC24FJ64GA002__) || defined(__PIC24HJ128GP502__) || defined(__dsPIC33FJ32GP202__)
 # define RA0_AN 0
 # define RA0_CN 2
 # define RA1_AN 1

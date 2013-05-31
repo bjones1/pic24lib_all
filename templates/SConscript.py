@@ -117,6 +117,13 @@ def genConfigFromTemplate(templateFileName, destFileName):
       # Evaluate the template for this port/pin.
       outFile.write(template.substitute({'x' : Rxy}))
 
+## This helper routine splits a string containing a space-separated list of processors into a list. The last element of the list gives the port, which is returned separately.
+def splitProcessorNames(port_dict):
+  processors = port_dict['Device port / pin'].split(' ')
+  port = processors.pop()
+  return processors, port
+
+
 ## This routine builds pic24_ports_tables.h from a template. To do so:
 #
 # #. Open the output file and write out the header.
@@ -145,11 +152,20 @@ def genTablesFromTemplate(csvFileName, destFileName):
               CNm = csv_dict_reader.next()
           except StopIteration:
               break
+          # Gather processor information. Make sure all three rows refer to the same processors and to the expected ports.
+          processors, port = splitProcessorNames(RPy)
+          assert port == 'RPy'
+          # Check: all processors in this group should be unique.
+          if len(processors) > len(set(processors)):
+              print(" ".join(processors) + " contains duplicates.")
+              assert False
+          processors_temp, port = splitProcessorNames(ANn)
+          assert processors == processors_temp
+          assert port == 'ANn'
+          processors_temp, port = splitProcessorNames(CNm)
+          assert processors == processors_temp
+          assert port == 'CNm'
           # Write out processor information.
-          # Procesor names are separate by spaces; the last element is the RPy string, which we don't need.
-          processors = RPy['Device port / pin'].split(' ')
-          processors.pop()
-          #
           outFile.write('\n#elif defined(__' + '__) || defined(__'.join(processors) + '__)\n')
           # Walk through each Rxy on this processor
           for Rxy in portlist:
