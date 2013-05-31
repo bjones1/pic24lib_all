@@ -17,6 +17,7 @@
 import os
 from string import Template
 import csv
+import re
 
 # Import environment from calling SConstruct context
 Import('env')
@@ -118,8 +119,10 @@ def genConfigFromTemplate(templateFileName, destFileName):
       outFile.write(template.substitute({'x' : Rxy}))
 
 ## This helper routine splits a string containing a space-separated list of processors into a list. The last element of the list gives the port, which is returned separately.
+#
+# An asterisk (*) after a processor name is removed; this makes it easier to mark which csv entries have been hand-checked.
 def splitProcessorNames(port_dict):
-  processors = port_dict['Device port / pin'].split(' ')
+  processors = re.split('\*? ', port_dict['Device port / pin'])
   port = processors.pop()
   return processors, port
 
@@ -166,7 +169,7 @@ def genTablesFromTemplate(csvFileName, destFileName):
           assert processors == processors_temp
           assert port == 'CNm'
           # Write out processor information.
-          outFile.write('\n#elif defined(__' + '__) || defined(__'.join(processors) + '__)\n')
+          outFile.write('\n#elif defined(__' + '__) || \\\n      defined(__'.join(processors) + '__)\n')
           # Walk through each Rxy on this processor
           for Rxy in portlist:
               # Get the specific values for this Rxy.
