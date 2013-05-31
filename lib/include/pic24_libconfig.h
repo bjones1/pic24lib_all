@@ -316,7 +316,7 @@
 #   define HB_LED _LATB15
 /** Define a config function for the heartbeat pin. */
 #   if (defined(_ODCB15) || defined(_ODB15))
-#     define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OD_OUTPUT()
+#     define CONFIG_HB_LED() do { CONFIG_RB15_AS_DIG_OUTPUT(); ENABLE_RB15_OPENDRAIN(); } while (0)
 #   else
 #     warning "Heartbeat pin not open drain."
 #     define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()

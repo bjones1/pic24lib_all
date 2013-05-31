@@ -202,49 +202,30 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
 
 // Port configuration
 // ==================
-// Remappable pins
-// ---------------
-// Return true if the given Rxy_GPIO pin is remappable.
-#define RXY_HAS_REMAPPABLE(Rxy_GPIO) _RXY_HAS_REMAPPABLE(Rxy_GPIO)
-#define _RXY_HAS_REMAPPABLE(RPy, ANn, CNm) (RPy >= 0)
-// Return the remappable pin number for the given Rxy_GPIO value.
-#define RXY_REMAPPABLE_PIN(Rxy_GPIO) _RXY_REMAPPABLE_PIN(Rxy_GPIO)
-#define _RXY_REMAPPABLE_PIN(RPy, ANn, CNm) (RPy)
-
 // Analog
 // ------
-// Return true if the given Rxy_GPIO pin has analog capabilities.
-#define RXY_HAS_ANALOG(Rxy_GPIO) _RXY_HAS_ANALOG(Rxy_GPIO)
-#define _RXY_HAS_ANALOG(RPy, ANn, CNm) (ANn >= 0)
-// Return the analog port number (the n in ANn) for the given Rxy_GPIO value.
-#define RXY_AN_PORT(Rxy_GPIO) _RXY_AN_PORT(Rxy_GPIO)
-#define _RXY_AN_PORT(RPy, ANn, CNm) (ANn)
-// Return the PCFG pin for the given Rxy_GPIO value.
-#define RXY_GPIO_PCFG(Rxy_GPIO) _RXY_GPIO_PCFG(Rxy_GPIO)
-#define _RXY_GPIO_PCFG(RPy, ANn, CNm) (_PCFG ## ANn)
+// Return the PCFG pin for the given Rxy_AN value.
+#define RXY_GPIO_PCFG(Rxy_AN) _RXY_GPIO_PCFG(Rxy_AN)
+#define _RXY_GPIO_PCFG(Rxy_AN) (_PCFG ## Rxy_AN)
 
 // Change notification / pullups and pulldowns
 // -------------------------------------------
-// Return true if the given Rxy_GPIO pin has change notification capabilities.
-#define RXY_HAS_CHANGE_NOTIFICATION(Rxy_GPIO) _RXY_HAS_CHANGE_NOTIFICATION(Rxy_GPIO)
-#define _RXY_HAS_CHANGE_NOTIFICATION(RPy, ANn, CNm) (CNm >= 0)
-// Return the _CNmPUE pin for the given Rxy_GPIO value.
-#define RXY_GPIO_CNPUE(Rxy_GPIO) _RXY_GPIO_CNPUE(Rxy_GPIO)
-#define _RXY_GPIO_CNPUE(RPy, ANn, CNm) (_CN ## CNm ## PUE)
-// Return the _CNmIE pin  for the given Rxy_GPIO value.
-#define RXY_GPIO_CNIE(Rxy_GPIO) _RXY_GPIO_CNIE(Rxy_GPIO)
-#define _RXY_GPIO_CNIE(RPy, ANn, CNm) (_CN ## CNm ## IE)
+// Return the _CNmPUE pin for the given Rxy_CN value.
+#define RXY_GPIO_CNPUE(Rxy_CN) _RXY_GPIO_CNPUE(Rxy_CN)
+#define _RXY_GPIO_CNPUE(Rxy_CN) (_CN ## Rxy_CN ## PUE)
+// Return the _CNmIE pin  for the given Rxy_CN value.
+#define RXY_GPIO_CNIE(Rxy_CN) _RXY_GPIO_CNIE(Rxy_CN)
+#define _RXY_GPIO_CNIE(Rxy_CN) (_CN ## Rxy_CN ## IE)
 
-// Return true if the given Rxy_GPIO pin has pulldown capabilities. This
-// should only be called if RXY_HAS_CHANGE_NOTIFICATION for the given pin is true.
-#define RXY_HAS_CNPDE(Rxy_GPIO) _RXY_HAS_CNPDE(Rxy_GPIO)
-#define _RXY_HAS_CNPDE(RPy, ANn, CNm) defined(_CN ## CNm ## PDE)
+// Return true if the given Rxy_CN pin has pulldown capabilities.
+#define RXY_HAS_CNPDE(Rxy_CN) _RXY_HAS_CNPDE(Rxy_CN)
+#define _RXY_HAS_CNPDE(Rxy_CN) defined(_CN ## Rxy_CN ## PDE)
 // Return the _CNmPDE pin for the given Rxy_GPIO value.
-#define RXY_GPIO_CNPDE(Rxy_GPIO) _RXY_GPIO_CNPDE(Rxy_GPIO)
-#define _RXY_GPIO_CNPDE(RPy, ANn, CNm) (_CN ## CNm ## PDE)
+#define RXY_GPIO_CNPDE(Rxy_CN) _RXY_GPIO_CNPDE(Rxy_CN)
+#define _RXY_GPIO_CNPDE(Rxy_CN) (_CN ## Rxy_CN ## PDE)
 
 // Include the table data used to drive GPIO config.
-#include "pic24_ports_tables.h"
+#include "pic24_ports_mapping.h"
 // Process this table into GPIO config.
 #if defined(__PIC24E__) || defined(__dsPIC33E__)
 # include "pic24_ports_e_config.h"
@@ -607,7 +588,8 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_U1TX_TO_RP(pin) _RP##pin##R = RPMAP_U1TX
+#define CONFIG_U1TX_TO_RP(pin) _CONFIG_U1TX_TO_RP(pin)
+#define _CONFIG_U1TX_TO_RP(pin) _RP##pin##R = RPMAP_U1TX
 #else
 #define CONFIG_U1TX_TO_RP(pin)
 #endif

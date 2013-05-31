@@ -1,97 +1,84 @@
 // Provide GPIO for R${x}
 // ====================
 #ifdef _R${x}
-# ifndef R${x}_GPIO
-#   warning "R${x}_GPIO not defined, but pin R${x} exists. No GPIO and related"
-#   warning "configuration macros will be provided for this pin. Edit the table"
-#   warning "in this file to provide the information needed to generate this"
-#   warning "configuration macros."
+
+  // Low-level config
+  // ----------------
+  // Analog:
+# ifdef R${x}_AN
+#   define ENABLE_R${x}_ANALOG()  (RXY_GPIO_PCFG(R${x}_AN) = 1)
+#   define DISABLE_R${x}_ANALOG() (RXY_GPIO_PCFG(R${x}_AN) = 0)
 # else
+#   define DISABLE_R${x}_ANALOG() ((void) 0)
+# endif
 
-    // Low-level config
-    // ----------------
-    // Remappable pins:
-#   if RXY_HAS_REMAPPABLE(R${x}_GPIO)
-#     define R${x}_REMAPPABLE RXY_REMAPPABLE_PIN(R${x}_GPIO)
-#   endif
+  // Input/output:
+# define CONFIG_R${x}_AS_INPUT()  (_TRIS${x} = 1)
+# define CONFIG_R${x}_AS_OUTPUT() (_TRIS${x} = 0)
 
-    // Analog:
-#   if RXY_HAS_ANALOG(R${x}_GPIO)
-#     define ENABLE_R${x}_ANALOG()  (RXY_GPIO_PCFG(R${x}_GPIO) = 1)
-#     define DISABLE_R${x}_ANALOG() (RXY_GPIO_PCFG(R${x}_GPIO) = 0)
-#     define R${x}_AN_PORT RXY_AN_PORT(R${x}_GPIO)
+  // Open-drain:
+# if defined(_ODC${x})
+#   define ENABLE_R${x}_OPENDRAIN()  (_ODC${x} = 1)
+#   define DISABLE_R${x}_OPENDRAIN() (_ODC${x} = 0)
+# elif defined(_OD${x})   // The PIF24F names this bit _OD instead of _ODC.
+#   define ENABLE_R${x}_OPENDRAIN()  (_OD${x} = 1)
+#   define DISABLE_R${x}_OPENDRAIN() (_OD${x} = 0)
+# else
+#   define DISABLE_R${x}_OPENDRAIN() ((void) 0)
+# endif
+
+  // Change notification, pullups and pulldowns:
+# ifdef R${x}_CN
+#   define ENABLE_R${x}_PULLUP()  (RXY_GPIO_CNPUE(R${x}_CN) = 1)
+#   define DISABLE_R${x}_PULLUP() (RXY_GPIO_CNPUE(R${x}_CN) = 0)
+
+#   if RXY_HAS_CNPDE(R${x}_CN)
+#     define ENABLE_R${x}_PULLDOWN()  (RXY_GPIO_CNPDE(R${x}_CN) = 1)
+#     define DISABLE_R${x}_PULLDOWN() (RXY_GPIO_CNPDE(R${x}_CN) = 0)
 #   else
-#     define DISABLE_R${x}_ANALOG() ((void) 0)
-#   endif
-
-    // Input/output:
-#   define CONFIG_R${x}_AS_INPUT()  (_TRIS${x} = 1)
-#   define CONFIG_R${x}_AS_OUTPUT() (_TRIS${x} = 0)
-
-    // Open-drain:
-#   if defined(_ODC${x})
-#     define ENABLE_R${x}_OPENDRAIN()  (_ODC${x} = 1)
-#     define DISABLE_R${x}_OPENDRAIN() (_ODC${x} = 0)
-#   elif defined(_OD${x})   // The PIF24F names this bit _OD instead of _ODC.
-#     define ENABLE_R${x}_OPENDRAIN()  (_OD${x} = 1)
-#     define DISABLE_R${x}_OPENDRAIN() (_OD${x} = 0)
-#   else
-#     define DISABLE_R${x}_OPENDRAIN() ((void) 0)
-#   endif
-
-    // Change notification, pullups and pulldowns:
-#   if RXY_HAS_CHANGE_NOTIFICATION(R${x}_GPIO)
-#     define ENABLE_R${x}_PULLUP()  (RXY_GPIO_CNPUE(R${x}_GPIO) = 1)
-#     define DISABLE_R${x}_PULLUP() (RXY_GPIO_CNPUE(R${x}_GPIO) = 0)
-
-#     if RXY_HAS_CNPDE(R${x}_GPIO)
-#       define ENABLE_R${x}_PULLDOWN()  (RXY_GPIO_CNPDE(R${x}_GPIO) = 1)
-#       define DISABLE_R${x}_PULLDOWN() (RXY_GPIO_CNPDE(R${x}_GPIO) = 0)
-#     else
-#       define DISABLE_R${x}_PULLDOWN() ((void) 0)
-#     endif
-
-#     define ENABLE_R${x}_CN_INTERRUPT()  (RXY_GPIO_CNIE(R${x}_GPIO) = 1)
-#     define DISABLE_R${x}_CN_INTERRUPT() (RXY_GPIO_CNIE(R${x}_GPIO) = 0)
-
-#   else
-#     define DISABLE_R${x}_PULLUP() ((void) 0)
 #     define DISABLE_R${x}_PULLDOWN() ((void) 0)
-#     define DISABLE_R${x}_CN_INTERRUPT() ((void) 0)
 #   endif
 
-    // High-level config
-    // -----------------
-#   if RXY_HAS_ANALOG(R${x}_GPIO)
-#     define CONFIG_R${x}_AS_ANALOG()       \
-        do {                              \
-          ENABLE_R${x}_ANALOG();            \
-          CONFIG_R${x}_AS_INPUT();          \
-          DISABLE_R${x}_OPENDRAIN();        \
-          DISABLE_R${x}_PULLUP();           \
-          DISABLE_R${x}_PULLDOWN();         \
-        } while (0)
-#   endif
+#   define ENABLE_R${x}_CN_INTERRUPT()  (RXY_GPIO_CNIE(R${x}_CN) = 1)
+#   define DISABLE_R${x}_CN_INTERRUPT() (RXY_GPIO_CNIE(R${x}_CN) = 0)
 
-#   define CONFIG_R${x}_AS_DIG_INPUT()    \
+# else
+#   define DISABLE_R${x}_PULLUP() ((void) 0)
+#   define DISABLE_R${x}_PULLDOWN() ((void) 0)
+#   define DISABLE_R${x}_CN_INTERRUPT() ((void) 0)
+# endif
+
+  // High-level config
+  // -----------------
+# ifdef R${x}_AN
+#   define CONFIG_R${x}_AS_ANALOG()       \
       do {                              \
-        DISABLE_R${x}_ANALOG();           \
+        ENABLE_R${x}_ANALOG();            \
         CONFIG_R${x}_AS_INPUT();          \
         DISABLE_R${x}_OPENDRAIN();        \
         DISABLE_R${x}_PULLUP();           \
         DISABLE_R${x}_PULLDOWN();         \
       } while (0)
+# endif
 
-#   define CONFIG_R${x}_AS_DIG_OUTPUT()   \
-      do {                              \
-        DISABLE_R${x}_ANALOG();           \
-        CONFIG_R${x}_AS_OUTPUT();         \
-        DISABLE_R${x}_OPENDRAIN();        \
-        DISABLE_R${x}_PULLUP();           \
-        DISABLE_R${x}_PULLDOWN();         \
-      } while (0)
+# define CONFIG_R${x}_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_R${x}_ANALOG();           \
+      CONFIG_R${x}_AS_INPUT();          \
+      DISABLE_R${x}_OPENDRAIN();        \
+      DISABLE_R${x}_PULLUP();           \
+      DISABLE_R${x}_PULLDOWN();         \
+    } while (0)
 
-# endif // #ifndef R${x}_GPIO
+# define CONFIG_R${x}_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_R${x}_ANALOG();           \
+      CONFIG_R${x}_AS_OUTPUT();         \
+      DISABLE_R${x}_OPENDRAIN();        \
+      DISABLE_R${x}_PULLUP();           \
+      DISABLE_R${x}_PULLDOWN();         \
+    } while (0)
+
 #endif // #ifdef _R${x}: Provide GPIO for R${x}
 
 

@@ -270,9 +270,9 @@ void configUART1(uint32_t u32_baudRate) {
   CONFIG_U1TX_TO_RP(RB8_RP);            // U1TX -> RB8
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
-  CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10
+  CONFIG_U1RX_TO_RP(RB10_RP);           // U1RX <- RB10
   CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RB11_REMAPPABLE);   // U1TX -> RB11
+  CONFIG_U1TX_TO_RP(RB11_RP);           // U1TX -> RB11
 # else
 #   error "Unknown hardware platform."
 # endif
@@ -668,9 +668,9 @@ void configUART2(uint32_t u32_baudRate) {
   CONFIG_U1TX_TO_RP(RB8_RP);            // U1TX -> RB8
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
-  CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10
+  CONFIG_U1RX_TO_RP(RB10_RP);           // U1RX <- RB10
   CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RB11_REMAPPABLE);   // U1TX -> RB11
+  CONFIG_U1TX_TO_RP(RB11_RP);           // U1TX -> RB11
 # else
 #   error "Unknown hardware platform."
 # endif
@@ -1066,9 +1066,9 @@ void configUART3(uint32_t u32_baudRate) {
   CONFIG_U1TX_TO_RP(RB8_RP);            // U1TX -> RB8
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
-  CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10
+  CONFIG_U1RX_TO_RP(RB10_RP);           // U1RX <- RB10
   CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RB11_REMAPPABLE);   // U1TX -> RB11
+  CONFIG_U1TX_TO_RP(RB11_RP);           // U1TX -> RB11
 # else
 #   error "Unknown hardware platform."
 # endif
@@ -1464,9 +1464,9 @@ void configUART4(uint32_t u32_baudRate) {
   CONFIG_U1TX_TO_RP(RB8_RP);            // U1TX -> RB8
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
-  CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10
+  CONFIG_U1RX_TO_RP(RB10_RP);           // U1RX <- RB10
   CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RB11_REMAPPABLE);   // U1TX -> RB11
+  CONFIG_U1TX_TO_RP(RB11_RP);           // U1TX -> RB11
 # else
 #   error "Unknown hardware platform."
 # endif
