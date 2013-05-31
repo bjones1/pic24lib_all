@@ -66,29 +66,11 @@
  *
  * Implementation notes
  * --------------------
- * This is a table-driven approach, which maps from the PIC's various naming
- * conventions to the Rxy naming convention. The mapping consists of one tables.
- * The table is indexed by Rxy, and matches every Rxy pin on the chip with
- * its remappable (RPy) number, analog (ANn) number, and its change notification
- * (CNm) number. For example:
- * //      Rxy       RPy,  ANn  CNm
- * #define RA0_GPIO    0,   4,   3
- * indiates that pin RA0 is also RP0, AN4, and CN3.
+ * \todo Explain double macros
  *
- * To implement this approach, each of the following function-like macros takes as input a table
- * entry Rxy_GPIO, which gives information about that pin of the chip.
- * These macros always require a two-step approach: first, split the table entry
- * into invidiual values; then extract the desired value. For example:
- * //                RPy,        ANn         CNm
- * #define RB14_GPIO 3,          1,          GPIO_NONE
- * #define RXY_GPIO_PCFG(Rxy_GPIO) _RXY_GPIO_PCFG(Rxy_GPIO), where Rxy_GPIO
- * #define _RXY_GPIO_PCFG(RPy, ANn, CNm) _PCFG ## ANn
- * Then RXY_GPIO_PCFG(RB14_GPIO) evaluates to _RXY_GPIO_PCFG(3, 1, GPIO_NONE).
- * _RXY_GPIO_PCFG(3, 1, GPIO_NONE) evaluates to _PCFG ## 1, which is _PCFG1.
- *
- *  \todo
- *  - Put stub documentation for ALL port macros (doxygen only) so
- *    they hyperlink in source code
+ * \todo
+ * - Put stub documentation for ALL port macros (doxygen only) so
+ *   they hyperlink in source code
  */
 
 // Dummy macros for documentation only
@@ -101,77 +83,59 @@
  *  configure the pullup.
  */
 //@{
-/** This macro disables open-drain and pullups,
+/** This macro disables open-drain and pullups/downs,
  *  configures port x pin y for digital (not analog) operation, and
  *  sets the pin as an output. For example, CONFIG_RA10_AS_DIG_OUTPUT()
  *  makes port A, pin 10 a digital output.
  */
-static inline void CONFIG_Rxy_AS_DIG_OUTPUT() {}
+#define CONFIG_Rxy_AS_DIG_OUTPUT() STUB_CODE
 
-/** This macro enables open-drain, disables pullups,
- *  configures port x pin y for digital (not analog) operation, and
- *  sets the pin as an output. For example, CONFIG_RA10_AS_DIG_OD_OUTPUT()
- *  makes port A, pin 10 a digital output.
- */
-static inline void CONFIG_Rxy_AS_DIG_OD_OUTPUT() {}
-
-/** This macro disables pullups and analog functionality and sets
+/** This macro disables pullups/downs and analog functionality and sets
  *  the pin as an input. For example, CONFIG_RA10_AS_DIG_OUTPUT() makes
  *  port A, pin 10 a digital input.
  */
-static inline void CONFIG_Rxy_AS_DIG_INPUT() {}
+#define CONFIG_Rxy_AS_DIG_INPUT() STUB_CODE
 
-/** This macro first calls \ref CONFIG_Rxy_AS_DIG_INPUT() to disable
- *  pullups on the pin then enables analog functionality on the pin.
- *  For example, CONFIG_AN1_AS_ANALOG() makes AN1 an analog input pin.
+/** This macro disables pullups/downs, enables analog functionality, and sets
+ *  the pin as an input. For example, CONFIG_RA10_AS_ANALOG() makes
+ *  port A, pin 10 an analog input.
  */
-static inline void CONFIG_ANx_AS_ANALOG() {}
+#define CONFIG_Rxy_AS_ANALOG() STUB_CODE
 //@}
 
 /** \name Low-level port configuration macros
  *  <a name="lowLevelPortConfig">These</a> macros support low-level pin
- *  configuration in the following areas:
- *  - Digital vs. analog configuration:
- *    - ENABLE_Rxy_ANALOG() sets the corresponding _PCFGn bit,
- *      while DISABLE_Rxy_ANALOG() clears the corresponding _PCFGn bit.
- *    - CONFIG_RPy_AS_DIG_PIN() sets the corresponding _PCFGn bit.
- *  - Input vs. output configuration: none. Instead, simply assign to
- *    the _TRISxy flag directly: _TRISB1 = 1 makes port B, pin 1 an input
- *    while _TRISB1 = 0 makes it an output.
- *  - Open-drain vs. standard output driver: ENABLE_Rxy_OPENDRAIN(),
- *    DISABLE_Rxy_OPENDRAIN()
- *  - Pull-up configuration: ENABLE_Rxy_PULLUP(), DISABLE_Rxy_PULLUP()
- *  - Change notification configuration: ENABLE_Rxy_CN_INTERRUPT(),
- *    DISABLE_Rxy_CN_INTERRUPT()
+ *  configuration.
  */
 //@{
 
-/** Enables analog functionality on port x of pin y by clearing the
- *  corresponding _PCFGn bit. For example, ENABLE_RA10_ANALOG() enables
- *  analog functionality on port A pin 10.
+/** Enables analog functionality on port x, pin y. For example,
+ *  ENABLE_RA10_ANALOG() enables analog functionality on port A, pin 10.
  */
-#define ENABLE_Rxy_ANALOG() _PCFGn = 0
+#define ENABLE_Rxy_ANALOG() _PCFGn = 1
 
-/** Disables analog functionality on port x of pin y by setting the
- *  corresponding _PCFGn bit. For example, DISABLE_RA10_ANALOG() disables
- *  analog functionality on port A pin 10.
+/** Disables analog functionality on port x, pin y. For example,
+ *  DISABLE_RA10_ANALOG() disables analog functionality on port A, pin 10.
  */
 #define DISABLE_Rxy_ANALOG() _PCFGn = 1
 
-/** Makes port P, pin y a digital pin by disabling analog functionality
- *  on that pin. This is done by setting the
- *  corresponding _PCFGn bit. For example, CONFIG_RP10_AS_DIG_PIN() makes
- *  port P, pin 10 a digital pin by disabling analog its functionality.
+/** Configures port x, pin y as an input. For example,
+ *  CONFIG_RA10_AS_INPUT() makes port A, pin 10 an input.
  */
-#define CONFIG_RPy_AS_DIG_PIN() _PCFG = 1
+#define CONFIG_Rxy_AS_INPUT() _TRISxy = 1
+
+/** Configures port x, pin y as an output. For example,
+ *  CONFIG_RA10_AS_OUTPUT() makes port A, pin 10 an output.
+ */
+#define CONFIG_Rxy_AS_OUTPUT() _TRISxy = 0
 
 /** Enables the open-drain driver on port x, pin y. For example,
- *  ENABLE_Rxy_OPENDRAIN()
+ *  ENABLE_RA10_OPENDRAIN() enables open-drain drives on port A, pin 10.
  */
 #define ENABLE_Rxy_OPENDRAIN() _ODCxy = 1
 
 /** Disables the open-drain driver on port x, pin y. For example,
- *  DISABLE_Rxy_OPENDRAIN()
+ *  DISABLE_RA10_OPENDRAIN() disables open-drain drives on port A, pin 10.
  */
 #define DISABLE_Rxy_OPENDRAIN() _ODCxy = 0
 
@@ -185,6 +149,16 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
  */
 #define DISABLE_Rxy_PULLUP() _CNmPUE = 1
 
+/** Enable the pulldown on port x, pin y. For example,
+ *  ENABLE_RA10_PULLDOWN() enables the pulldown on port A, pin 10.
+ */
+#define ENABLE_Rxy_PULLDOWN() _CNmPDE = 1
+
+/** Disable the pulldown on port x, pin y. For example,
+ *  DISABLE_RA10_PULLDOWN() disables the pulldown on port A, pin 10.
+ */
+#define DISABLE_Rxy_PULLDOWN() _CNmPDE = 1
+
 /** Enables the change notification interrupt on port x, pin y.
  *  For example, ENABLE_RA10_CN_INTERRUPT() enables the change
  *  notification interrupt on port A, pin 10.
@@ -196,12 +170,25 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
  *  notification interrupt on port A, pin 10.
  */
 #define DISABLE_Rxy_CN_INTERRUPT() _CNmIE = 0
+
+/** This macro specifies the CNm value associated with port x, pin y. For example,
+ *  RA10_CN gives the number of the change notification for port A, pin 10.
+ */
+#define Rxy_RP xx
+/** This macro specifies the RPy value associated with port x, pin y. For example,
+ *  RA10_CN gives the number of the remappable pin for port A, pin 10.
+ */
+#define Rxy_AN xx
+/** This macro specifies the ANn value associated with port x, pin y. For example,
+ *  RA10_CN gives the number of the analog input for port A, pin 10.
+ */
+#define Rxy_CN xx
 //@}
 #endif // #ifdef __DOXYGEN__
 
 
-// Port configuration
-// ==================
+// Port configuration macros
+// =========================
 // Analog
 // ------
 // Return the PCFG pin for the given Rxy_AN value.
@@ -224,6 +211,8 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
 #define RXY_GPIO_CNPDE(Rxy_CN) _RXY_GPIO_CNPDE(Rxy_CN)
 #define _RXY_GPIO_CNPDE(Rxy_CN) (_CN ## Rxy_CN ## PDE)
 
+// Port configuration
+// ==================
 // Include the table data used to drive GPIO config.
 #include "pic24_ports_mapping.h"
 // Process this table into GPIO config.
@@ -516,217 +505,235 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
 /// Define peripheral pins.
 /// \todo Isn't this defined in the Microchip includes somewhere?
 #if defined(__PIC24E__) || defined(__dsPIC33F__)
-#define RPMAP_C1OUT   24
-#define RPMAP_C2OUT   25
-#define RPMAP_U1TX  1
-#define RPMAP_U1RTS   2
-#define RPMAP_U2TX    3
-#define RPMAP_U2RTS   4
-#define RPMAP_SD01    5
-#define RPMAP_SCK1OUT   6
-#define RPMAP_SS1OUT    7
-#define RPMAP_SDO2    8
-#define RPMAP_SCK2OUT   9
-#define RPMAP_SS2OUT    10
-#define RPMAP_C1TX    14
-#define RPMAP_OC1     16
-#define RPMAP_OC2     17
-#define RPMAP_OC3     18
-#define RPMAP_OC4     19
-#define RPMAP_OC5     20
+# define RPMAP_C1OUT   24
+# define RPMAP_C2OUT   25
+# define RPMAP_U1TX     1
+# define RPMAP_U1RTS    2
+# define RPMAP_U2TX     3
+# define RPMAP_U2RTS    4
+# define RPMAP_SD01     5
+# define RPMAP_SCK1OUT  6
+# define RPMAP_SS1OUT   7
+# define RPMAP_SDO2     8
+# define RPMAP_SCK2OUT  9
+# define RPMAP_SS2OUT  10
+# define RPMAP_C1TX    14
+# define RPMAP_OC1     16
+# define RPMAP_OC2     17
+# define RPMAP_OC3     18
+# define RPMAP_OC4     19
+# define RPMAP_OC5     20
 
 #else
 
-#define RPMAP_C1OUT   1
-#define RPMAP_C2OUT   2
-#define RPMAP_U1TX  3
-#define RPMAP_U1RTS   4
-#define RPMAP_U2TX    5
-#define RPMAP_U2RTS   6
-#define RPMAP_SD01    7
-#define RPMAP_SCK1OUT   8
-#define RPMAP_SS1OUT    9
-#define RPMAP_SDO2    10
-#define RPMAP_SCK2OUT   11
-#define RPMAP_SS2OUT    12
-#define RPMAP_C1TX    16
-#define RPMAP_OC1     18
-#define RPMAP_OC2     19
-#define RPMAP_OC3     20
-#define RPMAP_OC4     21
-#define RPMAP_OC5     22
+# define RPMAP_C1OUT    1
+# define RPMAP_C2OUT    2
+# define RPMAP_U1TX     3
+# define RPMAP_U1RTS    4
+# define RPMAP_U2TX     5
+# define RPMAP_U2RTS    6
+# define RPMAP_SD01     7
+# define RPMAP_SCK1OUT  8
+# define RPMAP_SS1OUT   9
+# define RPMAP_SDO2    10
+# define RPMAP_SCK2OUT 11
+# define RPMAP_SS2OUT  12
+# define RPMAP_C1TX    16
+# define RPMAP_OC1     18
+# define RPMAP_OC2     19
+# define RPMAP_OC3     20
+# define RPMAP_OC4     21
+# define RPMAP_OC5     22
 
 #endif
 
 ///  CONFIG_NULL_TO_RP(n) returns RPn to an 'unmapped' state
 /// (i.e, the reset condition).
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_NULL_TO_RP(pin) _RP##pin##R = 0
+# define CONFIG_NULL_TO_RP(Rxy_RP)  _CONFIG_NULL_TO_RP(Rxy_RP)
+# define _CONFIG_NULL_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = 0)
 #else
-#define CONFIG_NULL_TO_RP(pin)
+# define CONFIG_NULL_TO_RP(Rxy_RP)
 #endif
 
 /// Maps C1OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_C1OUT_TO_RP(pin) _RP##pin##R = RPMAP_C1OUT
+# define CONFIG_C1OUT_TO_RP(Rxy_RP)  _CONFIG_C1OUT_TO_RP(Rxy_RP)
+# define _CONFIG_C1OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_C1OUT)
 #else
-#define CONFIG_C1OUT_TO_RP(pin)
+#define CONFIG_C1OUT_TO_RP(Rxy_RP)
 #endif
 
 /// Maps C2OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_C2OUT_TO_RP(pin) _RP##pin##R = RPMAP_C2OUT
+# define CONFIG_C2OUT_TO_RP(Rxy_RP)  _CONFIG_C2OUT_TO_RP(Rxy_RP)
+# define _CONFIG_C2OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_C2OUT)
 #else
-#define CONFIG_C2OUT_TO_RP(pin)
+#define CONFIG_C2OUT_TO_RP(Rxy_RP)
 #endif
 
 /// Maps U1TX to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_U1TX_TO_RP(pin) _CONFIG_U1TX_TO_RP(pin)
-#define _CONFIG_U1TX_TO_RP(pin) _RP##pin##R = RPMAP_U1TX
+# define CONFIG_U1TX_TO_RP(Rxy_RP)  _CONFIG_U1TX_TO_RP(Rxy_RP)
+# define _CONFIG_U1TX_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_U1TX)
 #else
-#define CONFIG_U1TX_TO_RP(pin)
+#define CONFIG_U1TX_TO_RP(Rxy_RP)
 #endif
 
 /// Maps U1RTS to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_U1RTS_TO_RP(pin) _RP##pin##R = RPMAP_U1RTS
+# define CONFIG_U1RTS_TO_RP(Rxy_RP)  _CONFIG_U1RTS_TO_RP(Rxy_RP)
+# define _CONFIG_U1RTS_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_U1RTS)
 #else
-#define CONFIG_U1RTS_TO_RP(pin)
+#define CONFIG_U1RTS_TO_RP(Rxy_RP)
 #endif
 
 /// Maps U2TX to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_U2TX_TO_RP(pin) _RP##pin##R = RPMAP_U2TX
+# define CONFIG_U2TX_TO_RP(Rxy_RP)  _CONFIG_U2TX_TO_RP(Rxy_RP)
+# define _CONFIG_U2TX_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_U2TX)
 #else
-#define CONFIG_U2TX_TO_RP(pin)
+#define CONFIG_U2TX_TO_RP(Rxy_RP)
 #endif
 
 /// Maps U2RTS to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_U2RTS_TO_RP(pin) _RP##pin##R = RPMAP_U2RTS
+# define CONFIG_U2RTS_TO_RP(Rxy_RP)  _CONFIG_U2RTS_TO_RP(Rxy_RP)
+# define _CONFIG_U2RTS_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_U2RTS)
 #else
-#define CONFIG_U2RTS_TO_RP(pin)
+#define CONFIG_U2RTS_TO_RP(Rxy_RP)
 #endif
 
 /// Maps SDO1 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_SDO1_TO_RP(pin) _RP##pin##R = RPMAP_SD01
+# define CONFIG_SDO1_TO_RP(Rxy_RP)  _CONFIG_SDO1_TO_RP(Rxy_RP)
+# define _CONFIG_SDO1_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SD01)
 #else
-#define CONFIG_SDO1_TO_RP(pin)
+#define CONFIG_SDO1_TO_RP(Rxy_RP)
 #endif
 
 /// Maps SCK1OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_SCK1OUT_TO_RP(pin) _RP##pin##R = RPMAP_SCK1OUT
+# define CONFIG_SCK1OUT_TO_RP(Rxy_RP)  _CONFIG_SCK1OUT_TO_RP(Rxy_RP)
+# define _CONFIG_SCK1OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SCK1OUT)
 #else
-#define CONFIG_SCK1OUT_TO_RP(pin)
+#define CONFIG_SCK1OUT_TO_RP(Rxy_RP)
 #endif
 
 /// Maps SS11OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_SS1OUT_TO_RP(pin) _RP##pin##R = RPMAP_SS1OUT
+# define CONFIG_SS1OUT_TO_RP(Rxy_RP)  _CONFIG_SS1OUT_TO_RP(Rxy_RP)
+# define _CONFIG_SS1OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SS1OUT)
 #else
-#define CONFIG_SS1OUT_TO_RP(pin)
+#define CONFIG_SS1OUT_TO_RP(Rxy_RP)
 #endif
 
 /// Maps SDO2 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_SDO2_TO_RP(pin) _RP##pin##R = RPMAP_SDO2
+# define CONFIG_SDO2_TO_RP(Rxy_RP)  _CONFIG_SDO2_TO_RP(Rxy_RP)
+# define _CONFIG_SDO2_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SDO2)
 #else
-#define CONFIG_SDO2_TO_RP(pin)
+#define CONFIG_SDO2_TO_RP(Rxy_RP)
 #endif
 
 /// Maps SCK2OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_SCK2OUT_TO_RP(pin) _RP##pin##R = RPMAP_SCK2OUT
+# define CONFIG_SCK2OUT_TO_RP(Rxy_RP)  _CONFIG_SCK2OUT_TO_RP(Rxy_RP)
+# define _CONFIG_SCK2OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SCK2OUT)
 #else
-#define CONFIG_SCK2OUT_TO_RP(pin)
+#define CONFIG_SCK2OUT_TO_RP(Rxy_RP)
 #endif
 
 /// Maps SS2OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_SS2OUT_TO_RP(pin) _RP##pin##R = RPMAP_SS2OUT
+# define CONFIG_SS2OUT_TO_RP(Rxy_RP)  _CONFIG_SS2OUT_TO_RP(Rxy_RP)
+# define _CONFIG_SS2OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SS2OUT)
 #else
-#define CONFIG_SS2OUT_TO_RP(pin)
+#define CONFIG_SS2OUT_TO_RP(Rxy_RP)
 #endif
 
 /// Maps C1TX to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_C1TX_TO_RP(pin) _RP##pin##R = RPMAP_C1TX
+# define CONFIG_C1TX_TO_RP(Rxy_RP)  _CONFIG_C1TX_TO_RP(Rxy_RP)
+# define _CONFIG_C1TX_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_C1TX)
 #else
-#define CONFIG_C1TX_TO_RP(pin)
+#define CONFIG_C1TX_TO_RP(Rxy_RP)
 #endif
 
 /// Maps OC1 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_OC1_TO_RP(pin) _RP##pin##R = RPMAP_OC1
+# define CONFIG_OC1_TO_RP(Rxy_RP)  _CONFIG_OC1_TO_RP(Rxy_RP)
+# define _CONFIG_OC1_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_OC1)
 #else
-#define CONFIG_OC1_TO_RP(pin)
+#define CONFIG_OC1_TO_RP(Rxy_RP)
 #endif
 
 /// Maps OC2 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_OC2_TO_RP(pin) _RP##pin##R = RPMAP_OC2
+# define CONFIG_OC2_TO_RP(Rxy_RP)  _CONFIG_OC2_TO_RP(Rxy_RP)
+# define _CONFIG_OC2_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_OC2)
 #else
-#define CONFIG_OC2_TO_RP(pin)
+#define CONFIG_OC2_TO_RP(Rxy_RP)
 #endif
 
 /// Maps OC3 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_OC3_TO_RP(pin) _RP##pin##R = RPMAP_OC3
+# define CONFIG_OC3_TO_RP(Rxy_RP)  _CONFIG_OC3_TO_RP(Rxy_RP)
+# define _CONFIG_OC3_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_OC3)
 #else
-#define CONFIG_OC3_TO_RP(pin)
+#define CONFIG_OC3_TO_RP(Rxy_RP)
 #endif
 
 /// Maps OC4 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_OC4_TO_RP(pin) _RP##pin##R = RPMAP_OC4
+# define CONFIG_OC4_TO_RP(Rxy_RP)  _CONFIG_OC4_TO_RP(Rxy_RP)
+# define _CONFIG_OC4_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_OC4)
 #else
-#define CONFIG_OC4_TO_RP(pin)
+#define CONFIG_OC4_TO_RP(Rxy_RP)
 #endif
 
 /// Maps OC5 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
-#define CONFIG_OC5_TO_RP(pin) _RP##pin##R = RPMAP_OC5
+# define CONFIG_OC5_TO_RP(Rxy_RP)  _CONFIG_OC5_TO_RP(Rxy_RP)
+# define _CONFIG_OC5_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_OC5)
 #else
-#define CONFIG_OC5_TO_RP(pin)
+#define CONFIG_OC5_TO_RP(Rxy_RP)
 #endif
 //@}
 

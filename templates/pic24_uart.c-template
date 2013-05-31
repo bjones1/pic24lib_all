@@ -264,9 +264,9 @@ void configUART${x}(uint32_t u32_baudRate) {
   CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RB15_RP);           // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
-  CONFIG_RP9_AS_DIG_INPUT();            // RX pin must be digital input
+  CONFIG_RB9_AS_DIG_INPUT();            // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB9_RP);            // U1RX <- RB9
-  CONFIG_RP8_AS_DIG_OUTPUT();           // TX pin must be digital output
+  CONFIG_RB8_AS_DIG_OUTPUT();           // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RB8_RP);            // U1TX -> RB8
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
