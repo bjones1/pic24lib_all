@@ -71,24 +71,24 @@
 <pre>
 varBits = getch
 if !command:
-	c = varBits  // This was just a normal char; return it
-	return index = 0
-	restart
+  c = varBits  // This was just a normal char; return it
+  return index = 0
+  restart
 // varBits is a command, not a char
 if isLongVar(varBits):
-	varNum, len = getch
+  varNum, len = getch
 else
-	assign varNum, len from varBits
+  assign varNum, len from varBits
 if isVarSpec and !PIC
-	getch len times to buf
-	parse to var spec
-	report any errors, restart
+  getch len times to buf
+  parse to var spec
+  report any errors, restart
 else if isValid(varNum, len)
-	getch len times to var
-	return varIndex
+  getch len times to var
+  return varIndex
 else
-	getch len times and discard
-	report error, restart
+  getch len times and discard
+  report error, restart
 </pre>
  *
  *  \author Bryan A. Jones, bjones AT ece DOT msstate DOT edu.

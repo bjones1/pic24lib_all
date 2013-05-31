@@ -48,8 +48,8 @@ Write table latch with address \em u16_addrhi:u16_addrlo, data: u16_wordhi:u16_w
 //doWriteLatch ;W0=TBLPAG,W1=Wn,W2=WordHi,W3=WordLo - no return values
 void doWriteLatchFlash(uint16_t u16_addrhi, uint16_t u16_addrlo, uint16_t u16_wordhi, uint16_t u16_wordlo) {
   TBLPAG = u16_addrhi;
-  __builtin_tblwtl(u16_addrlo,u16_wordlo); //equivalent to asm("	tblwtl W3,[W1]")
-  __builtin_tblwth(u16_addrlo,u16_wordhi); //equivalent to asm("	tblwth W2,[W1]")
+  __builtin_tblwtl(u16_addrlo,u16_wordlo); //equivalent to asm("  tblwtl W3,[W1]")
+  __builtin_tblwth(u16_addrlo,u16_wordhi); //equivalent to asm("  tblwth W2,[W1]")
 }
 
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
@@ -80,7 +80,7 @@ void WriteMem2(uint16_t addrhi,uint16_t addrlo,uint16_t val) {
   asm("nop");
   asm("nop");
 
-  asm("1:	btsc NVMCON,#15");    //	;Wait for write end
+  asm("1:	btsc NVMCON,#15");    //  ;Wait for write end
   asm("	bra 1b");
 
 }
@@ -96,8 +96,8 @@ Read table latch from address \em u16_addrhi:u16_addrlo
 uint32_t doReadLatchFlash(uint16_t u16_addrhi, uint16_t u16_addrlo) {
   union32 u32_a;
   TBLPAG = u16_addrhi;
-  u32_a.u16.ls16 = __builtin_tblrdl(u16_addrlo);   //equivalent to asm("	tblrdl [W1],W0")
-  u32_a.u16.ms16 = __builtin_tblrdh(u16_addrlo);   //equivalent to asm("	tblrdl [W1],W1")
+  u32_a.u16.ls16 = __builtin_tblrdl(u16_addrlo);   //equivalent to asm("  tblrdl [W1],W0")
+  u32_a.u16.ms16 = __builtin_tblrdh(u16_addrlo);   //equivalent to asm("  tblrdl [W1],W1")
   return(u32_a.u32);
 }
 

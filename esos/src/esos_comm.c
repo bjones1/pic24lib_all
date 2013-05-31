@@ -28,7 +28,7 @@
  */
 
 #include    "esos.h"
-#include	  "esos_comm.h"
+#include    "esos_comm.h"
 
 // ******** G L O B A L S ***************
 volatile uint8               __esos_comm_tx_buff[ESOS_SERIAL_IN_EP_SIZE];

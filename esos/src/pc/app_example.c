@@ -27,7 +27,7 @@
  *
  */
 
-#define	ESOS_USE_IRQS
+#define ESOS_USE_IRQS
 
 // INCLUDEs go here  (First include the main esos.h file)
 //      After that, the user can include what they need
@@ -500,8 +500,8 @@ void reverseString(char *psz_s1, char *psz_s2) {
  *
  *****************************************************************************/
 void user_init(void) {
-  uint16*		pu16_ptr;
-  uint16		u16_junk;
+  uint16*   pu16_ptr;
+  uint16    u16_junk;
   ESOS_TMR_HANDLE    tmrhnd_t1,tmrhnd_t2,tmrhnd_t3;
 
   __esos_unsafe_PutString( HELLO_MSG );

@@ -86,7 +86,7 @@ void    __esos_hw_InitSystemTick(void) {
 
   // FOR NOW, we will init our usual PIC24 development setup here.
   //  THIS REALLY DOESN'T BELONG HERE!!!!!!!
-  configClock();        				//config clock
+  configClock();                //config clock
 
   /* Configure Timer1 to:
   **     operate during IDLE, use a 64x prescaler, and the internal clock

@@ -64,7 +64,7 @@
 #endif
 // include the USB header if the user needs it
 #ifdef ESOS_USE_BULK_CDC_USB
-#include	"esos_pic24_usb.h"
+#include  "esos_pic24_usb.h"
 #endif
 #ifdef ESOS_USE_SERIAL_PORT
 #include    "esos_pic24_rs232.h"

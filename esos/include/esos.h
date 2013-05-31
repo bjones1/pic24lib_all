@@ -52,7 +52,7 @@
 //
 // PC versions do NOT have IRQs (yet) so do NOT define the variables
 #ifndef __linux
-#define	ESOS_USE_IRQS
+#define ESOS_USE_IRQS
 #endif
 #define ESOS_USE_SERIAL_PORT
 
@@ -84,7 +84,7 @@ typedef             int                 main_t;
 // hardware w/o a hosting OS will never return. So main_t
 //      must be void return type and hang-up when done!
 //      (Of course, real hardware apps should never be done.)
-typedef             int	                main_t;
+typedef             int                 main_t;
 #define             OS_END              while(1)
 #define             OS_ITERATE
 #endif
@@ -229,7 +229,7 @@ typedef   uint8                   ESOS_TMR_HANDLE;
 void    user_init( void );
 ESOS_TASK_HANDLE   esos_RegisterTask( uint8 (*pfn_TaskFcn)(struct stTask *pst_Task) );
 uint8   esos_UnregisterTask( uint8 (*pfn_TaskFcn)(struct stTask *pst_Task) ) ;
-ESOS_TASK_HANDLE	esos_GetFreeChildTaskStruct();
+ESOS_TASK_HANDLE  esos_GetFreeChildTaskStruct();
 uint32    esos_GetRandomUint32();
 
 // prototypes for ESOS software timers
@@ -409,8 +409,8 @@ extern uint16       __esos_u16UserFlags, __esos_u16SystemFlags;
 // System flag definitions... only ESOS needs to use these
 #define     __ESOS_SYS_FLAG_PACK_TASKS              BIT0
 #define     __ESOS_SYS_FLAG_NULL_LAST_TASK          BIT1
-#define     __ESOS_SYS_COMM_TX_IS_BUSY				BIT2
-#define     __ESOS_SYS_COMM_RX_IS_BUSY				BIT3
+#define     __ESOS_SYS_COMM_TX_IS_BUSY        BIT2
+#define     __ESOS_SYS_COMM_RX_IS_BUSY        BIT3
 
 // Other useful macros for the user
 #define   __abs(x)    (((x) < 0) ? -(x) : (x))

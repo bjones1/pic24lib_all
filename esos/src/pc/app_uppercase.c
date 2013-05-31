@@ -27,7 +27,7 @@
  *
  */
 
-#define	ESOS_USE_IRQS
+#define ESOS_USE_IRQS
 
 // INCLUDEs go here  (First include the main esos.h file)
 //      After that, the user can include what they need
@@ -45,8 +45,8 @@
 
 // GLOBALs go here
 //  Generally, the user-created semaphores will be defined/allocated here
-volatile uint32		u32_T2Count;
-volatile uint32		u32_T3Count;
+volatile uint32   u32_T2Count;
+volatile uint32   u32_T3Count;
 static uint8 psz_T2Is[]="T2 is ";
 static uint8 psz_T3Is[]="T3 is ";
 static uint8 psz_Enabled[]="enabled.";
@@ -78,7 +78,7 @@ struct stTask*    pst_MyTasks[3];
  *
  *****************************************************************************/
 ESOS_USER_TASK( upper_case ) {
-  static uint8	    u8_Char;
+  static uint8      u8_Char;
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -113,7 +113,7 @@ ESOS_USER_TASK( upper_case ) {
  *
  *****************************************************************************/
 ESOS_USER_TASK( echo ) {
-  static uint8	    u8_Char;
+  static uint8      u8_Char;
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -138,8 +138,8 @@ ESOS_USER_TASK( child_echo_buffers ) {
 
 #define   LOCAL_BUFFER_LEN    16
 
-  static uint8       			u8_i;
-  static uint8 			      au8_Char[LOCAL_BUFFER_LEN+4];
+  static uint8            u8_i;
+  static uint8            au8_Char[LOCAL_BUFFER_LEN+4];
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -308,7 +308,7 @@ ESOS_USER_TASK( random_3 ) {
  *
  *****************************************************************************/
 ESOS_USER_TASK( task_ctrl ) {
-  static  uint8					u8_Char;
+  static  uint8         u8_Char;
   static  uint8         u8_i;
 
   ESOS_TASK_BEGIN(pstTask);
@@ -534,8 +534,8 @@ ESOS_USER_TASK( init_print ) {
  *
  *****************************************************************************/
 void user_init(void) {
-  uint16*		pu16_ptr;
-  uint16		u16_junk;
+  uint16*   pu16_ptr;
+  uint16    u16_junk;
 
   __esos_hw_PutString( HELLO_MSG );
 

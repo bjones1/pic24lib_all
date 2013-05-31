@@ -27,7 +27,7 @@
  *
  */
 
-#define	ESOS_USE_IRQS
+#define ESOS_USE_IRQS
 
 // INCLUDEs go here  (First include the main esos.h file)
 //      After that, the user can include what they need
@@ -53,8 +53,8 @@ uint32    randomNumInRange(uint32 u32_lo, uint32 u32_hi);
 
 // GLOBALs go here
 //  Generally, the user-created semaphores will be defined/allocated here
-volatile uint32		u32_T2Count;
-volatile uint32		u32_T3Count;
+volatile uint32   u32_T2Count;
+volatile uint32   u32_T3Count;
 static uint8 psz_T2Is[]="T2 is ";
 static uint8 psz_T3Is[]="T3 is ";
 static uint8 psz_Enabled[]="enabled.";
@@ -476,8 +476,8 @@ void reverseString(char *psz_s1, char *psz_s2) {
  *
  *****************************************************************************/
 void user_init(void) {
-  uint16*		pu16_ptr;
-  uint16		u16_junk;
+  uint16*   pu16_ptr;
+  uint16    u16_junk;
   ESOS_TMR_HANDLE    tmrhnd_t1,tmrhnd_t2,tmrhnd_t3;
 
   __esos_hw_PutString( HELLO_MSG );

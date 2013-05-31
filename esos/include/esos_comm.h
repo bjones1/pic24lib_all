@@ -40,8 +40,8 @@
  */
 
 
-#ifndef		ESOS_COMM_H
-#define	ESOS_COMM_H
+#ifndef   ESOS_COMM_H
+#define ESOS_COMM_H
 
 /* I N C L U D E S **********************************************************/
 #include    "esos.h"
@@ -62,9 +62,9 @@ void __esos_unsafe_PutString(char* psz_in);
 uint8 __esos_unsafe_GetUint8(void);
 
 /* D E F I N E S ************************************************************/
-#define	ESOS_COMM_SYS_USB		    0x80
-#define	ESOS_COMM_SYS_SERIAL		0x00
-#define	ESOS_COMM_SYS_SERIAL_REV	(ESOS_COMM_SYS_SERIAL + 0x01)
+#define ESOS_COMM_SYS_USB       0x80
+#define ESOS_COMM_SYS_SERIAL    0x00
+#define ESOS_COMM_SYS_SERIAL_REV  (ESOS_COMM_SYS_SERIAL + 0x01)
 // size of buffer to catch data incoming to PIC (based on USB terminology)
 #define ESOS_SERIAL_OUT_EP_SIZE    64
 // size of buffer to hold data leaving the PIC (based on USB terminology)
@@ -121,7 +121,7 @@ uint8 __esos_unsafe_GetUint8(void);
 *
 * \hideinitializer
 */
-#define IS_ESOS_COMM_GOT_EXACTLY_DATA_BYTES(x)		(GET_ESOS_COMM_IN_DATA_LEN() == x)
+#define IS_ESOS_COMM_GOT_EXACTLY_DATA_BYTES(x)    (GET_ESOS_COMM_IN_DATA_LEN() == x)
 
 /**
 * Evaluates to the booelan to determine if "in" communications buffer has
@@ -133,7 +133,7 @@ uint8 __esos_unsafe_GetUint8(void);
 *
 * \hideinitializer
 */
-#define IS_ESOS_COMM_GOT_AT_LEAST_DATA_BYTES(x)		(GET_ESOS_COMM_IN_DATA_LEN() >= x)
+#define IS_ESOS_COMM_GOT_AT_LEAST_DATA_BYTES(x)   (GET_ESOS_COMM_IN_DATA_LEN() >= x)
 
 /**
 * Flushes the "in" communications buffer.  All unread data in the "in" communications
@@ -144,7 +144,7 @@ uint8 __esos_unsafe_GetUint8(void);
 *
 * \hideinitializer
 */
-#define FLUSH_ESOS_COMM_IN_DATA()						  (__st_RxBuffer.u16_Head = __st_RxBuffer.u16_Tail)
+#define FLUSH_ESOS_COMM_IN_DATA()             (__st_RxBuffer.u16_Head = __st_RxBuffer.u16_Tail)
 
 /**
 * Evaluates to the booelan to determine if "in" communications buffer
@@ -155,7 +155,7 @@ uint8 __esos_unsafe_GetUint8(void);
 *
 * \hideinitializer
 */
-#define IS_ESOS_COMM_GOT_IN_DATA()						(__st_RxBuffer.u16_Head != __st_RxBuffer.u16_Tail)
+#define IS_ESOS_COMM_GOT_IN_DATA()            (__st_RxBuffer.u16_Head != __st_RxBuffer.u16_Tail)
 
 // should use PEEK... It is unsafe since IRQs can occur at anytime....
 /**
@@ -175,7 +175,7 @@ uint8 __esos_unsafe_GetUint8(void);
 *
 * \hideinitializer
 */
-#define PEEK_ESOS_COMM_IN_DATA(x)				      ( __st_RxBuffer.pau8_Data[((__st_RxBuffer.u16_Tail+1+x)% ESOS_SERIAL_OUT_EP_SIZE)] )
+#define PEEK_ESOS_COMM_IN_DATA(x)             ( __st_RxBuffer.pau8_Data[((__st_RxBuffer.u16_Tail+1+x)% ESOS_SERIAL_OUT_EP_SIZE)] )
 
 /**
 * Evaluates to a "peek" of the most recent data byte written to the "in" communications buffer
@@ -193,7 +193,7 @@ uint8 __esos_unsafe_GetUint8(void);
 *
 * \hideinitializer
 */
-#define PEEK_ESOS_COMM_IN_LATEST_DATA()		    ( __st_RxBuffer.pau8_Data[__st_RxBuffer.u16_Head] )
+#define PEEK_ESOS_COMM_IN_LATEST_DATA()       ( __st_RxBuffer.pau8_Data[__st_RxBuffer.u16_Head] )
 
 /**
 * Evaluates to boolean to that determines whether the "out" system can accept anymore
@@ -204,7 +204,7 @@ uint8 __esos_unsafe_GetUint8(void);
 *
 * \hideinitializer
 */
-#define IS_ESOS_COMM_READY_OUT_DATA()							(__st_TxBuffer.u16_Head != __st_TxBuffer.u16_Tail)
+#define IS_ESOS_COMM_READY_OUT_DATA()             (__st_TxBuffer.u16_Head != __st_TxBuffer.u16_Tail)
 
 // communications commands used by ESOS tasks
 /**
@@ -460,9 +460,9 @@ uint8 __esos_unsafe_GetUint8(void);
 * Data transfer can be over USB or old-fashioned RS-232 serial UART
 **/
 typedef struct _ESOS_COMM_BUFF_DSC {
-  volatile uint8*	pau8_Data;
-  int16	                u16_Head;
-  int16	                u16_Tail;
+  volatile uint8* pau8_Data;
+  int16                 u16_Head;
+  int16                 u16_Tail;
   uint16                u16_Length;
 } ESOS_COMM_BUFF_DSC;
 
@@ -508,4 +508,4 @@ void  __esos_hw_InitCommSystem(void);
 
 /** @} */
 
-#endif		// ESOS_COMM_H
+#endif    // ESOS_COMM_H

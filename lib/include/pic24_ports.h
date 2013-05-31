@@ -516,45 +516,45 @@ static inline void CONFIG_ANx_AS_ANALOG() {}
 /// Define peripheral pins.
 /// \todo Isn't this defined in the Microchip includes somewhere?
 #if defined(__PIC24E__) || defined(__dsPIC33F__)
-#define RPMAP_C1OUT 	24
-#define RPMAP_C2OUT 	25
-#define RPMAP_U1TX 		1
-#define RPMAP_U1RTS 	2
-#define RPMAP_U2TX  	3
-#define RPMAP_U2RTS 	4
-#define RPMAP_SD01  	5
-#define RPMAP_SCK1OUT  	6
-#define RPMAP_SS1OUT  	7
-#define RPMAP_SDO2  	8
-#define RPMAP_SCK2OUT  	9
-#define RPMAP_SS2OUT  	10
-#define RPMAP_C1TX  	14
-#define RPMAP_OC1   	16
-#define RPMAP_OC2   	17
-#define RPMAP_OC3   	18
-#define RPMAP_OC4   	19
-#define RPMAP_OC5   	20
+#define RPMAP_C1OUT   24
+#define RPMAP_C2OUT   25
+#define RPMAP_U1TX  1
+#define RPMAP_U1RTS   2
+#define RPMAP_U2TX    3
+#define RPMAP_U2RTS   4
+#define RPMAP_SD01    5
+#define RPMAP_SCK1OUT   6
+#define RPMAP_SS1OUT    7
+#define RPMAP_SDO2    8
+#define RPMAP_SCK2OUT   9
+#define RPMAP_SS2OUT    10
+#define RPMAP_C1TX    14
+#define RPMAP_OC1     16
+#define RPMAP_OC2     17
+#define RPMAP_OC3     18
+#define RPMAP_OC4     19
+#define RPMAP_OC5     20
 
 #else
 
-#define RPMAP_C1OUT 	1
-#define RPMAP_C2OUT 	2
-#define RPMAP_U1TX 		3
-#define RPMAP_U1RTS 	4
-#define RPMAP_U2TX  	5
-#define RPMAP_U2RTS 	6
-#define RPMAP_SD01  	7
-#define RPMAP_SCK1OUT  	8
-#define RPMAP_SS1OUT  	9
-#define RPMAP_SDO2  	10
-#define RPMAP_SCK2OUT  	11
-#define RPMAP_SS2OUT  	12
-#define RPMAP_C1TX  	16
-#define RPMAP_OC1   	18
-#define RPMAP_OC2   	19
-#define RPMAP_OC3   	20
-#define RPMAP_OC4   	21
-#define RPMAP_OC5   	22
+#define RPMAP_C1OUT   1
+#define RPMAP_C2OUT   2
+#define RPMAP_U1TX  3
+#define RPMAP_U1RTS   4
+#define RPMAP_U2TX    5
+#define RPMAP_U2RTS   6
+#define RPMAP_SD01    7
+#define RPMAP_SCK1OUT   8
+#define RPMAP_SS1OUT    9
+#define RPMAP_SDO2    10
+#define RPMAP_SCK2OUT   11
+#define RPMAP_SS2OUT    12
+#define RPMAP_C1TX    16
+#define RPMAP_OC1     18
+#define RPMAP_OC2     19
+#define RPMAP_OC3     20
+#define RPMAP_OC4     21
+#define RPMAP_OC5     22
 
 #endif
 

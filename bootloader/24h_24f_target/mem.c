@@ -12,7 +12,7 @@ void WriteMem(UWord16 val) {
   asm("mov	W0,NVMCON");
   __builtin_write_NVM();
 
-  asm("1:	btsc NVMCON,#15");    //	;Wait for write end
+  asm("1:	btsc NVMCON,#15");    //  ;Wait for write end
   asm("	bra 1b");
 
 }
@@ -32,14 +32,14 @@ void WriteMem2(UWord16 addrhi, UWord16 addrlo, UWord16 val) {
   asm("nop");
   asm("nop");
 
-  asm("1:	btsc NVMCON,#15");    //	;Wait for write end
+  asm("1:	btsc NVMCON,#15");    //  ;Wait for write end
   asm("	bra 1b");
 
 }
 #endif
 
 
-//_LoadAddr:	;W0=NVMADRU,W1=NVMADR - no return values
+//_LoadAddr:  ;W0=NVMADRU,W1=NVMADR - no return values
 void LoadAddr(UWord16 nvmadru, UWord16 nvmadr) {
   asm("mov	W0,TBLPAG");
   asm("mov	W1,W1");
@@ -122,7 +122,7 @@ void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val ) {
   asm("nop");
   asm("nop");
 
-  asm("1:	btsc NVMCON,#15");    //	;Wait for write end
+  asm("1:	btsc NVMCON,#15");    //  ;Wait for write end
   asm("	bra 1b");
 
 
@@ -135,12 +135,12 @@ void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val ) {
   asm("mov	W2,NVMCON");
 
   asm("mov     w0,TBLPAG");           //; Init Pointer to page to be erased
-  asm("tblwtl  w1,[w1]");		        //; Dummy write to select the row
+  asm("tblwtl  w1,[w1]");           //; Dummy write to select the row
 
   __builtin_write_NVM();
 
 
-  asm("1:	btsc NVMCON,#15");    //	;Wait for write end
+  asm("1:	btsc NVMCON,#15");    //  ;Wait for write end
   asm("	bra 1b");
 
   asm("pop     TBLPAG");

@@ -310,9 +310,9 @@ typedef   struct stTask*                   ESOS_TASK_HANDLE;
  *
  * \hideinitializer
  */
-#define ESOS_TASK_WAIT_UNTIL(condition)	            \
-  do {					             \
-    LC_SET(__pstSelf->lc);		             \
+#define ESOS_TASK_WAIT_UNTIL(condition)             \
+  do {                       \
+    LC_SET(__pstSelf->lc);                 \
     if(ESOS_IS_TASK_KILLED(__pstSelf)) {             \
       __pstSelf->flags = __TASK_KILLED_MASK;          \
       return ESOS_TASK_ENDED;                                \
@@ -324,7 +324,7 @@ typedef   struct stTask*                   ESOS_TASK_HANDLE;
       __ESOS_SET_TASK_WAITING_FLAG(__pstSelf);                  \
     }                                                         \
     if(ESOS_IS_TASK_WAITING(__pstSelf)) {                     \
-      return ESOS_TASK_WAITING;			                          \
+      return ESOS_TASK_WAITING;                               \
     }                                                         \
   } while(0)
 
@@ -360,10 +360,10 @@ do {                                                    \
 /** @} */
 
 /* helper function to spawn child tasks */
-#define __ESOS_TASK_SPAWN(pstChild, fcnCallWithArgs)		\
-  do {						\
-    __ESOS_INIT_TASK((pstChild));				\
-    ESOS_TASK_WAIT_THREAD((fcnCallWithArgs));		\
+#define __ESOS_TASK_SPAWN(pstChild, fcnCallWithArgs)    \
+  do {            \
+    __ESOS_INIT_TASK((pstChild));       \
+    ESOS_TASK_WAIT_THREAD((fcnCallWithArgs));   \
   } while(0)
 
 /**
@@ -453,10 +453,10 @@ do {                                                    \
  *
  * \hideinitializer
  */
-#define ESOS_TASK_SLEEP()				                 \
-  do {						                          \
+#define ESOS_TASK_SLEEP()                        \
+  do {                                      \
     __ESOS_SET_TASK_SLEEPING_FLAG(__pstSelf);                             \
-    ESOS_TASK_WAIT_WHILE(ESOS_IS_TASK_SLEEPING(__pstSelf));		\
+    ESOS_TASK_WAIT_WHILE(ESOS_IS_TASK_SLEEPING(__pstSelf));   \
   } while(0)
 
 /**
@@ -468,8 +468,8 @@ do {                                                    \
  *
  * \hideinitializer
  */
-#define ESOS_TASK_RESTART()	            \
-  do {	                                     \
+#define ESOS_TASK_RESTART()             \
+  do {                                       \
     __pstSelf->flags = 0;                    \
     __ESOS_INIT_TASK(__pstSelf);              \
     return ESOS_TASK_WAITING;                 \
@@ -508,7 +508,7 @@ do {                                                    \
  *
  * \hideinitializer
  */
-#define ESOS_WAKE_TASK(TaskHandle)				__ESOS_TASK_CLEAR_SLEEPING_FLAG((TaskHandle))
+#define ESOS_WAKE_TASK(TaskHandle)        __ESOS_TASK_CLEAR_SLEEPING_FLAG((TaskHandle))
 
 /**
  * Kill an scheduled ESOS task.
@@ -521,7 +521,7 @@ do {                                                    \
  * \sa ESOS_TASK_GET_TASK_HANDLE
  * \hideinitializer
  */
-#define ESOS_KILL_TASK(TaskHandle)		__ESOS_TASK_SET_KILLED_FLAG((TaskHandle))
+#define ESOS_KILL_TASK(TaskHandle)    __ESOS_TASK_SET_KILLED_FLAG((TaskHandle))
 
 
 /**
@@ -539,8 +539,8 @@ do {                                                    \
  * \sa ESOS_TASK_GET_TASK_HANDLE
  * \hideinitializer
  */
-#define ESOS_RESTART_TASK(TaskHandle)	            \
-  do {	                                     \
+#define ESOS_RESTART_TASK(TaskHandle)             \
+  do {                                       \
     (TaskHandle)->flags = 0;                    \
     __ESOS_INIT_TASK((TaskHandle));              \
 } while(0)
@@ -564,8 +564,8 @@ do {                                                    \
  *
  * \hideinitializer
  */
-#define ESOS_TASK_YIELD()				        \
-  do {						                \
+#define ESOS_TASK_YIELD()               \
+  do {                            \
     __ESOS_CLEAR_TASK_CALLED_FLAG(__pstSelf);                   \
     ESOS_TASK_WAIT_UNTIL(__ESOS_IS_TASK_CALLED(__pstSelf));     \
   } while(0)

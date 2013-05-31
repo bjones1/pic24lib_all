@@ -71,7 +71,7 @@ void reportError(const char* message);
  * USAGE:  COMPILE_ASSERT( condition, message_to_print_if_fails)
  *
  * Note: these macros use typedef so they can't be use in a
- *			 value assignment type macro
+ *       value assignment type macro
  * Note: message_to_print_if_fails is used as C language variable in this
  *       clever little macro, SO.... your message must adhere to C variable
  *       naming rules, i.e. no spaces or funny characters.  Use underscores

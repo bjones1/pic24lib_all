@@ -90,31 +90,31 @@
  * \sa ESOS_REGISTER_PIC24_USER_INTERRUPT
  * \hideinitializer
  */
-#define	ESOS_USER_IRQ_LEVEL1				6
+#define ESOS_USER_IRQ_LEVEL1        6
 /**
  * Second-highest priority user interrupt level on PIC24 Family
  * \sa ESOS_REGISTER_PIC24_USER_INTERRUPT
  * \hideinitializer
  */
-#define	ESOS_USER_IRQ_LEVEL2				4
+#define ESOS_USER_IRQ_LEVEL2        4
 /**
  * Third-highest priority user interrupt level on PIC24 Family
  * \sa ESOS_REGISTER_PIC24_USER_INTERRUPT
  * \hideinitializer
  */
-#define	ESOS_USER_IRQ_LEVEL3				3
+#define ESOS_USER_IRQ_LEVEL3        3
 /**
  * Lowest priority user interrupt level on PIC24 Family
  * \sa ESOS_REGISTER_PIC24_USER_INTERRUPT
  * \hideinitializer
  */
-#define	ESOS_USER_IRQ_LEVEL4				2
+#define ESOS_USER_IRQ_LEVEL4        2
 
-#define	__ESOS_USER_IRQ_UNREGISTERED		0
+#define __ESOS_USER_IRQ_UNREGISTERED    0
 // this #define is the IPL that will disabled all user IRQs at once
-#define __ESOS_DISABLE_USER_IRQS_LEVEL		ESOS_USER_IRQ_LEVEL2
+#define __ESOS_DISABLE_USER_IRQS_LEVEL    ESOS_USER_IRQ_LEVEL2
 // this #define is the IPL that will enabled all user IRQs at once
-#define __ESOS_ENABLE_USER_IRQS_LEVEL		__ESOS_USER_IRQ_UNREGISTERED
+#define __ESOS_ENABLE_USER_IRQS_LEVEL   __ESOS_USER_IRQ_UNREGISTERED
 
 /*
 *  IRQ masks for the PIC24HJ32GP202
@@ -135,7 +135,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_AD1	_ADC1Interrupt, 0x002E, 0, 13, 3, 4            // AD1 Conversion complete
+#define  ESOS_IRQ_PIC24_AD1 _ADC1Interrupt, 0x002E, 0, 13, 3, 4            // AD1 Conversion complete
 /**
  * SP1 Event Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -150,7 +150,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_SPI1	_SPI1Interrupt, 0x0028, 0, 10, 2, 8            // SPI1 event
+#define  ESOS_IRQ_PIC24_SPI1  _SPI1Interrupt, 0x0028, 0, 10, 2, 8            // SPI1 event
 /**
  * SP1 Exception Event Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -165,7 +165,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_SPI1E	_SPI1ErrInterrupt, 0x0026, 0, 9, 2, 4          // SPI1 (exception) fault event
+#define  ESOS_IRQ_PIC24_SPI1E _SPI1ErrInterrupt, 0x0026, 0, 9, 2, 4          // SPI1 (exception) fault event
 /**
  * Timer 3 expiration Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -195,7 +195,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_T2	_T2Interrupt, 0x0022, 0, 7, 1, 12              // Timer 2
+#define  ESOS_IRQ_PIC24_T2  _T2Interrupt, 0x0022, 0, 7, 1, 12              // Timer 2
 /**
  * Output Compare Channel 2 Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -210,7 +210,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_OC2	_OC2Interrupt, 0x0020, 0, 6, 1, 8              // Output compare channel 2
+#define  ESOS_IRQ_PIC24_OC2 _OC2Interrupt, 0x0020, 0, 6, 1, 8              // Output compare channel 2
 /**
  * Input Capture Channel 2 Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -225,7 +225,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_IC2	_IC2Interrupt, 0x001E, 0, 5, 1, 4              // Input capture channel 2
+#define  ESOS_IRQ_PIC24_IC2 _IC2Interrupt, 0x001E, 0, 5, 1, 4              // Input capture channel 2
 /**
  * Output Compare Channel 1 Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -240,7 +240,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_OC1	_OC1Interrupt, 0x0018, 0, 2, 0, 8              // Output compare channel 1
+#define  ESOS_IRQ_PIC24_OC1 _OC1Interrupt, 0x0018, 0, 2, 0, 8              // Output compare channel 1
 
 /**
  * Input Capture Channel 1 Interrupt (User interrupt descriptor)
@@ -256,7 +256,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_IC1	_IC1Interrupt, 0x0016, 0, 1, 0, 4              // Input capture channel 1
+#define  ESOS_IRQ_PIC24_IC1 _IC1Interrupt, 0x0016, 0, 1, 0, 4              // Input capture channel 1
 /**
  * External IRQ 0 Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -271,7 +271,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_INT0	_INT0Interrupt, 0x0014, 0, 0, 0, 0             // external interrupt 0
+#define  ESOS_IRQ_PIC24_INT0  _INT0Interrupt, 0x0014, 0, 0, 0, 0             // external interrupt 0
 /**
  * External IRQ 2 Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -286,7 +286,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_INT2	_INT2Interrupt, 0x004E, 1, 13, 7, 4            // external interrupt 2
+#define  ESOS_IRQ_PIC24_INT2  _INT2Interrupt, 0x004E, 1, 13, 7, 4            // external interrupt 2
 
 /**
  * Input Capture Channel 8 Interrupt (User interrupt descriptor)
@@ -302,7 +302,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_IC8	_IC8Interrupt, 0x0042, 1, 7, 5, 12             // Input capture channel 8
+#define  ESOS_IRQ_PIC24_IC8 _IC8Interrupt, 0x0042, 1, 7, 5, 12             // Input capture channel 8
 /**
  * Input Capture Channel 7 Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -317,7 +317,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_IC7	_IC7Interrupt, 0x0040, 1, 6, 5, 8              // Input capture channel 7
+#define  ESOS_IRQ_PIC24_IC7 _IC7Interrupt, 0x0040, 1, 6, 5, 8              // Input capture channel 7
 /**
  * External IRQ 1 Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -332,7 +332,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_INT1	_INT1Interrupt, 0x003C, 1, 4, 5, 0             // external interrupt 1
+#define  ESOS_IRQ_PIC24_INT1  _INT1Interrupt, 0x003C, 1, 4, 5, 0             // external interrupt 1
 /**
  * Input Change Notification Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -347,7 +347,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_CN	_CNInterrupt, 0x003A, 1, 3, 4, 12              // input change notification
+#define  ESOS_IRQ_PIC24_CN  _CNInterrupt, 0x003A, 1, 3, 4, 12              // input change notification
 /**
  * I2C1 Master Event Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -362,7 +362,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_MI2C1	_MI2C1Interrupt, 0x0036, 1, 1, 4, 4            // I2C1 Master event
+#define  ESOS_IRQ_PIC24_MI2C1 _MI2C1Interrupt, 0x0036, 1, 1, 4, 4            // I2C1 Master event
 /**
  * I2C1 Slave Event Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -377,7 +377,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_SI2C1	_SI2C1Interrupt, 0x0034, 1, 0, 4, 0            // I2C1 slave event
+#define  ESOS_IRQ_PIC24_SI2C1 _SI2C1Interrupt, 0x0034, 1, 0, 4, 0            // I2C1 slave event
 
 // if the user is __NOT__  using the built-in ESOS comm system but __IS__ using user IRQs, then
 //    we should define the UART IRQs for their use
@@ -398,7 +398,7 @@
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_U1TX	_U1TXInterrupt, 0x002C, 0, 12, 3, 0            // UART1 TX event
+#define  ESOS_IRQ_PIC24_U1TX  _U1TXInterrupt, 0x002C, 0, 12, 3, 0            // UART1 TX event
 /**
  * UART1 RX Event Interrupt (User interrupt descriptor)
  * \sa ESOS_USER_INTERRUPT
@@ -414,7 +414,7 @@
  * \note Only defined if ESOS is built <em>without</em> the communications subsystem.
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_U1RX	_U1RXInterrupt, 0x002A, 0, 11, 2, 12           // UART1 RX event
+#define  ESOS_IRQ_PIC24_U1RX  _U1RXInterrupt, 0x002A, 0, 11, 2, 12           // UART1 RX event
 
 /**
  * UART1 Error Event Interrupt (User interrupt descriptor)
@@ -431,7 +431,7 @@
  * \note Only defined if ESOS is built <em>without</em> the communications subsystem.
  * \hideinitializer
  */
-#define  ESOS_IRQ_PIC24_U1E	_U1ErrInterrupt, 0x0096, 4, 1, 16, 4           // UART1 Error event
+#define  ESOS_IRQ_PIC24_U1E _U1ErrInterrupt, 0x0096, 4, 1, 16, 4           // UART1 Error event
 
 #endif      // end of UART1 constants
 
@@ -461,17 +461,17 @@
 
 
 // this macro gets the IRQ's IPL number from its corresponding IPC register
-#define __GET_IPL_FROM_IPCX(Q)   		((*(&IPC0+(__xGET_IPC_NUM(Q))) >> __xGET_IPC_BITNUM(Q))&0x7)
+#define __GET_IPL_FROM_IPCX(Q)      ((*(&IPC0+(__xGET_IPC_NUM(Q))) >> __xGET_IPC_BITNUM(Q))&0x7)
 
 // this macro tests the IRQ's IPL number from its corresponding IPC register
 // against a value
-#define __IS_IPL_FROM_IPCX(Q, val)		((__GET_IPL_FROM_IPCX(Q))==(val))
+#define __IS_IPL_FROM_IPCX(Q, val)    ((__GET_IPL_FROM_IPCX(Q))==(val))
 
 // this macro sets the IRQ's IPL number in its corresponding IPC register
-#define __PUT_IPL_INTO_IPCX(ipc,ipcb,ipl)                    					\
-    do {                                                  					\
-		BIT_CLEAR_MASK( *(&IPC0+(ipc)), 0x07<<ipcb) + (ipl<<ipcb);	\
-		*(&IPC0+ipc) += (ipl<<ipcb); \
+#define __PUT_IPL_INTO_IPCX(ipc,ipcb,ipl)                             \
+    do {                                                            \
+    BIT_CLEAR_MASK( *(&IPC0+(ipc)), 0x07<<ipcb) + (ipl<<ipcb);  \
+    *(&IPC0+ipc) += (ipl<<ipcb); \
       }while(0)
 
 /**

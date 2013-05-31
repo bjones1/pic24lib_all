@@ -89,7 +89,7 @@ void _ISRFAST _IC1Interrupt() {
 inline void CONFIG_SW1()  {
   CONFIG_RB13_AS_DIG_INPUT();     //use RB13 for switch input
   ENABLE_RB13_PULLUP();           //enable the pull-up
-  DELAY_US(1);					  //delay for pull-up
+  DELAY_US(1);            //delay for pull-up
 }
 
 void configInputCapture1(void) {

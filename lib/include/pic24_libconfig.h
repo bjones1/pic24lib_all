@@ -207,7 +207,7 @@
 #endif
 
 #if (SERIAL_EOL_DEFAULT != SERIAL_EOL_CR_LF) && \
-	  (SERIAL_EOL_DEFAULT != SERIAL_EOL_CR)    && \
+    (SERIAL_EOL_DEFAULT != SERIAL_EOL_CR)    && \
     (SERIAL_EOL_DEFAULT != SERIAL_EOL_LF)
 # error "Invalid choice for SERIAL_EOF_DEFAULT."
 #endif

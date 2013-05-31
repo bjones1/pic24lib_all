@@ -33,9 +33,9 @@
 // ====================
 #ifdef _RA0
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA0_AN
 #   define ENABLE_RA0_ANALOG()  (RXY_GPIO_PCFG(RA0_AN) = 1)
 #   define DISABLE_RA0_ANALOG() (RXY_GPIO_PCFG(RA0_AN) = 0)
@@ -43,11 +43,11 @@
 #   define DISABLE_RA0_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA0_AS_INPUT()  (_TRISA0 = 1)
 # define CONFIG_RA0_AS_OUTPUT() (_TRISA0 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA0)
 #   define ENABLE_RA0_OPENDRAIN()  (_ODCA0 = 1)
 #   define DISABLE_RA0_OPENDRAIN() (_ODCA0 = 0)
@@ -58,7 +58,7 @@
 #   define DISABLE_RA0_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA0_CN
 #   define ENABLE_RA0_PULLUP()  (RXY_GPIO_CNPUE(RA0_CN) = 1)
 #   define DISABLE_RA0_PULLUP() (RXY_GPIO_CNPUE(RA0_CN) = 0)
@@ -79,8 +79,8 @@
 #   define DISABLE_RA0_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA0_AN
 #   define CONFIG_RA0_AS_ANALOG()       \
       do {                              \
@@ -120,9 +120,9 @@
 // ====================
 #ifdef _RA1
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA1_AN
 #   define ENABLE_RA1_ANALOG()  (RXY_GPIO_PCFG(RA1_AN) = 1)
 #   define DISABLE_RA1_ANALOG() (RXY_GPIO_PCFG(RA1_AN) = 0)
@@ -130,11 +130,11 @@
 #   define DISABLE_RA1_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA1_AS_INPUT()  (_TRISA1 = 1)
 # define CONFIG_RA1_AS_OUTPUT() (_TRISA1 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA1)
 #   define ENABLE_RA1_OPENDRAIN()  (_ODCA1 = 1)
 #   define DISABLE_RA1_OPENDRAIN() (_ODCA1 = 0)
@@ -145,7 +145,7 @@
 #   define DISABLE_RA1_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA1_CN
 #   define ENABLE_RA1_PULLUP()  (RXY_GPIO_CNPUE(RA1_CN) = 1)
 #   define DISABLE_RA1_PULLUP() (RXY_GPIO_CNPUE(RA1_CN) = 0)
@@ -166,8 +166,8 @@
 #   define DISABLE_RA1_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA1_AN
 #   define CONFIG_RA1_AS_ANALOG()       \
       do {                              \
@@ -207,9 +207,9 @@
 // ====================
 #ifdef _RA2
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA2_AN
 #   define ENABLE_RA2_ANALOG()  (RXY_GPIO_PCFG(RA2_AN) = 1)
 #   define DISABLE_RA2_ANALOG() (RXY_GPIO_PCFG(RA2_AN) = 0)
@@ -217,11 +217,11 @@
 #   define DISABLE_RA2_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA2_AS_INPUT()  (_TRISA2 = 1)
 # define CONFIG_RA2_AS_OUTPUT() (_TRISA2 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA2)
 #   define ENABLE_RA2_OPENDRAIN()  (_ODCA2 = 1)
 #   define DISABLE_RA2_OPENDRAIN() (_ODCA2 = 0)
@@ -232,7 +232,7 @@
 #   define DISABLE_RA2_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA2_CN
 #   define ENABLE_RA2_PULLUP()  (RXY_GPIO_CNPUE(RA2_CN) = 1)
 #   define DISABLE_RA2_PULLUP() (RXY_GPIO_CNPUE(RA2_CN) = 0)
@@ -253,8 +253,8 @@
 #   define DISABLE_RA2_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA2_AN
 #   define CONFIG_RA2_AS_ANALOG()       \
       do {                              \
@@ -294,9 +294,9 @@
 // ====================
 #ifdef _RA3
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA3_AN
 #   define ENABLE_RA3_ANALOG()  (RXY_GPIO_PCFG(RA3_AN) = 1)
 #   define DISABLE_RA3_ANALOG() (RXY_GPIO_PCFG(RA3_AN) = 0)
@@ -304,11 +304,11 @@
 #   define DISABLE_RA3_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA3_AS_INPUT()  (_TRISA3 = 1)
 # define CONFIG_RA3_AS_OUTPUT() (_TRISA3 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA3)
 #   define ENABLE_RA3_OPENDRAIN()  (_ODCA3 = 1)
 #   define DISABLE_RA3_OPENDRAIN() (_ODCA3 = 0)
@@ -319,7 +319,7 @@
 #   define DISABLE_RA3_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA3_CN
 #   define ENABLE_RA3_PULLUP()  (RXY_GPIO_CNPUE(RA3_CN) = 1)
 #   define DISABLE_RA3_PULLUP() (RXY_GPIO_CNPUE(RA3_CN) = 0)
@@ -340,8 +340,8 @@
 #   define DISABLE_RA3_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA3_AN
 #   define CONFIG_RA3_AS_ANALOG()       \
       do {                              \
@@ -381,9 +381,9 @@
 // ====================
 #ifdef _RA4
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA4_AN
 #   define ENABLE_RA4_ANALOG()  (RXY_GPIO_PCFG(RA4_AN) = 1)
 #   define DISABLE_RA4_ANALOG() (RXY_GPIO_PCFG(RA4_AN) = 0)
@@ -391,11 +391,11 @@
 #   define DISABLE_RA4_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA4_AS_INPUT()  (_TRISA4 = 1)
 # define CONFIG_RA4_AS_OUTPUT() (_TRISA4 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA4)
 #   define ENABLE_RA4_OPENDRAIN()  (_ODCA4 = 1)
 #   define DISABLE_RA4_OPENDRAIN() (_ODCA4 = 0)
@@ -406,7 +406,7 @@
 #   define DISABLE_RA4_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA4_CN
 #   define ENABLE_RA4_PULLUP()  (RXY_GPIO_CNPUE(RA4_CN) = 1)
 #   define DISABLE_RA4_PULLUP() (RXY_GPIO_CNPUE(RA4_CN) = 0)
@@ -427,8 +427,8 @@
 #   define DISABLE_RA4_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA4_AN
 #   define CONFIG_RA4_AS_ANALOG()       \
       do {                              \
@@ -468,9 +468,9 @@
 // ====================
 #ifdef _RA5
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA5_AN
 #   define ENABLE_RA5_ANALOG()  (RXY_GPIO_PCFG(RA5_AN) = 1)
 #   define DISABLE_RA5_ANALOG() (RXY_GPIO_PCFG(RA5_AN) = 0)
@@ -478,11 +478,11 @@
 #   define DISABLE_RA5_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA5_AS_INPUT()  (_TRISA5 = 1)
 # define CONFIG_RA5_AS_OUTPUT() (_TRISA5 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA5)
 #   define ENABLE_RA5_OPENDRAIN()  (_ODCA5 = 1)
 #   define DISABLE_RA5_OPENDRAIN() (_ODCA5 = 0)
@@ -493,7 +493,7 @@
 #   define DISABLE_RA5_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA5_CN
 #   define ENABLE_RA5_PULLUP()  (RXY_GPIO_CNPUE(RA5_CN) = 1)
 #   define DISABLE_RA5_PULLUP() (RXY_GPIO_CNPUE(RA5_CN) = 0)
@@ -514,8 +514,8 @@
 #   define DISABLE_RA5_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA5_AN
 #   define CONFIG_RA5_AS_ANALOG()       \
       do {                              \
@@ -555,9 +555,9 @@
 // ====================
 #ifdef _RA6
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA6_AN
 #   define ENABLE_RA6_ANALOG()  (RXY_GPIO_PCFG(RA6_AN) = 1)
 #   define DISABLE_RA6_ANALOG() (RXY_GPIO_PCFG(RA6_AN) = 0)
@@ -565,11 +565,11 @@
 #   define DISABLE_RA6_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA6_AS_INPUT()  (_TRISA6 = 1)
 # define CONFIG_RA6_AS_OUTPUT() (_TRISA6 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA6)
 #   define ENABLE_RA6_OPENDRAIN()  (_ODCA6 = 1)
 #   define DISABLE_RA6_OPENDRAIN() (_ODCA6 = 0)
@@ -580,7 +580,7 @@
 #   define DISABLE_RA6_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA6_CN
 #   define ENABLE_RA6_PULLUP()  (RXY_GPIO_CNPUE(RA6_CN) = 1)
 #   define DISABLE_RA6_PULLUP() (RXY_GPIO_CNPUE(RA6_CN) = 0)
@@ -601,8 +601,8 @@
 #   define DISABLE_RA6_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA6_AN
 #   define CONFIG_RA6_AS_ANALOG()       \
       do {                              \
@@ -642,9 +642,9 @@
 // ====================
 #ifdef _RA7
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA7_AN
 #   define ENABLE_RA7_ANALOG()  (RXY_GPIO_PCFG(RA7_AN) = 1)
 #   define DISABLE_RA7_ANALOG() (RXY_GPIO_PCFG(RA7_AN) = 0)
@@ -652,11 +652,11 @@
 #   define DISABLE_RA7_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA7_AS_INPUT()  (_TRISA7 = 1)
 # define CONFIG_RA7_AS_OUTPUT() (_TRISA7 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA7)
 #   define ENABLE_RA7_OPENDRAIN()  (_ODCA7 = 1)
 #   define DISABLE_RA7_OPENDRAIN() (_ODCA7 = 0)
@@ -667,7 +667,7 @@
 #   define DISABLE_RA7_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA7_CN
 #   define ENABLE_RA7_PULLUP()  (RXY_GPIO_CNPUE(RA7_CN) = 1)
 #   define DISABLE_RA7_PULLUP() (RXY_GPIO_CNPUE(RA7_CN) = 0)
@@ -688,8 +688,8 @@
 #   define DISABLE_RA7_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA7_AN
 #   define CONFIG_RA7_AS_ANALOG()       \
       do {                              \
@@ -729,9 +729,9 @@
 // ====================
 #ifdef _RA8
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA8_AN
 #   define ENABLE_RA8_ANALOG()  (RXY_GPIO_PCFG(RA8_AN) = 1)
 #   define DISABLE_RA8_ANALOG() (RXY_GPIO_PCFG(RA8_AN) = 0)
@@ -739,11 +739,11 @@
 #   define DISABLE_RA8_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA8_AS_INPUT()  (_TRISA8 = 1)
 # define CONFIG_RA8_AS_OUTPUT() (_TRISA8 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA8)
 #   define ENABLE_RA8_OPENDRAIN()  (_ODCA8 = 1)
 #   define DISABLE_RA8_OPENDRAIN() (_ODCA8 = 0)
@@ -754,7 +754,7 @@
 #   define DISABLE_RA8_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA8_CN
 #   define ENABLE_RA8_PULLUP()  (RXY_GPIO_CNPUE(RA8_CN) = 1)
 #   define DISABLE_RA8_PULLUP() (RXY_GPIO_CNPUE(RA8_CN) = 0)
@@ -775,8 +775,8 @@
 #   define DISABLE_RA8_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA8_AN
 #   define CONFIG_RA8_AS_ANALOG()       \
       do {                              \
@@ -816,9 +816,9 @@
 // ====================
 #ifdef _RA9
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA9_AN
 #   define ENABLE_RA9_ANALOG()  (RXY_GPIO_PCFG(RA9_AN) = 1)
 #   define DISABLE_RA9_ANALOG() (RXY_GPIO_PCFG(RA9_AN) = 0)
@@ -826,11 +826,11 @@
 #   define DISABLE_RA9_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA9_AS_INPUT()  (_TRISA9 = 1)
 # define CONFIG_RA9_AS_OUTPUT() (_TRISA9 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA9)
 #   define ENABLE_RA9_OPENDRAIN()  (_ODCA9 = 1)
 #   define DISABLE_RA9_OPENDRAIN() (_ODCA9 = 0)
@@ -841,7 +841,7 @@
 #   define DISABLE_RA9_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA9_CN
 #   define ENABLE_RA9_PULLUP()  (RXY_GPIO_CNPUE(RA9_CN) = 1)
 #   define DISABLE_RA9_PULLUP() (RXY_GPIO_CNPUE(RA9_CN) = 0)
@@ -862,8 +862,8 @@
 #   define DISABLE_RA9_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA9_AN
 #   define CONFIG_RA9_AS_ANALOG()       \
       do {                              \
@@ -903,9 +903,9 @@
 // ====================
 #ifdef _RA10
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA10_AN
 #   define ENABLE_RA10_ANALOG()  (RXY_GPIO_PCFG(RA10_AN) = 1)
 #   define DISABLE_RA10_ANALOG() (RXY_GPIO_PCFG(RA10_AN) = 0)
@@ -913,11 +913,11 @@
 #   define DISABLE_RA10_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA10_AS_INPUT()  (_TRISA10 = 1)
 # define CONFIG_RA10_AS_OUTPUT() (_TRISA10 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA10)
 #   define ENABLE_RA10_OPENDRAIN()  (_ODCA10 = 1)
 #   define DISABLE_RA10_OPENDRAIN() (_ODCA10 = 0)
@@ -928,7 +928,7 @@
 #   define DISABLE_RA10_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA10_CN
 #   define ENABLE_RA10_PULLUP()  (RXY_GPIO_CNPUE(RA10_CN) = 1)
 #   define DISABLE_RA10_PULLUP() (RXY_GPIO_CNPUE(RA10_CN) = 0)
@@ -949,8 +949,8 @@
 #   define DISABLE_RA10_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA10_AN
 #   define CONFIG_RA10_AS_ANALOG()       \
       do {                              \
@@ -990,9 +990,9 @@
 // ====================
 #ifdef _RA11
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA11_AN
 #   define ENABLE_RA11_ANALOG()  (RXY_GPIO_PCFG(RA11_AN) = 1)
 #   define DISABLE_RA11_ANALOG() (RXY_GPIO_PCFG(RA11_AN) = 0)
@@ -1000,11 +1000,11 @@
 #   define DISABLE_RA11_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA11_AS_INPUT()  (_TRISA11 = 1)
 # define CONFIG_RA11_AS_OUTPUT() (_TRISA11 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA11)
 #   define ENABLE_RA11_OPENDRAIN()  (_ODCA11 = 1)
 #   define DISABLE_RA11_OPENDRAIN() (_ODCA11 = 0)
@@ -1015,7 +1015,7 @@
 #   define DISABLE_RA11_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA11_CN
 #   define ENABLE_RA11_PULLUP()  (RXY_GPIO_CNPUE(RA11_CN) = 1)
 #   define DISABLE_RA11_PULLUP() (RXY_GPIO_CNPUE(RA11_CN) = 0)
@@ -1036,8 +1036,8 @@
 #   define DISABLE_RA11_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA11_AN
 #   define CONFIG_RA11_AS_ANALOG()       \
       do {                              \
@@ -1077,9 +1077,9 @@
 // ====================
 #ifdef _RA12
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA12_AN
 #   define ENABLE_RA12_ANALOG()  (RXY_GPIO_PCFG(RA12_AN) = 1)
 #   define DISABLE_RA12_ANALOG() (RXY_GPIO_PCFG(RA12_AN) = 0)
@@ -1087,11 +1087,11 @@
 #   define DISABLE_RA12_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA12_AS_INPUT()  (_TRISA12 = 1)
 # define CONFIG_RA12_AS_OUTPUT() (_TRISA12 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA12)
 #   define ENABLE_RA12_OPENDRAIN()  (_ODCA12 = 1)
 #   define DISABLE_RA12_OPENDRAIN() (_ODCA12 = 0)
@@ -1102,7 +1102,7 @@
 #   define DISABLE_RA12_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA12_CN
 #   define ENABLE_RA12_PULLUP()  (RXY_GPIO_CNPUE(RA12_CN) = 1)
 #   define DISABLE_RA12_PULLUP() (RXY_GPIO_CNPUE(RA12_CN) = 0)
@@ -1123,8 +1123,8 @@
 #   define DISABLE_RA12_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA12_AN
 #   define CONFIG_RA12_AS_ANALOG()       \
       do {                              \
@@ -1164,9 +1164,9 @@
 // ====================
 #ifdef _RA13
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA13_AN
 #   define ENABLE_RA13_ANALOG()  (RXY_GPIO_PCFG(RA13_AN) = 1)
 #   define DISABLE_RA13_ANALOG() (RXY_GPIO_PCFG(RA13_AN) = 0)
@@ -1174,11 +1174,11 @@
 #   define DISABLE_RA13_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA13_AS_INPUT()  (_TRISA13 = 1)
 # define CONFIG_RA13_AS_OUTPUT() (_TRISA13 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA13)
 #   define ENABLE_RA13_OPENDRAIN()  (_ODCA13 = 1)
 #   define DISABLE_RA13_OPENDRAIN() (_ODCA13 = 0)
@@ -1189,7 +1189,7 @@
 #   define DISABLE_RA13_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA13_CN
 #   define ENABLE_RA13_PULLUP()  (RXY_GPIO_CNPUE(RA13_CN) = 1)
 #   define DISABLE_RA13_PULLUP() (RXY_GPIO_CNPUE(RA13_CN) = 0)
@@ -1210,8 +1210,8 @@
 #   define DISABLE_RA13_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA13_AN
 #   define CONFIG_RA13_AS_ANALOG()       \
       do {                              \
@@ -1251,9 +1251,9 @@
 // ====================
 #ifdef _RA14
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA14_AN
 #   define ENABLE_RA14_ANALOG()  (RXY_GPIO_PCFG(RA14_AN) = 1)
 #   define DISABLE_RA14_ANALOG() (RXY_GPIO_PCFG(RA14_AN) = 0)
@@ -1261,11 +1261,11 @@
 #   define DISABLE_RA14_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA14_AS_INPUT()  (_TRISA14 = 1)
 # define CONFIG_RA14_AS_OUTPUT() (_TRISA14 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA14)
 #   define ENABLE_RA14_OPENDRAIN()  (_ODCA14 = 1)
 #   define DISABLE_RA14_OPENDRAIN() (_ODCA14 = 0)
@@ -1276,7 +1276,7 @@
 #   define DISABLE_RA14_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA14_CN
 #   define ENABLE_RA14_PULLUP()  (RXY_GPIO_CNPUE(RA14_CN) = 1)
 #   define DISABLE_RA14_PULLUP() (RXY_GPIO_CNPUE(RA14_CN) = 0)
@@ -1297,8 +1297,8 @@
 #   define DISABLE_RA14_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA14_AN
 #   define CONFIG_RA14_AS_ANALOG()       \
       do {                              \
@@ -1338,9 +1338,9 @@
 // ====================
 #ifdef _RA15
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RA15_AN
 #   define ENABLE_RA15_ANALOG()  (RXY_GPIO_PCFG(RA15_AN) = 1)
 #   define DISABLE_RA15_ANALOG() (RXY_GPIO_PCFG(RA15_AN) = 0)
@@ -1348,11 +1348,11 @@
 #   define DISABLE_RA15_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RA15_AS_INPUT()  (_TRISA15 = 1)
 # define CONFIG_RA15_AS_OUTPUT() (_TRISA15 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCA15)
 #   define ENABLE_RA15_OPENDRAIN()  (_ODCA15 = 1)
 #   define DISABLE_RA15_OPENDRAIN() (_ODCA15 = 0)
@@ -1363,7 +1363,7 @@
 #   define DISABLE_RA15_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RA15_CN
 #   define ENABLE_RA15_PULLUP()  (RXY_GPIO_CNPUE(RA15_CN) = 1)
 #   define DISABLE_RA15_PULLUP() (RXY_GPIO_CNPUE(RA15_CN) = 0)
@@ -1384,8 +1384,8 @@
 #   define DISABLE_RA15_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RA15_AN
 #   define CONFIG_RA15_AS_ANALOG()       \
       do {                              \
@@ -1425,9 +1425,9 @@
 // ====================
 #ifdef _RB0
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB0_AN
 #   define ENABLE_RB0_ANALOG()  (RXY_GPIO_PCFG(RB0_AN) = 1)
 #   define DISABLE_RB0_ANALOG() (RXY_GPIO_PCFG(RB0_AN) = 0)
@@ -1435,11 +1435,11 @@
 #   define DISABLE_RB0_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB0_AS_INPUT()  (_TRISB0 = 1)
 # define CONFIG_RB0_AS_OUTPUT() (_TRISB0 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB0)
 #   define ENABLE_RB0_OPENDRAIN()  (_ODCB0 = 1)
 #   define DISABLE_RB0_OPENDRAIN() (_ODCB0 = 0)
@@ -1450,7 +1450,7 @@
 #   define DISABLE_RB0_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB0_CN
 #   define ENABLE_RB0_PULLUP()  (RXY_GPIO_CNPUE(RB0_CN) = 1)
 #   define DISABLE_RB0_PULLUP() (RXY_GPIO_CNPUE(RB0_CN) = 0)
@@ -1471,8 +1471,8 @@
 #   define DISABLE_RB0_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB0_AN
 #   define CONFIG_RB0_AS_ANALOG()       \
       do {                              \
@@ -1512,9 +1512,9 @@
 // ====================
 #ifdef _RB1
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB1_AN
 #   define ENABLE_RB1_ANALOG()  (RXY_GPIO_PCFG(RB1_AN) = 1)
 #   define DISABLE_RB1_ANALOG() (RXY_GPIO_PCFG(RB1_AN) = 0)
@@ -1522,11 +1522,11 @@
 #   define DISABLE_RB1_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB1_AS_INPUT()  (_TRISB1 = 1)
 # define CONFIG_RB1_AS_OUTPUT() (_TRISB1 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB1)
 #   define ENABLE_RB1_OPENDRAIN()  (_ODCB1 = 1)
 #   define DISABLE_RB1_OPENDRAIN() (_ODCB1 = 0)
@@ -1537,7 +1537,7 @@
 #   define DISABLE_RB1_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB1_CN
 #   define ENABLE_RB1_PULLUP()  (RXY_GPIO_CNPUE(RB1_CN) = 1)
 #   define DISABLE_RB1_PULLUP() (RXY_GPIO_CNPUE(RB1_CN) = 0)
@@ -1558,8 +1558,8 @@
 #   define DISABLE_RB1_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB1_AN
 #   define CONFIG_RB1_AS_ANALOG()       \
       do {                              \
@@ -1599,9 +1599,9 @@
 // ====================
 #ifdef _RB2
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB2_AN
 #   define ENABLE_RB2_ANALOG()  (RXY_GPIO_PCFG(RB2_AN) = 1)
 #   define DISABLE_RB2_ANALOG() (RXY_GPIO_PCFG(RB2_AN) = 0)
@@ -1609,11 +1609,11 @@
 #   define DISABLE_RB2_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB2_AS_INPUT()  (_TRISB2 = 1)
 # define CONFIG_RB2_AS_OUTPUT() (_TRISB2 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB2)
 #   define ENABLE_RB2_OPENDRAIN()  (_ODCB2 = 1)
 #   define DISABLE_RB2_OPENDRAIN() (_ODCB2 = 0)
@@ -1624,7 +1624,7 @@
 #   define DISABLE_RB2_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB2_CN
 #   define ENABLE_RB2_PULLUP()  (RXY_GPIO_CNPUE(RB2_CN) = 1)
 #   define DISABLE_RB2_PULLUP() (RXY_GPIO_CNPUE(RB2_CN) = 0)
@@ -1645,8 +1645,8 @@
 #   define DISABLE_RB2_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB2_AN
 #   define CONFIG_RB2_AS_ANALOG()       \
       do {                              \
@@ -1686,9 +1686,9 @@
 // ====================
 #ifdef _RB3
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB3_AN
 #   define ENABLE_RB3_ANALOG()  (RXY_GPIO_PCFG(RB3_AN) = 1)
 #   define DISABLE_RB3_ANALOG() (RXY_GPIO_PCFG(RB3_AN) = 0)
@@ -1696,11 +1696,11 @@
 #   define DISABLE_RB3_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB3_AS_INPUT()  (_TRISB3 = 1)
 # define CONFIG_RB3_AS_OUTPUT() (_TRISB3 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB3)
 #   define ENABLE_RB3_OPENDRAIN()  (_ODCB3 = 1)
 #   define DISABLE_RB3_OPENDRAIN() (_ODCB3 = 0)
@@ -1711,7 +1711,7 @@
 #   define DISABLE_RB3_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB3_CN
 #   define ENABLE_RB3_PULLUP()  (RXY_GPIO_CNPUE(RB3_CN) = 1)
 #   define DISABLE_RB3_PULLUP() (RXY_GPIO_CNPUE(RB3_CN) = 0)
@@ -1732,8 +1732,8 @@
 #   define DISABLE_RB3_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB3_AN
 #   define CONFIG_RB3_AS_ANALOG()       \
       do {                              \
@@ -1773,9 +1773,9 @@
 // ====================
 #ifdef _RB4
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB4_AN
 #   define ENABLE_RB4_ANALOG()  (RXY_GPIO_PCFG(RB4_AN) = 1)
 #   define DISABLE_RB4_ANALOG() (RXY_GPIO_PCFG(RB4_AN) = 0)
@@ -1783,11 +1783,11 @@
 #   define DISABLE_RB4_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB4_AS_INPUT()  (_TRISB4 = 1)
 # define CONFIG_RB4_AS_OUTPUT() (_TRISB4 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB4)
 #   define ENABLE_RB4_OPENDRAIN()  (_ODCB4 = 1)
 #   define DISABLE_RB4_OPENDRAIN() (_ODCB4 = 0)
@@ -1798,7 +1798,7 @@
 #   define DISABLE_RB4_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB4_CN
 #   define ENABLE_RB4_PULLUP()  (RXY_GPIO_CNPUE(RB4_CN) = 1)
 #   define DISABLE_RB4_PULLUP() (RXY_GPIO_CNPUE(RB4_CN) = 0)
@@ -1819,8 +1819,8 @@
 #   define DISABLE_RB4_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB4_AN
 #   define CONFIG_RB4_AS_ANALOG()       \
       do {                              \
@@ -1860,9 +1860,9 @@
 // ====================
 #ifdef _RB5
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB5_AN
 #   define ENABLE_RB5_ANALOG()  (RXY_GPIO_PCFG(RB5_AN) = 1)
 #   define DISABLE_RB5_ANALOG() (RXY_GPIO_PCFG(RB5_AN) = 0)
@@ -1870,11 +1870,11 @@
 #   define DISABLE_RB5_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB5_AS_INPUT()  (_TRISB5 = 1)
 # define CONFIG_RB5_AS_OUTPUT() (_TRISB5 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB5)
 #   define ENABLE_RB5_OPENDRAIN()  (_ODCB5 = 1)
 #   define DISABLE_RB5_OPENDRAIN() (_ODCB5 = 0)
@@ -1885,7 +1885,7 @@
 #   define DISABLE_RB5_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB5_CN
 #   define ENABLE_RB5_PULLUP()  (RXY_GPIO_CNPUE(RB5_CN) = 1)
 #   define DISABLE_RB5_PULLUP() (RXY_GPIO_CNPUE(RB5_CN) = 0)
@@ -1906,8 +1906,8 @@
 #   define DISABLE_RB5_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB5_AN
 #   define CONFIG_RB5_AS_ANALOG()       \
       do {                              \
@@ -1947,9 +1947,9 @@
 // ====================
 #ifdef _RB6
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB6_AN
 #   define ENABLE_RB6_ANALOG()  (RXY_GPIO_PCFG(RB6_AN) = 1)
 #   define DISABLE_RB6_ANALOG() (RXY_GPIO_PCFG(RB6_AN) = 0)
@@ -1957,11 +1957,11 @@
 #   define DISABLE_RB6_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB6_AS_INPUT()  (_TRISB6 = 1)
 # define CONFIG_RB6_AS_OUTPUT() (_TRISB6 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB6)
 #   define ENABLE_RB6_OPENDRAIN()  (_ODCB6 = 1)
 #   define DISABLE_RB6_OPENDRAIN() (_ODCB6 = 0)
@@ -1972,7 +1972,7 @@
 #   define DISABLE_RB6_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB6_CN
 #   define ENABLE_RB6_PULLUP()  (RXY_GPIO_CNPUE(RB6_CN) = 1)
 #   define DISABLE_RB6_PULLUP() (RXY_GPIO_CNPUE(RB6_CN) = 0)
@@ -1993,8 +1993,8 @@
 #   define DISABLE_RB6_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB6_AN
 #   define CONFIG_RB6_AS_ANALOG()       \
       do {                              \
@@ -2034,9 +2034,9 @@
 // ====================
 #ifdef _RB7
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB7_AN
 #   define ENABLE_RB7_ANALOG()  (RXY_GPIO_PCFG(RB7_AN) = 1)
 #   define DISABLE_RB7_ANALOG() (RXY_GPIO_PCFG(RB7_AN) = 0)
@@ -2044,11 +2044,11 @@
 #   define DISABLE_RB7_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB7_AS_INPUT()  (_TRISB7 = 1)
 # define CONFIG_RB7_AS_OUTPUT() (_TRISB7 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB7)
 #   define ENABLE_RB7_OPENDRAIN()  (_ODCB7 = 1)
 #   define DISABLE_RB7_OPENDRAIN() (_ODCB7 = 0)
@@ -2059,7 +2059,7 @@
 #   define DISABLE_RB7_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB7_CN
 #   define ENABLE_RB7_PULLUP()  (RXY_GPIO_CNPUE(RB7_CN) = 1)
 #   define DISABLE_RB7_PULLUP() (RXY_GPIO_CNPUE(RB7_CN) = 0)
@@ -2080,8 +2080,8 @@
 #   define DISABLE_RB7_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB7_AN
 #   define CONFIG_RB7_AS_ANALOG()       \
       do {                              \
@@ -2121,9 +2121,9 @@
 // ====================
 #ifdef _RB8
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB8_AN
 #   define ENABLE_RB8_ANALOG()  (RXY_GPIO_PCFG(RB8_AN) = 1)
 #   define DISABLE_RB8_ANALOG() (RXY_GPIO_PCFG(RB8_AN) = 0)
@@ -2131,11 +2131,11 @@
 #   define DISABLE_RB8_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB8_AS_INPUT()  (_TRISB8 = 1)
 # define CONFIG_RB8_AS_OUTPUT() (_TRISB8 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB8)
 #   define ENABLE_RB8_OPENDRAIN()  (_ODCB8 = 1)
 #   define DISABLE_RB8_OPENDRAIN() (_ODCB8 = 0)
@@ -2146,7 +2146,7 @@
 #   define DISABLE_RB8_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB8_CN
 #   define ENABLE_RB8_PULLUP()  (RXY_GPIO_CNPUE(RB8_CN) = 1)
 #   define DISABLE_RB8_PULLUP() (RXY_GPIO_CNPUE(RB8_CN) = 0)
@@ -2167,8 +2167,8 @@
 #   define DISABLE_RB8_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB8_AN
 #   define CONFIG_RB8_AS_ANALOG()       \
       do {                              \
@@ -2208,9 +2208,9 @@
 // ====================
 #ifdef _RB9
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB9_AN
 #   define ENABLE_RB9_ANALOG()  (RXY_GPIO_PCFG(RB9_AN) = 1)
 #   define DISABLE_RB9_ANALOG() (RXY_GPIO_PCFG(RB9_AN) = 0)
@@ -2218,11 +2218,11 @@
 #   define DISABLE_RB9_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB9_AS_INPUT()  (_TRISB9 = 1)
 # define CONFIG_RB9_AS_OUTPUT() (_TRISB9 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB9)
 #   define ENABLE_RB9_OPENDRAIN()  (_ODCB9 = 1)
 #   define DISABLE_RB9_OPENDRAIN() (_ODCB9 = 0)
@@ -2233,7 +2233,7 @@
 #   define DISABLE_RB9_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB9_CN
 #   define ENABLE_RB9_PULLUP()  (RXY_GPIO_CNPUE(RB9_CN) = 1)
 #   define DISABLE_RB9_PULLUP() (RXY_GPIO_CNPUE(RB9_CN) = 0)
@@ -2254,8 +2254,8 @@
 #   define DISABLE_RB9_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB9_AN
 #   define CONFIG_RB9_AS_ANALOG()       \
       do {                              \
@@ -2295,9 +2295,9 @@
 // ====================
 #ifdef _RB10
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB10_AN
 #   define ENABLE_RB10_ANALOG()  (RXY_GPIO_PCFG(RB10_AN) = 1)
 #   define DISABLE_RB10_ANALOG() (RXY_GPIO_PCFG(RB10_AN) = 0)
@@ -2305,11 +2305,11 @@
 #   define DISABLE_RB10_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB10_AS_INPUT()  (_TRISB10 = 1)
 # define CONFIG_RB10_AS_OUTPUT() (_TRISB10 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB10)
 #   define ENABLE_RB10_OPENDRAIN()  (_ODCB10 = 1)
 #   define DISABLE_RB10_OPENDRAIN() (_ODCB10 = 0)
@@ -2320,7 +2320,7 @@
 #   define DISABLE_RB10_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB10_CN
 #   define ENABLE_RB10_PULLUP()  (RXY_GPIO_CNPUE(RB10_CN) = 1)
 #   define DISABLE_RB10_PULLUP() (RXY_GPIO_CNPUE(RB10_CN) = 0)
@@ -2341,8 +2341,8 @@
 #   define DISABLE_RB10_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB10_AN
 #   define CONFIG_RB10_AS_ANALOG()       \
       do {                              \
@@ -2382,9 +2382,9 @@
 // ====================
 #ifdef _RB11
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB11_AN
 #   define ENABLE_RB11_ANALOG()  (RXY_GPIO_PCFG(RB11_AN) = 1)
 #   define DISABLE_RB11_ANALOG() (RXY_GPIO_PCFG(RB11_AN) = 0)
@@ -2392,11 +2392,11 @@
 #   define DISABLE_RB11_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB11_AS_INPUT()  (_TRISB11 = 1)
 # define CONFIG_RB11_AS_OUTPUT() (_TRISB11 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB11)
 #   define ENABLE_RB11_OPENDRAIN()  (_ODCB11 = 1)
 #   define DISABLE_RB11_OPENDRAIN() (_ODCB11 = 0)
@@ -2407,7 +2407,7 @@
 #   define DISABLE_RB11_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB11_CN
 #   define ENABLE_RB11_PULLUP()  (RXY_GPIO_CNPUE(RB11_CN) = 1)
 #   define DISABLE_RB11_PULLUP() (RXY_GPIO_CNPUE(RB11_CN) = 0)
@@ -2428,8 +2428,8 @@
 #   define DISABLE_RB11_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB11_AN
 #   define CONFIG_RB11_AS_ANALOG()       \
       do {                              \
@@ -2469,9 +2469,9 @@
 // ====================
 #ifdef _RB12
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB12_AN
 #   define ENABLE_RB12_ANALOG()  (RXY_GPIO_PCFG(RB12_AN) = 1)
 #   define DISABLE_RB12_ANALOG() (RXY_GPIO_PCFG(RB12_AN) = 0)
@@ -2479,11 +2479,11 @@
 #   define DISABLE_RB12_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB12_AS_INPUT()  (_TRISB12 = 1)
 # define CONFIG_RB12_AS_OUTPUT() (_TRISB12 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB12)
 #   define ENABLE_RB12_OPENDRAIN()  (_ODCB12 = 1)
 #   define DISABLE_RB12_OPENDRAIN() (_ODCB12 = 0)
@@ -2494,7 +2494,7 @@
 #   define DISABLE_RB12_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB12_CN
 #   define ENABLE_RB12_PULLUP()  (RXY_GPIO_CNPUE(RB12_CN) = 1)
 #   define DISABLE_RB12_PULLUP() (RXY_GPIO_CNPUE(RB12_CN) = 0)
@@ -2515,8 +2515,8 @@
 #   define DISABLE_RB12_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB12_AN
 #   define CONFIG_RB12_AS_ANALOG()       \
       do {                              \
@@ -2556,9 +2556,9 @@
 // ====================
 #ifdef _RB13
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB13_AN
 #   define ENABLE_RB13_ANALOG()  (RXY_GPIO_PCFG(RB13_AN) = 1)
 #   define DISABLE_RB13_ANALOG() (RXY_GPIO_PCFG(RB13_AN) = 0)
@@ -2566,11 +2566,11 @@
 #   define DISABLE_RB13_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB13_AS_INPUT()  (_TRISB13 = 1)
 # define CONFIG_RB13_AS_OUTPUT() (_TRISB13 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB13)
 #   define ENABLE_RB13_OPENDRAIN()  (_ODCB13 = 1)
 #   define DISABLE_RB13_OPENDRAIN() (_ODCB13 = 0)
@@ -2581,7 +2581,7 @@
 #   define DISABLE_RB13_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB13_CN
 #   define ENABLE_RB13_PULLUP()  (RXY_GPIO_CNPUE(RB13_CN) = 1)
 #   define DISABLE_RB13_PULLUP() (RXY_GPIO_CNPUE(RB13_CN) = 0)
@@ -2602,8 +2602,8 @@
 #   define DISABLE_RB13_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB13_AN
 #   define CONFIG_RB13_AS_ANALOG()       \
       do {                              \
@@ -2643,9 +2643,9 @@
 // ====================
 #ifdef _RB14
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB14_AN
 #   define ENABLE_RB14_ANALOG()  (RXY_GPIO_PCFG(RB14_AN) = 1)
 #   define DISABLE_RB14_ANALOG() (RXY_GPIO_PCFG(RB14_AN) = 0)
@@ -2653,11 +2653,11 @@
 #   define DISABLE_RB14_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB14_AS_INPUT()  (_TRISB14 = 1)
 # define CONFIG_RB14_AS_OUTPUT() (_TRISB14 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB14)
 #   define ENABLE_RB14_OPENDRAIN()  (_ODCB14 = 1)
 #   define DISABLE_RB14_OPENDRAIN() (_ODCB14 = 0)
@@ -2668,7 +2668,7 @@
 #   define DISABLE_RB14_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB14_CN
 #   define ENABLE_RB14_PULLUP()  (RXY_GPIO_CNPUE(RB14_CN) = 1)
 #   define DISABLE_RB14_PULLUP() (RXY_GPIO_CNPUE(RB14_CN) = 0)
@@ -2689,8 +2689,8 @@
 #   define DISABLE_RB14_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB14_AN
 #   define CONFIG_RB14_AS_ANALOG()       \
       do {                              \
@@ -2730,9 +2730,9 @@
 // ====================
 #ifdef _RB15
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RB15_AN
 #   define ENABLE_RB15_ANALOG()  (RXY_GPIO_PCFG(RB15_AN) = 1)
 #   define DISABLE_RB15_ANALOG() (RXY_GPIO_PCFG(RB15_AN) = 0)
@@ -2740,11 +2740,11 @@
 #   define DISABLE_RB15_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RB15_AS_INPUT()  (_TRISB15 = 1)
 # define CONFIG_RB15_AS_OUTPUT() (_TRISB15 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCB15)
 #   define ENABLE_RB15_OPENDRAIN()  (_ODCB15 = 1)
 #   define DISABLE_RB15_OPENDRAIN() (_ODCB15 = 0)
@@ -2755,7 +2755,7 @@
 #   define DISABLE_RB15_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RB15_CN
 #   define ENABLE_RB15_PULLUP()  (RXY_GPIO_CNPUE(RB15_CN) = 1)
 #   define DISABLE_RB15_PULLUP() (RXY_GPIO_CNPUE(RB15_CN) = 0)
@@ -2776,8 +2776,8 @@
 #   define DISABLE_RB15_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RB15_AN
 #   define CONFIG_RB15_AS_ANALOG()       \
       do {                              \
@@ -2817,9 +2817,9 @@
 // ====================
 #ifdef _RC0
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC0_AN
 #   define ENABLE_RC0_ANALOG()  (RXY_GPIO_PCFG(RC0_AN) = 1)
 #   define DISABLE_RC0_ANALOG() (RXY_GPIO_PCFG(RC0_AN) = 0)
@@ -2827,11 +2827,11 @@
 #   define DISABLE_RC0_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC0_AS_INPUT()  (_TRISC0 = 1)
 # define CONFIG_RC0_AS_OUTPUT() (_TRISC0 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC0)
 #   define ENABLE_RC0_OPENDRAIN()  (_ODCC0 = 1)
 #   define DISABLE_RC0_OPENDRAIN() (_ODCC0 = 0)
@@ -2842,7 +2842,7 @@
 #   define DISABLE_RC0_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC0_CN
 #   define ENABLE_RC0_PULLUP()  (RXY_GPIO_CNPUE(RC0_CN) = 1)
 #   define DISABLE_RC0_PULLUP() (RXY_GPIO_CNPUE(RC0_CN) = 0)
@@ -2863,8 +2863,8 @@
 #   define DISABLE_RC0_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC0_AN
 #   define CONFIG_RC0_AS_ANALOG()       \
       do {                              \
@@ -2904,9 +2904,9 @@
 // ====================
 #ifdef _RC1
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC1_AN
 #   define ENABLE_RC1_ANALOG()  (RXY_GPIO_PCFG(RC1_AN) = 1)
 #   define DISABLE_RC1_ANALOG() (RXY_GPIO_PCFG(RC1_AN) = 0)
@@ -2914,11 +2914,11 @@
 #   define DISABLE_RC1_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC1_AS_INPUT()  (_TRISC1 = 1)
 # define CONFIG_RC1_AS_OUTPUT() (_TRISC1 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC1)
 #   define ENABLE_RC1_OPENDRAIN()  (_ODCC1 = 1)
 #   define DISABLE_RC1_OPENDRAIN() (_ODCC1 = 0)
@@ -2929,7 +2929,7 @@
 #   define DISABLE_RC1_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC1_CN
 #   define ENABLE_RC1_PULLUP()  (RXY_GPIO_CNPUE(RC1_CN) = 1)
 #   define DISABLE_RC1_PULLUP() (RXY_GPIO_CNPUE(RC1_CN) = 0)
@@ -2950,8 +2950,8 @@
 #   define DISABLE_RC1_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC1_AN
 #   define CONFIG_RC1_AS_ANALOG()       \
       do {                              \
@@ -2991,9 +2991,9 @@
 // ====================
 #ifdef _RC2
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC2_AN
 #   define ENABLE_RC2_ANALOG()  (RXY_GPIO_PCFG(RC2_AN) = 1)
 #   define DISABLE_RC2_ANALOG() (RXY_GPIO_PCFG(RC2_AN) = 0)
@@ -3001,11 +3001,11 @@
 #   define DISABLE_RC2_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC2_AS_INPUT()  (_TRISC2 = 1)
 # define CONFIG_RC2_AS_OUTPUT() (_TRISC2 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC2)
 #   define ENABLE_RC2_OPENDRAIN()  (_ODCC2 = 1)
 #   define DISABLE_RC2_OPENDRAIN() (_ODCC2 = 0)
@@ -3016,7 +3016,7 @@
 #   define DISABLE_RC2_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC2_CN
 #   define ENABLE_RC2_PULLUP()  (RXY_GPIO_CNPUE(RC2_CN) = 1)
 #   define DISABLE_RC2_PULLUP() (RXY_GPIO_CNPUE(RC2_CN) = 0)
@@ -3037,8 +3037,8 @@
 #   define DISABLE_RC2_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC2_AN
 #   define CONFIG_RC2_AS_ANALOG()       \
       do {                              \
@@ -3078,9 +3078,9 @@
 // ====================
 #ifdef _RC3
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC3_AN
 #   define ENABLE_RC3_ANALOG()  (RXY_GPIO_PCFG(RC3_AN) = 1)
 #   define DISABLE_RC3_ANALOG() (RXY_GPIO_PCFG(RC3_AN) = 0)
@@ -3088,11 +3088,11 @@
 #   define DISABLE_RC3_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC3_AS_INPUT()  (_TRISC3 = 1)
 # define CONFIG_RC3_AS_OUTPUT() (_TRISC3 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC3)
 #   define ENABLE_RC3_OPENDRAIN()  (_ODCC3 = 1)
 #   define DISABLE_RC3_OPENDRAIN() (_ODCC3 = 0)
@@ -3103,7 +3103,7 @@
 #   define DISABLE_RC3_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC3_CN
 #   define ENABLE_RC3_PULLUP()  (RXY_GPIO_CNPUE(RC3_CN) = 1)
 #   define DISABLE_RC3_PULLUP() (RXY_GPIO_CNPUE(RC3_CN) = 0)
@@ -3124,8 +3124,8 @@
 #   define DISABLE_RC3_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC3_AN
 #   define CONFIG_RC3_AS_ANALOG()       \
       do {                              \
@@ -3165,9 +3165,9 @@
 // ====================
 #ifdef _RC4
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC4_AN
 #   define ENABLE_RC4_ANALOG()  (RXY_GPIO_PCFG(RC4_AN) = 1)
 #   define DISABLE_RC4_ANALOG() (RXY_GPIO_PCFG(RC4_AN) = 0)
@@ -3175,11 +3175,11 @@
 #   define DISABLE_RC4_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC4_AS_INPUT()  (_TRISC4 = 1)
 # define CONFIG_RC4_AS_OUTPUT() (_TRISC4 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC4)
 #   define ENABLE_RC4_OPENDRAIN()  (_ODCC4 = 1)
 #   define DISABLE_RC4_OPENDRAIN() (_ODCC4 = 0)
@@ -3190,7 +3190,7 @@
 #   define DISABLE_RC4_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC4_CN
 #   define ENABLE_RC4_PULLUP()  (RXY_GPIO_CNPUE(RC4_CN) = 1)
 #   define DISABLE_RC4_PULLUP() (RXY_GPIO_CNPUE(RC4_CN) = 0)
@@ -3211,8 +3211,8 @@
 #   define DISABLE_RC4_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC4_AN
 #   define CONFIG_RC4_AS_ANALOG()       \
       do {                              \
@@ -3252,9 +3252,9 @@
 // ====================
 #ifdef _RC5
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC5_AN
 #   define ENABLE_RC5_ANALOG()  (RXY_GPIO_PCFG(RC5_AN) = 1)
 #   define DISABLE_RC5_ANALOG() (RXY_GPIO_PCFG(RC5_AN) = 0)
@@ -3262,11 +3262,11 @@
 #   define DISABLE_RC5_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC5_AS_INPUT()  (_TRISC5 = 1)
 # define CONFIG_RC5_AS_OUTPUT() (_TRISC5 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC5)
 #   define ENABLE_RC5_OPENDRAIN()  (_ODCC5 = 1)
 #   define DISABLE_RC5_OPENDRAIN() (_ODCC5 = 0)
@@ -3277,7 +3277,7 @@
 #   define DISABLE_RC5_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC5_CN
 #   define ENABLE_RC5_PULLUP()  (RXY_GPIO_CNPUE(RC5_CN) = 1)
 #   define DISABLE_RC5_PULLUP() (RXY_GPIO_CNPUE(RC5_CN) = 0)
@@ -3298,8 +3298,8 @@
 #   define DISABLE_RC5_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC5_AN
 #   define CONFIG_RC5_AS_ANALOG()       \
       do {                              \
@@ -3339,9 +3339,9 @@
 // ====================
 #ifdef _RC6
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC6_AN
 #   define ENABLE_RC6_ANALOG()  (RXY_GPIO_PCFG(RC6_AN) = 1)
 #   define DISABLE_RC6_ANALOG() (RXY_GPIO_PCFG(RC6_AN) = 0)
@@ -3349,11 +3349,11 @@
 #   define DISABLE_RC6_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC6_AS_INPUT()  (_TRISC6 = 1)
 # define CONFIG_RC6_AS_OUTPUT() (_TRISC6 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC6)
 #   define ENABLE_RC6_OPENDRAIN()  (_ODCC6 = 1)
 #   define DISABLE_RC6_OPENDRAIN() (_ODCC6 = 0)
@@ -3364,7 +3364,7 @@
 #   define DISABLE_RC6_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC6_CN
 #   define ENABLE_RC6_PULLUP()  (RXY_GPIO_CNPUE(RC6_CN) = 1)
 #   define DISABLE_RC6_PULLUP() (RXY_GPIO_CNPUE(RC6_CN) = 0)
@@ -3385,8 +3385,8 @@
 #   define DISABLE_RC6_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC6_AN
 #   define CONFIG_RC6_AS_ANALOG()       \
       do {                              \
@@ -3426,9 +3426,9 @@
 // ====================
 #ifdef _RC7
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC7_AN
 #   define ENABLE_RC7_ANALOG()  (RXY_GPIO_PCFG(RC7_AN) = 1)
 #   define DISABLE_RC7_ANALOG() (RXY_GPIO_PCFG(RC7_AN) = 0)
@@ -3436,11 +3436,11 @@
 #   define DISABLE_RC7_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC7_AS_INPUT()  (_TRISC7 = 1)
 # define CONFIG_RC7_AS_OUTPUT() (_TRISC7 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC7)
 #   define ENABLE_RC7_OPENDRAIN()  (_ODCC7 = 1)
 #   define DISABLE_RC7_OPENDRAIN() (_ODCC7 = 0)
@@ -3451,7 +3451,7 @@
 #   define DISABLE_RC7_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC7_CN
 #   define ENABLE_RC7_PULLUP()  (RXY_GPIO_CNPUE(RC7_CN) = 1)
 #   define DISABLE_RC7_PULLUP() (RXY_GPIO_CNPUE(RC7_CN) = 0)
@@ -3472,8 +3472,8 @@
 #   define DISABLE_RC7_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC7_AN
 #   define CONFIG_RC7_AS_ANALOG()       \
       do {                              \
@@ -3513,9 +3513,9 @@
 // ====================
 #ifdef _RC8
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC8_AN
 #   define ENABLE_RC8_ANALOG()  (RXY_GPIO_PCFG(RC8_AN) = 1)
 #   define DISABLE_RC8_ANALOG() (RXY_GPIO_PCFG(RC8_AN) = 0)
@@ -3523,11 +3523,11 @@
 #   define DISABLE_RC8_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC8_AS_INPUT()  (_TRISC8 = 1)
 # define CONFIG_RC8_AS_OUTPUT() (_TRISC8 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC8)
 #   define ENABLE_RC8_OPENDRAIN()  (_ODCC8 = 1)
 #   define DISABLE_RC8_OPENDRAIN() (_ODCC8 = 0)
@@ -3538,7 +3538,7 @@
 #   define DISABLE_RC8_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC8_CN
 #   define ENABLE_RC8_PULLUP()  (RXY_GPIO_CNPUE(RC8_CN) = 1)
 #   define DISABLE_RC8_PULLUP() (RXY_GPIO_CNPUE(RC8_CN) = 0)
@@ -3559,8 +3559,8 @@
 #   define DISABLE_RC8_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC8_AN
 #   define CONFIG_RC8_AS_ANALOG()       \
       do {                              \
@@ -3600,9 +3600,9 @@
 // ====================
 #ifdef _RC9
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC9_AN
 #   define ENABLE_RC9_ANALOG()  (RXY_GPIO_PCFG(RC9_AN) = 1)
 #   define DISABLE_RC9_ANALOG() (RXY_GPIO_PCFG(RC9_AN) = 0)
@@ -3610,11 +3610,11 @@
 #   define DISABLE_RC9_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC9_AS_INPUT()  (_TRISC9 = 1)
 # define CONFIG_RC9_AS_OUTPUT() (_TRISC9 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC9)
 #   define ENABLE_RC9_OPENDRAIN()  (_ODCC9 = 1)
 #   define DISABLE_RC9_OPENDRAIN() (_ODCC9 = 0)
@@ -3625,7 +3625,7 @@
 #   define DISABLE_RC9_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC9_CN
 #   define ENABLE_RC9_PULLUP()  (RXY_GPIO_CNPUE(RC9_CN) = 1)
 #   define DISABLE_RC9_PULLUP() (RXY_GPIO_CNPUE(RC9_CN) = 0)
@@ -3646,8 +3646,8 @@
 #   define DISABLE_RC9_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC9_AN
 #   define CONFIG_RC9_AS_ANALOG()       \
       do {                              \
@@ -3687,9 +3687,9 @@
 // ====================
 #ifdef _RC10
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC10_AN
 #   define ENABLE_RC10_ANALOG()  (RXY_GPIO_PCFG(RC10_AN) = 1)
 #   define DISABLE_RC10_ANALOG() (RXY_GPIO_PCFG(RC10_AN) = 0)
@@ -3697,11 +3697,11 @@
 #   define DISABLE_RC10_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC10_AS_INPUT()  (_TRISC10 = 1)
 # define CONFIG_RC10_AS_OUTPUT() (_TRISC10 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC10)
 #   define ENABLE_RC10_OPENDRAIN()  (_ODCC10 = 1)
 #   define DISABLE_RC10_OPENDRAIN() (_ODCC10 = 0)
@@ -3712,7 +3712,7 @@
 #   define DISABLE_RC10_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC10_CN
 #   define ENABLE_RC10_PULLUP()  (RXY_GPIO_CNPUE(RC10_CN) = 1)
 #   define DISABLE_RC10_PULLUP() (RXY_GPIO_CNPUE(RC10_CN) = 0)
@@ -3733,8 +3733,8 @@
 #   define DISABLE_RC10_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC10_AN
 #   define CONFIG_RC10_AS_ANALOG()       \
       do {                              \
@@ -3774,9 +3774,9 @@
 // ====================
 #ifdef _RC11
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC11_AN
 #   define ENABLE_RC11_ANALOG()  (RXY_GPIO_PCFG(RC11_AN) = 1)
 #   define DISABLE_RC11_ANALOG() (RXY_GPIO_PCFG(RC11_AN) = 0)
@@ -3784,11 +3784,11 @@
 #   define DISABLE_RC11_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC11_AS_INPUT()  (_TRISC11 = 1)
 # define CONFIG_RC11_AS_OUTPUT() (_TRISC11 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC11)
 #   define ENABLE_RC11_OPENDRAIN()  (_ODCC11 = 1)
 #   define DISABLE_RC11_OPENDRAIN() (_ODCC11 = 0)
@@ -3799,7 +3799,7 @@
 #   define DISABLE_RC11_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC11_CN
 #   define ENABLE_RC11_PULLUP()  (RXY_GPIO_CNPUE(RC11_CN) = 1)
 #   define DISABLE_RC11_PULLUP() (RXY_GPIO_CNPUE(RC11_CN) = 0)
@@ -3820,8 +3820,8 @@
 #   define DISABLE_RC11_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC11_AN
 #   define CONFIG_RC11_AS_ANALOG()       \
       do {                              \
@@ -3861,9 +3861,9 @@
 // ====================
 #ifdef _RC12
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC12_AN
 #   define ENABLE_RC12_ANALOG()  (RXY_GPIO_PCFG(RC12_AN) = 1)
 #   define DISABLE_RC12_ANALOG() (RXY_GPIO_PCFG(RC12_AN) = 0)
@@ -3871,11 +3871,11 @@
 #   define DISABLE_RC12_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC12_AS_INPUT()  (_TRISC12 = 1)
 # define CONFIG_RC12_AS_OUTPUT() (_TRISC12 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC12)
 #   define ENABLE_RC12_OPENDRAIN()  (_ODCC12 = 1)
 #   define DISABLE_RC12_OPENDRAIN() (_ODCC12 = 0)
@@ -3886,7 +3886,7 @@
 #   define DISABLE_RC12_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC12_CN
 #   define ENABLE_RC12_PULLUP()  (RXY_GPIO_CNPUE(RC12_CN) = 1)
 #   define DISABLE_RC12_PULLUP() (RXY_GPIO_CNPUE(RC12_CN) = 0)
@@ -3907,8 +3907,8 @@
 #   define DISABLE_RC12_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC12_AN
 #   define CONFIG_RC12_AS_ANALOG()       \
       do {                              \
@@ -3948,9 +3948,9 @@
 // ====================
 #ifdef _RC13
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC13_AN
 #   define ENABLE_RC13_ANALOG()  (RXY_GPIO_PCFG(RC13_AN) = 1)
 #   define DISABLE_RC13_ANALOG() (RXY_GPIO_PCFG(RC13_AN) = 0)
@@ -3958,11 +3958,11 @@
 #   define DISABLE_RC13_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC13_AS_INPUT()  (_TRISC13 = 1)
 # define CONFIG_RC13_AS_OUTPUT() (_TRISC13 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC13)
 #   define ENABLE_RC13_OPENDRAIN()  (_ODCC13 = 1)
 #   define DISABLE_RC13_OPENDRAIN() (_ODCC13 = 0)
@@ -3973,7 +3973,7 @@
 #   define DISABLE_RC13_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC13_CN
 #   define ENABLE_RC13_PULLUP()  (RXY_GPIO_CNPUE(RC13_CN) = 1)
 #   define DISABLE_RC13_PULLUP() (RXY_GPIO_CNPUE(RC13_CN) = 0)
@@ -3994,8 +3994,8 @@
 #   define DISABLE_RC13_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC13_AN
 #   define CONFIG_RC13_AS_ANALOG()       \
       do {                              \
@@ -4035,9 +4035,9 @@
 // ====================
 #ifdef _RC14
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC14_AN
 #   define ENABLE_RC14_ANALOG()  (RXY_GPIO_PCFG(RC14_AN) = 1)
 #   define DISABLE_RC14_ANALOG() (RXY_GPIO_PCFG(RC14_AN) = 0)
@@ -4045,11 +4045,11 @@
 #   define DISABLE_RC14_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC14_AS_INPUT()  (_TRISC14 = 1)
 # define CONFIG_RC14_AS_OUTPUT() (_TRISC14 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC14)
 #   define ENABLE_RC14_OPENDRAIN()  (_ODCC14 = 1)
 #   define DISABLE_RC14_OPENDRAIN() (_ODCC14 = 0)
@@ -4060,7 +4060,7 @@
 #   define DISABLE_RC14_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC14_CN
 #   define ENABLE_RC14_PULLUP()  (RXY_GPIO_CNPUE(RC14_CN) = 1)
 #   define DISABLE_RC14_PULLUP() (RXY_GPIO_CNPUE(RC14_CN) = 0)
@@ -4081,8 +4081,8 @@
 #   define DISABLE_RC14_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC14_AN
 #   define CONFIG_RC14_AS_ANALOG()       \
       do {                              \
@@ -4122,9 +4122,9 @@
 // ====================
 #ifdef _RC15
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RC15_AN
 #   define ENABLE_RC15_ANALOG()  (RXY_GPIO_PCFG(RC15_AN) = 1)
 #   define DISABLE_RC15_ANALOG() (RXY_GPIO_PCFG(RC15_AN) = 0)
@@ -4132,11 +4132,11 @@
 #   define DISABLE_RC15_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RC15_AS_INPUT()  (_TRISC15 = 1)
 # define CONFIG_RC15_AS_OUTPUT() (_TRISC15 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCC15)
 #   define ENABLE_RC15_OPENDRAIN()  (_ODCC15 = 1)
 #   define DISABLE_RC15_OPENDRAIN() (_ODCC15 = 0)
@@ -4147,7 +4147,7 @@
 #   define DISABLE_RC15_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RC15_CN
 #   define ENABLE_RC15_PULLUP()  (RXY_GPIO_CNPUE(RC15_CN) = 1)
 #   define DISABLE_RC15_PULLUP() (RXY_GPIO_CNPUE(RC15_CN) = 0)
@@ -4168,8 +4168,8 @@
 #   define DISABLE_RC15_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RC15_AN
 #   define CONFIG_RC15_AS_ANALOG()       \
       do {                              \
@@ -4209,9 +4209,9 @@
 // ====================
 #ifdef _RD0
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD0_AN
 #   define ENABLE_RD0_ANALOG()  (RXY_GPIO_PCFG(RD0_AN) = 1)
 #   define DISABLE_RD0_ANALOG() (RXY_GPIO_PCFG(RD0_AN) = 0)
@@ -4219,11 +4219,11 @@
 #   define DISABLE_RD0_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD0_AS_INPUT()  (_TRISD0 = 1)
 # define CONFIG_RD0_AS_OUTPUT() (_TRISD0 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD0)
 #   define ENABLE_RD0_OPENDRAIN()  (_ODCD0 = 1)
 #   define DISABLE_RD0_OPENDRAIN() (_ODCD0 = 0)
@@ -4234,7 +4234,7 @@
 #   define DISABLE_RD0_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD0_CN
 #   define ENABLE_RD0_PULLUP()  (RXY_GPIO_CNPUE(RD0_CN) = 1)
 #   define DISABLE_RD0_PULLUP() (RXY_GPIO_CNPUE(RD0_CN) = 0)
@@ -4255,8 +4255,8 @@
 #   define DISABLE_RD0_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD0_AN
 #   define CONFIG_RD0_AS_ANALOG()       \
       do {                              \
@@ -4296,9 +4296,9 @@
 // ====================
 #ifdef _RD1
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD1_AN
 #   define ENABLE_RD1_ANALOG()  (RXY_GPIO_PCFG(RD1_AN) = 1)
 #   define DISABLE_RD1_ANALOG() (RXY_GPIO_PCFG(RD1_AN) = 0)
@@ -4306,11 +4306,11 @@
 #   define DISABLE_RD1_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD1_AS_INPUT()  (_TRISD1 = 1)
 # define CONFIG_RD1_AS_OUTPUT() (_TRISD1 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD1)
 #   define ENABLE_RD1_OPENDRAIN()  (_ODCD1 = 1)
 #   define DISABLE_RD1_OPENDRAIN() (_ODCD1 = 0)
@@ -4321,7 +4321,7 @@
 #   define DISABLE_RD1_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD1_CN
 #   define ENABLE_RD1_PULLUP()  (RXY_GPIO_CNPUE(RD1_CN) = 1)
 #   define DISABLE_RD1_PULLUP() (RXY_GPIO_CNPUE(RD1_CN) = 0)
@@ -4342,8 +4342,8 @@
 #   define DISABLE_RD1_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD1_AN
 #   define CONFIG_RD1_AS_ANALOG()       \
       do {                              \
@@ -4383,9 +4383,9 @@
 // ====================
 #ifdef _RD2
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD2_AN
 #   define ENABLE_RD2_ANALOG()  (RXY_GPIO_PCFG(RD2_AN) = 1)
 #   define DISABLE_RD2_ANALOG() (RXY_GPIO_PCFG(RD2_AN) = 0)
@@ -4393,11 +4393,11 @@
 #   define DISABLE_RD2_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD2_AS_INPUT()  (_TRISD2 = 1)
 # define CONFIG_RD2_AS_OUTPUT() (_TRISD2 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD2)
 #   define ENABLE_RD2_OPENDRAIN()  (_ODCD2 = 1)
 #   define DISABLE_RD2_OPENDRAIN() (_ODCD2 = 0)
@@ -4408,7 +4408,7 @@
 #   define DISABLE_RD2_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD2_CN
 #   define ENABLE_RD2_PULLUP()  (RXY_GPIO_CNPUE(RD2_CN) = 1)
 #   define DISABLE_RD2_PULLUP() (RXY_GPIO_CNPUE(RD2_CN) = 0)
@@ -4429,8 +4429,8 @@
 #   define DISABLE_RD2_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD2_AN
 #   define CONFIG_RD2_AS_ANALOG()       \
       do {                              \
@@ -4470,9 +4470,9 @@
 // ====================
 #ifdef _RD3
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD3_AN
 #   define ENABLE_RD3_ANALOG()  (RXY_GPIO_PCFG(RD3_AN) = 1)
 #   define DISABLE_RD3_ANALOG() (RXY_GPIO_PCFG(RD3_AN) = 0)
@@ -4480,11 +4480,11 @@
 #   define DISABLE_RD3_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD3_AS_INPUT()  (_TRISD3 = 1)
 # define CONFIG_RD3_AS_OUTPUT() (_TRISD3 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD3)
 #   define ENABLE_RD3_OPENDRAIN()  (_ODCD3 = 1)
 #   define DISABLE_RD3_OPENDRAIN() (_ODCD3 = 0)
@@ -4495,7 +4495,7 @@
 #   define DISABLE_RD3_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD3_CN
 #   define ENABLE_RD3_PULLUP()  (RXY_GPIO_CNPUE(RD3_CN) = 1)
 #   define DISABLE_RD3_PULLUP() (RXY_GPIO_CNPUE(RD3_CN) = 0)
@@ -4516,8 +4516,8 @@
 #   define DISABLE_RD3_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD3_AN
 #   define CONFIG_RD3_AS_ANALOG()       \
       do {                              \
@@ -4557,9 +4557,9 @@
 // ====================
 #ifdef _RD4
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD4_AN
 #   define ENABLE_RD4_ANALOG()  (RXY_GPIO_PCFG(RD4_AN) = 1)
 #   define DISABLE_RD4_ANALOG() (RXY_GPIO_PCFG(RD4_AN) = 0)
@@ -4567,11 +4567,11 @@
 #   define DISABLE_RD4_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD4_AS_INPUT()  (_TRISD4 = 1)
 # define CONFIG_RD4_AS_OUTPUT() (_TRISD4 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD4)
 #   define ENABLE_RD4_OPENDRAIN()  (_ODCD4 = 1)
 #   define DISABLE_RD4_OPENDRAIN() (_ODCD4 = 0)
@@ -4582,7 +4582,7 @@
 #   define DISABLE_RD4_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD4_CN
 #   define ENABLE_RD4_PULLUP()  (RXY_GPIO_CNPUE(RD4_CN) = 1)
 #   define DISABLE_RD4_PULLUP() (RXY_GPIO_CNPUE(RD4_CN) = 0)
@@ -4603,8 +4603,8 @@
 #   define DISABLE_RD4_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD4_AN
 #   define CONFIG_RD4_AS_ANALOG()       \
       do {                              \
@@ -4644,9 +4644,9 @@
 // ====================
 #ifdef _RD5
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD5_AN
 #   define ENABLE_RD5_ANALOG()  (RXY_GPIO_PCFG(RD5_AN) = 1)
 #   define DISABLE_RD5_ANALOG() (RXY_GPIO_PCFG(RD5_AN) = 0)
@@ -4654,11 +4654,11 @@
 #   define DISABLE_RD5_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD5_AS_INPUT()  (_TRISD5 = 1)
 # define CONFIG_RD5_AS_OUTPUT() (_TRISD5 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD5)
 #   define ENABLE_RD5_OPENDRAIN()  (_ODCD5 = 1)
 #   define DISABLE_RD5_OPENDRAIN() (_ODCD5 = 0)
@@ -4669,7 +4669,7 @@
 #   define DISABLE_RD5_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD5_CN
 #   define ENABLE_RD5_PULLUP()  (RXY_GPIO_CNPUE(RD5_CN) = 1)
 #   define DISABLE_RD5_PULLUP() (RXY_GPIO_CNPUE(RD5_CN) = 0)
@@ -4690,8 +4690,8 @@
 #   define DISABLE_RD5_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD5_AN
 #   define CONFIG_RD5_AS_ANALOG()       \
       do {                              \
@@ -4731,9 +4731,9 @@
 // ====================
 #ifdef _RD6
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD6_AN
 #   define ENABLE_RD6_ANALOG()  (RXY_GPIO_PCFG(RD6_AN) = 1)
 #   define DISABLE_RD6_ANALOG() (RXY_GPIO_PCFG(RD6_AN) = 0)
@@ -4741,11 +4741,11 @@
 #   define DISABLE_RD6_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD6_AS_INPUT()  (_TRISD6 = 1)
 # define CONFIG_RD6_AS_OUTPUT() (_TRISD6 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD6)
 #   define ENABLE_RD6_OPENDRAIN()  (_ODCD6 = 1)
 #   define DISABLE_RD6_OPENDRAIN() (_ODCD6 = 0)
@@ -4756,7 +4756,7 @@
 #   define DISABLE_RD6_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD6_CN
 #   define ENABLE_RD6_PULLUP()  (RXY_GPIO_CNPUE(RD6_CN) = 1)
 #   define DISABLE_RD6_PULLUP() (RXY_GPIO_CNPUE(RD6_CN) = 0)
@@ -4777,8 +4777,8 @@
 #   define DISABLE_RD6_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD6_AN
 #   define CONFIG_RD6_AS_ANALOG()       \
       do {                              \
@@ -4818,9 +4818,9 @@
 // ====================
 #ifdef _RD7
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD7_AN
 #   define ENABLE_RD7_ANALOG()  (RXY_GPIO_PCFG(RD7_AN) = 1)
 #   define DISABLE_RD7_ANALOG() (RXY_GPIO_PCFG(RD7_AN) = 0)
@@ -4828,11 +4828,11 @@
 #   define DISABLE_RD7_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD7_AS_INPUT()  (_TRISD7 = 1)
 # define CONFIG_RD7_AS_OUTPUT() (_TRISD7 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD7)
 #   define ENABLE_RD7_OPENDRAIN()  (_ODCD7 = 1)
 #   define DISABLE_RD7_OPENDRAIN() (_ODCD7 = 0)
@@ -4843,7 +4843,7 @@
 #   define DISABLE_RD7_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD7_CN
 #   define ENABLE_RD7_PULLUP()  (RXY_GPIO_CNPUE(RD7_CN) = 1)
 #   define DISABLE_RD7_PULLUP() (RXY_GPIO_CNPUE(RD7_CN) = 0)
@@ -4864,8 +4864,8 @@
 #   define DISABLE_RD7_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD7_AN
 #   define CONFIG_RD7_AS_ANALOG()       \
       do {                              \
@@ -4905,9 +4905,9 @@
 // ====================
 #ifdef _RD8
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD8_AN
 #   define ENABLE_RD8_ANALOG()  (RXY_GPIO_PCFG(RD8_AN) = 1)
 #   define DISABLE_RD8_ANALOG() (RXY_GPIO_PCFG(RD8_AN) = 0)
@@ -4915,11 +4915,11 @@
 #   define DISABLE_RD8_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD8_AS_INPUT()  (_TRISD8 = 1)
 # define CONFIG_RD8_AS_OUTPUT() (_TRISD8 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD8)
 #   define ENABLE_RD8_OPENDRAIN()  (_ODCD8 = 1)
 #   define DISABLE_RD8_OPENDRAIN() (_ODCD8 = 0)
@@ -4930,7 +4930,7 @@
 #   define DISABLE_RD8_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD8_CN
 #   define ENABLE_RD8_PULLUP()  (RXY_GPIO_CNPUE(RD8_CN) = 1)
 #   define DISABLE_RD8_PULLUP() (RXY_GPIO_CNPUE(RD8_CN) = 0)
@@ -4951,8 +4951,8 @@
 #   define DISABLE_RD8_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD8_AN
 #   define CONFIG_RD8_AS_ANALOG()       \
       do {                              \
@@ -4992,9 +4992,9 @@
 // ====================
 #ifdef _RD9
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD9_AN
 #   define ENABLE_RD9_ANALOG()  (RXY_GPIO_PCFG(RD9_AN) = 1)
 #   define DISABLE_RD9_ANALOG() (RXY_GPIO_PCFG(RD9_AN) = 0)
@@ -5002,11 +5002,11 @@
 #   define DISABLE_RD9_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD9_AS_INPUT()  (_TRISD9 = 1)
 # define CONFIG_RD9_AS_OUTPUT() (_TRISD9 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD9)
 #   define ENABLE_RD9_OPENDRAIN()  (_ODCD9 = 1)
 #   define DISABLE_RD9_OPENDRAIN() (_ODCD9 = 0)
@@ -5017,7 +5017,7 @@
 #   define DISABLE_RD9_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD9_CN
 #   define ENABLE_RD9_PULLUP()  (RXY_GPIO_CNPUE(RD9_CN) = 1)
 #   define DISABLE_RD9_PULLUP() (RXY_GPIO_CNPUE(RD9_CN) = 0)
@@ -5038,8 +5038,8 @@
 #   define DISABLE_RD9_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD9_AN
 #   define CONFIG_RD9_AS_ANALOG()       \
       do {                              \
@@ -5079,9 +5079,9 @@
 // ====================
 #ifdef _RD10
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD10_AN
 #   define ENABLE_RD10_ANALOG()  (RXY_GPIO_PCFG(RD10_AN) = 1)
 #   define DISABLE_RD10_ANALOG() (RXY_GPIO_PCFG(RD10_AN) = 0)
@@ -5089,11 +5089,11 @@
 #   define DISABLE_RD10_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD10_AS_INPUT()  (_TRISD10 = 1)
 # define CONFIG_RD10_AS_OUTPUT() (_TRISD10 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD10)
 #   define ENABLE_RD10_OPENDRAIN()  (_ODCD10 = 1)
 #   define DISABLE_RD10_OPENDRAIN() (_ODCD10 = 0)
@@ -5104,7 +5104,7 @@
 #   define DISABLE_RD10_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD10_CN
 #   define ENABLE_RD10_PULLUP()  (RXY_GPIO_CNPUE(RD10_CN) = 1)
 #   define DISABLE_RD10_PULLUP() (RXY_GPIO_CNPUE(RD10_CN) = 0)
@@ -5125,8 +5125,8 @@
 #   define DISABLE_RD10_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD10_AN
 #   define CONFIG_RD10_AS_ANALOG()       \
       do {                              \
@@ -5166,9 +5166,9 @@
 // ====================
 #ifdef _RD11
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD11_AN
 #   define ENABLE_RD11_ANALOG()  (RXY_GPIO_PCFG(RD11_AN) = 1)
 #   define DISABLE_RD11_ANALOG() (RXY_GPIO_PCFG(RD11_AN) = 0)
@@ -5176,11 +5176,11 @@
 #   define DISABLE_RD11_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD11_AS_INPUT()  (_TRISD11 = 1)
 # define CONFIG_RD11_AS_OUTPUT() (_TRISD11 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD11)
 #   define ENABLE_RD11_OPENDRAIN()  (_ODCD11 = 1)
 #   define DISABLE_RD11_OPENDRAIN() (_ODCD11 = 0)
@@ -5191,7 +5191,7 @@
 #   define DISABLE_RD11_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD11_CN
 #   define ENABLE_RD11_PULLUP()  (RXY_GPIO_CNPUE(RD11_CN) = 1)
 #   define DISABLE_RD11_PULLUP() (RXY_GPIO_CNPUE(RD11_CN) = 0)
@@ -5212,8 +5212,8 @@
 #   define DISABLE_RD11_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD11_AN
 #   define CONFIG_RD11_AS_ANALOG()       \
       do {                              \
@@ -5253,9 +5253,9 @@
 // ====================
 #ifdef _RD12
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD12_AN
 #   define ENABLE_RD12_ANALOG()  (RXY_GPIO_PCFG(RD12_AN) = 1)
 #   define DISABLE_RD12_ANALOG() (RXY_GPIO_PCFG(RD12_AN) = 0)
@@ -5263,11 +5263,11 @@
 #   define DISABLE_RD12_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD12_AS_INPUT()  (_TRISD12 = 1)
 # define CONFIG_RD12_AS_OUTPUT() (_TRISD12 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD12)
 #   define ENABLE_RD12_OPENDRAIN()  (_ODCD12 = 1)
 #   define DISABLE_RD12_OPENDRAIN() (_ODCD12 = 0)
@@ -5278,7 +5278,7 @@
 #   define DISABLE_RD12_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD12_CN
 #   define ENABLE_RD12_PULLUP()  (RXY_GPIO_CNPUE(RD12_CN) = 1)
 #   define DISABLE_RD12_PULLUP() (RXY_GPIO_CNPUE(RD12_CN) = 0)
@@ -5299,8 +5299,8 @@
 #   define DISABLE_RD12_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD12_AN
 #   define CONFIG_RD12_AS_ANALOG()       \
       do {                              \
@@ -5340,9 +5340,9 @@
 // ====================
 #ifdef _RD13
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD13_AN
 #   define ENABLE_RD13_ANALOG()  (RXY_GPIO_PCFG(RD13_AN) = 1)
 #   define DISABLE_RD13_ANALOG() (RXY_GPIO_PCFG(RD13_AN) = 0)
@@ -5350,11 +5350,11 @@
 #   define DISABLE_RD13_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD13_AS_INPUT()  (_TRISD13 = 1)
 # define CONFIG_RD13_AS_OUTPUT() (_TRISD13 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD13)
 #   define ENABLE_RD13_OPENDRAIN()  (_ODCD13 = 1)
 #   define DISABLE_RD13_OPENDRAIN() (_ODCD13 = 0)
@@ -5365,7 +5365,7 @@
 #   define DISABLE_RD13_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD13_CN
 #   define ENABLE_RD13_PULLUP()  (RXY_GPIO_CNPUE(RD13_CN) = 1)
 #   define DISABLE_RD13_PULLUP() (RXY_GPIO_CNPUE(RD13_CN) = 0)
@@ -5386,8 +5386,8 @@
 #   define DISABLE_RD13_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD13_AN
 #   define CONFIG_RD13_AS_ANALOG()       \
       do {                              \
@@ -5427,9 +5427,9 @@
 // ====================
 #ifdef _RD14
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD14_AN
 #   define ENABLE_RD14_ANALOG()  (RXY_GPIO_PCFG(RD14_AN) = 1)
 #   define DISABLE_RD14_ANALOG() (RXY_GPIO_PCFG(RD14_AN) = 0)
@@ -5437,11 +5437,11 @@
 #   define DISABLE_RD14_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD14_AS_INPUT()  (_TRISD14 = 1)
 # define CONFIG_RD14_AS_OUTPUT() (_TRISD14 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD14)
 #   define ENABLE_RD14_OPENDRAIN()  (_ODCD14 = 1)
 #   define DISABLE_RD14_OPENDRAIN() (_ODCD14 = 0)
@@ -5452,7 +5452,7 @@
 #   define DISABLE_RD14_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD14_CN
 #   define ENABLE_RD14_PULLUP()  (RXY_GPIO_CNPUE(RD14_CN) = 1)
 #   define DISABLE_RD14_PULLUP() (RXY_GPIO_CNPUE(RD14_CN) = 0)
@@ -5473,8 +5473,8 @@
 #   define DISABLE_RD14_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD14_AN
 #   define CONFIG_RD14_AS_ANALOG()       \
       do {                              \
@@ -5514,9 +5514,9 @@
 // ====================
 #ifdef _RD15
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RD15_AN
 #   define ENABLE_RD15_ANALOG()  (RXY_GPIO_PCFG(RD15_AN) = 1)
 #   define DISABLE_RD15_ANALOG() (RXY_GPIO_PCFG(RD15_AN) = 0)
@@ -5524,11 +5524,11 @@
 #   define DISABLE_RD15_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RD15_AS_INPUT()  (_TRISD15 = 1)
 # define CONFIG_RD15_AS_OUTPUT() (_TRISD15 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCD15)
 #   define ENABLE_RD15_OPENDRAIN()  (_ODCD15 = 1)
 #   define DISABLE_RD15_OPENDRAIN() (_ODCD15 = 0)
@@ -5539,7 +5539,7 @@
 #   define DISABLE_RD15_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RD15_CN
 #   define ENABLE_RD15_PULLUP()  (RXY_GPIO_CNPUE(RD15_CN) = 1)
 #   define DISABLE_RD15_PULLUP() (RXY_GPIO_CNPUE(RD15_CN) = 0)
@@ -5560,8 +5560,8 @@
 #   define DISABLE_RD15_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RD15_AN
 #   define CONFIG_RD15_AS_ANALOG()       \
       do {                              \
@@ -5601,9 +5601,9 @@
 // ====================
 #ifdef _RE0
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE0_AN
 #   define ENABLE_RE0_ANALOG()  (RXY_GPIO_PCFG(RE0_AN) = 1)
 #   define DISABLE_RE0_ANALOG() (RXY_GPIO_PCFG(RE0_AN) = 0)
@@ -5611,11 +5611,11 @@
 #   define DISABLE_RE0_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE0_AS_INPUT()  (_TRISE0 = 1)
 # define CONFIG_RE0_AS_OUTPUT() (_TRISE0 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE0)
 #   define ENABLE_RE0_OPENDRAIN()  (_ODCE0 = 1)
 #   define DISABLE_RE0_OPENDRAIN() (_ODCE0 = 0)
@@ -5626,7 +5626,7 @@
 #   define DISABLE_RE0_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE0_CN
 #   define ENABLE_RE0_PULLUP()  (RXY_GPIO_CNPUE(RE0_CN) = 1)
 #   define DISABLE_RE0_PULLUP() (RXY_GPIO_CNPUE(RE0_CN) = 0)
@@ -5647,8 +5647,8 @@
 #   define DISABLE_RE0_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE0_AN
 #   define CONFIG_RE0_AS_ANALOG()       \
       do {                              \
@@ -5688,9 +5688,9 @@
 // ====================
 #ifdef _RE1
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE1_AN
 #   define ENABLE_RE1_ANALOG()  (RXY_GPIO_PCFG(RE1_AN) = 1)
 #   define DISABLE_RE1_ANALOG() (RXY_GPIO_PCFG(RE1_AN) = 0)
@@ -5698,11 +5698,11 @@
 #   define DISABLE_RE1_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE1_AS_INPUT()  (_TRISE1 = 1)
 # define CONFIG_RE1_AS_OUTPUT() (_TRISE1 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE1)
 #   define ENABLE_RE1_OPENDRAIN()  (_ODCE1 = 1)
 #   define DISABLE_RE1_OPENDRAIN() (_ODCE1 = 0)
@@ -5713,7 +5713,7 @@
 #   define DISABLE_RE1_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE1_CN
 #   define ENABLE_RE1_PULLUP()  (RXY_GPIO_CNPUE(RE1_CN) = 1)
 #   define DISABLE_RE1_PULLUP() (RXY_GPIO_CNPUE(RE1_CN) = 0)
@@ -5734,8 +5734,8 @@
 #   define DISABLE_RE1_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE1_AN
 #   define CONFIG_RE1_AS_ANALOG()       \
       do {                              \
@@ -5775,9 +5775,9 @@
 // ====================
 #ifdef _RE2
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE2_AN
 #   define ENABLE_RE2_ANALOG()  (RXY_GPIO_PCFG(RE2_AN) = 1)
 #   define DISABLE_RE2_ANALOG() (RXY_GPIO_PCFG(RE2_AN) = 0)
@@ -5785,11 +5785,11 @@
 #   define DISABLE_RE2_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE2_AS_INPUT()  (_TRISE2 = 1)
 # define CONFIG_RE2_AS_OUTPUT() (_TRISE2 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE2)
 #   define ENABLE_RE2_OPENDRAIN()  (_ODCE2 = 1)
 #   define DISABLE_RE2_OPENDRAIN() (_ODCE2 = 0)
@@ -5800,7 +5800,7 @@
 #   define DISABLE_RE2_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE2_CN
 #   define ENABLE_RE2_PULLUP()  (RXY_GPIO_CNPUE(RE2_CN) = 1)
 #   define DISABLE_RE2_PULLUP() (RXY_GPIO_CNPUE(RE2_CN) = 0)
@@ -5821,8 +5821,8 @@
 #   define DISABLE_RE2_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE2_AN
 #   define CONFIG_RE2_AS_ANALOG()       \
       do {                              \
@@ -5862,9 +5862,9 @@
 // ====================
 #ifdef _RE3
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE3_AN
 #   define ENABLE_RE3_ANALOG()  (RXY_GPIO_PCFG(RE3_AN) = 1)
 #   define DISABLE_RE3_ANALOG() (RXY_GPIO_PCFG(RE3_AN) = 0)
@@ -5872,11 +5872,11 @@
 #   define DISABLE_RE3_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE3_AS_INPUT()  (_TRISE3 = 1)
 # define CONFIG_RE3_AS_OUTPUT() (_TRISE3 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE3)
 #   define ENABLE_RE3_OPENDRAIN()  (_ODCE3 = 1)
 #   define DISABLE_RE3_OPENDRAIN() (_ODCE3 = 0)
@@ -5887,7 +5887,7 @@
 #   define DISABLE_RE3_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE3_CN
 #   define ENABLE_RE3_PULLUP()  (RXY_GPIO_CNPUE(RE3_CN) = 1)
 #   define DISABLE_RE3_PULLUP() (RXY_GPIO_CNPUE(RE3_CN) = 0)
@@ -5908,8 +5908,8 @@
 #   define DISABLE_RE3_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE3_AN
 #   define CONFIG_RE3_AS_ANALOG()       \
       do {                              \
@@ -5949,9 +5949,9 @@
 // ====================
 #ifdef _RE4
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE4_AN
 #   define ENABLE_RE4_ANALOG()  (RXY_GPIO_PCFG(RE4_AN) = 1)
 #   define DISABLE_RE4_ANALOG() (RXY_GPIO_PCFG(RE4_AN) = 0)
@@ -5959,11 +5959,11 @@
 #   define DISABLE_RE4_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE4_AS_INPUT()  (_TRISE4 = 1)
 # define CONFIG_RE4_AS_OUTPUT() (_TRISE4 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE4)
 #   define ENABLE_RE4_OPENDRAIN()  (_ODCE4 = 1)
 #   define DISABLE_RE4_OPENDRAIN() (_ODCE4 = 0)
@@ -5974,7 +5974,7 @@
 #   define DISABLE_RE4_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE4_CN
 #   define ENABLE_RE4_PULLUP()  (RXY_GPIO_CNPUE(RE4_CN) = 1)
 #   define DISABLE_RE4_PULLUP() (RXY_GPIO_CNPUE(RE4_CN) = 0)
@@ -5995,8 +5995,8 @@
 #   define DISABLE_RE4_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE4_AN
 #   define CONFIG_RE4_AS_ANALOG()       \
       do {                              \
@@ -6036,9 +6036,9 @@
 // ====================
 #ifdef _RE5
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE5_AN
 #   define ENABLE_RE5_ANALOG()  (RXY_GPIO_PCFG(RE5_AN) = 1)
 #   define DISABLE_RE5_ANALOG() (RXY_GPIO_PCFG(RE5_AN) = 0)
@@ -6046,11 +6046,11 @@
 #   define DISABLE_RE5_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE5_AS_INPUT()  (_TRISE5 = 1)
 # define CONFIG_RE5_AS_OUTPUT() (_TRISE5 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE5)
 #   define ENABLE_RE5_OPENDRAIN()  (_ODCE5 = 1)
 #   define DISABLE_RE5_OPENDRAIN() (_ODCE5 = 0)
@@ -6061,7 +6061,7 @@
 #   define DISABLE_RE5_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE5_CN
 #   define ENABLE_RE5_PULLUP()  (RXY_GPIO_CNPUE(RE5_CN) = 1)
 #   define DISABLE_RE5_PULLUP() (RXY_GPIO_CNPUE(RE5_CN) = 0)
@@ -6082,8 +6082,8 @@
 #   define DISABLE_RE5_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE5_AN
 #   define CONFIG_RE5_AS_ANALOG()       \
       do {                              \
@@ -6123,9 +6123,9 @@
 // ====================
 #ifdef _RE6
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE6_AN
 #   define ENABLE_RE6_ANALOG()  (RXY_GPIO_PCFG(RE6_AN) = 1)
 #   define DISABLE_RE6_ANALOG() (RXY_GPIO_PCFG(RE6_AN) = 0)
@@ -6133,11 +6133,11 @@
 #   define DISABLE_RE6_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE6_AS_INPUT()  (_TRISE6 = 1)
 # define CONFIG_RE6_AS_OUTPUT() (_TRISE6 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE6)
 #   define ENABLE_RE6_OPENDRAIN()  (_ODCE6 = 1)
 #   define DISABLE_RE6_OPENDRAIN() (_ODCE6 = 0)
@@ -6148,7 +6148,7 @@
 #   define DISABLE_RE6_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE6_CN
 #   define ENABLE_RE6_PULLUP()  (RXY_GPIO_CNPUE(RE6_CN) = 1)
 #   define DISABLE_RE6_PULLUP() (RXY_GPIO_CNPUE(RE6_CN) = 0)
@@ -6169,8 +6169,8 @@
 #   define DISABLE_RE6_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE6_AN
 #   define CONFIG_RE6_AS_ANALOG()       \
       do {                              \
@@ -6210,9 +6210,9 @@
 // ====================
 #ifdef _RE7
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE7_AN
 #   define ENABLE_RE7_ANALOG()  (RXY_GPIO_PCFG(RE7_AN) = 1)
 #   define DISABLE_RE7_ANALOG() (RXY_GPIO_PCFG(RE7_AN) = 0)
@@ -6220,11 +6220,11 @@
 #   define DISABLE_RE7_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE7_AS_INPUT()  (_TRISE7 = 1)
 # define CONFIG_RE7_AS_OUTPUT() (_TRISE7 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE7)
 #   define ENABLE_RE7_OPENDRAIN()  (_ODCE7 = 1)
 #   define DISABLE_RE7_OPENDRAIN() (_ODCE7 = 0)
@@ -6235,7 +6235,7 @@
 #   define DISABLE_RE7_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE7_CN
 #   define ENABLE_RE7_PULLUP()  (RXY_GPIO_CNPUE(RE7_CN) = 1)
 #   define DISABLE_RE7_PULLUP() (RXY_GPIO_CNPUE(RE7_CN) = 0)
@@ -6256,8 +6256,8 @@
 #   define DISABLE_RE7_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE7_AN
 #   define CONFIG_RE7_AS_ANALOG()       \
       do {                              \
@@ -6297,9 +6297,9 @@
 // ====================
 #ifdef _RE8
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE8_AN
 #   define ENABLE_RE8_ANALOG()  (RXY_GPIO_PCFG(RE8_AN) = 1)
 #   define DISABLE_RE8_ANALOG() (RXY_GPIO_PCFG(RE8_AN) = 0)
@@ -6307,11 +6307,11 @@
 #   define DISABLE_RE8_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE8_AS_INPUT()  (_TRISE8 = 1)
 # define CONFIG_RE8_AS_OUTPUT() (_TRISE8 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE8)
 #   define ENABLE_RE8_OPENDRAIN()  (_ODCE8 = 1)
 #   define DISABLE_RE8_OPENDRAIN() (_ODCE8 = 0)
@@ -6322,7 +6322,7 @@
 #   define DISABLE_RE8_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE8_CN
 #   define ENABLE_RE8_PULLUP()  (RXY_GPIO_CNPUE(RE8_CN) = 1)
 #   define DISABLE_RE8_PULLUP() (RXY_GPIO_CNPUE(RE8_CN) = 0)
@@ -6343,8 +6343,8 @@
 #   define DISABLE_RE8_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE8_AN
 #   define CONFIG_RE8_AS_ANALOG()       \
       do {                              \
@@ -6384,9 +6384,9 @@
 // ====================
 #ifdef _RE9
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE9_AN
 #   define ENABLE_RE9_ANALOG()  (RXY_GPIO_PCFG(RE9_AN) = 1)
 #   define DISABLE_RE9_ANALOG() (RXY_GPIO_PCFG(RE9_AN) = 0)
@@ -6394,11 +6394,11 @@
 #   define DISABLE_RE9_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE9_AS_INPUT()  (_TRISE9 = 1)
 # define CONFIG_RE9_AS_OUTPUT() (_TRISE9 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE9)
 #   define ENABLE_RE9_OPENDRAIN()  (_ODCE9 = 1)
 #   define DISABLE_RE9_OPENDRAIN() (_ODCE9 = 0)
@@ -6409,7 +6409,7 @@
 #   define DISABLE_RE9_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE9_CN
 #   define ENABLE_RE9_PULLUP()  (RXY_GPIO_CNPUE(RE9_CN) = 1)
 #   define DISABLE_RE9_PULLUP() (RXY_GPIO_CNPUE(RE9_CN) = 0)
@@ -6430,8 +6430,8 @@
 #   define DISABLE_RE9_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE9_AN
 #   define CONFIG_RE9_AS_ANALOG()       \
       do {                              \
@@ -6471,9 +6471,9 @@
 // ====================
 #ifdef _RE10
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE10_AN
 #   define ENABLE_RE10_ANALOG()  (RXY_GPIO_PCFG(RE10_AN) = 1)
 #   define DISABLE_RE10_ANALOG() (RXY_GPIO_PCFG(RE10_AN) = 0)
@@ -6481,11 +6481,11 @@
 #   define DISABLE_RE10_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE10_AS_INPUT()  (_TRISE10 = 1)
 # define CONFIG_RE10_AS_OUTPUT() (_TRISE10 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE10)
 #   define ENABLE_RE10_OPENDRAIN()  (_ODCE10 = 1)
 #   define DISABLE_RE10_OPENDRAIN() (_ODCE10 = 0)
@@ -6496,7 +6496,7 @@
 #   define DISABLE_RE10_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE10_CN
 #   define ENABLE_RE10_PULLUP()  (RXY_GPIO_CNPUE(RE10_CN) = 1)
 #   define DISABLE_RE10_PULLUP() (RXY_GPIO_CNPUE(RE10_CN) = 0)
@@ -6517,8 +6517,8 @@
 #   define DISABLE_RE10_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE10_AN
 #   define CONFIG_RE10_AS_ANALOG()       \
       do {                              \
@@ -6558,9 +6558,9 @@
 // ====================
 #ifdef _RE11
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE11_AN
 #   define ENABLE_RE11_ANALOG()  (RXY_GPIO_PCFG(RE11_AN) = 1)
 #   define DISABLE_RE11_ANALOG() (RXY_GPIO_PCFG(RE11_AN) = 0)
@@ -6568,11 +6568,11 @@
 #   define DISABLE_RE11_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE11_AS_INPUT()  (_TRISE11 = 1)
 # define CONFIG_RE11_AS_OUTPUT() (_TRISE11 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE11)
 #   define ENABLE_RE11_OPENDRAIN()  (_ODCE11 = 1)
 #   define DISABLE_RE11_OPENDRAIN() (_ODCE11 = 0)
@@ -6583,7 +6583,7 @@
 #   define DISABLE_RE11_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE11_CN
 #   define ENABLE_RE11_PULLUP()  (RXY_GPIO_CNPUE(RE11_CN) = 1)
 #   define DISABLE_RE11_PULLUP() (RXY_GPIO_CNPUE(RE11_CN) = 0)
@@ -6604,8 +6604,8 @@
 #   define DISABLE_RE11_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE11_AN
 #   define CONFIG_RE11_AS_ANALOG()       \
       do {                              \
@@ -6645,9 +6645,9 @@
 // ====================
 #ifdef _RE12
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE12_AN
 #   define ENABLE_RE12_ANALOG()  (RXY_GPIO_PCFG(RE12_AN) = 1)
 #   define DISABLE_RE12_ANALOG() (RXY_GPIO_PCFG(RE12_AN) = 0)
@@ -6655,11 +6655,11 @@
 #   define DISABLE_RE12_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE12_AS_INPUT()  (_TRISE12 = 1)
 # define CONFIG_RE12_AS_OUTPUT() (_TRISE12 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE12)
 #   define ENABLE_RE12_OPENDRAIN()  (_ODCE12 = 1)
 #   define DISABLE_RE12_OPENDRAIN() (_ODCE12 = 0)
@@ -6670,7 +6670,7 @@
 #   define DISABLE_RE12_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE12_CN
 #   define ENABLE_RE12_PULLUP()  (RXY_GPIO_CNPUE(RE12_CN) = 1)
 #   define DISABLE_RE12_PULLUP() (RXY_GPIO_CNPUE(RE12_CN) = 0)
@@ -6691,8 +6691,8 @@
 #   define DISABLE_RE12_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE12_AN
 #   define CONFIG_RE12_AS_ANALOG()       \
       do {                              \
@@ -6732,9 +6732,9 @@
 // ====================
 #ifdef _RE13
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE13_AN
 #   define ENABLE_RE13_ANALOG()  (RXY_GPIO_PCFG(RE13_AN) = 1)
 #   define DISABLE_RE13_ANALOG() (RXY_GPIO_PCFG(RE13_AN) = 0)
@@ -6742,11 +6742,11 @@
 #   define DISABLE_RE13_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE13_AS_INPUT()  (_TRISE13 = 1)
 # define CONFIG_RE13_AS_OUTPUT() (_TRISE13 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE13)
 #   define ENABLE_RE13_OPENDRAIN()  (_ODCE13 = 1)
 #   define DISABLE_RE13_OPENDRAIN() (_ODCE13 = 0)
@@ -6757,7 +6757,7 @@
 #   define DISABLE_RE13_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE13_CN
 #   define ENABLE_RE13_PULLUP()  (RXY_GPIO_CNPUE(RE13_CN) = 1)
 #   define DISABLE_RE13_PULLUP() (RXY_GPIO_CNPUE(RE13_CN) = 0)
@@ -6778,8 +6778,8 @@
 #   define DISABLE_RE13_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE13_AN
 #   define CONFIG_RE13_AS_ANALOG()       \
       do {                              \
@@ -6819,9 +6819,9 @@
 // ====================
 #ifdef _RE14
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE14_AN
 #   define ENABLE_RE14_ANALOG()  (RXY_GPIO_PCFG(RE14_AN) = 1)
 #   define DISABLE_RE14_ANALOG() (RXY_GPIO_PCFG(RE14_AN) = 0)
@@ -6829,11 +6829,11 @@
 #   define DISABLE_RE14_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE14_AS_INPUT()  (_TRISE14 = 1)
 # define CONFIG_RE14_AS_OUTPUT() (_TRISE14 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE14)
 #   define ENABLE_RE14_OPENDRAIN()  (_ODCE14 = 1)
 #   define DISABLE_RE14_OPENDRAIN() (_ODCE14 = 0)
@@ -6844,7 +6844,7 @@
 #   define DISABLE_RE14_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE14_CN
 #   define ENABLE_RE14_PULLUP()  (RXY_GPIO_CNPUE(RE14_CN) = 1)
 #   define DISABLE_RE14_PULLUP() (RXY_GPIO_CNPUE(RE14_CN) = 0)
@@ -6865,8 +6865,8 @@
 #   define DISABLE_RE14_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE14_AN
 #   define CONFIG_RE14_AS_ANALOG()       \
       do {                              \
@@ -6906,9 +6906,9 @@
 // ====================
 #ifdef _RE15
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RE15_AN
 #   define ENABLE_RE15_ANALOG()  (RXY_GPIO_PCFG(RE15_AN) = 1)
 #   define DISABLE_RE15_ANALOG() (RXY_GPIO_PCFG(RE15_AN) = 0)
@@ -6916,11 +6916,11 @@
 #   define DISABLE_RE15_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RE15_AS_INPUT()  (_TRISE15 = 1)
 # define CONFIG_RE15_AS_OUTPUT() (_TRISE15 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCE15)
 #   define ENABLE_RE15_OPENDRAIN()  (_ODCE15 = 1)
 #   define DISABLE_RE15_OPENDRAIN() (_ODCE15 = 0)
@@ -6931,7 +6931,7 @@
 #   define DISABLE_RE15_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RE15_CN
 #   define ENABLE_RE15_PULLUP()  (RXY_GPIO_CNPUE(RE15_CN) = 1)
 #   define DISABLE_RE15_PULLUP() (RXY_GPIO_CNPUE(RE15_CN) = 0)
@@ -6952,8 +6952,8 @@
 #   define DISABLE_RE15_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RE15_AN
 #   define CONFIG_RE15_AS_ANALOG()       \
       do {                              \
@@ -6993,9 +6993,9 @@
 // ====================
 #ifdef _RF0
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF0_AN
 #   define ENABLE_RF0_ANALOG()  (RXY_GPIO_PCFG(RF0_AN) = 1)
 #   define DISABLE_RF0_ANALOG() (RXY_GPIO_PCFG(RF0_AN) = 0)
@@ -7003,11 +7003,11 @@
 #   define DISABLE_RF0_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF0_AS_INPUT()  (_TRISF0 = 1)
 # define CONFIG_RF0_AS_OUTPUT() (_TRISF0 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF0)
 #   define ENABLE_RF0_OPENDRAIN()  (_ODCF0 = 1)
 #   define DISABLE_RF0_OPENDRAIN() (_ODCF0 = 0)
@@ -7018,7 +7018,7 @@
 #   define DISABLE_RF0_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF0_CN
 #   define ENABLE_RF0_PULLUP()  (RXY_GPIO_CNPUE(RF0_CN) = 1)
 #   define DISABLE_RF0_PULLUP() (RXY_GPIO_CNPUE(RF0_CN) = 0)
@@ -7039,8 +7039,8 @@
 #   define DISABLE_RF0_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF0_AN
 #   define CONFIG_RF0_AS_ANALOG()       \
       do {                              \
@@ -7080,9 +7080,9 @@
 // ====================
 #ifdef _RF1
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF1_AN
 #   define ENABLE_RF1_ANALOG()  (RXY_GPIO_PCFG(RF1_AN) = 1)
 #   define DISABLE_RF1_ANALOG() (RXY_GPIO_PCFG(RF1_AN) = 0)
@@ -7090,11 +7090,11 @@
 #   define DISABLE_RF1_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF1_AS_INPUT()  (_TRISF1 = 1)
 # define CONFIG_RF1_AS_OUTPUT() (_TRISF1 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF1)
 #   define ENABLE_RF1_OPENDRAIN()  (_ODCF1 = 1)
 #   define DISABLE_RF1_OPENDRAIN() (_ODCF1 = 0)
@@ -7105,7 +7105,7 @@
 #   define DISABLE_RF1_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF1_CN
 #   define ENABLE_RF1_PULLUP()  (RXY_GPIO_CNPUE(RF1_CN) = 1)
 #   define DISABLE_RF1_PULLUP() (RXY_GPIO_CNPUE(RF1_CN) = 0)
@@ -7126,8 +7126,8 @@
 #   define DISABLE_RF1_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF1_AN
 #   define CONFIG_RF1_AS_ANALOG()       \
       do {                              \
@@ -7167,9 +7167,9 @@
 // ====================
 #ifdef _RF2
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF2_AN
 #   define ENABLE_RF2_ANALOG()  (RXY_GPIO_PCFG(RF2_AN) = 1)
 #   define DISABLE_RF2_ANALOG() (RXY_GPIO_PCFG(RF2_AN) = 0)
@@ -7177,11 +7177,11 @@
 #   define DISABLE_RF2_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF2_AS_INPUT()  (_TRISF2 = 1)
 # define CONFIG_RF2_AS_OUTPUT() (_TRISF2 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF2)
 #   define ENABLE_RF2_OPENDRAIN()  (_ODCF2 = 1)
 #   define DISABLE_RF2_OPENDRAIN() (_ODCF2 = 0)
@@ -7192,7 +7192,7 @@
 #   define DISABLE_RF2_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF2_CN
 #   define ENABLE_RF2_PULLUP()  (RXY_GPIO_CNPUE(RF2_CN) = 1)
 #   define DISABLE_RF2_PULLUP() (RXY_GPIO_CNPUE(RF2_CN) = 0)
@@ -7213,8 +7213,8 @@
 #   define DISABLE_RF2_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF2_AN
 #   define CONFIG_RF2_AS_ANALOG()       \
       do {                              \
@@ -7254,9 +7254,9 @@
 // ====================
 #ifdef _RF3
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF3_AN
 #   define ENABLE_RF3_ANALOG()  (RXY_GPIO_PCFG(RF3_AN) = 1)
 #   define DISABLE_RF3_ANALOG() (RXY_GPIO_PCFG(RF3_AN) = 0)
@@ -7264,11 +7264,11 @@
 #   define DISABLE_RF3_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF3_AS_INPUT()  (_TRISF3 = 1)
 # define CONFIG_RF3_AS_OUTPUT() (_TRISF3 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF3)
 #   define ENABLE_RF3_OPENDRAIN()  (_ODCF3 = 1)
 #   define DISABLE_RF3_OPENDRAIN() (_ODCF3 = 0)
@@ -7279,7 +7279,7 @@
 #   define DISABLE_RF3_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF3_CN
 #   define ENABLE_RF3_PULLUP()  (RXY_GPIO_CNPUE(RF3_CN) = 1)
 #   define DISABLE_RF3_PULLUP() (RXY_GPIO_CNPUE(RF3_CN) = 0)
@@ -7300,8 +7300,8 @@
 #   define DISABLE_RF3_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF3_AN
 #   define CONFIG_RF3_AS_ANALOG()       \
       do {                              \
@@ -7341,9 +7341,9 @@
 // ====================
 #ifdef _RF4
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF4_AN
 #   define ENABLE_RF4_ANALOG()  (RXY_GPIO_PCFG(RF4_AN) = 1)
 #   define DISABLE_RF4_ANALOG() (RXY_GPIO_PCFG(RF4_AN) = 0)
@@ -7351,11 +7351,11 @@
 #   define DISABLE_RF4_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF4_AS_INPUT()  (_TRISF4 = 1)
 # define CONFIG_RF4_AS_OUTPUT() (_TRISF4 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF4)
 #   define ENABLE_RF4_OPENDRAIN()  (_ODCF4 = 1)
 #   define DISABLE_RF4_OPENDRAIN() (_ODCF4 = 0)
@@ -7366,7 +7366,7 @@
 #   define DISABLE_RF4_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF4_CN
 #   define ENABLE_RF4_PULLUP()  (RXY_GPIO_CNPUE(RF4_CN) = 1)
 #   define DISABLE_RF4_PULLUP() (RXY_GPIO_CNPUE(RF4_CN) = 0)
@@ -7387,8 +7387,8 @@
 #   define DISABLE_RF4_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF4_AN
 #   define CONFIG_RF4_AS_ANALOG()       \
       do {                              \
@@ -7428,9 +7428,9 @@
 // ====================
 #ifdef _RF5
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF5_AN
 #   define ENABLE_RF5_ANALOG()  (RXY_GPIO_PCFG(RF5_AN) = 1)
 #   define DISABLE_RF5_ANALOG() (RXY_GPIO_PCFG(RF5_AN) = 0)
@@ -7438,11 +7438,11 @@
 #   define DISABLE_RF5_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF5_AS_INPUT()  (_TRISF5 = 1)
 # define CONFIG_RF5_AS_OUTPUT() (_TRISF5 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF5)
 #   define ENABLE_RF5_OPENDRAIN()  (_ODCF5 = 1)
 #   define DISABLE_RF5_OPENDRAIN() (_ODCF5 = 0)
@@ -7453,7 +7453,7 @@
 #   define DISABLE_RF5_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF5_CN
 #   define ENABLE_RF5_PULLUP()  (RXY_GPIO_CNPUE(RF5_CN) = 1)
 #   define DISABLE_RF5_PULLUP() (RXY_GPIO_CNPUE(RF5_CN) = 0)
@@ -7474,8 +7474,8 @@
 #   define DISABLE_RF5_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF5_AN
 #   define CONFIG_RF5_AS_ANALOG()       \
       do {                              \
@@ -7515,9 +7515,9 @@
 // ====================
 #ifdef _RF6
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF6_AN
 #   define ENABLE_RF6_ANALOG()  (RXY_GPIO_PCFG(RF6_AN) = 1)
 #   define DISABLE_RF6_ANALOG() (RXY_GPIO_PCFG(RF6_AN) = 0)
@@ -7525,11 +7525,11 @@
 #   define DISABLE_RF6_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF6_AS_INPUT()  (_TRISF6 = 1)
 # define CONFIG_RF6_AS_OUTPUT() (_TRISF6 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF6)
 #   define ENABLE_RF6_OPENDRAIN()  (_ODCF6 = 1)
 #   define DISABLE_RF6_OPENDRAIN() (_ODCF6 = 0)
@@ -7540,7 +7540,7 @@
 #   define DISABLE_RF6_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF6_CN
 #   define ENABLE_RF6_PULLUP()  (RXY_GPIO_CNPUE(RF6_CN) = 1)
 #   define DISABLE_RF6_PULLUP() (RXY_GPIO_CNPUE(RF6_CN) = 0)
@@ -7561,8 +7561,8 @@
 #   define DISABLE_RF6_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF6_AN
 #   define CONFIG_RF6_AS_ANALOG()       \
       do {                              \
@@ -7602,9 +7602,9 @@
 // ====================
 #ifdef _RF7
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF7_AN
 #   define ENABLE_RF7_ANALOG()  (RXY_GPIO_PCFG(RF7_AN) = 1)
 #   define DISABLE_RF7_ANALOG() (RXY_GPIO_PCFG(RF7_AN) = 0)
@@ -7612,11 +7612,11 @@
 #   define DISABLE_RF7_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF7_AS_INPUT()  (_TRISF7 = 1)
 # define CONFIG_RF7_AS_OUTPUT() (_TRISF7 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF7)
 #   define ENABLE_RF7_OPENDRAIN()  (_ODCF7 = 1)
 #   define DISABLE_RF7_OPENDRAIN() (_ODCF7 = 0)
@@ -7627,7 +7627,7 @@
 #   define DISABLE_RF7_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF7_CN
 #   define ENABLE_RF7_PULLUP()  (RXY_GPIO_CNPUE(RF7_CN) = 1)
 #   define DISABLE_RF7_PULLUP() (RXY_GPIO_CNPUE(RF7_CN) = 0)
@@ -7648,8 +7648,8 @@
 #   define DISABLE_RF7_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF7_AN
 #   define CONFIG_RF7_AS_ANALOG()       \
       do {                              \
@@ -7689,9 +7689,9 @@
 // ====================
 #ifdef _RF8
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF8_AN
 #   define ENABLE_RF8_ANALOG()  (RXY_GPIO_PCFG(RF8_AN) = 1)
 #   define DISABLE_RF8_ANALOG() (RXY_GPIO_PCFG(RF8_AN) = 0)
@@ -7699,11 +7699,11 @@
 #   define DISABLE_RF8_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF8_AS_INPUT()  (_TRISF8 = 1)
 # define CONFIG_RF8_AS_OUTPUT() (_TRISF8 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF8)
 #   define ENABLE_RF8_OPENDRAIN()  (_ODCF8 = 1)
 #   define DISABLE_RF8_OPENDRAIN() (_ODCF8 = 0)
@@ -7714,7 +7714,7 @@
 #   define DISABLE_RF8_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF8_CN
 #   define ENABLE_RF8_PULLUP()  (RXY_GPIO_CNPUE(RF8_CN) = 1)
 #   define DISABLE_RF8_PULLUP() (RXY_GPIO_CNPUE(RF8_CN) = 0)
@@ -7735,8 +7735,8 @@
 #   define DISABLE_RF8_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF8_AN
 #   define CONFIG_RF8_AS_ANALOG()       \
       do {                              \
@@ -7776,9 +7776,9 @@
 // ====================
 #ifdef _RF9
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF9_AN
 #   define ENABLE_RF9_ANALOG()  (RXY_GPIO_PCFG(RF9_AN) = 1)
 #   define DISABLE_RF9_ANALOG() (RXY_GPIO_PCFG(RF9_AN) = 0)
@@ -7786,11 +7786,11 @@
 #   define DISABLE_RF9_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF9_AS_INPUT()  (_TRISF9 = 1)
 # define CONFIG_RF9_AS_OUTPUT() (_TRISF9 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF9)
 #   define ENABLE_RF9_OPENDRAIN()  (_ODCF9 = 1)
 #   define DISABLE_RF9_OPENDRAIN() (_ODCF9 = 0)
@@ -7801,7 +7801,7 @@
 #   define DISABLE_RF9_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF9_CN
 #   define ENABLE_RF9_PULLUP()  (RXY_GPIO_CNPUE(RF9_CN) = 1)
 #   define DISABLE_RF9_PULLUP() (RXY_GPIO_CNPUE(RF9_CN) = 0)
@@ -7822,8 +7822,8 @@
 #   define DISABLE_RF9_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF9_AN
 #   define CONFIG_RF9_AS_ANALOG()       \
       do {                              \
@@ -7863,9 +7863,9 @@
 // ====================
 #ifdef _RF10
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF10_AN
 #   define ENABLE_RF10_ANALOG()  (RXY_GPIO_PCFG(RF10_AN) = 1)
 #   define DISABLE_RF10_ANALOG() (RXY_GPIO_PCFG(RF10_AN) = 0)
@@ -7873,11 +7873,11 @@
 #   define DISABLE_RF10_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF10_AS_INPUT()  (_TRISF10 = 1)
 # define CONFIG_RF10_AS_OUTPUT() (_TRISF10 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF10)
 #   define ENABLE_RF10_OPENDRAIN()  (_ODCF10 = 1)
 #   define DISABLE_RF10_OPENDRAIN() (_ODCF10 = 0)
@@ -7888,7 +7888,7 @@
 #   define DISABLE_RF10_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF10_CN
 #   define ENABLE_RF10_PULLUP()  (RXY_GPIO_CNPUE(RF10_CN) = 1)
 #   define DISABLE_RF10_PULLUP() (RXY_GPIO_CNPUE(RF10_CN) = 0)
@@ -7909,8 +7909,8 @@
 #   define DISABLE_RF10_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF10_AN
 #   define CONFIG_RF10_AS_ANALOG()       \
       do {                              \
@@ -7950,9 +7950,9 @@
 // ====================
 #ifdef _RF11
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF11_AN
 #   define ENABLE_RF11_ANALOG()  (RXY_GPIO_PCFG(RF11_AN) = 1)
 #   define DISABLE_RF11_ANALOG() (RXY_GPIO_PCFG(RF11_AN) = 0)
@@ -7960,11 +7960,11 @@
 #   define DISABLE_RF11_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF11_AS_INPUT()  (_TRISF11 = 1)
 # define CONFIG_RF11_AS_OUTPUT() (_TRISF11 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF11)
 #   define ENABLE_RF11_OPENDRAIN()  (_ODCF11 = 1)
 #   define DISABLE_RF11_OPENDRAIN() (_ODCF11 = 0)
@@ -7975,7 +7975,7 @@
 #   define DISABLE_RF11_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF11_CN
 #   define ENABLE_RF11_PULLUP()  (RXY_GPIO_CNPUE(RF11_CN) = 1)
 #   define DISABLE_RF11_PULLUP() (RXY_GPIO_CNPUE(RF11_CN) = 0)
@@ -7996,8 +7996,8 @@
 #   define DISABLE_RF11_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF11_AN
 #   define CONFIG_RF11_AS_ANALOG()       \
       do {                              \
@@ -8037,9 +8037,9 @@
 // ====================
 #ifdef _RF12
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF12_AN
 #   define ENABLE_RF12_ANALOG()  (RXY_GPIO_PCFG(RF12_AN) = 1)
 #   define DISABLE_RF12_ANALOG() (RXY_GPIO_PCFG(RF12_AN) = 0)
@@ -8047,11 +8047,11 @@
 #   define DISABLE_RF12_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF12_AS_INPUT()  (_TRISF12 = 1)
 # define CONFIG_RF12_AS_OUTPUT() (_TRISF12 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF12)
 #   define ENABLE_RF12_OPENDRAIN()  (_ODCF12 = 1)
 #   define DISABLE_RF12_OPENDRAIN() (_ODCF12 = 0)
@@ -8062,7 +8062,7 @@
 #   define DISABLE_RF12_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF12_CN
 #   define ENABLE_RF12_PULLUP()  (RXY_GPIO_CNPUE(RF12_CN) = 1)
 #   define DISABLE_RF12_PULLUP() (RXY_GPIO_CNPUE(RF12_CN) = 0)
@@ -8083,8 +8083,8 @@
 #   define DISABLE_RF12_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF12_AN
 #   define CONFIG_RF12_AS_ANALOG()       \
       do {                              \
@@ -8124,9 +8124,9 @@
 // ====================
 #ifdef _RF13
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF13_AN
 #   define ENABLE_RF13_ANALOG()  (RXY_GPIO_PCFG(RF13_AN) = 1)
 #   define DISABLE_RF13_ANALOG() (RXY_GPIO_PCFG(RF13_AN) = 0)
@@ -8134,11 +8134,11 @@
 #   define DISABLE_RF13_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF13_AS_INPUT()  (_TRISF13 = 1)
 # define CONFIG_RF13_AS_OUTPUT() (_TRISF13 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF13)
 #   define ENABLE_RF13_OPENDRAIN()  (_ODCF13 = 1)
 #   define DISABLE_RF13_OPENDRAIN() (_ODCF13 = 0)
@@ -8149,7 +8149,7 @@
 #   define DISABLE_RF13_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF13_CN
 #   define ENABLE_RF13_PULLUP()  (RXY_GPIO_CNPUE(RF13_CN) = 1)
 #   define DISABLE_RF13_PULLUP() (RXY_GPIO_CNPUE(RF13_CN) = 0)
@@ -8170,8 +8170,8 @@
 #   define DISABLE_RF13_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF13_AN
 #   define CONFIG_RF13_AS_ANALOG()       \
       do {                              \
@@ -8211,9 +8211,9 @@
 // ====================
 #ifdef _RF14
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF14_AN
 #   define ENABLE_RF14_ANALOG()  (RXY_GPIO_PCFG(RF14_AN) = 1)
 #   define DISABLE_RF14_ANALOG() (RXY_GPIO_PCFG(RF14_AN) = 0)
@@ -8221,11 +8221,11 @@
 #   define DISABLE_RF14_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF14_AS_INPUT()  (_TRISF14 = 1)
 # define CONFIG_RF14_AS_OUTPUT() (_TRISF14 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF14)
 #   define ENABLE_RF14_OPENDRAIN()  (_ODCF14 = 1)
 #   define DISABLE_RF14_OPENDRAIN() (_ODCF14 = 0)
@@ -8236,7 +8236,7 @@
 #   define DISABLE_RF14_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF14_CN
 #   define ENABLE_RF14_PULLUP()  (RXY_GPIO_CNPUE(RF14_CN) = 1)
 #   define DISABLE_RF14_PULLUP() (RXY_GPIO_CNPUE(RF14_CN) = 0)
@@ -8257,8 +8257,8 @@
 #   define DISABLE_RF14_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF14_AN
 #   define CONFIG_RF14_AS_ANALOG()       \
       do {                              \
@@ -8298,9 +8298,9 @@
 // ====================
 #ifdef _RF15
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RF15_AN
 #   define ENABLE_RF15_ANALOG()  (RXY_GPIO_PCFG(RF15_AN) = 1)
 #   define DISABLE_RF15_ANALOG() (RXY_GPIO_PCFG(RF15_AN) = 0)
@@ -8308,11 +8308,11 @@
 #   define DISABLE_RF15_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RF15_AS_INPUT()  (_TRISF15 = 1)
 # define CONFIG_RF15_AS_OUTPUT() (_TRISF15 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCF15)
 #   define ENABLE_RF15_OPENDRAIN()  (_ODCF15 = 1)
 #   define DISABLE_RF15_OPENDRAIN() (_ODCF15 = 0)
@@ -8323,7 +8323,7 @@
 #   define DISABLE_RF15_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RF15_CN
 #   define ENABLE_RF15_PULLUP()  (RXY_GPIO_CNPUE(RF15_CN) = 1)
 #   define DISABLE_RF15_PULLUP() (RXY_GPIO_CNPUE(RF15_CN) = 0)
@@ -8344,8 +8344,8 @@
 #   define DISABLE_RF15_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RF15_AN
 #   define CONFIG_RF15_AS_ANALOG()       \
       do {                              \
@@ -8385,9 +8385,9 @@
 // ====================
 #ifdef _RG0
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG0_AN
 #   define ENABLE_RG0_ANALOG()  (RXY_GPIO_PCFG(RG0_AN) = 1)
 #   define DISABLE_RG0_ANALOG() (RXY_GPIO_PCFG(RG0_AN) = 0)
@@ -8395,11 +8395,11 @@
 #   define DISABLE_RG0_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG0_AS_INPUT()  (_TRISG0 = 1)
 # define CONFIG_RG0_AS_OUTPUT() (_TRISG0 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG0)
 #   define ENABLE_RG0_OPENDRAIN()  (_ODCG0 = 1)
 #   define DISABLE_RG0_OPENDRAIN() (_ODCG0 = 0)
@@ -8410,7 +8410,7 @@
 #   define DISABLE_RG0_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG0_CN
 #   define ENABLE_RG0_PULLUP()  (RXY_GPIO_CNPUE(RG0_CN) = 1)
 #   define DISABLE_RG0_PULLUP() (RXY_GPIO_CNPUE(RG0_CN) = 0)
@@ -8431,8 +8431,8 @@
 #   define DISABLE_RG0_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG0_AN
 #   define CONFIG_RG0_AS_ANALOG()       \
       do {                              \
@@ -8472,9 +8472,9 @@
 // ====================
 #ifdef _RG1
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG1_AN
 #   define ENABLE_RG1_ANALOG()  (RXY_GPIO_PCFG(RG1_AN) = 1)
 #   define DISABLE_RG1_ANALOG() (RXY_GPIO_PCFG(RG1_AN) = 0)
@@ -8482,11 +8482,11 @@
 #   define DISABLE_RG1_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG1_AS_INPUT()  (_TRISG1 = 1)
 # define CONFIG_RG1_AS_OUTPUT() (_TRISG1 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG1)
 #   define ENABLE_RG1_OPENDRAIN()  (_ODCG1 = 1)
 #   define DISABLE_RG1_OPENDRAIN() (_ODCG1 = 0)
@@ -8497,7 +8497,7 @@
 #   define DISABLE_RG1_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG1_CN
 #   define ENABLE_RG1_PULLUP()  (RXY_GPIO_CNPUE(RG1_CN) = 1)
 #   define DISABLE_RG1_PULLUP() (RXY_GPIO_CNPUE(RG1_CN) = 0)
@@ -8518,8 +8518,8 @@
 #   define DISABLE_RG1_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG1_AN
 #   define CONFIG_RG1_AS_ANALOG()       \
       do {                              \
@@ -8559,9 +8559,9 @@
 // ====================
 #ifdef _RG2
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG2_AN
 #   define ENABLE_RG2_ANALOG()  (RXY_GPIO_PCFG(RG2_AN) = 1)
 #   define DISABLE_RG2_ANALOG() (RXY_GPIO_PCFG(RG2_AN) = 0)
@@ -8569,11 +8569,11 @@
 #   define DISABLE_RG2_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG2_AS_INPUT()  (_TRISG2 = 1)
 # define CONFIG_RG2_AS_OUTPUT() (_TRISG2 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG2)
 #   define ENABLE_RG2_OPENDRAIN()  (_ODCG2 = 1)
 #   define DISABLE_RG2_OPENDRAIN() (_ODCG2 = 0)
@@ -8584,7 +8584,7 @@
 #   define DISABLE_RG2_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG2_CN
 #   define ENABLE_RG2_PULLUP()  (RXY_GPIO_CNPUE(RG2_CN) = 1)
 #   define DISABLE_RG2_PULLUP() (RXY_GPIO_CNPUE(RG2_CN) = 0)
@@ -8605,8 +8605,8 @@
 #   define DISABLE_RG2_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG2_AN
 #   define CONFIG_RG2_AS_ANALOG()       \
       do {                              \
@@ -8646,9 +8646,9 @@
 // ====================
 #ifdef _RG3
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG3_AN
 #   define ENABLE_RG3_ANALOG()  (RXY_GPIO_PCFG(RG3_AN) = 1)
 #   define DISABLE_RG3_ANALOG() (RXY_GPIO_PCFG(RG3_AN) = 0)
@@ -8656,11 +8656,11 @@
 #   define DISABLE_RG3_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG3_AS_INPUT()  (_TRISG3 = 1)
 # define CONFIG_RG3_AS_OUTPUT() (_TRISG3 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG3)
 #   define ENABLE_RG3_OPENDRAIN()  (_ODCG3 = 1)
 #   define DISABLE_RG3_OPENDRAIN() (_ODCG3 = 0)
@@ -8671,7 +8671,7 @@
 #   define DISABLE_RG3_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG3_CN
 #   define ENABLE_RG3_PULLUP()  (RXY_GPIO_CNPUE(RG3_CN) = 1)
 #   define DISABLE_RG3_PULLUP() (RXY_GPIO_CNPUE(RG3_CN) = 0)
@@ -8692,8 +8692,8 @@
 #   define DISABLE_RG3_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG3_AN
 #   define CONFIG_RG3_AS_ANALOG()       \
       do {                              \
@@ -8733,9 +8733,9 @@
 // ====================
 #ifdef _RG4
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG4_AN
 #   define ENABLE_RG4_ANALOG()  (RXY_GPIO_PCFG(RG4_AN) = 1)
 #   define DISABLE_RG4_ANALOG() (RXY_GPIO_PCFG(RG4_AN) = 0)
@@ -8743,11 +8743,11 @@
 #   define DISABLE_RG4_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG4_AS_INPUT()  (_TRISG4 = 1)
 # define CONFIG_RG4_AS_OUTPUT() (_TRISG4 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG4)
 #   define ENABLE_RG4_OPENDRAIN()  (_ODCG4 = 1)
 #   define DISABLE_RG4_OPENDRAIN() (_ODCG4 = 0)
@@ -8758,7 +8758,7 @@
 #   define DISABLE_RG4_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG4_CN
 #   define ENABLE_RG4_PULLUP()  (RXY_GPIO_CNPUE(RG4_CN) = 1)
 #   define DISABLE_RG4_PULLUP() (RXY_GPIO_CNPUE(RG4_CN) = 0)
@@ -8779,8 +8779,8 @@
 #   define DISABLE_RG4_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG4_AN
 #   define CONFIG_RG4_AS_ANALOG()       \
       do {                              \
@@ -8820,9 +8820,9 @@
 // ====================
 #ifdef _RG5
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG5_AN
 #   define ENABLE_RG5_ANALOG()  (RXY_GPIO_PCFG(RG5_AN) = 1)
 #   define DISABLE_RG5_ANALOG() (RXY_GPIO_PCFG(RG5_AN) = 0)
@@ -8830,11 +8830,11 @@
 #   define DISABLE_RG5_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG5_AS_INPUT()  (_TRISG5 = 1)
 # define CONFIG_RG5_AS_OUTPUT() (_TRISG5 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG5)
 #   define ENABLE_RG5_OPENDRAIN()  (_ODCG5 = 1)
 #   define DISABLE_RG5_OPENDRAIN() (_ODCG5 = 0)
@@ -8845,7 +8845,7 @@
 #   define DISABLE_RG5_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG5_CN
 #   define ENABLE_RG5_PULLUP()  (RXY_GPIO_CNPUE(RG5_CN) = 1)
 #   define DISABLE_RG5_PULLUP() (RXY_GPIO_CNPUE(RG5_CN) = 0)
@@ -8866,8 +8866,8 @@
 #   define DISABLE_RG5_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG5_AN
 #   define CONFIG_RG5_AS_ANALOG()       \
       do {                              \
@@ -8907,9 +8907,9 @@
 // ====================
 #ifdef _RG6
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG6_AN
 #   define ENABLE_RG6_ANALOG()  (RXY_GPIO_PCFG(RG6_AN) = 1)
 #   define DISABLE_RG6_ANALOG() (RXY_GPIO_PCFG(RG6_AN) = 0)
@@ -8917,11 +8917,11 @@
 #   define DISABLE_RG6_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG6_AS_INPUT()  (_TRISG6 = 1)
 # define CONFIG_RG6_AS_OUTPUT() (_TRISG6 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG6)
 #   define ENABLE_RG6_OPENDRAIN()  (_ODCG6 = 1)
 #   define DISABLE_RG6_OPENDRAIN() (_ODCG6 = 0)
@@ -8932,7 +8932,7 @@
 #   define DISABLE_RG6_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG6_CN
 #   define ENABLE_RG6_PULLUP()  (RXY_GPIO_CNPUE(RG6_CN) = 1)
 #   define DISABLE_RG6_PULLUP() (RXY_GPIO_CNPUE(RG6_CN) = 0)
@@ -8953,8 +8953,8 @@
 #   define DISABLE_RG6_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG6_AN
 #   define CONFIG_RG6_AS_ANALOG()       \
       do {                              \
@@ -8994,9 +8994,9 @@
 // ====================
 #ifdef _RG7
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG7_AN
 #   define ENABLE_RG7_ANALOG()  (RXY_GPIO_PCFG(RG7_AN) = 1)
 #   define DISABLE_RG7_ANALOG() (RXY_GPIO_PCFG(RG7_AN) = 0)
@@ -9004,11 +9004,11 @@
 #   define DISABLE_RG7_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG7_AS_INPUT()  (_TRISG7 = 1)
 # define CONFIG_RG7_AS_OUTPUT() (_TRISG7 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG7)
 #   define ENABLE_RG7_OPENDRAIN()  (_ODCG7 = 1)
 #   define DISABLE_RG7_OPENDRAIN() (_ODCG7 = 0)
@@ -9019,7 +9019,7 @@
 #   define DISABLE_RG7_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG7_CN
 #   define ENABLE_RG7_PULLUP()  (RXY_GPIO_CNPUE(RG7_CN) = 1)
 #   define DISABLE_RG7_PULLUP() (RXY_GPIO_CNPUE(RG7_CN) = 0)
@@ -9040,8 +9040,8 @@
 #   define DISABLE_RG7_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG7_AN
 #   define CONFIG_RG7_AS_ANALOG()       \
       do {                              \
@@ -9081,9 +9081,9 @@
 // ====================
 #ifdef _RG8
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG8_AN
 #   define ENABLE_RG8_ANALOG()  (RXY_GPIO_PCFG(RG8_AN) = 1)
 #   define DISABLE_RG8_ANALOG() (RXY_GPIO_PCFG(RG8_AN) = 0)
@@ -9091,11 +9091,11 @@
 #   define DISABLE_RG8_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG8_AS_INPUT()  (_TRISG8 = 1)
 # define CONFIG_RG8_AS_OUTPUT() (_TRISG8 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG8)
 #   define ENABLE_RG8_OPENDRAIN()  (_ODCG8 = 1)
 #   define DISABLE_RG8_OPENDRAIN() (_ODCG8 = 0)
@@ -9106,7 +9106,7 @@
 #   define DISABLE_RG8_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG8_CN
 #   define ENABLE_RG8_PULLUP()  (RXY_GPIO_CNPUE(RG8_CN) = 1)
 #   define DISABLE_RG8_PULLUP() (RXY_GPIO_CNPUE(RG8_CN) = 0)
@@ -9127,8 +9127,8 @@
 #   define DISABLE_RG8_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG8_AN
 #   define CONFIG_RG8_AS_ANALOG()       \
       do {                              \
@@ -9168,9 +9168,9 @@
 // ====================
 #ifdef _RG9
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG9_AN
 #   define ENABLE_RG9_ANALOG()  (RXY_GPIO_PCFG(RG9_AN) = 1)
 #   define DISABLE_RG9_ANALOG() (RXY_GPIO_PCFG(RG9_AN) = 0)
@@ -9178,11 +9178,11 @@
 #   define DISABLE_RG9_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG9_AS_INPUT()  (_TRISG9 = 1)
 # define CONFIG_RG9_AS_OUTPUT() (_TRISG9 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG9)
 #   define ENABLE_RG9_OPENDRAIN()  (_ODCG9 = 1)
 #   define DISABLE_RG9_OPENDRAIN() (_ODCG9 = 0)
@@ -9193,7 +9193,7 @@
 #   define DISABLE_RG9_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG9_CN
 #   define ENABLE_RG9_PULLUP()  (RXY_GPIO_CNPUE(RG9_CN) = 1)
 #   define DISABLE_RG9_PULLUP() (RXY_GPIO_CNPUE(RG9_CN) = 0)
@@ -9214,8 +9214,8 @@
 #   define DISABLE_RG9_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG9_AN
 #   define CONFIG_RG9_AS_ANALOG()       \
       do {                              \
@@ -9255,9 +9255,9 @@
 // ====================
 #ifdef _RG10
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG10_AN
 #   define ENABLE_RG10_ANALOG()  (RXY_GPIO_PCFG(RG10_AN) = 1)
 #   define DISABLE_RG10_ANALOG() (RXY_GPIO_PCFG(RG10_AN) = 0)
@@ -9265,11 +9265,11 @@
 #   define DISABLE_RG10_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG10_AS_INPUT()  (_TRISG10 = 1)
 # define CONFIG_RG10_AS_OUTPUT() (_TRISG10 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG10)
 #   define ENABLE_RG10_OPENDRAIN()  (_ODCG10 = 1)
 #   define DISABLE_RG10_OPENDRAIN() (_ODCG10 = 0)
@@ -9280,7 +9280,7 @@
 #   define DISABLE_RG10_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG10_CN
 #   define ENABLE_RG10_PULLUP()  (RXY_GPIO_CNPUE(RG10_CN) = 1)
 #   define DISABLE_RG10_PULLUP() (RXY_GPIO_CNPUE(RG10_CN) = 0)
@@ -9301,8 +9301,8 @@
 #   define DISABLE_RG10_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG10_AN
 #   define CONFIG_RG10_AS_ANALOG()       \
       do {                              \
@@ -9342,9 +9342,9 @@
 // ====================
 #ifdef _RG11
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG11_AN
 #   define ENABLE_RG11_ANALOG()  (RXY_GPIO_PCFG(RG11_AN) = 1)
 #   define DISABLE_RG11_ANALOG() (RXY_GPIO_PCFG(RG11_AN) = 0)
@@ -9352,11 +9352,11 @@
 #   define DISABLE_RG11_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG11_AS_INPUT()  (_TRISG11 = 1)
 # define CONFIG_RG11_AS_OUTPUT() (_TRISG11 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG11)
 #   define ENABLE_RG11_OPENDRAIN()  (_ODCG11 = 1)
 #   define DISABLE_RG11_OPENDRAIN() (_ODCG11 = 0)
@@ -9367,7 +9367,7 @@
 #   define DISABLE_RG11_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG11_CN
 #   define ENABLE_RG11_PULLUP()  (RXY_GPIO_CNPUE(RG11_CN) = 1)
 #   define DISABLE_RG11_PULLUP() (RXY_GPIO_CNPUE(RG11_CN) = 0)
@@ -9388,8 +9388,8 @@
 #   define DISABLE_RG11_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG11_AN
 #   define CONFIG_RG11_AS_ANALOG()       \
       do {                              \
@@ -9429,9 +9429,9 @@
 // ====================
 #ifdef _RG12
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG12_AN
 #   define ENABLE_RG12_ANALOG()  (RXY_GPIO_PCFG(RG12_AN) = 1)
 #   define DISABLE_RG12_ANALOG() (RXY_GPIO_PCFG(RG12_AN) = 0)
@@ -9439,11 +9439,11 @@
 #   define DISABLE_RG12_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG12_AS_INPUT()  (_TRISG12 = 1)
 # define CONFIG_RG12_AS_OUTPUT() (_TRISG12 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG12)
 #   define ENABLE_RG12_OPENDRAIN()  (_ODCG12 = 1)
 #   define DISABLE_RG12_OPENDRAIN() (_ODCG12 = 0)
@@ -9454,7 +9454,7 @@
 #   define DISABLE_RG12_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG12_CN
 #   define ENABLE_RG12_PULLUP()  (RXY_GPIO_CNPUE(RG12_CN) = 1)
 #   define DISABLE_RG12_PULLUP() (RXY_GPIO_CNPUE(RG12_CN) = 0)
@@ -9475,8 +9475,8 @@
 #   define DISABLE_RG12_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG12_AN
 #   define CONFIG_RG12_AS_ANALOG()       \
       do {                              \
@@ -9516,9 +9516,9 @@
 // ====================
 #ifdef _RG13
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG13_AN
 #   define ENABLE_RG13_ANALOG()  (RXY_GPIO_PCFG(RG13_AN) = 1)
 #   define DISABLE_RG13_ANALOG() (RXY_GPIO_PCFG(RG13_AN) = 0)
@@ -9526,11 +9526,11 @@
 #   define DISABLE_RG13_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG13_AS_INPUT()  (_TRISG13 = 1)
 # define CONFIG_RG13_AS_OUTPUT() (_TRISG13 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG13)
 #   define ENABLE_RG13_OPENDRAIN()  (_ODCG13 = 1)
 #   define DISABLE_RG13_OPENDRAIN() (_ODCG13 = 0)
@@ -9541,7 +9541,7 @@
 #   define DISABLE_RG13_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG13_CN
 #   define ENABLE_RG13_PULLUP()  (RXY_GPIO_CNPUE(RG13_CN) = 1)
 #   define DISABLE_RG13_PULLUP() (RXY_GPIO_CNPUE(RG13_CN) = 0)
@@ -9562,8 +9562,8 @@
 #   define DISABLE_RG13_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG13_AN
 #   define CONFIG_RG13_AS_ANALOG()       \
       do {                              \
@@ -9603,9 +9603,9 @@
 // ====================
 #ifdef _RG14
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG14_AN
 #   define ENABLE_RG14_ANALOG()  (RXY_GPIO_PCFG(RG14_AN) = 1)
 #   define DISABLE_RG14_ANALOG() (RXY_GPIO_PCFG(RG14_AN) = 0)
@@ -9613,11 +9613,11 @@
 #   define DISABLE_RG14_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG14_AS_INPUT()  (_TRISG14 = 1)
 # define CONFIG_RG14_AS_OUTPUT() (_TRISG14 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG14)
 #   define ENABLE_RG14_OPENDRAIN()  (_ODCG14 = 1)
 #   define DISABLE_RG14_OPENDRAIN() (_ODCG14 = 0)
@@ -9628,7 +9628,7 @@
 #   define DISABLE_RG14_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG14_CN
 #   define ENABLE_RG14_PULLUP()  (RXY_GPIO_CNPUE(RG14_CN) = 1)
 #   define DISABLE_RG14_PULLUP() (RXY_GPIO_CNPUE(RG14_CN) = 0)
@@ -9649,8 +9649,8 @@
 #   define DISABLE_RG14_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG14_AN
 #   define CONFIG_RG14_AS_ANALOG()       \
       do {                              \
@@ -9690,9 +9690,9 @@
 // ====================
 #ifdef _RG15
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RG15_AN
 #   define ENABLE_RG15_ANALOG()  (RXY_GPIO_PCFG(RG15_AN) = 1)
 #   define DISABLE_RG15_ANALOG() (RXY_GPIO_PCFG(RG15_AN) = 0)
@@ -9700,11 +9700,11 @@
 #   define DISABLE_RG15_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RG15_AS_INPUT()  (_TRISG15 = 1)
 # define CONFIG_RG15_AS_OUTPUT() (_TRISG15 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCG15)
 #   define ENABLE_RG15_OPENDRAIN()  (_ODCG15 = 1)
 #   define DISABLE_RG15_OPENDRAIN() (_ODCG15 = 0)
@@ -9715,7 +9715,7 @@
 #   define DISABLE_RG15_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RG15_CN
 #   define ENABLE_RG15_PULLUP()  (RXY_GPIO_CNPUE(RG15_CN) = 1)
 #   define DISABLE_RG15_PULLUP() (RXY_GPIO_CNPUE(RG15_CN) = 0)
@@ -9736,8 +9736,8 @@
 #   define DISABLE_RG15_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RG15_AN
 #   define CONFIG_RG15_AS_ANALOG()       \
       do {                              \
@@ -9777,9 +9777,9 @@
 // ====================
 #ifdef _RT1
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RT1_AN
 #   define ENABLE_RT1_ANALOG()  (RXY_GPIO_PCFG(RT1_AN) = 1)
 #   define DISABLE_RT1_ANALOG() (RXY_GPIO_PCFG(RT1_AN) = 0)
@@ -9787,11 +9787,11 @@
 #   define DISABLE_RT1_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RT1_AS_INPUT()  (_TRIST1 = 1)
 # define CONFIG_RT1_AS_OUTPUT() (_TRIST1 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCT1)
 #   define ENABLE_RT1_OPENDRAIN()  (_ODCT1 = 1)
 #   define DISABLE_RT1_OPENDRAIN() (_ODCT1 = 0)
@@ -9802,7 +9802,7 @@
 #   define DISABLE_RT1_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RT1_CN
 #   define ENABLE_RT1_PULLUP()  (RXY_GPIO_CNPUE(RT1_CN) = 1)
 #   define DISABLE_RT1_PULLUP() (RXY_GPIO_CNPUE(RT1_CN) = 0)
@@ -9823,8 +9823,8 @@
 #   define DISABLE_RT1_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RT1_AN
 #   define CONFIG_RT1_AS_ANALOG()       \
       do {                              \
@@ -9864,9 +9864,9 @@
 // ====================
 #ifdef _RT2
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RT2_AN
 #   define ENABLE_RT2_ANALOG()  (RXY_GPIO_PCFG(RT2_AN) = 1)
 #   define DISABLE_RT2_ANALOG() (RXY_GPIO_PCFG(RT2_AN) = 0)
@@ -9874,11 +9874,11 @@
 #   define DISABLE_RT2_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RT2_AS_INPUT()  (_TRIST2 = 1)
 # define CONFIG_RT2_AS_OUTPUT() (_TRIST2 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCT2)
 #   define ENABLE_RT2_OPENDRAIN()  (_ODCT2 = 1)
 #   define DISABLE_RT2_OPENDRAIN() (_ODCT2 = 0)
@@ -9889,7 +9889,7 @@
 #   define DISABLE_RT2_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RT2_CN
 #   define ENABLE_RT2_PULLUP()  (RXY_GPIO_CNPUE(RT2_CN) = 1)
 #   define DISABLE_RT2_PULLUP() (RXY_GPIO_CNPUE(RT2_CN) = 0)
@@ -9910,8 +9910,8 @@
 #   define DISABLE_RT2_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RT2_AN
 #   define CONFIG_RT2_AS_ANALOG()       \
       do {                              \
@@ -9951,9 +9951,9 @@
 // ====================
 #ifdef _RT3
 
-  // Low-level config
-  // ----------------
-  // Analog:
+// Low-level config
+// ----------------
+// Analog:
 # ifdef RT3_AN
 #   define ENABLE_RT3_ANALOG()  (RXY_GPIO_PCFG(RT3_AN) = 1)
 #   define DISABLE_RT3_ANALOG() (RXY_GPIO_PCFG(RT3_AN) = 0)
@@ -9961,11 +9961,11 @@
 #   define DISABLE_RT3_ANALOG() ((void) 0)
 # endif
 
-  // Input/output:
+// Input/output:
 # define CONFIG_RT3_AS_INPUT()  (_TRIST3 = 1)
 # define CONFIG_RT3_AS_OUTPUT() (_TRIST3 = 0)
 
-  // Open-drain:
+// Open-drain:
 # if defined(_ODCT3)
 #   define ENABLE_RT3_OPENDRAIN()  (_ODCT3 = 1)
 #   define DISABLE_RT3_OPENDRAIN() (_ODCT3 = 0)
@@ -9976,7 +9976,7 @@
 #   define DISABLE_RT3_OPENDRAIN() ((void) 0)
 # endif
 
-  // Change notification, pullups and pulldowns:
+// Change notification, pullups and pulldowns:
 # ifdef RT3_CN
 #   define ENABLE_RT3_PULLUP()  (RXY_GPIO_CNPUE(RT3_CN) = 1)
 #   define DISABLE_RT3_PULLUP() (RXY_GPIO_CNPUE(RT3_CN) = 0)
@@ -9997,8 +9997,8 @@
 #   define DISABLE_RT3_CN_INTERRUPT() ((void) 0)
 # endif
 
-  // High-level config
-  // -----------------
+// High-level config
+// -----------------
 # ifdef RT3_AN
 #   define CONFIG_RT3_AS_ANALOG()       \
       do {                              \

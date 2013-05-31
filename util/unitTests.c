@@ -584,9 +584,9 @@ void clearOutChar() {
 extern "C"
 #endif
 void testOutChar(uint8_t c) {
-  ASSERT(au8_outCharData != NULL);
-  ASSERT(st_outCharIndex < st_outCharLen);
-  ASSERT(au8_outCharData[st_outCharIndex++] == c);
+ASSERT(au8_outCharData != NULL);
+ASSERT(st_outCharIndex < st_outCharLen);
+ASSERT(au8_outCharData[st_outCharIndex++] == c);
 }
 
 /** Test support: ASSERT if an exception isn't thrown.
@@ -600,15 +600,15 @@ void testOutChar(uint8_t c) {
  */
 #ifdef __cplusplus
 #define REQUIRE_ASSERT(code, expectedMsg)      \
-	do {                          \
-		BOOL didAssert = FALSE;   \
-		try {                     \
-			code;                 \
-		} catch (char* psz_msg) { \
-			didAssert = strncmp(psz_msg, expectedMsg, strlen(expectedMsg)) ? FALSE : TRUE;     \
-		}                         \
-		ASSERT(didAssert);        \
-	} while (FALSE)
+  do {                          \
+    BOOL didAssert = FALSE;   \
+    try {                     \
+      code;                 \
+    } catch (char* psz_msg) { \
+      didAssert = strncmp(psz_msg, expectedMsg, strlen(expectedMsg)) ? FALSE : TRUE;     \
+    }                         \
+    ASSERT(didAssert);        \
+  } while (FALSE)
 #else
 // Do nothing, since C doesn't support exceptions
 #define REQUIRE_ASSERT(code, expectedMsg) (void) 0
@@ -916,7 +916,7 @@ void (*afp_testList[])() = {
 void runTest(uint u_index) {
   initDataXfer();
   clearOutChar();
-  (afp_testList[u_index])();	// Execute the specified test
+  (afp_testList[u_index])();  // Execute the specified test
 }
 
 /// Run all the tests by executing everything in the list of tests.

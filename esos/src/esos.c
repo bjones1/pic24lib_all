@@ -49,8 +49,8 @@
  *          user has defined, UNLESS they are absolutely sure that
  *          two (or more) tasks are mutually exclusive in execution.
  *
- *	  \note BOTH "parent" and "child" tasks use this NUMBER to allocate
- *			their pool of tasks.  So this number should be equal to or greater
+ *    \note BOTH "parent" and "child" tasks use this NUMBER to allocate
+ *      their pool of tasks.  So this number should be equal to or greater
  *          than the MAXIMUM number of concurrently running child --OR--
  *          parent tasks.
  */
@@ -65,7 +65,7 @@
 struct stTask         __astUserTaskPool[MAX_NUM_USER_TASKS];
 uint8                 __au8UserTaskStructIndex[MAX_NUM_USER_TASKS];
 struct stTask         __astChildTaskPool[MAX_NUM_CHILD_TASKS];
-uint8	              __u8UserTasksRegistered;
+uint8               __u8UserTasksRegistered;
 uint8                 __u8ChildTasksRegistered;
 
 struct stTimer        __astTmrSvcs[MAX_NUM_TMRS];
@@ -76,7 +76,7 @@ uint16                __esos_u16TmrActiveFlags;
 static struct stTask        __stUsbCommSystem;
 #endif
 
-uint16			__esos_u16UserFlags, __esos_u16SystemFlags;
+uint16      __esos_u16UserFlags, __esos_u16SystemFlags;
 uint32      __u32_esos_PRNG_Seed;
 
 /****************************************************************
@@ -183,8 +183,8 @@ uint8    esos_UnregisterTask( uint8 (*taskname)(ESOS_TASK_HANDLE pstTask) ) {
 * \retval TaskHandle if a child task structure is available
 * \retval ESOS_BAD_CHILD_TASK_HANDLE  if no structures are available at this time
 */
-ESOS_TASK_HANDLE	esos_GetFreeChildTaskStruct() {
-  uint16		u16_i = 0;
+ESOS_TASK_HANDLE  esos_GetFreeChildTaskStruct() {
+  uint16    u16_i = 0;
 
   while (u16_i < MAX_NUM_CHILD_TASKS) {
     if (ESOS_IS_TASK_INITED( &__astChildTaskPool[u16_i]) )
@@ -385,7 +385,7 @@ uint8    esos_ChangeTimerPeriod( ESOS_TMR_HANDLE hnd_timer, uint32 u32_period ) 
 } //end esos_geTimerHandle()
 
 void __esosInit(void) {
-  uint8			i;
+  uint8     i;
 
   // initialize the fcn ptrs to point to nothing
   for (i=0; i<MAX_NUM_USER_TASKS; i++) {

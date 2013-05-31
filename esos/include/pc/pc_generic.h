@@ -34,9 +34,9 @@ typedef unsigned char           uint8;          // 8-bit
 typedef unsigned short int      uint16;         // 16-bit
 typedef unsigned int            uint32;         // 32-bit
 typedef unsigned long long      uint64;         // 64-bit
-typedef signed char           	int8;          // 8-bit
-typedef signed short int      	int16;         // 16-bit
-typedef signed int            	int32;         // 32-bit
-typedef signed long long      	int64;         // 64-bit
+typedef signed char             int8;          // 8-bit
+typedef signed short int        int16;         // 16-bit
+typedef signed int              int32;         // 32-bit
+typedef signed long long        int64;         // 64-bit
 
 #endif //__PC_GENERIC_H

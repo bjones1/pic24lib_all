@@ -54,9 +54,9 @@ void    _esos_hw_InitUserInterrupts(void) {
   // preserve them.
   //
   // At this time, ESOS for PIC24 family uses T1, U1TX, U1RX
-  uint8		u8_T1IP, u8_U1TXIP, u8_U1RXIP;
-  uint8		u8_i;
-  uint16*		pu16_IpcPtr;
+  uint8   u8_T1IP, u8_U1TXIP, u8_U1RXIP;
+  uint8   u8_i;
+  uint16*   pu16_IpcPtr;
 
   u8_T1IP = _T1IP;
   u8_U1RXIP = _U1RXIP;

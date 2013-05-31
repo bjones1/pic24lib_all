@@ -28,76 +28,76 @@ Changed the mixed case macros to all uppercase
 */
 
 /*Registers Defaults*/
-#define COMP_CVRCON_VAL    				0x0000
-#define COMP_CMCON_VAL     				0x0000
+#define COMP_CVRCON_VAL           0x0000
+#define COMP_CMCON_VAL            0x0000
 
-#define CMP_IDLE_STOP               	0x8000 /* When device enters Idle mode, module does notgenerate interrupts.Module is still enabled. */
-#define CMP_IDLE_CON                	0x0000 /* continue operation in idle mode */
-#define CMP_IDLE_MASK               	(~CMP_IDLE_STOP)
+#define CMP_IDLE_STOP                 0x8000 /* When device enters Idle mode, module does notgenerate interrupts.Module is still enabled. */
+#define CMP_IDLE_CON                  0x0000 /* continue operation in idle mode */
+#define CMP_IDLE_MASK                 (~CMP_IDLE_STOP)
 
-#define CMP2_CHANGE_STATE           	0x2000 /* Comparator output changed states */
-#define CMP2_NO_CHANGE             	 	0x0000 /* Comparator output did not change states */
-#define CMP2_STATE_MASK             	(~CMP2_CHANGE_STATE )
+#define CMP2_CHANGE_STATE             0x2000 /* Comparator output changed states */
+#define CMP2_NO_CHANGE                0x0000 /* Comparator output did not change states */
+#define CMP2_STATE_MASK               (~CMP2_CHANGE_STATE )
 
-#define CMP1_CHANGE_STATE           	0x1000 /* Comparator output changed states */
-#define CMP1_NO_CHANGE              	0x0000 /* Comparator output did not change states */
-#define CMP1_ENBL_DSBL_MASK         	(~CMP1_CHANGE_STATE )
+#define CMP1_CHANGE_STATE             0x1000 /* Comparator output changed states */
+#define CMP1_NO_CHANGE                0x0000 /* Comparator output did not change states */
+#define CMP1_ENBL_DSBL_MASK           (~CMP1_CHANGE_STATE )
 
-#define CMP2_ENABLE                 	0x0800 /* Comparator is enabled */
-#define CMP2_DISABLE                	0x0000 /* Comparator is disabled */
-#define CMP2_ENBL_DSBL_MASK         	(~CMP2_ENABLE)
+#define CMP2_ENABLE                   0x0800 /* Comparator is enabled */
+#define CMP2_DISABLE                  0x0000 /* Comparator is disabled */
+#define CMP2_ENBL_DSBL_MASK           (~CMP2_ENABLE)
 
-#define CMP1_ENABLE                 	0x0400 /* Comparator is enabled */
-#define CMP1_DISABLE                	0x0000 /* Comparator is disabled */
-#define CMP1_STATE_MASK             	(~CMP1_ENABLE)
+#define CMP1_ENABLE                   0x0400 /* Comparator is enabled */
+#define CMP1_DISABLE                  0x0000 /* Comparator is disabled */
+#define CMP1_STATE_MASK               (~CMP1_ENABLE)
 
-#define CMP2_OUTPUT_ENABLE          	0x0200 /* Comparator output driven on the output pad */
-#define CMP2_OUTPUT_DISABLE         	0x0000 /* Comparator output is not driven on the output pad */
-#define CMP2_OUTPUT_MASK            	(~CMP2_OUTPUT_ENABLE)
+#define CMP2_OUTPUT_ENABLE            0x0200 /* Comparator output driven on the output pad */
+#define CMP2_OUTPUT_DISABLE           0x0000 /* Comparator output is not driven on the output pad */
+#define CMP2_OUTPUT_MASK              (~CMP2_OUTPUT_ENABLE)
 
-#define CMP1_OUTPUT_ENABLE          	0x0100 /* Comparator output driven on the output pad */
-#define CMP1_OUTPUT_DISABLE         	0x0000 /* Comparator output is not driven on the output pad */
-#define CMP1_OUTPUT_MASK            	(~CMP1_OUTPUT_ENABLE)
+#define CMP1_OUTPUT_ENABLE            0x0100 /* Comparator output driven on the output pad */
+#define CMP1_OUTPUT_DISABLE           0x0000 /* Comparator output is not driven on the output pad */
+#define CMP1_OUTPUT_MASK              (~CMP1_OUTPUT_ENABLE)
 
-#define CMP2_INV_OUTPUT             	0x0020 /* C2 output inverted */
-#define CMP2_NORMAL_OUTPUT          	0x0000 /* C2 output not inverted */
-#define CMP2_INV_OUTPUT_MASK        	(~CMP2_INV_OUTPUT)
+#define CMP2_INV_OUTPUT               0x0020 /* C2 output inverted */
+#define CMP2_NORMAL_OUTPUT            0x0000 /* C2 output not inverted */
+#define CMP2_INV_OUTPUT_MASK          (~CMP2_INV_OUTPUT)
 
-#define CMP1_INV_OUTPUT             	0x0010 /* C1 output inverted */
-#define CMP1_NORMAL_OUTPUT          	0x0000 /* C1 output not inverted */
-#define CMP1_INV_OUTPUT_MASK        	(~CMP1_INV_OUTPUT)
+#define CMP1_INV_OUTPUT               0x0010 /* C1 output inverted */
+#define CMP1_NORMAL_OUTPUT            0x0000 /* C1 output not inverted */
+#define CMP1_INV_OUTPUT_MASK          (~CMP1_INV_OUTPUT)
 
-#define CMP2_NEG_IP_VIN_POS        		0x0008 /* Input is connected to Vin+ */
-#define CMP2_NEG_IP_VIN_NEG        		0x0000 /* Input is connected to Vin- */
-#define CMP2_NEG_IP_MASK           		(~CMP2_NEG_IP_VIN_POS)
+#define CMP2_NEG_IP_VIN_POS           0x0008 /* Input is connected to Vin+ */
+#define CMP2_NEG_IP_VIN_NEG           0x0000 /* Input is connected to Vin- */
+#define CMP2_NEG_IP_MASK              (~CMP2_NEG_IP_VIN_POS)
 
-#define CMP2_POS_IP_VIN_POS        		0x0004 /* Input is connected to Vin+ */
-#define CMP2_POS_IP_CV_REF         		0x0000 /* Input is connected to Vin- */
-#define CMP2_POS_IP_MASK           		(~CMP2_POS_IP_VIN_POS)
+#define CMP2_POS_IP_VIN_POS           0x0004 /* Input is connected to Vin+ */
+#define CMP2_POS_IP_CV_REF            0x0000 /* Input is connected to Vin- */
+#define CMP2_POS_IP_MASK              (~CMP2_POS_IP_VIN_POS)
 
-#define CMP1_NEG_IP_VIN_POS        		0x0002 /* Input is connected to Vin+ */
-#define CMP1_NEG_IP_VIN_NEG        		0x0000 /* Input is connected to Vin- */
-#define CMP1_NEG_IP_MASK           		(~CMP1_NEG_IP_VIN_POS)
+#define CMP1_NEG_IP_VIN_POS           0x0002 /* Input is connected to Vin+ */
+#define CMP1_NEG_IP_VIN_NEG           0x0000 /* Input is connected to Vin- */
+#define CMP1_NEG_IP_MASK              (~CMP1_NEG_IP_VIN_POS)
 
-#define CMP1_POS_IP_VIN_POS        		0x0001 /* Input is connected to Vin+ */
-#define CMP1_POS_IP_CV_REF         		0x0000 /* Input is connected to Vin- */
-#define CMP1_POS_IP_MASK           		(~CMP1_POS_IP_VIN_POS)
+#define CMP1_POS_IP_VIN_POS           0x0001 /* Input is connected to Vin+ */
+#define CMP1_POS_IP_CV_REF            0x0000 /* Input is connected to Vin- */
+#define CMP1_POS_IP_MASK              (~CMP1_POS_IP_VIN_POS)
 
-#define CMP_VREF_ENABLE            		0x0080 /* CVREF circuit powered on */
-#define CMP_VREF_DISABLE           		0x0000 /* CVREF circuit powered down */
-#define CMP1_VREF_MASK             		(~CMP_VREF_ENABLE)
+#define CMP_VREF_ENABLE               0x0080 /* CVREF circuit powered on */
+#define CMP_VREF_DISABLE              0x0000 /* CVREF circuit powered down */
+#define CMP1_VREF_MASK                (~CMP_VREF_ENABLE)
 
-#define CMP_VREF_OUTPUT_ENABLE     		0x0040 /* CVREF voltage level is output on CVREF pin */
-#define CMP_VREF_OUTPUT_DISABLE    		0x0000 /* CVREF voltage level is disconnected from CVREF pin */
-#define CMP_VREF_OUTPUT_MASK       		(~CMP_VREF_OUTPUT_ENABLE)
+#define CMP_VREF_OUTPUT_ENABLE        0x0040 /* CVREF voltage level is output on CVREF pin */
+#define CMP_VREF_OUTPUT_DISABLE       0x0000 /* CVREF voltage level is disconnected from CVREF pin */
+#define CMP_VREF_OUTPUT_MASK          (~CMP_VREF_OUTPUT_ENABLE)
 
-#define CMP_VREF_SELECT_24_STEPS   		0x0020 /* 0 to 0.67 CVRSRC, with CVRSRC/24 step size */
-#define CMP_VREF_SELECT_32_STEPS   		0x0000 /* 0.25 CVRSRC to 0.75 CVRSRC, with CVRSRC/32 step size */
-#define CMP_VREF_STEP_SELECT_MASK  		(~CMP_VREF_SELECT_24_STEPS) /* 0 to 0.67 CVRSRC, with CVRSRC/24 step size */
+#define CMP_VREF_SELECT_24_STEPS      0x0020 /* 0 to 0.67 CVRSRC, with CVRSRC/24 step size */
+#define CMP_VREF_SELECT_32_STEPS      0x0000 /* 0.25 CVRSRC to 0.75 CVRSRC, with CVRSRC/32 step size */
+#define CMP_VREF_STEP_SELECT_MASK     (~CMP_VREF_SELECT_24_STEPS) /* 0 to 0.67 CVRSRC, with CVRSRC/24 step size */
 
-#define CMP_VRSRC_VREF_VREF        		0x0010 /* Comparator reference source CVRSRC = VREF+ – VREF- */
-#define CMP_VRSRC_AVDD_AVSS        		0x0000 /* Comparator reference source CVRSRC = AVDD – AVSS */
-#define CMP_VRSRC_MASK             		(~CMP_VRSRC_VREF_VREF)
+#define CMP_VRSRC_VREF_VREF           0x0010 /* Comparator reference source CVRSRC = VREF+ – VREF- */
+#define CMP_VRSRC_AVDD_AVSS           0x0000 /* Comparator reference source CVRSRC = AVDD – AVSS */
+#define CMP_VRSRC_MASK                (~CMP_VRSRC_VREF_VREF)
 
 
 #define CMP_0P0_CVRR_1      0x0020

@@ -92,7 +92,7 @@ void    _esos_DoNothingIsr(void);
 void    _esos_hw_DoNothingIsr(void);
 
 // Map the HW-specific routine names into osXXXXXX ones
-//#define		esos_InitUserInterrupts					_esos_hw_InitUserInterrupts
+//#define   esos_InitUserInterrupts         _esos_hw_InitUserInterrupts
 
 /**
 * Disables all registered user interrupts.

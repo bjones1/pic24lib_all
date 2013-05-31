@@ -86,7 +86,7 @@ void configHeartbeat(void) {
   */
   u32_heartbeatMax = CYCLES_PER_MS * 10;
   u32_heartbeatCount = 0;
-  HB_LED = 0;	// Turn LED off to show we started running
+  HB_LED = 0; // Turn LED off to show we started running
   doHeartbeat();    // do Heartbeat   at least once
 }
 
@@ -266,7 +266,7 @@ void checkDeviceAndRevision(void) {
 void checkOscOption(void) {
   uint8_t u8_x;
 
-  u8_x = _COSC;		// Get current oscillator setting
+  u8_x = _COSC;   // Get current oscillator setting
   switch (u8_x) {
     case 0:
       outString("Fast RC Osc\n");

@@ -139,7 +139,7 @@ void writeLCD(uint8_t u8_Cmd, uint8_t u8_DataFlag,
     // check busy
     configBusAsInLCD();  //set data pins all inputs
     u8_wdtState = _SWDTEN;  //save WDT enable state
-    CLRWDT();  			   //clear the WDT timer
+    CLRWDT();          //clear the WDT timer
     _SWDTEN = 1;            //enable WDT to escape infinite wait
     do {
       E_HIGH();
