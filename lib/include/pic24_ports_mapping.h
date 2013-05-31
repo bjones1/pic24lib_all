@@ -94,10 +94,26 @@
       defined(__dsPIC33EP64GP502__)
 # define RA0_AN 0
 # define RA1_AN 1
+# define RB0_RP 32
 # define RB0_AN 2
+# define RB1_RP 33
 # define RB1_AN 3
+# define RB2_RP 34
 # define RB2_AN 4
+# define RB3_RP 35
 # define RB3_AN 5
+# define RB4_RP 36
+# define RB5_RP 37
+# define RB6_RP 38
+# define RB7_RP 39
+# define RB8_RP 40
+# define RB9_RP 41
+# define RB10_RP 42
+# define RB11_RP 43
+# define RB12_RP 44
+# define RB13_RP 45
+# define RB14_RP 46
+# define RB15_RP 47
 
 #elif defined(__PIC24EP256GP206__) || \
       defined(__dsPIC33EP128GP506__) || \
