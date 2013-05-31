@@ -259,41 +259,24 @@ void configUART1(uint32_t u32_baudRate) {
   // The following pin mappings will apply only to UART 1.
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
-  CONFIG_RP14_AS_DIG_PIN();             // RX RP pin must be digital
-  CONFIG_U1RX_TO_RP(14);                // U1RX <- RP14
-  CONFIG_RP15_AS_DIG_PIN();             // TX RP pin must be digital
-  CONFIG_U1TX_TO_RP(15);                // U1TX -> RP15
-  CONFIG_RP10_AS_DIG_PIN();             // RX RP pin must be digital
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
+  CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB14_REMAPPABLE);   // U1RX <- RB14
+  CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB15_REMAPPABLE);   // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
   CONFIG_RP9_AS_DIG_PIN();              // RX RP pin must be digital
   CONFIG_U1RX_TO_RP(9);                 // U1RX <- RP9
   CONFIG_RP8_AS_DIG_PIN();              // TX RP pin must be digital
   CONFIG_U1TX_TO_RP(8);                 // U1TX -> RP8
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
-#   if ( defined(__PIC24E__) || defined(__dsPIC33E__))
-  CONFIG_U1RX_TO_RP(42);               //U1RX <- RP42
-  CONFIG_RP43_AS_DIG_PIN();                //TX RP pin must be digital
-  CONFIG_U1TX_TO_RP(43);               //U1TX -> RP43
-#   else
-  CONFIG_U1RX_TO_RP(10);               //U1RX <- RP10
-  CONFIG_RP11_AS_DIG_PIN();                //TX RP pin must be digital
-  CONFIG_U1TX_TO_RP(11);               //U1TX -> RP11
-#   endif
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
+  CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10
+  CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
+#if RB11_REMAPPABLE != 11
+# error
+#endif
+//  CONFIG_U1TX_TO_RP(RB11_REMAPPABLE);   // U1TX -> RB11
+  CONFIG_U1TX_TO_RP(11);   // U1TX -> RB11
 # else
 #   error "Unknown hardware platform."
 # endif
@@ -678,41 +661,20 @@ void configUART2(uint32_t u32_baudRate) {
   // The following pin mappings will apply only to UART 1.
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
-  CONFIG_RP14_AS_DIG_PIN();             // RX RP pin must be digital
-  CONFIG_U1RX_TO_RP(14);                // U1RX <- RP14
-  CONFIG_RP15_AS_DIG_PIN();             // TX RP pin must be digital
-  CONFIG_U1TX_TO_RP(15);                // U1TX -> RP15
-  CONFIG_RP10_AS_DIG_PIN();             // RX RP pin must be digital
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
+  CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB14_REMAPPABLE);   // U1RX <- RB14
+  CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB15_REMAPPABLE);   // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
   CONFIG_RP9_AS_DIG_PIN();              // RX RP pin must be digital
   CONFIG_U1RX_TO_RP(9);                 // U1RX <- RP9
   CONFIG_RP8_AS_DIG_PIN();              // TX RP pin must be digital
   CONFIG_U1TX_TO_RP(8);                 // U1TX -> RP8
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
-#   if ( defined(__PIC24E__) || defined(__dsPIC33E__))
-  CONFIG_U2RX_TO_RP(42);               //U2RX <- RP42
-  CONFIG_RP43_AS_DIG_PIN();                //TX RP pin must be digital
-  CONFIG_U2TX_TO_RP(43);               //U2TX -> RP43
-#   else
-  CONFIG_U2RX_TO_RP(10);               //U2RX <- RP10
-  CONFIG_RP11_AS_DIG_PIN();                //TX RP pin must be digital
-  CONFIG_U2TX_TO_RP(11);               //U2TX -> RP11
-#   endif
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
+  CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10
+  CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB11_REMAPPABLE);   // U1TX -> RB11
 # else
 #   error "Unknown hardware platform."
 # endif
@@ -1097,41 +1059,20 @@ void configUART3(uint32_t u32_baudRate) {
   // The following pin mappings will apply only to UART 1.
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
-  CONFIG_RP14_AS_DIG_PIN();             // RX RP pin must be digital
-  CONFIG_U1RX_TO_RP(14);                // U1RX <- RP14
-  CONFIG_RP15_AS_DIG_PIN();             // TX RP pin must be digital
-  CONFIG_U1TX_TO_RP(15);                // U1TX -> RP15
-  CONFIG_RP10_AS_DIG_PIN();             // RX RP pin must be digital
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
+  CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB14_REMAPPABLE);   // U1RX <- RB14
+  CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB15_REMAPPABLE);   // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
   CONFIG_RP9_AS_DIG_PIN();              // RX RP pin must be digital
   CONFIG_U1RX_TO_RP(9);                 // U1RX <- RP9
   CONFIG_RP8_AS_DIG_PIN();              // TX RP pin must be digital
   CONFIG_U1TX_TO_RP(8);                 // U1TX -> RP8
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
-#   if ( defined(__PIC24E__) || defined(__dsPIC33E__))
-  CONFIG_U3RX_TO_RP(42);               //U3RX <- RP42
-  CONFIG_RP43_AS_DIG_PIN();                //TX RP pin must be digital
-  CONFIG_U3TX_TO_RP(43);               //U3TX -> RP43
-#   else
-  CONFIG_U3RX_TO_RP(10);               //U3RX <- RP10
-  CONFIG_RP11_AS_DIG_PIN();                //TX RP pin must be digital
-  CONFIG_U3TX_TO_RP(11);               //U3TX -> RP11
-#   endif
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
+  CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10
+  CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB11_REMAPPABLE);   // U1TX -> RB11
 # else
 #   error "Unknown hardware platform."
 # endif
@@ -1516,41 +1457,20 @@ void configUART4(uint32_t u32_baudRate) {
   // The following pin mappings will apply only to UART 1.
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
-  CONFIG_RP14_AS_DIG_PIN();             // RX RP pin must be digital
-  CONFIG_U1RX_TO_RP(14);                // U1RX <- RP14
-  CONFIG_RP15_AS_DIG_PIN();             // TX RP pin must be digital
-  CONFIG_U1TX_TO_RP(15);                // U1TX -> RP15
-  CONFIG_RP10_AS_DIG_PIN();             // RX RP pin must be digital
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
+  CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB14_REMAPPABLE);   // U1RX <- RB14
+  CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB15_REMAPPABLE);   // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
   CONFIG_RP9_AS_DIG_PIN();              // RX RP pin must be digital
   CONFIG_U1RX_TO_RP(9);                 // U1RX <- RP9
   CONFIG_RP8_AS_DIG_PIN();              // TX RP pin must be digital
   CONFIG_U1TX_TO_RP(8);                 // U1TX -> RP8
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
-#   if ( defined(__PIC24E__) || defined(__dsPIC33E__))
-  CONFIG_U4RX_TO_RP(42);               //U4RX <- RP42
-  CONFIG_RP43_AS_DIG_PIN();                //TX RP pin must be digital
-  CONFIG_U4TX_TO_RP(43);               //U4TX -> RP43
-#   else
-  CONFIG_U4RX_TO_RP(10);               //U4RX <- RP10
-  CONFIG_RP11_AS_DIG_PIN();                //TX RP pin must be digital
-  CONFIG_U4TX_TO_RP(11);               //U4TX -> RP11
-#   endif
-  // turn off any analog functionality on these pins
-  // (may be needed if pin is hardmapped and RPx does
-  // not exist)
-  DISABLE_U1TX_ANALOG();
-  DISABLE_U1RX_ANALOG();
+  CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10
+  CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB11_REMAPPABLE);   // U1TX -> RB11
 # else
 #   error "Unknown hardware platform."
 # endif
