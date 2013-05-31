@@ -155,15 +155,13 @@ def genTablesFromTemplate(csvFileName, destFileName):
               _RPy = RPy[Rxy]
               _ANn = ANn[Rxy]
               _CNm = CNm[Rxy]
-              if is_e:
-                  if _RPy:
-                      outFile.write('# define R%s_REMAPPABLE %s\n' % (Rxy, _RPy))
-                  if _ANn:
-                      outFile.write('# define R%s_AN_PORT %s\n' % (Rxy, _ANn))
-                  # E parts should never have CN info in them.
-                  assert not _CNm
-              elif _RPy or _ANn or _CNm:
-                  outFile.write('# define R%s_GPIO %s, %s, %s\n' % (Rxy, _RPy or '-1', _ANn or '-1', _CNm or '-1'))
+              if _RPy:
+                  outFile.write('# define R%s_RP %s\n' % (Rxy, _RPy))
+              if _ANn:
+                  outFile.write('# define R%s_AN %s\n' % (Rxy, _ANn))
+              if _CNm:
+                  assert not is_e
+                  outFile.write('# define R%s_CN %s\n' % (Rxy, _CNm))
       # Write footer
       outFile.write('#else\n# error "Port information not defined."\n#endif\n')
 
@@ -178,8 +176,7 @@ def csv_template_builder(target, source, env):
   t=str(target[0])
   f=os.path.split(str(target[0]))[-1]
   g=os.path.splitext(f)[0]
-  if g == "pic24_ports_tables":
-    genTablesFromTemplate(s, t)
+  genTablesFromTemplate(s, t)
 
 ## Builds a .h from a template -- SCons Builder function formation.
 # Function will build the .c as requested.  Has the proper
@@ -222,15 +219,25 @@ env.Append(BUILDERS = {'CSVTemplate' : csvbldr})
 ###############################################################################
 
 # Specify which files are produced by templates
-env.CTemplate('../lib/common/pic24_uart','pic24_uart')
 env.HTemplate('../lib/include/pic24_uart','pic24_uart')
-env.CTemplate('../lib/common/pic24_i2c','pic24_i2c')
 env.HTemplate('../lib/include/pic24_i2c','pic24_i2c')
-env.CTemplate('../lib/common/pic24_spi','pic24_spi')
-env.CTemplate('../lib/common/pic24_ecan','pic24_ecan')
 env.HTemplate('../lib/include/pic24_ecan','pic24_ecan')
 env.HTemplate('../lib/include/pic24_ports_fh_config','pic24_ports_fh_config')
-env.CSVTemplate('../lib/include/pic24_ports_tables','pic24_devices')
+env.CSVTemplate('../lib/include/pic24_ports_mapping','pic24_devices')
+env.CTemplate('../lib/common/pic24_uart','pic24_uart')
+env.CTemplate('../lib/common/pic24_i2c','pic24_i2c')
+env.CTemplate('../lib/common/pic24_ecan','pic24_ecan')
+env.CTemplate('../lib/common/pic24_spi','pic24_spi')
+
+env.Alias('template-build', ['../lib/include/pic24_uart.h',
+                             '../lib/include/pic24_i2c.h',
+                             '../lib/include/pic24_ecan.h',
+                             '../lib/include/pic24_ports_fh_config.h',
+                             '../lib/include/pic24_ports_mapping.h',
+                             '../lib/common/pic24_uart.c',
+                             '../lib/common/pic24_i2c.c',
+                             '../lib/common/pic24_spi.c',
+                             '../lib/common/pic24_ecan.c']);
 
 
 ## @}

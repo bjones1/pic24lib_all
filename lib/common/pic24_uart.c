@@ -260,23 +260,19 @@ void configUART1(uint32_t u32_baudRate) {
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
   CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
-  CONFIG_U1RX_TO_RP(RB14_REMAPPABLE);   // U1RX <- RB14
+  CONFIG_U1RX_TO_RP(RB14_RP);           // U1RX <- RB14
   CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RB15_REMAPPABLE);   // U1TX -> RB15
+  CONFIG_U1TX_TO_RP(RB15_RP);           // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
-  CONFIG_RP9_AS_DIG_PIN();              // RX RP pin must be digital
-  CONFIG_U1RX_TO_RP(9);                 // U1RX <- RP9
-  CONFIG_RP8_AS_DIG_PIN();              // TX RP pin must be digital
-  CONFIG_U1TX_TO_RP(8);                 // U1TX -> RP8
+  CONFIG_RP9_AS_DIG_INPUT();            // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB9_RP);            // U1RX <- RB9
+  CONFIG_RP8_AS_DIG_OUTPUT();           // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB8_RP);            // U1TX -> RB8
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10
   CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
-#if RB11_REMAPPABLE != 11
-# error
-#endif
-//  CONFIG_U1TX_TO_RP(RB11_REMAPPABLE);   // U1TX -> RB11
-  CONFIG_U1TX_TO_RP(11);   // U1TX -> RB11
+  CONFIG_U1TX_TO_RP(RB11_REMAPPABLE);   // U1TX -> RB11
 # else
 #   error "Unknown hardware platform."
 # endif
@@ -662,14 +658,14 @@ void configUART2(uint32_t u32_baudRate) {
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
   CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
-  CONFIG_U1RX_TO_RP(RB14_REMAPPABLE);   // U1RX <- RB14
+  CONFIG_U1RX_TO_RP(RB14_RP);           // U1RX <- RB14
   CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RB15_REMAPPABLE);   // U1TX -> RB15
+  CONFIG_U1TX_TO_RP(RB15_RP);           // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
-  CONFIG_RP9_AS_DIG_PIN();              // RX RP pin must be digital
-  CONFIG_U1RX_TO_RP(9);                 // U1RX <- RP9
-  CONFIG_RP8_AS_DIG_PIN();              // TX RP pin must be digital
-  CONFIG_U1TX_TO_RP(8);                 // U1TX -> RP8
+  CONFIG_RP9_AS_DIG_INPUT();            // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB9_RP);            // U1RX <- RB9
+  CONFIG_RP8_AS_DIG_OUTPUT();           // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB8_RP);            // U1TX -> RB8
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10
@@ -1060,14 +1056,14 @@ void configUART3(uint32_t u32_baudRate) {
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
   CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
-  CONFIG_U1RX_TO_RP(RB14_REMAPPABLE);   // U1RX <- RB14
+  CONFIG_U1RX_TO_RP(RB14_RP);           // U1RX <- RB14
   CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RB15_REMAPPABLE);   // U1TX -> RB15
+  CONFIG_U1TX_TO_RP(RB15_RP);           // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
-  CONFIG_RP9_AS_DIG_PIN();              // RX RP pin must be digital
-  CONFIG_U1RX_TO_RP(9);                 // U1RX <- RP9
-  CONFIG_RP8_AS_DIG_PIN();              // TX RP pin must be digital
-  CONFIG_U1TX_TO_RP(8);                 // U1TX -> RP8
+  CONFIG_RP9_AS_DIG_INPUT();            // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB9_RP);            // U1RX <- RB9
+  CONFIG_RP8_AS_DIG_OUTPUT();           // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB8_RP);            // U1TX -> RB8
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10
@@ -1458,14 +1454,14 @@ void configUART4(uint32_t u32_baudRate) {
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
   CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
-  CONFIG_U1RX_TO_RP(RB14_REMAPPABLE);   // U1RX <- RB14
+  CONFIG_U1RX_TO_RP(RB14_RP);           // U1RX <- RB14
   CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RB15_REMAPPABLE);   // U1TX -> RB15
+  CONFIG_U1TX_TO_RP(RB15_RP);           // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
-  CONFIG_RP9_AS_DIG_PIN();              // RX RP pin must be digital
-  CONFIG_U1RX_TO_RP(9);                 // U1RX <- RP9
-  CONFIG_RP8_AS_DIG_PIN();              // TX RP pin must be digital
-  CONFIG_U1TX_TO_RP(8);                 // U1TX -> RP8
+  CONFIG_RP9_AS_DIG_INPUT();            // RX pin must be digital input
+  CONFIG_U1RX_TO_RP(RB9_RP);            // U1RX <- RB9
+  CONFIG_RP8_AS_DIG_OUTPUT();           // TX pin must be digital output
+  CONFIG_U1TX_TO_RP(RB8_RP);            // U1TX -> RB8
 # elif (HARDWARE_PLATFORM == DEFAULT_DESIGN)
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB10_REMAPPABLE);   // U1RX <- RB10

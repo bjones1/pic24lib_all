@@ -5,18 +5,18 @@
 # Documentation for this file. If the \file tag isn't present,
 # this file won't be documented.
 ## \file
-#  This file provides an automated build process for the 
+#  This file provides an automated build process for the
 #  \ref index "libraries" included in this collection.
 #  To use:
 #  -# Install SCons.
 #  -# Install the Microchip compiler. Make sure your path
 #     includes the directories in which the compiler binaries
 #     exist.
-#  -# From the command line, change to the directory in which 
+#  -# From the command line, change to the directory in which
 #     this file lies.
 #  -# Execute <code>SCons</code>, which builds everything.
 #
-#  The build process can be modified by passing options to 
+#  The build process can be modified by passing options to
 #  SCons. See <code>SCons --help</code> for options specific
 #  to this build and <code>SCons -H</code> for generic SCons
 #  options.
@@ -45,14 +45,14 @@ opts = Variables()
 opts.Add(EnumVariable('BOOTLDR', 'Determines bootloader type', 'msu',
                     allowed_values=('msu','none')))
 
-print "Creating a SCons build environment for Microchip C30 family"
+print "Creating a SCons build environment for the Microchip PIC24/dsPIC33 (xc16 compiler) family"
 env = Environment(
-        # Force SCons to set up for with gnu tools to start 
+        # Force SCons to set up for with gnu tools to start
         # with reasonable defaults. Note: using platform = 'posix'
         # causes SCons to try to call fork() when executing programs
         # (such as compilers), which errors out on Windows.
         tools = ['gcc', 'gnulink', 'ar', 'zip', 'packaging'],
-        options = opts, 
+        options = opts,
         # Copied and cobbled together from SCons\Tools\cc.py with mods
         CCCOM = '$CC -c -o $TARGET $CFLAGS $CCFLAGS $CPPFLAGS $_CPPDEFFLAGS $_CPPINCFLAGS $SOURCES',
         CCCCOMSTR = 'Compiling $SOURCES',
@@ -78,7 +78,7 @@ if os.name == 'posix':
     """)
   ## Change linux-specific environment variables
   env.Replace(
-    CPPPATH = incDirs, 
+    CPPPATH = incDirs,
     CC = 'pic30-elf-gcc',
     LIBPATH = libDirs,
     AR = 'pic30-elf-ar',
@@ -98,7 +98,7 @@ elif os.name == 'nt':
     """)
   libDirs = Split( """.
     """)
-  # Change linux-specific environment variables    
+  # Change linux-specific environment variables
   env.Replace(
     CPPPATH = incDirs,
     CC = 'xc16-gcc',
@@ -186,17 +186,12 @@ archiveFileName = 'build/pic24_code_examples.zip'
 
 ## Call SConscript with a specific buildTargets value
 def buildTargetsSConscript(buildTargets, env, variantDirName):
-  SConscript('SCons_build.py', exports='buildTargets env', 
+  SConscript('SCons_build.py', exports='buildTargets env',
     variant_dir='build/' + env['MCU'] + "_" + variantDirName)
 
 
 # Inform SCons about the dependencies in the template-based files
 SConscript('./templates/SConscript.py', 'env')
-
-env.Alias('template-build', ['lib/include/pic24_uart.h', 'lib/include/pic24_i2c.h',
-                             'lib/include/pic24_ecan.h',
-                             'lib/common/pic24_uart.c',  'lib/common/pic24_i2c.c',
-                             'lib/common/pic24_spi.c',   'lib/common/pic24_ecan.c']);
 
 ## Create a target which zips up these files;
 ## otherwise, create compilation targets.
@@ -210,7 +205,7 @@ else:
     # Build the PIC24H32/FJ64Gxx02-compatible directories
     #######################################################
     # Build small, non-DMA on the PIC24HJ32GP202
-    buildTargetsSConscript(['chap8', 'chap9', 'chap10', 'chap11nodma', 'chap12',      
+    buildTargetsSConscript(['chap8', 'chap9', 'chap10', 'chap11nodma', 'chap12',
                             'bootloader'],
     env.Clone(MCU='24HJ32GP202'), 'default')
 
@@ -244,23 +239,23 @@ else:
     buildTargetsSConscript(['chap8', 'chap9', 'chap10', 'chap10stdio', 'chap11dma',  'chap12big','chap12',
                             'chap13', 'chap15', 'bootloader'],
       env.Clone(MCU='33FJ128GP802'), 'default')
-    
+
     # Build some for the PIC24E device
     buildTargetsSConscript(['chap8', 'chap9', 'chap10', 'chap11_24E',  'chap12big','chap12_24E',
                             'bootloader'],
       env.Clone(MCU='24EP64GP202'), 'default')
-       
-   
+
+
     # Build for the explorer board
     buildTargetsSConscript(['explorer', 'bootloader'],
-      env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')    
+      env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')
     buildTargetsSConscript(['explorerh', 'bootloader'],
-      env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')    
+      env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')
 
     # Do a no-float build of reset
-    buildTargetsSConscript(['reset'], 
+    buildTargetsSConscript(['reset'],
       env.Clone(MCU='24HJ32GP202',  CPPDEFINES='_NOFLOAT'), 'nofloat')
-      
+
     # Build reset on other supported platforms
     buildTargetsSConscript(['reset'],
       env.Clone(MCU='24FJ64GA002',  CPPDEFINES='HARDWARE_PLATFORM=STARTER_BOARD_28P'), 'starter_board_28p')
@@ -268,17 +263,17 @@ else:
       env.Clone(MCU='33FJ128GP204', CPPDEFINES='HARDWARE_PLATFORM=DANGEROUS_WEB'), 'dangerous_web')
 
     # Build reset with various clock options on all processors
-    for clock in ['SIM_CLOCK', 'FRCPLL_FCY16MHz', 'FRC_FCY4MHz', 
+    for clock in ['SIM_CLOCK', 'FRCPLL_FCY16MHz', 'FRC_FCY4MHz',
     'PRI_NO_PLL_7372KHzCrystal', 'PRIPLL_8MHzCrystal_16MHzFCY']:
-        buildTargetsSConscript(['reset'], 
+        buildTargetsSConscript(['reset'],
           env.Clone(MCU='24FJ64GA002', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
-        buildTargetsSConscript(['reset'], 
+        buildTargetsSConscript(['reset'],
           env.Clone(MCU='24FJ64GA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
 #        buildTargetsSConscript(['reset'],
 #          env.Clone(MCU='24F16KA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
     for clock in ['SIM_CLOCK', 'PRI_NO_PLL_7372KHzCrystal', 'FRC_FCY3685KHz',
     'FRCPLL_FCY40MHz', 'PRIPLL_7372KHzCrystal_40MHzFCY', 'PRIPLL_8MHzCrystal_40MHzFCY']:
-        buildTargetsSConscript(['reset'], 
+        buildTargetsSConscript(['reset'],
           env.Clone(MCU='24HJ32GP202',  CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
-        buildTargetsSConscript(['reset'], 
+        buildTargetsSConscript(['reset'],
           env.Clone(MCU='33FJ128GP802', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
