@@ -42,11 +42,11 @@ int main (void) {
   float f_adcVal;
 
   configBasic(HELLO_MSG);
-  CONFIG_AN0_AS_ANALOG();
+  CONFIG_RA0_AS_ANALOG();
 
   // Configure A/D to sample AN0 for 31 Tad periods in 10-bit mode
   // then perform a single conversion.
-  configADC1_ManualCH0(ADC_CH0_POS_SAMPLEA_AN0, 31, 0);
+  configADC1_ManualCH0(RA0_AN, 31, 0);
   while (1) {
     u16_adcVal = convertADC1();   //get ADC value
     f_adcVal = u16_adcVal;

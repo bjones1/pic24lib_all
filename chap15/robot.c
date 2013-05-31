@@ -305,8 +305,8 @@ void autoDrive(void) {
 
 int main (void) {
   configBasic(HELLO_MSG);
-  CONFIG_AN1_AS_ANALOG();
-  configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN1, 31, 1 );
+  CONFIG_RA1_AS_ANALOG();
+  configADC1_ManualCH0(RA1_AN, 31, 1);
   SET_SAMP_BIT_ADC1();   //start first conversion
   configTimer2();
   configInputCapture1();

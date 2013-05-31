@@ -130,14 +130,14 @@ void configSPI1(void) {
   //you may need to add code to disable analog functionality if the SPI ports
   //are on analog-capable pins.
 #else
-  CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
-  CONFIG_RP6_AS_DIG_PIN();   //Ensure that this is a digital pin
-  CONFIG_SCK1IN_TO_RP(7);    //use RP7 for SCLK input
-  CONFIG_RP7_AS_DIG_PIN();   //Ensure that this is a digital pin
-  CONFIG_SDI1_TO_RP(5);      //use RP5 for SDI
-  CONFIG_RP5_AS_DIG_PIN();   //Ensure that this is a digital pin
-  CONFIG_SS1IN_TO_RP(3);     //use RP3 for SS#
-  CONFIG_RP3_AS_DIG_PIN();   //Ensure that this is a digital pin
+  CONFIG_SDO1_TO_RP(RB6_RP);      //use RB6 for SDO
+  CONFIG_RB6_AS_DIG_OUTPUT();   //Ensure that this is a digital output
+  CONFIG_SCK1OUT_TO_RP(RB7_RP);   //use RB7 for SCLK
+  CONFIG_RB7_AS_DIG_INPUT();   //Ensure that this is a digital input
+  CONFIG_SDI1_TO_RP(RB5_RP);      //use RP5 for SDI
+  CONFIG_RB5_AS_DIG_INPUT();   //Ensure that this is a digital input
+  CONFIG_SS1IN_TO_RP(RB3_RP);     //use RP3 for SS#
+  CONFIG_RB3_AS_DIG_OUTPUT();   //Ensure that this is a digital output
 #endif
   CONFIG_SLAVE_ORDY();       //handshake to indicate output ready
   SLAVE_ORDY = 0;            //output is not ready

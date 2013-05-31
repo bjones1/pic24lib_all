@@ -250,8 +250,8 @@ int main (void) {
 
   configBasic(HELLO_MSG);
   // configure AN0 and AN1 to for analog input to PIC24 ADC
-  CONFIG_AN0_AS_ANALOG();
-  CONFIG_AN1_AS_ANALOG();
+  CONFIG_RA0_AS_ANALOG();
+  CONFIG_RA1_AS_ANALOG();
   configDAC();
   configTimer3();
   CONFIG_RB12_AS_DIG_OUTPUT();
@@ -259,12 +259,12 @@ int main (void) {
 
   u8_uiCount=5;
   while (1) {
-    configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN0, 31, ADC_12BIT_FLAG );
+    configADC1_ManualCH0(RA0_AN, 31, ADC_12BIT_FLAG);
     DELAY_MS(100);
     u16_per =convertADC1();
     if (u16_per==0) u16_per++;         // u16_per must be >= 1
 
-    configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN1, 31, ADC_12BIT_FLAG );
+    configADC1_ManualCH0(RA1_AN, 31, ADC_12BIT_FLAG);
     DELAY_MS(100);
     u8_amp = convertADC1()>>9;        // 0 <= u8_amp <= 7
 

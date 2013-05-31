@@ -57,13 +57,13 @@ int main (void) {
 
   // make RA0/AN0/VREF+ a digital input to kill the pullup and
   // set the TRISA bit, then make it ANALOG so the ADC will work
-  CONFIG_AN0_AS_ANALOG();
-  CONFIG_AN1_AS_ANALOG();
+  CONFIG_RA0_AS_ANALOG();
+  CONFIG_RA1_AS_ANALOG();
 
   while (1) {
-    configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN0, 31, ADC_12BIT_FLAG );
+    configADC1_ManualCH0(RA0_AN, 31, ADC_12BIT_FLAG );
     u16_pot1 = convertADC1();
-    configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN1, 31, ADC_12BIT_FLAG );
+    configADC1_ManualCH0(RA1_AN, 31, ADC_12BIT_FLAG );
     u16_pot2 = convertADC1();
 
     f_pot1 = 3.30 / ADC_NSTEPS * u16_pot1;

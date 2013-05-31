@@ -40,7 +40,11 @@ the power LED to function as a 'blinky' LED in addition to serving
 as a power indicator.
 */
 
-#define CONFIG_LED1()  CONFIG_RB15_AS_DIG_OD_OUTPUT()
+void CONFIG_LED1() {
+  CONFIG_RB15_AS_DIG_OUTPUT();
+  ENABLE_RB15_OPENDRAIN();
+}
+
 #define LED1  _LATB15    //_LATB15 is port register for RB15
 
 int main(void) {

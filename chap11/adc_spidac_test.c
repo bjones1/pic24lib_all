@@ -81,10 +81,10 @@ int main (void) {
   float f_dacVal;
 
   configBasic(HELLO_MSG);
-  CONFIG_AN0_AS_ANALOG();
+  CONFIG_RA0_AS_ANALOG();
   // Configure A/D to sample AN0 for 31 Tad periods in 12-bit mode
   // then perform a single conversion.
-  configADC1_ManualCH0(ADC_CH0_POS_SAMPLEA_AN0, 31, 1);
+  configADC1_ManualCH0(RA0_AN, 31, 1);
   configSPI1();
   configDAC();
   while (1) {

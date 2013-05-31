@@ -55,12 +55,12 @@ void configSPI1(void) {
   //nothing to do here. On this family, the SPI1 port uses dedicated
   //pins for higher speed. The SPI2 port can be used with remappable pins.
 #else
-  CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
-  CONFIG_RP6_AS_DIG_PIN();   //Ensure that this is a digital pin
-  CONFIG_SCK1OUT_TO_RP(7);   //use RP7 for SCLK
-  CONFIG_RP7_AS_DIG_PIN();   //Ensure that this is a digital pin
-  CONFIG_SDI1_TO_RP(5);      //use RP5 for SDI
-  CONFIG_RP5_AS_DIG_PIN();   //Ensure that this is a digital pin
+  CONFIG_SDO1_TO_RP(RB6_RP);      //use RB6 for SDO
+  CONFIG_RB6_AS_DIG_OUTPUT();   //Ensure that this is a digital output
+  CONFIG_SCK1OUT_TO_RP(RB7_RP);   //use RB7 for SCLK
+  CONFIG_RB7_AS_DIG_INPUT();   //Ensure that this is a digital input
+  CONFIG_SDI1_TO_RP(RB5_RP);      //use RP5 for SDI
+  CONFIG_RB5_AS_DIG_INPUT();   //Ensure that this is a digital input
 #endif
   CONFIG_SLAVE_ENABLE();     //slave select config
   CONFIG_SLAVE_ORDY();       //output ready from slave

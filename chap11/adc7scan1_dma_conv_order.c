@@ -232,13 +232,13 @@ int main (void) {
 
   // make RA0/AN0/VREF+ a digital input to kill the pullup and
   // set the TRISA bit, then make it ANALOG so the ADC will work
-  CONFIG_AN0_AS_ANALOG();
-  CONFIG_AN1_AS_ANALOG();
-  CONFIG_AN4_AS_ANALOG();
-  CONFIG_AN5_AS_ANALOG();
-  CONFIG_AN10_AS_ANALOG();
-  CONFIG_AN11_AS_ANALOG();
-  CONFIG_AN12_AS_ANALOG();
+  CONFIG_RA0_AS_ANALOG();
+  CONFIG_RA1_AS_ANALOG();
+  CONFIG_RB2_AS_ANALOG();
+  CONFIG_RB3_AS_ANALOG();
+  CONFIG_RB14_AS_ANALOG();
+  CONFIG_RB13_AS_ANALOG();
+  CONFIG_RB12_AS_ANALOG();
 
   CONFIG_LED2();
 

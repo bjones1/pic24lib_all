@@ -109,8 +109,8 @@ int main(void) {
   // Configure PWM
   configTimer2();
   configOutputCompare1();
-  CONFIG_AN0_AS_ANALOG();
-  configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN0, 31, 1 );
+  CONFIG_RA0_AS_ANALOG();
+  configADC1_ManualCH0(RA0_AN, 31, 1);
   SET_SAMP_BIT_ADC1();      //start sampling and conversion
   T2CONbits.TON = 1;       //turn on Timer2 to start PWM
 

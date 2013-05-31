@@ -63,11 +63,7 @@ void configOutputCompare1(void) {
   u16_maxPWTicks = usToU16Ticks(MAX_PW, getTimerPrescale(T2CONbits));
   T2CONbits.TON = 0;       //disable Timer when configuring Output compare
   CONFIG_RB3_AS_DIG_OUTPUT();
-#if (defined(__dsPIC33E__) || defined(__PIC24E__))
-  CONFIG_OC1_TO_RP(35);        //map OC1 to RP35/RB3
-#else
-  CONFIG_OC1_TO_RP(3);        //map OC1 to RP3/RB3
-#endif
+  CONFIG_OC1_TO_RP(RB3_RP);        //map OC1 to RB3
 //assumes TIMER2 initialized before OC1 so PRE bits are set
   OC1RS = 0;  //initially off
 //turn on the compare toggle mode using Timer2
@@ -101,8 +97,8 @@ int main(void) {
   configBasic(HELLO_MSG);
   configTimer2();
   configOutputCompare1();
-  CONFIG_AN0_AS_ANALOG();
-  configADC1_ManualCH0(ADC_CH0_POS_SAMPLEA_AN0, 31, 1);
+  CONFIG_RA0_AS_ANALOG();
+  configADC1_ManualCH0(RA0_AN, 31, 1);
   SET_SAMP_BIT_ADC1();      //start sampling and conversion
   T2CONbits.TON = 1;       //turn on Timer2 to start PWM
   while (1) {

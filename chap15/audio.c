@@ -336,8 +336,8 @@ int main (void) {
   uint8_t u8_mode;
 
   configBasic(HELLO_MSG);
-  CONFIG_AN0_AS_ANALOG();
-  configADC1_ManualCH0( ADC_CH0_POS_SAMPLEA_AN0, 31, 1 );
+  CONFIG_RA0_AS_ANALOG();
+  configADC1_ManualCH0(RA0_AN, 31, 1);
   SET_SAMP_BIT_ADC1();   //start first conversion
   configSPI1();
   configDAC();
