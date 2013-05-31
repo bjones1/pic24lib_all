@@ -1,0 +1,80 @@
+// Provide GPIO for R${x}
+// ====================
+#ifdef _R${x}
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANS${x}
+#   define ENABLE_R${x}_ANALOG()  (_ANS${x} = 1)
+#   define DISABLE_R${x}_ANALOG() (_ANS${x} = 0)
+# else
+#   define DISABLE_R${x}_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_R${x}_AS_INPUT()  (_TRIS${x} = 1)
+# define CONFIG_R${x}_AS_OUTPUT() (_TRIS${x} = 0)
+
+// Open-drain:
+# if defined(_ODC${x})
+#   define ENABLE_R${x}_OPENDRAIN()  (_ODC${x} = 1)
+#   define DISABLE_R${x}_OPENDRAIN() (_ODC${x} = 0)
+# else
+#   define DISABLE_R${x}_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIE${x}
+#   define ENABLE_R${x}_PULLUP()  (_CNPU${x} = 1)
+#   define DISABLE_R${x}_PULLUP() (_CNPU${x} = 0)
+
+#   define ENABLE_R${x}_PULLDOWN()  (_CNPD${x} = 1)
+#   define DISABLE_R${x}_PULLDOWN() (_CNPD${x} = 0)
+
+#   define ENABLE_R${x}_CN_INTERRUPT()  (_CNIE${x} = 1)
+#   define DISABLE_R${x}_CN_INTERRUPT() (_CNIE${x} = 0)
+
+# else
+#   define DISABLE_R${x}_PULLUP() ((void) 0)
+#   define DISABLE_R${x}_PULLDOWN() ((void) 0)
+#   define DISABLE_R${x}_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANS${x}
+#   define CONFIG_R${x}_AS_ANALOG()       \
+      do {                              \
+        ENABLE_R${x}_ANALOG();            \
+        CONFIG_R${x}_AS_INPUT();          \
+        DISABLE_R${x}_OPENDRAIN();        \
+        DISABLE_R${x}_PULLUP();           \
+        DISABLE_R${x}_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_R${x}_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_R${x}_ANALOG();           \
+      CONFIG_R${x}_AS_INPUT();          \
+      DISABLE_R${x}_OPENDRAIN();        \
+      DISABLE_R${x}_PULLUP();           \
+      DISABLE_R${x}_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_R${x}_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_R${x}_ANALOG();           \
+      CONFIG_R${x}_AS_OUTPUT();         \
+      DISABLE_R${x}_OPENDRAIN();        \
+      DISABLE_R${x}_PULLUP();           \
+      DISABLE_R${x}_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _R${x}: Provide GPIO for R${x}
+
+
+
+
+

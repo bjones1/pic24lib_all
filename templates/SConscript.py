@@ -216,7 +216,7 @@ def h_template_builder(target, source, env):
     genFromTemplate(s, t, 2)
   if ( g == "pic24_ecan"):
     genFromTemplate(s, t, 2)
-  if g == "pic24_ports_fh_config":
+  if (g == "pic24_ports_fh_config") or (g == "pic24_ports_e_config"):
     genConfigFromTemplate(s, t)
 
 ## Define and register a template-driven builder for .c files
@@ -243,6 +243,7 @@ env.HTemplate('../lib/include/pic24_uart','pic24_uart')
 env.HTemplate('../lib/include/pic24_i2c','pic24_i2c')
 env.HTemplate('../lib/include/pic24_ecan','pic24_ecan')
 env.HTemplate('../lib/include/pic24_ports_fh_config','pic24_ports_fh_config')
+env.HTemplate('../lib/include/pic24_ports_e_config','pic24_ports_e_config')
 env.CSVTemplate('../lib/include/pic24_ports_mapping','pic24_devices')
 env.CTemplate('../lib/common/pic24_uart','pic24_uart')
 env.CTemplate('../lib/common/pic24_i2c','pic24_i2c')
@@ -253,6 +254,7 @@ env.Alias('template-build', ['../lib/include/pic24_uart.h',
                              '../lib/include/pic24_i2c.h',
                              '../lib/include/pic24_ecan.h',
                              '../lib/include/pic24_ports_fh_config.h',
+                             '../lib/include/pic24_ports_e_config.h',
                              '../lib/include/pic24_ports_mapping.h',
                              '../lib/common/pic24_uart.c',
                              '../lib/common/pic24_i2c.c',
