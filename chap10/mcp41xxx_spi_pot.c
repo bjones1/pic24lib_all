@@ -56,10 +56,10 @@ void configSPI1(void) {
   //are on analog-capable pins.
 #else
   //all other families (PIC24H/PIC24F/dsPIC33F)
-  CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
-  CONFIG_RP6_AS_DIG_PIN();   //ensure that analog is disabled
-  CONFIG_SCK1OUT_TO_RP(7);   //use RP7 for SCLK
-  CONFIG_RP7_AS_DIG_PIN();   //ensure that analog is disabled
+  CONFIG_SDO1_TO_RP(RB6_RP);      //use RB6 for SDO
+  CONFIG_RB6_AS_DIG_OUTPUT();   //Ensure that this is a digital output
+  CONFIG_SCK1OUT_TO_RP(RB7_RP);   //use RB7 for SCLK
+  CONFIG_RB7_AS_DIG_INPUT();   //Ensure that this is a digital input
 #endif
   CONFIG_SLAVE_ENABLE();       //chip select for MCP41xxx
   SLAVE_DISABLE();             //disable the chip select
