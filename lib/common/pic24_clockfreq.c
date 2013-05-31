@@ -69,7 +69,9 @@ void configClockFRCPLL_FCY16MHz(void) {
 #include "pic24_serial.h"
 #include "pic24_unittest.h"
 
-#if !USE_CLOCK_TIMEOUT
+#if SIM
+// The simulator doesn't call this function, so omit it.
+#elif !USE_CLOCK_TIMEOUT
 //empty functions
 void checkClockTimeout(void) {
 }
@@ -80,68 +82,68 @@ output a meaningful error in case the clock switch
 does not occur.
 
 */
-#define CLOCKTIMEOUT_MAX 200000L
-#if  ( defined(__PIC24H__) || defined(__dsPIC33F__) )
-#define FRC_FCY 40000000L
-#elif ( defined(__PIC24F__) || defined(__PIC24FK__) )
-#define FRC_FCY 16000000L
-#elif  ( defined(__PIC24E__) || defined(__dsPIC33E__) )
-#define FRC_FCY 60000000L
-#else
-#error "Unknown processor."
-#endif
-#define FRC_BRGH 0
+# define CLOCKTIMEOUT_MAX 200000L
+# if  ( defined(__PIC24H__) || defined(__dsPIC33F__) )
+#   define FRC_FCY 40000000L
+# elif ( defined(__PIC24F__) || defined(__PIC24FK__) )
+#   define FRC_FCY 16000000L
+# elif  ( defined(__PIC24E__) || defined(__dsPIC33E__) )
+#   define FRC_FCY 60000000L
+# else
+#   error "Unknown processor."
+# endif
+# define FRC_BRGH 0
 
 
 static void configFrcUART(void) {
   float f_brg;
   uint16_t UxBRG;
   // First, switch to a known-good clock
-#if ( defined(__PIC24H__) || defined(__dsPIC33F__) )
+# if ( defined(__PIC24H__) || defined(__dsPIC33F__) )
   configClockFRCPLL_FCY40MHz();
-#elif ( defined(__PIC24E__) || defined(__dsPIC33E__) )
+# elif ( defined(__PIC24E__) || defined(__dsPIC33E__) )
   configClockFRCPLL_FCY60MHz();
-#elif ( defined(__PIC24F__) || defined(__PIC24FK__) )
+# elif ( defined(__PIC24F__) || defined(__PIC24FK__) )
 //safe choice: FCY=16 MHz, FRC+PLL
   configClockFRCPLL_FCY16MHz();
-#else
-#error "Unknown processor."
+# else
+#  error "Unknown processor."
 #endif
 
   // Second, get UART I/O pins mapped and general config done.
   configDefaultUART(DEFAULT_BAUDRATE);
   // BRG register is probably wrong since not using defined FCY. Fix it.
-#if (FRC_BRGH == 0)
+# if (FRC_BRGH == 0)
   f_brg = (((float) FRC_FCY)/((float) DEFAULT_BAUDRATE)/16.0) - 1.0;
-#else
+# else
   f_brg = (((float) FRC_FCY)/((float) DEFAULT_BAUDRATE)/4.0) - 1.0;
-#endif
+# endif
   UxBRG = roundFloatToUint16(f_brg);
   switch (DEFAULT_UART) {
-#if (NUM_UART_MODS >= 1)
+# if (NUM_UART_MODS >= 1)
     case 1 :
       U1BRG = UxBRG;
       U1MODEbits.BRGH = FRC_BRGH;
       break;
-#endif
-#if (NUM_UART_MODS >= 2)
+# endif
+# if (NUM_UART_MODS >= 2)
     case 2 :
       U2BRG = UxBRG;
       U2MODEbits.BRGH = FRC_BRGH;
       break;
-#endif
-#if (NUM_UART_MODS >= 3)
+# endif
+# if (NUM_UART_MODS >= 3)
     case 3 :
       U3BRG = UxBRG;
       U3MODEbits.BRGH = FRC_BRGH;
       break;
-#endif
-#if (NUM_UART_MODS >= 4)
+# endif
+# if (NUM_UART_MODS >= 4)
     case 4 :
       U4BRG = UxBRG;
       U4MODEbits.BRGH = FRC_BRGH;
       break;
-#endif
+# endif
     default :
       ASSERT(0);
   }
@@ -232,7 +234,7 @@ void switchClock(uint8_t u8_source) {
 }
 
 #if IS_CLOCK_CONFIG(SIM_CLOCK)
-#warning "Clock configured for simulation, FCY = 1 Mhz."
+# warning "Clock configured for simulation, FCY = 1 Mhz."
 #endif
 #if GET_IS_SUPPORTED(SIM_CLOCK)
 void configClockSim(void) { }
@@ -240,7 +242,7 @@ void configClockSim(void) { }
 
 
 #if IS_CLOCK_CONFIG(FRCPLL_FCY16MHz)
-#warning "Clock configured for FRCPLL, FCY = 16 MHz."
+# warning "Clock configured for FRCPLL, FCY = 16 MHz."
 #endif
 #if GET_IS_SUPPORTED(FRCPLL_FCY16MHz)
 void configClockFRCPLL_FCY16MHz(void) {
@@ -280,8 +282,8 @@ void configClockFRCPLL_FCY16MHz(void) {
 
 
 #if IS_CLOCK_CONFIG(FRC_FCY4MHz)
-#warning "Clock configured for FRC, FCY = 4 MHz."
-#warning "Baud rates of 19200 or lower recommended for this clock choice."
+# warning "Clock configured for FRC, FCY = 4 MHz."
+# warning "Baud rates of 19200 or lower recommended for this clock choice."
 #endif
 #if GET_IS_SUPPORTED(FRC_FCY4MHz)
 void configClockFRC_FCY4MHz(void) {
@@ -293,7 +295,7 @@ void configClockFRC_FCY4MHz(void) {
 
 
 #if IS_CLOCK_CONFIG(PRI_NO_PLL_7372KHzCrystal)
-#warning "Clock configured for a 7.372 MHz crystal primary oscillator, no PLL."
+# warning "Clock configured for a 7.372 MHz crystal primary oscillator, no PLL."
 #endif
 #if GET_IS_SUPPORTED(PRI_NO_PLL_7372KHzCrystal)
 void configClockPRI_NO_PLL_7372KHzCrystal(void) {
@@ -303,8 +305,8 @@ void configClockPRI_NO_PLL_7372KHzCrystal(void) {
 
 
 #if IS_CLOCK_CONFIG(FRC_FCY3685KHz)
-#warning "Clock configured for FRC, FCY = 3.685 MHz."
-#warning "Baud rates of 9600 or lower recommended for this clock choice."
+# warning "Clock configured for FRC, FCY = 3.685 MHz."
+# warning "Baud rates of 9600 or lower recommended for this clock choice."
 #endif
 #if GET_IS_SUPPORTED(FRC_FCY3685KHz)
 void configClockFRC_FCY3685KHz(void) {
@@ -319,7 +321,7 @@ void configClockFRC_FCY3685KHz(void) {
 
 
 #if IS_CLOCK_CONFIG(FRCPLL_FCY40MHz)
-#warning "Clock configured for FRCPLL, FCY = 40 MHz."
+# warning "Clock configured for FRCPLL, FCY = 40 MHz."
 #endif
 #if GET_IS_SUPPORTED(FRCPLL_FCY40MHz)
 void configClockFRCPLL_FCY40MHz(void) {
@@ -362,7 +364,7 @@ void configClockFRCPLL_FCY40MHz(void) {
 #endif
 
 #if IS_CLOCK_CONFIG(FRCPLL_FCY60MHz)
-#warning "Clock configured for FRCPLL, FCY = 60 MHz."
+# warning "Clock configured for FRCPLL, FCY = 60 MHz."
 #endif
 #if GET_IS_SUPPORTED(FRCPLL_FCY60MHz)
 void configClockFRCPLL_FCY60MHz(void) {
@@ -390,7 +392,7 @@ void configClockFRCPLL_FCY60MHz(void) {
 #endif
 
 #if IS_CLOCK_CONFIG(FRCPLL_FCY70MHz)
-#warning "Clock configured for FRCPLL, FCY = 70 MHz."
+# warning "Clock configured for FRCPLL, FCY = 70 MHz."
 #endif
 #if GET_IS_SUPPORTED(FRCPLL_FCY70MHz)
 void configClockFRCPLL_FCY70MHz(void) {
@@ -420,7 +422,7 @@ void configClockFRCPLL_FCY70MHz(void) {
 
 
 #if IS_CLOCK_CONFIG(PRIPLL_7372KHzCrystal_40MHzFCY)
-#warning "Clock configured for PRIPLL using a 7.3727 Mhz primary oscillator, FCY = 40 MHz."
+# warning "Clock configured for PRIPLL using a 7.3727 Mhz primary oscillator, FCY = 40 MHz."
 #endif
 #if GET_IS_SUPPORTED(PRIPLL_7372KHzCrystal_40MHzFCY)
 void configClockPRIPLL_7372KHzCrystal_40MHzFCY(void) {
@@ -437,7 +439,7 @@ void configClockPRIPLL_7372KHzCrystal_40MHzFCY(void) {
 #endif
 
 #if IS_CLOCK_CONFIG(PRIPLL_8MHzCrystal_40MHzFCY)
-#warning "Clock configured for PRIPLL using an 8.0 Mhz primary oscillator, FCY = 40 MHz."
+# warning "Clock configured for PRIPLL using an 8.0 Mhz primary oscillator, FCY = 40 MHz."
 #endif
 #if GET_IS_SUPPORTED(PRIPLL_8MHzCrystal_40MHzFCY)
 void configClockPRIPLL_8MHzCrystal_40MHzFCY(void) {
@@ -458,7 +460,7 @@ void configClockPRIPLL_8MHzCrystal_40MHzFCY(void) {
 #endif
 
 #if IS_CLOCK_CONFIG(PRIPLL_8MHzCrystal_16MHzFCY)
-#warning "Clock configured for PRIPLL using a 8.0 Mhz primary oscillator, FCY = 16 MHz."
+# warning "Clock configured for PRIPLL using a 8.0 Mhz primary oscillator, FCY = 16 MHz."
 #endif
 #if GET_IS_SUPPORTED(PRIPLL_8MHzCrystal_16MHzFCY)
 void configClockPRIPLL_8MHzCrystal_16MHzFCY(void) {
@@ -486,11 +488,11 @@ void configClockPRIPLL_8MHzCrystal_16MHzFCY(void) {
   //      of 2 since the FRC runs at 8 MHz.
   _PLLDIV = 1;  // 1 means a prescale of 2
 #elif defined(PLLDIV_NODIV)
-#warning "Ensure that the PLLDIV value is set to divide by 2 in the configuration bits for PRIPLL_8MHzCrystal_16MHzFCY clock option!!"
+# warning "Ensure that the PLLDIV value is set to divide by 2 in the configuration bits for PRIPLL_8MHzCrystal_16MHzFCY clock option!!"
 #endif
 #ifdef _PLLEN
   _PLLEN = 1;
-#warning "PLL Enabled."
+# warning "PLL Enabled."
 #endif
 
   switchClock(GET_OSC_SEL_BITS(FNOSC_PRIPLL));
@@ -498,7 +500,7 @@ void configClockPRIPLL_8MHzCrystal_16MHzFCY(void) {
 #endif
 
 #if IS_CLOCK_CONFIG(PRI_8MHzCrystal_4MHzFCY)
-#warning "Clock configured for PRI using a 8.0 Mhz primary oscillator, FCY = 4 MHz."
+# warning "Clock configured for PRI using a 8.0 Mhz primary oscillator, FCY = 4 MHz."
 #endif
 #if GET_IS_SUPPORTED(PRI_8MHzCrystal_4MHzFCY)
 void configClockPRI_8MHzCrystal_4MHzFCY(void) {
