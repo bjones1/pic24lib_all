@@ -8989,6 +8989,3846 @@
 
 
 
+// Provide GPIO for RH0
+// ====================
+#ifdef _RH0
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH0
+#   define ENABLE_RH0_ANALOG()  (_ANSH0 = 1)
+#   define DISABLE_RH0_ANALOG() (_ANSH0 = 0)
+# else
+#   define DISABLE_RH0_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH0_AS_INPUT()  (_TRISH0 = 1)
+# define CONFIG_RH0_AS_OUTPUT() (_TRISH0 = 0)
+
+// Open-drain:
+# if defined(_ODCH0)
+#   define ENABLE_RH0_OPENDRAIN()  (_ODCH0 = 1)
+#   define DISABLE_RH0_OPENDRAIN() (_ODCH0 = 0)
+# else
+#   define DISABLE_RH0_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH0
+#   define ENABLE_RH0_PULLUP()  (_CNPUH0 = 1)
+#   define DISABLE_RH0_PULLUP() (_CNPUH0 = 0)
+
+#   define ENABLE_RH0_PULLDOWN()  (_CNPDH0 = 1)
+#   define DISABLE_RH0_PULLDOWN() (_CNPDH0 = 0)
+
+#   define ENABLE_RH0_CN_INTERRUPT()  (_CNIEH0 = 1)
+#   define DISABLE_RH0_CN_INTERRUPT() (_CNIEH0 = 0)
+
+# else
+#   define DISABLE_RH0_PULLUP() ((void) 0)
+#   define DISABLE_RH0_PULLDOWN() ((void) 0)
+#   define DISABLE_RH0_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH0
+#   define CONFIG_RH0_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH0_ANALOG();            \
+        CONFIG_RH0_AS_INPUT();          \
+        DISABLE_RH0_OPENDRAIN();        \
+        DISABLE_RH0_PULLUP();           \
+        DISABLE_RH0_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH0_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH0_ANALOG();           \
+      CONFIG_RH0_AS_INPUT();          \
+      DISABLE_RH0_OPENDRAIN();        \
+      DISABLE_RH0_PULLUP();           \
+      DISABLE_RH0_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH0_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH0_ANALOG();           \
+      CONFIG_RH0_AS_OUTPUT();         \
+      DISABLE_RH0_OPENDRAIN();        \
+      DISABLE_RH0_PULLUP();           \
+      DISABLE_RH0_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH0: Provide GPIO for RH0
+
+
+
+
+
+// Provide GPIO for RH1
+// ====================
+#ifdef _RH1
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH1
+#   define ENABLE_RH1_ANALOG()  (_ANSH1 = 1)
+#   define DISABLE_RH1_ANALOG() (_ANSH1 = 0)
+# else
+#   define DISABLE_RH1_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH1_AS_INPUT()  (_TRISH1 = 1)
+# define CONFIG_RH1_AS_OUTPUT() (_TRISH1 = 0)
+
+// Open-drain:
+# if defined(_ODCH1)
+#   define ENABLE_RH1_OPENDRAIN()  (_ODCH1 = 1)
+#   define DISABLE_RH1_OPENDRAIN() (_ODCH1 = 0)
+# else
+#   define DISABLE_RH1_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH1
+#   define ENABLE_RH1_PULLUP()  (_CNPUH1 = 1)
+#   define DISABLE_RH1_PULLUP() (_CNPUH1 = 0)
+
+#   define ENABLE_RH1_PULLDOWN()  (_CNPDH1 = 1)
+#   define DISABLE_RH1_PULLDOWN() (_CNPDH1 = 0)
+
+#   define ENABLE_RH1_CN_INTERRUPT()  (_CNIEH1 = 1)
+#   define DISABLE_RH1_CN_INTERRUPT() (_CNIEH1 = 0)
+
+# else
+#   define DISABLE_RH1_PULLUP() ((void) 0)
+#   define DISABLE_RH1_PULLDOWN() ((void) 0)
+#   define DISABLE_RH1_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH1
+#   define CONFIG_RH1_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH1_ANALOG();            \
+        CONFIG_RH1_AS_INPUT();          \
+        DISABLE_RH1_OPENDRAIN();        \
+        DISABLE_RH1_PULLUP();           \
+        DISABLE_RH1_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH1_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH1_ANALOG();           \
+      CONFIG_RH1_AS_INPUT();          \
+      DISABLE_RH1_OPENDRAIN();        \
+      DISABLE_RH1_PULLUP();           \
+      DISABLE_RH1_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH1_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH1_ANALOG();           \
+      CONFIG_RH1_AS_OUTPUT();         \
+      DISABLE_RH1_OPENDRAIN();        \
+      DISABLE_RH1_PULLUP();           \
+      DISABLE_RH1_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH1: Provide GPIO for RH1
+
+
+
+
+
+// Provide GPIO for RH2
+// ====================
+#ifdef _RH2
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH2
+#   define ENABLE_RH2_ANALOG()  (_ANSH2 = 1)
+#   define DISABLE_RH2_ANALOG() (_ANSH2 = 0)
+# else
+#   define DISABLE_RH2_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH2_AS_INPUT()  (_TRISH2 = 1)
+# define CONFIG_RH2_AS_OUTPUT() (_TRISH2 = 0)
+
+// Open-drain:
+# if defined(_ODCH2)
+#   define ENABLE_RH2_OPENDRAIN()  (_ODCH2 = 1)
+#   define DISABLE_RH2_OPENDRAIN() (_ODCH2 = 0)
+# else
+#   define DISABLE_RH2_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH2
+#   define ENABLE_RH2_PULLUP()  (_CNPUH2 = 1)
+#   define DISABLE_RH2_PULLUP() (_CNPUH2 = 0)
+
+#   define ENABLE_RH2_PULLDOWN()  (_CNPDH2 = 1)
+#   define DISABLE_RH2_PULLDOWN() (_CNPDH2 = 0)
+
+#   define ENABLE_RH2_CN_INTERRUPT()  (_CNIEH2 = 1)
+#   define DISABLE_RH2_CN_INTERRUPT() (_CNIEH2 = 0)
+
+# else
+#   define DISABLE_RH2_PULLUP() ((void) 0)
+#   define DISABLE_RH2_PULLDOWN() ((void) 0)
+#   define DISABLE_RH2_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH2
+#   define CONFIG_RH2_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH2_ANALOG();            \
+        CONFIG_RH2_AS_INPUT();          \
+        DISABLE_RH2_OPENDRAIN();        \
+        DISABLE_RH2_PULLUP();           \
+        DISABLE_RH2_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH2_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH2_ANALOG();           \
+      CONFIG_RH2_AS_INPUT();          \
+      DISABLE_RH2_OPENDRAIN();        \
+      DISABLE_RH2_PULLUP();           \
+      DISABLE_RH2_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH2_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH2_ANALOG();           \
+      CONFIG_RH2_AS_OUTPUT();         \
+      DISABLE_RH2_OPENDRAIN();        \
+      DISABLE_RH2_PULLUP();           \
+      DISABLE_RH2_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH2: Provide GPIO for RH2
+
+
+
+
+
+// Provide GPIO for RH3
+// ====================
+#ifdef _RH3
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH3
+#   define ENABLE_RH3_ANALOG()  (_ANSH3 = 1)
+#   define DISABLE_RH3_ANALOG() (_ANSH3 = 0)
+# else
+#   define DISABLE_RH3_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH3_AS_INPUT()  (_TRISH3 = 1)
+# define CONFIG_RH3_AS_OUTPUT() (_TRISH3 = 0)
+
+// Open-drain:
+# if defined(_ODCH3)
+#   define ENABLE_RH3_OPENDRAIN()  (_ODCH3 = 1)
+#   define DISABLE_RH3_OPENDRAIN() (_ODCH3 = 0)
+# else
+#   define DISABLE_RH3_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH3
+#   define ENABLE_RH3_PULLUP()  (_CNPUH3 = 1)
+#   define DISABLE_RH3_PULLUP() (_CNPUH3 = 0)
+
+#   define ENABLE_RH3_PULLDOWN()  (_CNPDH3 = 1)
+#   define DISABLE_RH3_PULLDOWN() (_CNPDH3 = 0)
+
+#   define ENABLE_RH3_CN_INTERRUPT()  (_CNIEH3 = 1)
+#   define DISABLE_RH3_CN_INTERRUPT() (_CNIEH3 = 0)
+
+# else
+#   define DISABLE_RH3_PULLUP() ((void) 0)
+#   define DISABLE_RH3_PULLDOWN() ((void) 0)
+#   define DISABLE_RH3_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH3
+#   define CONFIG_RH3_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH3_ANALOG();            \
+        CONFIG_RH3_AS_INPUT();          \
+        DISABLE_RH3_OPENDRAIN();        \
+        DISABLE_RH3_PULLUP();           \
+        DISABLE_RH3_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH3_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH3_ANALOG();           \
+      CONFIG_RH3_AS_INPUT();          \
+      DISABLE_RH3_OPENDRAIN();        \
+      DISABLE_RH3_PULLUP();           \
+      DISABLE_RH3_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH3_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH3_ANALOG();           \
+      CONFIG_RH3_AS_OUTPUT();         \
+      DISABLE_RH3_OPENDRAIN();        \
+      DISABLE_RH3_PULLUP();           \
+      DISABLE_RH3_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH3: Provide GPIO for RH3
+
+
+
+
+
+// Provide GPIO for RH4
+// ====================
+#ifdef _RH4
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH4
+#   define ENABLE_RH4_ANALOG()  (_ANSH4 = 1)
+#   define DISABLE_RH4_ANALOG() (_ANSH4 = 0)
+# else
+#   define DISABLE_RH4_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH4_AS_INPUT()  (_TRISH4 = 1)
+# define CONFIG_RH4_AS_OUTPUT() (_TRISH4 = 0)
+
+// Open-drain:
+# if defined(_ODCH4)
+#   define ENABLE_RH4_OPENDRAIN()  (_ODCH4 = 1)
+#   define DISABLE_RH4_OPENDRAIN() (_ODCH4 = 0)
+# else
+#   define DISABLE_RH4_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH4
+#   define ENABLE_RH4_PULLUP()  (_CNPUH4 = 1)
+#   define DISABLE_RH4_PULLUP() (_CNPUH4 = 0)
+
+#   define ENABLE_RH4_PULLDOWN()  (_CNPDH4 = 1)
+#   define DISABLE_RH4_PULLDOWN() (_CNPDH4 = 0)
+
+#   define ENABLE_RH4_CN_INTERRUPT()  (_CNIEH4 = 1)
+#   define DISABLE_RH4_CN_INTERRUPT() (_CNIEH4 = 0)
+
+# else
+#   define DISABLE_RH4_PULLUP() ((void) 0)
+#   define DISABLE_RH4_PULLDOWN() ((void) 0)
+#   define DISABLE_RH4_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH4
+#   define CONFIG_RH4_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH4_ANALOG();            \
+        CONFIG_RH4_AS_INPUT();          \
+        DISABLE_RH4_OPENDRAIN();        \
+        DISABLE_RH4_PULLUP();           \
+        DISABLE_RH4_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH4_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH4_ANALOG();           \
+      CONFIG_RH4_AS_INPUT();          \
+      DISABLE_RH4_OPENDRAIN();        \
+      DISABLE_RH4_PULLUP();           \
+      DISABLE_RH4_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH4_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH4_ANALOG();           \
+      CONFIG_RH4_AS_OUTPUT();         \
+      DISABLE_RH4_OPENDRAIN();        \
+      DISABLE_RH4_PULLUP();           \
+      DISABLE_RH4_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH4: Provide GPIO for RH4
+
+
+
+
+
+// Provide GPIO for RH5
+// ====================
+#ifdef _RH5
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH5
+#   define ENABLE_RH5_ANALOG()  (_ANSH5 = 1)
+#   define DISABLE_RH5_ANALOG() (_ANSH5 = 0)
+# else
+#   define DISABLE_RH5_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH5_AS_INPUT()  (_TRISH5 = 1)
+# define CONFIG_RH5_AS_OUTPUT() (_TRISH5 = 0)
+
+// Open-drain:
+# if defined(_ODCH5)
+#   define ENABLE_RH5_OPENDRAIN()  (_ODCH5 = 1)
+#   define DISABLE_RH5_OPENDRAIN() (_ODCH5 = 0)
+# else
+#   define DISABLE_RH5_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH5
+#   define ENABLE_RH5_PULLUP()  (_CNPUH5 = 1)
+#   define DISABLE_RH5_PULLUP() (_CNPUH5 = 0)
+
+#   define ENABLE_RH5_PULLDOWN()  (_CNPDH5 = 1)
+#   define DISABLE_RH5_PULLDOWN() (_CNPDH5 = 0)
+
+#   define ENABLE_RH5_CN_INTERRUPT()  (_CNIEH5 = 1)
+#   define DISABLE_RH5_CN_INTERRUPT() (_CNIEH5 = 0)
+
+# else
+#   define DISABLE_RH5_PULLUP() ((void) 0)
+#   define DISABLE_RH5_PULLDOWN() ((void) 0)
+#   define DISABLE_RH5_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH5
+#   define CONFIG_RH5_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH5_ANALOG();            \
+        CONFIG_RH5_AS_INPUT();          \
+        DISABLE_RH5_OPENDRAIN();        \
+        DISABLE_RH5_PULLUP();           \
+        DISABLE_RH5_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH5_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH5_ANALOG();           \
+      CONFIG_RH5_AS_INPUT();          \
+      DISABLE_RH5_OPENDRAIN();        \
+      DISABLE_RH5_PULLUP();           \
+      DISABLE_RH5_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH5_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH5_ANALOG();           \
+      CONFIG_RH5_AS_OUTPUT();         \
+      DISABLE_RH5_OPENDRAIN();        \
+      DISABLE_RH5_PULLUP();           \
+      DISABLE_RH5_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH5: Provide GPIO for RH5
+
+
+
+
+
+// Provide GPIO for RH6
+// ====================
+#ifdef _RH6
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH6
+#   define ENABLE_RH6_ANALOG()  (_ANSH6 = 1)
+#   define DISABLE_RH6_ANALOG() (_ANSH6 = 0)
+# else
+#   define DISABLE_RH6_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH6_AS_INPUT()  (_TRISH6 = 1)
+# define CONFIG_RH6_AS_OUTPUT() (_TRISH6 = 0)
+
+// Open-drain:
+# if defined(_ODCH6)
+#   define ENABLE_RH6_OPENDRAIN()  (_ODCH6 = 1)
+#   define DISABLE_RH6_OPENDRAIN() (_ODCH6 = 0)
+# else
+#   define DISABLE_RH6_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH6
+#   define ENABLE_RH6_PULLUP()  (_CNPUH6 = 1)
+#   define DISABLE_RH6_PULLUP() (_CNPUH6 = 0)
+
+#   define ENABLE_RH6_PULLDOWN()  (_CNPDH6 = 1)
+#   define DISABLE_RH6_PULLDOWN() (_CNPDH6 = 0)
+
+#   define ENABLE_RH6_CN_INTERRUPT()  (_CNIEH6 = 1)
+#   define DISABLE_RH6_CN_INTERRUPT() (_CNIEH6 = 0)
+
+# else
+#   define DISABLE_RH6_PULLUP() ((void) 0)
+#   define DISABLE_RH6_PULLDOWN() ((void) 0)
+#   define DISABLE_RH6_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH6
+#   define CONFIG_RH6_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH6_ANALOG();            \
+        CONFIG_RH6_AS_INPUT();          \
+        DISABLE_RH6_OPENDRAIN();        \
+        DISABLE_RH6_PULLUP();           \
+        DISABLE_RH6_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH6_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH6_ANALOG();           \
+      CONFIG_RH6_AS_INPUT();          \
+      DISABLE_RH6_OPENDRAIN();        \
+      DISABLE_RH6_PULLUP();           \
+      DISABLE_RH6_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH6_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH6_ANALOG();           \
+      CONFIG_RH6_AS_OUTPUT();         \
+      DISABLE_RH6_OPENDRAIN();        \
+      DISABLE_RH6_PULLUP();           \
+      DISABLE_RH6_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH6: Provide GPIO for RH6
+
+
+
+
+
+// Provide GPIO for RH7
+// ====================
+#ifdef _RH7
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH7
+#   define ENABLE_RH7_ANALOG()  (_ANSH7 = 1)
+#   define DISABLE_RH7_ANALOG() (_ANSH7 = 0)
+# else
+#   define DISABLE_RH7_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH7_AS_INPUT()  (_TRISH7 = 1)
+# define CONFIG_RH7_AS_OUTPUT() (_TRISH7 = 0)
+
+// Open-drain:
+# if defined(_ODCH7)
+#   define ENABLE_RH7_OPENDRAIN()  (_ODCH7 = 1)
+#   define DISABLE_RH7_OPENDRAIN() (_ODCH7 = 0)
+# else
+#   define DISABLE_RH7_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH7
+#   define ENABLE_RH7_PULLUP()  (_CNPUH7 = 1)
+#   define DISABLE_RH7_PULLUP() (_CNPUH7 = 0)
+
+#   define ENABLE_RH7_PULLDOWN()  (_CNPDH7 = 1)
+#   define DISABLE_RH7_PULLDOWN() (_CNPDH7 = 0)
+
+#   define ENABLE_RH7_CN_INTERRUPT()  (_CNIEH7 = 1)
+#   define DISABLE_RH7_CN_INTERRUPT() (_CNIEH7 = 0)
+
+# else
+#   define DISABLE_RH7_PULLUP() ((void) 0)
+#   define DISABLE_RH7_PULLDOWN() ((void) 0)
+#   define DISABLE_RH7_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH7
+#   define CONFIG_RH7_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH7_ANALOG();            \
+        CONFIG_RH7_AS_INPUT();          \
+        DISABLE_RH7_OPENDRAIN();        \
+        DISABLE_RH7_PULLUP();           \
+        DISABLE_RH7_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH7_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH7_ANALOG();           \
+      CONFIG_RH7_AS_INPUT();          \
+      DISABLE_RH7_OPENDRAIN();        \
+      DISABLE_RH7_PULLUP();           \
+      DISABLE_RH7_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH7_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH7_ANALOG();           \
+      CONFIG_RH7_AS_OUTPUT();         \
+      DISABLE_RH7_OPENDRAIN();        \
+      DISABLE_RH7_PULLUP();           \
+      DISABLE_RH7_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH7: Provide GPIO for RH7
+
+
+
+
+
+// Provide GPIO for RH8
+// ====================
+#ifdef _RH8
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH8
+#   define ENABLE_RH8_ANALOG()  (_ANSH8 = 1)
+#   define DISABLE_RH8_ANALOG() (_ANSH8 = 0)
+# else
+#   define DISABLE_RH8_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH8_AS_INPUT()  (_TRISH8 = 1)
+# define CONFIG_RH8_AS_OUTPUT() (_TRISH8 = 0)
+
+// Open-drain:
+# if defined(_ODCH8)
+#   define ENABLE_RH8_OPENDRAIN()  (_ODCH8 = 1)
+#   define DISABLE_RH8_OPENDRAIN() (_ODCH8 = 0)
+# else
+#   define DISABLE_RH8_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH8
+#   define ENABLE_RH8_PULLUP()  (_CNPUH8 = 1)
+#   define DISABLE_RH8_PULLUP() (_CNPUH8 = 0)
+
+#   define ENABLE_RH8_PULLDOWN()  (_CNPDH8 = 1)
+#   define DISABLE_RH8_PULLDOWN() (_CNPDH8 = 0)
+
+#   define ENABLE_RH8_CN_INTERRUPT()  (_CNIEH8 = 1)
+#   define DISABLE_RH8_CN_INTERRUPT() (_CNIEH8 = 0)
+
+# else
+#   define DISABLE_RH8_PULLUP() ((void) 0)
+#   define DISABLE_RH8_PULLDOWN() ((void) 0)
+#   define DISABLE_RH8_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH8
+#   define CONFIG_RH8_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH8_ANALOG();            \
+        CONFIG_RH8_AS_INPUT();          \
+        DISABLE_RH8_OPENDRAIN();        \
+        DISABLE_RH8_PULLUP();           \
+        DISABLE_RH8_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH8_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH8_ANALOG();           \
+      CONFIG_RH8_AS_INPUT();          \
+      DISABLE_RH8_OPENDRAIN();        \
+      DISABLE_RH8_PULLUP();           \
+      DISABLE_RH8_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH8_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH8_ANALOG();           \
+      CONFIG_RH8_AS_OUTPUT();         \
+      DISABLE_RH8_OPENDRAIN();        \
+      DISABLE_RH8_PULLUP();           \
+      DISABLE_RH8_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH8: Provide GPIO for RH8
+
+
+
+
+
+// Provide GPIO for RH9
+// ====================
+#ifdef _RH9
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH9
+#   define ENABLE_RH9_ANALOG()  (_ANSH9 = 1)
+#   define DISABLE_RH9_ANALOG() (_ANSH9 = 0)
+# else
+#   define DISABLE_RH9_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH9_AS_INPUT()  (_TRISH9 = 1)
+# define CONFIG_RH9_AS_OUTPUT() (_TRISH9 = 0)
+
+// Open-drain:
+# if defined(_ODCH9)
+#   define ENABLE_RH9_OPENDRAIN()  (_ODCH9 = 1)
+#   define DISABLE_RH9_OPENDRAIN() (_ODCH9 = 0)
+# else
+#   define DISABLE_RH9_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH9
+#   define ENABLE_RH9_PULLUP()  (_CNPUH9 = 1)
+#   define DISABLE_RH9_PULLUP() (_CNPUH9 = 0)
+
+#   define ENABLE_RH9_PULLDOWN()  (_CNPDH9 = 1)
+#   define DISABLE_RH9_PULLDOWN() (_CNPDH9 = 0)
+
+#   define ENABLE_RH9_CN_INTERRUPT()  (_CNIEH9 = 1)
+#   define DISABLE_RH9_CN_INTERRUPT() (_CNIEH9 = 0)
+
+# else
+#   define DISABLE_RH9_PULLUP() ((void) 0)
+#   define DISABLE_RH9_PULLDOWN() ((void) 0)
+#   define DISABLE_RH9_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH9
+#   define CONFIG_RH9_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH9_ANALOG();            \
+        CONFIG_RH9_AS_INPUT();          \
+        DISABLE_RH9_OPENDRAIN();        \
+        DISABLE_RH9_PULLUP();           \
+        DISABLE_RH9_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH9_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH9_ANALOG();           \
+      CONFIG_RH9_AS_INPUT();          \
+      DISABLE_RH9_OPENDRAIN();        \
+      DISABLE_RH9_PULLUP();           \
+      DISABLE_RH9_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH9_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH9_ANALOG();           \
+      CONFIG_RH9_AS_OUTPUT();         \
+      DISABLE_RH9_OPENDRAIN();        \
+      DISABLE_RH9_PULLUP();           \
+      DISABLE_RH9_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH9: Provide GPIO for RH9
+
+
+
+
+
+// Provide GPIO for RH10
+// ====================
+#ifdef _RH10
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH10
+#   define ENABLE_RH10_ANALOG()  (_ANSH10 = 1)
+#   define DISABLE_RH10_ANALOG() (_ANSH10 = 0)
+# else
+#   define DISABLE_RH10_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH10_AS_INPUT()  (_TRISH10 = 1)
+# define CONFIG_RH10_AS_OUTPUT() (_TRISH10 = 0)
+
+// Open-drain:
+# if defined(_ODCH10)
+#   define ENABLE_RH10_OPENDRAIN()  (_ODCH10 = 1)
+#   define DISABLE_RH10_OPENDRAIN() (_ODCH10 = 0)
+# else
+#   define DISABLE_RH10_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH10
+#   define ENABLE_RH10_PULLUP()  (_CNPUH10 = 1)
+#   define DISABLE_RH10_PULLUP() (_CNPUH10 = 0)
+
+#   define ENABLE_RH10_PULLDOWN()  (_CNPDH10 = 1)
+#   define DISABLE_RH10_PULLDOWN() (_CNPDH10 = 0)
+
+#   define ENABLE_RH10_CN_INTERRUPT()  (_CNIEH10 = 1)
+#   define DISABLE_RH10_CN_INTERRUPT() (_CNIEH10 = 0)
+
+# else
+#   define DISABLE_RH10_PULLUP() ((void) 0)
+#   define DISABLE_RH10_PULLDOWN() ((void) 0)
+#   define DISABLE_RH10_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH10
+#   define CONFIG_RH10_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH10_ANALOG();            \
+        CONFIG_RH10_AS_INPUT();          \
+        DISABLE_RH10_OPENDRAIN();        \
+        DISABLE_RH10_PULLUP();           \
+        DISABLE_RH10_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH10_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH10_ANALOG();           \
+      CONFIG_RH10_AS_INPUT();          \
+      DISABLE_RH10_OPENDRAIN();        \
+      DISABLE_RH10_PULLUP();           \
+      DISABLE_RH10_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH10_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH10_ANALOG();           \
+      CONFIG_RH10_AS_OUTPUT();         \
+      DISABLE_RH10_OPENDRAIN();        \
+      DISABLE_RH10_PULLUP();           \
+      DISABLE_RH10_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH10: Provide GPIO for RH10
+
+
+
+
+
+// Provide GPIO for RH11
+// ====================
+#ifdef _RH11
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH11
+#   define ENABLE_RH11_ANALOG()  (_ANSH11 = 1)
+#   define DISABLE_RH11_ANALOG() (_ANSH11 = 0)
+# else
+#   define DISABLE_RH11_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH11_AS_INPUT()  (_TRISH11 = 1)
+# define CONFIG_RH11_AS_OUTPUT() (_TRISH11 = 0)
+
+// Open-drain:
+# if defined(_ODCH11)
+#   define ENABLE_RH11_OPENDRAIN()  (_ODCH11 = 1)
+#   define DISABLE_RH11_OPENDRAIN() (_ODCH11 = 0)
+# else
+#   define DISABLE_RH11_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH11
+#   define ENABLE_RH11_PULLUP()  (_CNPUH11 = 1)
+#   define DISABLE_RH11_PULLUP() (_CNPUH11 = 0)
+
+#   define ENABLE_RH11_PULLDOWN()  (_CNPDH11 = 1)
+#   define DISABLE_RH11_PULLDOWN() (_CNPDH11 = 0)
+
+#   define ENABLE_RH11_CN_INTERRUPT()  (_CNIEH11 = 1)
+#   define DISABLE_RH11_CN_INTERRUPT() (_CNIEH11 = 0)
+
+# else
+#   define DISABLE_RH11_PULLUP() ((void) 0)
+#   define DISABLE_RH11_PULLDOWN() ((void) 0)
+#   define DISABLE_RH11_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH11
+#   define CONFIG_RH11_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH11_ANALOG();            \
+        CONFIG_RH11_AS_INPUT();          \
+        DISABLE_RH11_OPENDRAIN();        \
+        DISABLE_RH11_PULLUP();           \
+        DISABLE_RH11_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH11_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH11_ANALOG();           \
+      CONFIG_RH11_AS_INPUT();          \
+      DISABLE_RH11_OPENDRAIN();        \
+      DISABLE_RH11_PULLUP();           \
+      DISABLE_RH11_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH11_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH11_ANALOG();           \
+      CONFIG_RH11_AS_OUTPUT();         \
+      DISABLE_RH11_OPENDRAIN();        \
+      DISABLE_RH11_PULLUP();           \
+      DISABLE_RH11_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH11: Provide GPIO for RH11
+
+
+
+
+
+// Provide GPIO for RH12
+// ====================
+#ifdef _RH12
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH12
+#   define ENABLE_RH12_ANALOG()  (_ANSH12 = 1)
+#   define DISABLE_RH12_ANALOG() (_ANSH12 = 0)
+# else
+#   define DISABLE_RH12_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH12_AS_INPUT()  (_TRISH12 = 1)
+# define CONFIG_RH12_AS_OUTPUT() (_TRISH12 = 0)
+
+// Open-drain:
+# if defined(_ODCH12)
+#   define ENABLE_RH12_OPENDRAIN()  (_ODCH12 = 1)
+#   define DISABLE_RH12_OPENDRAIN() (_ODCH12 = 0)
+# else
+#   define DISABLE_RH12_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH12
+#   define ENABLE_RH12_PULLUP()  (_CNPUH12 = 1)
+#   define DISABLE_RH12_PULLUP() (_CNPUH12 = 0)
+
+#   define ENABLE_RH12_PULLDOWN()  (_CNPDH12 = 1)
+#   define DISABLE_RH12_PULLDOWN() (_CNPDH12 = 0)
+
+#   define ENABLE_RH12_CN_INTERRUPT()  (_CNIEH12 = 1)
+#   define DISABLE_RH12_CN_INTERRUPT() (_CNIEH12 = 0)
+
+# else
+#   define DISABLE_RH12_PULLUP() ((void) 0)
+#   define DISABLE_RH12_PULLDOWN() ((void) 0)
+#   define DISABLE_RH12_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH12
+#   define CONFIG_RH12_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH12_ANALOG();            \
+        CONFIG_RH12_AS_INPUT();          \
+        DISABLE_RH12_OPENDRAIN();        \
+        DISABLE_RH12_PULLUP();           \
+        DISABLE_RH12_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH12_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH12_ANALOG();           \
+      CONFIG_RH12_AS_INPUT();          \
+      DISABLE_RH12_OPENDRAIN();        \
+      DISABLE_RH12_PULLUP();           \
+      DISABLE_RH12_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH12_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH12_ANALOG();           \
+      CONFIG_RH12_AS_OUTPUT();         \
+      DISABLE_RH12_OPENDRAIN();        \
+      DISABLE_RH12_PULLUP();           \
+      DISABLE_RH12_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH12: Provide GPIO for RH12
+
+
+
+
+
+// Provide GPIO for RH13
+// ====================
+#ifdef _RH13
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH13
+#   define ENABLE_RH13_ANALOG()  (_ANSH13 = 1)
+#   define DISABLE_RH13_ANALOG() (_ANSH13 = 0)
+# else
+#   define DISABLE_RH13_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH13_AS_INPUT()  (_TRISH13 = 1)
+# define CONFIG_RH13_AS_OUTPUT() (_TRISH13 = 0)
+
+// Open-drain:
+# if defined(_ODCH13)
+#   define ENABLE_RH13_OPENDRAIN()  (_ODCH13 = 1)
+#   define DISABLE_RH13_OPENDRAIN() (_ODCH13 = 0)
+# else
+#   define DISABLE_RH13_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH13
+#   define ENABLE_RH13_PULLUP()  (_CNPUH13 = 1)
+#   define DISABLE_RH13_PULLUP() (_CNPUH13 = 0)
+
+#   define ENABLE_RH13_PULLDOWN()  (_CNPDH13 = 1)
+#   define DISABLE_RH13_PULLDOWN() (_CNPDH13 = 0)
+
+#   define ENABLE_RH13_CN_INTERRUPT()  (_CNIEH13 = 1)
+#   define DISABLE_RH13_CN_INTERRUPT() (_CNIEH13 = 0)
+
+# else
+#   define DISABLE_RH13_PULLUP() ((void) 0)
+#   define DISABLE_RH13_PULLDOWN() ((void) 0)
+#   define DISABLE_RH13_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH13
+#   define CONFIG_RH13_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH13_ANALOG();            \
+        CONFIG_RH13_AS_INPUT();          \
+        DISABLE_RH13_OPENDRAIN();        \
+        DISABLE_RH13_PULLUP();           \
+        DISABLE_RH13_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH13_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH13_ANALOG();           \
+      CONFIG_RH13_AS_INPUT();          \
+      DISABLE_RH13_OPENDRAIN();        \
+      DISABLE_RH13_PULLUP();           \
+      DISABLE_RH13_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH13_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH13_ANALOG();           \
+      CONFIG_RH13_AS_OUTPUT();         \
+      DISABLE_RH13_OPENDRAIN();        \
+      DISABLE_RH13_PULLUP();           \
+      DISABLE_RH13_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH13: Provide GPIO for RH13
+
+
+
+
+
+// Provide GPIO for RH14
+// ====================
+#ifdef _RH14
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH14
+#   define ENABLE_RH14_ANALOG()  (_ANSH14 = 1)
+#   define DISABLE_RH14_ANALOG() (_ANSH14 = 0)
+# else
+#   define DISABLE_RH14_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH14_AS_INPUT()  (_TRISH14 = 1)
+# define CONFIG_RH14_AS_OUTPUT() (_TRISH14 = 0)
+
+// Open-drain:
+# if defined(_ODCH14)
+#   define ENABLE_RH14_OPENDRAIN()  (_ODCH14 = 1)
+#   define DISABLE_RH14_OPENDRAIN() (_ODCH14 = 0)
+# else
+#   define DISABLE_RH14_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH14
+#   define ENABLE_RH14_PULLUP()  (_CNPUH14 = 1)
+#   define DISABLE_RH14_PULLUP() (_CNPUH14 = 0)
+
+#   define ENABLE_RH14_PULLDOWN()  (_CNPDH14 = 1)
+#   define DISABLE_RH14_PULLDOWN() (_CNPDH14 = 0)
+
+#   define ENABLE_RH14_CN_INTERRUPT()  (_CNIEH14 = 1)
+#   define DISABLE_RH14_CN_INTERRUPT() (_CNIEH14 = 0)
+
+# else
+#   define DISABLE_RH14_PULLUP() ((void) 0)
+#   define DISABLE_RH14_PULLDOWN() ((void) 0)
+#   define DISABLE_RH14_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH14
+#   define CONFIG_RH14_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH14_ANALOG();            \
+        CONFIG_RH14_AS_INPUT();          \
+        DISABLE_RH14_OPENDRAIN();        \
+        DISABLE_RH14_PULLUP();           \
+        DISABLE_RH14_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH14_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH14_ANALOG();           \
+      CONFIG_RH14_AS_INPUT();          \
+      DISABLE_RH14_OPENDRAIN();        \
+      DISABLE_RH14_PULLUP();           \
+      DISABLE_RH14_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH14_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH14_ANALOG();           \
+      CONFIG_RH14_AS_OUTPUT();         \
+      DISABLE_RH14_OPENDRAIN();        \
+      DISABLE_RH14_PULLUP();           \
+      DISABLE_RH14_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH14: Provide GPIO for RH14
+
+
+
+
+
+// Provide GPIO for RH15
+// ====================
+#ifdef _RH15
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSH15
+#   define ENABLE_RH15_ANALOG()  (_ANSH15 = 1)
+#   define DISABLE_RH15_ANALOG() (_ANSH15 = 0)
+# else
+#   define DISABLE_RH15_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RH15_AS_INPUT()  (_TRISH15 = 1)
+# define CONFIG_RH15_AS_OUTPUT() (_TRISH15 = 0)
+
+// Open-drain:
+# if defined(_ODCH15)
+#   define ENABLE_RH15_OPENDRAIN()  (_ODCH15 = 1)
+#   define DISABLE_RH15_OPENDRAIN() (_ODCH15 = 0)
+# else
+#   define DISABLE_RH15_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEH15
+#   define ENABLE_RH15_PULLUP()  (_CNPUH15 = 1)
+#   define DISABLE_RH15_PULLUP() (_CNPUH15 = 0)
+
+#   define ENABLE_RH15_PULLDOWN()  (_CNPDH15 = 1)
+#   define DISABLE_RH15_PULLDOWN() (_CNPDH15 = 0)
+
+#   define ENABLE_RH15_CN_INTERRUPT()  (_CNIEH15 = 1)
+#   define DISABLE_RH15_CN_INTERRUPT() (_CNIEH15 = 0)
+
+# else
+#   define DISABLE_RH15_PULLUP() ((void) 0)
+#   define DISABLE_RH15_PULLDOWN() ((void) 0)
+#   define DISABLE_RH15_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSH15
+#   define CONFIG_RH15_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RH15_ANALOG();            \
+        CONFIG_RH15_AS_INPUT();          \
+        DISABLE_RH15_OPENDRAIN();        \
+        DISABLE_RH15_PULLUP();           \
+        DISABLE_RH15_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RH15_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RH15_ANALOG();           \
+      CONFIG_RH15_AS_INPUT();          \
+      DISABLE_RH15_OPENDRAIN();        \
+      DISABLE_RH15_PULLUP();           \
+      DISABLE_RH15_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RH15_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RH15_ANALOG();           \
+      CONFIG_RH15_AS_OUTPUT();         \
+      DISABLE_RH15_OPENDRAIN();        \
+      DISABLE_RH15_PULLUP();           \
+      DISABLE_RH15_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RH15: Provide GPIO for RH15
+
+
+
+
+
+// Provide GPIO for RJ0
+// ====================
+#ifdef _RJ0
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ0
+#   define ENABLE_RJ0_ANALOG()  (_ANSJ0 = 1)
+#   define DISABLE_RJ0_ANALOG() (_ANSJ0 = 0)
+# else
+#   define DISABLE_RJ0_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ0_AS_INPUT()  (_TRISJ0 = 1)
+# define CONFIG_RJ0_AS_OUTPUT() (_TRISJ0 = 0)
+
+// Open-drain:
+# if defined(_ODCJ0)
+#   define ENABLE_RJ0_OPENDRAIN()  (_ODCJ0 = 1)
+#   define DISABLE_RJ0_OPENDRAIN() (_ODCJ0 = 0)
+# else
+#   define DISABLE_RJ0_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ0
+#   define ENABLE_RJ0_PULLUP()  (_CNPUJ0 = 1)
+#   define DISABLE_RJ0_PULLUP() (_CNPUJ0 = 0)
+
+#   define ENABLE_RJ0_PULLDOWN()  (_CNPDJ0 = 1)
+#   define DISABLE_RJ0_PULLDOWN() (_CNPDJ0 = 0)
+
+#   define ENABLE_RJ0_CN_INTERRUPT()  (_CNIEJ0 = 1)
+#   define DISABLE_RJ0_CN_INTERRUPT() (_CNIEJ0 = 0)
+
+# else
+#   define DISABLE_RJ0_PULLUP() ((void) 0)
+#   define DISABLE_RJ0_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ0_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ0
+#   define CONFIG_RJ0_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ0_ANALOG();            \
+        CONFIG_RJ0_AS_INPUT();          \
+        DISABLE_RJ0_OPENDRAIN();        \
+        DISABLE_RJ0_PULLUP();           \
+        DISABLE_RJ0_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ0_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ0_ANALOG();           \
+      CONFIG_RJ0_AS_INPUT();          \
+      DISABLE_RJ0_OPENDRAIN();        \
+      DISABLE_RJ0_PULLUP();           \
+      DISABLE_RJ0_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ0_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ0_ANALOG();           \
+      CONFIG_RJ0_AS_OUTPUT();         \
+      DISABLE_RJ0_OPENDRAIN();        \
+      DISABLE_RJ0_PULLUP();           \
+      DISABLE_RJ0_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ0: Provide GPIO for RJ0
+
+
+
+
+
+// Provide GPIO for RJ1
+// ====================
+#ifdef _RJ1
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ1
+#   define ENABLE_RJ1_ANALOG()  (_ANSJ1 = 1)
+#   define DISABLE_RJ1_ANALOG() (_ANSJ1 = 0)
+# else
+#   define DISABLE_RJ1_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ1_AS_INPUT()  (_TRISJ1 = 1)
+# define CONFIG_RJ1_AS_OUTPUT() (_TRISJ1 = 0)
+
+// Open-drain:
+# if defined(_ODCJ1)
+#   define ENABLE_RJ1_OPENDRAIN()  (_ODCJ1 = 1)
+#   define DISABLE_RJ1_OPENDRAIN() (_ODCJ1 = 0)
+# else
+#   define DISABLE_RJ1_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ1
+#   define ENABLE_RJ1_PULLUP()  (_CNPUJ1 = 1)
+#   define DISABLE_RJ1_PULLUP() (_CNPUJ1 = 0)
+
+#   define ENABLE_RJ1_PULLDOWN()  (_CNPDJ1 = 1)
+#   define DISABLE_RJ1_PULLDOWN() (_CNPDJ1 = 0)
+
+#   define ENABLE_RJ1_CN_INTERRUPT()  (_CNIEJ1 = 1)
+#   define DISABLE_RJ1_CN_INTERRUPT() (_CNIEJ1 = 0)
+
+# else
+#   define DISABLE_RJ1_PULLUP() ((void) 0)
+#   define DISABLE_RJ1_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ1_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ1
+#   define CONFIG_RJ1_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ1_ANALOG();            \
+        CONFIG_RJ1_AS_INPUT();          \
+        DISABLE_RJ1_OPENDRAIN();        \
+        DISABLE_RJ1_PULLUP();           \
+        DISABLE_RJ1_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ1_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ1_ANALOG();           \
+      CONFIG_RJ1_AS_INPUT();          \
+      DISABLE_RJ1_OPENDRAIN();        \
+      DISABLE_RJ1_PULLUP();           \
+      DISABLE_RJ1_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ1_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ1_ANALOG();           \
+      CONFIG_RJ1_AS_OUTPUT();         \
+      DISABLE_RJ1_OPENDRAIN();        \
+      DISABLE_RJ1_PULLUP();           \
+      DISABLE_RJ1_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ1: Provide GPIO for RJ1
+
+
+
+
+
+// Provide GPIO for RJ2
+// ====================
+#ifdef _RJ2
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ2
+#   define ENABLE_RJ2_ANALOG()  (_ANSJ2 = 1)
+#   define DISABLE_RJ2_ANALOG() (_ANSJ2 = 0)
+# else
+#   define DISABLE_RJ2_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ2_AS_INPUT()  (_TRISJ2 = 1)
+# define CONFIG_RJ2_AS_OUTPUT() (_TRISJ2 = 0)
+
+// Open-drain:
+# if defined(_ODCJ2)
+#   define ENABLE_RJ2_OPENDRAIN()  (_ODCJ2 = 1)
+#   define DISABLE_RJ2_OPENDRAIN() (_ODCJ2 = 0)
+# else
+#   define DISABLE_RJ2_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ2
+#   define ENABLE_RJ2_PULLUP()  (_CNPUJ2 = 1)
+#   define DISABLE_RJ2_PULLUP() (_CNPUJ2 = 0)
+
+#   define ENABLE_RJ2_PULLDOWN()  (_CNPDJ2 = 1)
+#   define DISABLE_RJ2_PULLDOWN() (_CNPDJ2 = 0)
+
+#   define ENABLE_RJ2_CN_INTERRUPT()  (_CNIEJ2 = 1)
+#   define DISABLE_RJ2_CN_INTERRUPT() (_CNIEJ2 = 0)
+
+# else
+#   define DISABLE_RJ2_PULLUP() ((void) 0)
+#   define DISABLE_RJ2_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ2_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ2
+#   define CONFIG_RJ2_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ2_ANALOG();            \
+        CONFIG_RJ2_AS_INPUT();          \
+        DISABLE_RJ2_OPENDRAIN();        \
+        DISABLE_RJ2_PULLUP();           \
+        DISABLE_RJ2_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ2_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ2_ANALOG();           \
+      CONFIG_RJ2_AS_INPUT();          \
+      DISABLE_RJ2_OPENDRAIN();        \
+      DISABLE_RJ2_PULLUP();           \
+      DISABLE_RJ2_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ2_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ2_ANALOG();           \
+      CONFIG_RJ2_AS_OUTPUT();         \
+      DISABLE_RJ2_OPENDRAIN();        \
+      DISABLE_RJ2_PULLUP();           \
+      DISABLE_RJ2_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ2: Provide GPIO for RJ2
+
+
+
+
+
+// Provide GPIO for RJ3
+// ====================
+#ifdef _RJ3
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ3
+#   define ENABLE_RJ3_ANALOG()  (_ANSJ3 = 1)
+#   define DISABLE_RJ3_ANALOG() (_ANSJ3 = 0)
+# else
+#   define DISABLE_RJ3_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ3_AS_INPUT()  (_TRISJ3 = 1)
+# define CONFIG_RJ3_AS_OUTPUT() (_TRISJ3 = 0)
+
+// Open-drain:
+# if defined(_ODCJ3)
+#   define ENABLE_RJ3_OPENDRAIN()  (_ODCJ3 = 1)
+#   define DISABLE_RJ3_OPENDRAIN() (_ODCJ3 = 0)
+# else
+#   define DISABLE_RJ3_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ3
+#   define ENABLE_RJ3_PULLUP()  (_CNPUJ3 = 1)
+#   define DISABLE_RJ3_PULLUP() (_CNPUJ3 = 0)
+
+#   define ENABLE_RJ3_PULLDOWN()  (_CNPDJ3 = 1)
+#   define DISABLE_RJ3_PULLDOWN() (_CNPDJ3 = 0)
+
+#   define ENABLE_RJ3_CN_INTERRUPT()  (_CNIEJ3 = 1)
+#   define DISABLE_RJ3_CN_INTERRUPT() (_CNIEJ3 = 0)
+
+# else
+#   define DISABLE_RJ3_PULLUP() ((void) 0)
+#   define DISABLE_RJ3_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ3_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ3
+#   define CONFIG_RJ3_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ3_ANALOG();            \
+        CONFIG_RJ3_AS_INPUT();          \
+        DISABLE_RJ3_OPENDRAIN();        \
+        DISABLE_RJ3_PULLUP();           \
+        DISABLE_RJ3_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ3_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ3_ANALOG();           \
+      CONFIG_RJ3_AS_INPUT();          \
+      DISABLE_RJ3_OPENDRAIN();        \
+      DISABLE_RJ3_PULLUP();           \
+      DISABLE_RJ3_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ3_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ3_ANALOG();           \
+      CONFIG_RJ3_AS_OUTPUT();         \
+      DISABLE_RJ3_OPENDRAIN();        \
+      DISABLE_RJ3_PULLUP();           \
+      DISABLE_RJ3_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ3: Provide GPIO for RJ3
+
+
+
+
+
+// Provide GPIO for RJ4
+// ====================
+#ifdef _RJ4
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ4
+#   define ENABLE_RJ4_ANALOG()  (_ANSJ4 = 1)
+#   define DISABLE_RJ4_ANALOG() (_ANSJ4 = 0)
+# else
+#   define DISABLE_RJ4_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ4_AS_INPUT()  (_TRISJ4 = 1)
+# define CONFIG_RJ4_AS_OUTPUT() (_TRISJ4 = 0)
+
+// Open-drain:
+# if defined(_ODCJ4)
+#   define ENABLE_RJ4_OPENDRAIN()  (_ODCJ4 = 1)
+#   define DISABLE_RJ4_OPENDRAIN() (_ODCJ4 = 0)
+# else
+#   define DISABLE_RJ4_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ4
+#   define ENABLE_RJ4_PULLUP()  (_CNPUJ4 = 1)
+#   define DISABLE_RJ4_PULLUP() (_CNPUJ4 = 0)
+
+#   define ENABLE_RJ4_PULLDOWN()  (_CNPDJ4 = 1)
+#   define DISABLE_RJ4_PULLDOWN() (_CNPDJ4 = 0)
+
+#   define ENABLE_RJ4_CN_INTERRUPT()  (_CNIEJ4 = 1)
+#   define DISABLE_RJ4_CN_INTERRUPT() (_CNIEJ4 = 0)
+
+# else
+#   define DISABLE_RJ4_PULLUP() ((void) 0)
+#   define DISABLE_RJ4_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ4_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ4
+#   define CONFIG_RJ4_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ4_ANALOG();            \
+        CONFIG_RJ4_AS_INPUT();          \
+        DISABLE_RJ4_OPENDRAIN();        \
+        DISABLE_RJ4_PULLUP();           \
+        DISABLE_RJ4_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ4_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ4_ANALOG();           \
+      CONFIG_RJ4_AS_INPUT();          \
+      DISABLE_RJ4_OPENDRAIN();        \
+      DISABLE_RJ4_PULLUP();           \
+      DISABLE_RJ4_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ4_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ4_ANALOG();           \
+      CONFIG_RJ4_AS_OUTPUT();         \
+      DISABLE_RJ4_OPENDRAIN();        \
+      DISABLE_RJ4_PULLUP();           \
+      DISABLE_RJ4_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ4: Provide GPIO for RJ4
+
+
+
+
+
+// Provide GPIO for RJ5
+// ====================
+#ifdef _RJ5
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ5
+#   define ENABLE_RJ5_ANALOG()  (_ANSJ5 = 1)
+#   define DISABLE_RJ5_ANALOG() (_ANSJ5 = 0)
+# else
+#   define DISABLE_RJ5_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ5_AS_INPUT()  (_TRISJ5 = 1)
+# define CONFIG_RJ5_AS_OUTPUT() (_TRISJ5 = 0)
+
+// Open-drain:
+# if defined(_ODCJ5)
+#   define ENABLE_RJ5_OPENDRAIN()  (_ODCJ5 = 1)
+#   define DISABLE_RJ5_OPENDRAIN() (_ODCJ5 = 0)
+# else
+#   define DISABLE_RJ5_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ5
+#   define ENABLE_RJ5_PULLUP()  (_CNPUJ5 = 1)
+#   define DISABLE_RJ5_PULLUP() (_CNPUJ5 = 0)
+
+#   define ENABLE_RJ5_PULLDOWN()  (_CNPDJ5 = 1)
+#   define DISABLE_RJ5_PULLDOWN() (_CNPDJ5 = 0)
+
+#   define ENABLE_RJ5_CN_INTERRUPT()  (_CNIEJ5 = 1)
+#   define DISABLE_RJ5_CN_INTERRUPT() (_CNIEJ5 = 0)
+
+# else
+#   define DISABLE_RJ5_PULLUP() ((void) 0)
+#   define DISABLE_RJ5_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ5_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ5
+#   define CONFIG_RJ5_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ5_ANALOG();            \
+        CONFIG_RJ5_AS_INPUT();          \
+        DISABLE_RJ5_OPENDRAIN();        \
+        DISABLE_RJ5_PULLUP();           \
+        DISABLE_RJ5_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ5_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ5_ANALOG();           \
+      CONFIG_RJ5_AS_INPUT();          \
+      DISABLE_RJ5_OPENDRAIN();        \
+      DISABLE_RJ5_PULLUP();           \
+      DISABLE_RJ5_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ5_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ5_ANALOG();           \
+      CONFIG_RJ5_AS_OUTPUT();         \
+      DISABLE_RJ5_OPENDRAIN();        \
+      DISABLE_RJ5_PULLUP();           \
+      DISABLE_RJ5_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ5: Provide GPIO for RJ5
+
+
+
+
+
+// Provide GPIO for RJ6
+// ====================
+#ifdef _RJ6
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ6
+#   define ENABLE_RJ6_ANALOG()  (_ANSJ6 = 1)
+#   define DISABLE_RJ6_ANALOG() (_ANSJ6 = 0)
+# else
+#   define DISABLE_RJ6_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ6_AS_INPUT()  (_TRISJ6 = 1)
+# define CONFIG_RJ6_AS_OUTPUT() (_TRISJ6 = 0)
+
+// Open-drain:
+# if defined(_ODCJ6)
+#   define ENABLE_RJ6_OPENDRAIN()  (_ODCJ6 = 1)
+#   define DISABLE_RJ6_OPENDRAIN() (_ODCJ6 = 0)
+# else
+#   define DISABLE_RJ6_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ6
+#   define ENABLE_RJ6_PULLUP()  (_CNPUJ6 = 1)
+#   define DISABLE_RJ6_PULLUP() (_CNPUJ6 = 0)
+
+#   define ENABLE_RJ6_PULLDOWN()  (_CNPDJ6 = 1)
+#   define DISABLE_RJ6_PULLDOWN() (_CNPDJ6 = 0)
+
+#   define ENABLE_RJ6_CN_INTERRUPT()  (_CNIEJ6 = 1)
+#   define DISABLE_RJ6_CN_INTERRUPT() (_CNIEJ6 = 0)
+
+# else
+#   define DISABLE_RJ6_PULLUP() ((void) 0)
+#   define DISABLE_RJ6_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ6_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ6
+#   define CONFIG_RJ6_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ6_ANALOG();            \
+        CONFIG_RJ6_AS_INPUT();          \
+        DISABLE_RJ6_OPENDRAIN();        \
+        DISABLE_RJ6_PULLUP();           \
+        DISABLE_RJ6_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ6_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ6_ANALOG();           \
+      CONFIG_RJ6_AS_INPUT();          \
+      DISABLE_RJ6_OPENDRAIN();        \
+      DISABLE_RJ6_PULLUP();           \
+      DISABLE_RJ6_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ6_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ6_ANALOG();           \
+      CONFIG_RJ6_AS_OUTPUT();         \
+      DISABLE_RJ6_OPENDRAIN();        \
+      DISABLE_RJ6_PULLUP();           \
+      DISABLE_RJ6_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ6: Provide GPIO for RJ6
+
+
+
+
+
+// Provide GPIO for RJ7
+// ====================
+#ifdef _RJ7
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ7
+#   define ENABLE_RJ7_ANALOG()  (_ANSJ7 = 1)
+#   define DISABLE_RJ7_ANALOG() (_ANSJ7 = 0)
+# else
+#   define DISABLE_RJ7_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ7_AS_INPUT()  (_TRISJ7 = 1)
+# define CONFIG_RJ7_AS_OUTPUT() (_TRISJ7 = 0)
+
+// Open-drain:
+# if defined(_ODCJ7)
+#   define ENABLE_RJ7_OPENDRAIN()  (_ODCJ7 = 1)
+#   define DISABLE_RJ7_OPENDRAIN() (_ODCJ7 = 0)
+# else
+#   define DISABLE_RJ7_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ7
+#   define ENABLE_RJ7_PULLUP()  (_CNPUJ7 = 1)
+#   define DISABLE_RJ7_PULLUP() (_CNPUJ7 = 0)
+
+#   define ENABLE_RJ7_PULLDOWN()  (_CNPDJ7 = 1)
+#   define DISABLE_RJ7_PULLDOWN() (_CNPDJ7 = 0)
+
+#   define ENABLE_RJ7_CN_INTERRUPT()  (_CNIEJ7 = 1)
+#   define DISABLE_RJ7_CN_INTERRUPT() (_CNIEJ7 = 0)
+
+# else
+#   define DISABLE_RJ7_PULLUP() ((void) 0)
+#   define DISABLE_RJ7_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ7_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ7
+#   define CONFIG_RJ7_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ7_ANALOG();            \
+        CONFIG_RJ7_AS_INPUT();          \
+        DISABLE_RJ7_OPENDRAIN();        \
+        DISABLE_RJ7_PULLUP();           \
+        DISABLE_RJ7_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ7_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ7_ANALOG();           \
+      CONFIG_RJ7_AS_INPUT();          \
+      DISABLE_RJ7_OPENDRAIN();        \
+      DISABLE_RJ7_PULLUP();           \
+      DISABLE_RJ7_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ7_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ7_ANALOG();           \
+      CONFIG_RJ7_AS_OUTPUT();         \
+      DISABLE_RJ7_OPENDRAIN();        \
+      DISABLE_RJ7_PULLUP();           \
+      DISABLE_RJ7_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ7: Provide GPIO for RJ7
+
+
+
+
+
+// Provide GPIO for RJ8
+// ====================
+#ifdef _RJ8
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ8
+#   define ENABLE_RJ8_ANALOG()  (_ANSJ8 = 1)
+#   define DISABLE_RJ8_ANALOG() (_ANSJ8 = 0)
+# else
+#   define DISABLE_RJ8_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ8_AS_INPUT()  (_TRISJ8 = 1)
+# define CONFIG_RJ8_AS_OUTPUT() (_TRISJ8 = 0)
+
+// Open-drain:
+# if defined(_ODCJ8)
+#   define ENABLE_RJ8_OPENDRAIN()  (_ODCJ8 = 1)
+#   define DISABLE_RJ8_OPENDRAIN() (_ODCJ8 = 0)
+# else
+#   define DISABLE_RJ8_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ8
+#   define ENABLE_RJ8_PULLUP()  (_CNPUJ8 = 1)
+#   define DISABLE_RJ8_PULLUP() (_CNPUJ8 = 0)
+
+#   define ENABLE_RJ8_PULLDOWN()  (_CNPDJ8 = 1)
+#   define DISABLE_RJ8_PULLDOWN() (_CNPDJ8 = 0)
+
+#   define ENABLE_RJ8_CN_INTERRUPT()  (_CNIEJ8 = 1)
+#   define DISABLE_RJ8_CN_INTERRUPT() (_CNIEJ8 = 0)
+
+# else
+#   define DISABLE_RJ8_PULLUP() ((void) 0)
+#   define DISABLE_RJ8_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ8_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ8
+#   define CONFIG_RJ8_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ8_ANALOG();            \
+        CONFIG_RJ8_AS_INPUT();          \
+        DISABLE_RJ8_OPENDRAIN();        \
+        DISABLE_RJ8_PULLUP();           \
+        DISABLE_RJ8_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ8_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ8_ANALOG();           \
+      CONFIG_RJ8_AS_INPUT();          \
+      DISABLE_RJ8_OPENDRAIN();        \
+      DISABLE_RJ8_PULLUP();           \
+      DISABLE_RJ8_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ8_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ8_ANALOG();           \
+      CONFIG_RJ8_AS_OUTPUT();         \
+      DISABLE_RJ8_OPENDRAIN();        \
+      DISABLE_RJ8_PULLUP();           \
+      DISABLE_RJ8_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ8: Provide GPIO for RJ8
+
+
+
+
+
+// Provide GPIO for RJ9
+// ====================
+#ifdef _RJ9
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ9
+#   define ENABLE_RJ9_ANALOG()  (_ANSJ9 = 1)
+#   define DISABLE_RJ9_ANALOG() (_ANSJ9 = 0)
+# else
+#   define DISABLE_RJ9_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ9_AS_INPUT()  (_TRISJ9 = 1)
+# define CONFIG_RJ9_AS_OUTPUT() (_TRISJ9 = 0)
+
+// Open-drain:
+# if defined(_ODCJ9)
+#   define ENABLE_RJ9_OPENDRAIN()  (_ODCJ9 = 1)
+#   define DISABLE_RJ9_OPENDRAIN() (_ODCJ9 = 0)
+# else
+#   define DISABLE_RJ9_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ9
+#   define ENABLE_RJ9_PULLUP()  (_CNPUJ9 = 1)
+#   define DISABLE_RJ9_PULLUP() (_CNPUJ9 = 0)
+
+#   define ENABLE_RJ9_PULLDOWN()  (_CNPDJ9 = 1)
+#   define DISABLE_RJ9_PULLDOWN() (_CNPDJ9 = 0)
+
+#   define ENABLE_RJ9_CN_INTERRUPT()  (_CNIEJ9 = 1)
+#   define DISABLE_RJ9_CN_INTERRUPT() (_CNIEJ9 = 0)
+
+# else
+#   define DISABLE_RJ9_PULLUP() ((void) 0)
+#   define DISABLE_RJ9_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ9_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ9
+#   define CONFIG_RJ9_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ9_ANALOG();            \
+        CONFIG_RJ9_AS_INPUT();          \
+        DISABLE_RJ9_OPENDRAIN();        \
+        DISABLE_RJ9_PULLUP();           \
+        DISABLE_RJ9_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ9_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ9_ANALOG();           \
+      CONFIG_RJ9_AS_INPUT();          \
+      DISABLE_RJ9_OPENDRAIN();        \
+      DISABLE_RJ9_PULLUP();           \
+      DISABLE_RJ9_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ9_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ9_ANALOG();           \
+      CONFIG_RJ9_AS_OUTPUT();         \
+      DISABLE_RJ9_OPENDRAIN();        \
+      DISABLE_RJ9_PULLUP();           \
+      DISABLE_RJ9_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ9: Provide GPIO for RJ9
+
+
+
+
+
+// Provide GPIO for RJ10
+// ====================
+#ifdef _RJ10
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ10
+#   define ENABLE_RJ10_ANALOG()  (_ANSJ10 = 1)
+#   define DISABLE_RJ10_ANALOG() (_ANSJ10 = 0)
+# else
+#   define DISABLE_RJ10_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ10_AS_INPUT()  (_TRISJ10 = 1)
+# define CONFIG_RJ10_AS_OUTPUT() (_TRISJ10 = 0)
+
+// Open-drain:
+# if defined(_ODCJ10)
+#   define ENABLE_RJ10_OPENDRAIN()  (_ODCJ10 = 1)
+#   define DISABLE_RJ10_OPENDRAIN() (_ODCJ10 = 0)
+# else
+#   define DISABLE_RJ10_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ10
+#   define ENABLE_RJ10_PULLUP()  (_CNPUJ10 = 1)
+#   define DISABLE_RJ10_PULLUP() (_CNPUJ10 = 0)
+
+#   define ENABLE_RJ10_PULLDOWN()  (_CNPDJ10 = 1)
+#   define DISABLE_RJ10_PULLDOWN() (_CNPDJ10 = 0)
+
+#   define ENABLE_RJ10_CN_INTERRUPT()  (_CNIEJ10 = 1)
+#   define DISABLE_RJ10_CN_INTERRUPT() (_CNIEJ10 = 0)
+
+# else
+#   define DISABLE_RJ10_PULLUP() ((void) 0)
+#   define DISABLE_RJ10_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ10_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ10
+#   define CONFIG_RJ10_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ10_ANALOG();            \
+        CONFIG_RJ10_AS_INPUT();          \
+        DISABLE_RJ10_OPENDRAIN();        \
+        DISABLE_RJ10_PULLUP();           \
+        DISABLE_RJ10_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ10_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ10_ANALOG();           \
+      CONFIG_RJ10_AS_INPUT();          \
+      DISABLE_RJ10_OPENDRAIN();        \
+      DISABLE_RJ10_PULLUP();           \
+      DISABLE_RJ10_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ10_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ10_ANALOG();           \
+      CONFIG_RJ10_AS_OUTPUT();         \
+      DISABLE_RJ10_OPENDRAIN();        \
+      DISABLE_RJ10_PULLUP();           \
+      DISABLE_RJ10_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ10: Provide GPIO for RJ10
+
+
+
+
+
+// Provide GPIO for RJ11
+// ====================
+#ifdef _RJ11
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ11
+#   define ENABLE_RJ11_ANALOG()  (_ANSJ11 = 1)
+#   define DISABLE_RJ11_ANALOG() (_ANSJ11 = 0)
+# else
+#   define DISABLE_RJ11_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ11_AS_INPUT()  (_TRISJ11 = 1)
+# define CONFIG_RJ11_AS_OUTPUT() (_TRISJ11 = 0)
+
+// Open-drain:
+# if defined(_ODCJ11)
+#   define ENABLE_RJ11_OPENDRAIN()  (_ODCJ11 = 1)
+#   define DISABLE_RJ11_OPENDRAIN() (_ODCJ11 = 0)
+# else
+#   define DISABLE_RJ11_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ11
+#   define ENABLE_RJ11_PULLUP()  (_CNPUJ11 = 1)
+#   define DISABLE_RJ11_PULLUP() (_CNPUJ11 = 0)
+
+#   define ENABLE_RJ11_PULLDOWN()  (_CNPDJ11 = 1)
+#   define DISABLE_RJ11_PULLDOWN() (_CNPDJ11 = 0)
+
+#   define ENABLE_RJ11_CN_INTERRUPT()  (_CNIEJ11 = 1)
+#   define DISABLE_RJ11_CN_INTERRUPT() (_CNIEJ11 = 0)
+
+# else
+#   define DISABLE_RJ11_PULLUP() ((void) 0)
+#   define DISABLE_RJ11_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ11_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ11
+#   define CONFIG_RJ11_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ11_ANALOG();            \
+        CONFIG_RJ11_AS_INPUT();          \
+        DISABLE_RJ11_OPENDRAIN();        \
+        DISABLE_RJ11_PULLUP();           \
+        DISABLE_RJ11_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ11_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ11_ANALOG();           \
+      CONFIG_RJ11_AS_INPUT();          \
+      DISABLE_RJ11_OPENDRAIN();        \
+      DISABLE_RJ11_PULLUP();           \
+      DISABLE_RJ11_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ11_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ11_ANALOG();           \
+      CONFIG_RJ11_AS_OUTPUT();         \
+      DISABLE_RJ11_OPENDRAIN();        \
+      DISABLE_RJ11_PULLUP();           \
+      DISABLE_RJ11_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ11: Provide GPIO for RJ11
+
+
+
+
+
+// Provide GPIO for RJ12
+// ====================
+#ifdef _RJ12
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ12
+#   define ENABLE_RJ12_ANALOG()  (_ANSJ12 = 1)
+#   define DISABLE_RJ12_ANALOG() (_ANSJ12 = 0)
+# else
+#   define DISABLE_RJ12_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ12_AS_INPUT()  (_TRISJ12 = 1)
+# define CONFIG_RJ12_AS_OUTPUT() (_TRISJ12 = 0)
+
+// Open-drain:
+# if defined(_ODCJ12)
+#   define ENABLE_RJ12_OPENDRAIN()  (_ODCJ12 = 1)
+#   define DISABLE_RJ12_OPENDRAIN() (_ODCJ12 = 0)
+# else
+#   define DISABLE_RJ12_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ12
+#   define ENABLE_RJ12_PULLUP()  (_CNPUJ12 = 1)
+#   define DISABLE_RJ12_PULLUP() (_CNPUJ12 = 0)
+
+#   define ENABLE_RJ12_PULLDOWN()  (_CNPDJ12 = 1)
+#   define DISABLE_RJ12_PULLDOWN() (_CNPDJ12 = 0)
+
+#   define ENABLE_RJ12_CN_INTERRUPT()  (_CNIEJ12 = 1)
+#   define DISABLE_RJ12_CN_INTERRUPT() (_CNIEJ12 = 0)
+
+# else
+#   define DISABLE_RJ12_PULLUP() ((void) 0)
+#   define DISABLE_RJ12_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ12_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ12
+#   define CONFIG_RJ12_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ12_ANALOG();            \
+        CONFIG_RJ12_AS_INPUT();          \
+        DISABLE_RJ12_OPENDRAIN();        \
+        DISABLE_RJ12_PULLUP();           \
+        DISABLE_RJ12_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ12_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ12_ANALOG();           \
+      CONFIG_RJ12_AS_INPUT();          \
+      DISABLE_RJ12_OPENDRAIN();        \
+      DISABLE_RJ12_PULLUP();           \
+      DISABLE_RJ12_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ12_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ12_ANALOG();           \
+      CONFIG_RJ12_AS_OUTPUT();         \
+      DISABLE_RJ12_OPENDRAIN();        \
+      DISABLE_RJ12_PULLUP();           \
+      DISABLE_RJ12_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ12: Provide GPIO for RJ12
+
+
+
+
+
+// Provide GPIO for RJ13
+// ====================
+#ifdef _RJ13
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ13
+#   define ENABLE_RJ13_ANALOG()  (_ANSJ13 = 1)
+#   define DISABLE_RJ13_ANALOG() (_ANSJ13 = 0)
+# else
+#   define DISABLE_RJ13_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ13_AS_INPUT()  (_TRISJ13 = 1)
+# define CONFIG_RJ13_AS_OUTPUT() (_TRISJ13 = 0)
+
+// Open-drain:
+# if defined(_ODCJ13)
+#   define ENABLE_RJ13_OPENDRAIN()  (_ODCJ13 = 1)
+#   define DISABLE_RJ13_OPENDRAIN() (_ODCJ13 = 0)
+# else
+#   define DISABLE_RJ13_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ13
+#   define ENABLE_RJ13_PULLUP()  (_CNPUJ13 = 1)
+#   define DISABLE_RJ13_PULLUP() (_CNPUJ13 = 0)
+
+#   define ENABLE_RJ13_PULLDOWN()  (_CNPDJ13 = 1)
+#   define DISABLE_RJ13_PULLDOWN() (_CNPDJ13 = 0)
+
+#   define ENABLE_RJ13_CN_INTERRUPT()  (_CNIEJ13 = 1)
+#   define DISABLE_RJ13_CN_INTERRUPT() (_CNIEJ13 = 0)
+
+# else
+#   define DISABLE_RJ13_PULLUP() ((void) 0)
+#   define DISABLE_RJ13_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ13_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ13
+#   define CONFIG_RJ13_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ13_ANALOG();            \
+        CONFIG_RJ13_AS_INPUT();          \
+        DISABLE_RJ13_OPENDRAIN();        \
+        DISABLE_RJ13_PULLUP();           \
+        DISABLE_RJ13_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ13_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ13_ANALOG();           \
+      CONFIG_RJ13_AS_INPUT();          \
+      DISABLE_RJ13_OPENDRAIN();        \
+      DISABLE_RJ13_PULLUP();           \
+      DISABLE_RJ13_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ13_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ13_ANALOG();           \
+      CONFIG_RJ13_AS_OUTPUT();         \
+      DISABLE_RJ13_OPENDRAIN();        \
+      DISABLE_RJ13_PULLUP();           \
+      DISABLE_RJ13_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ13: Provide GPIO for RJ13
+
+
+
+
+
+// Provide GPIO for RJ14
+// ====================
+#ifdef _RJ14
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ14
+#   define ENABLE_RJ14_ANALOG()  (_ANSJ14 = 1)
+#   define DISABLE_RJ14_ANALOG() (_ANSJ14 = 0)
+# else
+#   define DISABLE_RJ14_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ14_AS_INPUT()  (_TRISJ14 = 1)
+# define CONFIG_RJ14_AS_OUTPUT() (_TRISJ14 = 0)
+
+// Open-drain:
+# if defined(_ODCJ14)
+#   define ENABLE_RJ14_OPENDRAIN()  (_ODCJ14 = 1)
+#   define DISABLE_RJ14_OPENDRAIN() (_ODCJ14 = 0)
+# else
+#   define DISABLE_RJ14_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ14
+#   define ENABLE_RJ14_PULLUP()  (_CNPUJ14 = 1)
+#   define DISABLE_RJ14_PULLUP() (_CNPUJ14 = 0)
+
+#   define ENABLE_RJ14_PULLDOWN()  (_CNPDJ14 = 1)
+#   define DISABLE_RJ14_PULLDOWN() (_CNPDJ14 = 0)
+
+#   define ENABLE_RJ14_CN_INTERRUPT()  (_CNIEJ14 = 1)
+#   define DISABLE_RJ14_CN_INTERRUPT() (_CNIEJ14 = 0)
+
+# else
+#   define DISABLE_RJ14_PULLUP() ((void) 0)
+#   define DISABLE_RJ14_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ14_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ14
+#   define CONFIG_RJ14_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ14_ANALOG();            \
+        CONFIG_RJ14_AS_INPUT();          \
+        DISABLE_RJ14_OPENDRAIN();        \
+        DISABLE_RJ14_PULLUP();           \
+        DISABLE_RJ14_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ14_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ14_ANALOG();           \
+      CONFIG_RJ14_AS_INPUT();          \
+      DISABLE_RJ14_OPENDRAIN();        \
+      DISABLE_RJ14_PULLUP();           \
+      DISABLE_RJ14_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ14_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ14_ANALOG();           \
+      CONFIG_RJ14_AS_OUTPUT();         \
+      DISABLE_RJ14_OPENDRAIN();        \
+      DISABLE_RJ14_PULLUP();           \
+      DISABLE_RJ14_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ14: Provide GPIO for RJ14
+
+
+
+
+
+// Provide GPIO for RJ15
+// ====================
+#ifdef _RJ15
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSJ15
+#   define ENABLE_RJ15_ANALOG()  (_ANSJ15 = 1)
+#   define DISABLE_RJ15_ANALOG() (_ANSJ15 = 0)
+# else
+#   define DISABLE_RJ15_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RJ15_AS_INPUT()  (_TRISJ15 = 1)
+# define CONFIG_RJ15_AS_OUTPUT() (_TRISJ15 = 0)
+
+// Open-drain:
+# if defined(_ODCJ15)
+#   define ENABLE_RJ15_OPENDRAIN()  (_ODCJ15 = 1)
+#   define DISABLE_RJ15_OPENDRAIN() (_ODCJ15 = 0)
+# else
+#   define DISABLE_RJ15_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEJ15
+#   define ENABLE_RJ15_PULLUP()  (_CNPUJ15 = 1)
+#   define DISABLE_RJ15_PULLUP() (_CNPUJ15 = 0)
+
+#   define ENABLE_RJ15_PULLDOWN()  (_CNPDJ15 = 1)
+#   define DISABLE_RJ15_PULLDOWN() (_CNPDJ15 = 0)
+
+#   define ENABLE_RJ15_CN_INTERRUPT()  (_CNIEJ15 = 1)
+#   define DISABLE_RJ15_CN_INTERRUPT() (_CNIEJ15 = 0)
+
+# else
+#   define DISABLE_RJ15_PULLUP() ((void) 0)
+#   define DISABLE_RJ15_PULLDOWN() ((void) 0)
+#   define DISABLE_RJ15_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSJ15
+#   define CONFIG_RJ15_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RJ15_ANALOG();            \
+        CONFIG_RJ15_AS_INPUT();          \
+        DISABLE_RJ15_OPENDRAIN();        \
+        DISABLE_RJ15_PULLUP();           \
+        DISABLE_RJ15_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RJ15_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RJ15_ANALOG();           \
+      CONFIG_RJ15_AS_INPUT();          \
+      DISABLE_RJ15_OPENDRAIN();        \
+      DISABLE_RJ15_PULLUP();           \
+      DISABLE_RJ15_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RJ15_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RJ15_ANALOG();           \
+      CONFIG_RJ15_AS_OUTPUT();         \
+      DISABLE_RJ15_OPENDRAIN();        \
+      DISABLE_RJ15_PULLUP();           \
+      DISABLE_RJ15_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RJ15: Provide GPIO for RJ15
+
+
+
+
+
+// Provide GPIO for RK0
+// ====================
+#ifdef _RK0
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK0
+#   define ENABLE_RK0_ANALOG()  (_ANSK0 = 1)
+#   define DISABLE_RK0_ANALOG() (_ANSK0 = 0)
+# else
+#   define DISABLE_RK0_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK0_AS_INPUT()  (_TRISK0 = 1)
+# define CONFIG_RK0_AS_OUTPUT() (_TRISK0 = 0)
+
+// Open-drain:
+# if defined(_ODCK0)
+#   define ENABLE_RK0_OPENDRAIN()  (_ODCK0 = 1)
+#   define DISABLE_RK0_OPENDRAIN() (_ODCK0 = 0)
+# else
+#   define DISABLE_RK0_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK0
+#   define ENABLE_RK0_PULLUP()  (_CNPUK0 = 1)
+#   define DISABLE_RK0_PULLUP() (_CNPUK0 = 0)
+
+#   define ENABLE_RK0_PULLDOWN()  (_CNPDK0 = 1)
+#   define DISABLE_RK0_PULLDOWN() (_CNPDK0 = 0)
+
+#   define ENABLE_RK0_CN_INTERRUPT()  (_CNIEK0 = 1)
+#   define DISABLE_RK0_CN_INTERRUPT() (_CNIEK0 = 0)
+
+# else
+#   define DISABLE_RK0_PULLUP() ((void) 0)
+#   define DISABLE_RK0_PULLDOWN() ((void) 0)
+#   define DISABLE_RK0_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK0
+#   define CONFIG_RK0_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK0_ANALOG();            \
+        CONFIG_RK0_AS_INPUT();          \
+        DISABLE_RK0_OPENDRAIN();        \
+        DISABLE_RK0_PULLUP();           \
+        DISABLE_RK0_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK0_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK0_ANALOG();           \
+      CONFIG_RK0_AS_INPUT();          \
+      DISABLE_RK0_OPENDRAIN();        \
+      DISABLE_RK0_PULLUP();           \
+      DISABLE_RK0_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK0_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK0_ANALOG();           \
+      CONFIG_RK0_AS_OUTPUT();         \
+      DISABLE_RK0_OPENDRAIN();        \
+      DISABLE_RK0_PULLUP();           \
+      DISABLE_RK0_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK0: Provide GPIO for RK0
+
+
+
+
+
+// Provide GPIO for RK1
+// ====================
+#ifdef _RK1
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK1
+#   define ENABLE_RK1_ANALOG()  (_ANSK1 = 1)
+#   define DISABLE_RK1_ANALOG() (_ANSK1 = 0)
+# else
+#   define DISABLE_RK1_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK1_AS_INPUT()  (_TRISK1 = 1)
+# define CONFIG_RK1_AS_OUTPUT() (_TRISK1 = 0)
+
+// Open-drain:
+# if defined(_ODCK1)
+#   define ENABLE_RK1_OPENDRAIN()  (_ODCK1 = 1)
+#   define DISABLE_RK1_OPENDRAIN() (_ODCK1 = 0)
+# else
+#   define DISABLE_RK1_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK1
+#   define ENABLE_RK1_PULLUP()  (_CNPUK1 = 1)
+#   define DISABLE_RK1_PULLUP() (_CNPUK1 = 0)
+
+#   define ENABLE_RK1_PULLDOWN()  (_CNPDK1 = 1)
+#   define DISABLE_RK1_PULLDOWN() (_CNPDK1 = 0)
+
+#   define ENABLE_RK1_CN_INTERRUPT()  (_CNIEK1 = 1)
+#   define DISABLE_RK1_CN_INTERRUPT() (_CNIEK1 = 0)
+
+# else
+#   define DISABLE_RK1_PULLUP() ((void) 0)
+#   define DISABLE_RK1_PULLDOWN() ((void) 0)
+#   define DISABLE_RK1_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK1
+#   define CONFIG_RK1_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK1_ANALOG();            \
+        CONFIG_RK1_AS_INPUT();          \
+        DISABLE_RK1_OPENDRAIN();        \
+        DISABLE_RK1_PULLUP();           \
+        DISABLE_RK1_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK1_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK1_ANALOG();           \
+      CONFIG_RK1_AS_INPUT();          \
+      DISABLE_RK1_OPENDRAIN();        \
+      DISABLE_RK1_PULLUP();           \
+      DISABLE_RK1_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK1_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK1_ANALOG();           \
+      CONFIG_RK1_AS_OUTPUT();         \
+      DISABLE_RK1_OPENDRAIN();        \
+      DISABLE_RK1_PULLUP();           \
+      DISABLE_RK1_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK1: Provide GPIO for RK1
+
+
+
+
+
+// Provide GPIO for RK2
+// ====================
+#ifdef _RK2
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK2
+#   define ENABLE_RK2_ANALOG()  (_ANSK2 = 1)
+#   define DISABLE_RK2_ANALOG() (_ANSK2 = 0)
+# else
+#   define DISABLE_RK2_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK2_AS_INPUT()  (_TRISK2 = 1)
+# define CONFIG_RK2_AS_OUTPUT() (_TRISK2 = 0)
+
+// Open-drain:
+# if defined(_ODCK2)
+#   define ENABLE_RK2_OPENDRAIN()  (_ODCK2 = 1)
+#   define DISABLE_RK2_OPENDRAIN() (_ODCK2 = 0)
+# else
+#   define DISABLE_RK2_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK2
+#   define ENABLE_RK2_PULLUP()  (_CNPUK2 = 1)
+#   define DISABLE_RK2_PULLUP() (_CNPUK2 = 0)
+
+#   define ENABLE_RK2_PULLDOWN()  (_CNPDK2 = 1)
+#   define DISABLE_RK2_PULLDOWN() (_CNPDK2 = 0)
+
+#   define ENABLE_RK2_CN_INTERRUPT()  (_CNIEK2 = 1)
+#   define DISABLE_RK2_CN_INTERRUPT() (_CNIEK2 = 0)
+
+# else
+#   define DISABLE_RK2_PULLUP() ((void) 0)
+#   define DISABLE_RK2_PULLDOWN() ((void) 0)
+#   define DISABLE_RK2_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK2
+#   define CONFIG_RK2_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK2_ANALOG();            \
+        CONFIG_RK2_AS_INPUT();          \
+        DISABLE_RK2_OPENDRAIN();        \
+        DISABLE_RK2_PULLUP();           \
+        DISABLE_RK2_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK2_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK2_ANALOG();           \
+      CONFIG_RK2_AS_INPUT();          \
+      DISABLE_RK2_OPENDRAIN();        \
+      DISABLE_RK2_PULLUP();           \
+      DISABLE_RK2_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK2_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK2_ANALOG();           \
+      CONFIG_RK2_AS_OUTPUT();         \
+      DISABLE_RK2_OPENDRAIN();        \
+      DISABLE_RK2_PULLUP();           \
+      DISABLE_RK2_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK2: Provide GPIO for RK2
+
+
+
+
+
+// Provide GPIO for RK3
+// ====================
+#ifdef _RK3
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK3
+#   define ENABLE_RK3_ANALOG()  (_ANSK3 = 1)
+#   define DISABLE_RK3_ANALOG() (_ANSK3 = 0)
+# else
+#   define DISABLE_RK3_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK3_AS_INPUT()  (_TRISK3 = 1)
+# define CONFIG_RK3_AS_OUTPUT() (_TRISK3 = 0)
+
+// Open-drain:
+# if defined(_ODCK3)
+#   define ENABLE_RK3_OPENDRAIN()  (_ODCK3 = 1)
+#   define DISABLE_RK3_OPENDRAIN() (_ODCK3 = 0)
+# else
+#   define DISABLE_RK3_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK3
+#   define ENABLE_RK3_PULLUP()  (_CNPUK3 = 1)
+#   define DISABLE_RK3_PULLUP() (_CNPUK3 = 0)
+
+#   define ENABLE_RK3_PULLDOWN()  (_CNPDK3 = 1)
+#   define DISABLE_RK3_PULLDOWN() (_CNPDK3 = 0)
+
+#   define ENABLE_RK3_CN_INTERRUPT()  (_CNIEK3 = 1)
+#   define DISABLE_RK3_CN_INTERRUPT() (_CNIEK3 = 0)
+
+# else
+#   define DISABLE_RK3_PULLUP() ((void) 0)
+#   define DISABLE_RK3_PULLDOWN() ((void) 0)
+#   define DISABLE_RK3_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK3
+#   define CONFIG_RK3_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK3_ANALOG();            \
+        CONFIG_RK3_AS_INPUT();          \
+        DISABLE_RK3_OPENDRAIN();        \
+        DISABLE_RK3_PULLUP();           \
+        DISABLE_RK3_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK3_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK3_ANALOG();           \
+      CONFIG_RK3_AS_INPUT();          \
+      DISABLE_RK3_OPENDRAIN();        \
+      DISABLE_RK3_PULLUP();           \
+      DISABLE_RK3_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK3_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK3_ANALOG();           \
+      CONFIG_RK3_AS_OUTPUT();         \
+      DISABLE_RK3_OPENDRAIN();        \
+      DISABLE_RK3_PULLUP();           \
+      DISABLE_RK3_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK3: Provide GPIO for RK3
+
+
+
+
+
+// Provide GPIO for RK4
+// ====================
+#ifdef _RK4
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK4
+#   define ENABLE_RK4_ANALOG()  (_ANSK4 = 1)
+#   define DISABLE_RK4_ANALOG() (_ANSK4 = 0)
+# else
+#   define DISABLE_RK4_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK4_AS_INPUT()  (_TRISK4 = 1)
+# define CONFIG_RK4_AS_OUTPUT() (_TRISK4 = 0)
+
+// Open-drain:
+# if defined(_ODCK4)
+#   define ENABLE_RK4_OPENDRAIN()  (_ODCK4 = 1)
+#   define DISABLE_RK4_OPENDRAIN() (_ODCK4 = 0)
+# else
+#   define DISABLE_RK4_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK4
+#   define ENABLE_RK4_PULLUP()  (_CNPUK4 = 1)
+#   define DISABLE_RK4_PULLUP() (_CNPUK4 = 0)
+
+#   define ENABLE_RK4_PULLDOWN()  (_CNPDK4 = 1)
+#   define DISABLE_RK4_PULLDOWN() (_CNPDK4 = 0)
+
+#   define ENABLE_RK4_CN_INTERRUPT()  (_CNIEK4 = 1)
+#   define DISABLE_RK4_CN_INTERRUPT() (_CNIEK4 = 0)
+
+# else
+#   define DISABLE_RK4_PULLUP() ((void) 0)
+#   define DISABLE_RK4_PULLDOWN() ((void) 0)
+#   define DISABLE_RK4_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK4
+#   define CONFIG_RK4_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK4_ANALOG();            \
+        CONFIG_RK4_AS_INPUT();          \
+        DISABLE_RK4_OPENDRAIN();        \
+        DISABLE_RK4_PULLUP();           \
+        DISABLE_RK4_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK4_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK4_ANALOG();           \
+      CONFIG_RK4_AS_INPUT();          \
+      DISABLE_RK4_OPENDRAIN();        \
+      DISABLE_RK4_PULLUP();           \
+      DISABLE_RK4_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK4_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK4_ANALOG();           \
+      CONFIG_RK4_AS_OUTPUT();         \
+      DISABLE_RK4_OPENDRAIN();        \
+      DISABLE_RK4_PULLUP();           \
+      DISABLE_RK4_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK4: Provide GPIO for RK4
+
+
+
+
+
+// Provide GPIO for RK5
+// ====================
+#ifdef _RK5
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK5
+#   define ENABLE_RK5_ANALOG()  (_ANSK5 = 1)
+#   define DISABLE_RK5_ANALOG() (_ANSK5 = 0)
+# else
+#   define DISABLE_RK5_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK5_AS_INPUT()  (_TRISK5 = 1)
+# define CONFIG_RK5_AS_OUTPUT() (_TRISK5 = 0)
+
+// Open-drain:
+# if defined(_ODCK5)
+#   define ENABLE_RK5_OPENDRAIN()  (_ODCK5 = 1)
+#   define DISABLE_RK5_OPENDRAIN() (_ODCK5 = 0)
+# else
+#   define DISABLE_RK5_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK5
+#   define ENABLE_RK5_PULLUP()  (_CNPUK5 = 1)
+#   define DISABLE_RK5_PULLUP() (_CNPUK5 = 0)
+
+#   define ENABLE_RK5_PULLDOWN()  (_CNPDK5 = 1)
+#   define DISABLE_RK5_PULLDOWN() (_CNPDK5 = 0)
+
+#   define ENABLE_RK5_CN_INTERRUPT()  (_CNIEK5 = 1)
+#   define DISABLE_RK5_CN_INTERRUPT() (_CNIEK5 = 0)
+
+# else
+#   define DISABLE_RK5_PULLUP() ((void) 0)
+#   define DISABLE_RK5_PULLDOWN() ((void) 0)
+#   define DISABLE_RK5_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK5
+#   define CONFIG_RK5_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK5_ANALOG();            \
+        CONFIG_RK5_AS_INPUT();          \
+        DISABLE_RK5_OPENDRAIN();        \
+        DISABLE_RK5_PULLUP();           \
+        DISABLE_RK5_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK5_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK5_ANALOG();           \
+      CONFIG_RK5_AS_INPUT();          \
+      DISABLE_RK5_OPENDRAIN();        \
+      DISABLE_RK5_PULLUP();           \
+      DISABLE_RK5_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK5_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK5_ANALOG();           \
+      CONFIG_RK5_AS_OUTPUT();         \
+      DISABLE_RK5_OPENDRAIN();        \
+      DISABLE_RK5_PULLUP();           \
+      DISABLE_RK5_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK5: Provide GPIO for RK5
+
+
+
+
+
+// Provide GPIO for RK6
+// ====================
+#ifdef _RK6
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK6
+#   define ENABLE_RK6_ANALOG()  (_ANSK6 = 1)
+#   define DISABLE_RK6_ANALOG() (_ANSK6 = 0)
+# else
+#   define DISABLE_RK6_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK6_AS_INPUT()  (_TRISK6 = 1)
+# define CONFIG_RK6_AS_OUTPUT() (_TRISK6 = 0)
+
+// Open-drain:
+# if defined(_ODCK6)
+#   define ENABLE_RK6_OPENDRAIN()  (_ODCK6 = 1)
+#   define DISABLE_RK6_OPENDRAIN() (_ODCK6 = 0)
+# else
+#   define DISABLE_RK6_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK6
+#   define ENABLE_RK6_PULLUP()  (_CNPUK6 = 1)
+#   define DISABLE_RK6_PULLUP() (_CNPUK6 = 0)
+
+#   define ENABLE_RK6_PULLDOWN()  (_CNPDK6 = 1)
+#   define DISABLE_RK6_PULLDOWN() (_CNPDK6 = 0)
+
+#   define ENABLE_RK6_CN_INTERRUPT()  (_CNIEK6 = 1)
+#   define DISABLE_RK6_CN_INTERRUPT() (_CNIEK6 = 0)
+
+# else
+#   define DISABLE_RK6_PULLUP() ((void) 0)
+#   define DISABLE_RK6_PULLDOWN() ((void) 0)
+#   define DISABLE_RK6_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK6
+#   define CONFIG_RK6_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK6_ANALOG();            \
+        CONFIG_RK6_AS_INPUT();          \
+        DISABLE_RK6_OPENDRAIN();        \
+        DISABLE_RK6_PULLUP();           \
+        DISABLE_RK6_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK6_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK6_ANALOG();           \
+      CONFIG_RK6_AS_INPUT();          \
+      DISABLE_RK6_OPENDRAIN();        \
+      DISABLE_RK6_PULLUP();           \
+      DISABLE_RK6_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK6_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK6_ANALOG();           \
+      CONFIG_RK6_AS_OUTPUT();         \
+      DISABLE_RK6_OPENDRAIN();        \
+      DISABLE_RK6_PULLUP();           \
+      DISABLE_RK6_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK6: Provide GPIO for RK6
+
+
+
+
+
+// Provide GPIO for RK7
+// ====================
+#ifdef _RK7
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK7
+#   define ENABLE_RK7_ANALOG()  (_ANSK7 = 1)
+#   define DISABLE_RK7_ANALOG() (_ANSK7 = 0)
+# else
+#   define DISABLE_RK7_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK7_AS_INPUT()  (_TRISK7 = 1)
+# define CONFIG_RK7_AS_OUTPUT() (_TRISK7 = 0)
+
+// Open-drain:
+# if defined(_ODCK7)
+#   define ENABLE_RK7_OPENDRAIN()  (_ODCK7 = 1)
+#   define DISABLE_RK7_OPENDRAIN() (_ODCK7 = 0)
+# else
+#   define DISABLE_RK7_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK7
+#   define ENABLE_RK7_PULLUP()  (_CNPUK7 = 1)
+#   define DISABLE_RK7_PULLUP() (_CNPUK7 = 0)
+
+#   define ENABLE_RK7_PULLDOWN()  (_CNPDK7 = 1)
+#   define DISABLE_RK7_PULLDOWN() (_CNPDK7 = 0)
+
+#   define ENABLE_RK7_CN_INTERRUPT()  (_CNIEK7 = 1)
+#   define DISABLE_RK7_CN_INTERRUPT() (_CNIEK7 = 0)
+
+# else
+#   define DISABLE_RK7_PULLUP() ((void) 0)
+#   define DISABLE_RK7_PULLDOWN() ((void) 0)
+#   define DISABLE_RK7_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK7
+#   define CONFIG_RK7_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK7_ANALOG();            \
+        CONFIG_RK7_AS_INPUT();          \
+        DISABLE_RK7_OPENDRAIN();        \
+        DISABLE_RK7_PULLUP();           \
+        DISABLE_RK7_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK7_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK7_ANALOG();           \
+      CONFIG_RK7_AS_INPUT();          \
+      DISABLE_RK7_OPENDRAIN();        \
+      DISABLE_RK7_PULLUP();           \
+      DISABLE_RK7_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK7_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK7_ANALOG();           \
+      CONFIG_RK7_AS_OUTPUT();         \
+      DISABLE_RK7_OPENDRAIN();        \
+      DISABLE_RK7_PULLUP();           \
+      DISABLE_RK7_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK7: Provide GPIO for RK7
+
+
+
+
+
+// Provide GPIO for RK8
+// ====================
+#ifdef _RK8
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK8
+#   define ENABLE_RK8_ANALOG()  (_ANSK8 = 1)
+#   define DISABLE_RK8_ANALOG() (_ANSK8 = 0)
+# else
+#   define DISABLE_RK8_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK8_AS_INPUT()  (_TRISK8 = 1)
+# define CONFIG_RK8_AS_OUTPUT() (_TRISK8 = 0)
+
+// Open-drain:
+# if defined(_ODCK8)
+#   define ENABLE_RK8_OPENDRAIN()  (_ODCK8 = 1)
+#   define DISABLE_RK8_OPENDRAIN() (_ODCK8 = 0)
+# else
+#   define DISABLE_RK8_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK8
+#   define ENABLE_RK8_PULLUP()  (_CNPUK8 = 1)
+#   define DISABLE_RK8_PULLUP() (_CNPUK8 = 0)
+
+#   define ENABLE_RK8_PULLDOWN()  (_CNPDK8 = 1)
+#   define DISABLE_RK8_PULLDOWN() (_CNPDK8 = 0)
+
+#   define ENABLE_RK8_CN_INTERRUPT()  (_CNIEK8 = 1)
+#   define DISABLE_RK8_CN_INTERRUPT() (_CNIEK8 = 0)
+
+# else
+#   define DISABLE_RK8_PULLUP() ((void) 0)
+#   define DISABLE_RK8_PULLDOWN() ((void) 0)
+#   define DISABLE_RK8_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK8
+#   define CONFIG_RK8_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK8_ANALOG();            \
+        CONFIG_RK8_AS_INPUT();          \
+        DISABLE_RK8_OPENDRAIN();        \
+        DISABLE_RK8_PULLUP();           \
+        DISABLE_RK8_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK8_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK8_ANALOG();           \
+      CONFIG_RK8_AS_INPUT();          \
+      DISABLE_RK8_OPENDRAIN();        \
+      DISABLE_RK8_PULLUP();           \
+      DISABLE_RK8_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK8_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK8_ANALOG();           \
+      CONFIG_RK8_AS_OUTPUT();         \
+      DISABLE_RK8_OPENDRAIN();        \
+      DISABLE_RK8_PULLUP();           \
+      DISABLE_RK8_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK8: Provide GPIO for RK8
+
+
+
+
+
+// Provide GPIO for RK9
+// ====================
+#ifdef _RK9
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK9
+#   define ENABLE_RK9_ANALOG()  (_ANSK9 = 1)
+#   define DISABLE_RK9_ANALOG() (_ANSK9 = 0)
+# else
+#   define DISABLE_RK9_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK9_AS_INPUT()  (_TRISK9 = 1)
+# define CONFIG_RK9_AS_OUTPUT() (_TRISK9 = 0)
+
+// Open-drain:
+# if defined(_ODCK9)
+#   define ENABLE_RK9_OPENDRAIN()  (_ODCK9 = 1)
+#   define DISABLE_RK9_OPENDRAIN() (_ODCK9 = 0)
+# else
+#   define DISABLE_RK9_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK9
+#   define ENABLE_RK9_PULLUP()  (_CNPUK9 = 1)
+#   define DISABLE_RK9_PULLUP() (_CNPUK9 = 0)
+
+#   define ENABLE_RK9_PULLDOWN()  (_CNPDK9 = 1)
+#   define DISABLE_RK9_PULLDOWN() (_CNPDK9 = 0)
+
+#   define ENABLE_RK9_CN_INTERRUPT()  (_CNIEK9 = 1)
+#   define DISABLE_RK9_CN_INTERRUPT() (_CNIEK9 = 0)
+
+# else
+#   define DISABLE_RK9_PULLUP() ((void) 0)
+#   define DISABLE_RK9_PULLDOWN() ((void) 0)
+#   define DISABLE_RK9_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK9
+#   define CONFIG_RK9_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK9_ANALOG();            \
+        CONFIG_RK9_AS_INPUT();          \
+        DISABLE_RK9_OPENDRAIN();        \
+        DISABLE_RK9_PULLUP();           \
+        DISABLE_RK9_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK9_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK9_ANALOG();           \
+      CONFIG_RK9_AS_INPUT();          \
+      DISABLE_RK9_OPENDRAIN();        \
+      DISABLE_RK9_PULLUP();           \
+      DISABLE_RK9_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK9_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK9_ANALOG();           \
+      CONFIG_RK9_AS_OUTPUT();         \
+      DISABLE_RK9_OPENDRAIN();        \
+      DISABLE_RK9_PULLUP();           \
+      DISABLE_RK9_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK9: Provide GPIO for RK9
+
+
+
+
+
+// Provide GPIO for RK10
+// ====================
+#ifdef _RK10
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK10
+#   define ENABLE_RK10_ANALOG()  (_ANSK10 = 1)
+#   define DISABLE_RK10_ANALOG() (_ANSK10 = 0)
+# else
+#   define DISABLE_RK10_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK10_AS_INPUT()  (_TRISK10 = 1)
+# define CONFIG_RK10_AS_OUTPUT() (_TRISK10 = 0)
+
+// Open-drain:
+# if defined(_ODCK10)
+#   define ENABLE_RK10_OPENDRAIN()  (_ODCK10 = 1)
+#   define DISABLE_RK10_OPENDRAIN() (_ODCK10 = 0)
+# else
+#   define DISABLE_RK10_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK10
+#   define ENABLE_RK10_PULLUP()  (_CNPUK10 = 1)
+#   define DISABLE_RK10_PULLUP() (_CNPUK10 = 0)
+
+#   define ENABLE_RK10_PULLDOWN()  (_CNPDK10 = 1)
+#   define DISABLE_RK10_PULLDOWN() (_CNPDK10 = 0)
+
+#   define ENABLE_RK10_CN_INTERRUPT()  (_CNIEK10 = 1)
+#   define DISABLE_RK10_CN_INTERRUPT() (_CNIEK10 = 0)
+
+# else
+#   define DISABLE_RK10_PULLUP() ((void) 0)
+#   define DISABLE_RK10_PULLDOWN() ((void) 0)
+#   define DISABLE_RK10_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK10
+#   define CONFIG_RK10_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK10_ANALOG();            \
+        CONFIG_RK10_AS_INPUT();          \
+        DISABLE_RK10_OPENDRAIN();        \
+        DISABLE_RK10_PULLUP();           \
+        DISABLE_RK10_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK10_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK10_ANALOG();           \
+      CONFIG_RK10_AS_INPUT();          \
+      DISABLE_RK10_OPENDRAIN();        \
+      DISABLE_RK10_PULLUP();           \
+      DISABLE_RK10_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK10_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK10_ANALOG();           \
+      CONFIG_RK10_AS_OUTPUT();         \
+      DISABLE_RK10_OPENDRAIN();        \
+      DISABLE_RK10_PULLUP();           \
+      DISABLE_RK10_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK10: Provide GPIO for RK10
+
+
+
+
+
+// Provide GPIO for RK11
+// ====================
+#ifdef _RK11
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK11
+#   define ENABLE_RK11_ANALOG()  (_ANSK11 = 1)
+#   define DISABLE_RK11_ANALOG() (_ANSK11 = 0)
+# else
+#   define DISABLE_RK11_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK11_AS_INPUT()  (_TRISK11 = 1)
+# define CONFIG_RK11_AS_OUTPUT() (_TRISK11 = 0)
+
+// Open-drain:
+# if defined(_ODCK11)
+#   define ENABLE_RK11_OPENDRAIN()  (_ODCK11 = 1)
+#   define DISABLE_RK11_OPENDRAIN() (_ODCK11 = 0)
+# else
+#   define DISABLE_RK11_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK11
+#   define ENABLE_RK11_PULLUP()  (_CNPUK11 = 1)
+#   define DISABLE_RK11_PULLUP() (_CNPUK11 = 0)
+
+#   define ENABLE_RK11_PULLDOWN()  (_CNPDK11 = 1)
+#   define DISABLE_RK11_PULLDOWN() (_CNPDK11 = 0)
+
+#   define ENABLE_RK11_CN_INTERRUPT()  (_CNIEK11 = 1)
+#   define DISABLE_RK11_CN_INTERRUPT() (_CNIEK11 = 0)
+
+# else
+#   define DISABLE_RK11_PULLUP() ((void) 0)
+#   define DISABLE_RK11_PULLDOWN() ((void) 0)
+#   define DISABLE_RK11_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK11
+#   define CONFIG_RK11_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK11_ANALOG();            \
+        CONFIG_RK11_AS_INPUT();          \
+        DISABLE_RK11_OPENDRAIN();        \
+        DISABLE_RK11_PULLUP();           \
+        DISABLE_RK11_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK11_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK11_ANALOG();           \
+      CONFIG_RK11_AS_INPUT();          \
+      DISABLE_RK11_OPENDRAIN();        \
+      DISABLE_RK11_PULLUP();           \
+      DISABLE_RK11_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK11_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK11_ANALOG();           \
+      CONFIG_RK11_AS_OUTPUT();         \
+      DISABLE_RK11_OPENDRAIN();        \
+      DISABLE_RK11_PULLUP();           \
+      DISABLE_RK11_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK11: Provide GPIO for RK11
+
+
+
+
+
+// Provide GPIO for RK12
+// ====================
+#ifdef _RK12
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK12
+#   define ENABLE_RK12_ANALOG()  (_ANSK12 = 1)
+#   define DISABLE_RK12_ANALOG() (_ANSK12 = 0)
+# else
+#   define DISABLE_RK12_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK12_AS_INPUT()  (_TRISK12 = 1)
+# define CONFIG_RK12_AS_OUTPUT() (_TRISK12 = 0)
+
+// Open-drain:
+# if defined(_ODCK12)
+#   define ENABLE_RK12_OPENDRAIN()  (_ODCK12 = 1)
+#   define DISABLE_RK12_OPENDRAIN() (_ODCK12 = 0)
+# else
+#   define DISABLE_RK12_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK12
+#   define ENABLE_RK12_PULLUP()  (_CNPUK12 = 1)
+#   define DISABLE_RK12_PULLUP() (_CNPUK12 = 0)
+
+#   define ENABLE_RK12_PULLDOWN()  (_CNPDK12 = 1)
+#   define DISABLE_RK12_PULLDOWN() (_CNPDK12 = 0)
+
+#   define ENABLE_RK12_CN_INTERRUPT()  (_CNIEK12 = 1)
+#   define DISABLE_RK12_CN_INTERRUPT() (_CNIEK12 = 0)
+
+# else
+#   define DISABLE_RK12_PULLUP() ((void) 0)
+#   define DISABLE_RK12_PULLDOWN() ((void) 0)
+#   define DISABLE_RK12_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK12
+#   define CONFIG_RK12_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK12_ANALOG();            \
+        CONFIG_RK12_AS_INPUT();          \
+        DISABLE_RK12_OPENDRAIN();        \
+        DISABLE_RK12_PULLUP();           \
+        DISABLE_RK12_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK12_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK12_ANALOG();           \
+      CONFIG_RK12_AS_INPUT();          \
+      DISABLE_RK12_OPENDRAIN();        \
+      DISABLE_RK12_PULLUP();           \
+      DISABLE_RK12_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK12_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK12_ANALOG();           \
+      CONFIG_RK12_AS_OUTPUT();         \
+      DISABLE_RK12_OPENDRAIN();        \
+      DISABLE_RK12_PULLUP();           \
+      DISABLE_RK12_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK12: Provide GPIO for RK12
+
+
+
+
+
+// Provide GPIO for RK13
+// ====================
+#ifdef _RK13
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK13
+#   define ENABLE_RK13_ANALOG()  (_ANSK13 = 1)
+#   define DISABLE_RK13_ANALOG() (_ANSK13 = 0)
+# else
+#   define DISABLE_RK13_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK13_AS_INPUT()  (_TRISK13 = 1)
+# define CONFIG_RK13_AS_OUTPUT() (_TRISK13 = 0)
+
+// Open-drain:
+# if defined(_ODCK13)
+#   define ENABLE_RK13_OPENDRAIN()  (_ODCK13 = 1)
+#   define DISABLE_RK13_OPENDRAIN() (_ODCK13 = 0)
+# else
+#   define DISABLE_RK13_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK13
+#   define ENABLE_RK13_PULLUP()  (_CNPUK13 = 1)
+#   define DISABLE_RK13_PULLUP() (_CNPUK13 = 0)
+
+#   define ENABLE_RK13_PULLDOWN()  (_CNPDK13 = 1)
+#   define DISABLE_RK13_PULLDOWN() (_CNPDK13 = 0)
+
+#   define ENABLE_RK13_CN_INTERRUPT()  (_CNIEK13 = 1)
+#   define DISABLE_RK13_CN_INTERRUPT() (_CNIEK13 = 0)
+
+# else
+#   define DISABLE_RK13_PULLUP() ((void) 0)
+#   define DISABLE_RK13_PULLDOWN() ((void) 0)
+#   define DISABLE_RK13_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK13
+#   define CONFIG_RK13_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK13_ANALOG();            \
+        CONFIG_RK13_AS_INPUT();          \
+        DISABLE_RK13_OPENDRAIN();        \
+        DISABLE_RK13_PULLUP();           \
+        DISABLE_RK13_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK13_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK13_ANALOG();           \
+      CONFIG_RK13_AS_INPUT();          \
+      DISABLE_RK13_OPENDRAIN();        \
+      DISABLE_RK13_PULLUP();           \
+      DISABLE_RK13_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK13_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK13_ANALOG();           \
+      CONFIG_RK13_AS_OUTPUT();         \
+      DISABLE_RK13_OPENDRAIN();        \
+      DISABLE_RK13_PULLUP();           \
+      DISABLE_RK13_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK13: Provide GPIO for RK13
+
+
+
+
+
+// Provide GPIO for RK14
+// ====================
+#ifdef _RK14
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK14
+#   define ENABLE_RK14_ANALOG()  (_ANSK14 = 1)
+#   define DISABLE_RK14_ANALOG() (_ANSK14 = 0)
+# else
+#   define DISABLE_RK14_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK14_AS_INPUT()  (_TRISK14 = 1)
+# define CONFIG_RK14_AS_OUTPUT() (_TRISK14 = 0)
+
+// Open-drain:
+# if defined(_ODCK14)
+#   define ENABLE_RK14_OPENDRAIN()  (_ODCK14 = 1)
+#   define DISABLE_RK14_OPENDRAIN() (_ODCK14 = 0)
+# else
+#   define DISABLE_RK14_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK14
+#   define ENABLE_RK14_PULLUP()  (_CNPUK14 = 1)
+#   define DISABLE_RK14_PULLUP() (_CNPUK14 = 0)
+
+#   define ENABLE_RK14_PULLDOWN()  (_CNPDK14 = 1)
+#   define DISABLE_RK14_PULLDOWN() (_CNPDK14 = 0)
+
+#   define ENABLE_RK14_CN_INTERRUPT()  (_CNIEK14 = 1)
+#   define DISABLE_RK14_CN_INTERRUPT() (_CNIEK14 = 0)
+
+# else
+#   define DISABLE_RK14_PULLUP() ((void) 0)
+#   define DISABLE_RK14_PULLDOWN() ((void) 0)
+#   define DISABLE_RK14_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK14
+#   define CONFIG_RK14_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK14_ANALOG();            \
+        CONFIG_RK14_AS_INPUT();          \
+        DISABLE_RK14_OPENDRAIN();        \
+        DISABLE_RK14_PULLUP();           \
+        DISABLE_RK14_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK14_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK14_ANALOG();           \
+      CONFIG_RK14_AS_INPUT();          \
+      DISABLE_RK14_OPENDRAIN();        \
+      DISABLE_RK14_PULLUP();           \
+      DISABLE_RK14_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK14_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK14_ANALOG();           \
+      CONFIG_RK14_AS_OUTPUT();         \
+      DISABLE_RK14_OPENDRAIN();        \
+      DISABLE_RK14_PULLUP();           \
+      DISABLE_RK14_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK14: Provide GPIO for RK14
+
+
+
+
+
+// Provide GPIO for RK15
+// ====================
+#ifdef _RK15
+
+// Low-level config
+// ----------------
+// Analog:
+# ifdef _ANSK15
+#   define ENABLE_RK15_ANALOG()  (_ANSK15 = 1)
+#   define DISABLE_RK15_ANALOG() (_ANSK15 = 0)
+# else
+#   define DISABLE_RK15_ANALOG() ((void) 0)
+# endif
+
+// Input/output:
+# define CONFIG_RK15_AS_INPUT()  (_TRISK15 = 1)
+# define CONFIG_RK15_AS_OUTPUT() (_TRISK15 = 0)
+
+// Open-drain:
+# if defined(_ODCK15)
+#   define ENABLE_RK15_OPENDRAIN()  (_ODCK15 = 1)
+#   define DISABLE_RK15_OPENDRAIN() (_ODCK15 = 0)
+# else
+#   define DISABLE_RK15_OPENDRAIN() ((void) 0)
+# endif
+
+// Change notification, pullups and pulldowns:
+# ifdef _CNIEK15
+#   define ENABLE_RK15_PULLUP()  (_CNPUK15 = 1)
+#   define DISABLE_RK15_PULLUP() (_CNPUK15 = 0)
+
+#   define ENABLE_RK15_PULLDOWN()  (_CNPDK15 = 1)
+#   define DISABLE_RK15_PULLDOWN() (_CNPDK15 = 0)
+
+#   define ENABLE_RK15_CN_INTERRUPT()  (_CNIEK15 = 1)
+#   define DISABLE_RK15_CN_INTERRUPT() (_CNIEK15 = 0)
+
+# else
+#   define DISABLE_RK15_PULLUP() ((void) 0)
+#   define DISABLE_RK15_PULLDOWN() ((void) 0)
+#   define DISABLE_RK15_CN_INTERRUPT() ((void) 0)
+# endif
+
+// High-level config
+// -----------------
+# ifdef _ANSK15
+#   define CONFIG_RK15_AS_ANALOG()       \
+      do {                              \
+        ENABLE_RK15_ANALOG();            \
+        CONFIG_RK15_AS_INPUT();          \
+        DISABLE_RK15_OPENDRAIN();        \
+        DISABLE_RK15_PULLUP();           \
+        DISABLE_RK15_PULLDOWN();         \
+      } while (0)
+# endif
+
+# define CONFIG_RK15_AS_DIG_INPUT()    \
+    do {                              \
+      DISABLE_RK15_ANALOG();           \
+      CONFIG_RK15_AS_INPUT();          \
+      DISABLE_RK15_OPENDRAIN();        \
+      DISABLE_RK15_PULLUP();           \
+      DISABLE_RK15_PULLDOWN();         \
+    } while (0)
+
+# define CONFIG_RK15_AS_DIG_OUTPUT()   \
+    do {                              \
+      DISABLE_RK15_ANALOG();           \
+      CONFIG_RK15_AS_OUTPUT();         \
+      DISABLE_RK15_OPENDRAIN();        \
+      DISABLE_RK15_PULLUP();           \
+      DISABLE_RK15_PULLDOWN();         \
+    } while (0)
+
+#endif // #ifdef _RK15: Provide GPIO for RK15
+
+
+
+
+
 // Provide GPIO for RT1
 // ====================
 #ifdef _RT1
