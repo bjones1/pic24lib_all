@@ -62,7 +62,7 @@ def text_pinout_to_mapping(text):
 
 form_class, base_class = uic.loadUiType('data_sheet_to_csv.ui')
 
-class main_dialog(QtGui.QDialog, form_class):
+class main_dialog(QtGui.QMainWindow, form_class):
     def __init__(self):
         # Let Qt and PyQt run their init first.
         QtGui.QDialog.__init__(self)
@@ -89,6 +89,10 @@ class main_dialog(QtGui.QDialog, form_class):
             csv_dict_writer.writerow(RPy)
             csv_dict_writer.writerow(ANn)
             csv_dict_writer.writerow(CNm)
+
+            self.statusBar().showMessage('CSV updated.', 3000)
+            self.processors_text_edit.clear()
+            self.pinout_text_edit.clear()
 
 # This routine runs the CodeChat GUI.
 def main():
