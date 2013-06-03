@@ -19,6 +19,8 @@ from string import Template
 import csv
 import re
 
+from compact_csv import enumeratePic24Ports
+
 # Import environment from calling SConstruct context
 Import('env')
 
@@ -90,12 +92,6 @@ def c_template_builder(target, source, env):
     genFromTemplate(s, t, 2)
   if (g == "pic24_spi"):
     genFromTemplate(s, t, 2)
-
-## Enumerate all ports on a PIC24 processor, returning the result as a list.
-def enumeratePic24Ports():
-    return [chr(i) + str(j) for i in range(ord('A'), ord('G') + 1)
-                            for j in range(16)]
-
 
 ## This routine builds a pic24_ports_XX_config.h file from a template. To do so:
 #

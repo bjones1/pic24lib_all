@@ -19,3 +19,7 @@ build/
 *.X/nbproject/Makefile-local-default.mk
 *.X/nbproject/Makefile-variables.mk
 *.X/nbproject/Package-default.bash
+# Python files
+*.pyc
+templates/data_sheet_to_csv.csv
+templates/pic24_devices_combined.csv

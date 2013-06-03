@@ -145,6 +145,11 @@ def deep_eq(_v1, _v2, datetime_fudge=default_fudge, _assert=False):
 
 import csv
 
+## Enumerate all ports on a PIC24 processor, returning the result as a list.
+def enumeratePic24Ports():
+    return [chr(i) + str(j) for i in range(ord('A'), ord('G') + 1)
+                            for j in range(16)]
+
 ## This routine builds pic24_ports_tables.h from a template. To do so:
 #
 # #. Open the output file and write out the header.
@@ -188,16 +193,15 @@ def genTablesFromTemplate(csvFileName, destFileName):
     # Open the output file.
     #print(processors)
     with open(destFileName, "wb") as outFile:
-        portlist =  [chr(i) + str(j) for i in range(ord('A'), ord('G') + 1)
-                                     for j in range(16)]
+        portlist = enumeratePic24Ports()
         portlist.insert(0, 'Device port / pin')
         csv_dict_writer = csv.DictWriter(outFile, portlist)
         csv_dict_writer.writeheader()
 
         for processor in sorted(processors.keys()):
             RPy, ANn, CNm = processors[processor]
-            # Remove any duplicates
-            processor = ' '.join(set(processor.split(' ')))
+            # Remove any duplicates and write out processor names in sorted order.
+            processor = ' '.join(sorted(set(processor.split(' '))))
             RPy['Device port / pin'] = processor + ' RPy'
             ANn['Device port / pin'] = processor + ' ANn'
             CNm['Device port / pin'] = processor + ' CNm'
