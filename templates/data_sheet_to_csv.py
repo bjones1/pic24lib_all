@@ -34,7 +34,7 @@ def text_pinout_to_mapping(text):
             processor_names.append(pin)
 
         # Look for Rxy. If not found, we can't do anything with this pin.
-        mo = re.search('R([A-G]\d\d?)', pin)
+        mo = re.search('R([A-K]\d\d?)', pin)
         if mo:
             Rxy = mo.group(1)
         else:

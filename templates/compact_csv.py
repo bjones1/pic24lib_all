@@ -147,8 +147,11 @@ import csv
 
 ## Enumerate all ports on a PIC24 processor, returning the result as a list.
 def enumeratePic24Ports():
-    return [chr(i) + str(j) for i in range(ord('A'), ord('G') + 1)
-                            for j in range(16)]
+    port_letters = [chr(i) for i in range(ord('A'), ord('K') + 1)]
+    # The PIC series doesn't have port I.
+    port_letters.remove('I')
+    return [i + str(j) for i in port_letters
+                       for j in range(16)]
 
 ## This routine builds pic24_ports_tables.h from a template. To do so:
 #
