@@ -10,29 +10,24 @@ Created on Mon Jun 03 09:43:43 2013
 import re
 import sys
 import csv
+import os
 
 import sip
 sip.setapi('QString', 2)
 sip.setapi('QVariant', 2)
 
-from compact_csv import enumeratePic24Ports
-
-
 # The excellent `PyQt4 library <http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/classes.html>`_ provides the GUI for this package.
 from PyQt4 import QtGui, uic
+
+from compact_csv import enumeratePic24Ports
+
 
 def text_pinout_to_mapping(text):
     pins = text.split()
     RPy = { }
     ANn = { }
     CNm = { }
-    processor_names = []
     for pin in pins:
-        # Look for a processor name.
-        mo = re.search('PIC', pin)
-        if mo:
-            processor_names.append(pin)
-
         # Look for Rxy. If not found, we can't do anything with this pin.
         mo = re.search('R([A-K]\d\d?)', pin)
         if mo:
@@ -58,7 +53,7 @@ def text_pinout_to_mapping(text):
             assert Rxy
             CNm[Rxy] = mo.group(1)
 
-    return ' '.join(processor_names), RPy, ANn, CNm
+    return RPy, ANn, CNm
 
 form_class, base_class = uic.loadUiType('data_sheet_to_csv.ui')
 
@@ -68,21 +63,63 @@ class main_dialog(QtGui.QMainWindow, form_class):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
 
-    # This is called when the pinout text box changes (typically, when a paste is done).
+        # Store portlist, which is used several times.
+        self.portlist = enumeratePic24Ports()
+        self.portlist.insert(0, 'Device port / pin')
+
+    def parse_gui_text(self):
+        # Read the GUI text fields and parse out pin mapping and procesor name.
+        RPy, ANn, CNm = text_pinout_to_mapping(self.pinout_text_edit.toPlainText())
+        processor_names = ' '.join([s for s in self.processors_text_edit.toPlainText().split() if 'PIC' in s])
+        return processor_names, RPy, ANn, CNm
+
     def on_pinout_text_edit_textChanged(self):
-        processor_names, RPy, ANn, CNm = text_pinout_to_mapping(self.pinout_text_edit.toPlainText())
-        self.processors_text_edit.setPlainText(processor_names)
-        self.pins = (processor_names, RPy, ANn, CNm)
+        self.update_table()
+
+    def on_processors_text_edit_textChanged(self):
+        self.update_table()
+
+    # Display results for the user.
+    def update_table(self):
+        processor_names, RPy, ANn, CNm = self.parse_gui_text()
+        self.results_label.setText('Results: ' + processor_names)
+        self.results_table_widget.clear()
+        self.results_table_widget.setHorizontalHeaderLabels(['RPy', 'ANn', 'CNm'])
+        self.results_table_widget.setRowCount(128)
+        row = 0
+        for Rxy in self.portlist[1:]:
+            increment = False
+            if Rxy in RPy:
+                self.results_table_widget.setItem(row, 1, QtGui.QTableWidgetItem(RPy[Rxy]))
+                increment = True
+
+            if Rxy in ANn:
+                self.results_table_widget.setItem(row, 2, QtGui.QTableWidgetItem(ANn[Rxy]))
+                increment = True
+
+            if Rxy in CNm:
+                self.results_table_widget.setItem(row, 3, QtGui.QTableWidgetItem(CNm[Rxy]))
+                increment = True
+
+            if increment:
+                self.results_table_widget.setVerticalHeaderItem(row, QtGui.QTableWidgetItem(Rxy))
+                row += 1
+
+        self.results_table_widget.setRowCount(row)
 
     # This is called when OK is clicked. Append a CSV entry.
     def on_buttonBox_accepted(self):
-        with open('data_sheet_to_csv.csv', 'a+b') as outFile:
-            portlist = enumeratePic24Ports()
-            portlist.insert(0, 'Device port / pin')
-            csv_dict_writer = csv.DictWriter(outFile, portlist)
-            csv_dict_writer.writeheader()
+        processor_names, RPy, ANn, CNm = self.parse_gui_text()
 
-            processor_names, RPy, ANn, CNm = self.pins
+        # Prepare for appending to the CSV.
+        with open('data_sheet_to_csv.csv', 'a+b') as outFile:
+            csv_dict_writer = csv.DictWriter(outFile, self.portlist)
+            # Write the header only if the file is empty. (Leaving out the seek always reports 0 for the tell).
+            outFile.seek(0, os.SEEK_END)
+            if outFile.tell() == 0:
+                csv_dict_writer.writeheader()
+
+            # Write it to the CSV.
             RPy['Device port / pin'] = processor_names + ' RPy'
             ANn['Device port / pin'] = processor_names + ' ANn'
             CNm['Device port / pin'] = processor_names + ' CNm'
@@ -90,9 +127,11 @@ class main_dialog(QtGui.QMainWindow, form_class):
             csv_dict_writer.writerow(ANn)
             csv_dict_writer.writerow(CNm)
 
-            self.statusBar().showMessage('CSV updated.', 3000)
-            self.processors_text_edit.clear()
-            self.pinout_text_edit.clear()
+        # Display success, set up for next run.
+        self.statusBar().showMessage('CSV updated.', 3000)
+        self.processors_text_edit.clear()
+        self.pinout_text_edit.clear()
+        self.results_label.setText('Results')
 
 # This routine runs the CodeChat GUI.
 def main():
