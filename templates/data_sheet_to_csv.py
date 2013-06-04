@@ -17,7 +17,7 @@ sip.setapi('QString', 2)
 sip.setapi('QVariant', 2)
 
 # The excellent `PyQt4 library <http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/classes.html>`_ provides the GUI for this package.
-from PyQt4 import QtGui, uic
+from PyQt4 import QtGui, QtCore, uic
 
 from compact_csv import enumeratePic24Ports
 
@@ -79,30 +79,29 @@ class main_dialog(QtGui.QMainWindow, form_class):
     def on_processors_text_edit_textChanged(self):
         self.update_table()
 
+    # A helper to create an uneditable QTableWidgetItem
+    def QTableWidgetItemUneditable(self, o):
+        qtwi = QtGui.QTableWidgetItem(o)
+        qtwi.setFlags(qtwi.flags() & ~QtCore.Qt.ItemIsEditable)
+        return qtwi
+
     # Display results for the user.
     def update_table(self):
         processor_names, RPy, ANn, CNm = self.parse_gui_text()
         self.results_label.setText('Results: ' + processor_names)
-        self.results_table_widget.clear()
-        self.results_table_widget.setHorizontalHeaderLabels(['RPy', 'ANn', 'CNm'])
+        self.results_table_widget.clearContents()
         self.results_table_widget.setRowCount(128)
         row = 0
         for Rxy in self.portlist[1:]:
-            increment = False
-            if Rxy in RPy:
-                self.results_table_widget.setItem(row, 1, QtGui.QTableWidgetItem(RPy[Rxy]))
-                increment = True
+            if (Rxy in RPy) or (Rxy in ANn) or (Rxy in CNm):
+                self.results_table_widget.setItem(row, 0, self.QTableWidgetItemUneditable(RPy.get(Rxy, '')))
 
-            if Rxy in ANn:
-                self.results_table_widget.setItem(row, 2, QtGui.QTableWidgetItem(ANn[Rxy]))
-                increment = True
+                self.results_table_widget.setItem(row, 1, self.QTableWidgetItemUneditable(ANn.get(Rxy, '')))
 
-            if Rxy in CNm:
-                self.results_table_widget.setItem(row, 3, QtGui.QTableWidgetItem(CNm[Rxy]))
-                increment = True
+                self.results_table_widget.setItem(row, 2, self.QTableWidgetItemUneditable(CNm.get(Rxy, '')))
 
-            if increment:
                 self.results_table_widget.setVerticalHeaderItem(row, QtGui.QTableWidgetItem(Rxy))
+
                 row += 1
 
         self.results_table_widget.setRowCount(row)
