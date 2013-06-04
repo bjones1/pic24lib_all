@@ -212,4 +212,6 @@ def genTablesFromTemplate(csvFileName, destFileName):
             csv_dict_writer.writerow(ANn)
             csv_dict_writer.writerow(CNm)
 
-genTablesFromTemplate('pic24_devices.csv' , 'pic24_devices_combined.csv')
+
+if __name__ == '__main__':
+    genTablesFromTemplate('pic24_devices.csv' , 'pic24_devices_combined.csv')
