@@ -21,17 +21,17 @@
 ;
 ; .. code-block:: C
 ;
-;     uint16_t u16_i;
-;     uint16_t u16_j;
-;     uint16_t u16_k;
+;    uint16_t u16_i;
+;    uint16_t u16_j;
+;    uint16_t u16_k;
 ;
-;   void main() {
-;     i = 2047;    /* i = 2047 (0x7FF). */
-;     i = i + 1;   /* i++, so i = 2048 (0x800).  */
-;     j = i;       /* j is 2048 (0x0800). */
-;     j = j - 1;   /* j--, so j is 2047.   */
-;     k = j + i;   /* k = 4095 (0x0FFF). */
-;   }
+;    void main() {
+;      i = 2047;    /* i = 2047 (0x7FF). */
+;      i = i + 1;   /* i++, so i = 2048 (0x800).  */
+;      j = i;       /* j is 2048 (0x0800). */
+;      j = j - 1;   /* j--, so j is 2047.   */
+;      k = j + i;   /* k = 4095 (0x0FFF). */
+;    }
 ;
 ; Declare variables
 ; =================
