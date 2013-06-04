@@ -9,7 +9,7 @@ dir_bin=
 dir_tmp=
 dir_sin=
 dir_inc=
-dir_lib=C:\Program Files\Microchip\MPLAB ASM30 Suite\Support\PIC24H\gld;C:\Program Files\Microchip\MPLAB ASM30 Suite\Support\PIC24F\gld;C:\Program Files\Microchip\MPLAB ASM30 Suite\Support\gld;C:\Program Files (x86)\Microchip\MPLAB ASM30 Suite\Support\PIC24H\gld;C:\Program Files (x86)\Microchip\MPLAB ASM30 Suite\Support\PIC24F\gld;C:\Program Files (x86)\Microchip\MPLAB ASM30 Suite\Support\gld
+dir_lib=
 [CAT_FILTERS]
 filter_src=*.s
 filter_inc=*.inc
