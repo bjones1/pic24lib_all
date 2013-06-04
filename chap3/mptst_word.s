@@ -19,7 +19,7 @@
 ; ************
 ; This file demonstrates translating the following *C* program to assembly:
 ;
-; .. code-block:: C
+; .. code-block:: c
 ;
 ;    uint16_t u16_i;
 ;    uint16_t u16_j;
