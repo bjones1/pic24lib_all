@@ -33,15 +33,10 @@
 ;     k = j + i;   /* k = 4095 (0x0FFF). */
 ;   }
 ;
-; Preliminaries
-; =============
-; Tell the assembler about ``__reset``, the beginning of the code.
-.global __reset          ;The label for the first line of code. 
-;
 ; Declare variables
 ; =================
-; Next, set aside space for some 16-bit (2-byte) variables to work with. The ``.bss`` command instructs the assembler to place the following values in data memory. Data memory starts at 0x0800; locations 0x000-0x07FF are reserved for special function registers (SFRs).
-         .bss            ;unitialized data section
+; Next, set aside space for some variables to work with. The ``.bss`` command instructs the assembler to place the following values in data memory. Data memory starts at 0x0800; locations 0x000-0x07FF are reserved for special function registers (SFRs).
+.bss
 ; Reserve two bytes (16 bits) for each variable using the ``.space`` directive. To emphasize the connection between assembly and *C*, the equivalent *C* code given above is repeated before its assembly-language translation.
 ;; uint16_t u16_i;
 u16_i:   .space 2
@@ -57,6 +52,7 @@ u16_bug: .space 2
 ; Now, we can write code. First, tell the assembly the following lines should be placed in program memory using the ``.text`` directive.
 .text
 ; Next, label the beginning of our program, so the PIC24 will know what to do after powering up.
+.global __reset          ;The label for the first line of code.
 __reset:
 ; Our code starts here. The *C* program above is listed as a comment before each group of resulting assembly statements. Above each *C* line is a register assignment. After the register assignment comes the input, process, and output steps.
 
