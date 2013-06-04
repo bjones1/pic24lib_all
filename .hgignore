@@ -23,6 +23,12 @@ build/
 *.pyc
 templates/data_sheet_to_csv.csv
 templates/pic24_devices_combined.csv
+# CodeChat files
+_build/
+*.py.rst
+*.c.rst
+*.s.rst
+*.bat.rst
 # Temporary stuff (output of pyinstaller)
 templates/dist
 templates/build
