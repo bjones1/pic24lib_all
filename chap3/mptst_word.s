@@ -20,6 +20,7 @@
 ; This file demonstrates translating the following *C* program to assembly:
 ;
 ; .. code-block:: c
+;    :linenos:
 ;
 ;    uint16_t u16_i;
 ;    uint16_t u16_j;
@@ -35,7 +36,7 @@
 ;
 ; Declare variables
 ; =================
-; Next, set aside space for some variables to work with. The ``.bss`` command instructs the assembler to place the following values in data memory. Data memory starts at 0x0800; locations 0x000-0x07FF are reserved for special function registers (SFRs).
+; First, set aside space for some variables to work with. The ``.bss`` command instructs the assembler to place the following values in data memory. Data memory starts at 0x1000; locations 0x000-0x0FFF are reserved for special function registers (SFRs).
 .bss
 ; Reserve two bytes (16 bits) for each variable using the ``.space`` directive. To emphasize the connection between assembly and *C*, the equivalent *C* code given above is repeated before its assembly-language translation.
 ;; uint16_t u16_i;
@@ -44,15 +45,15 @@ u16_i:   .space 2
 u16_j:   .space 2
 ;; uint16_t u16_k;
 u16_k:   .space 2
-; This isn't used, but makes the debugger display the size of the u16_k variable above correctly.
+; This isn't used, but makes the debugger display the size of the ``u16_k`` variable above correctly.
 u16_bug: .space 2
 
 ; Code
 ; ====
 ; Now, we can write code. First, tell the assembly the following lines should be placed in program memory using the ``.text`` directive.
 .text
-; Next, label the beginning of our program, so the PIC24 will know what to do after powering up.
-.global __reset          ;The label for the first line of code.
+; Next, label the beginning of our program. Make the label global (visible outside this file), so the PIC24 can run this after powering up.
+.global __reset
 __reset:
 ; Our code starts here. The *C* program above is listed as a comment before each group of resulting assembly statements. Above each *C* line is a register assignment. After the register assignment comes the input, process, and output steps.
 
