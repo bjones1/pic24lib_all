@@ -39,18 +39,18 @@
  *  file to configure the clock. Typical code structure is:
  *
  *  \code
-#if IS_CLOCK_CONFIG(FRCPLL_FCY16MHz)
-#warning Clock configured for FRCPLL, FCY = 16 MHz
-#endif
-#if GET_IS_SUPPORTED(FRCPLL_FCY16MHz)
-void configClockFRCPLL_FCY16MHz(void) {
-  ... code to configure this clock ...
-  // Typically, after setup code above, swtich to
-  // the newly configured oscillator.
-  switchClock(OSC_SEL_BITS);
-}
-#endif
- * \endcode
+ *  #if IS_CLOCK_CONFIG(FRCPLL_FCY16MHz)
+ *  # warning Clock configured for FRCPLL, FCY = 16 MHz
+ *  #endif
+ *  #if GET_IS_SUPPORTED(FRCPLL_FCY16MHz)
+ *  void configClockFRCPLL_FCY16MHz(void) {
+ *  ... code to configure this clock ...
+ *    // Typically, after setup code above, swtich to
+ *    // the newly configured oscillator.
+ *    switchClock(OSC_SEL_BITS);
+ *  }
+ *  #endif
+ *  \endcode
  *
  * Notes: is some modes, the configuration bit settings suggest
  * that a clock switch unnecessary. For example, FNOSC_PRI

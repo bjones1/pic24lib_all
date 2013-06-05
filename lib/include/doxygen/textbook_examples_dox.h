@@ -113,6 +113,7 @@
  *
  * \section exampleDirectory Example code directory
  * Example code includes:
+ * - Chapters 3-7 (assembly language): see <a href="sphinx/index.html">here</a>
  * - Chapter 8 (initial startup, parallel port examples)
  *   - chap8/asm_echo.s - Demonstrates calling C from assembly.
  *   - chap8/echo.c - inputs chararacter from UART RX1, echos back +1.
