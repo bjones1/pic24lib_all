@@ -117,7 +117,7 @@ exclude_patterns = ['_build',
                     'util',
                     'conf.py.rst',
                     'SCons_build.py.rst',
-                    'SConstruct.py',
+                    'SConstruct.py.rst',
                     # Ignore MPLAB X auto-generated files.
                     '**.X/build',
                     '**.X/dist',
