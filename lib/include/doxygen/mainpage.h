@@ -47,7 +47,7 @@ The latest version of this document is located
 \section internalWelcome PIC24 library collection
 Welcome to the PIC24 library collection! This \ref PIC24_support "library"
 (the latest version is
-<a href="http://www.ece.msstate.edu/courses/ece3724/main_pic24/labs/files/pic24_code_examples.zip">here</a>),
+<a href="http://www.ece.msstate.edu/courses/ece3724/main_pic24/labs/files/pic24_code_examples.zip">here</a>; the older MPLAB 8 version accompanying the first edition of the book is <a href="http://www.ece.msstate.edu/courses/ece3724/main_pic24/labs/files/pic24_code_examples_first_edition.zip">here</a>),
 accompanied by detailed explanations in the
 <a href="http://www.reesemicro.com/Home/textbook">textbook</a>,
 supplemented with numerous real-world \ref textbookExamples "examples", and
