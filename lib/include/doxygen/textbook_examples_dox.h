@@ -50,10 +50,7 @@
  * started guide</a>, insuring that your hardware and software are
  * correctly configured.
  *
- * You can place this directory anywhere that you wish; the project
- * files use relative path names.
- *
- * Documentation starts at \ref index "docs/index.html". These examples have
+ * These examples have
  * minimal reliance on the libraries shipped with the PIC24 compiler,
  * and instead use libraries that have been developed by the authors.
  * The new libraries are meant to be more friendly to programmers
@@ -61,19 +58,11 @@
  * are used in an introductory microprocessors class at Mississippi
  * State University.
  *
- * Most of the examples are meant for a reference
- * PIC24HJ32GP202 system (some examples in Chapter 13 use the PIC24HJ64GP502, which is
- * pin compatible with the  PIC24HJ32GP202 but has additional on-chip peripherals).
+ * Most of the examples are meant for a reference PIC24E128GP202 system.
  * The projects all have a custom linker
  * file intended for use with a serial bootloader - if you want generated
  * hex files to be compatible with the PICKIT2 programmer then
  * delete the linker file from the MPLAB project.
- * The MPLAB project files do not have workspace files associated with
- * them - this means that double-clicking on a MPLAB project file opens
- * a blank workspace, and you do not see the project files. Instead of double-clicking
- * on a project file, start MPLAB manually, and use 'Project->Open' to open
- * one of the example projects. This creates a new workspace for that project,
- * which you can save when you close the project.
  *
  * If you have a different PIC24 Family member, simply change the
  * target device in the MPLAB to that device.
@@ -86,7 +75,7 @@
  * To change config bits, see the documentation on common/pic24_configbits.c
  *
  * All of the examples assume a serial port using UART1; our reference system
- * uses pins RP10 (RX) and RP11 (TX) with a default baudRate of 57600.
+ * uses pins RP10 (RX) and RP11 (TX) with a default baud rate of 230,400 baud.
  * To change these assignments, edit the function called configUART1() in
  * common/pic24_uart.c.  To change the default baudrate, edit
  * the <code>\#define DEFAULT_BAUDRATE</code> in include/pic24_libconfig.h
@@ -106,10 +95,8 @@
  * You can reassign this to another port (see \ref HB_LED) or remove it
  * entirely (see \ref USE_HEARTBEAT) by editing pic24_libconfig.h.
  *
- * The best project to start with is chap8/reset.mcp - this just assumes
- * serial port functionality.  Chapter 8 examples are parallel port I/O,
- * while Chapter 9 gives some interrupt examples. See the following listing
- * for descriptions of individual code examples.
+ * The best project to start with is chap8/reset.c - this just assumes
+ * basic serial port functionality.
  *
  * \section exampleDirectory Example code directory
  * Example code includes:

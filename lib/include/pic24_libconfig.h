@@ -75,14 +75,14 @@
 
 /** Select one of the hardware platform above to compile for. */
 #ifndef HARDWARE_PLATFORM
-#  define HARDWARE_PLATFORM DEFAULT_DESIGN
+# define HARDWARE_PLATFORM DEFAULT_DESIGN
 #endif
 // Verify that a valid hardware platform is selectd
 #if (HARDWARE_PLATFORM != EXPLORER16_100P)   && \
     (HARDWARE_PLATFORM != DANGEROUS_WEB)     && \
     (HARDWARE_PLATFORM != STARTER_BOARD_28P) && \
     (HARDWARE_PLATFORM != DEFAULT_DESIGN)
-#  error "Invalid hardware platform selected."
+# error "Invalid hardware platform selected."
 #endif
 //@}
 
@@ -116,7 +116,7 @@
  */
 // Uncomment one of the #defines below to make
 // a clock choice. If all the #defines below
-// are commented out, code in pic24_clockfreq.h
+// are commented out, code below
 // will pick a default clock choice.
 #ifndef CLOCK_CONFIG
 //#define CLOCK_CONFIG SIM_CLOCK
@@ -247,7 +247,7 @@
 
 #ifndef DEFAULT_BAUDRATE
 # if defined(__PIC24F__) || defined(__PIC24FK__)
-//  The PIC24F/FK's 16 MHz max frequency using the inaccurate FRC means a lower default baud rate is a safer choice.
+//  The PIC24F/FK's 16 MHz max frequency using the inaccurate FRC means a lower default baud rate is a safer choice. Ideally, this would instead look at the FCY chosen, but that requires inclusion of pic24_clockconfig.h, a circular dependency.
 #   define DEFAULT_BAUDRATE   57600
 # else
 #   define DEFAULT_BAUDRATE  230400
