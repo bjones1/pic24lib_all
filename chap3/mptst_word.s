@@ -27,11 +27,11 @@
 ;    uint16_t u16_k;
 ;
 ;    void main() {
-;      i = 2047;    /* i = 2047 (0x7FF). */
-;      i = i + 1;   /* i++, so i = 2048 (0x800).  */
-;      j = i;       /* j is 2048 (0x0800). */
-;      j = j - 1;   /* j--, so j is 2047.   */
-;      k = j + i;   /* k = 4095 (0x0FFF). */
+;      u16_i = 2047;        // u16_i = 2047 (0x7FF).
+;      u16_i = u16_i + 1;   // u16_i++, so u16_i = 2048 (0x800).
+;      u16_j = u16_i;       // u16_j is 2048 (0x0800).
+;      u16_j = u16_j - 1;   // u16_j--, so u16_j is 2047.
+;      u16_k = u16_j + i;   // u16_k = 4095 (0x0FFF).
 ;    }
 ;
 ; Declare variables
@@ -45,7 +45,7 @@ u16_i:   .space 2
 u16_j:   .space 2
 ;; uint16_t u16_k;
 u16_k:   .space 2
-; This isn't used, but makes the debugger display the size of the ``u16_k`` variable above correctly.
+; This isn't used, but makes the MPLAB X v. 1.80 watch window display the size of the ``u16_k`` variable above correctly.
 u16_bug: .space 2
 
 ; Code
@@ -57,8 +57,8 @@ u16_bug: .space 2
 __reset:
 ; Our code starts here. The *C* program above is listed as a comment before each group of resulting assembly statements. Above each *C* line is a register assignment. After the register assignment comes the input, process, and output steps.
 
-  ;; W0   W0
-  ;; i = 2047;
+  ;; W0       W0
+  ;; u16_i = 2047;
   ; Input
   mov #2047, W0
   ; Output
