@@ -1,63 +1,93 @@
- 
+; .. Copyright (c) 2013 Bryan A. Jones, Robert B. Reese, and J. W. Bruce ("AUTHORS")
+;    All rights reserved.
+;    (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
+;    (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
+;    (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
 ;
-; Just check out MPLAB
-
-.include "p24Hxxxx.inc"
-
-.global __reset          ;The label for the first line of code. 
-
-
-         .bss            ;unitialized data section
-;;These start at location 0x0800 because 0-0x07FF reserved for SFRs
-i:       .space 1        ;Allocating space (in bytes) to variable.
-j:       .space 1        ;Allocating space (in bytes) to variable.
-k:       .space 1        ;Allocating space (in bytes) to variable.
-
-
-;..............................................................................
-;Code Section in Program Memory
-;..............................................................................
-
-.text                             ;Start of Code section
-__reset:                          ; first instruction located at __reset label
-        mov #__SP_init, W15       ;Initalize the Stack Pointer
-        mov #__SPLIM_init,W0   
-        mov W0, SPLIM             ;Initialize the stack limit register
- ;__SP_init set by linker to be after allocated data                                 
-                              
-;User Code starts here.
-; C Program equivalent
-;  #define avalue 100
-;  uint8_t i,j,k;
+;    Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without written agreement is hereby granted, provided that the above copyright notice, the following two paragraphs and the authors appear in all copies of this software.
 ;
-;     i = avalue;   /* myvalue = 100 (0x64) */
-;     i = i + 1;   /* i++, i = 101 (0x65) */
-;     j = i;       /* j is 101  (0x65) */
-;     j = j - 1;   /* j--, j is 100 (0x64) */
-;     k = j + i;    /* k = 201 (0xC9) */
+;    IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS" HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ;
-		.equ avalue, 100
+;    THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+;
+;    Please maintain this header in its entirety when copying/modifying these files.
+;
+; .. highlight:: nasm
+;
+; ************
+; mptst_byte.s
+; ************
+; Like :doc:`mptst_word.s`, this file demonstrates translating a *C* program into assembly; however, this *C* project uses 8-bit, rather than 16-bit, values.
+;
+; .. code-block:: c
+;    :linenos:
+;
+;    uint8_t u8_i;
+;    uint8_t u8_j;
+;    uint8_t u8_k;
+;
+;    void main() {
+;      u8_i = 100;        // u8_i = 64 (0x64).
+;      u8_i = u8_i + 1;   // u8_i++, so u8_i = 101 (0x65).
+;      u8_j = u8_i;       // u8_j is 101 (0x65).
+;      u8_j = u8_j - 1;   // u8_j--, so u8_j is 100 (0x64).
+;      u8_k = u8_j + i;   // u8_k = 201 (0xC9).
+;    }
+;
+; Declare variables
+; =================
+.bss
+; Reserve one byte (8 bits) for each variable using the ``.space`` directive.
+;; uint8_t u8_i;
+u8_i:   .space 1
+;; uint8_t u8_j;
+u8_j:   .space 1
+;; uint8_t u8_k;
+u8_k:   .space 1
+; This isn't used, but makes the MPLAB X v. 1.80 watch window display the size of the ``u8_k`` variable above correctly.
+u8_bug: .space 2
 
-;i = avalue;   /* avalue = 100 */
-	mov.b #avalue, W0       ; W0 = 100
-    mov.b WREG,i            ; i = 100
+; Code
+; ====
+.text
+.global __reset
+__reset:
 
-; i = i + 1;
-    inc.b   i               ; i = i + 1
+  ;;  W0     W0
+  ;; u8_i = 100;
+  ; Input
+  mov.b #100, W0
+  ; Output. **Important note:** When MOVing directly from memory to register or vice versa, you must always target WREG (the 8-bit name for W0). You may not use W1, W2, etc.
+  mov.b WREG, u8_i
 
-; j = i
-    mov.b   i,WREG          ; W0 = i
-    mov.b   WREG,j          ; j = W0
+  ; This statement requires no register assignments.
+  ;; u8_i = u8_i + 1;
+  ; Input, process, and output
+  inc.b  u8_i
 
-; j = j - 1;  /* j--, j is 100 */
-    dec.b   j              ; j= j - 1
+  ;;  W0     W0
+  ;; u8_j = u8_i
+  ; Input. As discussed above, this 8-bit operation **must** target WREG.
+  mov.b   u8_i, WREG
+  ; Output
+  mov.b   WREG, u8_j
 
-; k = j + i
-    mov.b   i,WREG         ; W0 = i
-    add.b   j,WREG         ; W0 = W0+j  (WREG is W0)
-    mov.b   WREG,k         ; k = W0
+  ;; u8_j = u8_j - 1;
+  ; Input, process, and output
+  dec.b   u8_j
 
+  ; To make this a bit easier, we'll re-use W0 to hold both u8_j and u8_k.
+  ;;  W0     W0     W1
+  ;; u8_k = u8_j + u8_i
+  ; Input. First, load u8_i, since it must go through W0, aka WREG.
+  mov.b u8_i, WREG
+  mov.b W0, W1
+  mov.b u8_j, WREG
+  ; Process
+  add.b W0, W1, W0
+  ; Output
+  mov.b WREG, u8_k
+
+; The code is complete, but the processor doesn't stop. To give it something to do, loop forever.
 done:
-    goto    done              ;Place holder for last line of executed code
-
-.end       ;End of program code in this file
+  goto     done    ;Place holder for last line of executed code
