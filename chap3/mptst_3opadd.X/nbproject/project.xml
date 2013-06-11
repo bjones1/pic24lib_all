@@ -3,12 +3,12 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>mptst_3opadd</name>
-            <creation-uuid>ab7b1054-815b-40f8-9d48-efa8dfbd0c3f</creation-uuid>
+            <creation-uuid>16483e12-5d89-406b-bc71-2d3276033c3b</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions/>
             <cpp-extensions/>
             <header-extensions/>
-            <sourceEncoding>ISO-8859-1</sourceEncoding>
+            <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
         </data>
     </configuration>
