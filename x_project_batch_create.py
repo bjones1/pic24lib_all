@@ -25,7 +25,7 @@ def replace_in_config_file(project_dir, replacement_file_name):
     config_file_name = os.path.join(project_dir, 'nbproject', 'configurations.xml')
     # The replacement file name should contain just the base name, with no leading path components.
     replacement_file_name = os.path.split(replacement_file_name)[1]
-    replace_in_xml_file(config_file_name, 'template.s', replacement_file_name, '<itemPath>../%s</itemPath>')
+    replace_in_xml_file(config_file_name, 'template' + file_extension, replacement_file_name, '<itemPath>../%s</itemPath>')
 
 # Given a project directory, this routine performs two replacements in the project file:
 #  <name>template</name>
