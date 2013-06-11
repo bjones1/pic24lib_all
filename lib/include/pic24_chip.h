@@ -1085,6 +1085,13 @@
 #define EXPECTED_REVISION1_STR "B1"
 #endif
 
+#ifdef __dsPIC33EP128GP502__
+#define DEV_ID 0x001E4D
+#define DEV_ID_STR "dsPIC33EP128GP502"
+#define EXPECTED_REVISION1 0x004003
+#define EXPECTED_REVISION1_STR "A3"
+#endif
+
 
 /* Use these default device ID and revision values
    if you are trying to discover the ID/Revision by
