@@ -42,7 +42,7 @@ def replace_in_project_file(project_dir, replacement_file_name):
     replacement_file_name = os.path.split(replacement_file_name)[1]
     replacement_file_name = os.path.splitext(replacement_file_name)[0]
     replace_in_xml_file(project_file_name, 'template', replacement_file_name, '<name>%s</name>')
-    replace_in_xml_file(project_file_name, 'a5112a0d-040c-46aa-9aba-41388c6882f9', str(uuid.uuid4()), '<creation-uuid>%s</creation-uuid>')
+    replace_in_xml_file(project_file_name, '5bb0299b-99f5-49ca-a742-66869bdb5dbe', str(uuid.uuid4()), '<creation-uuid>%s</creation-uuid>')
 
 # This routine replaces data in XML format, given a simple template.
 def replace_in_xml_file(file_name, original_value, replacement_value, xml_template):
@@ -79,3 +79,4 @@ for f in source_files:
     config_file = os.path.join(dest_dir, 'nbproject', 'configurations.xml')
     replace_in_config_file(dest_dir, f)
     replace_in_project_file(dest_dir, f)
+    print('\n')
