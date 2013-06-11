@@ -79,7 +79,7 @@ __reset:
   ; To make this a bit easier, we'll re-use W0 to hold both u8_j and u8_k.
   ;;  W0     W0     W1
   ;; u8_k = u8_j + u8_i
-  ; Input. First, load u8_i, since it must go through W0, aka WREG.
+  ; Input. First, load u8_i, since it overwrites WREG; then, load u8_j into WREG.
   mov.b u8_i, WREG
   mov.b W0, W1
   mov.b u8_j, WREG
@@ -88,6 +88,5 @@ __reset:
   ; Output
   mov.b WREG, u8_k
 
-; The code is complete, but the processor doesn't stop. To give it something to do, loop forever.
 done:
   goto     done    ;Place holder for last line of executed code
