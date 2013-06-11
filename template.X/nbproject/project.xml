@@ -3,11 +3,11 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>template</name>
-            <creation-uuid>5bb0299b-99f5-49ca-a742-66869bdb5dbe</creation-uuid>
+            <creation-uuid>23362592-784f-4b67-a06b-e25c3ce5464b</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions/>
+            <c-extensions>c</c-extensions>
             <cpp-extensions/>
-            <header-extensions/>
+            <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
         </data>
