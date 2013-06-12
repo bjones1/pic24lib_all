@@ -60,7 +60,7 @@
 
 /* E X T E R N S ************************************************************/
 extern struct stTask    __stChildTaskI2C, __stGrandChildTaskI2C;
-extern uint8            __esos_i2c_dataBytes[2];                    // used to store arguments
+extern uint8_t            __esos_i2c_dataBytes[2];                    // used to store arguments
 
 /* M A C R O S **************************************************************/
 #define I2C_WADDR(x) (x & 0xFE) //clear R/W bit of I2C addr
@@ -195,12 +195,12 @@ As per the I2C standard, a NAK is returned for the last byte read from the slave
 /* P U B L I C  P R O T O T Y P E S *****************************************/
 
 //I2C Operations
-void esos_pic24_configI2C1(uint16 u16_FkHZ);
+void esos_pic24_configI2C1(uint16_t u16_FkHZ);
 
 //I2C Transactions
-ESOS_CHILD_TASK( __esos_pic24_getI2C1, uint8* pu8_x, uint8 u8_ack2Send);
-ESOS_CHILD_TASK( __esos_pic24_writeNI2C1, uint8 u8_addr, uint8* pu8_d, uint16 u16_cnt);
-ESOS_CHILD_TASK( __esos_pic24_readNI2C1, uint8 u8_addr, uint8* pu8_d, uint16 u16_cnt);
+ESOS_CHILD_TASK( __esos_pic24_getI2C1, uint8_t* pu8_x, uint8_t u8_ack2Send);
+ESOS_CHILD_TASK( __esos_pic24_writeNI2C1, uint8_t u8_addr, uint8_t* pu8_d, uint16_t u16_cnt);
+ESOS_CHILD_TASK( __esos_pic24_readNI2C1, uint8_t u8_addr, uint8_t* pu8_d, uint16_t u16_cnt);
 
 /** @} */
 #endif // end ESOS_PIC24_I2C_H

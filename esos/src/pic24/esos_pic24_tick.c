@@ -38,8 +38,8 @@
 //#include    "esos_irq.h"
 #include    "esos_pic24.h"
 
-volatile  uint32        esos_tick_count;
-volatile  uint8         sub_tick;
+volatile  uint32_t        esos_tick_count;
+volatile  uint8_t         sub_tick;
 
 // prototype for the ESOS timer service function
 extern void __esos_tmrSvcsExecute(void);
@@ -117,7 +117,7 @@ void    __esos_hw_InitSystemTick(void) {
 * since the system has booted.
 *
 ********************************************************/
-uint32   __esos_hw_GetSystemTickCount(void) {
+uint32_t   __esos_hw_GetSystemTickCount(void) {
   return  esos_tick_count;
 }  // end __esos_hw_GetSystemTickCount()
 

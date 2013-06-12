@@ -31,8 +31,8 @@
 #include    "esos_comm.h"
 
 // ******** G L O B A L S ***************
-volatile uint8               __esos_comm_tx_buff[ESOS_SERIAL_IN_EP_SIZE];
-volatile uint8               __esos_comm_rx_buff[ESOS_SERIAL_OUT_EP_SIZE];
+volatile uint8_t               __esos_comm_tx_buff[ESOS_SERIAL_IN_EP_SIZE];
+volatile uint8_t               __esos_comm_rx_buff[ESOS_SERIAL_OUT_EP_SIZE];
 volatile ESOS_COMM_BUFF_DSC  __st_TxBuffer, __st_RxBuffer;
 volatile struct    stTask    __stChildTaskTx, __stChildTaskRx;
 
@@ -54,16 +54,16 @@ void __esos_InitCommSystem(void) {
 
 } // endof esos_Init_CommSystem()
 
-uint8 __esos_u8_GetMSBHexCharFromUint8(uint8 u8_x) {
-  uint8 u8_c;
+uint8_t __esos_u8_GetMSBHexCharFromUint8(uint8_t u8_x) {
+  uint8_t u8_c;
 
   u8_c = (u8_x>>4)& 0xf;
   if (u8_c > 9) return('A'+u8_c-10);
   else return('0'+u8_c);
 }
 
-uint8 __esos_u8_GetLSBHexCharFromUint8(uint8 u8_x) {
-  uint8 u8_c;
+uint8_t __esos_u8_GetLSBHexCharFromUint8(uint8_t u8_x) {
+  uint8_t u8_c;
 
   u8_c = u8_x & 0xf;
   if (u8_c > 9) return('A'+u8_c-10);
@@ -71,9 +71,9 @@ uint8 __esos_u8_GetLSBHexCharFromUint8(uint8 u8_x) {
 }
 
 
-ESOS_CHILD_TASK( __esos_OutChar, uint8 u8_c) {
-  static uint16       u16_tmp;
-  static uint8        u8_TempChar;
+ESOS_CHILD_TASK( __esos_OutChar, uint8_t u8_c) {
+  static uint16_t       u16_tmp;
+  static uint8_t        u8_TempChar;
 
   ESOS_TASK_BEGIN();
   u8_TempChar = u8_c;
@@ -88,10 +88,10 @@ ESOS_CHILD_TASK( __esos_OutChar, uint8 u8_c) {
 } // end __esos_OutChar
 
 
-ESOS_CHILD_TASK( __esos_OutUint8AsHexString, uint8 u8_x) {
-  static uint8        au8_String[5];
-  static uint8        u8_c;
-  static uint16       u16_tmp;
+ESOS_CHILD_TASK( __esos_OutUint8AsHexString, uint8_t u8_x) {
+  static uint8_t        au8_String[5];
+  static uint8_t        u8_c;
+  static uint16_t       u16_tmp;
 
   ESOS_TASK_BEGIN();
   au8_String[0] = '0';
@@ -111,12 +111,12 @@ ESOS_CHILD_TASK( __esos_OutUint8AsHexString, uint8 u8_x) {
 
 } // end __esos_OutUint8AsHexString()
 
-ESOS_CHILD_TASK( __esos_OutUint8AsDecString, uint8 u8_x) {
+ESOS_CHILD_TASK( __esos_OutUint8AsDecString, uint8_t u8_x) {
   // code provided by Gary Weasel
-  static uint8      au8_String[5];
-  static uint8      u8_c;
-  static uint8      u8_digit;
-  static uint16     u16_tmp;
+  static uint8_t      au8_String[5];
+  static uint8_t      u8_c;
+  static uint8_t      u8_digit;
+  static uint16_t     u16_tmp;
 
   ESOS_TASK_BEGIN();
   u8_digit = 0;
@@ -136,10 +136,10 @@ ESOS_CHILD_TASK( __esos_OutUint8AsDecString, uint8 u8_x) {
   ESOS_TASK_END();
 } // end __esos_OutUint8AsDecString
 
-ESOS_CHILD_TASK( __esos_OutUint32AsHexString, uint32 u32_x) {
-  static uint8        au8_String[11];
-  static uint8        u8_c;
-  static uint16       u16_tmp;
+ESOS_CHILD_TASK( __esos_OutUint32AsHexString, uint32_t u32_x) {
+  static uint8_t        au8_String[11];
+  static uint8_t        u8_c;
+  static uint16_t       u16_tmp;
 
   ESOS_TASK_BEGIN();
   au8_String[0] = '0';
@@ -170,11 +170,11 @@ ESOS_CHILD_TASK( __esos_OutUint32AsHexString, uint32 u32_x) {
 } // end __esos_OutUint32AsHexString()
 
 
-ESOS_CHILD_TASK( __esos_OutCharBuffer, uint8* pu8_out, uint8 u8_len) {
-  static uint16       u16_tmp;
-  static uint8        u8_i;
-  static uint8        u8_StoreLen;
-  static uint8*       pu8_StorePtr;
+ESOS_CHILD_TASK( __esos_OutCharBuffer, uint8_t* pu8_out, uint8_t u8_len) {
+  static uint16_t       u16_tmp;
+  static uint8_t        u8_i;
+  static uint8_t        u8_StoreLen;
+  static uint8_t*       pu8_StorePtr;
 
   ESOS_TASK_BEGIN();
   u8_StoreLen = u8_len;
@@ -191,10 +191,10 @@ ESOS_CHILD_TASK( __esos_OutCharBuffer, uint8* pu8_out, uint8 u8_len) {
 
 } // end __esos_OutCharBuffer
 
-ESOS_CHILD_TASK( __esos_getBuffer, uint8* pau8_buff, uint8 u8_size) {
-  static uint8        u8_i;
-  static uint8*       pau8_LocalPtr;
-  static uint8        u8_LocalSize;
+ESOS_CHILD_TASK( __esos_getBuffer, uint8_t* pau8_buff, uint8_t u8_size) {
+  static uint8_t        u8_i;
+  static uint8_t*       pau8_LocalPtr;
+  static uint8_t        u8_LocalSize;
 
   ESOS_TASK_BEGIN();
   u8_LocalSize = u8_size;
@@ -214,7 +214,7 @@ ESOS_CHILD_TASK( __esos_getBuffer, uint8* pau8_buff, uint8 u8_size) {
 
 
 ESOS_CHILD_TASK( __esos_getString, char* pau8_buff) {
-  static uint8        u8_i;
+  static uint8_t        u8_i;
 
   ESOS_TASK_BEGIN();
   for (u8_i=0; u8_i<(ESOS_SERIAL_OUT_EP_SIZE-1); u8_i++) {
@@ -232,7 +232,7 @@ ESOS_CHILD_TASK( __esos_getString, char* pau8_buff) {
 } // end __esos_getBuffer
 
 ESOS_CHILD_TASK( __esos_OutString, char* psz_out ) {
-  static uint16       u16_tmp;
+  static uint16_t       u16_tmp;
   static char*        psz_local;
 
   ESOS_TASK_BEGIN();
@@ -256,8 +256,8 @@ ESOS_CHILD_TASK( __esos_OutString, char* psz_out ) {
 // ================================================================
 
 // This routine is UNSAFE.  It can HANG the system!!!!
-void __esos_unsafe_PutUint8(uint8 u8_c) {
-  uint16    u16_tmp;
+void __esos_unsafe_PutUint8(uint8_t u8_c) {
+  uint16_t    u16_tmp;
 
   __ESOS_COMM_TXFIFO_PREP();
   // wait for room in the TX FIFO -- CAN HANG HERE!
@@ -268,7 +268,7 @@ void __esos_unsafe_PutUint8(uint8 u8_c) {
 
 // This routine is UNSAFE.  It can HANG the system!!!!
 void __esos_unsafe_PutString(char* psz_in) {
-  uint16    u16_tmp;
+  uint16_t    u16_tmp;
 
   while ( *psz_in ) {
     __ESOS_COMM_TXFIFO_PREP();
@@ -280,7 +280,7 @@ void __esos_unsafe_PutString(char* psz_in) {
 } // end __esos_unsafe_PutString()
 
 // This routine is UNSAFE.  It can HANG the system!!!!
-uint8 __esos_unsafe_GetUint8(void) {
+uint8_t __esos_unsafe_GetUint8(void) {
   //wait for the RX character to arrive -- CAN HANG HERE!
   while (__st_RxBuffer.u16_Head == __st_RxBuffer.u16_Tail);
   __st_RxBuffer.u16_Tail++;

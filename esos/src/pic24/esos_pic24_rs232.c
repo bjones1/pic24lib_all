@@ -79,7 +79,7 @@ void _ISRFAST _U1TXInterrupt (void) {
 }
 
 void _ISRFAST _U1RXInterrupt (void) {
-  int8 u8_c;
+  int8_t u8_c;
 
   _U1RXIF = 0;          //clear the UART RX interrupt bit
 
@@ -101,11 +101,11 @@ void _ISRFAST _U1RXInterrupt (void) {
  *
  *  \param u32_baudRate The baud rate to use.
  */
-void configUART1(uint32 u32_baudRate) {
+void configUART1(uint32_t u32_baudRate) {
   /*************************  UART config ********************/
   //Pin mapping macros in pic24_ports.h
 
-  CONFIG_RP10_AS_DIG_PIN();              //RX RP pin must be digital. What about TX pin?
+  CONFIG_RB10_AS_DIG_INPUT();              //RX RP pin must be digital. What about TX pin?
   CONFIG_U1RX_TO_RP(10);                 //U1RX <- RP10
   CONFIG_U1TX_TO_RP(11);                 //U1TX -> RP11
 
@@ -172,7 +172,7 @@ void __esos_hw_InitCommSystem(void) {
  *                  it chooses to be.
  *
  *****************************************************************************/
-uint8 esos_GetCommSystemMaxInDataLen(void) {
+uint8_t esos_GetCommSystemMaxInDataLen(void) {
   return ESOS_SERIAL_OUT_EP_SIZE;
 } //end esos_GetCommSystemMaxInDataLen()
 
@@ -200,7 +200,7 @@ uint8 esos_GetCommSystemMaxInDataLen(void) {
  *                  if it chooses to be.
  *
  *****************************************************************************/
-uint8 esos_GetCommSystemMaxOutDataLen(void) {
+uint8_t esos_GetCommSystemMaxOutDataLen(void) {
   return  ESOS_SERIAL_IN_EP_SIZE;
 } //end esos_GetCommSystemMaxOutDataLen()
 
@@ -220,7 +220,7 @@ uint8 esos_GetCommSystemMaxOutDataLen(void) {
  * Side Effects:    None
  *
  *****************************************************************************/
-uint8 _esos_hw_GetSerialUartVersion(void) {
+uint8_t _esos_hw_GetSerialUartVersion(void) {
   return  ESOS_COMM_SYS_SERIAL_REV;
 } //end _esos_hw_GetUartVersion()
 

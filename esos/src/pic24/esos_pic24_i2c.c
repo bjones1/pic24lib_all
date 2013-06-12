@@ -38,7 +38,7 @@
 
 /*** G L O B A L S *************************************************/
 struct stTask   __stChildTaskI2C, __stGrandChildTaskI2C;
-uint8           __esos_i2c_dataBytes[2];
+uint8_t           __esos_i2c_dataBytes[2];
 
 /*** T H E   C O D E *************************************************/
 
@@ -62,17 +62,17 @@ Configure and enable the I2C1 module for operation at \em u16_fKHz KHz clock spe
 \sa ESOS_TASK_WAIT_ON_READNI2C1
 \hideinitializer
  */
-void esos_pic24_configI2C1(uint16 u16_fKHz) {
-  uint32 u32_temp;
+void esos_pic24_configI2C1(uint16_t u16_fKHz) {
+  uint32_t u32_temp;
 
-  u32_temp = (FCY/1000L)/((uint32) u16_fKHz);
+  u32_temp = (FCY/1000L)/((uint32_t) u16_fKHz);
   u32_temp = u32_temp - FCY/10000000L - 1;
   I2C1BRG = u32_temp;
   I2C1CONbits.I2CEN = 1;
 }
 
-ESOS_CHILD_TASK( __esos_pic24_getI2C1, uint8* pu8_x, uint8 u8_ack2Send) {
-  static uint8        u8_tempAck;
+ESOS_CHILD_TASK( __esos_pic24_getI2C1, uint8_t* pu8_x, uint8_t u8_ack2Send) {
+  static uint8_t        u8_tempAck;
 
   ESOS_TASK_BEGIN();
   u8_tempAck = u8_ack2Send;
@@ -95,10 +95,10 @@ Transaction: Write \em u16_cnt bytes stored in buffer \em *pu8_d to I2C slave at
 \param pu8_d Pointer to buffer containing bytes to send
 \param u16_cnt Number of bytes to send
  */
-ESOS_CHILD_TASK( __esos_pic24_writeNI2C1, uint8 u8_addr, uint8* pu8_d, uint16 u16_cnt) {
-  static uint8        u8_tempAddr;
-  static uint8*       pu8_tempPtr;
-  static uint16       u16_tempCnt, u16_i;
+ESOS_CHILD_TASK( __esos_pic24_writeNI2C1, uint8_t u8_addr, uint8_t* pu8_d, uint16_t u16_cnt) {
+  static uint8_t        u8_tempAddr;
+  static uint8_t*       pu8_tempPtr;
+  static uint16_t       u16_tempCnt, u16_i;
 
   ESOS_TASK_BEGIN();
   u8_tempAddr=u8_addr;
@@ -121,10 +121,10 @@ As per the I2C standard, a NAK is returned for the last byte read from the slave
 \param pu8_d Pointer to buffer for storing bytes read from slave
 \param u16_cnt Number of bytes read from slave.
  */
-ESOS_CHILD_TASK( __esos_pic24_readNI2C1, uint8 u8_addr, uint8* pu8_d, uint16 u16_cnt) {
-  static uint8        u8_tempAddr;
-  static uint8*       pu8_tempD;
-  static uint16       u16_tempCnt, u16_i;
+ESOS_CHILD_TASK( __esos_pic24_readNI2C1, uint8_t u8_addr, uint8_t* pu8_d, uint16_t u16_cnt) {
+  static uint8_t        u8_tempAddr;
+  static uint8_t*       pu8_tempD;
+  static uint16_t       u16_tempCnt, u16_i;
 
   ESOS_TASK_BEGIN();
   u8_tempAddr=u8_addr;
