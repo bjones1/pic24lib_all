@@ -54,12 +54,12 @@ void    _esos_hw_InitUserInterrupts(void);
 * where <i>hw</i> is the name of the chip for the ESOS port has been written.
 * \hideinitializer
 */
-void  esos_EnableVerifiedUserInterrupt( uint16 u16_desc );
+void  esos_EnableVerifiedUserInterrupt( uint16_t u16_desc );
 void    _esos_hw_DisableAllUserInterrupts(void);
 void    _esos_hw_EnableAllUserInterrupts(void);
 void    _esos_hw_InitUserInterrupts(void);
-uint8   _esos_hw_IsUserInterruptEnabled(uint16  u16_desc );
-uint8   _esos_hw_IsUserInterruptFlagSet(uint16  u16_desc );
+uint8_t   _esos_hw_IsUserInterruptEnabled(uint16_t  u16_desc );
+uint8_t   _esos_hw_IsUserInterruptFlagSet(uint16_t  u16_desc );
 
 /**
 * Unregisters the user interrupt denoted by the interrupt descriptor
@@ -71,7 +71,7 @@ uint8   _esos_hw_IsUserInterruptFlagSet(uint16  u16_desc );
 * \sa esos_EnableUserInterrupt
 * \sa esos_DisableUserInterrupt
 */
-void    esos_UnregisterUserInterrupt( uint16 u16_desc );
+void    esos_UnregisterUserInterrupt( uint16_t u16_desc );
 
 /**
 * Registers the user interrupt denoted by the interrupt descriptor
@@ -86,7 +86,7 @@ void    esos_UnregisterUserInterrupt( uint16 u16_desc );
 * \sa esos_EnableUserInterrupt
 * \sa esos_DisableUserInterrupt
 */
-void    esos_RegisterUserInterrupt( uint16 u16_desc, uint8 u8_IPL, void (*p2f)(void) );
+void    esos_RegisterUserInterrupt( uint16_t u16_desc, uint8_t u8_IPL, void (*p2f)(void) );
 
 void    _esos_DoNothingIsr(void);
 void    _esos_hw_DoNothingIsr(void);

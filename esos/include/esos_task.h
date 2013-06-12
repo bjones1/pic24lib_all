@@ -53,10 +53,10 @@
 
 struct stTask {
   lc_t    lc;
-  uint8   flags;
-  uint8   (*pfn)(struct stTask *);
-  uint32  u32_savedTick;
-  uint32  u32_waitLen;
+  uint8_t   flags;
+  uint8_t   (*pfn)(struct stTask *);
+  uint32_t  u32_savedTick;
+  uint32_t  u32_waitLen;
 };
 
 /** \struct ESOS_TASK_HANDLE
@@ -202,7 +202,7 @@ typedef   struct stTask*                   ESOS_TASK_HANDLE;
  *
  * \hideinitializer
  */
-#define ESOS_USER_TASK(taskname)    uint8 taskname(ESOS_TASK_HANDLE __pstSelf)
+#define ESOS_USER_TASK(taskname)    uint8_t taskname(ESOS_TASK_HANDLE __pstSelf)
 
 /**
  * Declaration of an ESOS child task -- a task spawned by another
@@ -221,7 +221,7 @@ typedef   struct stTask*                   ESOS_TASK_HANDLE;
  *
  * \hideinitializer
  */
-#define ESOS_CHILD_TASK(taskname, ...)    uint8 taskname(ESOS_TASK_HANDLE __pstSelf, ##__VA_ARGS__)
+#define ESOS_CHILD_TASK(taskname, ...)    uint8_t taskname(ESOS_TASK_HANDLE __pstSelf, ##__VA_ARGS__)
 
 /**
  * Declare the start of an ESOS task inside the C function
@@ -580,7 +580,7 @@ do {                                                    \
  * \sa ESOS_SIGNAL_SEMAPHORE
  */
 struct stSemaphore {
-  int16 i16_cnt;
+  int16_t i16_cnt;
 };
 
 

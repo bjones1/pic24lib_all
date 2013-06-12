@@ -94,8 +94,8 @@ typedef             int                 main_t;
  */
 struct stTimer {
   void    (*pfn)(void);
-  uint32  u32_period;
-  uint32  u32_cntDown;
+  uint32_t  u32_period;
+  uint32_t  u32_cntDown;
 };
 
 // Define masks for the user to use for their flags
@@ -190,7 +190,7 @@ struct stTimer {
  *
  * \hideinitializer
  */
-typedef   uint8                   ESOS_TMR_HANDLE;
+typedef   uint8_t                   ESOS_TMR_HANDLE;
 
 /*
  * Now define the public user function prototypes that are
@@ -227,20 +227,20 @@ typedef   uint8                   ESOS_TMR_HANDLE;
  */
 
 void    user_init( void );
-ESOS_TASK_HANDLE   esos_RegisterTask( uint8 (*pfn_TaskFcn)(struct stTask *pst_Task) );
-uint8   esos_UnregisterTask( uint8 (*pfn_TaskFcn)(struct stTask *pst_Task) ) ;
+ESOS_TASK_HANDLE   esos_RegisterTask( uint8_t (*pfn_TaskFcn)(struct stTask *pst_Task) );
+uint8_t   esos_UnregisterTask( uint8_t (*pfn_TaskFcn)(struct stTask *pst_Task) ) ;
 ESOS_TASK_HANDLE  esos_GetFreeChildTaskStruct();
-uint32    esos_GetRandomUint32();
+uint32_t    esos_GetRandomUint32();
 
 // prototypes for ESOS software timers
-ESOS_TMR_HANDLE    esos_RegisterTimer( void (*pfnTmrFcn)(void), uint32 u32_period );
-uint8    esos_UnregisterTimer( ESOS_TMR_HANDLE hnd_timer );
+ESOS_TMR_HANDLE    esos_RegisterTimer( void (*pfnTmrFcn)(void), uint32_t u32_period );
+uint8_t    esos_UnregisterTimer( ESOS_TMR_HANDLE hnd_timer );
 ESOS_TMR_HANDLE    esos_GetTimerHandle( void (*pfnTmrFcn)(void) );
-uint8    esos_ChangeTimerPeriod( ESOS_TMR_HANDLE hnd_timer, uint32 u32_period );
+uint8_t    esos_ChangeTimerPeriod( ESOS_TMR_HANDLE hnd_timer, uint32_t u32_period );
 
 // The user must provide the HW-specific way of getting a 32bit 1.0ms tick
 void    __esos_hw_InitSystemTick(void);
-uint32  __esos_hw_GetSystemTickCount(void);
+uint32_t  __esos_hw_GetSystemTickCount(void);
 
 /**
  * Get the current value of the ESOS system tick counter
@@ -254,7 +254,7 @@ uint32  __esos_hw_GetSystemTickCount(void);
  * \hideinitializer
  */
 #define   esos_GetSystemTick()          __esos_hw_GetSystemTickCount()
-uint16  __esos_hasTickDurationPassed(uint32 u32_startTick, uint32 u32_period);
+uint16_t  __esos_hasTickDurationPassed(uint32_t u32_startTick, uint32_t u32_period);
 void    __esos_tmrSvcsExecute(void);
 
 void    __esos_InitCommSystem(void);
@@ -264,8 +264,8 @@ void    __esos_InitCommSystem(void);
  * expose these ESOS system variables to allow macro access
  * intead of fcn access
  */
-extern uint8        __esos_u8UserTasksRegistered;
-extern uint16       __esos_u16UserFlags, __esos_u16SystemFlags;
+extern uint8_t        __esos_u8UserTasksRegistered;
+extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 
 /**
  * Get the current number of user task registered with the

@@ -48,18 +48,18 @@
 
 /* P R O T O T Y P E S ******************************************************/
 void __esos_InitCommSystem(void);
-uint8 __esos_u8_GetMSBHexCharFromUint8(uint8 u8_x);
-uint8 __esos_u8_GetLSBHexCharFromUint8(uint8 u8_x);
-ESOS_CHILD_TASK( __esos_OutChar, uint8 u8_c);
-ESOS_CHILD_TASK( __esos_OutUint8AsHexString, uint8 u8_x);
-ESOS_CHILD_TASK( __esos_OutUint32AsHexString, uint32 u32_x);
-ESOS_CHILD_TASK( __esos_OutCharBuffer, uint8* pu8_out, uint8 u8_len);
-ESOS_CHILD_TASK( __esos_getBuffer, uint8* pau8_buff, uint8 u8_size);
+uint8_t __esos_u8_GetMSBHexCharFromUint8(uint8_t u8_x);
+uint8_t __esos_u8_GetLSBHexCharFromUint8(uint8_t u8_x);
+ESOS_CHILD_TASK( __esos_OutChar, uint8_t u8_c);
+ESOS_CHILD_TASK( __esos_OutUint8AsHexString, uint8_t u8_x);
+ESOS_CHILD_TASK( __esos_OutUint32AsHexString, uint32_t u32_x);
+ESOS_CHILD_TASK( __esos_OutCharBuffer, uint8_t* pu8_out, uint8_t u8_len);
+ESOS_CHILD_TASK( __esos_getBuffer, uint8_t* pau8_buff, uint8_t u8_size);
 ESOS_CHILD_TASK( __esos_getString, char* pau8_buff);
 ESOS_CHILD_TASK( __esos_OutString, char* psz_out );
-void __esos_unsafe_PutUint8(uint8 u8_c);
+void __esos_unsafe_PutUint8(uint8_t u8_c);
 void __esos_unsafe_PutString(char* psz_in);
-uint8 __esos_unsafe_GetUint8(void);
+uint8_t __esos_unsafe_GetUint8(void);
 
 /* D E F I N E S ************************************************************/
 #define ESOS_COMM_SYS_USB       0x80
@@ -460,15 +460,15 @@ uint8 __esos_unsafe_GetUint8(void);
 * Data transfer can be over USB or old-fashioned RS-232 serial UART
 **/
 typedef struct _ESOS_COMM_BUFF_DSC {
-  volatile uint8* pau8_Data;
-  int16                 u16_Head;
-  int16                 u16_Tail;
-  uint16                u16_Length;
+  volatile uint8_t* pau8_Data;
+  int16_t                 u16_Head;
+  int16_t                 u16_Tail;
+  uint16_t                u16_Length;
 } ESOS_COMM_BUFF_DSC;
 
 /* E X T E R N S ************************************************************/
-extern volatile uint8                 __esos_comm_tx_buff[ESOS_SERIAL_IN_EP_SIZE];
-extern volatile uint8                 __esos_comm_rx_buff[ESOS_SERIAL_OUT_EP_SIZE];
+extern volatile uint8_t                 __esos_comm_tx_buff[ESOS_SERIAL_IN_EP_SIZE];
+extern volatile uint8_t                 __esos_comm_rx_buff[ESOS_SERIAL_OUT_EP_SIZE];
 extern volatile ESOS_COMM_BUFF_DSC    __st_TxBuffer, __st_RxBuffer;
 extern volatile struct stTask         __stChildTaskTx, __stChildTaskRx;
 
@@ -478,28 +478,28 @@ extern volatile struct stTask         __stChildTaskTx, __stChildTaskRx;
 * \retval verNum   Version number.  Exact value and meaning depends on hardware
 * \hideinitializer
 */
-uint8 esos_GetCommSystemVersion(void);
+uint8_t esos_GetCommSystemVersion(void);
 
 /**
 * Returns the size of the ESOS communication systems "out" buffers
 * \retval uint8   Number of bytes
 * \hideinitializer
 */
-uint8 esos_GetCommSystemMaxOutDataLen(void);
+uint8_t esos_GetCommSystemMaxOutDataLen(void);
 
 /**
 * Returns the size of the ESOS communication systems "in" buffers
 * \retval uint8   Number of bytes
 * \hideinitializer
 */
-uint8 esos_GetCommSystemMaxInDataLen(void);
+uint8_t esos_GetCommSystemMaxInDataLen(void);
 
 void  __esos_InitCommSystem(void);
 
 /* prototypes of the unsafe comm functions provided by ESOS */
-void __esos_unsafe_PutUint8(uint8 u8_c);
+void __esos_unsafe_PutUint8(uint8_t u8_c);
 void __esos_unsafe_PutString(char* psz_in);
-uint8 __esos_unsafe_GetUint8(void);
+uint8_t __esos_unsafe_GetUint8(void);
 
 /* prototypes of external functions provided by hardware */
 void __esos_hw_signal_start_tx(void);

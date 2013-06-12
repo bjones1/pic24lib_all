@@ -38,7 +38,7 @@
 
 /*** G L O B A L S *************************************************/
 struct stTask   __stChildTaskSPI;
-uint16           __esos_spi_u16s[2];
+uint16_t           __esos_spi_u16s[2];
 
 /*** T H E   C O D E *************************************************/
 
@@ -65,12 +65,12 @@ is written.
 \param pu16_in Pointer to buffer to catch incoming data.  If \em pu16_in is \em NULLPTR this function will only "write" the SPI device
 \param u16_cnt Number of words to send
  */
-ESOS_CHILD_TASK( __esos_pic24_xferNSPI1, uint16* pu16_out, uint16* pu16_in, uint16 u16_cnt) {
-  static uint16*      pu16_tempPtrIn;
-  static uint16*      pu16_tempPtrOut;
-  static uint16       u16_tempCnt, u16_i;
-  static uint8        u8_isReading, u8_isWriting;
-  uint16              u16_scratch;
+ESOS_CHILD_TASK( __esos_pic24_xferNSPI1, uint16_t* pu16_out, uint16_t* pu16_in, uint16_t u16_cnt) {
+  static uint16_t*      pu16_tempPtrIn;
+  static uint16_t*      pu16_tempPtrOut;
+  static uint16_t       u16_tempCnt, u16_i;
+  static uint8_t        u8_isReading, u8_isWriting;
+  uint16_t              u16_scratch;
 
   ESOS_TASK_BEGIN();
   pu16_tempPtrOut=pu16_out;

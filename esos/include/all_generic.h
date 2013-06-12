@@ -118,7 +118,7 @@ typedef union _UINT16 {
   };
   struct {
     /** The uint16 viewed as an array of two (2) uint8s */
-    uint8 u8Bytes[2];
+    uint8_t u8Bytes[2];
   };
   struct {
     /** bit 0 (the LSb) of the uint16 */

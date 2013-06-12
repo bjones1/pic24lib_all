@@ -63,21 +63,21 @@
 // GLOBAL variables for ESOS to use/maintain
 //**********************************************************
 struct stTask         __astUserTaskPool[MAX_NUM_USER_TASKS];
-uint8                 __au8UserTaskStructIndex[MAX_NUM_USER_TASKS];
+uint8_t                 __au8UserTaskStructIndex[MAX_NUM_USER_TASKS];
 struct stTask         __astChildTaskPool[MAX_NUM_CHILD_TASKS];
-uint8               __u8UserTasksRegistered;
-uint8                 __u8ChildTasksRegistered;
+uint8_t               __u8UserTasksRegistered;
+uint8_t                 __u8ChildTasksRegistered;
 
 struct stTimer        __astTmrSvcs[MAX_NUM_TMRS];
-uint8                 __esos_u8TmrSvcsRegistered;
-uint16                __esos_u16TmrActiveFlags;
+uint8_t                 __esos_u8TmrSvcsRegistered;
+uint16_t                __esos_u16TmrActiveFlags;
 
 #ifdef ESOS_USE_BULK_CDC_USB
 static struct stTask        __stUsbCommSystem;
 #endif
 
-uint16      __esos_u16UserFlags, __esos_u16SystemFlags;
-uint32      __u32_esos_PRNG_Seed;
+uint16_t      __esos_u16UserFlags, __esos_u16SystemFlags;
+uint32_t      __u32_esos_PRNG_Seed;
 
 /****************************************************************
 ** Embedded Systems Operating System (ESOS) code
@@ -91,12 +91,12 @@ uint32      __u32_esos_PRNG_Seed;
  *  \sa ESOS_USER_TASK
  *  \sa esos_UnregisterTask
 */
-ESOS_TASK_HANDLE    esos_RegisterTask( uint8 (*taskname)(ESOS_TASK_HANDLE pstTask) ) {
-  uint8     u8_i;
-  uint8     u8_FoundFcn = FALSE;
-  uint8     u8_IndexFcn;
-  uint8     u8_IndexFree=0;
-  uint8     u8_FoundFree = FALSE;
+ESOS_TASK_HANDLE    esos_RegisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstTask) ) {
+  uint8_t     u8_i;
+  uint8_t     u8_FoundFcn = FALSE;
+  uint8_t     u8_IndexFcn;
+  uint8_t     u8_IndexFree=0;
+  uint8_t     u8_FoundFree = FALSE;
 
   if (__u8UserTasksRegistered < MAX_NUM_USER_TASKS) {
     for (u8_i=0; u8_i<MAX_NUM_USER_TASKS; u8_i++) {
@@ -144,9 +144,9 @@ ESOS_TASK_HANDLE    esos_RegisterTask( uint8 (*taskname)(ESOS_TASK_HANDLE pstTas
  * \sa ESOS_USER_TASK
  * \sa esos_RegisterTask
 */
-uint8    esos_UnregisterTask( uint8 (*taskname)(ESOS_TASK_HANDLE pstTask) ) {
-  uint8                 u8Status=FALSE;
-  uint8                 u8_i, u8_z;
+uint8_t    esos_UnregisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstTask) ) {
+  uint8_t                 u8Status=FALSE;
+  uint8_t                 u8_i, u8_z;
   ESOS_TASK_HANDLE      pstNowTask;
 
   for (u8_i=0; u8_i<__u8UserTasksRegistered; u8_i++) {
@@ -184,7 +184,7 @@ uint8    esos_UnregisterTask( uint8 (*taskname)(ESOS_TASK_HANDLE pstTask) ) {
 * \retval ESOS_BAD_CHILD_TASK_HANDLE  if no structures are available at this time
 */
 ESOS_TASK_HANDLE  esos_GetFreeChildTaskStruct() {
-  uint16    u16_i = 0;
+  uint16_t    u16_i = 0;
 
   while (u16_i < MAX_NUM_CHILD_TASKS) {
     if (ESOS_IS_TASK_INITED( &__astChildTaskPool[u16_i]) )
@@ -207,7 +207,7 @@ ESOS_TASK_HANDLE  esos_GetFreeChildTaskStruct() {
  * \sa esos_GetRandomUint32
  * See http://www.firstpr.com.au/dsp/rand31/  for more information
  */
-void esos_SetRandomUint32Seed(uint32 u32_in) {
+void esos_SetRandomUint32Seed(uint32_t u32_in) {
   __u32_esos_PRNG_Seed = u32_in;
 } // end esos_SetRandomUint32Seed()
 
@@ -217,22 +217,22 @@ void esos_SetRandomUint32Seed(uint32 u32_in) {
  * \sa esos_SetRandomUint32Seed
 * \note Visit http://www.firstpr.com.au/dsp/rand31/ for more information
 */
-uint32    esos_GetRandomUint32(void) {
-  uint32  hi, lo;
+uint32_t    esos_GetRandomUint32(void) {
+  uint32_t  hi, lo;
 
   lo = 16807 * ( __u32_esos_PRNG_Seed * 0xFFFF );
   hi = 16807 * ( __u32_esos_PRNG_Seed >> 16 );
   lo += (hi & 0x7FFF) << 16;
   lo += (hi >> 15);
   if (lo > 0x7FFFFFFF) lo -= 0x7FFFFFFF;
-  return (__u32_esos_PRNG_Seed = (uint32) lo );
+  return (__u32_esos_PRNG_Seed = (uint32_t) lo );
 } // end esos_getRandomUint32()
 
 /**
 * Returns the number of tasks we can execute
 * \retval N the number of tasks this version of ESOS can execute
 */
-uint8   esos_GetMaxNumberTasks(void) {
+uint8_t   esos_GetMaxNumberTasks(void) {
   return MAX_NUM_USER_TASKS;
 } // end osGetMaxNumberTasks()
 
@@ -245,8 +245,8 @@ uint8   esos_GetMaxNumberTasks(void) {
 * \retval TRUE if the period of time has elapsed
 * \retval FALSE if the period of time has not yet elapsed
 */
-uint16  __esos_hasTickDurationPassed(uint32 u32_startTick, uint32 u32_period) {
-  uint32    u32_delta, u32_current;
+uint16_t  __esos_hasTickDurationPassed(uint32_t u32_startTick, uint32_t u32_period) {
+  uint32_t    u32_delta, u32_current;
 
   u32_current = esos_GetSystemTick();
   u32_delta = u32_current - u32_startTick;
@@ -264,7 +264,7 @@ uint16  __esos_hasTickDurationPassed(uint32 u32_startTick, uint32 u32_period) {
 * every ESOS system tick.
 */
 void __esos_tmrSvcsExecute(void) {
-  uint8     u8_cnt, u8_index;
+  uint8_t     u8_cnt, u8_index;
 
   u8_cnt = __esos_u8TmrSvcsRegistered;
   u8_index = 0;
@@ -299,8 +299,8 @@ void __esos_tmrSvcsExecute(void) {
  * \sa
  *
  */
-ESOS_TMR_HANDLE    esos_RegisterTimer( void (*timername)(void), uint32 u32_period ) {
-  uint8   u8_i;
+ESOS_TMR_HANDLE    esos_RegisterTimer( void (*timername)(void), uint32_t u32_period ) {
+  uint8_t   u8_i;
 
   if ( esos_GetNumberRunningTimers() < MAX_NUM_TMRS) {
     for (u8_i=0; u8_i<MAX_NUM_TMRS; u8_i++ ) {
@@ -328,7 +328,7 @@ ESOS_TMR_HANDLE    esos_RegisterTimer( void (*timername)(void), uint32 u32_perio
  * \sa esos_GetTimerHandle
  * \sa esos_ChangeTimerPeriod
  */
-uint8    esos_UnregisterTimer( ESOS_TMR_HANDLE hnd_timer ) {
+uint8_t    esos_UnregisterTimer( ESOS_TMR_HANDLE hnd_timer ) {
 
   if ( esos_IsTimerRunning(hnd_timer) ) {
     __astTmrSvcs[hnd_timer].pfn = NULLPTR;
@@ -350,8 +350,8 @@ uint8    esos_UnregisterTimer( ESOS_TMR_HANDLE hnd_timer ) {
  * \sa esos_IsTimerRunning
  */
 ESOS_TMR_HANDLE    esos_GetTimerHandle( void (*pfnTmrFcn)(void) ) {
-  uint8   u8_i=0;
-  uint8   u8_cnt;
+  uint8_t   u8_i=0;
+  uint8_t   u8_cnt;
 
   u8_cnt = esos_GetNumberRunningTimers();
   while (u8_cnt) {
@@ -376,7 +376,7 @@ ESOS_TMR_HANDLE    esos_GetTimerHandle( void (*pfnTmrFcn)(void) ) {
  * \sa esos_GetTimerHandle
  * \sa esos_IsTimerRunning
  */
-uint8    esos_ChangeTimerPeriod( ESOS_TMR_HANDLE hnd_timer, uint32 u32_period ) {
+uint8_t    esos_ChangeTimerPeriod( ESOS_TMR_HANDLE hnd_timer, uint32_t u32_period ) {
 
   if (esos_IsTimerRunning(hnd_timer) ) {
     __astTmrSvcs[hnd_timer].u32_period = u32_period;
@@ -385,7 +385,7 @@ uint8    esos_ChangeTimerPeriod( ESOS_TMR_HANDLE hnd_timer, uint32 u32_period ) 
 } //end esos_geTimerHandle()
 
 void __esosInit(void) {
-  uint8     i;
+  uint8_t     i;
 
   // initialize the fcn ptrs to point to nothing
   for (i=0; i<MAX_NUM_USER_TASKS; i++) {
@@ -440,8 +440,8 @@ void __esosInit(void) {
 } // end osInit()
 
 main_t main(void) {
-  uint8             u8TaskReturnedVal=0;
-  uint8             u8i ,u8j, u8NumRegdTasksTemp;
+  uint8_t             u8TaskReturnedVal=0;
+  uint8_t             u8i ,u8j, u8NumRegdTasksTemp;
   ESOS_TASK_HANDLE  pstNowTask;
 
   __esosInit();

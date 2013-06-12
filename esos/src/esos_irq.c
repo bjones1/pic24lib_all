@@ -38,7 +38,7 @@
 void    (*__esos_IsrFcns[NUM_USER_IRQS])(void);
 
 void    esos_InitUserInterrupts(void) {
-  uint8        i;
+  uint8_t        i;
 
   // initialize the os ISR fcn ptrs to point to a benign ISR
   for (i=0; i<NUM_USER_IRQS; i++) {
@@ -47,7 +47,7 @@ void    esos_InitUserInterrupts(void) {
   _esos_hw_InitUserInterrupts();
 } // end osInitInterrupts()
 
-void  esos_UnregisterUserInterrupt( uint8 u8IrqIndex ) {
+void  esos_UnregisterUserInterrupt( uint8_t u8IrqIndex ) {
   // disassociate and unregister the p2f function with the IRQ given
   // in u8IrqIndex
   if (u8IrqIndex < NUM_USER_IRQS) {
@@ -56,7 +56,7 @@ void  esos_UnregisterUserInterrupt( uint8 u8IrqIndex ) {
   }  // end if
 } // end osUnregisterUserIsr()
 
-void  esos_RegisterUserInterrupt( uint8 u8IrqIndex, void (*p2f)(void) ) {
+void  esos_RegisterUserInterrupt( uint8_t u8IrqIndex, void (*p2f)(void) ) {
   // associate and register the p2f function with the IRQ given
   // in u8IrqIndex
   if (u8IrqIndex < NUM_USER_IRQS) {
@@ -64,14 +64,14 @@ void  esos_RegisterUserInterrupt( uint8 u8IrqIndex, void (*p2f)(void) ) {
   }
 } // end osRegisterUserIsr()
 
-void  esos_EnableVerifiedUserInterrupt( uint8 u8IrqIndex ) {
+void  esos_EnableVerifiedUserInterrupt( uint8_t u8IrqIndex ) {
   // do ESOS checks on UserInterrupt and if all is well
   // call the user-provided HW specific routine
   if ((__esos_IsrFcns[u8IrqIndex] != NULLPTR) && ( __esos_IsrFcns[u8IrqIndex] != _esos_DoNothingIsr))
     _esos_hw_EnableUserInterrupt( u8IrqIndex );
 } // end esos_EnableUserInterrupt()
 
-void    esos_ExecuteUserIsr( uint8 u8IrqIndex ) {
+void    esos_ExecuteUserIsr( uint8_t u8IrqIndex ) {
   __esos_IsrFcns[u8IrqIndex]();
 } // esos_ExecuteUserIsr
 

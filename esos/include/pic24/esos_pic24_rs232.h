@@ -86,8 +86,8 @@ void    __esos_hw_signal_stop_tx(void);
  *
  *  \param baudRate Desired baud rate.
  */
-static inline void CONFIG_BAUDRATE_UART1(uint32 baudRate) {
-  uint32 brg = (FCY/baudRate/16) - 1;
+static inline void CONFIG_BAUDRATE_UART1(uint32_t baudRate) {
+  uint32_t brg = (FCY/baudRate/16) - 1;
   ASSERT(brg <= 0xFFFF);
   U1MODEbits.BRGH = 0;
   U1BRG = brg;
@@ -107,7 +107,7 @@ static inline void CONFIG_BAUDRATE_UART1(uint32 baudRate) {
  *  Use constants UXMODE_PDSEL_8DATA_NOPARITY and following.
  *  \param u8_pdsel Parity and number of data bits.
  */
-inline static void CONFIG_PDSEL_UART1(uint8 u8_pdsel) {
+inline static void CONFIG_PDSEL_UART1(uint8_t u8_pdsel) {
   ASSERT(u8_pdsel <= UXMODE_PDSEL_9DATA_NOPARITY);
   U1MODEbits.PDSEL = u8_pdsel;
 }
@@ -116,7 +116,7 @@ inline static void CONFIG_PDSEL_UART1(uint8 u8_pdsel) {
  *  are 1 or 2.
  *  \param u8_numStopbits Number of stop bits.
  */
-inline static void CONFIG_STOPBITS_UART1(uint8 u8_numStopbits) {
+inline static void CONFIG_STOPBITS_UART1(uint8_t u8_numStopbits) {
   ASSERT(u8_numStopbits <= 2);
   U1MODEbits.STSEL = u8_numStopbits - 1;
 }
@@ -149,12 +149,12 @@ static inline void ENABLE_UART1() {
 
 // communications commands used outside of ESOS tasks (like user_init routine)
 // these routines/macros should almost never be used.
-void __esos_hw_PutUint8(uint8 u8_c);
-void __esos_hw_PutString(uint8* psz_in);
-uint8 __esos_hw_GetUint8(void);
+void __esos_hw_PutUint8(uint8_t u8_c);
+void __esos_hw_PutString(uint8_t* psz_in);
+uint8_t __esos_hw_GetUint8(void);
 
 
-void configUART1(uint32 u32_baudRate);
+void configUART1(uint32_t u32_baudRate);
 void __esos_hw_InitCommSystem(void);
 
 
