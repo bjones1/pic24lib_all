@@ -62,6 +62,7 @@ def replace_in_file(file_name, original_string, replacement_string):
         # Write it out.
         f.seek(0, os.SEEK_SET)
         f.write(new_contents)
+        f.truncate()
 
 def shutil_copytree(src, dest):
     print('Copying dir %s to %s.' % (src, dest))
