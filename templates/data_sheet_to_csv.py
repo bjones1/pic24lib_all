@@ -27,6 +27,7 @@ def text_pinout_to_mapping(text):
     RPy = { }
     ANn = { }
     CNm = { }
+    last_failure = ''
     for pin in pins:
         # Look for Rxy. If not found, we can't do anything with this pin.
         mo = re.search('R([A-K]\d\d?)', pin)
@@ -39,21 +40,28 @@ def text_pinout_to_mapping(text):
         # Look for RPy.
         mo = re.search('RPI?(\d\d?\d?)', pin)
         if mo:
-            assert Rxy
-            RPy[Rxy] = mo.group(1)
+            if not Rxy:
+                last_failure = 'Warning: found RPy with finding Rxy in ' + pin
+            else:
+                RPy[Rxy] = mo.group(1)
 
         # Look for ANn.
         mo = re.search('AN(\d\d?)', pin)
         if mo:
-            assert Rxy
-            ANn[Rxy] = mo.group(1)
-                # Look for ANn.
+            if not Rxy:
+                last_failure = 'Warning: found ANn with finding Rxy in ' + pin
+            else:
+                ANn[Rxy] = mo.group(1)
+
+        # Look for CNm.
         mo = re.search('CN(\d\d?)', pin)
         if mo:
-            assert Rxy
-            CNm[Rxy] = mo.group(1)
+            if not Rxy:
+                last_failure = 'Warning: found CNm with finding Rxy in ' + pin
+            else:
+                CNm[Rxy] = mo.group(1)
 
-    return RPy, ANn, CNm
+    return RPy, ANn, CNm, last_failure
 
 form_class, base_class = uic.loadUiType('data_sheet_to_csv.ui')
 
@@ -69,7 +77,8 @@ class main_dialog(QtGui.QMainWindow, form_class):
 
     def parse_gui_text(self):
         # Read the GUI text fields and parse out pin mapping and procesor name.
-        RPy, ANn, CNm = text_pinout_to_mapping(self.pinout_text_edit.toPlainText())
+        RPy, ANn, CNm, last_failure = text_pinout_to_mapping(self.pinout_text_edit.toPlainText())
+        self.statusBar().showMessage(last_failure)
         processor_names = ' '.join([s for s in self.processors_text_edit.toPlainText().split() if 'PIC' in s])
         return processor_names, RPy, ANn, CNm
 
