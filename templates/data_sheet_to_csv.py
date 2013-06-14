@@ -28,6 +28,7 @@ def text_pinout_to_mapping(text):
     ANn = { }
     CNm = { }
     last_failure = ''
+    last_pin = ''
     for pin in pins:
         # Look for Rxy. If not found, we can't do anything with this pin.
         mo = re.search('R([A-K]\d\d?)', pin)
@@ -41,7 +42,8 @@ def text_pinout_to_mapping(text):
         mo = re.search('RPI?(\d\d?\d?)', pin)
         if mo:
             if not Rxy:
-                last_failure = 'Warning: found RPy with finding Rxy in ' + pin
+                last_failure = 'Warning: found RPy without finding Rxy in ' + pin
+                last_pin = pin
             else:
                 RPy[Rxy] = mo.group(1)
 
@@ -49,7 +51,8 @@ def text_pinout_to_mapping(text):
         mo = re.search('AN(\d\d?)', pin)
         if mo:
             if not Rxy:
-                last_failure = 'Warning: found ANn with finding Rxy in ' + pin
+                last_failure = 'Warning: found ANn without finding Rxy in ' + pin
+                last_pin = pin
             else:
                 ANn[Rxy] = mo.group(1)
 
@@ -57,11 +60,12 @@ def text_pinout_to_mapping(text):
         mo = re.search('CN(\d\d?)', pin)
         if mo:
             if not Rxy:
-                last_failure = 'Warning: found CNm with finding Rxy in ' + pin
+                last_failure = 'Warning: found CNm without finding Rxy in ' + pin
+                last_pin = pin
             else:
                 CNm[Rxy] = mo.group(1)
 
-    return RPy, ANn, CNm, last_failure
+    return RPy, ANn, CNm, last_failure, last_pin
 
 form_class, base_class = uic.loadUiType('data_sheet_to_csv.ui')
 
@@ -77,8 +81,16 @@ class main_dialog(QtGui.QMainWindow, form_class):
 
     def parse_gui_text(self):
         # Read the GUI text fields and parse out pin mapping and procesor name.
-        RPy, ANn, CNm, last_failure = text_pinout_to_mapping(self.pinout_text_edit.toPlainText())
+        pinout_text = self.pinout_text_edit.toPlainText()
+        RPy, ANn, CNm, last_failure, last_pin = text_pinout_to_mapping(pinout_text)
         self.statusBar().showMessage(last_failure)
+        if last_pin:
+            # Select failing text, assuming it was unique
+            cursor = self.pinout_text_edit.textCursor()
+            i = pinout_text.index(last_pin)
+            cursor.setPosition(i)
+            cursor.setPosition(i + len(last_pin), QtGui.QTextCursor.KeepAnchor)
+            self.pinout_text_edit.setTextCursor(cursor)
         processor_names = ' '.join([s for s in self.processors_text_edit.toPlainText().split() if 'PIC' in s])
         return processor_names, RPy, ANn, CNm
 
