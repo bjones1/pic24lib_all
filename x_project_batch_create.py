@@ -11,10 +11,10 @@ import uuid
 # Edots file_base_name.X/nmproject/project.xml to replace <name>template</name> with <name>file_base_name</name> and picks a unique / random creation-uuid.
 
 # Directory to operate on:
-working_dir = 'chap3'
+working_dir = 'chap09'
 
 # File extension to assume:
-file_extension = '.s'
+file_extension = '.c'
 
 # Given a project direcotry, this function performs the following replacement in the configuration file:
 # <itemPath>../template.s</itemPath>
@@ -42,7 +42,7 @@ def replace_in_project_file(project_dir, replacement_file_name):
     replacement_file_name = os.path.split(replacement_file_name)[1]
     replacement_file_name = os.path.splitext(replacement_file_name)[0]
     replace_in_xml_file(project_file_name, 'template', replacement_file_name, '<name>%s</name>')
-    replace_in_xml_file(project_file_name, '5bb0299b-99f5-49ca-a742-66869bdb5dbe', str(uuid.uuid4()), '<creation-uuid>%s</creation-uuid>')
+    replace_in_xml_file(project_file_name, '23362592-784f-4b67-a06b-e25c3ce5464b', str(uuid.uuid4()), '<creation-uuid>%s</creation-uuid>')
 
 # This routine replaces data in XML format, given a simple template.
 def replace_in_xml_file(file_name, original_value, replacement_value, xml_template):
