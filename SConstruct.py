@@ -56,7 +56,8 @@ env = Environment(
         # Copied and cobbled together from SCons\Tools\cc.py with mods
         CCCOM = '$CC -c -o $TARGET $CFLAGS $CCFLAGS $CPPFLAGS $_CPPDEFFLAGS $_CPPINCFLAGS $SOURCES',
         CCCCOMSTR = 'Compiling $SOURCES',
-        CCFLAGS = '-mcpu=${MCU} -Wall -O1',
+        # The warnings provide some lint-like checking. Omitted options: -Wstrict-prototypes -Wold-style-definition complains about void food(), which should be void foo(void), but isn't worth the work to change.
+        CCFLAGS = '-mcpu=${MCU} -O1 -Wall -Wextra -Wmissing-prototypes -Wmissing-declarations -Wdeclaration-after-statement -Wlong-long',
         ARFLAGS = 'rcs',
         ARSTR = 'Create static library: $TARGET',
         OBJSUFFIX = '.o',
