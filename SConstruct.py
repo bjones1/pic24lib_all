@@ -145,9 +145,20 @@ Help(opts.GenerateHelpText(env))
 
 
 
-# Definition of targets
+## Definition of targets
+## =====================
+## First, set up for defining targets.
+##
+## Inform SCons about the dependencies in the template-based files
+SConscript('./templates/SConscript.py', 'env')
 
+## Call SConscript with a specific buildTargets value
+def buildTargetsSConscript(buildTargets, env, variantDirName):
+  SConscript('SCons_build.py', exports='buildTargets env',
+    variant_dir='build/' + env['MCU'] + "_" + variantDirName)
 
+## zipit target
+## ------------
 ## Define what parts of the source tree should be inclued in a
 #  .zip distribution.
 archiveFiles = [
@@ -185,14 +196,6 @@ archiveFiles = [
 ## Select the file name for the .zip archive
 archiveFileName = 'build/pic24_code_examples.zip'
 
-## Call SConscript with a specific buildTargets value
-def buildTargetsSConscript(buildTargets, env, variantDirName):
-  SConscript('SCons_build.py', exports='buildTargets env',
-    variant_dir='build/' + env['MCU'] + "_" + variantDirName)
-
-
-# Inform SCons about the dependencies in the template-based files
-SConscript('./templates/SConscript.py', 'env')
 
 ## Create a target which zips up these files;
 ## otherwise, create compilation targets.
@@ -203,11 +206,11 @@ if 'zipit' in COMMAND_LINE_TARGETS:
     zipNode = env.Zip(archiveFileName, archiveFiles)
     env.Alias('zipit', zipNode)
 else:
-    # Build the PIC24H32/FJ64Gxx02-compatible directories
-    #######################################################
+
+## PIC24/dsPIC33 chip/clock variant builds
+## ---------------------------------------
     # Build small, non-DMA on the PIC24HJ32GP202
-    buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11nodma', 'chap12',
-                            'bootloader'],
+    buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11nodma', 'chap12'],
     env.Clone(MCU='24HJ32GP202'), 'default')
 
     # Build the large files on the PIC24HJ64GP202
@@ -216,12 +219,11 @@ else:
 
     # Build everything on the PIC24FJ64GA002
     buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap10large', 'chap11nodma', 'chap12',
-                            'chap15', 'bootloader'],
+                            'chap15'],
       env.Clone(MCU='24FJ64GA002'), 'default')
 
     # Build small, non-DMA on the dsPIC33FJ32GP202
-    buildTargetsSConscript(['chap08', 'chap09', 'chap10',                'chap11nodma', 'chap12',
-                  'bootloader'],
+    buildTargetsSConscript(['chap08', 'chap09', 'chap10',                'chap11nodma', 'chap12'],
       env.Clone(MCU='33FJ32GP202'), 'default')
 
     # Build the large files on the dsPIC33FJ64GP202
@@ -229,28 +231,27 @@ else:
       env.Clone(MCU='33FJ64GP202'), 'default')
 
     # Minimally test the 24F16KA102
-#    buildTargetsSConscript(['reset', 'echo',  'bootloader'],
+#    buildTargetsSConscript(['reset', 'echo'],
 #      env.Clone(MCU='24F16KA102'), 'default')
 
     # Build the PIC24HJGP502-compatible directories
-    buildTargetsSConscript(['chap11dma', 'chap13', 'chap15', 'bootloader'],
+    buildTargetsSConscript(['chap11dma', 'chap13', 'chap15'],
       env.Clone(MCU='24HJ64GP502'), 'default')
 
     # Same as above, but for the dsPIC
     buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap10stdio', 'chap11dma',  'chap12big','chap12',
-                            'chap13', 'chap15', 'bootloader'],
+                            'chap13', 'chap15'],
       env.Clone(MCU='33FJ128GP802'), 'default')
 
     # Build some for the PIC24E device
-    buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big','chap12_24E',
-                            'bootloader'],
+    buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big', 'chap12_24E'],
       env.Clone(MCU='24EP64GP202'), 'default')
 
 
     # Build for the explorer board
-    buildTargetsSConscript(['explorer', 'bootloader'],
+    buildTargetsSConscript(['explorer'],
       env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')
-    buildTargetsSConscript(['explorerh', 'bootloader'],
+    buildTargetsSConscript(['explorerh'],
       env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')
 
     # Do a no-float build of reset
@@ -278,3 +279,19 @@ else:
           env.Clone(MCU='24HJ32GP202',  CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
         buildTargetsSConscript(['reset'],
           env.Clone(MCU='33FJ128GP802', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
+
+
+## Bootloader targets
+## ------------------
+def buildTargetsBootloader(build_environment, baud_rate, mcu):
+    # Create an environment for building the bootloader:
+    # 1. Define the MCU and baud rate.
+    env = build_environment.Clone(MCU = mcu, BAUD_RATE = baud_rate, CPPDEFINES = '-DDEFAULT_BAUDRATE=' + baud_rate)
+    # 2. Use the custom bootloader linker script.
+    build_environment.Replace(
+        LINKERSCRIPT = '--script=bootloader/24h_24f_target/p${MCU}.gld',
+    )
+    
+    # Now, invoke a variant build using this environment.
+    SConscript('bootloader/24h_24f_target/SConscript.py', exports='env',
+      variant_dir = 'build/bootloader_' + mcu + "_" + baud_rate)

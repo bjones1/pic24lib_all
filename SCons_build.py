@@ -75,12 +75,6 @@ PIC24SupportLibSourcesSmall2 = [
 
 
 
-# Inform SCons about the dependencies in the template-based files
-SConscript('./templates/SConscript.py', 'env')
-
-# Inform SCons about the dependencies in the ESOS tree
-#SConscript('./esos/SConscript.py', 'env')
-
 ## @}
 
 ## @{
@@ -164,21 +158,7 @@ def buildWithCommonLibs(sourceFileList, commonLibs, buildEnvironment):
           print sourceFile, f, commonLibs
           buildEnvironment.Program([sourceFile], LIBS=commonLibs)
           myHex = buildEnvironment.Hex(f,f)
-          Depends( myHex, commonLibs)
-
-## Instruct SCons to build the common PIC24 library upon which
-#  all the textbook example programs are based.
-#  PIC24 support library files specified in \ref  PIC24SupportLibSources.
-#myLib = env.StaticLibrary(target='lib/msu_pic24', source=PIC24SupportLibSources )
-
-# Instruct SCons to build all the textbook example programs based
-#  on the PIC24 support library files specified in \ref
-#  PIC24SupportLibSources.
-#if 'lib11' in COMMAND_LINE_TARGETS:
-#  #env.Program(['chap11/dac_r2r.c'],LIBS=myLib)
-#  env.Program(['chap11/dac_r2r.c'] + PIC24SupportLibSources)
-#  env.Hex('chap11/dac_r2r','chap11/dac_r2r')
-#  #buildWithCommonLibs(['chap11/*.c'], myLib, env)
+          Depends(myHex, commonLibs)
 
 ## Compile the support library into objects for the default
 #  environment.
@@ -262,29 +242,5 @@ if 'explorerh' in buildTargets:  # Don't build rtcc.c, since the PIC24H doesn't 
     'explorer16_100p/timer1_sosc.c'], PIC24SupportLibObjects, env, {}, 'explorerh')
 if 'explorer' in buildTargets:
   buildWithCommonSources(['explorer16_100p/*.c'], PIC24SupportLibObjects, env, {}, 'explorer')
-if 'bootloader' in buildTargets:
-  targetName = 'p${MCU}_230400baud_bootldr'
-  env.Program(target=targetName, source = ['bootloader/24h_24f_target/main.c',
-    'bootloader/24h_24f_target/mem.c',
-    'bootloader/24h_24f_target/pic24_clockfreq.c',
-    'bootloader/24h_24f_target/pic24_configbits.c'])
-  cof2hex(targetName, env, 'bootloader')
 
 ## @}
-
-
-#################################################################################
-## TESTING
-##
-## Interestingly, the adc7scan* projects cause the Linux c30-gcc compiler
-##    to seg-fault.
-##
-#env.Program('dac_r2r.c', LIBS='msu_pic24', LIBPATH='../lib')
-#MyHex = env.Hex('dac_r2r', 'dac_r2r')
-#Depends( MyHex, ['dac_r2r.c'])
-#Depends( MyHex, myLib)
-################################
-#buildWithCommonLibs(['./*.c'], myLib, env)
-#buildWithCommonLibs(['chap11/adc2pots1.c','chap11/adc4simul.c','chap11/dac_r2r.c'], myLib, env)
-#buildWithCommonLibs(['chap11/dac*.c','chap11/adc*.c'], myLib, env)
-#buildWithCommonLibs(['chap10/ds1621_i2c.c'], myLib, env)
