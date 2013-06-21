@@ -293,7 +293,7 @@ def buildTargetsBootloader(build_environment, mcu):
     )
     
     # Now, invoke a variant build using this environment.
-    SConscript('bootloader/24h_24f_target/SConstruct.py', exports = 'env',
+    SConscript('SCons-bootloader.py', exports = 'env',
       variant_dir = 'build/bootloader_' + mcu)
 
 for mcu in ('24F16KA102',
