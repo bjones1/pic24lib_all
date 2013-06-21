@@ -152,11 +152,6 @@ Help(opts.GenerateHelpText(env))
 ## Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
 
-## Call SConscript with a specific buildTargets value
-def buildTargetsSConscript(buildTargets, env, variantDirName):
-  SConscript('SCons_build.py', exports = 'buildTargets env',
-    variant_dir = 'build/' + env['MCU'] + "_" + variantDirName)
-
 ## zipit target
 ## ------------
 ## Define what parts of the source tree should be inclued in a
@@ -209,6 +204,11 @@ else:
 
 ## PIC24/dsPIC33 chip/clock variant builds
 ## ---------------------------------------
+    ## Call SConscript with a specific buildTargets value
+    def buildTargetsSConscript(buildTargets, env, variantDirName):
+      SConscript('SCons_build.py', exports = 'buildTargets env',
+        variant_dir = 'build/' + env['MCU'] + "_" + variantDirName)
+
     # Build small, non-DMA on the PIC24HJ32GP202
     buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11nodma', 'chap12'],
     env.Clone(MCU='24HJ32GP202'), 'default')
@@ -281,43 +281,43 @@ else:
           env.Clone(MCU='33FJ128GP802', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
 
 
-## Bootloader targets
-## ------------------
-def buildTargetsBootloader(build_environment, mcu):
-    # Create an environment for building the bootloader:
-    # 1. Define the MCU.
-    env = build_environment.Clone(MCU = mcu)
-    # 2. Use the custom bootloader linker script.
-    build_environment.Replace(
-        LINKERSCRIPT = '--script=bootloader/24h_24f_target/p${MCU}.gld',
-    )
-    
-    # Now, invoke a variant build using this environment.
-    SConscript('SCons-bootloader.py', exports = 'env',
-      variant_dir = 'build/bootloader_' + mcu)
+    ## Bootloader targets
+    ## ------------------
+    def buildTargetsBootloader(build_environment, mcu):
+        # Create an environment for building the bootloader:
+        # 1. Define the MCU.
+        env = build_environment.Clone(MCU = mcu)
+        # 2. Use the custom bootloader linker script.
+        build_environment.Replace(
+            LINKERSCRIPT = '--script=bootloader/24h_24f_target/lkr/p${MCU}.gld',
+        )
+        
+        # Now, invoke a variant build using this environment.
+        SConscript('SCons-bootloader.py', exports = 'env',
+          variant_dir = 'build/bootloader_' + mcu)
 
-for mcu in ('24F16KA102',
-            '24FJ32GA002',
-            '24FJ64GA002',
-            '24FJ64GA006',
-            '24FJ128GA006',
-            '24FJ32GA102',
-            '24FJ64GA102',
-            '24FJ64GB002',
-            '24FJ64GB004',
-            
-            '24HJ12GP202',
-            '24HJ32GP202',
-            '24HJ64GP502',
-            '24HJ128GP502',
-            '24HJ256GP206',
-            '24HJ128GP506',
-            
-            '24EP64GP202',
+    for mcu in ('24F16KA102',
+                '24FJ32GA002',
+                '24FJ64GA002',
+                '24FJ64GA006',
+                '24FJ128GA006',
+                '24FJ32GA102',
+                '24FJ64GA102',
+                '24FJ64GB002',
+                '24FJ64GB004',
+                
+                '24HJ12GP202',
+                '24HJ32GP202',
+                '24HJ64GP502',
+                '24HJ128GP502',
+                '24HJ256GP206',
+                '24HJ128GP506',
+                
+                '24EP64GP202',
 
-            '33FJ32GP202',
-            '33FJ128GP802',
-            
-            '33EP128GP502'
-            ):
-    buildTargetsBootloader(env, mcu)
+                '33FJ32GP202',
+                '33FJ128GP802',
+                
+                '33EP128GP502'
+                ):
+        buildTargetsBootloader(env, mcu)

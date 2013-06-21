@@ -13,7 +13,7 @@ def cof2hex(cofName, buildEnvironment, aliasString):
   buildEnvironment.Alias(aliasString, myHex)
 
 
-targetName = 'p${MCU}_${BAUD_RATE}baud_bootloader'
+targetName = '../p${MCU}_bootloader'
 env.Program(target = targetName, source = 
   ['bootloader/24h_24f_target/main.c',
    'bootloader/24h_24f_target/mem.c',
