@@ -17,6 +17,7 @@ MEMORY
   data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0x400
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
+  _reserved      : ORIGIN = 0x100,         LENGTH = 0x4
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
   program (xr)   : ORIGIN = 0x200,         LENGTH = 0x13FE
   eedata         : ORIGIN = 0x7FFF00,      LENGTH = 0x100

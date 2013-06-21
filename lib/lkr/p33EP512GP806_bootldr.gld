@@ -2960,7 +2960,6 @@ _IPC17        = 0x862;
 _IPC17bits    = 0x862;
  IPC18        = 0x864;
 _IPC18        = 0x864;
-_IPC18bits    = 0x864;
  IPC20        = 0x868;
 _IPC20        = 0x868;
 _IPC20bits    = 0x868;
