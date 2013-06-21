@@ -42,10 +42,9 @@ Header file that includes all pic24*.h files
 #elif defined(__dsPIC33F__)
 #define CLOCK_CONFIG FRCPLL_FCY40MHz
 #elif defined(__dsPIC33E__)
-#define CLOCK_CONFIG FRCPLL_FCY60MHz
+#define CLOCK_CONFIG FRCPLL_FCY40MHz
 #elif defined(__PIC24E__)
-#define CLOCK_CONFIG FRCPLL_FCY60MHz
-//#define CLOCK_CONFIG PRIPLL_8MHzCrystal_40MHzFCY
+#define CLOCK_CONFIG FRCPLL_FCY40MHz
 #else
 #error "Unknown processor"
 #endif
@@ -124,11 +123,13 @@ map the UART pins to your needed RPx pins.
 
 
 
-// Baud rate manually set
 #ifndef DEFAULT_BAUDRATE
-#define DEFAULT_BAUDRATE  57600
-//#define DEFAULT_BAUDRATE  115200
-//#define DEFAULT_BAUDRATE  230400
+# if defined(__PIC24F__) || defined(__PIC24FK__)
+//  The PIC24F/FK's 16 MHz max frequency using the inaccurate FRC means a lower default baud rate is a safer choice.
+#   define DEFAULT_BAUDRATE   57600
+# else
+#   define DEFAULT_BAUDRATE  230400
+# endif
 #endif
 
 

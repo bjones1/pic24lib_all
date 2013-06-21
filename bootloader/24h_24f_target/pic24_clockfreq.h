@@ -179,7 +179,7 @@
 #define FRC_FCY4MHz                     2,            FNOSC_FRC,     4000000L, POSCMD_NONE,       -1,  (PIC24F_DEFINED || PIC24FK_DEFINED),  configClockFRC_FCY4MHz,                    498
 #define PRI_NO_PLL_7372KHzCrystal       3,            FNOSC_PRI,     3686400L, POSCMD_XT,   7372800L,  (PIC24F_DEFINED || PIC24FK_DEFINED || PIC24H_DEFINED || dsPIC33F_DEFINED), configClockPRI_NO_PLL_7372KHzCrystal,      498
 #define FRC_FCY3685KHz                  4,            FNOSC_FRC,     3685000L, POSCMD_NONE,       -1,  (PIC24H_DEFINED || dsPIC33F_DEFINED),                     configClockFRC_FCY3685KHz,                 498
-#define FRCPLL_FCY40MHz                 5,            FNOSC_FRCPLL, 40000000L, POSCMD_NONE,       -1,  (PIC24H_DEFINED || dsPIC33F_DEFINED),                     configClockFRCPLL_FCY40MHz,                498
+#define FRCPLL_FCY40MHz                 5,            FNOSC_FRCPLL, 40000000L, POSCMD_NONE,       -1,  (PIC24H_DEFINED || dsPIC33F_DEFINED || PIC24E_DEFINED || dsPIC33E_DEFINED),                     configClockFRCPLL_FCY40MHz,                498
 #define PRIPLL_7372KHzCrystal_40MHzFCY  6,            FNOSC_PRIPLL, 40000000L, POSCMD_XT,   7372800L,  (PIC24H_DEFINED || dsPIC33F_DEFINED),                     configClockPRIPLL_7372KHzCrystal_40MHzFCY, 498
 #define PRIPLL_8MHzCrystal_40MHzFCY     7,            FNOSC_PRIPLL, 40000000L, POSCMD_XT,   8000000L,  (PIC24H_DEFINED || dsPIC33F_DEFINED || PIC24E_DEFINED || dsPIC33E_DEFINED),                     configClockPRIPLL_8MHzCrystal_40MHzFCY,    498
 #define PRIPLL_8MHzCrystal_16MHzFCY     8,            FNOSC_PRIPLL, 16000000L, POSCMD_XT,   8000000L,  (PIC24F_DEFINED || PIC24FK_DEFINED),                     configClockPRIPLL_8MHzCrystal_16MHzFCY,    498
