@@ -1,3 +1,4 @@
+import os
 Import('env')
 
 ## This functions converts a cof to a hex file.
@@ -13,7 +14,7 @@ def cof2hex(cofName, buildEnvironment, aliasString):
 
 
 targetName = 'p${MCU}_${BAUD_RATE}baud_bootloader'
-env.Program(target=targetName, source = 
+env.Program(target = targetName, source = 
   ['bootloader/24h_24f_target/main.c',
    'bootloader/24h_24f_target/mem.c',
    'bootloader/24h_24f_target/pic24_clockfreq.c',
