@@ -503,10 +503,9 @@
 //@{
 
 /// Define peripheral pins.
-/// \todo Isn't this defined in the Microchip includes somewhere?
-#if defined(__PIC24E__) || defined(__dsPIC33F__)
-# define RPMAP_C1OUT   24
-# define RPMAP_C2OUT   25
+/// This is defined in pps.h or PPS.h as e.g. OUT_FN_PPS_U1TX, but that file doesn't exist for the 24H, 33F, 24E, or 33E.
+#if defined(__PIC24E__) || defined(__dsPIC33E__)
+# define RPMAP_NONE     0
 # define RPMAP_U1TX     1
 # define RPMAP_U1RTS    2
 # define RPMAP_U2TX     3
@@ -523,9 +522,18 @@
 # define RPMAP_OC3     18
 # define RPMAP_OC4     19
 # define RPMAP_OC5     20
+# define RPMAP_C1OUT   24
+# define RPMAP_C2OUT   25
+# define RPMAP_C3OUT   26
+# define RPMAP_SYNCO1  45
+# define RPMAP_QE1CCMP 47
+# define RPMAP_REFCLKO 49
+# define RPMAP_C4OUT   50
 
 #else
+/// \todo Is this really correct?
 
+# define RPMAP_NONE     0
 # define RPMAP_C1OUT    1
 # define RPMAP_C2OUT    2
 # define RPMAP_U1TX     3
@@ -551,7 +559,7 @@
 /// (i.e, the reset condition).
 #if defined(_RP0R) || defined(_RP20R)  || defined(__DOXYGEN__)
 # define CONFIG_NULL_TO_RP(Rxy_RP)  _CONFIG_NULL_TO_RP(Rxy_RP)
-# define _CONFIG_NULL_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = 0)
+# define _CONFIG_NULL_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_NONE)
 #else
 # define CONFIG_NULL_TO_RP(Rxy_RP)
 #endif
