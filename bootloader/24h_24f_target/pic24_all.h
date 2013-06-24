@@ -70,7 +70,7 @@ typedef signed long long    int64;   //64 bits
 
 #include  "pic24_clockfreq.h"
 
-#if defined(__PIC24E__) || defined(__dsPIC33F__)
+#if defined(__PIC24E__) || defined(__dsPIC33E__)
 #define RPMAP_U1TX    1
 #define RPMAP_U2TX    3
 #else
