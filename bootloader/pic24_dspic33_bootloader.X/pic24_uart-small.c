@@ -35,6 +35,9 @@
 
 
 // Text below copied and pasted from specific portions of pic24_uart.c.
+// Important change: comment out the default case in the function below; it
+// causes the bootloader to take too much space to fit before 0x0C00.
+
 /** Configures a UART based compiler setting of DEFAULT_UART
  *  and sets __C30_UART to the default UART.
  *  If you want to configure a different UART, then call the configUARTx function explicitly.
@@ -66,8 +69,8 @@ void configDefaultUART(uint32_t u32_baudRate) {
       configUART4(u32_baudRate);
       break;
 #endif
-    default :
-      REPORT_ERROR("Invalid UART");
+//    default :
+//      REPORT_ERROR("Invalid UART");
   }
 }
 
