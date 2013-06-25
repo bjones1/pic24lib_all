@@ -14,9 +14,9 @@ def cof2hex(cofName, buildEnvironment, aliasString):
 
 
 targetName = '../p${MCU}_bootloader'
-env.Program(target = targetName, source = 
-  ['bootloader/24h_24f_target/main.c',
-   'bootloader/24h_24f_target/mem.c',
-   'bootloader/24h_24f_target/pic24_clockfreq.c',
-   'bootloader/24h_24f_target/pic24_configbits.c'])
+env.Program(target = targetName, source =
+  ['bootloader/pic24_dspic33_bootloader.X/main.c',
+   'bootloader/pic24_dspic33_bootloader.X/mem.c',
+   'bootloader/pic24_dspic33_bootloader.X/pic24_clockfreq.c',
+   'bootloader/pic24_dspic33_bootloader.X/pic24_configbits.c'])
 cof2hex(targetName, env, 'bootloader')
