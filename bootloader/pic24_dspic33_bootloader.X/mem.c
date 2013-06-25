@@ -1,4 +1,4 @@
-#include "pic24_all.h"
+#include <xc.h>
 
 typedef short          Word16;
 typedef unsigned short UWord16;
