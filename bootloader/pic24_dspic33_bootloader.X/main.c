@@ -44,25 +44,10 @@ CURRENT DIRECTORY WITH THE STARTING PROGRAM MEMORY LOCATION CHANGED
 TO 0x400!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ******/
 
-# define USE_HEARTBEAT 0
-#include "pic24_small.h"
+#include "pic24_uart-small.h"
 #include "pic24_clockfreq.h"
 #include "pic24_serial.h"
 #include <xc.h>
-
-
-// The standard library wants a heartbeat, which isn't used by the bootloader.
-// Provide an empty function to make it happy.
-void doHeartbeat(void) {
-}
-
-void reportError(const char* sz_errorMessage) {
-  __asm__ volatile ("reset");
-}
-
-
-// Copy and paste from pic24_uart.c
-// ================================
 
 
 

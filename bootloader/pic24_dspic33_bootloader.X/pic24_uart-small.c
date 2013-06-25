@@ -34,6 +34,13 @@
 #include "pic24_delay.h"
 
 
+// The standard library wants a heartbeat, which isn't used by the bootloader.
+// Provide an empty function to make it happy. This is copied from portions
+// of pic24_util.c.
+void doHeartbeat(void) {
+}
+
+
 // Text below copied and pasted from specific portions of pic24_uart.c.
 // Important change: comment out the default case in the function below; it
 // causes the bootloader to take too much space to fit before 0x0C00.

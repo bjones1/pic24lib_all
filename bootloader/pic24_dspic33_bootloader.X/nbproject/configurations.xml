@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>pic24_uart-small.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -96,7 +97,7 @@
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros"
-                  value="_NOFLOAT;USE_HEARTBEAT=0;USE_CLOCK_TIMEOUT=0"/>
+                  value="_NOFLOAT;USE_HEARTBEAT=0;USE_CLOCK_TIMEOUT=0;_NOASSERT"/>
         <property key="scalar-model" value="default"/>
         <property key="use-cci" value="false"/>
       </C30>
