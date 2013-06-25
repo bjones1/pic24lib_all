@@ -377,15 +377,15 @@ void configClockFRCPLL_FCY60MHz(void) {
   // It may need to be tweaked however. Use the echo.c program, and a baud rate
   // of 115,200 and increase/decrease TUN until you get no framing errors
 
-  // For PIC24E Family, Fref must be
-  // between 3 MHz and 5.5 MHz. Choose a prescale of 2
-  // for Fref of 3.685 MHz.
+  // For PIC24E Family, Fplli must be
+  // between 0.8 MHz and 8.0 MHz. Choose a prescale of 2
+  // for Fplli of 3.685 MHz.
   _PLLPRE = 0; // Prescale = PLLPRE + 2
-  // Fvco after multiply must be between 120 and 340 MHz.
+  // Fsys after multiply must be between 120 and 340 MHz.
   // Pick 240 MHz, so multiply by 65.
   _PLLDIV = 63; // Multiply = PLLDIV + 2
   // Final desired Fosc = 120 MHz for an Fcy = 60 MHz.
-  //  Pick 120 MHz, so postscale by 2.
+  // Pick 120 MHz, so postscale by 2.
   _PLLPOST = 0; // Postscale = 2 * (PLLPOST + 1)
   switchClock(GET_OSC_SEL_BITS(FNOSC_FRCPLL));
 }
@@ -405,11 +405,11 @@ void configClockFRCPLL_FCY70MHz(void) {
   // It may need to be tweaked however. Use the echo.c program, and a baud rate
   // of 115,200 and increase/decrease TUN until you get no framing errors
 
-  // For PIC24E Family, Fref must be
-  // between 3 MHz and 5.5 MHz. Choose a prescale of 2
-  // for Fref of 3.685 MHz.
+  // For PIC24E Family, Fplli must be
+  // between 0.8 MHz and 8.0 MHz. Choose a prescale of 2
+  // for Fplli of 3.685 MHz.
   _PLLPRE = 0; // Prescale = PLLPRE + 2
-  // Fvco after multiply must be between 120 and 340 MHz.
+  // Fsys after multiply must be between 120 and 340 MHz.
   // Pick 280 MHz, so multiply by 76.
   _PLLDIV = 74; // Multiply = PLLDIV + 2
   // Final desired Fosc = 140 MHz for an Fcy = 70 MHz.
