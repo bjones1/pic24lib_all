@@ -283,14 +283,15 @@ else:
 
     ## Bootloader targets
     ## ------------------
-    def buildTargetsBootloader(build_environment, mcu):
+    def buildTargetsBootloader(env, mcu):
         # Create an environment for building the bootloader:
         # 1. Define the MCU.
-        env = build_environment.Clone(MCU = mcu)
+        env = env.Clone(MCU = mcu)
         # 2. Use the custom bootloader linker script.
-        build_environment.Replace(
+        env.Replace(
             LINKERSCRIPT = '--script=bootloader/pic24_dspic33_bootloader.X/lkr/p${MCU}.gld',
         )
+        env.Append(CPPDEFINES = ['_NOFLOAT', 'USE_HEARTBEAT=0', 'USE_CLOCK_TIMEOUT=0', '_NOASSERT'])
 
         # Now, invoke a variant build using this environment.
         SConscript('SCons-bootloader.py', exports = 'env',
