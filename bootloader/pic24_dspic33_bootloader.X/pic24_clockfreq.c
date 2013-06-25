@@ -336,18 +336,18 @@ void configClockFRCPLL_FCY40MHz(void) {
   // be 8.16 MHz, so the processor would run at 81.6 MHz.
   // Ignore this for now; probably, the chip will still run.
 
-  _TUN = -19;  // Correct setting assuming the RC oscillator is exactly 7.37MHz.
+  _TUN = 0;  // Correct setting assuming the RC oscillator is exactly 7.37MHz.
   // It may need to be tweaked however. Use the echo.c program, and a baud rate
   // of 115,200 and increase/decrease TUN until you get no framing errors
 
   // Choose PLL factors: Fref after first prescale must be
-  // between 0.8 and 8.0 MHz. Choose a prescale of 8
-  // for Fref of 0.856 MHz.
-  _PLLPRE = 6; // Prescale = PLLPRE + 2
+  // between 0.8 and 8.0 MHz. Choose a prescale of 9
+  // for Fref of 0.8189 MHz.
+  _PLLPRE = 7; // Prescale = PLLPRE + 2
   // Fvco after multiply must be between 100 and 200 MHz.
-  // Pick 160 MHz, so multiply by 187.
-  _PLLDIV = 185; // Multiply = PLLDIV + 2
-  // Final desired Fosc = 80 MHz for an Fcy = 40 MHz.
+  // Pick 159.7 MHz, so multiply by 195.
+  _PLLDIV = 193; // Multiply = PLLDIV + 2
+  // Final desired Fosc = 79.8 MHz for an Fcy = 39.9 MHz.
   // (See 7.7 of the FRM rev B). Pick 80 MHz, so postscale by 2.
   _PLLPOST = 0; // Postscale = 2 * (PLLPOST + 1)
   switchClock(GET_OSC_SEL_BITS(FNOSC_FRCPLL));
