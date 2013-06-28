@@ -132,7 +132,7 @@ class main_dialog(QtGui.QMainWindow, form_class):
         processor_names, RPy, ANn, CNm = self.parse_gui_text()
 
         # Prepare for appending to the CSV.
-        with open('data_sheet_to_csv.csv', 'a+b') as outFile:
+        with open('pic24_devices.csv', 'a+b') as outFile:
             csv_dict_writer = csv.DictWriter(outFile, self.portlist)
             # Write the header only if the file is empty. (Leaving out the seek always reports 0 for the tell).
             outFile.seek(0, os.SEEK_END)
