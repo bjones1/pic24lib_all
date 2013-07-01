@@ -19,14 +19,21 @@ from string import Template
 import csv
 import re
 
-# Import from a Python module in templates/.
-import sys
-sys.path.insert(0, 'templates')
 from compact_csv import enumeratePic24Ports
 
 # Import environment from calling SConstruct context
 Import('env')
 
+## Define the directory in which the templates reside
+templateDir = './'
+
+## Define the include directory destination for .h templates
+includeDir = '../lib/include/'
+
+## Define the common directory destination for .c templates
+commonDir = '../lib/common/'
+
+## @}
 
 ## @{
 #  \name Functions supporting template file builds
@@ -228,27 +235,27 @@ env.Append(BUILDERS = {'CSVTemplate' : csvbldr})
 ###############################################################################
 
 # Specify which files are produced by templates
-env.HTemplate('lib/include/pic24_uart','templates/pic24_uart')
-env.HTemplate('lib/include/pic24_i2c','templates/pic24_i2c')
-env.HTemplate('lib/include/pic24_ecan','templates/pic24_ecan')
-env.HTemplate('lib/include/pic24_ports_fh_config','templates/pic24_ports_fh_config')
-env.HTemplate('lib/include/pic24_ports_e_config','templates/pic24_ports_e_config')
-env.CSVTemplate('lib/include/pic24_ports_mapping','templates/pic24_devices')
-env.CTemplate('lib/common/pic24_uart','templates/pic24_uart')
-env.CTemplate('lib/common/pic24_i2c','templates/pic24_i2c')
-env.CTemplate('lib/common/pic24_ecan','templates/pic24_ecan')
-env.CTemplate('lib/common/pic24_spi','templates/pic24_spi')
+env.HTemplate('../lib/include/pic24_uart','pic24_uart')
+env.HTemplate('../lib/include/pic24_i2c','pic24_i2c')
+env.HTemplate('../lib/include/pic24_ecan','pic24_ecan')
+env.HTemplate('../lib/include/pic24_ports_fh_config','pic24_ports_fh_config')
+env.HTemplate('../lib/include/pic24_ports_e_config','pic24_ports_e_config')
+env.CSVTemplate('../lib/include/pic24_ports_mapping','pic24_devices')
+env.CTemplate('../lib/common/pic24_uart','pic24_uart')
+env.CTemplate('../lib/common/pic24_i2c','pic24_i2c')
+env.CTemplate('../lib/common/pic24_ecan','pic24_ecan')
+env.CTemplate('../lib/common/pic24_spi','pic24_spi')
 
-env.Alias('template-build', ['lib/include/pic24_uart.h',
-                             'lib/include/pic24_i2c.h',
-                             'lib/include/pic24_ecan.h',
-                             'lib/include/pic24_ports_fh_config.h',
-                             'lib/include/pic24_ports_e_config.h',
-                             'lib/include/pic24_ports_mapping.h',
-                             'lib/common/pic24_uart.c',
-                             'lib/common/pic24_i2c.c',
-                             'lib/common/pic24_spi.c',
-                             'lib/common/pic24_ecan.c']);
+env.Alias('template-build', ['../lib/include/pic24_uart.h',
+                             '../lib/include/pic24_i2c.h',
+                             '../lib/include/pic24_ecan.h',
+                             '../lib/include/pic24_ports_fh_config.h',
+                             '../lib/include/pic24_ports_e_config.h',
+                             '../lib/include/pic24_ports_mapping.h',
+                             '../lib/common/pic24_uart.c',
+                             '../lib/common/pic24_i2c.c',
+                             '../lib/common/pic24_spi.c',
+                             '../lib/common/pic24_ecan.c']);
 
 
 ## @}
