@@ -150,7 +150,7 @@ Help(opts.GenerateHelpText(env))
 ## First, set up for defining targets.
 ##
 ## Inform SCons about the dependencies in the template-based files
-SConscript('templates/SConscript.py', 'env')
+SConscript('SCons-templates.py', 'env')
 
 ## zipit target
 ## ------------
