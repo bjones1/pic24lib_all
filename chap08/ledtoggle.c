@@ -82,12 +82,14 @@ void update_state() {
 
   switch (e_state) {
     case STATE_RELEASED:
-    if (SW1_PRESSED()) e_state = STATE_PRESSED;
+    if (SW1_PRESSED()) {
+      e_state = STATE_PRESSED;
+      LED1 = !LED1;
+    }
     break;
 
     case STATE_PRESSED:
     if (SW1_RELEASED()) {
-      LED1 = !LED1;   //toggle LED
       e_state = STATE_RELEASED;
     }
     break;
