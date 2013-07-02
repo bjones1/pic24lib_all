@@ -4,13 +4,10 @@
    \ref configBasic, \ref inChar, and \ref outChar functions.
 */
 /** \cond nodoxygen */
-.include "p24Hxxxx.inc"         ; Include processor-specific headers
+.include "xc.inc"         ; Include processor-specific headers
 
-.global _main                   ; Make _main visible outside
-								; this file so C startup code
-                                ; can call it
 
-         .section psv psv		; Place following statements in PSV space
+           .section psv psv		; Place following statements in PSV space
 HELLO_MSG: .asciz "asm_echo.s ready!\n" ; Define a null-terminated ASCII string
 
 
@@ -20,16 +17,31 @@ HELLO_MSG: .asciz "asm_echo.s ready!\n" ; Define a null-terminated ASCII string
 
 .text                             ;Start of Code section
 
-_main:                            ; _main called after C startup code runs
-	mov #HELLO_MSG,W0			  ; Equivalent to
-	call _configBasic             ;  configBasic(HELLO_MSG) in C
+; int main() {
+.global _main                   ; Make _main visible outside
+								; this file so C startup code
+                                ; can call it
+_main:
 
-while1:                           ; while (1) {
-	call _inChar                  ;   W0 = inChar();
-	inc W0, W0                    ;   W0 = W0 + 1;
-	call _outChar                 ;   outChar(W0);
-    goto    while1                ;}
+  ;               W0
+  ; configBasic(HELLO_MSG)
+  mov #HELLO_MSG, W0
+  call _configBasic
 
-.end       ;End of program code in this file
+  ; while (1) {
+  while_top:
+
+    ; W0 = inChar();
+    call _inChar
+
+    ; W0++;
+    inc W0, W0
+
+    ; outChar(W0);
+	call _outChar
+
+  bra while_top
+  ; }
+
 
 /** \endcond */
