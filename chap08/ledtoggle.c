@@ -36,73 +36,93 @@ and released. Demonstrates the use of debounce delays when
 polling a switch input.
 */
 
-/// LED1
+// LED1 configuration and access
+// =============================
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
-#define LED1  _LATB14     //led1 state
+#define LED1 _LATB14     //led1 state
 
-/// Switch1 configuration
-inline void CONFIG_SW1()  {
-  CONFIG_RB13_AS_DIG_INPUT();     //use RB10 for switch input
-  ENABLE_RB13_PULLUP();           //enable the pullup
+// Switch 1 configuration and access
+// =================================
+void config_sw1()  {
+  CONFIG_RB13_AS_DIG_INPUT();
+  ENABLE_RB13_PULLUP();
+  // Give the pullup some time to take effect.
+  DELAY_US(1);
 }
 
+#define SW1              _RB13
+#define SW1_PRESSED()   (SW1 == 0)
+#define SW1_RELEASED()  (SW1 == 1)
 
-#define SW1              _RB13       //switch state
-#define SW1_PRESSED()   (SW1==0)  //switch test
-#define SW1_RELEASED()  (SW1==1)  //switch test
+// State machine
+// =============
+// First, define the states, along with a human-readable version.
 
 typedef enum  {
-  STATE_RESET = 0,
-  STATE_WAIT_FOR_PRESS,
-  STATE_WAIT_FOR_RELEASE
-} STATE;
+  STATE_PRESSED,
+  STATE_RELEASED,
+} state_t;
 
-STATE e_lastState = STATE_RESET;
-//print debug message for state when it changes
-void printNewState (STATE e_currentState) {
-  if (e_lastState != e_currentState) {
-    switch (e_currentState) {
-      case STATE_WAIT_FOR_PRESS:
-        outString("STATE_WAIT_FOR_PRESS\n");
-        break;
-      case STATE_WAIT_FOR_RELEASE:
-        outString("STATE_WAIT_FOR_RELEASE\n");
-        break;
-      default:
-        outString("Unexpected state\n");
-        break;
-    }
-  }
-  e_lastState = e_currentState;  //remember last state
+const char* apsz_state_names[] = {
+  "STATE_PRESSED",
+  "STATE_RELEASED",
+};
+
+// Provide a convenient function to print out the state.
+void print_state(state_t e_state) {
+  // Verify that the state has a string representation before printing it.
+  ASSERT(e_state <= N_ELEMENTS(apsz_state_names));
+  outString(apsz_state_names[e_state]);
+  outChar('\n');
 }
 
-int main (void) {
-  STATE e_mystate;
+// When an event occurs, update the state.
+void update_state() {
+  static state_t e_state = STATE_RELEASED;
 
-  configBasic(HELLO_MSG);      // Set up heartbeat, UART, print hello message and diags
-  /** GPIO config ***************************/
-  CONFIG_SW1();        //configure switch
-  CONFIG_LED1();       //config the LED
-  DELAY_US(1);         //give pullups a little time
-  /*****Toggle LED each time switch is pressed and released ******************************/
-  e_mystate = STATE_WAIT_FOR_PRESS;
+  switch (e_state) {
+    case STATE_RELEASED:
+    if (SW1_PRESSED()) e_state = STATE_PRESSED;
+    break;
+
+    case STATE_PRESSED:
+    if (SW1_RELEASED()) {
+      LED1 = !LED1;   //toggle LED
+      e_state = STATE_RELEASED;
+    }
+    break;
+
+    default:
+    ASSERT(0);
+  }
+
+  print_state(e_state);
+}
+
+// main
+// ====
+// This code initialized the system, then runs the state machine above when
+// the pushbutton's value changes.
+int main (void) {
+  uint16_t last_sw1;
+  
+  configBasic(HELLO_MSG);
+  config_sw1();
+  CONFIG_LED1();
+  // Set the initial value of sw1.
+  last_sw1 = SW1;
 
   while (1) {
-    printNewState(e_mystate);  //debug message when state changes
-    switch (e_mystate) {
-      case STATE_WAIT_FOR_PRESS:
-        if (SW1_PRESSED()) e_mystate = STATE_WAIT_FOR_RELEASE;
-        break;
-      case STATE_WAIT_FOR_RELEASE:
-        if (SW1_RELEASED()) {
-          LED1 = !LED1;   //toggle LED
-          e_mystate = STATE_WAIT_FOR_PRESS;
-        }
-        break;
-      default:
-        e_mystate = STATE_WAIT_FOR_PRESS;
-    }//end switch(e_mystate)
-    DELAY_MS(DEBOUNCE_DLY);      //Debounce
-    doHeartbeat();     //ensure that we are alive
-  } // end while (1)
+    // Look for an event: a change in SW1. When this happens, update the state.
+    if (SW1 != last_sw1) {
+      last_sw1 = SW1;
+      update_state();
+
+      // Debounce the switch by waiting for bounces to die out.
+      DELAY_MS(DEBOUNCE_DLY);
+    }
+
+    // Blink the heartbeat LED to confirm that the program is running.
+    doHeartbeat();
+  }
 }
