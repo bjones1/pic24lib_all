@@ -319,6 +319,7 @@ else:
                 '33FJ32GP202',
                 '33FJ128GP802',
 
-                '33EP128GP502'
+                '33EP128GP502',
+                '33EP128GP504',
                 ):
         buildTargetsBootloader(env, mcu)

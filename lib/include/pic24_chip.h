@@ -997,6 +997,14 @@
 #define EXPECTED_REVISION1_STR "A2"
 #endif
 
+//128K devices
+#ifdef __dsPIC33EP128GP504__
+#define DEV_ID 0x001E4C
+#define DEV_ID_STR "dsPIC33EP128GP504"
+#define EXPECTED_REVISION1 0x004003
+#define EXPECTED_REVISION1_STR "A3"
+#endif
+
 
 //256K devices
 #ifdef __PIC24EP256GU810__
