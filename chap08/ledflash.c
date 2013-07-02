@@ -40,18 +40,18 @@ the power LED to function as a 'blinky' LED in addition to serving
 as a power indicator.
 */
 
-void CONFIG_LED1() {
+void config_led1() {
   CONFIG_RB15_AS_DIG_OUTPUT();
   ENABLE_RB15_OPENDRAIN();
 }
 
-#define LED1  _LATB15    //_LATB15 is port register for RB15
+#define LED1 _LATB15    //_LATB15 is port register for RB15
 
 int main(void) {
 
   configClock();
   /********** GPIO config **********/
-  CONFIG_LED1();
+  config_led1();
   LED1 = 0;
   while (1) {
     DELAY_MS(250);  //delay long enough to see LED blink
