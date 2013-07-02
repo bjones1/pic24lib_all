@@ -42,10 +42,11 @@ as a power indicator.
 
 //a naive software delay function
 void a_delay(void) {
-  uint16_t u16_i,u16_k;
+  uint16_t u16_i, u16_k;
   // change count values to alter delay
-  for (u16_k=1800; --u16_k;) {
-    for (u16_i = 1200 ; --u16_i ;);
+  for (u16_k = 1800; u16_k > 0; --u16_k) {
+    for (u16_i = 1200; u16_i > 0; --u16_i) {
+    }
   }
 }
 
