@@ -40,16 +40,6 @@ PIC24SupportLibSources = [
   'lib/common/pic24_uart.c',
   'lib/common/pic24_util.c' ]
 
-PIC24SupportLibSourcesSmall = [
-  'lib/common/pic24_clockfreq.c',
-  'lib/common/pic24_configbits.c',
-  'lib/common/pic24_serial.c',
-  'lib/common/pic24_spi.c',
-  'lib/common/pic24_timer.c',
-  'lib/common/pic24_uart.c',
-  'lib/common/pic24_util.c' ]
-
-
 PIC24SupportLibSourcesSmall2 = [
   'lib/common/pic24_clockfreq.c',
   'lib/common/dataXfer.c',
@@ -154,16 +144,15 @@ def buildWithCommonLibs(sourceFileList, commonLibs, buildEnvironment):
 ## Compile the support library into objects for the default
 #  environment.
 PIC24SupportLibObjects = env.Object(PIC24SupportLibSources)
-PIC24SupportLibObjectsSmall = env.Object(PIC24SupportLibSourcesSmall)
 PIC24SupportLibObjectsSmall2 = env.Object(PIC24SupportLibSourcesSmall2)
 
 
 if 'reset' in buildTargets:
-  buildWithCommonSources(['chap08/reset.c'], PIC24SupportLibObjectsSmall, env, {}, 'reset')
+  buildWithCommonSources(['chap08/reset.c'], PIC24SupportLibObjectsSmall2, env, {}, 'reset')
 if 'echo' in buildTargets:
-  buildWithCommonSources(['chap08/echo.c'], PIC24SupportLibObjectsSmall, env, {}, 'reset')
+  buildWithCommonSources(['chap08/echo.c'], PIC24SupportLibObjectsSmall2, env, {}, 'reset')
 if 'ledsw1' in buildTargets:
-  buildWithCommonSources(['chap08/ledsw1.c'], PIC24SupportLibObjectsSmall, env, {}, 'ledsw1')
+  buildWithCommonSources(['chap08/ledsw1.c'], PIC24SupportLibObjectsSmall2, env, {}, 'ledsw1')
 if 'chap08' in buildTargets:
   buildWithCommonSources(['chap08/*.c'], PIC24SupportLibObjects, env, {}, 'chap08')
 if 'chap9' in buildTargets:
