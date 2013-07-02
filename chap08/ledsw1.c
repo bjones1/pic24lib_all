@@ -34,116 +34,142 @@ A program that uses a finite state machine approach for
 implementing switch/LED input/output.
 */
 
-/// LED1
+// LED1 configuration and access
+// =============================
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
-#define LED1  _LATB14     //led1 state
+#define LED1 _LATB14     //led1 state
 
-/// Switch1 configuration
-inline void CONFIG_SW1()  {
-  CONFIG_RB13_AS_DIG_INPUT();     //use RB13 for switch input
-  ENABLE_RB13_PULLUP();           //enable the pullup
-}
-#define SW1              _RB13    //switch state
-#define SW1_PRESSED()   (SW1==0)  //switch test
-#define SW1_RELEASED()  (SW1==1)  //switch test
-
-/// Switch2 configuration
-inline void CONFIG_SW2()  {
-  CONFIG_RB12_AS_DIG_INPUT();     //use RB12 for switch input
-  ENABLE_RB12_PULLUP();           //enable the pullup
+// Switch 1 configuration and access
+// =================================
+void config_sw1()  {
+  CONFIG_RB13_AS_DIG_INPUT();
+  ENABLE_RB13_PULLUP();
+  // Give the pullup some time to take effect.
+  DELAY_US(1);
 }
 
-#define SW2              _RB12  //switch state
+#define SW1              _RB13
+#define SW1_PRESSED()   (SW1 == 0)
+#define SW1_RELEASED()  (SW1 == 1)
 
+// Switch 2 configuration and access
+// =================================
+void config_sw2()  {
+  CONFIG_RB12_AS_DIG_INPUT();
+  ENABLE_RB12_PULLUP();
+  // Give the pullup some time to take effect.
+  DELAY_US(1);
+}
+
+#define SW2              _RB12
+
+// State machine
+// =============
+// First, define the states, along with a human-readable version.
 
 typedef enum  {
-  STATE_RESET = 0,
-  STATE_WAIT_FOR_PRESS1,
-  STATE_WAIT_FOR_RELEASE1,
-  STATE_WAIT_FOR_PRESS2,
-  STATE_WAIT_FOR_RELEASE2,
-  STATE_BLINK,
-  STATE_WAIT_FOR_RELEASE3
-} STATE;
+  STATE_RELEASED1,
+  STATE_PRESSED1,
+  STATE_RELEASED2,
+  STATE_PRESSED2,
+  STATE_RELEASED3_BLINK,
+  STATE_PRESSED3,
+} state_t;
 
-STATE e_LastState = STATE_RESET;
-//print debug message for state when it changes
-void printNewState (STATE e_currentState) {
-  if (e_LastState != e_currentState) {
-    switch (e_currentState) {
-      case STATE_WAIT_FOR_PRESS1:
-        outString("STATE_WAIT_FOR_PRESS1 - LED is off\n");
-        break;
-      case STATE_WAIT_FOR_RELEASE1:
-        outString("STATE_WAIT_FOR_RELEASE1\n");
-        break;
-      case STATE_WAIT_FOR_PRESS2:
-        outString("STATE_WAIT_FOR_PRESS2 - LED is on\n");
-        break;
-      case STATE_WAIT_FOR_RELEASE2:
-        outString("STATE_WAIT_FOR_RELEASE2 - SW2 on goes to blink else go to PRESS1\n");
-        break;
-      case STATE_BLINK:
-        outString("STATE_BLINK - LED blinks, waiting for SW1 press\n");
-        break;
-      case STATE_WAIT_FOR_RELEASE3:
-        outString("STATE_WAIT_FOR_RELEASE3 - LED is on\n");
-        break;
+const char* apsz_state_names[] = {
+  "STATE_RELEASED1 - LED is off",
+  "STATE_PRESSED1",
+  "STATE_RELEASED2 - LED is on",
+  "STATE_PRESSED2 - SW2 on goes to blink else go to RELEASED1",
+  "STATE_RELEASED3_BLINK - LED blinks, waiting for SW1 press",
+  "STATE_PRESSED3 - LED is on",
+};
 
-      default:
-        break;
+// Provide a convenient function to print out the state.
+void print_state(state_t e_state) {
+  // Verify that the state has a string representation before printing it.
+  ASSERT(e_state <= N_ELEMENTS(apsz_state_names));
+  outString(apsz_state_names[e_state]);
+  outChar('\n');
+}
+
+// When an event occurs, update the state.
+void update_state() {
+  static state_t e_state = STATE_RELEASED1;
+  static state_t e_last_state = STATE_PRESSED1;
+
+  switch (e_state) {
+    case STATE_RELEASED1:
+    if (SW1_PRESSED()) e_state = STATE_PRESSED1;
+    break;
+
+    case STATE_PRESSED1:
+    if (SW1_RELEASED()) {
+      // Turn the LED on when entering STATE_RELEASED2.
+      e_state = STATE_RELEASED2;
+      LED1 = 1;
     }
+    break;
+
+    case STATE_RELEASED2:
+    if (SW1_PRESSED()) e_state = STATE_PRESSED2;
+    break;
+
+    case STATE_PRESSED2:
+    if (SW1_RELEASED()) {
+      if (SW2) {
+	e_state = STATE_RELEASED3_BLINK;
+      } else {
+        // Turn the LED off when moving to STATE_RELEASED1.
+	e_state = STATE_RELEASED1;
+	LED1 = 0;
+      }
+    }
+    break;
+
+    case STATE_RELEASED3_BLINK:
+    LED1 = !LED1;
+    if (SW1_PRESSED()) {
+      // Freeze the LED on when existing the blink state.
+      e_state = STATE_PRESSED3;
+      LED1 = 1;
+    }
+    break;
+
+    case STATE_PRESSED3:
+    if (SW1_RELEASED()) {
+      // Turn the LED off when moving to STATE_RELEASED1.
+      e_state = STATE_RELEASED1;
+      LED1 = 0;
+    }
+    break;
+
+    default:
+    ASSERT(0);
   }
-  e_LastState = e_currentState;  //remember last state
+
+  // Only print the state when it changes.
+  if (e_state != e_last_state) {
+    e_last_state = e_state;
+    print_state(e_state);
+  }
 }
 
 int main (void) {
-  STATE e_mystate;
-
-  configBasic(HELLO_MSG);      // Set up heartbeat, UART, print hello message and diags
-
-  /** GPIO config ***************************/
-  CONFIG_SW1();        //configure switch
-  CONFIG_SW2();        //configure switch
-  CONFIG_LED1();       //config the LED
-  DELAY_US(1);         //give pullups a little time
-  /*****Toggle LED each time switch is pressed and released ******************************/
-  e_mystate = STATE_WAIT_FOR_PRESS1;
+  configBasic(HELLO_MSG);
+  config_sw1();
+  config_sw2();
+  CONFIG_LED1();
+  // In the initial state, turn the LED off.
+  LED1 = 0;
+  update_state();
 
   while (1) {
-    printNewState(e_mystate);  //debug message when state changes
-    switch (e_mystate) {
-      case STATE_WAIT_FOR_PRESS1:
-        LED1 = 0; //turn off the LED
-        if (SW1_PRESSED()) e_mystate = STATE_WAIT_FOR_RELEASE1;
-        break;
-      case STATE_WAIT_FOR_RELEASE1:
-        if (SW1_RELEASED()) e_mystate = STATE_WAIT_FOR_PRESS2;
-        break;
-      case STATE_WAIT_FOR_PRESS2:
-        LED1 = 1; //turn on the LED
-        if (SW1_PRESSED()) e_mystate = STATE_WAIT_FOR_RELEASE2;
-        break;
-      case STATE_WAIT_FOR_RELEASE2:
-        if (SW1_RELEASED()) {
-          //decide where to go
-          if (SW2) e_mystate = STATE_BLINK;
-          else e_mystate = STATE_WAIT_FOR_PRESS1;
-        }
-        break;
-      case STATE_BLINK:
-        LED1 = !LED1;    //blink while not pressed
-        DELAY_MS(100);    //blink delay
-        if (SW1_PRESSED()) e_mystate = STATE_WAIT_FOR_RELEASE3;
-        break;
-      case STATE_WAIT_FOR_RELEASE3:
-        LED1 = 1;   //Freeze LED1 at 1
-        if (SW1_RELEASED()) e_mystate = STATE_WAIT_FOR_PRESS1;
-        break;
-      default:
-        e_mystate = STATE_WAIT_FOR_PRESS1;
-    }//end switch(e_mystate)
-    DELAY_MS(DEBOUNCE_DLY);      //Debounce
-    doHeartbeat();     //ensure that we are alive
-  } // end while (1)
+    // Deliver a timer event every 100ms. This will also debounce the switches.
+    update_state();
+    DELAY_MS(100);
+
+    // Blink the heartbeat LED to confirm that the program is running.
+    doHeartbeat();
+  }
 }
