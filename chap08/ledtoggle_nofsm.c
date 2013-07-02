@@ -35,33 +35,42 @@ and released. Does not use a finite statement approach.
 */
 
 
-/// LED1
+// LED1 configuration and access
+// =============================
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
-#define LED1  _LATB14     //led1 state
+#define LED1 _LATB14     //led1 state
 
-/// Switch1 configuration
-inline void CONFIG_SW1()  {
-  CONFIG_RB13_AS_DIG_INPUT();     //use RB13 for switch input
-  ENABLE_RB13_PULLUP();           //enable the pullup
+// Switch 1 configuration and access
+// =================================
+void config_sw1()  {
+  CONFIG_RB13_AS_DIG_INPUT();
+  ENABLE_RB13_PULLUP();
+  // Give the pullup some time to take effect.
+  DELAY_US(1);
 }
-#define SW1              _RB13       //switch state
-#define SW1_PRESSED()   (SW1==0)  //switch test
-#define SW1_RELEASED()  (SW1==1)  //switch test
+
+#define SW1              _RB13
+#define SW1_PRESSED()   (SW1 == 0)
+#define SW1_RELEASED()  (SW1 == 1)
 
 int main (void) {
-  configBasic(HELLO_MSG);      // Set up heartbeat, UART, print hello message and diags
-  /** GPIO config ***************************/
-  CONFIG_SW1();        //configure switch
-  CONFIG_LED1();       //configure LED
-  DELAY_US(1);         //give pullups a little time
+  configBasic(HELLO_MSG);
+  config_sw1();
+  CONFIG_LED1();
   LED1 = 0;            //LED off initially
   while (1) {
-    // wait for press
-    while (SW1_RELEASED()) doHeartbeat(); //loop (1)
-    DELAY_MS(15); //debounce
-    // wait for release
-    while (SW1_PRESSED()) doHeartbeat(); //loop (2)
-    DELAY_MS(15); // debounce
+    // The pushbutton is released. Wait for it not to be.
+    while (SW1_RELEASED()) {
+      doHeartbeat();
+    }
+    DELAY_MS(DEBOUNCE_DLY); //debounce
+    // Loggle the LED on each press.
     LED1 = !LED1;  //toggle the LED
+
+    // The pushbutton is pressed. Wait for it not to be.
+    while (SW1_PRESSED()) {
+      doHeartbeat();
+    }
+    DELAY_MS(DEBOUNCE_DLY); // debounce
   }
 }
