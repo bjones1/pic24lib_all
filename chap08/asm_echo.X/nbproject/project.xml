@@ -2,7 +2,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>echo</name>
+            <name>asm_echo</name>
             <creation-uuid>0d90eca9-000f-4356-995c-74046b780ab6</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
