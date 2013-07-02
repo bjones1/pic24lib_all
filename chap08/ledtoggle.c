@@ -103,21 +103,23 @@ void update_state() {
 
 // main
 // ====
-// This code initialized the system, then runs the state machine above when
+// This code initializes the system, then runs the state machine above when
 // the pushbutton's value changes.
 int main (void) {
-  uint16_t last_sw1;
+  uint16_t u16_last_sw1;
   
   configBasic(HELLO_MSG);
   config_sw1();
   CONFIG_LED1();
   // Set the initial value of sw1.
-  last_sw1 = SW1;
+  u16_last_sw1 = SW1;
+  // Initialize the state machine
+  update_state();
 
   while (1) {
     // Look for an event: a change in SW1. When this happens, update the state.
-    if (SW1 != last_sw1) {
-      last_sw1 = SW1;
+    if (SW1 != u16_last_sw1) {
+      u16_last_sw1 = SW1;
       update_state();
 
       // Debounce the switch by waiting for bounces to die out.
