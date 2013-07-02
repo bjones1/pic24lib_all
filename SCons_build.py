@@ -109,24 +109,6 @@ def buildWithCommonSources(sourceFileList, commonSources, buildEnvironment,
           aliasString)
 
 
-## This function takes a list of source files (including wildcards),
-#  adds the PIC24 common
-#  libraries to each item, then uses Program to build each item.
-#  \param sourceFileList A list of source files (which may include
-#                        wildcards) to be built.
-#  \param commonLibs     A list of libraries upon which all sources
-#                        in the sourceFileList depend. Wildcards are not
-#                        supported.
-#  \param buildEnvinonment An Environment in which to build these sources.
-def buildWithCommonLibs(sourceFileList, commonLibs, buildEnvironment):
-   for sourceFileGlob in sourceFileList:
-      for sourceFile in Glob(sourceFileGlob, True, True, True):
-          f=os.path.splitext(sourceFile)[0]
-          print sourceFile, f, commonLibs
-          buildEnvironment.Program([sourceFile], LIBS=commonLibs)
-          myHex = buildEnvironment.Hex(f,f)
-          Depends(myHex, commonLibs)
-
 ## Compile the support library into objects for the default
 #  environment.
 PIC24SupportLibObjects = env.Object(PIC24SupportLibSources)
