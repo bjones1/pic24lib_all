@@ -1,6 +1,9 @@
 import os
 Import('env')
 
+## Inform SCons about the dependencies in the template-based files
+SConscript('templates/SConscript.py', 'env')
+
 ## This functions converts a cof to a hex file.
 #  \param cofName The name of the .c or .cof file to be converted (.c files
 #    are assumed to be compiled to .cof elsewhere)

@@ -15,6 +15,9 @@
 import os
 Import('buildTargets env')
 
+## Inform SCons about the dependencies in the template-based files
+SConscript('templates/SConscript.py', 'env')
+
 
 ## @{
 #  \name Setup for building files based on the PIC24 support library
