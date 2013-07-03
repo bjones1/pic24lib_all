@@ -40,13 +40,13 @@
 #include "pic24_all.h"
 
 //Interrupt Service Routine for MathError
-void _ISRFAST _MathError (void) {
-  //do not anything, just clear the error and continue
-  _MATHERR = 0;   //clear the _MATHERR flag to signal trap is handled
-  RCOUNT = 0;     //clear the RCOUNT to break repeat loop
+void _ISRFAST _MathError(void) {
+  // Do not anything, just clear the error and continue/
+  _MATHERR = 0;   // Clear the _MATHERR flag to signal trap is handled.
+  RCOUNT = 0;     // Clear the RCOUNT to break repeat loop in a divide.
 }
 
-int main (void) {
+int main(void) {
   // If not volatile, then the compiler will optimize out
   // the 1/u8_zero code, NOT producing a divide by zero!
   volatile uint8_t u8_zero;
@@ -62,5 +62,5 @@ int main (void) {
     u8_zero = 0;
     u8_zero = 1/u8_zero;
     doHeartbeat();
-  }// end while (1)
+  }
 }

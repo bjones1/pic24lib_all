@@ -37,12 +37,12 @@ to wake the from Sleep mode.
 */
 
 //Interrupt Service Routine for Change Notification
-void _ISRFAST _CNInterrupt (void) {
+void _ISRFAST _CNInterrupt(void) {
   _CNIF = 0;    //clear the change notification interrupt bit
 }
 
 /// Switch1 configuration
-inline void CONFIG_SW1()  {
+void config_sw1()  {
   CONFIG_RB13_AS_DIG_INPUT();     //use RB13 for switch input
   ENABLE_RB13_PULLUP();           //enable the pull-up
   ENABLE_RB13_CN_INTERRUPT();     //CN13IE = 1
@@ -52,7 +52,7 @@ inline void CONFIG_SW1()  {
 int main (void) {
   configBasic(HELLO_MSG);
   /** Configure the switch ***********/
-  CONFIG_SW1();  //enables individual CN interrupt also
+  config_sw1();  //enables individual CN interrupt also
   /** Configure Change Notification general interrupt  */
   _CNIF = 0;         //Clear the interrupt flag
   _CNIP = 2;         //Choose a priority > 0

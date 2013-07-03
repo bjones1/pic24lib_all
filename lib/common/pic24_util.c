@@ -171,7 +171,7 @@ void reportError(const char* sz_errorMessage) {
   //ignore if a previous error has already been triggerred
   if (sz_lastError == NULL) {
     sz_lastError = sz_errorMessage;
-    asm ("reset");
+    asm("reset");
   }
 }
 

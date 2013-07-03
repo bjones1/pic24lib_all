@@ -37,7 +37,7 @@
 
 #include "pic24_all.h"
 
-int main (void) {
+int main(void) {
   // If u8_zero is not declared as volatile, then the
   // compiler will optimize out
   // the 1/u8_zero code, NOT producing a divide by zero!
@@ -55,5 +55,5 @@ int main (void) {
     u8_zero = 0;
     u8_zero = 1/u8_zero;
     doHeartbeat();
-  }// end while (1)
+  }
 }
