@@ -87,16 +87,21 @@ const char* apsz_state_names[] = {
 
 // Provide a convenient function to print out the state.
 void print_state(state_t e_state) {
-  // Verify that the state has a string representation before printing it.
-  ASSERT(e_state <= N_ELEMENTS(apsz_state_names));
-  outString(apsz_state_names[e_state]);
-  outChar('\n');
+  static state_t e_last_state = 0xFFFF;  // Force an initial print of the state
+
+  // Only print if the state changes.
+  if (e_state != e_last_state) {
+    e_last_state = e_state;
+    // Verify that the state has a string representation before printing it.
+    ASSERT(e_state <= N_ELEMENTS(apsz_state_names));
+    outString(apsz_state_names[e_state]);
+    outChar('\n');
+  }
 }
 
-// When an event occurs, update the state.
+// This function defines the state machine.
 void update_state() {
   static state_t e_state = STATE_RELEASED1;
-  static state_t e_last_state = STATE_PRESSED1;
 
   switch (e_state) {
     case STATE_RELEASED1:
@@ -129,6 +134,7 @@ void update_state() {
 
     case STATE_RELEASED3_BLINK:
     LED1 = !LED1;
+    DELAY_MS(100);
     if (SW1_PRESSED()) {
       // Freeze the LED on when existing the blink state.
       e_state = STATE_PRESSED3;
@@ -148,26 +154,25 @@ void update_state() {
     ASSERT(0);
   }
 
-  // Only print the state when it changes.
-  if (e_state != e_last_state) {
-    e_last_state = e_state;
-    print_state(e_state);
-  }
+  print_state(e_state);
 }
 
 int main (void) {
+  // Configure the hardware.
   configBasic(HELLO_MSG);
   config_sw1();
   config_sw2();
   CONFIG_LED1();
-  // In the initial state, turn the LED off.
+
+  // Initialize the state machine to its starting state.
   LED1 = 0;
   update_state();
 
   while (1) {
-    // Deliver a timer event every 100ms. This will also debounce the switches.
     update_state();
-    DELAY_MS(100);
+
+    // Debounce the switch by waiting for bounces to die out.
+    DELAY_MS(DEBOUNCE_DLY);
 
     // Blink the heartbeat LED to confirm that the program is running.
     doHeartbeat();

@@ -70,13 +70,19 @@ const char* apsz_state_names[] = {
 
 // Provide a convenient function to print out the state.
 void print_state(state_t e_state) {
-  // Verify that the state has a string representation before printing it.
-  ASSERT(e_state <= N_ELEMENTS(apsz_state_names));
-  outString(apsz_state_names[e_state]);
-  outChar('\n');
+  static state_t e_last_state = 0xFFFF;  // Force an initial print of the state
+
+  // Only print if the state changes.
+  if (e_state != e_last_state) {
+    e_last_state = e_state;
+    // Verify that the state has a string representation before printing it.
+    ASSERT(e_state <= N_ELEMENTS(apsz_state_names));
+    outString(apsz_state_names[e_state]);
+    outChar('\n');
+  }
 }
 
-// When an event occurs, update the state.
+// This function defines the state machine.
 void update_state() {
   static state_t e_state = STATE_RELEASED;
 
@@ -106,25 +112,19 @@ void update_state() {
 // This code initializes the system, then runs the state machine above when
 // the pushbutton's value changes.
 int main (void) {
-  uint16_t u16_last_sw1;
-  
+  // Configure the hardware.
   configBasic(HELLO_MSG);
   config_sw1();
   CONFIG_LED1();
-  // Set the initial value of sw1.
-  u16_last_sw1 = SW1;
-  // Initialize the state machine
+
+  // Initialize the state machine to its starting state.
   update_state();
 
   while (1) {
-    // Look for an event: a change in SW1. When this happens, update the state.
-    if (SW1 != u16_last_sw1) {
-      u16_last_sw1 = SW1;
-      update_state();
+    update_state();
 
-      // Debounce the switch by waiting for bounces to die out.
-      DELAY_MS(DEBOUNCE_DLY);
-    }
+    // Debounce the switch by waiting for bounces to die out.
+    DELAY_MS(DEBOUNCE_DLY);
 
     // Blink the heartbeat LED to confirm that the program is running.
     doHeartbeat();
