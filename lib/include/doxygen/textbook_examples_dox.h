@@ -119,7 +119,6 @@
  *   - chap09/change_latency.c - measures ISR latency using a change notification interrupt
  *   - chap09/change_test.c - demos a change notification interrupt using an input pushbutton
  *   - chap09/change_wakeup.c - wake from sleep using a change notification interrupt
- *   - chap09/change_wakeup_noint.c - attempt to wake from sleep using a priority 0 CN interrupt
  *   - chap09/filt_test.c - test an extern low-pass RC filter effectiveness by generating a pulse train that is read by another port
  *   - chap09/int0_bounce.c - use the INT0 interrupt to detect switch bounce.
  *   - chap09/int0_wakeup.c - uses INT0 to wake from sleep mode.
