@@ -26,12 +26,12 @@
 ;    uint16_t u16_j;
 ;    uint16_t u16_k;
 ;
-;    void main() {
-;      u16_i = 2047;        // u16_i = 2047 (0x7FF).
-;      u16_i = u16_i + 1;   // u16_i++, so u16_i = 2048 (0x800).
-;      u16_j = u16_i;       // u16_j is 2048 (0x0800).
-;      u16_j = u16_j - 1;   // u16_j--, so u16_j is 2047.
-;      u16_k = u16_j + i;   // u16_k = 4095 (0x0FFF).
+;    void main(void) {
+;      u16_i = 2047;           // u16_i = 2047 (0x7FF).
+;      u16_i = u16_i + 1;      // u16_i++, so u16_i = 2048 (0x800).
+;      u16_j = u16_i;          // u16_j is 2048 (0x0800).
+;      u16_j = u16_j - 1;      // u16_j--, so u16_j is 2047.
+;      u16_k = u16_j + u8_i;   // u16_k = 4095 (0x0FFF).
 ;    }
 ;
 ; Declare variables
