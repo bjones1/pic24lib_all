@@ -297,11 +297,8 @@ else:
         SConscript('SCons-bootloader.py', exports = 'env',
           variant_dir = 'build/bootloader_' + mcu)
 
-    for mcu in ('24F16KA102',
-                '24FJ32GA002',
+    for mcu in ('24FJ32GA002',
                 '24FJ64GA002',
-                '24FJ64GA006',
-                '24FJ128GA006',
                 '24FJ32GA102',
                 '24FJ64GA102',
                 '24FJ64GB002',
@@ -311,8 +308,6 @@ else:
                 '24HJ32GP202',
                 '24HJ64GP502',
                 '24HJ128GP502',
-                '24HJ256GP206',
-                '24HJ128GP506',
 
                 '24EP64GP202',
 
