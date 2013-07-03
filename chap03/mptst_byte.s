@@ -26,12 +26,12 @@
 ;    uint8_t u8_j;
 ;    uint8_t u8_k;
 ;
-;    void main() {
-;      u8_i = 100;        // u8_i = 64 (0x64).
-;      u8_i = u8_i + 1;   // u8_i++, so u8_i = 101 (0x65).
-;      u8_j = u8_i;       // u8_j is 101 (0x65).
-;      u8_j = u8_j - 1;   // u8_j--, so u8_j is 100 (0x64).
-;      u8_k = u8_j + i;   // u8_k = 201 (0xC9).
+;    void main(void) {
+;      u8_i = 100;           // u8_i = 64 (0x64).
+;      u8_i = u8_i + 1;      // u8_i++, so u8_i = 101 (0x65).
+;      u8_j = u8_i;          // u8_j is 101 (0x65).
+;      u8_j = u8_j - 1;      // u8_j--, so u8_j is 100 (0x64).
+;      u8_k = u8_j + u8_i;   // u8_k = 201 (0xC9).
 ;    }
 ;
 ; Declare variables
