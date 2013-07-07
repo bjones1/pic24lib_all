@@ -154,7 +154,7 @@ void __esos_hw_PutString(uint8_t* psz_in);
 uint8_t __esos_hw_GetUint8(void);
 
 
-void configUART1(uint32_t u32_baudRate);
+void __esos_configUART1(uint32_t u32_baudRate);
 void __esos_hw_InitCommSystem(void);
 
 

@@ -101,7 +101,7 @@ void _ISRFAST _U1RXInterrupt (void) {
  *
  *  \param u32_baudRate The baud rate to use.
  */
-void configUART1(uint32_t u32_baudRate) {
+void __esos_configUART1(uint32_t u32_baudRate) {
   /*************************  UART config ********************/
   //Pin mapping macros in pic24_ports.h
 
@@ -145,7 +145,7 @@ void configUART1(uint32_t u32_baudRate) {
 void __esos_hw_InitCommSystem(void) {
   // use the MSSTATE PIC24 routines to init the RS232 comm subsystem
   // 8N1 @ 56k7 baud (DEFAULT_BAUDRATE) for now
-  configUART1(DEFAULT_BAUDRATE) ;
+  __esos_configUART1(DEFAULT_BAUDRATE) ;
 
 }  // end __esos_hw_InitCommSystem()
 

@@ -44,7 +44,7 @@
  *********************************************************/
 
 #ifdef BUILT_ON_ESOS
-# define outChar      esos_PutUint8ToCommOut
+# define outChar      __esos_unsafe_PutUint8
 #else
 /** Write a character to the serial port.
  *  This function blocks until a character is
