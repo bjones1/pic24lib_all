@@ -100,3 +100,6 @@ extern uint32_t u32_heartbeatCount;
 void configHeartbeat(void);
 void doHeartbeat(void);
 void toggleHeartbeat(void);
+
+// Copied from http://embeddedgurus.com/stack-overflow/2011/03/the-n_elements-macro/.
+#define N_ELEMENTS(X)           (sizeof(X)/sizeof(*(X)))

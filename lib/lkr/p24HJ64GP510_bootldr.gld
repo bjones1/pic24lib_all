@@ -104,7 +104,7 @@ J__Interrupt57 = 0xd06;
 J__Interrupt58 = 0xd0a;
 J__DCIErrInterrupt = 0xd0e;
 J__DCIInterrupt = 0xd12;
-J__Interrupt61 = 0xd16;
+J__DMA5Interrupt = 0xd16;
 J__Interrupt62 = 0xd1a;
 J__Interrupt63 = 0xd1e;
 J__Interrupt64 = 0xd22;
@@ -703,10 +703,10 @@ SECTIONS
      ABSOLUTE(__DefaultInterrupt)) >> 16) & 0x7F);
      SHORT(0);
 
-    SHORT(DEFINED(__Interrupt61) ? ABSOLUTE(__Interrupt61) : 
+    SHORT(DEFINED(__DMA5Interrupt) ? ABSOLUTE(__DMA5Interrupt) : 
      ABSOLUTE(__DefaultInterrupt));
      SHORT(0x04);
-    SHORT(((DEFINED(__Interrupt61) ? ABSOLUTE(__Interrupt61) : 
+    SHORT(((DEFINED(__DMA5Interrupt) ? ABSOLUTE(__DMA5Interrupt) : 
      ABSOLUTE(__DefaultInterrupt)) >> 16) & 0x7F);
      SHORT(0);
 
@@ -1334,7 +1334,7 @@ LONG(J__Interrupt57);
 LONG(J__Interrupt58);
 LONG(J__DCIErrInterrupt);
 LONG(J__DCIInterrupt);
-LONG(J__Interrupt61);
+LONG(J__DMA5Interrupt);
 LONG(J__Interrupt62);
 LONG(J__Interrupt63);
 LONG(J__Interrupt64);
@@ -1468,7 +1468,7 @@ LONG(J__Interrupt57);
 LONG(J__Interrupt58);
 LONG(J__DCIErrInterrupt);
 LONG(J__DCIInterrupt);
-LONG(J__Interrupt61);
+LONG(J__DMA5Interrupt);
 LONG(J__Interrupt62);
 LONG(J__Interrupt63);
 LONG(J__Interrupt64);
