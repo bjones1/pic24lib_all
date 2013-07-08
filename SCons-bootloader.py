@@ -16,11 +16,15 @@ def cof2hex(cofName, buildEnvironment, aliasString):
   buildEnvironment.Alias(aliasString, myHex)
 
 
-targetName = '../p${MCU}_bootloader'
+targetName = 'p${MCU}_bootloader'
+# Compile the bootloader to a .cof file.
 env.Program(target = targetName, source =
   ['bootloader/pic24_dspic33_bootloader.X/main.c',
    'bootloader/pic24_dspic33_bootloader.X/mem.c',
    'bootloader/pic24_dspic33_bootloader.X/pic24_uart-small.c',
    'lib/common/pic24_clockfreq.c',
    'lib/common/pic24_configbits.c'])
+# Convert it to a .hex
 cof2hex(targetName, env, 'bootloader')
+# Copy the .hex to the hex/ directory.
+env.Command('../../hex/' + targetName + '.hex', targetName + '.hex', Copy("$TARGET", "$SOURCE"))

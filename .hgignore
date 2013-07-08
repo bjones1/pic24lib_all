@@ -10,6 +10,7 @@ docs/search/
 .sconsign.dblite
 err*.txt
 build/
+hex/
 # MPLAB X generated files
 *.X/build/
 *.X/dist/
