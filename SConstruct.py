@@ -80,6 +80,16 @@ b2h = Builder(action = 'xc16-bin2hex $SOURCE -a -omf=elf',
         src_suffix = 'elf')
 env.Append(BUILDERS = {'Hex' : b2h})
 
+## This functions converts a binary (.elf or .cof) file to a hex file.
+#  \param binName The name of the .elf/.cof file to be converted
+#  \param buildEnvinonment An Environment in which to build these sources.
+#  \param aliasString A string to serve as an alias for this build.
+def bin2hex(binName, buildEnvironment, aliasString):
+  f = os.path.splitext(binName)[0]
+  myHex = buildEnvironment.Hex(f, f)
+  # Add this hex file to a convenient alias
+  buildEnvironment.Alias(aliasString, myHex)
+
 # Adjust our environment to be specific the host OS
 if os.name == 'posix':
   print "Modifiying environment for Linux"
@@ -189,7 +199,7 @@ else:
 ## ---------------------------------------
     ## Call SConscript with a specific buildTargets value
     def buildTargetsSConscript(buildTargets, env, variantDirName):
-      SConscript('SCons_build.py', exports = 'buildTargets env',
+      SConscript('SCons_build.py', exports = 'buildTargets env bin2hex',
         variant_dir = 'build/' + env['MCU'] + "_" + variantDirName)
 
     # Build small, non-DMA on the PIC24HJ32GP202
@@ -277,7 +287,7 @@ else:
         env.Append(CPPDEFINES = ['BOOTLOADER'])
 
         # Now, invoke a variant build using this environment.
-        SConscript('SCons-bootloader.py', exports = 'env',
+        SConscript('SCons-bootloader.py', exports = 'env bin2hex',
           variant_dir = 'build/bootloader_' + mcu)
 
     for mcu in ('24FJ32GA002',

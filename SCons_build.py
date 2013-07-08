@@ -13,7 +13,7 @@
 
 
 import os
-Import('buildTargets env')
+Import('buildTargets env bin2hex')
 
 ## Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
@@ -48,17 +48,6 @@ PIC24SupportLibSources = [
 #  \name Example code build
 ###############################################################################
 
-## This functions converts a cof to a hex file.
-#  \param cofName The name of the .c or .cof file to be converted (.c files
-#    are assumed to be compiled to .cof elsewhere)
-#  \param buildEnvinonment An Environment in which to build these sources.
-#  \param aliasString A string to serve as an alias for this build.
-def cof2hex(cofName, buildEnvironment, aliasString):
-  f = os.path.splitext(cofName)[0]
-  myHex = buildEnvironment.Hex(f, f)
-  # Add this hex file to a convenient alias
-  buildEnvironment.Alias(aliasString, myHex)
-
 ## This function builds a program which includes the PIC24 library.
 #  \param sourceFileList A list of source files to be built into one program.
 #  \param commonSources  A list of source files upon which all sources
@@ -71,7 +60,7 @@ def buildProgramWithCommonSources(sourceFileList, commonSources, buildEnvironmen
   be = buildEnvironment
   be.Program(sourceFileList + commonSources)
   # Pick the name of the target to be the first c file in the list
-  cof2hex(sourceFileList[0], be, aliasString)
+  bin2hex(sourceFileList[0], be, aliasString)
 
 ## This function takes a list of source files (including wildcards),
 #  adds the PIC24 common

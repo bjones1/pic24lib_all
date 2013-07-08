@@ -1,20 +1,8 @@
 import os
-Import('env')
+Import('env bin2hex')
 
 ## Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
-
-## This functions converts a cof to a hex file.
-#  \param cofName The name of the .c or .cof file to be converted (.c files
-#    are assumed to be compiled to .cof elsewhere)
-#  \param buildEnvinonment An Environment in which to build these sources.
-#  \param aliasString A string to serve as an alias for this build.
-def cof2hex(cofName, buildEnvironment, aliasString):
-  f = os.path.splitext(cofName)[0]
-  myHex = buildEnvironment.Hex(f, f)
-  # Add this hex file to a convenient alias
-  buildEnvironment.Alias(aliasString, myHex)
-
 
 targetName = 'p${MCU}_bootloader'
 # Compile the bootloader to a .cof file.
@@ -26,6 +14,6 @@ env.Program(target = targetName, source =
    'lib/common/pic24_uart.c',
    'lib/common/pic24_configbits.c'])
 # Convert it to a .hex
-cof2hex(targetName, env, 'bootloader')
+bin2hex(targetName, env, 'bootloader')
 # Copy the .hex to the hex/ directory.
 env.Command('../../hex/' + targetName + '.hex', targetName + '.hex', Copy("$TARGET", "$SOURCE"))
