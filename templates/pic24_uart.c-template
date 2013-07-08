@@ -39,6 +39,9 @@
 // Only include if this UART exists.
 #if (NUM_UART_MODS >= ${x})
 
+// For the bootloader, include only configUART${x} to minimize size.
+# ifndef BOOTLOADER
+
 
 // Documentation for this file. If the \file tag is not present,
 // this file will not be documented.
@@ -219,6 +222,9 @@ uint8_t inChar${x}(void) {
 #endif
 
 
+// Include this for the non-bootloader case. Also include it for the bootloader if this is the UART the bootloader uses.
+#endif // # ifndef BOOTLOADER
+#if !defined(BOOTLOADER) || (DEFAULT_UART == ${x})
 
 /** Chose a default BRGH for UART${x}, used by
  *  \ref configUART${x} to set up UART${x}.
@@ -390,6 +396,8 @@ void configUART${x}(uint32_t u32_baudRate) {
 #endif
 
 }
+
+#endif // #if !defined(BOOTLOADER) || (DEFAULT_UART == ${x})
 
 #endif // #if (NUM_UARTS >= ${x})
 

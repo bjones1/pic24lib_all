@@ -44,6 +44,7 @@
       <itemPath>../../lib/common/pic24_clockfreq.c</itemPath>
       <itemPath>../../lib/common/pic24_configbits.c</itemPath>
       <itemPath>pic24_uart-small.c</itemPath>
+      <itemPath>../../lib/common/pic24_uart.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

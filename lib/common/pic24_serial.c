@@ -343,32 +343,17 @@ uint8_t isCharReady(void) {
  *  \param u32_baudRate The baud rate to use.
  */
 void configDefaultUART(uint32_t u32_baudRate) {
-  switch (DEFAULT_UART) {
-#if (NUM_UART_MODS >= 1)
-    case 1 :
-      __C30_UART = 1;   //this is the default UART
-      configUART1(u32_baudRate);
-      break;
+  __C30_UART = DEFAULT_UART;
+
+#if DEFAULT_UART == 1
+  configUART1(u32_baudRate);
+#elif DEFAULT_UART == 2
+  configUART2(u32_baudRate);
+#elif DEFAULT_UART == 3
+  configUART3(u32_baudRate);
+#elif DEFAULT_UART == 4
+  configUART4(u32_baudRate);
+#else
+# error "Invalid DEFAULT_UART."
 #endif
-#if (NUM_UART_MODS >= 2)
-    case 2 :
-      __C30_UART = 2;   //this is the default UART
-      configUART2(u32_baudRate);
-      break;
-#endif
-#if (NUM_UART_MODS >= 3)
-    case 3 :
-      __C30_UART = 3;   //this is the default UART
-      configUART3(u32_baudRate);
-      break;
-#endif
-#if (NUM_UART_MODS >= 4)
-    case 4 :
-      __C30_UART = 4;   //this is the default UART
-      configUART4(u32_baudRate);
-      break;
-#endif
-    default :
-      REPORT_ERROR("Invalid UART");
-  }
 }

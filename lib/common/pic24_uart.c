@@ -39,6 +39,9 @@
 // Only include if this UART exists.
 #if (NUM_UART_MODS >= 1)
 
+// For the bootloader, include only configUART1 to minimize size.
+# ifndef BOOTLOADER
+
 
 // Documentation for this file. If the \file tag is not present,
 // this file will not be documented.
@@ -219,6 +222,9 @@ uint8_t inChar1(void) {
 #endif
 
 
+// Include this for the non-bootloader case. Also include it for the bootloader if this is the UART the bootloader uses.
+#endif // # ifndef BOOTLOADER
+#if !defined(BOOTLOADER) || (DEFAULT_UART == 1)
 
 /** Chose a default BRGH for UART1, used by
  *  \ref configUART1 to set up UART1.
@@ -391,6 +397,8 @@ void configUART1(uint32_t u32_baudRate) {
 
 }
 
+#endif // #if !defined(BOOTLOADER) || (DEFAULT_UART == 1)
+
 #endif // #if (NUM_UARTS >= 1)
 
 
@@ -436,6 +444,9 @@ void configUART1(uint32_t u32_baudRate) {
 
 // Only include if this UART exists.
 #if (NUM_UART_MODS >= 2)
+
+// For the bootloader, include only configUART2 to minimize size.
+# ifndef BOOTLOADER
 
 
 // Documentation for this file. If the \file tag is not present,
@@ -617,6 +628,9 @@ uint8_t inChar2(void) {
 #endif
 
 
+// Include this for the non-bootloader case. Also include it for the bootloader if this is the UART the bootloader uses.
+#endif // # ifndef BOOTLOADER
+#if !defined(BOOTLOADER) || (DEFAULT_UART == 2)
 
 /** Chose a default BRGH for UART2, used by
  *  \ref configUART2 to set up UART2.
@@ -789,6 +803,8 @@ void configUART2(uint32_t u32_baudRate) {
 
 }
 
+#endif // #if !defined(BOOTLOADER) || (DEFAULT_UART == 2)
+
 #endif // #if (NUM_UARTS >= 2)
 
 
@@ -834,6 +850,9 @@ void configUART2(uint32_t u32_baudRate) {
 
 // Only include if this UART exists.
 #if (NUM_UART_MODS >= 3)
+
+// For the bootloader, include only configUART3 to minimize size.
+# ifndef BOOTLOADER
 
 
 // Documentation for this file. If the \file tag is not present,
@@ -1015,6 +1034,9 @@ uint8_t inChar3(void) {
 #endif
 
 
+// Include this for the non-bootloader case. Also include it for the bootloader if this is the UART the bootloader uses.
+#endif // # ifndef BOOTLOADER
+#if !defined(BOOTLOADER) || (DEFAULT_UART == 3)
 
 /** Chose a default BRGH for UART3, used by
  *  \ref configUART3 to set up UART3.
@@ -1187,6 +1209,8 @@ void configUART3(uint32_t u32_baudRate) {
 
 }
 
+#endif // #if !defined(BOOTLOADER) || (DEFAULT_UART == 3)
+
 #endif // #if (NUM_UARTS >= 3)
 
 
@@ -1232,6 +1256,9 @@ void configUART3(uint32_t u32_baudRate) {
 
 // Only include if this UART exists.
 #if (NUM_UART_MODS >= 4)
+
+// For the bootloader, include only configUART4 to minimize size.
+# ifndef BOOTLOADER
 
 
 // Documentation for this file. If the \file tag is not present,
@@ -1413,6 +1440,9 @@ uint8_t inChar4(void) {
 #endif
 
 
+// Include this for the non-bootloader case. Also include it for the bootloader if this is the UART the bootloader uses.
+#endif // # ifndef BOOTLOADER
+#if !defined(BOOTLOADER) || (DEFAULT_UART == 4)
 
 /** Chose a default BRGH for UART4, used by
  *  \ref configUART4 to set up UART4.
@@ -1584,6 +1614,8 @@ void configUART4(uint32_t u32_baudRate) {
 #endif
 
 }
+
+#endif // #if !defined(BOOTLOADER) || (DEFAULT_UART == 4)
 
 #endif // #if (NUM_UARTS >= 4)
 
