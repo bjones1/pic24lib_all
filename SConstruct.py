@@ -53,6 +53,11 @@ env = Environment(
         # (such as compilers), which errors out on Windows.
         tools = ['gcc', 'gnulink', 'ar', 'zip', 'packaging'],
         options = opts,
+        CPPPATH = 'lib/include',
+        CC = 'xc16-gcc',
+        LIBPATH = '.',
+        AR = 'xc16-ar',
+        LINK = 'xc16-gcc',
         # Copied and cobbled together from SCons\Tools\cc.py with mods
         CCCOM = '$CC -c -o $TARGET $CFLAGS $CCFLAGS $CPPFLAGS $_CPPDEFFLAGS $_CPPINCFLAGS $SOURCES',
         CCCCOMSTR = 'Compiling $SOURCES',
@@ -66,6 +71,14 @@ env = Environment(
 # Copy the host envrionment's path for our scons environment
 # so scons can find C30 tools
 env['ENV']['PATH'] = os.environ['PATH']
+
+#
+# add the bin2hex program to the environment as a new builder
+#
+b2h = Builder(action = 'xc16-bin2hex $SOURCE -a -omf=elf',
+        suffix = 'hex',
+        src_suffix = 'elf')
+env.Append(BUILDERS = {'Hex' : b2h})
 
 # Adjust our environment to be specific the host OS
 if os.name == 'posix':
@@ -86,45 +99,16 @@ if os.name == 'posix':
     AR = 'pic30-elf-ar',
     LINK = 'pic30-elf-gcc', # Copied from SCons\Tools\link.py with mods
   )
-  #
-  # add the bin2hex program to the environment as a new builder
-  #
-  b2h = Builder(action = 'pic30-elf-bin2hex $SOURCE -a -omf=elf',
-            suffix = 'hex',
-            src_suffix = 'elf')
-  env.Append(BUILDERS = {'Hex' : b2h})
-
-elif os.name == 'nt':
-  print "Modifying environment for Windoze"
-  incDirs = Split( """lib/include
-    """)
-  libDirs = Split( """.
-    """)
-  # Change linux-specific environment variables
-  env.Replace(
-    CPPPATH = incDirs,
-    CC = 'xc16-gcc',
-    LIBPATH = libDirs,
-    AR = 'xc16-ar',
-    LINK = 'xc16-gcc', # Copied from SCons\Tools\link.py with mods
-  )
-  #
-  # add the bin2hex program to the environment as a new builder
-  #
-  b2h = Builder(action = 'xc16-bin2hex $SOURCE -a -omf=elf',
-            suffix = 'hex',
-            src_suffix = 'elf')
-  env.Append(BUILDERS = {'Hex' : b2h})
 
 # adjust our default environment based on user command-line requests
 dict = env.Dictionary()
 if dict['BOOTLDR'] == 'msu':
     env.Replace(
-        LINKERSCRIPT = '--script=lib/lkr' + os.sep + 'p${MCU}_bootldr.gld',
+        LINKERSCRIPT = '--script="lib/lkr/p${MCU}_bootldr.gld"',
     )
 else:
     env.Replace(
-        LINKERSCRIPT = '--script=p${MCU}.gld',
+        LINKERSCRIPT = '--script="p${MCU}.gld"',
     )
 
 ## By default, run two jobs at once (assume a dual-core PC)
