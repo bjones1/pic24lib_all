@@ -274,7 +274,7 @@ else:
         env.Replace(
             LINKERSCRIPT = '--script=bootloader/pic24_dspic33_bootloader.X/lkr/p${MCU}.gld',
         )
-        env.Append(CPPDEFINES = ['_NOFLOAT', 'USE_HEARTBEAT=0', 'USE_CLOCK_TIMEOUT=0', '_NOASSERT'])
+        env.Append(CPPDEFINES = ['BOOTLOADER'])
 
         # Now, invoke a variant build using this environment.
         SConscript('SCons-bootloader.py', exports = 'env',

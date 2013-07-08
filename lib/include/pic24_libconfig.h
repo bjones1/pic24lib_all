@@ -37,6 +37,11 @@
  *  a <code>-Dname=value</code> flag to the compiler.
  */
 
+#pragma once
+
+// Needed by HB_LED config.
+#include <xc.h>
+
 
 /** @name Supported hardware platforms
  *  This library supports the following hardware platforms.
@@ -85,6 +90,14 @@
 #  error "Invalid hardware platform selected."
 #endif
 //@}
+
+// Defines for compiling the bootloader
+#ifdef BOOTLOADER
+# define _NOFLOAT
+# define USE_HEARTBEAT 0
+# define USE_CLOCK_TIMEOUT 0
+# define _NOASSERT
+#endif
 
 /** @{
  *  \name Defines configuring pic24_clockfreq.h
@@ -316,9 +329,12 @@
 #   define HB_LED _LATB15
 /** Define a config function for the heartbeat pin. */
 #   if (defined(_ODCB15) || defined(_ODB15))
-#     define CONFIG_HB_LED() do { CONFIG_RB15_AS_DIG_OUTPUT(); ENABLE_RB15_OPENDRAIN(); } while (0)
+#     define CONFIG_HB_LED()            \
+        do {                            \
+          CONFIG_RB15_AS_DIG_OUTPUT();  \
+          ENABLE_RB15_OPENDRAIN();      \
+        } while (0)
 #   else
-#     warning "Heartbeat pin not open drain."
 #     define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
 #   endif
 # endif //if (HARDWARE_PLATFORM == EXPLORER16_100P)
