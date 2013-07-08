@@ -57,11 +57,12 @@ env = Environment(
         CCCOM = '$CC -c -o $TARGET $CFLAGS $CCFLAGS $CPPFLAGS $_CPPDEFFLAGS $_CPPINCFLAGS $SOURCES',
         CCCCOMSTR = 'Compiling $SOURCES',
         # The warnings provide some lint-like checking. Omitted options: -Wstrict-prototypes -Wold-style-definition complains about void food(), which should be void foo(void), but isn't worth the work to change.
-        CCFLAGS = '-mcpu=${MCU} -O1 -Wall -Wextra -Wmissing-prototypes -Wmissing-declarations -Wdeclaration-after-statement -Wlong-long',
+        CCFLAGS = '-mcpu=${MCU} -O1 -msmart-io=1 -omf=elf -Wall -Wextra -Wmissing-prototypes -Wmissing-declarations -Wdeclaration-after-statement -Wlong-long',
+        LINKFLAGS = '-mcpu=${MCU} -omf=elf -Wl,--heap=100,$LINKERSCRIPT,--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io',
         ARFLAGS = 'rcs',
         ARSTR = 'Create static library: $TARGET',
         OBJSUFFIX = '.o',
-        PROGSUFFIX = '.cof')
+        PROGSUFFIX = '.elf')
 # Copy the host envrionment's path for our scons environment
 # so scons can find C30 tools
 env['ENV']['PATH'] = os.environ['PATH']
@@ -88,9 +89,9 @@ if os.name == 'posix':
   #
   # add the bin2hex program to the environment as a new builder
   #
-  b2h = Builder(action = 'pic30-elf-bin2hex $SOURCE',
+  b2h = Builder(action = 'pic30-elf-bin2hex $SOURCE -a -omf=elf',
             suffix = 'hex',
-            src_suffix = 'cof')
+            src_suffix = 'elf')
   env.Append(BUILDERS = {'Hex' : b2h})
 
 elif os.name == 'nt':
@@ -110,21 +111,19 @@ elif os.name == 'nt':
   #
   # add the bin2hex program to the environment as a new builder
   #
-  b2h = Builder(action = 'xc16-bin2hex $SOURCE',
+  b2h = Builder(action = 'xc16-bin2hex $SOURCE -a -omf=elf',
             suffix = 'hex',
-            src_suffix = 'cof')
+            src_suffix = 'elf')
   env.Append(BUILDERS = {'Hex' : b2h})
 
 # adjust our default environment based on user command-line requests
 dict = env.Dictionary()
 if dict['BOOTLDR'] == 'msu':
     env.Replace(
-        LINKFLAGS = '-mcpu=${MCU} -Wl,--heap=100,$LINKERSCRIPT',
         LINKERSCRIPT = '--script=lib/lkr' + os.sep + 'p${MCU}_bootldr.gld',
     )
 else:
     env.Replace(
-        LINKFLAGS = '-mcpu=${MCU} -Wl,--heap=100,$LINKERSCRIPT',
         LINKERSCRIPT = '--script=p${MCU}.gld',
     )
 
