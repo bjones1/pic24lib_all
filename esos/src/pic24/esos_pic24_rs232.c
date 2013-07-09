@@ -105,9 +105,10 @@ void __esos_configUART1(uint32_t u32_baudRate) {
   /*************************  UART config ********************/
   //Pin mapping macros in pic24_ports.h
 
-  CONFIG_RB10_AS_DIG_INPUT();              //RX RP pin must be digital. What about TX pin?
-  CONFIG_U1RX_TO_RP(10);                 //U1RX <- RP10
-  CONFIG_U1TX_TO_RP(11);                 //U1TX -> RP11
+  CONFIG_RB10_AS_DIG_INPUT();
+  CONFIG_U1RX_TO_RP(RB10_RP);                 //U1RX <- RP10
+  CONFIG_RB11_AS_DIG_OUTPUT();
+  CONFIG_U1TX_TO_RP(RB11_RP);                 //U1TX -> RP11
 
   //UART macros defined in "pic24_uart.h"
   CONFIG_BAUDRATE_UART1(u32_baudRate);   //baud rate

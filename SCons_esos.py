@@ -7,7 +7,7 @@ SConscript('templates/SConscript.py', 'env')
 ## Walk through each source file and build it
 for sourceFile in Glob('chap14/*.c', True, True, True):
     # Compile the ESOS application.
-    env.Program(target = sourceFile, source =
+    env.Program(
       [ sourceFile,
         'lib/common/pic24_clockfreq.c',
         'lib/common/pic24_configbits.c',

@@ -238,9 +238,9 @@ void configSPI1(void) {
              SPI_MODE8_ON        | //8-bit mode
              MASTER_ENABLE_ON;     //master mode
   //configure pins. Only need SDO, SCLK, and SDI
-  CONFIG_SDO1_TO_RP(6);      //use RP6 for SDO
-  CONFIG_SCK1OUT_TO_RP(7);   //use RP7 for SCLK
-  CONFIG_SDI1_TO_RP(5);      //use RP5 for SDI
+  CONFIG_SDO1_TO_RP(RB6_RP);      //use RB6 for SDO
+  CONFIG_SCK1OUT_TO_RP(RB7_RP);   //use RB7 for SCLK
+  CONFIG_SDI1_TO_RP(RB5_RP);      //use RB5 for SDI
   CONFIG_SLAVE_ENABLE();       //chip select for DS1722
   SLAVE_DISABLE();             //disable the chip select
   SPI1STATbits.SPIEN = 1;  //enable SPI mode
