@@ -154,6 +154,8 @@ archiveFiles = [
   'SConstruct',
   'SConstruct.py',
   'SCons_build.py',
+  'SCons_esos.py'
+  'SCons_bootloader.py',
   'standard_header.txt',
   'bin',
   'bootloader',
