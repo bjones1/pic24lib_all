@@ -43,9 +43,8 @@ EnsureSConsVersion(2, 0)
 ## Define command-line options to set processor, bootloader
 opts = Variables()
 opts.Add(EnumVariable('BOOTLDR', 'Determines bootloader type', 'msu',
-                    allowed_values=('msu','none')))
+                    allowed_values=('msu', 'none')))
 
-print "Creating a SCons build environment for the Microchip PIC24/dsPIC33 (xc16 compiler) family"
 env = Environment(
         # Force SCons to set up for with gnu tools to start
         # with reasonable defaults. Note: using platform = 'posix'
@@ -75,7 +74,8 @@ env['ENV']['PATH'] = os.environ['PATH']
 #
 # add the bin2hex program to the environment as a new builder
 #
-b2h = Builder(action = 'xc16-bin2hex $SOURCE -a -omf=elf',
+b2h = Builder(
+        action = 'xc16-bin2hex $SOURCE -a -omf=elf',
         suffix = 'hex',
         src_suffix = 'elf')
 env.Append(BUILDERS = {'Hex' : b2h})
@@ -124,10 +124,13 @@ else:
 ## By default, run two jobs at once (assume a dual-core PC)
 #  For some reason I haven't yet determined, this causes build errors. Turn it off for now.
 #env.SetOption('num_jobs', 2)
-print "Running with -j", env.GetOption('num_jobs')
 
 # generate some command line help for our custom options
 Help(opts.GenerateHelpText(env))
+Help("""Additional targets:
+  template-build: Build all .c/.h files which are produced by templates.
+  zipit: Build an archive for distributing end-user library contents.
+  bootloader: Build the bootloader binaries only.""")
 
 #
 # A DEBUG STATEMENT to see what the scons build envrionment (env) has defined
