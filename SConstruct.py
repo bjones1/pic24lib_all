@@ -195,6 +195,8 @@ if 'zipit' in COMMAND_LINE_TARGETS:
     Execute('..\\..\\documentation\\code_chat.py')
     Execute(Delete('docs/sphinx', must_exist = 0))
     Execute(Copy('docs/sphinx', '_build/html'))
+    # Copy over hex files from last build
+    Execute(Copy('hex', '../pic24lib_all/hex'))
     # Zip it!
     zipNode = env.Zip(archiveFileName, archiveFiles)
     env.Alias('zipit', zipNode)
