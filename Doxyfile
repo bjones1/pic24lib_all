@@ -664,19 +664,16 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  = chap8 \
-                         chap9 \
+INPUT                  = chap08 \
+                         chap09 \
                          chap10 \
                          chap11 \
                          chap12 \
                          chap13 \
                          chap14 \
                          chap15 \
-                         lib/common \
+                         lib/src \
                          lib/include \
-                         SConstruct.py \
-                         SCons_build.py \
-                         templates \
                          explorer16_100p \
                          util \
                          esos
