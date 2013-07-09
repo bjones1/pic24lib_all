@@ -157,8 +157,6 @@ if 'chap13' in buildTargets:
   {'chap13\\i2c_multmaster_rstring.c' :  { 'CPPDEFINES': 'CPU_ID=1' },
    'chap13\\i2c_multmaster_rstring1.c' : { 'CPPDEFINES': 'CPU_ID=2' }},
   'chap13')
-if 'chap14' in buildTargets:
-  buildWithCommonSources(['chap14/*.c'], PIC24SupportLibObjects, env, {}, 'chap14')
 if 'chap15' in buildTargets:
   # Case-by-case, since this chapter's program have multiple source files
   buildProgramWithCommonSources(['chap15/audio.c', 'chap15/audio_adpcm.c', ],
