@@ -173,7 +173,7 @@ archiveFiles = [
   'chap14',
   'chap15',
   'esos',
-  'lib/common',
+  'lib/src',
   'lib/include',
   'explorer16_100p',
   'templates',
@@ -188,6 +188,9 @@ archiveFileName = 'build/pic24_code_examples.zip'
 if 'zipit' in COMMAND_LINE_TARGETS:
     # Update docs
     env.Command(Glob('docs/*'), Glob('lib/src/*.c'), "doxygen")
+    # Copy CodeChat docs into Doxygen output.
+    Execute(Delete('docs/sphinx', must_exist = 0))
+    Execute(Copy('docs/sphinx', '_build/html'))
     # Zip it!
     zipNode = env.Zip(archiveFileName, archiveFiles)
     env.Alias('zipit', zipNode)
