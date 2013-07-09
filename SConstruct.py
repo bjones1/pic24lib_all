@@ -288,7 +288,7 @@ else:
         env.Append(CPPDEFINES = ['BOOTLOADER'])
 
         # Now, invoke a variant build using this environment.
-        SConscript('SCons-bootloader.py', exports = 'env bin2hex',
+        SConscript('SCons_bootloader.py', exports = 'env bin2hex',
           variant_dir = 'build/bootloader_' + mcu)
 
     for mcu in ('24FJ32GA002',
