@@ -46,7 +46,7 @@ opts.Add(EnumVariable('BOOTLDR', 'Determines bootloader type', 'msu',
                     allowed_values=('msu', 'none')))
 
 env = Environment(
-        # Force SCons to set up for with gnu tools to start
+        # Force SCons to set up with gnu tools to start
         # with reasonable defaults. Note: using platform = 'posix'
         # causes SCons to try to call fork() when executing programs
         # (such as compilers), which errors out on Windows.
@@ -309,3 +309,39 @@ else:
                 '33EP128GP504',
                 ):
         buildTargetsBootloader(env, mcu)
+
+    ## ESOS builds
+    ## -----------
+    def buildTargetsEsos(env, mcu):
+        # Create an environment for building ESOS.
+        env = env.Clone(MCU = mcu)
+        env.Append(CPPDEFINES = ['BUILT_ON_ESOS', '_NOASSERT'], 
+                   CPPPATH = ['../esos/include', '../esos/include/pic24']) 
+
+        # Now, invoke a variant build using this environment.
+        SConscript('SCons_esos.py', exports = 'env bin2hex',
+          variant_dir = 'build/esos_' + mcu)
+          
+    # Build ESOS over a variety of chips.
+    for mcu in ('24FJ32GA002',
+                '24FJ64GA002',
+                '24FJ32GA102',
+                '24FJ64GA102',
+                '24FJ64GB002',
+                '24FJ64GB004',
+
+                '24HJ12GP202',
+                '24HJ32GP202',
+                '24HJ64GP502',
+                '24HJ128GP502',
+
+                '24EP64GP202',
+
+                '33FJ32GP202',
+                '33FJ128GP802',
+
+                '33EP128GP502',
+                '33EP128GP504',
+                ):
+        buildTargetsEsos(env, mcu)
+
