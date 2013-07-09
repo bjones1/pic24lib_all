@@ -33,6 +33,13 @@
 /**
 \page history History and release notes for this library collection.
 
+09-Jul-3013 (r267 / 992b80bc0901):
+- This is a major release / revision. Just a few highlights.
+- Update to MPLAB X.
+- Revise GPIO system.
+- Updates to code examples for revision of book.
+- Updated build system.
+
 23-May-2013 (r65 / f5e398dc9af3):
 - Merge the lib/ subrepo into the main repo.
 - Clean up Doxygen / compiler warnings.
