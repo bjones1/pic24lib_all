@@ -63,6 +63,7 @@ env = Environment(
         # The warnings provide some lint-like checking. Omitted options: -Wstrict-prototypes -Wold-style-definition complains about void food(), which should be void foo(void), but isn't worth the work to change.
         CCFLAGS = '-mcpu=${MCU} -O1 -msmart-io=1 -omf=elf -Wall -Wextra -Wmissing-prototypes -Wmissing-declarations -Wdeclaration-after-statement -Wlong-long',
         LINKFLAGS = '-mcpu=${MCU} -omf=elf -Wl,--heap=100,$LINKERSCRIPT,--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io',
+        LINKERSCRIPT = '--script="lib/lkr/p${MCU}_bootldr.gld"',
         ARFLAGS = 'rcs',
         ARSTR = 'Create static library: $TARGET',
         OBJSUFFIX = '.o',
@@ -112,14 +113,8 @@ if os.name == 'posix':
 
 # adjust our default environment based on user command-line requests
 dict = env.Dictionary()
-if dict['BOOTLDR'] == 'msu':
-    env.Replace(
-        LINKERSCRIPT = '--script="lib/lkr/p${MCU}_bootldr.gld"',
-    )
-else:
-    env.Replace(
-        LINKERSCRIPT = '--script="p${MCU}.gld"',
-    )
+if dict['BOOTLDR'] != 'msu':
+    env.Replace(LINKERSCRIPT = '--script="p${MCU}.gld"')
 
 ## By default, run two jobs at once (assume a dual-core PC)
 #  For some reason I haven't yet determined, this causes build errors. Turn it off for now.
