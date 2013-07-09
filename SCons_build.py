@@ -26,19 +26,19 @@ SConscript('templates/SConscript.py', 'env')
 
 ## Common sources used for the PIC24 support library
 PIC24SupportLibSources = [
-  'lib/common/dataXfer.c',
-  'lib/common/dataXferImpl.c',
-  'lib/common/pic24_adc.c',
-  'lib/common/pic24_clockfreq.c',
-  'lib/common/pic24_configbits.c',
-  'lib/common/pic24_ecan.c',
-  'lib/common/pic24_flash.c',
-  'lib/common/pic24_i2c.c',
-  'lib/common/pic24_serial.c',
-  'lib/common/pic24_spi.c',
-  'lib/common/pic24_timer.c',
-  'lib/common/pic24_uart.c',
-  'lib/common/pic24_util.c' ]
+  'lib/src/dataXfer.c',
+  'lib/src/dataXferImpl.c',
+  'lib/src/pic24_adc.c',
+  'lib/src/pic24_clockfreq.c',
+  'lib/src/pic24_configbits.c',
+  'lib/src/pic24_ecan.c',
+  'lib/src/pic24_flash.c',
+  'lib/src/pic24_i2c.c',
+  'lib/src/pic24_serial.c',
+  'lib/src/pic24_spi.c',
+  'lib/src/pic24_timer.c',
+  'lib/src/pic24_uart.c',
+  'lib/src/pic24_util.c' ]
 
 
 

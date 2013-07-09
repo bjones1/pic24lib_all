@@ -39,11 +39,11 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="lib" projectFiles="true">
-        <itemPath>../../lib/common/pic24_clockfreq.c</itemPath>
-        <itemPath>../../lib/common/pic24_configbits.c</itemPath>
-        <itemPath>../../lib/common/pic24_serial.c</itemPath>
-        <itemPath>../../lib/common/pic24_uart.c</itemPath>
-        <itemPath>../../lib/common/pic24_util.c</itemPath>
+        <itemPath>../../lib/src/pic24_clockfreq.c</itemPath>
+        <itemPath>../../lib/src/pic24_configbits.c</itemPath>
+        <itemPath>../../lib/src/pic24_serial.c</itemPath>
+        <itemPath>../../lib/src/pic24_uart.c</itemPath>
+        <itemPath>../../lib/src/pic24_util.c</itemPath>
       </logicalFolder>
       <itemPath>../int0_wakeup.c</itemPath>
     </logicalFolder>

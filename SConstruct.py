@@ -187,7 +187,7 @@ archiveFileName = 'build/pic24_code_examples.zip'
 ## otherwise, create compilation targets.
 if 'zipit' in COMMAND_LINE_TARGETS:
     # Update docs
-    env.Command(Glob('docs/*'), Glob('lib/common/*.c'), "doxygen")
+    env.Command(Glob('docs/*'), Glob('lib/src/*.c'), "doxygen")
     # Zip it!
     zipNode = env.Zip(archiveFileName, archiveFiles)
     env.Alias('zipit', zipNode)

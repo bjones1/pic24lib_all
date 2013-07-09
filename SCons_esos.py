@@ -9,12 +9,12 @@ for sourceFile in Glob('chap14/*.c', True, True, True):
     # Compile the ESOS application.
     env.Program(
       [ sourceFile,
-        'lib/common/pic24_clockfreq.c',
-        'lib/common/pic24_configbits.c',
-        'lib/common/pic24_timer.c',
-        'lib/common/pic24_util.c',
-        'lib/common/pic24_serial.c',
-        'lib/common/pic24_uart.c',
+        'lib/src/pic24_clockfreq.c',
+        'lib/src/pic24_configbits.c',
+        'lib/src/pic24_timer.c',
+        'lib/src/pic24_util.c',
+        'lib/src/pic24_serial.c',
+        'lib/src/pic24_uart.c',
         'esos/src/esos.c',
         'esos/src/esos_comm.c',
         'esos/src/pic24/esos_pic24_i2c.c',

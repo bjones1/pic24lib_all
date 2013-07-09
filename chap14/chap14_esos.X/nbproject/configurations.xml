@@ -63,12 +63,12 @@
         <itemPath>../app_childtask.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="PIC24" projectFiles="true">
-        <itemPath>../../lib/common/pic24_clockfreq.c</itemPath>
-        <itemPath>../../lib/common/pic24_configbits.c</itemPath>
-        <itemPath>../../lib/common/pic24_timer.c</itemPath>
-        <itemPath>../../lib/common/pic24_util.c</itemPath>
-        <itemPath>../../lib/common/pic24_serial.c</itemPath>
-        <itemPath>../../lib/common/pic24_uart.c</itemPath>
+        <itemPath>../../lib/src/pic24_clockfreq.c</itemPath>
+        <itemPath>../../lib/src/pic24_configbits.c</itemPath>
+        <itemPath>../../lib/src/pic24_timer.c</itemPath>
+        <itemPath>../../lib/src/pic24_util.c</itemPath>
+        <itemPath>../../lib/src/pic24_serial.c</itemPath>
+        <itemPath>../../lib/src/pic24_uart.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -116,7 +116,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/common/pic24_serial.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -126,7 +126,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_timer.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -136,7 +136,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_uart.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -146,7 +146,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_util.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -397,7 +397,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/common/pic24_serial.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -407,7 +407,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_timer.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -417,7 +417,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_uart.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -427,7 +427,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_util.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -661,7 +661,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/common/pic24_serial.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -671,7 +671,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_timer.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -681,7 +681,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_uart.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -691,7 +691,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_util.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -925,7 +925,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/common/pic24_serial.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -935,7 +935,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_timer.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -945,7 +945,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_uart.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -955,7 +955,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_util.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1206,7 +1206,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/common/pic24_serial.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1216,7 +1216,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_timer.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1226,7 +1226,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_uart.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1236,7 +1236,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_util.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1654,7 +1654,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/common/pic24_serial.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1664,7 +1664,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_timer.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1674,7 +1674,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_uart.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1684,7 +1684,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_util.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1918,7 +1918,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/common/pic24_serial.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1928,7 +1928,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_timer.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1938,7 +1938,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_uart.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1948,7 +1948,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_util.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2182,7 +2182,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/common/pic24_serial.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2192,7 +2192,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_timer.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2202,7 +2202,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_uart.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2212,7 +2212,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_util.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2446,7 +2446,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/common/pic24_serial.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2456,7 +2456,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_timer.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2466,7 +2466,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_uart.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2476,7 +2476,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_util.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2710,7 +2710,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/common/pic24_serial.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2720,7 +2720,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_timer.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2730,7 +2730,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_uart.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2740,7 +2740,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../../lib/common/pic24_util.c" ex="true" overriding="false">
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
