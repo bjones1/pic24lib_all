@@ -105,13 +105,9 @@ PIC24SupportLibObjects = env.Object(PIC24SupportLibSources)
 
 if 'reset' in buildTargets:
   buildWithCommonSources(['chap08/reset.c'], PIC24SupportLibObjects, env, {}, 'reset')
-if 'echo' in buildTargets:
-  buildWithCommonSources(['chap08/echo.c'], PIC24SupportLibObjects, env, {}, 'echo')
-if 'ledsw1' in buildTargets:
-  buildWithCommonSources(['chap08/ledsw1.c'], PIC24SupportLibObjects, env, {}, 'ledsw1')
 if 'chap08' in buildTargets:
   buildWithCommonSources(['chap08/*.c'], PIC24SupportLibObjects, env, {}, 'chap08')
-if 'chap9' in buildTargets:
+if 'chap09' in buildTargets:
   buildWithCommonSources(['chap09/*.c'], PIC24SupportLibObjects, env, {}, 'chap09')
 if 'chap10' in buildTargets:
   buildWithCommonSources([
