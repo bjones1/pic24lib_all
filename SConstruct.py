@@ -67,10 +67,11 @@ env = Environment(
         ARFLAGS = 'rcs',
         ARSTR = 'Create static library: $TARGET',
         OBJSUFFIX = '.o',
-        PROGSUFFIX = '.elf')
-# Copy the host envrionment's path for our scons environment
-# so scons can find C30 tools
-env['ENV']['PATH'] = os.environ['PATH']
+        PROGSUFFIX = '.elf',
+        # Copy the host envrionment's path for our scons environment
+        # so scons can find the build tools
+        ENV = {'PATH' : os.environ['PATH']},
+      )
 
 #
 # add the bin2hex program to the environment as a new builder
@@ -188,9 +189,10 @@ archiveFileName = 'build/pic24_code_examples.zip'
 ## Create a target which zips up these files;
 ## otherwise, create compilation targets.
 if 'zipit' in COMMAND_LINE_TARGETS:
-    # Update docs
-    env.Command(Glob('docs/*'), Glob('lib/src/*.c'), "doxygen")
+    # Update docs. Not sure why I must give the full path here.
+    Execute(r'C:\Program Files\doxygen\bin\doxygen')
     # Copy CodeChat docs into Doxygen output.
+    Execute('..\\..\\documentation\\code_chat.py')
     Execute(Delete('docs/sphinx', must_exist = 0))
     Execute(Copy('docs/sphinx', '_build/html'))
     # Zip it!
