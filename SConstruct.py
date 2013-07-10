@@ -147,14 +147,14 @@ SConscript('templates/SConscript.py', 'env')
 ## Create a target which zips up library files.
 zip_file = 'build/pic24_code_examples.zip'
 hg_dir = 'build/pic24lib_all'
-env.Command(zip_file, '', [
+env.AlwaysBuild(env.Command(zip_file, '', [
   # Clone the repo to create a clean distribution.
   Delete(hg_dir, must_exist = 0),
   'hg clone . ' + hg_dir,
   # Copy over hex files from the build.
   Copy(hg_dir + '/hex', 'hex'),
   # Perform zip in clean clone.
-  'scons -C ' + hg_dir + ' -f SCons_zipit.py', ])
+  'scons -C ' + hg_dir + ' -f SCons_zipit.py', ]))
 env.Alias('zipit', zip_file)
 
 ## PIC24/dsPIC33 chip/clock variant builds
