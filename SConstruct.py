@@ -144,196 +144,149 @@ Help("""Additional targets:
 ## Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
 
-## zipit target
-## ------------
-## Define what parts of the source tree should be inclued in a
-#  .zip distribution.
-archiveFiles = [
-  'Doxyfile',
-  'readme.txt',
-  'runAStyle.bat',
-  'SConstruct',
-  'SConstruct.py',
-  'SCons_build.py',
-  'SCons_esos.py',
-  'SCons_bootloader.py',
-  'standard_header.txt',
-  'bin',
-  'bootloader',
-  'docs',
-  'hex',
-  'lib/lkr',
-  'chap03',
-  'chap04',
-  'chap06',
-  'chap07',
-  'chap08',
-  'chap09',
-  'chap10',
-  'chap11',
-  'chap12',
-  'chap13',
-  'chap14',
-  'chap15',
-  'esos',
-  'lib/src',
-  'lib/include',
-  'explorer16_100p',
-  'templates',
-  'util' ]
-
-## Select the file name for the .zip archive
-archiveFileName = 'build/pic24_code_examples.zip'
-
-
 ## Create a target which zips up these files;
 ## otherwise, create compilation targets.
 if 'zipit' in COMMAND_LINE_TARGETS:
-    # Update docs. Not sure why I must give the full path here.
-    Execute(r'C:\Program Files\doxygen\bin\doxygen')
-    # Copy CodeChat docs into Doxygen output.
-    Execute('..\\..\\documentation\\code_chat.py')
-    Execute(Delete('docs/sphinx', must_exist = 0))
-    Execute(Copy('docs/sphinx', '_build/html'))
-    # Copy over hex files from last build
+    # Clone the repo to create a clean distribution.
+    Execute(Delete('build/pic24lib_all', must_exist = 0))
+    Execute('hg clone . build/pic24lib_all')
+    # Copy over hex files from the build.
     Execute(Copy('hex', '../pic24lib_all/hex'))
-    # Zip it!
-    zipNode = env.Zip(archiveFileName, archiveFiles)
-    env.Alias('zipit', zipNode)
-else:
+    # Perform zip in clean clone.
+    SConscript('build/pic24lib_all/Scons_zipit.py') 
 
 ## PIC24/dsPIC33 chip/clock variant builds
 ## ---------------------------------------
-    ## Call SConscript with a specific buildTargets value
-    def buildTargetsSConscript(buildTargets, env, variantDirName):
-      SConscript('SCons_build.py', exports = 'buildTargets env bin2hex',
-        variant_dir = 'build/' + env['MCU'] + "_" + variantDirName)
+## Call SConscript with a specific buildTargets value
+def buildTargetsSConscript(buildTargets, env, variantDirName):
+  SConscript('SCons_build.py', exports = 'buildTargets env bin2hex',
+    variant_dir = 'build/' + env['MCU'] + "_" + variantDirName)
 
-    # Build small, non-DMA on the PIC24HJ32GP202
-    buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11nodma', 'chap12'],
-    env.Clone(MCU='24HJ32GP202'), 'default')
+# Build small, non-DMA on the PIC24HJ32GP202
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11nodma', 'chap12'],
+env.Clone(MCU='24HJ32GP202'), 'default')
 
-    # Build the large files on the PIC24HJ64GP202
-    buildTargetsSConscript(                            ['chap10large', ],
-      env.Clone(MCU='24HJ64GP202'), 'default')
+# Build the large files on the PIC24HJ64GP202
+buildTargetsSConscript(                            ['chap10large', ],
+  env.Clone(MCU='24HJ64GP202'), 'default')
 
-    # Build everything on the PIC24FJ64GA002
-    buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap10large', 'chap11nodma', 'chap12',
-                            'chap15'],
-      env.Clone(MCU='24FJ64GA002'), 'default')
+# Build everything on the PIC24FJ64GA002
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap10large', 'chap11nodma', 'chap12',
+                        'chap15'],
+  env.Clone(MCU='24FJ64GA002'), 'default')
 
-    # Build small, non-DMA on the dsPIC33FJ32GP202
-    buildTargetsSConscript(['chap08', 'chap09', 'chap10',                'chap11nodma', 'chap12'],
-      env.Clone(MCU='33FJ32GP202'), 'default')
+# Build small, non-DMA on the dsPIC33FJ32GP202
+buildTargetsSConscript(['chap08', 'chap09', 'chap10',                'chap11nodma', 'chap12'],
+  env.Clone(MCU='33FJ32GP202'), 'default')
 
-    # Build the large files on the dsPIC33FJ64GP202
-    buildTargetsSConscript(                            ['chap10large'],
-      env.Clone(MCU='33FJ64GP202'), 'default')
+# Build the large files on the dsPIC33FJ64GP202
+buildTargetsSConscript(                            ['chap10large'],
+  env.Clone(MCU='33FJ64GP202'), 'default')
 
-    # Minimally test the 24F16KA102
+# Minimally test the 24F16KA102
 #    buildTargetsSConscript(['reset', 'echo'],
 #      env.Clone(MCU='24F16KA102'), 'default')
 
-    # Build the PIC24HJGP502-compatible directories
-    buildTargetsSConscript(['chap11dma', 'chap13', 'chap15'],
-      env.Clone(MCU='24HJ64GP502'), 'default')
+# Build the PIC24HJGP502-compatible directories
+buildTargetsSConscript(['chap11dma', 'chap13', 'chap15'],
+  env.Clone(MCU='24HJ64GP502'), 'default')
 
-    # Same as above, but for the dsPIC
-    buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap10stdio', 'chap11dma',  'chap12big','chap12',
-                            'chap13', 'chap15'],
-      env.Clone(MCU='33FJ128GP802'), 'default')
+# Same as above, but for the dsPIC
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap10stdio', 'chap11dma',  'chap12big','chap12',
+                        'chap13', 'chap15'],
+  env.Clone(MCU='33FJ128GP802'), 'default')
 
-    # Build some for the PIC24E device
-    buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big', 'chap12_24E'],
-      env.Clone(MCU='24EP64GP202'), 'default')
+# Build some for the PIC24E device
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big', 'chap12_24E'],
+  env.Clone(MCU='24EP64GP202'), 'default')
 
 
-    # Build for the explorer board
-    buildTargetsSConscript(['explorer'],
-      env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')
-    buildTargetsSConscript(['explorerh'],
-      env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')
+# Build for the explorer board
+buildTargetsSConscript(['explorer'],
+  env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')
+buildTargetsSConscript(['explorerh'],
+  env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')
 
-    # Do a no-float build of reset
+# Do a no-float build of reset
+buildTargetsSConscript(['reset'],
+  env.Clone(MCU='24HJ32GP202',  CPPDEFINES='_NOFLOAT'), 'nofloat')
+
+# Build reset on other supported platforms
+buildTargetsSConscript(['reset'],
+  env.Clone(MCU='24FJ64GA002',  CPPDEFINES='HARDWARE_PLATFORM=STARTER_BOARD_28P'), 'starter_board_28p')
+buildTargetsSConscript(['reset'],
+  env.Clone(MCU='33FJ128GP204', CPPDEFINES='HARDWARE_PLATFORM=DANGEROUS_WEB'), 'dangerous_web')
+
+# Build reset with various clock options on all processors
+for clock in ['SIM_CLOCK', 'FRCPLL_FCY16MHz', 'FRC_FCY4MHz',
+'PRI_NO_PLL_7372KHzCrystal', 'PRIPLL_8MHzCrystal_16MHzFCY']:
     buildTargetsSConscript(['reset'],
-      env.Clone(MCU='24HJ32GP202',  CPPDEFINES='_NOFLOAT'), 'nofloat')
-
-    # Build reset on other supported platforms
+      env.Clone(MCU='24FJ64GA002', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
     buildTargetsSConscript(['reset'],
-      env.Clone(MCU='24FJ64GA002',  CPPDEFINES='HARDWARE_PLATFORM=STARTER_BOARD_28P'), 'starter_board_28p')
-    buildTargetsSConscript(['reset'],
-      env.Clone(MCU='33FJ128GP204', CPPDEFINES='HARDWARE_PLATFORM=DANGEROUS_WEB'), 'dangerous_web')
-
-    # Build reset with various clock options on all processors
-    for clock in ['SIM_CLOCK', 'FRCPLL_FCY16MHz', 'FRC_FCY4MHz',
-    'PRI_NO_PLL_7372KHzCrystal', 'PRIPLL_8MHzCrystal_16MHzFCY']:
-        buildTargetsSConscript(['reset'],
-          env.Clone(MCU='24FJ64GA002', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
-        buildTargetsSConscript(['reset'],
-          env.Clone(MCU='24FJ64GA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
+      env.Clone(MCU='24FJ64GA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
 #        buildTargetsSConscript(['reset'],
 #          env.Clone(MCU='24F16KA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
-    for clock in ['SIM_CLOCK', 'PRI_NO_PLL_7372KHzCrystal', 'FRC_FCY3685KHz',
-    'FRCPLL_FCY40MHz', 'PRIPLL_7372KHzCrystal_40MHzFCY', 'PRIPLL_8MHzCrystal_40MHzFCY']:
-        buildTargetsSConscript(['reset'],
-          env.Clone(MCU='24HJ32GP202',  CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
-        buildTargetsSConscript(['reset'],
-          env.Clone(MCU='33FJ128GP802', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
+for clock in ['SIM_CLOCK', 'PRI_NO_PLL_7372KHzCrystal', 'FRC_FCY3685KHz',
+'FRCPLL_FCY40MHz', 'PRIPLL_7372KHzCrystal_40MHzFCY', 'PRIPLL_8MHzCrystal_40MHzFCY']:
+    buildTargetsSConscript(['reset'],
+      env.Clone(MCU='24HJ32GP202',  CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
+    buildTargetsSConscript(['reset'],
+      env.Clone(MCU='33FJ128GP802', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
 
 
-    ## Bootloader targets
-    ## ------------------
-    def buildTargetsBootloader(env, mcu):
-        # Create an environment for building the bootloader:
-        # 1. Define the MCU.
-        env = env.Clone(MCU = mcu)
-        # 2. Use the custom bootloader linker script.
-        env.Replace(
-            LINKERSCRIPT = '--script=bootloader/pic24_dspic33_bootloader.X/lkr/p${MCU}.gld',
-        )
-        env.Append(CPPDEFINES = ['BOOTLOADER'])
+## Bootloader targets
+## ------------------
+def buildTargetsBootloader(env, mcu):
+    # Create an environment for building the bootloader:
+    # 1. Define the MCU.
+    env = env.Clone(MCU = mcu)
+    # 2. Use the custom bootloader linker script.
+    env.Replace(
+        LINKERSCRIPT = '--script=bootloader/pic24_dspic33_bootloader.X/lkr/p${MCU}.gld',
+    )
+    env.Append(CPPDEFINES = ['BOOTLOADER'])
 
-        # Now, invoke a variant build using this environment.
-        SConscript('SCons_bootloader.py', exports = 'env bin2hex',
-          variant_dir = 'build/bootloader_' + mcu)
+    # Now, invoke a variant build using this environment.
+    SConscript('SCons_bootloader.py', exports = 'env bin2hex',
+      variant_dir = 'build/bootloader_' + mcu)
 
-    for mcu in ('24FJ32GA002',
-                '24FJ64GA002',
-                '24FJ32GA102',
-                '24FJ64GA102',
-                '24FJ64GB002',
-                '24FJ64GB004',
+for mcu in ('24FJ32GA002',
+            '24FJ64GA002',
+            '24FJ32GA102',
+            '24FJ64GA102',
+            '24FJ64GB002',
+            '24FJ64GB004',
 
-                '24HJ12GP202',
-                '24HJ32GP202',
-                '24HJ64GP502',
-                '24HJ128GP502',
+            '24HJ12GP202',
+            '24HJ32GP202',
+            '24HJ64GP502',
+            '24HJ128GP502',
 
-                '24EP64GP202',
+            '24EP64GP202',
 
-                '33FJ32GP202',
-                '33FJ128GP802',
+            '33FJ32GP202',
+            '33FJ128GP802',
 
-                '33EP128GP502',
-                '33EP128GP504',
-               ):
-        buildTargetsBootloader(env, mcu)
+            '33EP128GP502',
+            '33EP128GP504',
+           ):
+    buildTargetsBootloader(env, mcu)
 
-    ## ESOS builds
-    ## -----------
-    def buildTargetsEsos(env, mcu):
-        # Create an environment for building ESOS.
-        env = env.Clone(MCU = mcu)
-        env.Append(CPPDEFINES = ['BUILT_ON_ESOS', '_NOASSERT'], 
-                   CPPPATH = ['esos/include', 'esos/include/pic24']) 
+## ESOS builds
+## -----------
+def buildTargetsEsos(env, mcu):
+    # Create an environment for building ESOS.
+    env = env.Clone(MCU = mcu)
+    env.Append(CPPDEFINES = ['BUILT_ON_ESOS', '_NOASSERT'], 
+               CPPPATH = ['esos/include', 'esos/include/pic24']) 
 
-        # Now, invoke a variant build using this environment.
-        SConscript('SCons_esos.py', exports = 'env bin2hex',
-          variant_dir = 'build/esos_' + mcu)
-          
-    # Build ESOS over a variety of chips.
-    for mcu in (
-                '24HJ32GP202',
+    # Now, invoke a variant build using this environment.
+    SConscript('SCons_esos.py', exports = 'env bin2hex',
+      variant_dir = 'build/esos_' + mcu)
+      
+# Build ESOS over a variety of chips.
+for mcu in (
+            '24HJ32GP202',
 #                '24FJ32GA002',
 #                '24HJ128GP502',
 #                '24EP64GP202',
@@ -341,6 +294,6 @@ else:
 #                '33FJ128GP802',
 #                '33EP128GP502',
 #                '33EP128GP504',
-               ):
-        buildTargetsEsos(env, mcu)
+           ):
+    buildTargetsEsos(env, mcu)
 
