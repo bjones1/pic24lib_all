@@ -1,13 +1,19 @@
-# Update docs. Not sure why I must give the full path here.
-Execute(r'C:\Program Files\doxygen\bin\doxygen')
+# Bring in path for SCons use.
+import os
+env = Environment(ENV = {'PATH' : os.environ['PATH']})
+
+# Update docs.
+env.Execute('doxygen')
 
 # Copy updated CodeChat docs into Doxygen output.
-Execute('..\\..\\documentation\\code_chat.py')
-Execute(Delete('docs/sphinx', must_exist = 0))
-Execute(Copy('docs/sphinx', '_build/html'))
+env.Execute('..\..\..\..\documentation\code_chat.py')
+env.Execute(Delete('docs/sphinx', must_exist = 0))
+env.Execute(Copy('docs/sphinx', '_build/html'))
 
-# Zip it!
-zipNode = env.Zip('../pic24_code_examples.zip', [
+
+# Define a single target to build the zip file.
+zip_file = '../pic24_code_examples.zip'
+env.Default(env.Zip(zip_file, [
   'readme.txt',
   'standard_header.txt',
   'bin',
@@ -31,4 +37,4 @@ zipNode = env.Zip('../pic24_code_examples.zip', [
   'lib/src',
   'lib/include',
   'explorer16_100p',
-  'util' ])
+  'util' ]))

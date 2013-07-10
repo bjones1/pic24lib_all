@@ -68,9 +68,9 @@ env = Environment(
         ARSTR = 'Create static library: $TARGET',
         OBJSUFFIX = '.o',
         PROGSUFFIX = '.elf',
-        # Copy the host envrionment's path for our scons environment
-        # so scons can find the build tools
-        ENV = {'PATH' : os.environ['PATH']},
+        # Copy the host envrionment variables for our scons environment
+        # so scons can find the build tools and related env vars.
+        ENV = os.environ,
       )
 
 #
@@ -144,16 +144,18 @@ Help("""Additional targets:
 ## Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
 
-## Create a target which zips up these files;
-## otherwise, create compilation targets.
-if 'zipit' in COMMAND_LINE_TARGETS:
-    # Clone the repo to create a clean distribution.
-    Execute(Delete('build/pic24lib_all', must_exist = 0))
-    Execute('hg clone . build/pic24lib_all')
-    # Copy over hex files from the build.
-    Execute(Copy('hex', '../pic24lib_all/hex'))
-    # Perform zip in clean clone.
-    SConscript('build/pic24lib_all/Scons_zipit.py') 
+## Create a target which zips up library files.
+zip_file = 'build/pic24_code_examples.zip'
+hg_dir = 'build/pic24lib_all'
+env.Command(zip_file, '', [
+  # Clone the repo to create a clean distribution.
+  Delete(hg_dir, must_exist = 0),
+  'hg clone . ' + hg_dir,
+  # Copy over hex files from the build.
+  Copy(hg_dir + '/hex', 'hex'),
+  # Perform zip in clean clone.
+  'scons -C ' + hg_dir + ' -f SCons_zipit.py', ])
+env.Alias('zipit', zip_file)
 
 ## PIC24/dsPIC33 chip/clock variant builds
 ## ---------------------------------------
