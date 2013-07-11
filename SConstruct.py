@@ -22,9 +22,6 @@
 #  options.
 #
 #  \todo
-#  - Figure out how to get Doxygen to generate valid links in the output
-#    produced by parsing this file
-#  - ESOS build (chap 14)
 #  - Some flags for I2C master/slave not done yet
 #  - Create some reset replacement that uses more of the functionality
 #    (calls functions from all our .c/.h files
@@ -61,7 +58,7 @@ env = Environment(
         CCCOM = '$CC -c -o $TARGET $CFLAGS $CCFLAGS $CPPFLAGS $_CPPDEFFLAGS $_CPPINCFLAGS $SOURCES',
         CCCCOMSTR = 'Compiling $SOURCES',
         # The warnings provide some lint-like checking. Omitted options: -Wstrict-prototypes -Wold-style-definition complains about void food(), which should be void foo(void), but isn't worth the work to change.
-        CCFLAGS = '-mcpu=${MCU} -O1 -msmart-io=1 -omf=elf -Wall -Wextra -Wmissing-prototypes -Wmissing-declarations -Wdeclaration-after-statement -Wlong-long',
+        CCFLAGS = '-mcpu=${MCU} -O1 -msmart-io=1 -omf=elf -Wall -Wextra -Wdeclaration-after-statement -Wlong-long',
         LINKFLAGS = '-mcpu=${MCU} -omf=elf -Wl,--heap=100,$LINKERSCRIPT,--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io',
         LINKERSCRIPT = '--script="lib/lkr/p${MCU}_bootldr.gld"',
         ARFLAGS = 'rcs',
