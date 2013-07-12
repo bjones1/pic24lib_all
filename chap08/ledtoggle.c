@@ -118,7 +118,7 @@ int main (void) {
   CONFIG_LED1();
 
   // Initialize the state machine to its starting state.
-  update_state();
+  LED1 = 0;
 
   while (1) {
     update_state();
