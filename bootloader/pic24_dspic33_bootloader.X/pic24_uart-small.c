@@ -29,7 +29,7 @@
 
 #include <libpic30.h>
 #include <stdint.h>
-#include "pic24_libconfig.h"
+#include "pic24_uart.h"
 
 // The standard library wants a heartbeat, which isn't used by the bootloader.
 // Provide an empty function to make it happy. This is copied from portions
