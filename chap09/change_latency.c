@@ -34,11 +34,13 @@ Measure latency using change notification.
 RB2 drives RB3 to generate an CN interrupt.
 Need to run this with a slow clock to avoid
 external loading effecting CN triggering point.
-With FCY = 4 MHz, got 8 FYCs high period, 8 FYCs low period.
+Therefore, the following macro is defined:
+-DCLOCK_CONFIG=FRC_FCY3685KHz   // Choose an ~ 4 MHz clock, which works for everything but the PIC24F.
+With Fcy = ~ 4 MHz, got 8 Fcys high period, 8 Fcys low period.
 */
 
-//Interrupt Service Routine for Change Notification
-void _ISRFAST _CNInterrupt (void) {
+// Interrupt Service Routine for Change Notification.
+void _ISRFAST _CNInterrupt(void) {
   _LATB2 = 0;   //set back low
   NOP();        //give the CN time to propagate so
   NOP();        //clearing the flag will actually clear it.
@@ -46,14 +48,14 @@ void _ISRFAST _CNInterrupt (void) {
   _CNIF = 0;    //clear the change notification interrupt bit
 }
 
-int main (void) {
+int main(void) {
   configBasic(HELLO_MSG);
-  /** PIO ***********/
+  // Configure IO pins.
   CONFIG_RB2_AS_DIG_OUTPUT();
   _LATB2 = 0;
   CONFIG_RB3_AS_DIG_INPUT();
   ENABLE_RB3_CN_INTERRUPT();
-  /** Configure Change Notification general interrupt  */
+  // Configure Change Notification general interrupt.
   _CNIF = 0;         //Clear the interrupt flag
   _CNIP = 2;         //Choose a priority
   _CNIE = 1;         //enable the Change Notification general interrupt
