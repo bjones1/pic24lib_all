@@ -36,6 +36,7 @@
  */
 
 #include "pic24_adc.h"
+#include "pic24_unittest.h"
 #include <stdio.h>   //for NULL definition
 
 /*********************************
@@ -81,8 +82,8 @@ uint16_t convertADC1(void) {
  *  \param u8_use12bit If TRUE, set up the ADC into 12 bit mode, else
  *          use the 10 bit mode.
  */
-void configADC1_ManualCH0(uint16_t u16_ch0PositiveMask,      \
-                          uint8_t u8_autoSampleTime,         \
+void configADC1_ManualCH0(uint16_t u16_ch0PositiveMask,
+                          uint8_t u8_autoSampleTime,
                           uint8_t u8_use12bit) {
 
   if (u8_autoSampleTime > 31) u8_autoSampleTime=31;
@@ -95,6 +96,9 @@ void configADC1_ManualCH0(uint16_t u16_ch0PositiveMask,      \
     AD1CON1bits.AD12B = 1;
   else
     AD1CON1bits.AD12B = 0;
+#else
+  // Some PICs only offer 10-bit mode.
+  ASSERT(u8_use12bit == 0);
 #endif
   AD1CON3 = ADC_CONV_CLK_INTERNAL_RC | (u8_autoSampleTime<<8);
   AD1CON2 = ADC_VREF_AVDD_AVSS;
@@ -129,8 +133,8 @@ void configADC1_ManualCH0(uint16_t u16_ch0PositiveMask,      \
  *  \param u8_use12bit If TRUE, set up the ADC into 12 bit mode, else
  *          use the 10 bit mode.
  */
-void configADC1_AutoScanIrqCH0(uint16_t   u16_ch0ScanMask, \
-                               uint8_t    u8_autoSampleTime, \
+void configADC1_AutoScanIrqCH0(uint16_t   u16_ch0ScanMask,
+                               uint8_t    u8_autoSampleTime,
                                uint8_t    u8_use12bit) {
   uint8_t     u8_i, u8_nChannels=0;
   uint16_t    u16_mask = 0x0001;
@@ -152,6 +156,9 @@ void configADC1_AutoScanIrqCH0(uint16_t   u16_ch0ScanMask, \
     AD1CON1bits.AD12B = 1;
   else
     AD1CON1bits.AD12B = 0;
+#else
+  // Some PICs only offer 10-bit mode.
+  ASSERT(u8_use12bit == 0);
 #endif
   AD1CON3 = ADC_CONV_CLK_INTERNAL_RC | (u8_autoSampleTime<<8);
   AD1CON2 = ADC_VREF_AVDD_AVSS | ADC_CONVERT_CH0 | ADC_SCAN_ON | ((u8_nChannels-1)<<2);
@@ -194,8 +201,8 @@ void configADC1_AutoScanIrqCH0(uint16_t   u16_ch0ScanMask, \
  *  \param u8_use12bit If TRUE, set up the ADC into 12 bit mode, else
  *          use the 10 bit mode.
  */
-void configADC1_AutoHalfScanIrqCH0(uint16_t   u16_ch0ScanMask, \
-                                   uint8_t    u8_autoSampleTime, \
+void configADC1_AutoHalfScanIrqCH0(uint16_t   u16_ch0ScanMask,
+                                   uint8_t    u8_autoSampleTime,
                                    uint8_t    u8_use12bit) {
   uint8_t     u8_i, u8_nChannels=0;
   uint16_t    u16_mask = 0x0001;
@@ -217,6 +224,9 @@ void configADC1_AutoHalfScanIrqCH0(uint16_t   u16_ch0ScanMask, \
     AD1CON1bits.AD12B = 1;
   else
     AD1CON1bits.AD12B = 0;
+#else
+  // Some PICs only offer 10-bit mode.
+  ASSERT(u8_use12bit == 0);
 #endif
   AD1CON3 = ADC_CONV_CLK_INTERNAL_RC | (u8_autoSampleTime<<8);
   AD1CON2 = ADC_VREF_AVDD_AVSS | ADC_CONVERT_CH0 | ADC_ALT_BUF_ON | ADC_SCAN_ON | ((u8_nChannels-1)<<2);
@@ -266,8 +276,8 @@ void configADC1_AutoHalfScanIrqCH0(uint16_t   u16_ch0ScanMask, \
  *          T<sub>AD</sub> > 75ns.  See AD1CON3 register and associated
  *          <i>defines</i>s in pic24_adc.h
  */
-void configADC1_Simul4ChanIrq(uint8_t    u8_ch0Select, \
-                              uint16_t   u16_ch123SelectMask, \
+void configADC1_Simul4ChanIrq(uint8_t    u8_ch0Select,
+                              uint16_t   u16_ch123SelectMask,
                               uint16_t   u16_numTcyMask ) {
 
   AD1CON1bits.ADON = 0;   // turn off ADC (changing setting while ADON is not allowed)
@@ -280,6 +290,8 @@ void configADC1_Simul4ChanIrq(uint8_t    u8_ch0Select, \
   AD1CHS123 = u16_ch123SelectMask;
 #else
   AD1CHS = ADC_CH0_NEG_SAMPLEA_VREFN | (u8_ch0Select & 0x1F);
+  // For PICs that lack this, make sure nothing was selected.
+  ASSERT(u16_ch123SelectMask == 0);
 #endif
   AD1CSSL = 0;
 
@@ -289,7 +301,3 @@ void configADC1_Simul4ChanIrq(uint8_t    u8_ch0Select, \
 
   AD1CON1bits.ADON = 1;   // turn on the ADC
 }
-
-
-
-
