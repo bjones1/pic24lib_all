@@ -88,20 +88,20 @@ void update_state() {
 
   switch (e_state) {
     case STATE_RELEASED:
-    if (SW1_PRESSED()) {
-      e_state = STATE_PRESSED;
-      LED1 = !LED1;
-    }
-    break;
+      if (SW1_PRESSED()) {
+        e_state = STATE_PRESSED;
+        LED1 = !LED1;
+      }
+      break;
 
     case STATE_PRESSED:
-    if (SW1_RELEASED()) {
-      e_state = STATE_RELEASED;
-    }
-    break;
+      if (SW1_RELEASED()) {
+        e_state = STATE_RELEASED;
+      }
+      break;
 
     default:
-    ASSERT(0);
+      ASSERT(0);
   }
 
   print_state(e_state);

@@ -105,53 +105,53 @@ void update_state() {
 
   switch (e_state) {
     case STATE_RELEASED1:
-    if (SW1_PRESSED()) e_state = STATE_PRESSED1;
-    break;
+      if (SW1_PRESSED()) e_state = STATE_PRESSED1;
+      break;
 
     case STATE_PRESSED1:
-    if (SW1_RELEASED()) {
-      // Turn the LED on when entering STATE_RELEASED2.
-      e_state = STATE_RELEASED2;
-      LED1 = 1;
-    }
-    break;
+      if (SW1_RELEASED()) {
+        // Turn the LED on when entering STATE_RELEASED2.
+        e_state = STATE_RELEASED2;
+        LED1 = 1;
+      }
+      break;
 
     case STATE_RELEASED2:
-    if (SW1_PRESSED()) e_state = STATE_PRESSED2;
-    break;
+      if (SW1_PRESSED()) e_state = STATE_PRESSED2;
+      break;
 
     case STATE_PRESSED2:
-    if (SW1_RELEASED()) {
-      if (SW2) {
-	e_state = STATE_RELEASED3_BLINK;
-      } else {
-        // Turn the LED off when moving to STATE_RELEASED1.
-	e_state = STATE_RELEASED1;
-	LED1 = 0;
+      if (SW1_RELEASED()) {
+        if (SW2) {
+          e_state = STATE_RELEASED3_BLINK;
+        } else {
+          // Turn the LED off when moving to STATE_RELEASED1.
+          e_state = STATE_RELEASED1;
+          LED1 = 0;
+        }
       }
-    }
-    break;
+      break;
 
     case STATE_RELEASED3_BLINK:
-    LED1 = !LED1;
-    DELAY_MS(100);
-    if (SW1_PRESSED()) {
-      // Freeze the LED on when existing the blink state.
-      e_state = STATE_PRESSED3;
-      LED1 = 1;
-    }
-    break;
+      LED1 = !LED1;
+      DELAY_MS(100);
+      if (SW1_PRESSED()) {
+        // Freeze the LED on when existing the blink state.
+        e_state = STATE_PRESSED3;
+        LED1 = 1;
+      }
+      break;
 
     case STATE_PRESSED3:
-    if (SW1_RELEASED()) {
-      // Turn the LED off when moving to STATE_RELEASED1.
-      e_state = STATE_RELEASED1;
-      LED1 = 0;
-    }
-    break;
+      if (SW1_RELEASED()) {
+        // Turn the LED off when moving to STATE_RELEASED1.
+        e_state = STATE_RELEASED1;
+        LED1 = 0;
+      }
+      break;
 
     default:
-    ASSERT(0);
+      ASSERT(0);
   }
 
   print_state(e_state);
