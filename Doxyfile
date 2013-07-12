@@ -664,18 +664,8 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  = chap08 \
-                         chap09 \
-                         chap10 \
-                         chap11 \
-                         chap12 \
-                         chap13 \
-                         chap14 \
-                         chap15 \
-                         lib/src \
+INPUT                  = lib/src \
                          lib/include \
-                         explorer16_100p \
-                         util \
                          esos
 
 # This tag can be used to specify the character encoding of the source files

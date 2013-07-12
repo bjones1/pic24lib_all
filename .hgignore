@@ -28,6 +28,7 @@ templates/pic24_devices_combined.csv
 _build/
 *.py.rst
 *.c.rst
+*.h.rst
 *.s.rst
 *.bat.rst
 docs/sphinx/
