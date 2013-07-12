@@ -265,9 +265,9 @@ uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg);
 
 #ifdef _C1IF
 /** Waits until all characters placed in the UART have been sent. */
-inline static void CHANGE_MODE_ECAN1(mode) {
-  C1CTRL1bits.REQOP = mode;
-  while(C1CTRL1bits.OPMODE != mode);
+inline static void CHANGE_MODE_ECAN1(uint16_t u16_mode) {
+  C1CTRL1bits.REQOP = u16_mode;
+  while(C1CTRL1bits.OPMODE != u16_mode);
 }
 
 /** Return the number (0-31) of the next ECAN FIFO read buffer
@@ -557,9 +557,9 @@ uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg);
 
 #ifdef _C2IF
 /** Waits until all characters placed in the UART have been sent. */
-inline static void CHANGE_MODE_ECAN2(mode) {
-  C2CTRL1bits.REQOP = mode;
-  while(C2CTRL1bits.OPMODE != mode);
+inline static void CHANGE_MODE_ECAN2(uint16_t u16_mode) {
+  C2CTRL1bits.REQOP = u16_mode;
+  while(C2CTRL1bits.OPMODE != u16_mode);
 }
 
 /** Return the number (0-31) of the next ECAN FIFO read buffer
