@@ -14,9 +14,9 @@
 ;
 ; .. highlight:: nasm
 ;
-; ************
-; mptst_word.s
-; ************
+; **************************************************************
+; mptst_word.s - translation of 16-bit *C* aritmetic to assembly
+; **************************************************************
 ; This file demonstrates translating the following *C* program to assembly:
 ;
 ; .. code-block:: c

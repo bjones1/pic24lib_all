@@ -25,6 +25,9 @@
   these files.
  
  
+*****************
+Textbook examples
+*****************
 
 This page gives example PIC24 code accompanying the textbook titled `"Microcontrollers: From Assembly to C with the PIC24 Family" <http://www.reesemicro.com>`_ by R. Reese, B. Jones and J.W. Bruce published by Cengage Learning in December 2008.
 
@@ -48,12 +51,17 @@ If the end-of-line (EOL) output behavior is not correct for the serial terminal 
 
 Our examples also assume an LED tied to port RB15 - this is used as a 'heartbeat' and is blinked by our examples when waiting for input. You can reassign this to another port (see \ref HB_LED) or remove it entirely (see \ref USE_HEARTBEAT) by editing pic24_libconfig.h.
 
-The best project to start with is chap8/reset.c - this just assumes basic serial port functionality.
+The best project to start with is chap08/reset.c - this just assumes basic serial port functionality.
 
 Example code directory
 ======================
-Example code includes:
-- Chapters 3-7 (assembly language)
+Chapter 3
+---------
+.. toctree::
+   :titlesonly:
+
+   chap03/mptst_word.s
+   chap03/mptst_byte.s
 
 - Chapter 8 (initial startup, parallel port examples)
 

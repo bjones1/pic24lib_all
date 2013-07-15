@@ -105,6 +105,7 @@ exclude_patterns = ['_build',
                     '**.X/build',
                     '**.X/dist',
                     '**.X/nbproject',
+                    '.hg'
                     ]
 
 # `default_role <http://sphinx-doc.org/config.html#confval-default_role>`_: The reST default role (used for this markup: `text`) to use for all documents.

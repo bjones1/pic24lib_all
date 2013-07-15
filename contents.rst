@@ -3,8 +3,7 @@ Table of Contents
 .. toctree::
    :maxdepth: 2
 
-   chap03/mptst_word.s
-   chap03/mptst_byte.s
+   textbook_examples
 
 Indices and tables
 ------------------
