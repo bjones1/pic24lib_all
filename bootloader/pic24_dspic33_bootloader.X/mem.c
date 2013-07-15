@@ -8,7 +8,12 @@ typedef unsigned long  UWord32;
 //write these in C so that can use the
 //__PIC24H__, __PIC24F__ defines.
 
+// This macro suppressed the "unused parameter" warnings.
+#define UNUSED(x) (void)(x)
+
 void WriteMem(UWord16 val) {
+  UNUSED(val);
+  
   asm("mov	W0,NVMCON");
   __builtin_write_NVM();
 
@@ -19,6 +24,10 @@ void WriteMem(UWord16 val) {
 
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
 void WriteMem2(UWord16 addrhi, UWord16 addrlo, UWord16 val) {
+  UNUSED(addrhi);
+  UNUSED(addrlo);
+  UNUSED(val);
+
   asm("mov     w0,NVMADRU");           //; Init Pointer to page to be erased
   asm("mov     w1,NVMADR");           //; Init Pointer to offset to be erased
   asm("mov	W2,NVMCON");
@@ -41,12 +50,20 @@ void WriteMem2(UWord16 addrhi, UWord16 addrlo, UWord16 val) {
 
 //_LoadAddr:  ;W0=NVMADRU,W1=NVMADR - no return values
 void LoadAddr(UWord16 nvmadru, UWord16 nvmadr) {
+  UNUSED(nvmadru);
+  UNUSED(nvmadr);
+
   asm("mov	W0,TBLPAG");
   asm("mov	W1,W1");
 }
 
 //_WriteLatch: ;W0=TBLPAG,W1=Wn,W2=WordHi,W3=WordLo - no return values
 void WriteLatch(UWord16 addrhi,UWord16 addrlo, UWord16 wordhi, UWord16 wordlo) {
+  UNUSED(addrhi);
+  UNUSED(addrlo);
+  UNUSED(wordhi);
+  UNUSED(wordlo);
+
   asm("	mov	W0,TBLPAG");
   asm("	tblwtl W3,[W1]");
   asm("	tblwth W2,[W1]");
@@ -56,6 +73,13 @@ void WriteLatch(UWord16 addrhi,UWord16 addrlo, UWord16 wordhi, UWord16 wordlo) {
 //_LoadTwoWords: ;W0=TBLPAG,W1=Wn,W2=WordHi,W3=WordLo W4=Word2Hi,W5=Word2Lo
 //W0,W1 not really used
 void LoadTwoWords(UWord16 addrhi, UWord16 addrlo, UWord16 wordhi, UWord16 wordlo, UWord16 word2hi, UWord16 word2lo) {
+  UNUSED(addrhi);
+  UNUSED(addrlo);
+  UNUSED(wordhi);
+  UNUSED(wordlo);
+  UNUSED(word2hi);
+  UNUSED(word2lo);
+
   asm("	mov	#0xFA,W0");
   asm(" mov W0, TBLPAG");
   asm("	mov	#0,W1");
@@ -68,12 +92,15 @@ void LoadTwoWords(UWord16 addrhi, UWord16 addrlo, UWord16 wordhi, UWord16 wordlo
 
 //_ReadLatch: ;W0=TBLPAG,W1=Wn - data in W1:W0
 UWord32 ReadLatch(UWord16 addrhi, UWord16 addrlo) {
+  UNUSED(addrhi);
+  UNUSED(addrlo);
 
   asm("	mov	W0,TBLPAG");
   asm("	tblrdl [W1],W0");
   asm("	tblrdh [W1],W1");
 
 }
+
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
 void ResetDevice(void) {
 
@@ -103,8 +130,10 @@ void ResetDeviceasPOR(void) {
 
 
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
-void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val ) {
-
+void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val) {
+  UNUSED(addrhi);
+  UNUSED(addrlo);
+  UNUSED(val);
 
   asm("mov	W2,NVMCON");
 
@@ -129,7 +158,10 @@ void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val ) {
 }
 #else
 //_Erase:
-void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val ) {
+void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val) {
+  UNUSED(addrhi);
+  UNUSED(addrlo);
+  UNUSED(val);
 
   asm("push    TBLPAG");
   asm("mov	W2,NVMCON");
@@ -146,7 +178,3 @@ void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val ) {
   asm("pop     TBLPAG");
 }
 #endif
-
-
-
-
