@@ -125,7 +125,8 @@
         <property key="optimization-level" value="0"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
-        <property key="preprocessor-macros" value="CLOCK_CONFIG=FRC_FCY3685KHz"/>
+        <property key="preprocessor-macros"
+                  value="CLOCK_CONFIG=PRI_8MHzCrystal_4MHzFCY;DEFAULT_BAUDRATE=19200"/>
         <property key="scalar-model" value="default"/>
         <property key="use-cci" value="false"/>
       </C30>

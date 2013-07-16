@@ -27,19 +27,26 @@
 // change_latency.c - measures ISR latency using a change notification interrupt
 // ******************************************************************************
 //
-// | Measure latency using change notification. RB2 drives RB3 to generate an CN interrupt. Need to run this with a slow clock to avoid external loading effecting CN triggering point. Therefore, the following macro is defined:
-// | ``-DCLOCK_CONFIG=FRC_FCY3685KHz   // Choose an ~ 4 MHz clock, which works for everything but the PIC24F.``.
-// | With Fcy = ~ 4 MHz, got 8 Fcys high period, 8 Fcys low period.
+// | Measure latency using change notification. RB2 drives RB3 to generate an CN interrupt. Need to run this with a slow clock to avoid external loading effecting CN triggering point. Therefore, the macro ``-DCLOCK_CONFIG=PRI_8MHzCrystal_4MHzFCY`` is defined to run the processor at 4 MHz. However, this means **you must attach an external 8.0 MHz crystal** for this to work. The image below shows the results of a scope capture on a dsPIC33E series processor, demonstrating a 9 us timing between rising edges, which is 36 Tcy (instruction) cycles.
+//
+// .. image:: change_latency_scope.png
+//
+// In addition, the high-speed baud rate (230,400 for all but PIC24F devices) doesn't work in this mode. So, defining ``-DDEFAULT_BAURDRATE=19200`` produces a usable baud rate.
 
 #include "pic24_all.h"
 
-// Interrupt Service Routine for Change Notification.
+// Interrupt Service Routine for Change Notification. The compiles to the following 8 instructions (used xc-16 v. 1.11):
+//
+// .. image:: change_latency_isr.png
 void _ISRFAST _CNInterrupt(void) {
-  _LATB2 = 0;   //set back low
-  NOP();        //give the CN time to propagate so
-  NOP();        //clearing the flag will actually clear it.
+  // Set output back to 0.
+  _LATB2 = 0;
+  // Give the CN time to propagate so clearing the flag will actually clear it.
   NOP();
-  _CNIF = 0;    //clear the change notification interrupt bit
+  NOP();
+  NOP();
+  // Clear the interrupt.
+  _CNIF = 0;
 }
 
 int main(void) {
@@ -53,6 +60,10 @@ int main(void) {
   _CNIF = 0;         //Clear the interrupt flag
   _CNIP = 2;         //Choose a priority
   _CNIE = 1;         //enable the Change Notification general interrupt
+
+  // This loop compiles to 4 instructions (using xc-16 v. 1.11):
+  //
+  // .. image:: change_latency_main.png
   while (1) {
     _LATB2 = 1;       //trigger interrupt by bringing high
     NOP();            //give the CN time to propagate
