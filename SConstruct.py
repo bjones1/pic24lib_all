@@ -291,13 +291,13 @@ def buildTargetsEsos(env, mcu):
 # Build ESOS over a variety of chips.
 for mcu in (
             '24HJ32GP202',
-#                '24FJ32GA002',
-#                '24HJ128GP502',
-#                '24EP64GP202',
-#                '33FJ32GP202',
-#                '33FJ128GP802',
-#                '33EP128GP502',
-#                '33EP128GP504',
+#            '24FJ32GA002',
+#            '24HJ128GP502',
+#            '24EP64GP202',
+#            '33FJ32GP202',
+#            '33FJ128GP802',
+#            '33EP128GP502',
+#            '33EP128GP504',
            ):
     buildTargetsEsos(env, mcu)
 
