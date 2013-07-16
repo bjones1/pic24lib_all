@@ -54,7 +54,7 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>../../lib/common</Elem>
+    <Elem>../../lib/src</Elem>
     <Elem>../../lib/include</Elem>
     <Elem>../../lib/lkr</Elem>
     <Elem>..</Elem>

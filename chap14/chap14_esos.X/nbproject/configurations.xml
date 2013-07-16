@@ -80,7 +80,7 @@
   <sourceRootList>
     <Elem>../</Elem>
     <Elem>../../esos/src</Elem>
-    <Elem>../../lib/common</Elem>
+    <Elem>../../lib/src</Elem>
     <Elem>../../esos/include</Elem>
     <Elem>../../lib/include</Elem>
   </sourceRootList>

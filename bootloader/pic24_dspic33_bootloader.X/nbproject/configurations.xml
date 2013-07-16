@@ -54,7 +54,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>lkr</Elem>
-    <Elem>../../lib/common</Elem>
+    <Elem>../../lib/src</Elem>
     <Elem>../../lib/include</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>

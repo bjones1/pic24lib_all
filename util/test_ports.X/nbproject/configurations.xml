@@ -37,7 +37,7 @@
   <sourceRootList>
     <Elem>../</Elem>
     <Elem>../../lib/include</Elem>
-    <Elem>../../lib/common</Elem>
+    <Elem>../../lib/src</Elem>
     <Elem>../../lib/lkr</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
