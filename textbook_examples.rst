@@ -83,7 +83,6 @@ Chapter 9: interrupts, simple timer usage
   - chap09/int1_wakeup.c
   - chap09/ledsw1_timer2.c
 
-  - chap09/button_semaphore.c - has a periodic timer ISR that creates a semaphore for a complete button press/release
   - chap09/change_bounce.c - uses a change notification interrupt to detect switch bounce
   - chap09/change_test.c - demos a change notification interrupt using an input pushbutton
   - chap09/filt_test.c - test an extern low-pass RC filter effectiveness by generating a pulse train that is read by another port
@@ -92,7 +91,6 @@ Chapter 9: interrupts, simple timer usage
   - chap09/int1_bounce.c - use the INT1 interrupt to detect switch bounce.
   - chap09/keypad.c - Implements a 4x3 key scanned keypad interface.
   - chap09/ledflash_timer.c - uses a periodic timer interrupt to flash an LED.
-  - chap09/ledsw1_timer.c - uses a periodic Timer3 interrupt for a LED/SW IO problem, uses a button semaphore in the ISR.
   - chap09/ledsw1_timer2.c - same problem as ledsw1_timer.c, except ISR implements the entire FSM for the LED/SW IO problem.
   - chap09/ledtoggle_timer.c - toggle an LED using a periodic interrupt to poll the switch input
   - chap09/rot_enc.c - A 2-bit incremental Gray code rotary encoder example
