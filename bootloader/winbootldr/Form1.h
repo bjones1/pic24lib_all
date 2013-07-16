@@ -131,7 +131,7 @@ public:
     status_clear = false;
     status_tics = 0;
     this->timer1->Enabled = true;
-    this->timer1->Interval = 100;
+    this->timer1->Interval = 200;
     this->comTimer->Interval = 50;
     this->comTimer->Enabled = true;
     writeToDebugOutput("Started...");
