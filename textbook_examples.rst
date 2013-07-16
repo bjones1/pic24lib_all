@@ -64,34 +64,32 @@ Chapter 3 - translation from *C* arithmetic to assembly
 
 Chapter 8 - initial startup, parallel port examples
 ---------------------------------------------------
-.. toctree::
-
-  chap08/asm_echo.s
-
-To do.
-  - chap08/echo.c - inputs chararacter from UART RX1, echos back +1.
-  - chap08/lcd4bit.c - Character LCD interface example
-  - chap08/ledflash.c - Flashes an LED, uses I/O macros.
   - chap08/ledflash_nomacros.c - Flashes an LED, does not use I/O macros.
-  - chap08/ledsw1.c - Demonstrates using a FSM approach for a LED/switch IO problem.
-  - chap08/ledtoggle.c - Uses an FSM approach to toggle an LED whenever a pushbutton input is pressed and released.
-  - chap08/ledtoggle_nofsm.c - Toggles an LED whenever a pushbutton input is pressed and released, does not use an FSM approach.
+  - chap08/ledflash.c - Flashes an LED, uses I/O macros.
+  - chap08/echo.c
+  - chap08/asm_echo.s
   - chap08/reset.c - Demonstrates software reset, idle, sleep, watchdog timer operation.
+  - chap08/ledtoggle_nofsm.c - Toggles an LED whenever a pushbutton input is pressed and released, does not use an FSM approach.
+  - chap08/ledtoggle.c
+  - chap08/ledsw1.c
+  - chap08/lcd4bit.c - Character LCD interface example
 
 Chapter 9: interrupts, simple timer usage
 -----------------------------------------
   - chap09/trap_test.c - Code which causes a math error (divide by zero) trap
   - chap09/trap_test_handled.c - contains an ISR which handles the math error (divide by zero)
+  - chap09/change_wakeup.c - wake from sleep using a change notification interrupt
+  - chap09/change_latency.c
+  - chap09/int1_wakeup.c
+  - chap09/ledsw1_timer2.c
+
   - chap09/button_semaphore.c - has a periodic timer ISR that creates a semaphore for a complete button press/release
   - chap09/change_bounce.c - uses a change notification interrupt to detect switch bounce
-  - chap09/change_latency.c - measures ISR latency using a change notification interrupt
   - chap09/change_test.c - demos a change notification interrupt using an input pushbutton
-  - chap09/change_wakeup.c - wake from sleep using a change notification interrupt
   - chap09/filt_test.c - test an extern low-pass RC filter effectiveness by generating a pulse train that is read by another port
   - chap09/int0_bounce.c - use the INT0 interrupt to detect switch bounce.
   - chap09/int0_wakeup.c - uses INT0 to wake from sleep mode.
   - chap09/int1_bounce.c - use the INT1 interrupt to detect switch bounce.
-  - chap09/int1_wakeup.c - uses INT1 to wake from sleep mode.
   - chap09/keypad.c - Implements a 4x3 key scanned keypad interface.
   - chap09/ledflash_timer.c - uses a periodic timer interrupt to flash an LED.
   - chap09/ledsw1_timer.c - uses a periodic Timer3 interrupt for a LED/SW IO problem, uses a button semaphore in the ISR.
@@ -104,7 +102,6 @@ Chapter 9: interrupts, simple timer usage
 
 Chapter 10 (UART, SPI, I2C)
 ---------------------------
-
   - chap10/soft_uart.c - Demonstrates a software driven UART TX/RX using PIO pins
   - chap10/reverse_string.c - Used in three different projects to illustrate polled UART RX/TX (reverse_string.mcp), interrupt driven RX/polled TX (uartrx_fifo.mcp), interrupt driven RX/TX (uartrxtx_fifo.mcp)
   - chap10/mcp41xxx_spi_pot.c - PIC24 uC in Master mode to Microchip MCP41xxx Digital Potentiometer
@@ -121,6 +118,12 @@ Chapter 11: Data Conversion - ADC, DAC
   - chap11/adc7scan2.c - Above plus uses double buffering (only for PIC24 CPUs without DMA).
   - chap11/adc4simul.c - Simultaneous sampling of 4 channels (only for PIC24 CPUs without DMA).
   - chap11/adc_spidac_test.c - Demonstrates reading the internal ADC in 12-bit mode and then sending the upper 8 bits to an external 8-bit SPI DAC (MAXIM 548A)
+  - chap11/adc_test.c - Demonstrates reading the internal ADC in 10-bit mode and converting it to a voltage.
+  - chap11/adc_test_12bit.c - Demonstrates reading the internal ADC in 12-bit mode and converting it to a voltage.
+  - chap11/adc7scan1_dma_scatter_gather_1.c - Samples 7 channels sequentially with automatic channel scanning in scatter/gather mode; uses DMA (only for PIC24 CPUs with DMA) - see the Appendix H online-supplement.
+  - chap11/adc7scan1_dma_conv_order.c - Samples 7 channels sequentially with automatic channel scanning in ordered mode; uses DMA (only for PIC24 CPUs with DMA) - see the Appendix H online-supplement.
+  - chap11/adc4simul_dma.c - Simultaneous sampling of 4 channels (only for PIC24 CPUs DMA) - see the Appendix H online-supplement.
+
 
 Chapter 12: Timer coverage - PWM, input capture, output compare, time keeping
 -----------------------------------------------------------------------------
@@ -175,14 +178,6 @@ Examples converted to be compatible with the Explorer-16, 100-pin demo board
   - explorer16_100p/adc_test.c example (see Chapter 11); Demonstrates reading the internal ADC in 10-bit mode and converting it to a voltage.
   - explorer16_100p/timer1_sosc.c example (see Chapter 12); Demonstrates using the secondary oscillator with a 32768 Hz oscillator.
   - explorer16_100p/mcp25lc256_spi_eeprom.c example (see Chapter 10); Demonstrates using the 25lc256 SPI EEPROM on the explorer-16 board. This is not tied to a particular textbook example, but has a similar structure to the Chapter 10 mcp24lc515_i2c_eeprom.c example that uses I2C.
-
-Other examples not tied to textbook figures
--------------------------------------------
-  - chap11/adc_test.c - Demonstrates reading the internal ADC in 10-bit mode and converting it to a voltage.
-  - chap11/adc_test_12bit.c - Demonstrates reading the internal ADC in 12-bit mode and converting it to a voltage.
-  - chap11/adc7scan1_dma_scatter_gather_1.c - Samples 7 channels sequentially with automatic channel scanning in scatter/gather mode; uses DMA (only for PIC24 CPUs with DMA) - see the Appendix H online-supplement.
-  - chap11/adc7scan1_dma_conv_order.c - Samples 7 channels sequentially with automatic channel scanning in ordered mode; uses DMA (only for PIC24 CPUs with DMA) - see the Appendix H online-supplement.
-  - chap11/adc4simul_dma.c - Simultaneous sampling of 4 channels (only for PIC24 CPUs DMA) - see the Appendix H online-supplement.
 
 Examples using the \ref dataXfer "data transfer protocol"
 ---------------------------------------------------------
