@@ -47,7 +47,7 @@ release = '4-Jun-2013'
 ##today_fmt = '%B %d, %Y'
 
 # `highlight_language <http://sphinx-doc.org/config.html#confval-highlight_language>`_: The default language to highlight source code in. **CodeChat note:** This should **not** be ``python``, since Sphinx will try to parse Python fragments and fail, then refuse ot highlight the code.
-highlight_language = 'python3'
+highlight_language = 'c'
 
 # `pygments_style <http://sphinx-doc.org/config.html#confval-pygments_style>`_: The style name to use for Pygments highlighting of source code.
 pygments_style = 'sphinx'
