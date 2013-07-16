@@ -31,115 +31,133 @@
 
 #include "pic24_all.h"
 
-/// LED1
+// LED1 configuration and access
+// =============================
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
-#define LED1  _LATB14     //led1 state
+#define LED1 (_LATB14)
 
-/// Switch1 configuration
-inline void CONFIG_SW1()  {
-  CONFIG_RB13_AS_DIG_INPUT();     //use RB13 for switch input
-  ENABLE_RB13_PULLUP();           //enable the pullup
+// Pushbutton configuration and access
+// ===================================
+void config_pb(void)  {
+  CONFIG_RB13_AS_DIG_INPUT();
+  ENABLE_RB13_PULLUP();
+  // Give the pullup some time to take effect.
+  DELAY_US(1);
 }
 
-#define SW1_RAW         _RB13             //raw switch value
-#define SW1             u8_valueSW1       //switch state
-#define SW1_PRESSED()   (SW1==0)          //switch test
-#define SW1_RELEASED()  (SW1==1)          //switch test
+#define PB_PRESSED()   (_RB13 == 0)
+#define PB_RELEASED()  (_RB13 == 1)
 
-/// Switch2 configuration, does not have to be debounced
-inline void CONFIG_SW2()  {
-  CONFIG_RB12_AS_DIG_INPUT();     //use RB12 for switch input
-  ENABLE_RB12_PULLUP();           //enable the pullup
+// Switch configuration and access
+// ===============================
+void config_sw(void)  {
+  CONFIG_RB12_AS_DIG_INPUT();
+  ENABLE_RB12_PULLUP();
+  // Give the pullup some time to take effect.
+  DELAY_US(1);
 }
 
-#define SW2              _RB12  //switch state
+#define SW              (_RB12)
 
-
+// State machine
+// =============
+// First, define the states, along with a human-readable version.
 typedef enum  {
-  STATE_RESET = 0,
-  STATE_WAIT_FOR_PRESS1,
-  STATE_WAIT_FOR_RELEASE1,
-  STATE_WAIT_FOR_PRESS2,
-  STATE_WAIT_FOR_RELEASE2,
-  STATE_BLINK,
-  STATE_WAIT_FOR_RELEASE3
-} STATE;
+  STATE_RELEASED1,
+  STATE_PRESSED1,
+  STATE_RELEASED2,
+  STATE_PRESSED2,
+  STATE_RELEASED3_BLINK,
+  STATE_PRESSED3,
+} state_t;
 
+const char* apsz_state_names[] = {
+  "STATE_RELEASED1 - LED is off",
+  "STATE_PRESSED1",
+  "STATE_RELEASED2 - LED is on",
+  "STATE_PRESSED2 - SW2 on goes to blink else go to RELEASED1",
+  "STATE_RELEASED3_BLINK - LED blinks, waiting for SW1 press",
+  "STATE_PRESSED3 - LED is on",
+};
 
-volatile uint8_t u8_valueSW1  = 1;    //initially high
-volatile uint8_t doBlink = 0;
-volatile STATE e_mystate;
+// Provide a convenient function to print out the state.
+void print_state(state_t e_state) {
+  static state_t e_last_state = 0xFFFF;  // Force an initial print of the state
 
-//Interrupt Service Routine for Timer3
-void _ISR _T3Interrupt (void) {
-  u8_valueSW1 = SW1_RAW;     //sample the switch
-  switch (e_mystate) {
-    case STATE_WAIT_FOR_PRESS1:
-      LED1 = 0; //turn off the LED
-      if (SW1_PRESSED()) e_mystate = STATE_WAIT_FOR_RELEASE1;
-      break;
-    case STATE_WAIT_FOR_RELEASE1:
-      if (SW1_RELEASED()) e_mystate = STATE_WAIT_FOR_PRESS2;
-      break;
-    case STATE_WAIT_FOR_PRESS2:
-      LED1 = 1; //turn on the LED
-      if (SW1_PRESSED()) e_mystate = STATE_WAIT_FOR_RELEASE2;
-      break;
-    case STATE_WAIT_FOR_RELEASE2:
-      if (SW1_RELEASED()) {
-        //decide where to go
-        if (SW2) e_mystate = STATE_BLINK;
-        else e_mystate = STATE_WAIT_FOR_PRESS1;
-      }
-      break;
-    case STATE_BLINK:
-      doBlink = 1;
-      if (SW1_PRESSED()) {
-        doBlink = 0;
-        e_mystate = STATE_WAIT_FOR_RELEASE3;
-      }
-      break;
-    case STATE_WAIT_FOR_RELEASE3:
-      LED1 = 1;   //Freeze LED1 at 1
-      if (SW1_RELEASED()) e_mystate = STATE_WAIT_FOR_PRESS1;
-      break;
-    default:
-      e_mystate = STATE_WAIT_FOR_PRESS1;
+  // Only print if the state changes.
+  if (e_state != e_last_state) {
+    e_last_state = e_state;
+    // Verify that the state has a string representation before printing it.
+    ASSERT(e_state <= N_ELEMENTS(apsz_state_names));
+    outString(apsz_state_names[e_state]);
+    outChar('\n');
   }
-  _T3IF = 0;                 //clear the timer interrupt bit
 }
 
+// This function defines the state machine.
+void update_state(void) {
+  static state_t e_state = STATE_RELEASED1;
 
+  switch (e_state) {
+    case STATE_RELEASED1:
+      if (PB_PRESSED()) e_state = STATE_PRESSED1;
+      break;
 
+    case STATE_PRESSED1:
+      if (PB_RELEASED()) {
+        // Turn the LED on when entering STATE_RELEASED2.
+        e_state = STATE_RELEASED2;
+        LED1 = 1;
+      }
+      break;
 
-//print debug message for state when it changes
-void printNewState (STATE e_currentState) {
-  static STATE e_LastState = STATE_RESET;
-  if (e_LastState != e_currentState) {
-    switch (e_currentState) {
-      case STATE_WAIT_FOR_PRESS1:
-        outString("STATE_WAIT_FOR_PRESS1 - LED is off\n");
-        break;
-      case STATE_WAIT_FOR_RELEASE1:
-        outString("STATE_WAIT_FOR_RELEASE1\n");
-        break;
-      case STATE_WAIT_FOR_PRESS2:
-        outString("STATE_WAIT_FOR_PRESS2 - LED is on\n");
-        break;
-      case STATE_WAIT_FOR_RELEASE2:
-        outString("STATE_WAIT_FOR_RELEASE2 - SW2 on goes to blink else go to PRESS1\n");
-        break;
-      case STATE_BLINK:
-        outString("STATE_BLINK - LED blinks, waiting for SW1 press\n");
-        break;
-      case STATE_WAIT_FOR_RELEASE3:
-        outString("STATE_WAIT_FOR_RELEASE3 - LED is on\n");
-        break;
-      default:
-        break;
-    }
+    case STATE_RELEASED2:
+      if (PB_PRESSED()) e_state = STATE_PRESSED2;
+      break;
+
+    case STATE_PRESSED2:
+      if (PB_RELEASED()) {
+        if (SW) {
+          e_state = STATE_RELEASED3_BLINK;
+        } else {
+          // Turn the LED off when moving to STATE_RELEASED1.
+          e_state = STATE_RELEASED1;
+          LED1 = 0;
+        }
+      }
+      break;
+
+    case STATE_RELEASED3_BLINK:
+      LED1 = !LED1;
+      DELAY_MS(100);
+      if (PB_PRESSED()) {
+        // Freeze the LED on when existing the blink state.
+        e_state = STATE_PRESSED3;
+        LED1 = 1;
+      }
+      break;
+
+    case STATE_PRESSED3:
+      if (PB_RELEASED()) {
+        // Turn the LED off when moving to STATE_RELEASED1.
+        e_state = STATE_RELEASED1;
+        LED1 = 0;
+      }
+      break;
+
+    default:
+      ASSERT(0);
   }
-  e_LastState = e_currentState;  //remember last state
+
+  print_state(e_state);
+}
+
+// Interrupt Service Routine for Timer3
+void _ISR _T3Interrupt(void) {
+  // Clear the interrupt flag.
+  _T3IF = 0;
+  // Inform our state machine of an event.
+  update_state();
 }
 
 
@@ -152,7 +170,7 @@ void  configTimer3(void) {
   T3CON = T3_OFF |T3_IDLE_CON | T3_GATE_OFF
           | T3_SOURCE_INT
           | T3_PS_1_64 ;  //results in T3CON= 0x0020
-  PR3 = msToU16Ticks (ISR_PERIOD, getTimerPrescale(T3CONbits)) - 1;
+  PR3 = msToU16Ticks(ISR_PERIOD, getTimerPrescale(T3CONbits)) - 1;
   TMR3  = 0;                       //clear timer3 value
   _T3IF = 0;                       //clear interrupt flag
   _T3IP = 1;                       //choose a priority
@@ -161,22 +179,15 @@ void  configTimer3(void) {
 }
 
 int main (void) {
-
   configBasic(HELLO_MSG);
-  /** PIO config ******/
-  CONFIG_SW1();        //configure switch
-  CONFIG_SW2();        //configure switch
+  // GPIO config.
+  config_pb();
+  config_sw();
   CONFIG_LED1();       //config the LED
-  /** Configure the Timer */
   configTimer3();
-  e_mystate = STATE_WAIT_FOR_PRESS1;
-  /* While loop just checks the doBlink semaphore */
+
+  // Idle when the ISR doesn't run to reduce power consumption.
   while (1) {
-    printNewState(e_mystate);  //debug message when state changes
-    if (doBlink) {
-      LED1 = !LED1;
-      DELAY_MS(100);
-    }
-    doHeartbeat();     //ensure that we are alive
-  } // end while (1)
+    IDLE();
+  }
 }
