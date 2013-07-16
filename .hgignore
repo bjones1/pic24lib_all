@@ -33,6 +33,6 @@ _build/
 *.bat.rst
 docs/sphinx/
 # Temporary stuff (output of pyinstaller)
-templates/dist
-templates/build
+templates/dist/
+templates/build/
 templates/data_sheet_to_csv.spec
