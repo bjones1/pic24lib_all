@@ -226,7 +226,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\lib\common\dataXfer.c"
+				RelativePath="..\..\lib\src\dataXfer.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -248,7 +248,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\lib\common\dataXferImpl.c"
+				RelativePath="..\..\lib\src\dataXferImpl.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
