@@ -44,9 +44,8 @@ void config_sw1()  {
   DELAY_US(1);
 }
 
-#define SW1              _RB13
-#define SW1_PRESSED()   (SW1 == 0)
-#define SW1_RELEASED()  (SW1 == 1)
+#define PB_PRESSED()   (_RB13 == 0)
+#define PB_RELEASED()  (_RB13 == 1)
 
 // State machine
 // =============
@@ -82,14 +81,14 @@ void update_state() {
 
   switch (e_state) {
     case STATE_RELEASED:
-      if (SW1_PRESSED()) {
+      if (PB_PRESSED()) {
         e_state = STATE_PRESSED;
         LED1 = !LED1;
       }
       break;
 
     case STATE_PRESSED:
-      if (SW1_RELEASED()) {
+      if (PB_RELEASED()) {
         e_state = STATE_RELEASED;
       }
       break;
