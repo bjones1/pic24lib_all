@@ -97,14 +97,14 @@ does not occur.
 
 static void configFrcUART(void) {
   float f_brg;
-  uint16_t UxBRG;
+
   // First, switch to a known-good clock
 # if ( defined(__PIC24H__) || defined(__dsPIC33F__) )
   configClockFRCPLL_FCY40MHz();
 # elif ( defined(__PIC24E__) || defined(__dsPIC33E__) )
   configClockFRCPLL_FCY60MHz();
 # elif ( defined(__PIC24F__) || defined(__PIC24FK__) )
-//safe choice: FCY=16 MHz, FRC+PLL
+  // Safe choice: FCY=16 MHz, FRC+PLL.
   configClockFRCPLL_FCY16MHz();
 # else
 #  error "Unknown processor."
@@ -118,35 +118,22 @@ static void configFrcUART(void) {
 # else
   f_brg = (((float) FRC_FCY)/((float) DEFAULT_BAUDRATE)/4.0) - 1.0;
 # endif
-  UxBRG = roundFloatToUint16(f_brg);
-  switch (DEFAULT_UART) {
-# if (NUM_UART_MODS >= 1)
-    case 1 :
-      U1BRG = UxBRG;
-      U1MODEbits.BRGH = FRC_BRGH;
-      break;
+
+# if (DEFAULT_UART == 1)
+  U1BRG = roundFloatToUint16(f_brg);
+  U1MODEbits.BRGH = FRC_BRGH;
+# elif (DEFAULT_UART == 2)
+  U2BRG = roundFloatToUint16(f_brg);
+  U2MODEbits.BRGH = FRC_BRGH;
+# elif (DEFAULT_UART == 3)
+  U3BRG = roundFloatToUint16(f_brg);
+  U3MODEbits.BRGH = FRC_BRGH;
+# elif (DEFAULT_UART == 4)
+  U4BRG = roundFloatToUint16(f_brg);
+  U4MODEbits.BRGH = FRC_BRGH;
+# else
+#   error "Invalid DEFAULT_UART."
 # endif
-# if (NUM_UART_MODS >= 2)
-    case 2 :
-      U2BRG = UxBRG;
-      U2MODEbits.BRGH = FRC_BRGH;
-      break;
-# endif
-# if (NUM_UART_MODS >= 3)
-    case 3 :
-      U3BRG = UxBRG;
-      U3MODEbits.BRGH = FRC_BRGH;
-      break;
-# endif
-# if (NUM_UART_MODS >= 4)
-    case 4 :
-      U4BRG = UxBRG;
-      U4MODEbits.BRGH = FRC_BRGH;
-      break;
-# endif
-    default :
-      ASSERT(0);
-  }
 }
 
 static void checkClockTimeout(void) {
@@ -167,16 +154,11 @@ static void checkClockTimeout(void) {
 
   configFrcUART();
   outString("\n\n"
-            "Your clock choice failed to initialize, have switched to internal Fast RC oscillator +PLL.\n"
+            "Your clock choice failed to initialize, have switched to internal Fast RC oscillator+PLL.\n"
             "Check your setting for the 'CLOCK_CONFIG' macro.\n"
             "Watch the compiler output window when pic24_clockfreq.c is compiled, a warning message\n"
             "will tell you the selected value for 'CLOCK_CONFIG'.\n"
-            "In MPLAB, use Project->Build Options->Project, then click on MPLAB C30 tab to see if \n"
-            "the macro is defined there. If the macro is selecting an external crystal (the primary oscillator),\n"
-            "and your board does not have a crystal, you will get this message.\n"
-            "Delete the macro definition from the MPLAB project if you want to use the default \n"
-            "clock choice of FRC + PLL.\n"
-            "You must recompile and reprogram with an appropriate CLOCK_CONFIG choice for this code to execute.\n");
+            "In MPLAB, use Project->Build Options->Project, then click on MPLAB C30 tab to see if \n");
 
   while(1) {
     doHeartbeat();  // never return.
@@ -306,7 +288,6 @@ void configClockPRI_NO_PLL_7372KHzCrystal(void) {
 
 #if IS_CLOCK_CONFIG(FRC_FCY3685KHz)
 # warning "Clock configured for FRC, FCY = 3.685 MHz."
-# warning "Baud rates of 9600 or lower recommended for this clock choice."
 #endif
 #if GET_IS_SUPPORTED(FRC_FCY3685KHz)
 void configClockFRC_FCY3685KHz(void) {
@@ -329,18 +310,7 @@ void configClockFRCPLL_FCY40MHz(void) {
   // then we can't change the bits below. To do so, first switch to FRC,
   // change bits, then switch back to FRCPLL.
   switchClock(GET_OSC_SEL_BITS(FNOSC_FRC));
-  //settings for Cycle time = 40 MHz, internal oscillator with PLL
-  // Tune the internal oscialltor to 6.85 MHz. Each unit
-  // in the register below = 0.375% of the 7.37 MHz
-  // nominal frequency in 2's complement per register 7-6
-  // in section 7.4 of the FRM rev B. So:
-  // Sanity check: -32*0.375% = -12% -> 6.4856 MHz per data sheet.
-  //               +30*0.375% = 11.25% -> 8.1991 Mhz not 8.23 MHz
-  //                                      given in the data sheet!
-  //      However, +31*0.375% = 11.625% -> 8.2268 MHz, so the above
-  //      is a typo. This error has been reported to Microchip and
-  //      confirmed. It should be fixed in next rev of data sheet.
-  // Another concern: since the clock is +/- 2%, we could end
+  // A concern: since the clock is +/- 2%, we could end
   // up with a > 8.0 MHz processor clock! At 8 MHz, this would
   // be 8.16 MHz, so the processor would run at 81.6 MHz.
   // Ignore this for now; probably, the chip will still run.
@@ -501,6 +471,7 @@ void configClockPRIPLL_8MHzCrystal_16MHzFCY(void) {
 
 #if IS_CLOCK_CONFIG(PRI_8MHzCrystal_4MHzFCY)
 # warning "Clock configured for PRI using a 8.0 Mhz primary oscillator, FCY = 4 MHz."
+# warning "Baud rates of 19200 or lower recommended for this clock choice."
 #endif
 #if GET_IS_SUPPORTED(PRI_8MHzCrystal_4MHzFCY)
 void configClockPRI_8MHzCrystal_4MHzFCY(void) {

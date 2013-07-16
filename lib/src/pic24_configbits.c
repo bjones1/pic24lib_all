@@ -558,16 +558,20 @@ _FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
 // FOSC
 #if   POSCMD_SEL == POSCMD_EC
 #pragma config POSCMD = EC              // Primary Oscillator Mode Select bits (EC Crystal Oscillator Mode)
+#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
 #elif POSCMD_SEL == POSCMD_XT
 #pragma config POSCMD = XT              // Primary Oscillator Mode Select bits (XT Crystal Oscillator Mode)
+#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
 #elif POSCMD_SEL == POSCMD_HS
 #pragma config POSCMD = HS              // Primary Oscillator Mode Select bits (HS Crystal Oscillator Mode)
+#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
 #elif POSCMD_SEL == POSCMD_NONE
 #pragma config POSCMD = NONE            // Primary Oscillator Mode Select bits (Primary Oscillator disabled)
+#pragma config OSCIOFNC = ON            // OSC2 Pin Function bit (OSC2 is general purpose digital I/O pin)
 #else
 # error "Unknown primary oscillator selection."
 #endif
-#pragma config OSCIOFNC = ON            // OSC2 Pin Function bit (OSC2 is general purpose digital I/O pin)
+
 #pragma config IOL1WAY = OFF            // Peripheral pin select configuration (Allow multiple reconfigurations)
 #pragma config FCKSM = CSECMD           // Clock Switching Mode bits (Clock switching is enabled,Fail-safe Clock Monitor is disabled)
 
