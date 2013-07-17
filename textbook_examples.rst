@@ -62,6 +62,13 @@ Chapter 3 - translation from *C* arithmetic to assembly
    chap03/mptst_word.s
    chap03/mptst_byte.s
 
+Chapter 4 - Unsigned 8/16-bit arithmetic
+----------------------------------------
+.. toctree::
+   :titlesonly:
+
+   chap04/nsc.s
+
 Chapter 8 - initial startup, parallel port examples
 ---------------------------------------------------
   - chap08/ledflash_nomacros.c - Flashes an LED, does not use I/O macros.
@@ -76,27 +83,34 @@ Chapter 8 - initial startup, parallel port examples
 
 Chapter 9: interrupts, simple timer usage
 -----------------------------------------
-  - chap09/trap_test.c - Code which causes a math error (divide by zero) trap
+.. toctree::
+   :titlesonly:
+
+   chap09/trap_test.c
+
+Blah.
   - chap09/trap_test_handled.c - contains an ISR which handles the math error (divide by zero)
   - chap09/change_wakeup.c - wake from sleep using a change notification interrupt
   - chap09/change_latency.c
   - chap09/int1_wakeup.c
+  - chap09/squarewave.c - Generates a square wave using timer 2 and an ISR.
+  - chap09/filt_test.c - test an extern low-pass RC filter effectiveness by generating a pulse train that is read by another port
+  - chap09/softfilt_test.c - Implements a software filter for input pulses less than a specified duration.
   - chap09/ledsw1_timer2.c
+  - chap09/rot_enc.c - A 2-bit incremental Gray code rotary encoder example
+  - chap09/keypad.c - Implements a 4x3 key scanned keypad interface.
+  - chap09/rot_enc_trace.c - Demonstrates use of an ISR trace buffer for capturing the states of a rotary encoder.
 
+Chapter 9 extras
+----------------
+These programs demonstrate related concepts, but are not directly discussed in the textbook.
   - chap09/change_bounce.c - uses a change notification interrupt to detect switch bounce
   - chap09/change_test.c - demos a change notification interrupt using an input pushbutton
-  - chap09/filt_test.c - test an extern low-pass RC filter effectiveness by generating a pulse train that is read by another port
   - chap09/int0_bounce.c - use the INT0 interrupt to detect switch bounce.
   - chap09/int0_wakeup.c - uses INT0 to wake from sleep mode.
   - chap09/int1_bounce.c - use the INT1 interrupt to detect switch bounce.
-  - chap09/keypad.c - Implements a 4x3 key scanned keypad interface.
   - chap09/ledflash_timer.c - uses a periodic timer interrupt to flash an LED.
-  - chap09/ledsw1_timer2.c - same problem as ledsw1_timer.c, except ISR implements the entire FSM for the LED/SW IO problem.
   - chap09/ledtoggle_timer.c - toggle an LED using a periodic interrupt to poll the switch input
-  - chap09/rot_enc.c - A 2-bit incremental Gray code rotary encoder example
-  - chap09/rot_enc_trace.c - Demonstrates use of an ISR trace buffer for capturing the states of a rotary encoder.
-  - chap09/softfilt_test.c - Implements a software filter for input pulses less than a specified duration.
-  - chap09/squarewave.c - Generates a square wave using timer 2 and an ISR.
 
 Chapter 10 (UART, SPI, I2C)
 ---------------------------
