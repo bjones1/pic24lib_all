@@ -141,23 +141,21 @@ Help("""Additional targets:
 ## Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
 
-## Create a target which zips up library files.
-zip_file = 'build/pic24_code_examples.zip'
-hg_dir = 'build/pic24lib_all'
-env.Command(zip_file, '', [
-  # Clone the repo to create a clean distribution.
-  Delete(hg_dir, must_exist = 0),
-  'hg clone . ' + hg_dir,
-  # Copy over hex files from the build.
-  Copy(hg_dir + '/hex', 'hex'),
-  # Perform zip in clean clone.
-  'scons -C ' + hg_dir + ' -f SCons_zipit.py', ])
-env.Alias('zipit', zip_file)
-# Only build this if it's explicitly requested. Since the dependencies of '' are wrong, force a build using AlwaysBuild. Otherwise, don't build this, even when out of date, using Ignore.
+## Create a target which zips up library files. Only built it if explicitly requested on the command line.
 if 'zipit' in COMMAND_LINE_TARGETS:
+    zip_file = 'build/pic24_code_examples.zip'
+    hg_dir = 'build/pic24lib_all'
+    env.Command(zip_file, '', [
+      # Clone the repo to create a clean distribution.
+      Delete(hg_dir, must_exist = 0),
+      'hg clone . ' + hg_dir,
+      # Copy over hex files from the build.
+      Copy(hg_dir + '/hex', 'hex'),
+      # Perform zip in clean clone.
+      'scons -C ' + hg_dir + ' -f SCons_zipit.py', ])
+    env.Alias('zipit', zip_file)
+# Only build this if it's explicitly requested. Since the dependencies of '' are wrong, force a build using AlwaysBuild.
     env.AlwaysBuild(zip_file)
-else:
-    env.Ignore('.', zip_file)
 
 ## PIC24/dsPIC33 chip/clock variant builds
 ## ---------------------------------------
