@@ -27,7 +27,7 @@
 // change_latency.c - measures ISR latency using a change notification interrupt
 // ******************************************************************************
 //
-// | Measure latency using change notification. RB2 drives RB3 to generate an CN interrupt. Need to run this with a slow clock to avoid external loading effecting CN triggering point. Therefore, the macro ``-DCLOCK_CONFIG=PRI_8MHzCrystal_4MHzFCY`` is defined to run the processor at 4 MHz. However, this means **you must attach an external 8.0 MHz crystal** for this to work. The image below shows the results of a scope capture on a dsPIC33E series processor, demonstrating a 9 us timing between rising edges, which is 36 Tcy (instruction) cycles.
+// | Measure latency using change notification. RB2 drives RB3 to generate an CN interrupt. Need to run this with a slow clock to avoid external loading effecting CN triggering point. Therefore, the macro ``-DCLOCK_CONFIG=PRI_8MHzCrystal_4MHzFCY`` is defined to run the processor at 4 MHz. However, this means **you must attach an external 8.0 MHz crystal** for this to work. The image below shows the results of a scope capture on a dsPIC33E series processor, demonstrating a 9 us timing between rising edges, which is 36 Tcy (instruction) cycles. However, since this was measured using the bootloader, this includes an additional 2 cycles due to an additional goto instruction provided by the bootloader to jump to the remapped interrupt vector table.
 //
 // .. image:: change_latency_scope.png
 //
