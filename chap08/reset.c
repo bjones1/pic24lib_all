@@ -41,10 +41,11 @@ modes.
 /** This function puts the PIC24 in low-power mode, following the directions
  *  given in DS70615C section 9.2.2.1 by:
  *  - Configuring all digital I/O pins as inputs and
- *    enables pullup on them.
+ *    enabling pullups on them.
  *  - Configuring all analog I/O pins shared with
  *    digital I/O pins to be digital only.
- *  - Disabling the internal voltage regular when in sleep mode.
+ *  - Disabling the internal voltage regulators when in sleep mode.
+ *  - Disabling all peripherals.
  *
  * WARNING: if pullups are enabled on pins used by
  * the oscillator, the clock typically stops running.
@@ -61,11 +62,17 @@ void configPinsForLowPower(void) {
   // The primary oscillator is not used, so
   // turn on all the pull-ups.
   CNPUA = 0xFFFF;
-  // The secondary osciallator is not used, so
-  // turn on all the pull-ups.
   CNPUB = 0xFFFF;
-  // Turn off the internal voltage regulator when in sleep.
+  // Turn off the internal voltage regulators when in sleep.
   _VREGS = 0;
+  _VREGSF = 0;
+  // Power off all peripherals.
+  PMD1 = 0xFFFF;
+  PMD2 = 0xFFFF;
+  PMD3 = 0xFFFF;
+  PMD4 = 0xFFFF;
+  PMD6 = 0xFFFF;
+  PMD7 = 0xFFFF;
 }
 #else
 # warning "Using dummy function for configPinsForLowPower()."
