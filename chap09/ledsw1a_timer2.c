@@ -75,10 +75,10 @@ typedef enum  {
 
 const char* apsz_state_names[] = {
   "STATE_RELEASED1 - LED is off",
-  "STATE_PRESSED1",
+  "STATE_PRESSED1 - LED is off",
   "STATE_RELEASED2 - LED is on",
-  "STATE_PRESSED2 - SW2 on goes to blink else go to RELEASED1",
-  "STATE_RELEASED3_BLINK - LED blinks, waiting for SW1 press",
+  "STATE_PRESSED2 - SW on goes to blink else go to RELEASED1",
+  "STATE_RELEASED3_BLINK - LED blinks, waiting for PB press",
   "STATE_PRESSED3 - LED is on",
 };
 
@@ -101,7 +101,6 @@ void print_state(event_t e_event, state_t e_state) {
   ASSERT(e_event <= N_ELEMENTS(apsz_event_names));
   outString(apsz_event_names[e_event]);
   outString(", ");
-  //outString(SW ? "1, " : "0, ");
 
   // Verify that the state has a string representation before printing it.
   ASSERT(e_state <= N_ELEMENTS(apsz_state_names));
@@ -113,6 +112,9 @@ void print_state(event_t e_event, state_t e_state) {
 // ------------
 // This function prepares the timer to interrupt after the given delay (in ms).
 void timer3_arm(uint16_t u16_time_ms) {
+  // If a timer interrpt has occurred but not been processed, discard it and rearm.
+  _T3IF = 0;
+  // Convert arm time to timer3 ticks.
   PR3 = msToU16Ticks(u16_time_ms, getTimerPrescale(T3CONbits)) - 1;
   TMR3 = 0;
   T3CONbits.TON = 1;
@@ -125,75 +127,78 @@ void update_state(event_t e_event) {
   static state_t e_state = STATE_RELEASED1;
 
   switch (e_event) {
-    // If this is a timer event, assume it was a debounce delay.
     case EVENT_T3 :
+    // Make this a one-shot timer: turn it off.
+    T3CONbits.TON = 0;
     // Clear any pending change notification interrupts due to switch bounce.
     _CNIF = 0;
     // Re-enable change notification interrupts now that all bounces have died out.
     _CNIE = 1;
-    // Make this a one-shot timer: turn it off.
-    T3CONbits.TON = 0;
+    // There are two possible timer event sources:
+    if (e_state == STATE_RELEASED3_BLINK) {
+      // A 100ms blink delay.
+      LED1 = !LED1;
+      timer3_arm(100);
+    }
     break;
 
     // If this is a change notification event, wait a debounce delay before accepting further CN events.
     case EVENT_CN :
     _CNIE = 0;
     timer3_arm(DEBOUNCE_DLY);
+    // Now, update the state due to a cn event.
+    switch (e_state) {
+      case STATE_RELEASED1:
+	if (PB_PRESSED()) e_state = STATE_PRESSED1;
+	break;
+
+      case STATE_PRESSED1:
+	if (PB_RELEASED()) {
+	  // Turn the LED on when entering STATE_RELEASED2.
+	  e_state = STATE_RELEASED2;
+	  LED1 = 1;
+	}
+	break;
+
+      case STATE_RELEASED2:
+	if (PB_PRESSED()) e_state = STATE_PRESSED2;
+	break;
+
+      case STATE_PRESSED2:
+	if (PB_RELEASED()) {
+	  if (SW) {
+	    e_state = STATE_RELEASED3_BLINK;
+	  } else {
+	    // Turn the LED off when moving to STATE_RELEASED1.
+	    e_state = STATE_RELEASED1;
+	    LED1 = 0;
+	  }
+	}
+	break;
+
+      case STATE_RELEASED3_BLINK:
+	if (PB_PRESSED()) {
+	  // Freeze the LED on when existing the blink state.
+	  e_state = STATE_PRESSED3;
+	  LED1 = 1;
+	}
+	break;
+
+      case STATE_PRESSED3:
+	if (PB_RELEASED()) {
+	  // Turn the LED off when moving to STATE_RELEASED1.
+	  e_state = STATE_RELEASED1;
+	  LED1 = 0;
+	}
+	break;
+
+      default:
+	ASSERT(0);
+    }
     break;
 
     default:
     ASSERT(0);
-  }
-
-  switch (e_state) {
-    case STATE_RELEASED1:
-      if (PB_PRESSED()) e_state = STATE_PRESSED1;
-      break;
-
-    case STATE_PRESSED1:
-      if (PB_RELEASED()) {
-        // Turn the LED on when entering STATE_RELEASED2.
-        e_state = STATE_RELEASED2;
-        LED1 = 1;
-      }
-      break;
-
-    case STATE_RELEASED2:
-      if (PB_PRESSED()) e_state = STATE_PRESSED2;
-      break;
-
-    case STATE_PRESSED2:
-      if (PB_RELEASED()) {
-        if (SW) {
-          e_state = STATE_RELEASED3_BLINK;
-        } else {
-          // Turn the LED off when moving to STATE_RELEASED1.
-          e_state = STATE_RELEASED1;
-          LED1 = 0;
-        }
-      }
-      break;
-
-    case STATE_RELEASED3_BLINK:
-      LED1 = !LED1;
-      timer3_arm(100);
-      if (PB_PRESSED()) {
-        // Freeze the LED on when existing the blink state.
-        e_state = STATE_PRESSED3;
-        LED1 = 1;
-      }
-      break;
-
-    case STATE_PRESSED3:
-      if (PB_RELEASED()) {
-        // Turn the LED off when moving to STATE_RELEASED1.
-        e_state = STATE_RELEASED1;
-        LED1 = 0;
-      }
-      break;
-
-    default:
-      ASSERT(0);
   }
 
   print_state(e_event, e_state);
