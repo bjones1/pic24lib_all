@@ -105,6 +105,7 @@ exclude_patterns = ['_build',
                     '**.X/build',
                     '**.X/dist',
                     '**.X/nbproject',
+                    # Ignore Mercurial's repo. Not doing this makes the build *much* slower.
                     '.hg'
                     ]
 
