@@ -136,8 +136,8 @@ static void configFrcUART(void) {
 # endif
 }
 
+static uint32_t u32_timeoutCount;
 static void checkClockTimeout(void) {
-  static uint32_t u32_timeoutCount = 0;
 
   // See if the clock has already failed. If so, return to allow
   // diagnostic code to perform (hopefully safe) clock switches
@@ -197,6 +197,9 @@ void switchClock(uint8_t u8_source) {
   //    Note that oscillator switching is not supported by
   //    the simulator, causing the statements below to
   //    run forever.
+# if USE_CLOCK_TIMEOUT
+  u32_timeoutCount = 0;
+# endif
   while (_OSWEN == 1) {
     checkClockTimeout();
   }
