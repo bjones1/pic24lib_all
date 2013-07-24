@@ -260,20 +260,20 @@
  *  is set to one of the following based on
  *  \ref CLOCK_CONFIG :
  *  \code
- *      Name                 Description                                    PIC24F  PIC24H
- *      -------------        --------------------------------------------   ------  ------
- *      FNOSC_FRC            Fast RC oscillator                                X      X
- *      FNOSC_FRCPLL         Fast RC oscillator w/ divide and PLL              X      X
- *      FNOSC_PRI            Primary oscillator (XT, HS, EC)                   X      X
- *      FNOSC_PRIPLL         Primary oscillator (XT, HS, EC) w/ PLL            X      X
- *      FNOSC_SOSC           Secondary oscillator                              X      X
- *      FNOSC_LPRC           Low power RC oscillator                           X      X
- *      FNOSC_FRCDIV         Fast RC oscillator with divide                    X
- *      FNOSC_FRCDIV16       Fast RC oscillator w/ divide by 16                       X
- *      FNOSC_LPRCDIVN       Low power Fast RC oscillator w/divide by N               X
+ *      Name                 Description                                   PIC24F  PIC24H  PIC24E/dsPIC33E
+ *      -------------        --------------------------------------------  ------  ------  ---------------
+ *      FNOSC_FRC            Fast RC oscillator                               X      X             X
+ *      FNOSC_FRCPLL         Fast RC oscillator w/ divide and PLL             X      X             X
+ *      FNOSC_PRI            Primary oscillator (XT, HS, EC)                  X      X             X
+ *      FNOSC_PRIPLL         Primary oscillator (XT, HS, EC) w/ PLL           X      X             X
+ *      FNOSC_SOSC           Secondary oscillator                             X      X             X
+ *      FNOSC_LPRC           Low power RC oscillator                          X      X             X
+ *      FNOSC_FRCDIV         Fast RC oscillator with divide                   X                    X
+ *      FNOSC_FRCDIV16       Fast RC oscillator w/ divide by 16                      X             X
+ *      FNOSC_LPRCDIVN       Low power RC oscillator w/divide by N                   X
  \endcode
  *
- * \todo Add PIC24FK, PIC24E, dsPIC33E to this table.
+ * \todo Add PIC24FK to this table.
  */
 
 /** \def FCY
