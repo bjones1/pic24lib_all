@@ -21,7 +21,7 @@
 //    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
 //
 //    Please maintain this header in its entirety when copying/modifying
-//   these files.
+//    these files.
 //
 // ***************************************************************
 // echo.c - Inputs chararacters from UART RX1, echos back chars+1.

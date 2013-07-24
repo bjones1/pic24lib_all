@@ -1,57 +1,45 @@
-/*
- * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
- * All rights reserved.
- * (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
- * (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
- * (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
- *
- * Permission to use, copy, modify, and distribute this software and its
- * documentation for any purpose, without fee, and without written agreement is
- * hereby granted, provided that the above copyright notice, the following
- * two paragraphs and the authors appear in all copies of this software.
- *
- * IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
- * DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
- * OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
- * HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
- * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
- * ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
- * PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
- *
- * Please maintain this header in its entirety when copying/modifying
- * these files.
- *
- *
- */
+// .. "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+//    All rights reserved.
+//    (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
+//    (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
+//    (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
+//
+//    Permission to use, copy, modify, and distribute this software and its
+//    documentation for any purpose, without fee, and without written agreement is
+//    hereby granted, provided that the above copyright notice, the following
+//    two paragraphs and the authors appear in all copies of this software.
+//
+//    IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
+//    DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
+//    OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
+//    HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//    THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+//    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+//    AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+//    ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
+//    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
+//
+//    Please maintain this header in its entirety when copying/modifying
+//    these files.
+//
+// ****************************************************************************
+// reset.c - Demonstrates software reset, idle, sleep, watchdog timer operation.
+// ****************************************************************************
+// Program that tests some of the ways that a PIC24 can be reset, as well as sleep mode, idle mode, and the watchdog timer. Intended to be used in a laboratory exercise in which the current draw of the processor is monitored before/after the power down modes.
 
 #include "pic24_all.h"
 
 
-/** \file
-Program that tests some of the ways that a PIC24 can
-be reset, as well as sleep mode, idle mode, and the watchdog timer.
-Intended to be used in a laboratory exercise in which the current
-draw of the processor is monitored before/after the power down
-modes.
-*/
-
-/** This function puts the PIC24 in low-power mode, following the directions
- *  given in DS70615C section 9.2.2.1 by:
- *  - Configuring all digital I/O pins as inputs and
- *    enabling pullups on them.
- *  - Configuring all analog I/O pins shared with
- *    digital I/O pins to be digital only.
- *  - Disabling the internal voltage regulators when in sleep mode.
- *  - Disabling all peripherals.
- *
- * WARNING: if pullups are enabled on pins used by
- * the oscillator, the clock typically stops running.
- * Therefore, this code only works with the FRC oscillator.
- */
-//this function is processor specific
+// This function puts the PIC24 in low-power mode, following the directions given in DS70615C section 9.2.2.1 by:
+//  - Configuring all digital I/O pins as inputs and enabling pullups on them.
+//  - Configuring all analog I/O pins shared with digital I/O pins to be digital only.
+//  - Disabling the internal voltage regulators when in sleep mode.
+//  - Disabling all peripherals.
+//
+// WARNING: if pullups are enabled on pins used by the oscillator, the clock typically stops running. Therefore, this code only works with the FRC oscillator.
+// 
+// Note: this function is processor specific.
 #if (defined(__dsPIC33EP128GP502__))
 void configPinsForLowPower(void) {
   // Configure all digital I/O pins for input.
@@ -102,7 +90,6 @@ _PERSISTENT uint8_t u8_resetCount;
 
 
 int main(void) {
-
   configClock();                //clock configuration
   configPinsForLowPower();      //config pins for low power since we are measuring current
   configHeartbeat();            //heartbeat LED

@@ -21,7 +21,7 @@
 //    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
 //
 //    Please maintain this header in its entirety when copying/modifying
-//   these files.
+//    these files.
 //
 // *************************************************************************
 // ledsw1.c - Demonstrates using a FSM approach for a LED/switch IO problem.

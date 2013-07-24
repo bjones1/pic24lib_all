@@ -21,7 +21,7 @@
 //    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
 //
 //    Please maintain this header in its entirety when copying/modifying
-//   these files.
+//    these files.
 //
 // ******************************************************************
 // trap_test.c - Code which causes a math error (divide by zero) trap

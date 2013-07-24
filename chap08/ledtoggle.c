@@ -21,7 +21,7 @@
 //    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
 //
 //    Please maintain this header in its entirety when copying/modifying
-//   these files.
+//    these files.
 //
 // ********************************************************************************************************
 // ledtoggle.c - Uses an FSM approach to toggle an LED whenever a pushbutton input is pressed and released.

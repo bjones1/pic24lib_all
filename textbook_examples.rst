@@ -71,15 +71,17 @@ Chapter 4 - Unsigned 8/16-bit arithmetic
 
 Chapter 8 - initial startup, parallel port examples
 ---------------------------------------------------
-  - chap08/ledflash_nomacros.c - Flashes an LED, does not use I/O macros.
-  - chap08/ledflash.c - Flashes an LED, uses I/O macros.
-  - chap08/echo.c
-  - chap08/asm_echo.s
-  - chap08/reset.c - Demonstrates software reset, idle, sleep, watchdog timer operation.
-  - chap08/ledtoggle_nofsm.c - Toggles an LED whenever a pushbutton input is pressed and released, does not use an FSM approach.
-  - chap08/ledtoggle.c
-  - chap08/ledsw1.c
-  - chap08/lcd4bit.c - Character LCD interface example
+.. toctree::
+   :titlesonly:
+
+   chap08/ledflash_nomacros.c
+   chap08/ledflash.c
+   chap08/echo.c
+   chap08/asm_echo.s
+   chap08/reset.c
+   chap08/ledtoggle.c
+   chap08/ledsw1.c
+   chap08/lcd4bit.c
 
 Chapter 9: interrupts, simple timer usage
 -----------------------------------------
@@ -87,12 +89,12 @@ Chapter 9: interrupts, simple timer usage
    :titlesonly:
 
    chap09/trap_test.c
+   chap09/trap_test_handled.c
+   chap09/change_wakeup.c
+   chap09/change_latency.c
+   chap09/int1_wakeup.c
 
-Blah.
-  - chap09/trap_test_handled.c - contains an ISR which handles the math error (divide by zero)
-  - chap09/change_wakeup.c - wake from sleep using a change notification interrupt
-  - chap09/change_latency.c
-  - chap09/int1_wakeup.c
+To do:
   - chap09/squarewave.c - Generates a square wave using timer 2 and an ISR.
   - chap09/filt_test.c - test an extern low-pass RC filter effectiveness by generating a pulse train that is read by another port
   - chap09/softfilt_test.c - Implements a software filter for input pulses less than a specified duration.
