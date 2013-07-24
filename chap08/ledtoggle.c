@@ -35,9 +35,9 @@
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
 #define LED1 _LATB14     //led1 state
 
-// Switch 1 configuration and access
-// =================================
-void config_sw1()  {
+// Pushbutton configuration and access
+// ===================================
+void config_pb()  {
   CONFIG_RB13_AS_DIG_INPUT();
   ENABLE_RB13_PULLUP();
   // Give the pullup some time to take effect.
@@ -107,10 +107,10 @@ void update_state() {
 int main (void) {
   // Configure the hardware.
   configBasic(HELLO_MSG);
-  config_sw1();
+  config_pb();
   CONFIG_LED1();
 
-  // Initialize the state machine to its starting state.
+  // Initialize the state machine's extended state to its starting value.
   LED1 = 0;
 
   while (1) {
