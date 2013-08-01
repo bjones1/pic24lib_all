@@ -44,6 +44,8 @@
         <itemPath>../../lib/src/pic24_serial.c</itemPath>
         <itemPath>../../lib/src/pic24_uart.c</itemPath>
         <itemPath>../../lib/src/pic24_util.c</itemPath>
+        <itemPath>../../lib/src/pic24_spi.c</itemPath>
+        <itemPath>../../lib/src/pic24_i2c.c</itemPath>
       </logicalFolder>
       <itemPath>../template.c</itemPath>
     </logicalFolder>
@@ -105,8 +107,7 @@
         <property key="enable-short-double" value="false"/>
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
-        <property key="extra-include-directories"
-                  value="..\..\lib\include"/>
+        <property key="extra-include-directories" value="..\..\lib\include"/>
         <property key="isolate-each-function" value="false"/>
         <property key="keep-inline" value="false"/>
         <property key="oXC16gcc-align-arr" value="false"/>
