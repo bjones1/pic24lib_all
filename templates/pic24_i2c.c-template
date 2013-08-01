@@ -53,12 +53,12 @@ void configI2C${x}(uint16_t u16_FkHZ) {
 
   u16_temp = (FCY/1000L)/((uint16_t) u16_FkHZ);
 #if defined(__PIC24E__) || defined(__dsPIC33E__)
-//this ignores the gobbler pulse delay, which is device dependent and small
+  // This ignores the gobbler pulse delay, which is device dependent and small.
   u16_temp = (u16_temp  - 1);
 #else
   u16_temp = u16_temp - FCY/10000000L - 1;
 #endif
-//the SCL divider only uses 9 bits
+  // The SCL divider only uses 9 bits.
   if (u16_temp > 511)  u16_temp = 511;
   I2C${x}BRG = u16_temp;
   I2C${x}CONbits.I2CEN = 1;
