@@ -38,7 +38,7 @@
 //  - Disabling all peripherals.
 //
 // WARNING: if pullups are enabled on pins used by the oscillator, the clock typically stops running. Therefore, this code only works with the FRC oscillator.
-// 
+//
 // Note: this function is processor specific.
 #if (defined(__dsPIC33EP128GP502__))
 void configPinsForLowPower(void) {

@@ -13,7 +13,7 @@ typedef unsigned long  UWord32;
 
 void WriteMem(UWord16 val) {
   UNUSED(val);
-  
+
   asm("mov	W0,NVMCON");
   __builtin_write_NVM();
 

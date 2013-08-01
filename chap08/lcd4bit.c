@@ -31,7 +31,7 @@
 // Assumes a 5V LCD; digital-only IO pins are assumed
 // to be used for the four-bit data bus because they are
 // 5V input tolerant.
-// 
+//
 // Tested with Optrex 24227 and
 // Optrex DMC-50448N-AAE-AD.
 // Should work with any LCD that uses the
