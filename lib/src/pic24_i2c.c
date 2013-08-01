@@ -326,7 +326,7 @@ Configure and enable the I2C2 module for operation at \em u16_FkHZ kHZ clock spe
 \param u16_FkHZ specifies clock speed in kHZ
 */
 void configI2C2(uint16_t u16_FkHZ) {
- uint16_t u16_temp;
+  uint16_t u16_temp;
   u16_temp = (FCY/1000L)/((uint16_t) u16_FkHZ);
 #if defined(__PIC24E__) || defined(__dsPIC33E__)
   //this ignores the gobbler pulse delay, which is device dependent and small
