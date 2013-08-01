@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>com.microchip.mplab.nbide.embedded.makeproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/make-project/1">
+            <name>ds1621_i2c</name>
+            <creation-uuid>cf6f681e-a8c3-425e-8e52-b2d14923f7d2</creation-uuid>
+            <make-project-type>0</make-project-type>
+            <c-extensions>c</c-extensions>
+            <cpp-extensions/>
+            <header-extensions>h</header-extensions>
+            <sourceEncoding>UTF-8</sourceEncoding>
+            <make-dep-projects/>
+        </data>
+    </configuration>
+</project>

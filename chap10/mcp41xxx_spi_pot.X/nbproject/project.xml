@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>com.microchip.mplab.nbide.embedded.makeproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/make-project/1">
+            <name>mcp41xxx_spi_pot</name>
+            <creation-uuid>7a51b191-d010-46e5-a9fb-51f10e03df9b</creation-uuid>
+            <make-project-type>0</make-project-type>
+            <c-extensions>c</c-extensions>
+            <cpp-extensions/>
+            <header-extensions>h</header-extensions>
+            <sourceEncoding>UTF-8</sourceEncoding>
+            <make-dep-projects/>
+        </data>
+    </configuration>
+</project>
