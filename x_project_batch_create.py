@@ -11,7 +11,7 @@ import uuid
 # Edots file_base_name.X/nmproject/project.xml to replace <name>template</name> with <name>file_base_name</name> and picks a unique / random creation-uuid.
 
 # Directory to operate on:
-working_dir = 'chap09'
+working_dir = 'chap10'
 
 # File extension to assume:
 file_extension = '.c'
@@ -42,7 +42,7 @@ def replace_in_project_file(project_dir, replacement_file_name):
     replacement_file_name = os.path.split(replacement_file_name)[1]
     replacement_file_name = os.path.splitext(replacement_file_name)[0]
     replace_in_xml_file(project_file_name, 'template', replacement_file_name, '<name>%s</name>')
-    replace_in_xml_file(project_file_name, '23362592-784f-4b67-a06b-e25c3ce5464b', str(uuid.uuid4()), '<creation-uuid>%s</creation-uuid>')
+    replace_in_xml_file(project_file_name, 'e3745ab9-948b-48b5-8245-13ca65c85c7d', str(uuid.uuid4()), '<creation-uuid>%s</creation-uuid>')
 
 # This routine replaces data in XML format, given a simple template.
 def replace_in_xml_file(file_name, original_value, replacement_value, xml_template):
@@ -75,7 +75,7 @@ for f in source_files:
     # Determine the destination directory based on the file name.
     dest_dir = os.path.splitext(f)[0] + '.X'
     # Create the project by copying it.
-    shutil_copytree('template.X', dest_dir)
+    shutil_copytree('templates/template.X', dest_dir)
     # Edit the configurations to include the source file.
     config_file = os.path.join(dest_dir, 'nbproject', 'configurations.xml')
     replace_in_config_file(dest_dir, f)
