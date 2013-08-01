@@ -49,11 +49,17 @@ Configure and enable the I2C1 module for operation at \em u16_FkHZ kHZ clock spe
 \param u16_FkHZ specifies clock speed in kHZ
 */
 void configI2C1(uint16_t u16_FkHZ) {
-  uint32_t u32_temp;
-
-  u32_temp = (FCY/1000L)/((uint32_t) u16_FkHZ);
-  u32_temp = u32_temp - FCY/10000000L - 1;
-  I2C1BRG = u32_temp;
+  uint16_t u16_temp;
+  u16_temp = (FCY/1000L)/((uint16_t) u16_FkHZ);
+#if defined(__PIC24E__) || defined(__dsPIC33E__)
+  //this ignores the gobbler pulse delay, which is device dependent and small
+  u16_temp = (u16_temp  - 1);
+#else   
+  u16_temp = u16_temp - FCY/10000000L - 1;
+#endif
+  //the SCL divider only uses 9 bits
+  if (u16_temp > 511)  u16_temp = 511;
+  I2C1BRG = u16_temp;
   I2C1CONbits.I2CEN = 1;
 }
 
@@ -320,11 +326,17 @@ Configure and enable the I2C2 module for operation at \em u16_FkHZ kHZ clock spe
 \param u16_FkHZ specifies clock speed in kHZ
 */
 void configI2C2(uint16_t u16_FkHZ) {
-  uint32_t u32_temp;
-
-  u32_temp = (FCY/1000L)/((uint32_t) u16_FkHZ);
-  u32_temp = u32_temp - FCY/10000000L - 1;
-  I2C2BRG = u32_temp;
+ uint16_t u16_temp;
+  u16_temp = (FCY/1000L)/((uint16_t) u16_FkHZ);
+#if defined(__PIC24E__) || defined(__dsPIC33E__)
+  //this ignores the gobbler pulse delay, which is device dependent and small
+  u16_temp = (u16_temp  - 1);
+#else   
+  u16_temp = u16_temp - FCY/10000000L - 1;
+#endif
+  //the SCL divider only uses 9 bits
+  if (u16_temp > 511)  u16_temp = 511;
+  I2C2BRG = u16_temp;
   I2C2CONbits.I2CEN = 1;
 }
 
