@@ -50,7 +50,7 @@ Welcome to the PIC24 library collection! This \ref PIC24_support "library"
 <a href="http://www.ece.msstate.edu/courses/ece3724/main_pic24/labs/files/pic24_code_examples.zip">here</a>),
 accompanied by detailed explanations in the
 <a href="http://www.reesemicro.com/Home/textbook">textbook</a>,
-supplemented with numerous real-world \ref textbookExamples "examples", and
+supplemented with numerous real-world <a href="sphinx/textbook_examples.html">examples</a>, and
 accompanied by extensive on-line documentation given below,
 enable developers to take advantage of the wide range of peripherals offered by the PIC24.
 The collection consists of the
@@ -62,7 +62,7 @@ started guide</a>; the \ref PIC24_support "PIC24 support library"; and
 The
 <a href="http://www.reesemicro.com/Home/pic24-software-library-collection/getting-started">getting
 started</a> page walks newcomers through the first step in developing for the PIC24:
-installing software and obtaining necessary hardware. Next, \ref textbookExamples "examples" introduce use of the libraries below.
+installing software and obtaining necessary hardware. Next, <a href="sphinx/textbook_examples.html">examples</a> introduce use of the libraries below.
 Finally, documentation below provides a detailed reference to each of the library's operation.
 
 
@@ -70,7 +70,7 @@ Finally, documentation below provides a detailed reference to each of the librar
 The \ref PIC24_support "PIC24 support library" supports all the major subsystems of the PIC24:
 clock configuration, configuration bits, delays, interrupts,
 digital I/O, timers, serial I/O, SPI, I2C, ECAN, comparators, A/D conversion, FLASH reads/writes, and DMA.
-An extensive set of \ref textbookExamples "examples" accompanying the library provide working sample code to guide newcomers to using the library.
+An extensive set of <a href="sphinx/textbook_examples.html">examples</a> accompanying the library provide working sample code to guide newcomers to using the library.
 
 
 \section internalESOS ESOS

@@ -93,26 +93,29 @@ Chapter 9: interrupts, simple timer usage
    chap09/change_wakeup.c
    chap09/change_latency.c
    chap09/int1_wakeup.c
+   chap09/squarewave.c
+   chap09/filt_test.c
+   chap09/softfilt_test.c
+   chap09/ledsw1_timer2.c
+   chap09/rot_enc.c
+   chap09/keypad.c
+   chap09/rot_enc_trace.c
 
-To do:
-  - chap09/squarewave.c - Generates a square wave using timer 2 and an ISR.
-  - chap09/filt_test.c - test an extern low-pass RC filter effectiveness by generating a pulse train that is read by another port
-  - chap09/softfilt_test.c - Implements a software filter for input pulses less than a specified duration.
-  - chap09/ledsw1_timer2.c
-  - chap09/rot_enc.c - A 2-bit incremental Gray code rotary encoder example
-  - chap09/keypad.c - Implements a 4x3 key scanned keypad interface.
-  - chap09/rot_enc_trace.c - Demonstrates use of an ISR trace buffer for capturing the states of a rotary encoder.
 
 Chapter 9 extras
 ^^^^^^^^^^^^^^^^
 These programs demonstrate related concepts, but are not directly discussed in the textbook.
-  - chap09/change_bounce.c - uses a change notification interrupt to detect switch bounce
-  - chap09/change_test.c - demos a change notification interrupt using an input pushbutton
-  - chap09/int0_bounce.c - use the INT0 interrupt to detect switch bounce.
-  - chap09/int0_wakeup.c - uses INT0 to wake from sleep mode.
-  - chap09/int1_bounce.c - use the INT1 interrupt to detect switch bounce.
-  - chap09/ledflash_timer.c - uses a periodic timer interrupt to flash an LED.
-  - chap09/ledtoggle_timer.c - toggle an LED using a periodic interrupt to poll the switch input
+
+.. toctree::
+   :titlesonly:
+
+   chap09/change_bounce.c
+   chap09/change_test.c
+   chap09/int0_bounce.c
+   chap09/int0_wakeup.c
+   chap09/int1_bounce.c
+   chap09/ledflash_timer.c
+   chap09/ledtoggle_timer.c
 
 Chapter 10 (UART, SPI, I2C)
 ---------------------------
@@ -195,4 +198,10 @@ Examples converted to be compatible with the Explorer-16, 100-pin demo board
 
 Examples using the `data transfer protocol <../data_xfer.html>`_
 ----------------------------------------------------------------
-See the data transfer protocol `example listing <../data_xfer.html#dataXferExamples>`_.
+The following programs use the data transfer protocol, providing working examples of its usage.
+
+.. toctree::
+   :titlesonly:
+
+   util/dataXfer_echo.c
+   util/dataXfer_demo.c

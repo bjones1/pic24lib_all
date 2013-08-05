@@ -27,16 +27,16 @@
 
 /**
  * \page dataXfer The uC/PC data transfer protocol
- * \section dataXferIntro The PC/uC data transfer protocol
+ * \section dataXferIntro The uC/PC data transfer protocol
  *
- *  The uC data transfer protocol is a simple protocol to exchange data between
- *  a PC and a PIC over the UART. The example given below and implemented in
- *  this library applies to the PIC24/dsPIC33 series, though porting it to other
- *  microcontrollers is straightforward.
+ * The uC/PC data transfer protocol is a simple protocol to exchange data between
+ * a PC and a PIC over the UART. The example given below and implemented in
+ * this library applies to the PIC24/dsPIC33 series, though porting it to other
+ * microcontrollers is straightforward.
  *
- *  \htmlonly
- *  <object width="640" height="505"><param name="movie" value="http://www.youtube.com/v/3B60xpMLoFg&hl=en_US&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/3B60xpMLoFg&hl=en_US&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="505"></embed></object>
- *  \endhtmlonly
+ * \htmlonly
+ * <object width="640" height="505"><param name="movie" value="http://www.youtube.com/v/3B60xpMLoFg&hl=en_US&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/3B60xpMLoFg&hl=en_US&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="505"></embed></object>
+ * \endhtmlonly
  *
  * \section usageSketch Usage sketch
  * \code
@@ -79,11 +79,7 @@ int main(void) {
  * \endcode
  *
  * \section dataXferExamples Examples
- * The following programs use the data transfer protocol, providing working
- * examples of its usage.
- * - dataXfer_echo.c, which is given above.
- * - dataXfer_demo.c, a more complete example.
- * - ledpwm.c
+ * See the bottom of the <a href="sphinx/textbook_examples.html">example directory</a> page.
  *
  * \section designGoals Design goals
  *  - Easy to use: no setup required to send variables; integrates with

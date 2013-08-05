@@ -21,7 +21,7 @@
 //    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
 //
 //    Please maintain this header in its entirety when copying/modifying
-//   these files.
+//    these files.
 //
 // ****************************************************************
 // ledsw1_timer2.c - Example of implementing a FSM in an interrupt.

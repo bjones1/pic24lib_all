@@ -23,9 +23,9 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
-// ****************************************************************************
+// *****************************************************************************
 // reset.c - Demonstrates software reset, idle, sleep, watchdog timer operation.
-// ****************************************************************************
+// *****************************************************************************
 // Program that tests some of the ways that a PIC24 can be reset, as well as sleep mode, idle mode, and the watchdog timer. Intended to be used in a laboratory exercise in which the current draw of the processor is monitored before/after the power down modes.
 
 #include "pic24_all.h"
