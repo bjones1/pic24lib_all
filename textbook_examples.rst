@@ -50,7 +50,7 @@ If the end-of-line (EOL) output behavior is not correct for the serial terminal 
 
 Our examples also assume an LED tied to port RB15 - this is used as a 'heartbeat' and is blinked by our examples when waiting for input. You can reassign this to another port (see \ref HB_LED) or remove it entirely (see \ref USE_HEARTBEAT) by editing pic24_libconfig.h.
 
-The best project to start with is :doc:`chap08/reset.c` - this just assumes basic serial port functionality.
+The best project to start with is :doc:`reset.c <chap08/reset.c>` - this just assumes basic serial port functionality.
 
 Example code directory
 ======================
@@ -104,7 +104,7 @@ To do:
   - chap09/rot_enc_trace.c - Demonstrates use of an ISR trace buffer for capturing the states of a rotary encoder.
 
 Chapter 9 extras
-----------------
+^^^^^^^^^^^^^^^^
 These programs demonstrate related concepts, but are not directly discussed in the textbook.
   - chap09/change_bounce.c - uses a change notification interrupt to detect switch bounce
   - chap09/change_test.c - demos a change notification interrupt using an input pushbutton
@@ -193,6 +193,6 @@ Examples converted to be compatible with the Explorer-16, 100-pin demo board
   - explorer16_100p/timer1_sosc.c example (see Chapter 12); Demonstrates using the secondary oscillator with a 32768 Hz oscillator.
   - explorer16_100p/mcp25lc256_spi_eeprom.c example (see Chapter 10); Demonstrates using the 25lc256 SPI EEPROM on the explorer-16 board. This is not tied to a particular textbook example, but has a similar structure to the Chapter 10 mcp24lc515_i2c_eeprom.c example that uses I2C.
 
-Examples using the \ref dataXfer "data transfer protocol"
----------------------------------------------------------
-See the data transfer protocol \ref dataXferExamples "example listing".
+Examples using the `data transfer protocol <../data_xfer.html>`_
+----------------------------------------------------------------
+See the data transfer protocol `example listing <../data_xfer.html#dataXferExamples>`_.
