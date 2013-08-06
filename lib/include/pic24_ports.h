@@ -192,10 +192,6 @@
 // ==================
 // Include the table data used to drive GPIO config.
 #include "pic24_ports_mapping.h"
-// Process this table into GPIO config.
-#if defined(__PIC24E__) || defined(__dsPIC33E__)
-# include "pic24_ports_e_config.h"
-#else
 
 // Port configuration macros
 // =========================
@@ -221,9 +217,8 @@
 #define RXY_GPIO_CNPDE(Rxy_CN) _RXY_GPIO_CNPDE(Rxy_CN)
 #define _RXY_GPIO_CNPDE(Rxy_CN) (_CN ## Rxy_CN ## PDE)
 
-
-# include "pic24_ports_fh_config.h"
-#endif
+// Using the above macros, transform the table data into GPIO config.
+#include "pic24_ports_config.h"
 
 
 

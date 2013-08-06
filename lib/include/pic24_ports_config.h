@@ -36,7 +36,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA0_AN
+# if defined(_ANSA0)
+#   define ENABLE_RA0_ANALOG()  (_ANSA0 = 1)
+#   define DISABLE_RA0_ANALOG() (_ANSA0 = 0)
+# elif defined(RA0_AN)
 #   define ENABLE_RA0_ANALOG()  (RXY_GPIO_PCFG(RA0_AN) = 1)
 #   define DISABLE_RA0_ANALOG() (RXY_GPIO_PCFG(RA0_AN) = 0)
 # else
@@ -59,7 +62,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA0_CN
+# if defined(_CNIEA0)
+#   define ENABLE_RA0_PULLUP()  (_CNPUA0 = 1)
+#   define DISABLE_RA0_PULLUP() (_CNPUA0 = 0)
+
+#   define ENABLE_RA0_PULLDOWN()  (_CNPDA0 = 1)
+#   define DISABLE_RA0_PULLDOWN() (_CNPDA0 = 0)
+
+#   define ENABLE_RA0_CN_INTERRUPT()  (_CNIEA0 = 1)
+#   define DISABLE_RA0_CN_INTERRUPT() (_CNIEA0 = 0)
+
+# elif defined(RA0_CN)
 #   define ENABLE_RA0_PULLUP()  (RXY_GPIO_CNPUE(RA0_CN) = 1)
 #   define DISABLE_RA0_PULLUP() (RXY_GPIO_CNPUE(RA0_CN) = 0)
 
@@ -81,7 +94,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA0_AN
+# if defined(_ANSA0) || defined(RA0_AN)
 #   define CONFIG_RA0_AS_ANALOG()       \
       do {                              \
         ENABLE_RA0_ANALOG();            \
@@ -123,7 +136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA1_AN
+# if defined(_ANSA1)
+#   define ENABLE_RA1_ANALOG()  (_ANSA1 = 1)
+#   define DISABLE_RA1_ANALOG() (_ANSA1 = 0)
+# elif defined(RA1_AN)
 #   define ENABLE_RA1_ANALOG()  (RXY_GPIO_PCFG(RA1_AN) = 1)
 #   define DISABLE_RA1_ANALOG() (RXY_GPIO_PCFG(RA1_AN) = 0)
 # else
@@ -146,7 +162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA1_CN
+# if defined(_CNIEA1)
+#   define ENABLE_RA1_PULLUP()  (_CNPUA1 = 1)
+#   define DISABLE_RA1_PULLUP() (_CNPUA1 = 0)
+
+#   define ENABLE_RA1_PULLDOWN()  (_CNPDA1 = 1)
+#   define DISABLE_RA1_PULLDOWN() (_CNPDA1 = 0)
+
+#   define ENABLE_RA1_CN_INTERRUPT()  (_CNIEA1 = 1)
+#   define DISABLE_RA1_CN_INTERRUPT() (_CNIEA1 = 0)
+
+# elif defined(RA1_CN)
 #   define ENABLE_RA1_PULLUP()  (RXY_GPIO_CNPUE(RA1_CN) = 1)
 #   define DISABLE_RA1_PULLUP() (RXY_GPIO_CNPUE(RA1_CN) = 0)
 
@@ -168,7 +194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA1_AN
+# if defined(_ANSA1) || defined(RA1_AN)
 #   define CONFIG_RA1_AS_ANALOG()       \
       do {                              \
         ENABLE_RA1_ANALOG();            \
@@ -210,7 +236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA2_AN
+# if defined(_ANSA2)
+#   define ENABLE_RA2_ANALOG()  (_ANSA2 = 1)
+#   define DISABLE_RA2_ANALOG() (_ANSA2 = 0)
+# elif defined(RA2_AN)
 #   define ENABLE_RA2_ANALOG()  (RXY_GPIO_PCFG(RA2_AN) = 1)
 #   define DISABLE_RA2_ANALOG() (RXY_GPIO_PCFG(RA2_AN) = 0)
 # else
@@ -233,7 +262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA2_CN
+# if defined(_CNIEA2)
+#   define ENABLE_RA2_PULLUP()  (_CNPUA2 = 1)
+#   define DISABLE_RA2_PULLUP() (_CNPUA2 = 0)
+
+#   define ENABLE_RA2_PULLDOWN()  (_CNPDA2 = 1)
+#   define DISABLE_RA2_PULLDOWN() (_CNPDA2 = 0)
+
+#   define ENABLE_RA2_CN_INTERRUPT()  (_CNIEA2 = 1)
+#   define DISABLE_RA2_CN_INTERRUPT() (_CNIEA2 = 0)
+
+# elif defined(RA2_CN)
 #   define ENABLE_RA2_PULLUP()  (RXY_GPIO_CNPUE(RA2_CN) = 1)
 #   define DISABLE_RA2_PULLUP() (RXY_GPIO_CNPUE(RA2_CN) = 0)
 
@@ -255,7 +294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA2_AN
+# if defined(_ANSA2) || defined(RA2_AN)
 #   define CONFIG_RA2_AS_ANALOG()       \
       do {                              \
         ENABLE_RA2_ANALOG();            \
@@ -297,7 +336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA3_AN
+# if defined(_ANSA3)
+#   define ENABLE_RA3_ANALOG()  (_ANSA3 = 1)
+#   define DISABLE_RA3_ANALOG() (_ANSA3 = 0)
+# elif defined(RA3_AN)
 #   define ENABLE_RA3_ANALOG()  (RXY_GPIO_PCFG(RA3_AN) = 1)
 #   define DISABLE_RA3_ANALOG() (RXY_GPIO_PCFG(RA3_AN) = 0)
 # else
@@ -320,7 +362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA3_CN
+# if defined(_CNIEA3)
+#   define ENABLE_RA3_PULLUP()  (_CNPUA3 = 1)
+#   define DISABLE_RA3_PULLUP() (_CNPUA3 = 0)
+
+#   define ENABLE_RA3_PULLDOWN()  (_CNPDA3 = 1)
+#   define DISABLE_RA3_PULLDOWN() (_CNPDA3 = 0)
+
+#   define ENABLE_RA3_CN_INTERRUPT()  (_CNIEA3 = 1)
+#   define DISABLE_RA3_CN_INTERRUPT() (_CNIEA3 = 0)
+
+# elif defined(RA3_CN)
 #   define ENABLE_RA3_PULLUP()  (RXY_GPIO_CNPUE(RA3_CN) = 1)
 #   define DISABLE_RA3_PULLUP() (RXY_GPIO_CNPUE(RA3_CN) = 0)
 
@@ -342,7 +394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA3_AN
+# if defined(_ANSA3) || defined(RA3_AN)
 #   define CONFIG_RA3_AS_ANALOG()       \
       do {                              \
         ENABLE_RA3_ANALOG();            \
@@ -384,7 +436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA4_AN
+# if defined(_ANSA4)
+#   define ENABLE_RA4_ANALOG()  (_ANSA4 = 1)
+#   define DISABLE_RA4_ANALOG() (_ANSA4 = 0)
+# elif defined(RA4_AN)
 #   define ENABLE_RA4_ANALOG()  (RXY_GPIO_PCFG(RA4_AN) = 1)
 #   define DISABLE_RA4_ANALOG() (RXY_GPIO_PCFG(RA4_AN) = 0)
 # else
@@ -407,7 +462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA4_CN
+# if defined(_CNIEA4)
+#   define ENABLE_RA4_PULLUP()  (_CNPUA4 = 1)
+#   define DISABLE_RA4_PULLUP() (_CNPUA4 = 0)
+
+#   define ENABLE_RA4_PULLDOWN()  (_CNPDA4 = 1)
+#   define DISABLE_RA4_PULLDOWN() (_CNPDA4 = 0)
+
+#   define ENABLE_RA4_CN_INTERRUPT()  (_CNIEA4 = 1)
+#   define DISABLE_RA4_CN_INTERRUPT() (_CNIEA4 = 0)
+
+# elif defined(RA4_CN)
 #   define ENABLE_RA4_PULLUP()  (RXY_GPIO_CNPUE(RA4_CN) = 1)
 #   define DISABLE_RA4_PULLUP() (RXY_GPIO_CNPUE(RA4_CN) = 0)
 
@@ -429,7 +494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA4_AN
+# if defined(_ANSA4) || defined(RA4_AN)
 #   define CONFIG_RA4_AS_ANALOG()       \
       do {                              \
         ENABLE_RA4_ANALOG();            \
@@ -471,7 +536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA5_AN
+# if defined(_ANSA5)
+#   define ENABLE_RA5_ANALOG()  (_ANSA5 = 1)
+#   define DISABLE_RA5_ANALOG() (_ANSA5 = 0)
+# elif defined(RA5_AN)
 #   define ENABLE_RA5_ANALOG()  (RXY_GPIO_PCFG(RA5_AN) = 1)
 #   define DISABLE_RA5_ANALOG() (RXY_GPIO_PCFG(RA5_AN) = 0)
 # else
@@ -494,7 +562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA5_CN
+# if defined(_CNIEA5)
+#   define ENABLE_RA5_PULLUP()  (_CNPUA5 = 1)
+#   define DISABLE_RA5_PULLUP() (_CNPUA5 = 0)
+
+#   define ENABLE_RA5_PULLDOWN()  (_CNPDA5 = 1)
+#   define DISABLE_RA5_PULLDOWN() (_CNPDA5 = 0)
+
+#   define ENABLE_RA5_CN_INTERRUPT()  (_CNIEA5 = 1)
+#   define DISABLE_RA5_CN_INTERRUPT() (_CNIEA5 = 0)
+
+# elif defined(RA5_CN)
 #   define ENABLE_RA5_PULLUP()  (RXY_GPIO_CNPUE(RA5_CN) = 1)
 #   define DISABLE_RA5_PULLUP() (RXY_GPIO_CNPUE(RA5_CN) = 0)
 
@@ -516,7 +594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA5_AN
+# if defined(_ANSA5) || defined(RA5_AN)
 #   define CONFIG_RA5_AS_ANALOG()       \
       do {                              \
         ENABLE_RA5_ANALOG();            \
@@ -558,7 +636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA6_AN
+# if defined(_ANSA6)
+#   define ENABLE_RA6_ANALOG()  (_ANSA6 = 1)
+#   define DISABLE_RA6_ANALOG() (_ANSA6 = 0)
+# elif defined(RA6_AN)
 #   define ENABLE_RA6_ANALOG()  (RXY_GPIO_PCFG(RA6_AN) = 1)
 #   define DISABLE_RA6_ANALOG() (RXY_GPIO_PCFG(RA6_AN) = 0)
 # else
@@ -581,7 +662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA6_CN
+# if defined(_CNIEA6)
+#   define ENABLE_RA6_PULLUP()  (_CNPUA6 = 1)
+#   define DISABLE_RA6_PULLUP() (_CNPUA6 = 0)
+
+#   define ENABLE_RA6_PULLDOWN()  (_CNPDA6 = 1)
+#   define DISABLE_RA6_PULLDOWN() (_CNPDA6 = 0)
+
+#   define ENABLE_RA6_CN_INTERRUPT()  (_CNIEA6 = 1)
+#   define DISABLE_RA6_CN_INTERRUPT() (_CNIEA6 = 0)
+
+# elif defined(RA6_CN)
 #   define ENABLE_RA6_PULLUP()  (RXY_GPIO_CNPUE(RA6_CN) = 1)
 #   define DISABLE_RA6_PULLUP() (RXY_GPIO_CNPUE(RA6_CN) = 0)
 
@@ -603,7 +694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA6_AN
+# if defined(_ANSA6) || defined(RA6_AN)
 #   define CONFIG_RA6_AS_ANALOG()       \
       do {                              \
         ENABLE_RA6_ANALOG();            \
@@ -645,7 +736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA7_AN
+# if defined(_ANSA7)
+#   define ENABLE_RA7_ANALOG()  (_ANSA7 = 1)
+#   define DISABLE_RA7_ANALOG() (_ANSA7 = 0)
+# elif defined(RA7_AN)
 #   define ENABLE_RA7_ANALOG()  (RXY_GPIO_PCFG(RA7_AN) = 1)
 #   define DISABLE_RA7_ANALOG() (RXY_GPIO_PCFG(RA7_AN) = 0)
 # else
@@ -668,7 +762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA7_CN
+# if defined(_CNIEA7)
+#   define ENABLE_RA7_PULLUP()  (_CNPUA7 = 1)
+#   define DISABLE_RA7_PULLUP() (_CNPUA7 = 0)
+
+#   define ENABLE_RA7_PULLDOWN()  (_CNPDA7 = 1)
+#   define DISABLE_RA7_PULLDOWN() (_CNPDA7 = 0)
+
+#   define ENABLE_RA7_CN_INTERRUPT()  (_CNIEA7 = 1)
+#   define DISABLE_RA7_CN_INTERRUPT() (_CNIEA7 = 0)
+
+# elif defined(RA7_CN)
 #   define ENABLE_RA7_PULLUP()  (RXY_GPIO_CNPUE(RA7_CN) = 1)
 #   define DISABLE_RA7_PULLUP() (RXY_GPIO_CNPUE(RA7_CN) = 0)
 
@@ -690,7 +794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA7_AN
+# if defined(_ANSA7) || defined(RA7_AN)
 #   define CONFIG_RA7_AS_ANALOG()       \
       do {                              \
         ENABLE_RA7_ANALOG();            \
@@ -732,7 +836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA8_AN
+# if defined(_ANSA8)
+#   define ENABLE_RA8_ANALOG()  (_ANSA8 = 1)
+#   define DISABLE_RA8_ANALOG() (_ANSA8 = 0)
+# elif defined(RA8_AN)
 #   define ENABLE_RA8_ANALOG()  (RXY_GPIO_PCFG(RA8_AN) = 1)
 #   define DISABLE_RA8_ANALOG() (RXY_GPIO_PCFG(RA8_AN) = 0)
 # else
@@ -755,7 +862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA8_CN
+# if defined(_CNIEA8)
+#   define ENABLE_RA8_PULLUP()  (_CNPUA8 = 1)
+#   define DISABLE_RA8_PULLUP() (_CNPUA8 = 0)
+
+#   define ENABLE_RA8_PULLDOWN()  (_CNPDA8 = 1)
+#   define DISABLE_RA8_PULLDOWN() (_CNPDA8 = 0)
+
+#   define ENABLE_RA8_CN_INTERRUPT()  (_CNIEA8 = 1)
+#   define DISABLE_RA8_CN_INTERRUPT() (_CNIEA8 = 0)
+
+# elif defined(RA8_CN)
 #   define ENABLE_RA8_PULLUP()  (RXY_GPIO_CNPUE(RA8_CN) = 1)
 #   define DISABLE_RA8_PULLUP() (RXY_GPIO_CNPUE(RA8_CN) = 0)
 
@@ -777,7 +894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA8_AN
+# if defined(_ANSA8) || defined(RA8_AN)
 #   define CONFIG_RA8_AS_ANALOG()       \
       do {                              \
         ENABLE_RA8_ANALOG();            \
@@ -819,7 +936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA9_AN
+# if defined(_ANSA9)
+#   define ENABLE_RA9_ANALOG()  (_ANSA9 = 1)
+#   define DISABLE_RA9_ANALOG() (_ANSA9 = 0)
+# elif defined(RA9_AN)
 #   define ENABLE_RA9_ANALOG()  (RXY_GPIO_PCFG(RA9_AN) = 1)
 #   define DISABLE_RA9_ANALOG() (RXY_GPIO_PCFG(RA9_AN) = 0)
 # else
@@ -842,7 +962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA9_CN
+# if defined(_CNIEA9)
+#   define ENABLE_RA9_PULLUP()  (_CNPUA9 = 1)
+#   define DISABLE_RA9_PULLUP() (_CNPUA9 = 0)
+
+#   define ENABLE_RA9_PULLDOWN()  (_CNPDA9 = 1)
+#   define DISABLE_RA9_PULLDOWN() (_CNPDA9 = 0)
+
+#   define ENABLE_RA9_CN_INTERRUPT()  (_CNIEA9 = 1)
+#   define DISABLE_RA9_CN_INTERRUPT() (_CNIEA9 = 0)
+
+# elif defined(RA9_CN)
 #   define ENABLE_RA9_PULLUP()  (RXY_GPIO_CNPUE(RA9_CN) = 1)
 #   define DISABLE_RA9_PULLUP() (RXY_GPIO_CNPUE(RA9_CN) = 0)
 
@@ -864,7 +994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA9_AN
+# if defined(_ANSA9) || defined(RA9_AN)
 #   define CONFIG_RA9_AS_ANALOG()       \
       do {                              \
         ENABLE_RA9_ANALOG();            \
@@ -906,7 +1036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA10_AN
+# if defined(_ANSA10)
+#   define ENABLE_RA10_ANALOG()  (_ANSA10 = 1)
+#   define DISABLE_RA10_ANALOG() (_ANSA10 = 0)
+# elif defined(RA10_AN)
 #   define ENABLE_RA10_ANALOG()  (RXY_GPIO_PCFG(RA10_AN) = 1)
 #   define DISABLE_RA10_ANALOG() (RXY_GPIO_PCFG(RA10_AN) = 0)
 # else
@@ -929,7 +1062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA10_CN
+# if defined(_CNIEA10)
+#   define ENABLE_RA10_PULLUP()  (_CNPUA10 = 1)
+#   define DISABLE_RA10_PULLUP() (_CNPUA10 = 0)
+
+#   define ENABLE_RA10_PULLDOWN()  (_CNPDA10 = 1)
+#   define DISABLE_RA10_PULLDOWN() (_CNPDA10 = 0)
+
+#   define ENABLE_RA10_CN_INTERRUPT()  (_CNIEA10 = 1)
+#   define DISABLE_RA10_CN_INTERRUPT() (_CNIEA10 = 0)
+
+# elif defined(RA10_CN)
 #   define ENABLE_RA10_PULLUP()  (RXY_GPIO_CNPUE(RA10_CN) = 1)
 #   define DISABLE_RA10_PULLUP() (RXY_GPIO_CNPUE(RA10_CN) = 0)
 
@@ -951,7 +1094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA10_AN
+# if defined(_ANSA10) || defined(RA10_AN)
 #   define CONFIG_RA10_AS_ANALOG()       \
       do {                              \
         ENABLE_RA10_ANALOG();            \
@@ -993,7 +1136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA11_AN
+# if defined(_ANSA11)
+#   define ENABLE_RA11_ANALOG()  (_ANSA11 = 1)
+#   define DISABLE_RA11_ANALOG() (_ANSA11 = 0)
+# elif defined(RA11_AN)
 #   define ENABLE_RA11_ANALOG()  (RXY_GPIO_PCFG(RA11_AN) = 1)
 #   define DISABLE_RA11_ANALOG() (RXY_GPIO_PCFG(RA11_AN) = 0)
 # else
@@ -1016,7 +1162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA11_CN
+# if defined(_CNIEA11)
+#   define ENABLE_RA11_PULLUP()  (_CNPUA11 = 1)
+#   define DISABLE_RA11_PULLUP() (_CNPUA11 = 0)
+
+#   define ENABLE_RA11_PULLDOWN()  (_CNPDA11 = 1)
+#   define DISABLE_RA11_PULLDOWN() (_CNPDA11 = 0)
+
+#   define ENABLE_RA11_CN_INTERRUPT()  (_CNIEA11 = 1)
+#   define DISABLE_RA11_CN_INTERRUPT() (_CNIEA11 = 0)
+
+# elif defined(RA11_CN)
 #   define ENABLE_RA11_PULLUP()  (RXY_GPIO_CNPUE(RA11_CN) = 1)
 #   define DISABLE_RA11_PULLUP() (RXY_GPIO_CNPUE(RA11_CN) = 0)
 
@@ -1038,7 +1194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA11_AN
+# if defined(_ANSA11) || defined(RA11_AN)
 #   define CONFIG_RA11_AS_ANALOG()       \
       do {                              \
         ENABLE_RA11_ANALOG();            \
@@ -1080,7 +1236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA12_AN
+# if defined(_ANSA12)
+#   define ENABLE_RA12_ANALOG()  (_ANSA12 = 1)
+#   define DISABLE_RA12_ANALOG() (_ANSA12 = 0)
+# elif defined(RA12_AN)
 #   define ENABLE_RA12_ANALOG()  (RXY_GPIO_PCFG(RA12_AN) = 1)
 #   define DISABLE_RA12_ANALOG() (RXY_GPIO_PCFG(RA12_AN) = 0)
 # else
@@ -1103,7 +1262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA12_CN
+# if defined(_CNIEA12)
+#   define ENABLE_RA12_PULLUP()  (_CNPUA12 = 1)
+#   define DISABLE_RA12_PULLUP() (_CNPUA12 = 0)
+
+#   define ENABLE_RA12_PULLDOWN()  (_CNPDA12 = 1)
+#   define DISABLE_RA12_PULLDOWN() (_CNPDA12 = 0)
+
+#   define ENABLE_RA12_CN_INTERRUPT()  (_CNIEA12 = 1)
+#   define DISABLE_RA12_CN_INTERRUPT() (_CNIEA12 = 0)
+
+# elif defined(RA12_CN)
 #   define ENABLE_RA12_PULLUP()  (RXY_GPIO_CNPUE(RA12_CN) = 1)
 #   define DISABLE_RA12_PULLUP() (RXY_GPIO_CNPUE(RA12_CN) = 0)
 
@@ -1125,7 +1294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA12_AN
+# if defined(_ANSA12) || defined(RA12_AN)
 #   define CONFIG_RA12_AS_ANALOG()       \
       do {                              \
         ENABLE_RA12_ANALOG();            \
@@ -1167,7 +1336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA13_AN
+# if defined(_ANSA13)
+#   define ENABLE_RA13_ANALOG()  (_ANSA13 = 1)
+#   define DISABLE_RA13_ANALOG() (_ANSA13 = 0)
+# elif defined(RA13_AN)
 #   define ENABLE_RA13_ANALOG()  (RXY_GPIO_PCFG(RA13_AN) = 1)
 #   define DISABLE_RA13_ANALOG() (RXY_GPIO_PCFG(RA13_AN) = 0)
 # else
@@ -1190,7 +1362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA13_CN
+# if defined(_CNIEA13)
+#   define ENABLE_RA13_PULLUP()  (_CNPUA13 = 1)
+#   define DISABLE_RA13_PULLUP() (_CNPUA13 = 0)
+
+#   define ENABLE_RA13_PULLDOWN()  (_CNPDA13 = 1)
+#   define DISABLE_RA13_PULLDOWN() (_CNPDA13 = 0)
+
+#   define ENABLE_RA13_CN_INTERRUPT()  (_CNIEA13 = 1)
+#   define DISABLE_RA13_CN_INTERRUPT() (_CNIEA13 = 0)
+
+# elif defined(RA13_CN)
 #   define ENABLE_RA13_PULLUP()  (RXY_GPIO_CNPUE(RA13_CN) = 1)
 #   define DISABLE_RA13_PULLUP() (RXY_GPIO_CNPUE(RA13_CN) = 0)
 
@@ -1212,7 +1394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA13_AN
+# if defined(_ANSA13) || defined(RA13_AN)
 #   define CONFIG_RA13_AS_ANALOG()       \
       do {                              \
         ENABLE_RA13_ANALOG();            \
@@ -1254,7 +1436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA14_AN
+# if defined(_ANSA14)
+#   define ENABLE_RA14_ANALOG()  (_ANSA14 = 1)
+#   define DISABLE_RA14_ANALOG() (_ANSA14 = 0)
+# elif defined(RA14_AN)
 #   define ENABLE_RA14_ANALOG()  (RXY_GPIO_PCFG(RA14_AN) = 1)
 #   define DISABLE_RA14_ANALOG() (RXY_GPIO_PCFG(RA14_AN) = 0)
 # else
@@ -1277,7 +1462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA14_CN
+# if defined(_CNIEA14)
+#   define ENABLE_RA14_PULLUP()  (_CNPUA14 = 1)
+#   define DISABLE_RA14_PULLUP() (_CNPUA14 = 0)
+
+#   define ENABLE_RA14_PULLDOWN()  (_CNPDA14 = 1)
+#   define DISABLE_RA14_PULLDOWN() (_CNPDA14 = 0)
+
+#   define ENABLE_RA14_CN_INTERRUPT()  (_CNIEA14 = 1)
+#   define DISABLE_RA14_CN_INTERRUPT() (_CNIEA14 = 0)
+
+# elif defined(RA14_CN)
 #   define ENABLE_RA14_PULLUP()  (RXY_GPIO_CNPUE(RA14_CN) = 1)
 #   define DISABLE_RA14_PULLUP() (RXY_GPIO_CNPUE(RA14_CN) = 0)
 
@@ -1299,7 +1494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA14_AN
+# if defined(_ANSA14) || defined(RA14_AN)
 #   define CONFIG_RA14_AS_ANALOG()       \
       do {                              \
         ENABLE_RA14_ANALOG();            \
@@ -1341,7 +1536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RA15_AN
+# if defined(_ANSA15)
+#   define ENABLE_RA15_ANALOG()  (_ANSA15 = 1)
+#   define DISABLE_RA15_ANALOG() (_ANSA15 = 0)
+# elif defined(RA15_AN)
 #   define ENABLE_RA15_ANALOG()  (RXY_GPIO_PCFG(RA15_AN) = 1)
 #   define DISABLE_RA15_ANALOG() (RXY_GPIO_PCFG(RA15_AN) = 0)
 # else
@@ -1364,7 +1562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RA15_CN
+# if defined(_CNIEA15)
+#   define ENABLE_RA15_PULLUP()  (_CNPUA15 = 1)
+#   define DISABLE_RA15_PULLUP() (_CNPUA15 = 0)
+
+#   define ENABLE_RA15_PULLDOWN()  (_CNPDA15 = 1)
+#   define DISABLE_RA15_PULLDOWN() (_CNPDA15 = 0)
+
+#   define ENABLE_RA15_CN_INTERRUPT()  (_CNIEA15 = 1)
+#   define DISABLE_RA15_CN_INTERRUPT() (_CNIEA15 = 0)
+
+# elif defined(RA15_CN)
 #   define ENABLE_RA15_PULLUP()  (RXY_GPIO_CNPUE(RA15_CN) = 1)
 #   define DISABLE_RA15_PULLUP() (RXY_GPIO_CNPUE(RA15_CN) = 0)
 
@@ -1386,7 +1594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RA15_AN
+# if defined(_ANSA15) || defined(RA15_AN)
 #   define CONFIG_RA15_AS_ANALOG()       \
       do {                              \
         ENABLE_RA15_ANALOG();            \
@@ -1428,7 +1636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB0_AN
+# if defined(_ANSB0)
+#   define ENABLE_RB0_ANALOG()  (_ANSB0 = 1)
+#   define DISABLE_RB0_ANALOG() (_ANSB0 = 0)
+# elif defined(RB0_AN)
 #   define ENABLE_RB0_ANALOG()  (RXY_GPIO_PCFG(RB0_AN) = 1)
 #   define DISABLE_RB0_ANALOG() (RXY_GPIO_PCFG(RB0_AN) = 0)
 # else
@@ -1451,7 +1662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB0_CN
+# if defined(_CNIEB0)
+#   define ENABLE_RB0_PULLUP()  (_CNPUB0 = 1)
+#   define DISABLE_RB0_PULLUP() (_CNPUB0 = 0)
+
+#   define ENABLE_RB0_PULLDOWN()  (_CNPDB0 = 1)
+#   define DISABLE_RB0_PULLDOWN() (_CNPDB0 = 0)
+
+#   define ENABLE_RB0_CN_INTERRUPT()  (_CNIEB0 = 1)
+#   define DISABLE_RB0_CN_INTERRUPT() (_CNIEB0 = 0)
+
+# elif defined(RB0_CN)
 #   define ENABLE_RB0_PULLUP()  (RXY_GPIO_CNPUE(RB0_CN) = 1)
 #   define DISABLE_RB0_PULLUP() (RXY_GPIO_CNPUE(RB0_CN) = 0)
 
@@ -1473,7 +1694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB0_AN
+# if defined(_ANSB0) || defined(RB0_AN)
 #   define CONFIG_RB0_AS_ANALOG()       \
       do {                              \
         ENABLE_RB0_ANALOG();            \
@@ -1515,7 +1736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB1_AN
+# if defined(_ANSB1)
+#   define ENABLE_RB1_ANALOG()  (_ANSB1 = 1)
+#   define DISABLE_RB1_ANALOG() (_ANSB1 = 0)
+# elif defined(RB1_AN)
 #   define ENABLE_RB1_ANALOG()  (RXY_GPIO_PCFG(RB1_AN) = 1)
 #   define DISABLE_RB1_ANALOG() (RXY_GPIO_PCFG(RB1_AN) = 0)
 # else
@@ -1538,7 +1762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB1_CN
+# if defined(_CNIEB1)
+#   define ENABLE_RB1_PULLUP()  (_CNPUB1 = 1)
+#   define DISABLE_RB1_PULLUP() (_CNPUB1 = 0)
+
+#   define ENABLE_RB1_PULLDOWN()  (_CNPDB1 = 1)
+#   define DISABLE_RB1_PULLDOWN() (_CNPDB1 = 0)
+
+#   define ENABLE_RB1_CN_INTERRUPT()  (_CNIEB1 = 1)
+#   define DISABLE_RB1_CN_INTERRUPT() (_CNIEB1 = 0)
+
+# elif defined(RB1_CN)
 #   define ENABLE_RB1_PULLUP()  (RXY_GPIO_CNPUE(RB1_CN) = 1)
 #   define DISABLE_RB1_PULLUP() (RXY_GPIO_CNPUE(RB1_CN) = 0)
 
@@ -1560,7 +1794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB1_AN
+# if defined(_ANSB1) || defined(RB1_AN)
 #   define CONFIG_RB1_AS_ANALOG()       \
       do {                              \
         ENABLE_RB1_ANALOG();            \
@@ -1602,7 +1836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB2_AN
+# if defined(_ANSB2)
+#   define ENABLE_RB2_ANALOG()  (_ANSB2 = 1)
+#   define DISABLE_RB2_ANALOG() (_ANSB2 = 0)
+# elif defined(RB2_AN)
 #   define ENABLE_RB2_ANALOG()  (RXY_GPIO_PCFG(RB2_AN) = 1)
 #   define DISABLE_RB2_ANALOG() (RXY_GPIO_PCFG(RB2_AN) = 0)
 # else
@@ -1625,7 +1862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB2_CN
+# if defined(_CNIEB2)
+#   define ENABLE_RB2_PULLUP()  (_CNPUB2 = 1)
+#   define DISABLE_RB2_PULLUP() (_CNPUB2 = 0)
+
+#   define ENABLE_RB2_PULLDOWN()  (_CNPDB2 = 1)
+#   define DISABLE_RB2_PULLDOWN() (_CNPDB2 = 0)
+
+#   define ENABLE_RB2_CN_INTERRUPT()  (_CNIEB2 = 1)
+#   define DISABLE_RB2_CN_INTERRUPT() (_CNIEB2 = 0)
+
+# elif defined(RB2_CN)
 #   define ENABLE_RB2_PULLUP()  (RXY_GPIO_CNPUE(RB2_CN) = 1)
 #   define DISABLE_RB2_PULLUP() (RXY_GPIO_CNPUE(RB2_CN) = 0)
 
@@ -1647,7 +1894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB2_AN
+# if defined(_ANSB2) || defined(RB2_AN)
 #   define CONFIG_RB2_AS_ANALOG()       \
       do {                              \
         ENABLE_RB2_ANALOG();            \
@@ -1689,7 +1936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB3_AN
+# if defined(_ANSB3)
+#   define ENABLE_RB3_ANALOG()  (_ANSB3 = 1)
+#   define DISABLE_RB3_ANALOG() (_ANSB3 = 0)
+# elif defined(RB3_AN)
 #   define ENABLE_RB3_ANALOG()  (RXY_GPIO_PCFG(RB3_AN) = 1)
 #   define DISABLE_RB3_ANALOG() (RXY_GPIO_PCFG(RB3_AN) = 0)
 # else
@@ -1712,7 +1962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB3_CN
+# if defined(_CNIEB3)
+#   define ENABLE_RB3_PULLUP()  (_CNPUB3 = 1)
+#   define DISABLE_RB3_PULLUP() (_CNPUB3 = 0)
+
+#   define ENABLE_RB3_PULLDOWN()  (_CNPDB3 = 1)
+#   define DISABLE_RB3_PULLDOWN() (_CNPDB3 = 0)
+
+#   define ENABLE_RB3_CN_INTERRUPT()  (_CNIEB3 = 1)
+#   define DISABLE_RB3_CN_INTERRUPT() (_CNIEB3 = 0)
+
+# elif defined(RB3_CN)
 #   define ENABLE_RB3_PULLUP()  (RXY_GPIO_CNPUE(RB3_CN) = 1)
 #   define DISABLE_RB3_PULLUP() (RXY_GPIO_CNPUE(RB3_CN) = 0)
 
@@ -1734,7 +1994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB3_AN
+# if defined(_ANSB3) || defined(RB3_AN)
 #   define CONFIG_RB3_AS_ANALOG()       \
       do {                              \
         ENABLE_RB3_ANALOG();            \
@@ -1776,7 +2036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB4_AN
+# if defined(_ANSB4)
+#   define ENABLE_RB4_ANALOG()  (_ANSB4 = 1)
+#   define DISABLE_RB4_ANALOG() (_ANSB4 = 0)
+# elif defined(RB4_AN)
 #   define ENABLE_RB4_ANALOG()  (RXY_GPIO_PCFG(RB4_AN) = 1)
 #   define DISABLE_RB4_ANALOG() (RXY_GPIO_PCFG(RB4_AN) = 0)
 # else
@@ -1799,7 +2062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB4_CN
+# if defined(_CNIEB4)
+#   define ENABLE_RB4_PULLUP()  (_CNPUB4 = 1)
+#   define DISABLE_RB4_PULLUP() (_CNPUB4 = 0)
+
+#   define ENABLE_RB4_PULLDOWN()  (_CNPDB4 = 1)
+#   define DISABLE_RB4_PULLDOWN() (_CNPDB4 = 0)
+
+#   define ENABLE_RB4_CN_INTERRUPT()  (_CNIEB4 = 1)
+#   define DISABLE_RB4_CN_INTERRUPT() (_CNIEB4 = 0)
+
+# elif defined(RB4_CN)
 #   define ENABLE_RB4_PULLUP()  (RXY_GPIO_CNPUE(RB4_CN) = 1)
 #   define DISABLE_RB4_PULLUP() (RXY_GPIO_CNPUE(RB4_CN) = 0)
 
@@ -1821,7 +2094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB4_AN
+# if defined(_ANSB4) || defined(RB4_AN)
 #   define CONFIG_RB4_AS_ANALOG()       \
       do {                              \
         ENABLE_RB4_ANALOG();            \
@@ -1863,7 +2136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB5_AN
+# if defined(_ANSB5)
+#   define ENABLE_RB5_ANALOG()  (_ANSB5 = 1)
+#   define DISABLE_RB5_ANALOG() (_ANSB5 = 0)
+# elif defined(RB5_AN)
 #   define ENABLE_RB5_ANALOG()  (RXY_GPIO_PCFG(RB5_AN) = 1)
 #   define DISABLE_RB5_ANALOG() (RXY_GPIO_PCFG(RB5_AN) = 0)
 # else
@@ -1886,7 +2162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB5_CN
+# if defined(_CNIEB5)
+#   define ENABLE_RB5_PULLUP()  (_CNPUB5 = 1)
+#   define DISABLE_RB5_PULLUP() (_CNPUB5 = 0)
+
+#   define ENABLE_RB5_PULLDOWN()  (_CNPDB5 = 1)
+#   define DISABLE_RB5_PULLDOWN() (_CNPDB5 = 0)
+
+#   define ENABLE_RB5_CN_INTERRUPT()  (_CNIEB5 = 1)
+#   define DISABLE_RB5_CN_INTERRUPT() (_CNIEB5 = 0)
+
+# elif defined(RB5_CN)
 #   define ENABLE_RB5_PULLUP()  (RXY_GPIO_CNPUE(RB5_CN) = 1)
 #   define DISABLE_RB5_PULLUP() (RXY_GPIO_CNPUE(RB5_CN) = 0)
 
@@ -1908,7 +2194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB5_AN
+# if defined(_ANSB5) || defined(RB5_AN)
 #   define CONFIG_RB5_AS_ANALOG()       \
       do {                              \
         ENABLE_RB5_ANALOG();            \
@@ -1950,7 +2236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB6_AN
+# if defined(_ANSB6)
+#   define ENABLE_RB6_ANALOG()  (_ANSB6 = 1)
+#   define DISABLE_RB6_ANALOG() (_ANSB6 = 0)
+# elif defined(RB6_AN)
 #   define ENABLE_RB6_ANALOG()  (RXY_GPIO_PCFG(RB6_AN) = 1)
 #   define DISABLE_RB6_ANALOG() (RXY_GPIO_PCFG(RB6_AN) = 0)
 # else
@@ -1973,7 +2262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB6_CN
+# if defined(_CNIEB6)
+#   define ENABLE_RB6_PULLUP()  (_CNPUB6 = 1)
+#   define DISABLE_RB6_PULLUP() (_CNPUB6 = 0)
+
+#   define ENABLE_RB6_PULLDOWN()  (_CNPDB6 = 1)
+#   define DISABLE_RB6_PULLDOWN() (_CNPDB6 = 0)
+
+#   define ENABLE_RB6_CN_INTERRUPT()  (_CNIEB6 = 1)
+#   define DISABLE_RB6_CN_INTERRUPT() (_CNIEB6 = 0)
+
+# elif defined(RB6_CN)
 #   define ENABLE_RB6_PULLUP()  (RXY_GPIO_CNPUE(RB6_CN) = 1)
 #   define DISABLE_RB6_PULLUP() (RXY_GPIO_CNPUE(RB6_CN) = 0)
 
@@ -1995,7 +2294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB6_AN
+# if defined(_ANSB6) || defined(RB6_AN)
 #   define CONFIG_RB6_AS_ANALOG()       \
       do {                              \
         ENABLE_RB6_ANALOG();            \
@@ -2037,7 +2336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB7_AN
+# if defined(_ANSB7)
+#   define ENABLE_RB7_ANALOG()  (_ANSB7 = 1)
+#   define DISABLE_RB7_ANALOG() (_ANSB7 = 0)
+# elif defined(RB7_AN)
 #   define ENABLE_RB7_ANALOG()  (RXY_GPIO_PCFG(RB7_AN) = 1)
 #   define DISABLE_RB7_ANALOG() (RXY_GPIO_PCFG(RB7_AN) = 0)
 # else
@@ -2060,7 +2362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB7_CN
+# if defined(_CNIEB7)
+#   define ENABLE_RB7_PULLUP()  (_CNPUB7 = 1)
+#   define DISABLE_RB7_PULLUP() (_CNPUB7 = 0)
+
+#   define ENABLE_RB7_PULLDOWN()  (_CNPDB7 = 1)
+#   define DISABLE_RB7_PULLDOWN() (_CNPDB7 = 0)
+
+#   define ENABLE_RB7_CN_INTERRUPT()  (_CNIEB7 = 1)
+#   define DISABLE_RB7_CN_INTERRUPT() (_CNIEB7 = 0)
+
+# elif defined(RB7_CN)
 #   define ENABLE_RB7_PULLUP()  (RXY_GPIO_CNPUE(RB7_CN) = 1)
 #   define DISABLE_RB7_PULLUP() (RXY_GPIO_CNPUE(RB7_CN) = 0)
 
@@ -2082,7 +2394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB7_AN
+# if defined(_ANSB7) || defined(RB7_AN)
 #   define CONFIG_RB7_AS_ANALOG()       \
       do {                              \
         ENABLE_RB7_ANALOG();            \
@@ -2124,7 +2436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB8_AN
+# if defined(_ANSB8)
+#   define ENABLE_RB8_ANALOG()  (_ANSB8 = 1)
+#   define DISABLE_RB8_ANALOG() (_ANSB8 = 0)
+# elif defined(RB8_AN)
 #   define ENABLE_RB8_ANALOG()  (RXY_GPIO_PCFG(RB8_AN) = 1)
 #   define DISABLE_RB8_ANALOG() (RXY_GPIO_PCFG(RB8_AN) = 0)
 # else
@@ -2147,7 +2462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB8_CN
+# if defined(_CNIEB8)
+#   define ENABLE_RB8_PULLUP()  (_CNPUB8 = 1)
+#   define DISABLE_RB8_PULLUP() (_CNPUB8 = 0)
+
+#   define ENABLE_RB8_PULLDOWN()  (_CNPDB8 = 1)
+#   define DISABLE_RB8_PULLDOWN() (_CNPDB8 = 0)
+
+#   define ENABLE_RB8_CN_INTERRUPT()  (_CNIEB8 = 1)
+#   define DISABLE_RB8_CN_INTERRUPT() (_CNIEB8 = 0)
+
+# elif defined(RB8_CN)
 #   define ENABLE_RB8_PULLUP()  (RXY_GPIO_CNPUE(RB8_CN) = 1)
 #   define DISABLE_RB8_PULLUP() (RXY_GPIO_CNPUE(RB8_CN) = 0)
 
@@ -2169,7 +2494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB8_AN
+# if defined(_ANSB8) || defined(RB8_AN)
 #   define CONFIG_RB8_AS_ANALOG()       \
       do {                              \
         ENABLE_RB8_ANALOG();            \
@@ -2211,7 +2536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB9_AN
+# if defined(_ANSB9)
+#   define ENABLE_RB9_ANALOG()  (_ANSB9 = 1)
+#   define DISABLE_RB9_ANALOG() (_ANSB9 = 0)
+# elif defined(RB9_AN)
 #   define ENABLE_RB9_ANALOG()  (RXY_GPIO_PCFG(RB9_AN) = 1)
 #   define DISABLE_RB9_ANALOG() (RXY_GPIO_PCFG(RB9_AN) = 0)
 # else
@@ -2234,7 +2562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB9_CN
+# if defined(_CNIEB9)
+#   define ENABLE_RB9_PULLUP()  (_CNPUB9 = 1)
+#   define DISABLE_RB9_PULLUP() (_CNPUB9 = 0)
+
+#   define ENABLE_RB9_PULLDOWN()  (_CNPDB9 = 1)
+#   define DISABLE_RB9_PULLDOWN() (_CNPDB9 = 0)
+
+#   define ENABLE_RB9_CN_INTERRUPT()  (_CNIEB9 = 1)
+#   define DISABLE_RB9_CN_INTERRUPT() (_CNIEB9 = 0)
+
+# elif defined(RB9_CN)
 #   define ENABLE_RB9_PULLUP()  (RXY_GPIO_CNPUE(RB9_CN) = 1)
 #   define DISABLE_RB9_PULLUP() (RXY_GPIO_CNPUE(RB9_CN) = 0)
 
@@ -2256,7 +2594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB9_AN
+# if defined(_ANSB9) || defined(RB9_AN)
 #   define CONFIG_RB9_AS_ANALOG()       \
       do {                              \
         ENABLE_RB9_ANALOG();            \
@@ -2298,7 +2636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB10_AN
+# if defined(_ANSB10)
+#   define ENABLE_RB10_ANALOG()  (_ANSB10 = 1)
+#   define DISABLE_RB10_ANALOG() (_ANSB10 = 0)
+# elif defined(RB10_AN)
 #   define ENABLE_RB10_ANALOG()  (RXY_GPIO_PCFG(RB10_AN) = 1)
 #   define DISABLE_RB10_ANALOG() (RXY_GPIO_PCFG(RB10_AN) = 0)
 # else
@@ -2321,7 +2662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB10_CN
+# if defined(_CNIEB10)
+#   define ENABLE_RB10_PULLUP()  (_CNPUB10 = 1)
+#   define DISABLE_RB10_PULLUP() (_CNPUB10 = 0)
+
+#   define ENABLE_RB10_PULLDOWN()  (_CNPDB10 = 1)
+#   define DISABLE_RB10_PULLDOWN() (_CNPDB10 = 0)
+
+#   define ENABLE_RB10_CN_INTERRUPT()  (_CNIEB10 = 1)
+#   define DISABLE_RB10_CN_INTERRUPT() (_CNIEB10 = 0)
+
+# elif defined(RB10_CN)
 #   define ENABLE_RB10_PULLUP()  (RXY_GPIO_CNPUE(RB10_CN) = 1)
 #   define DISABLE_RB10_PULLUP() (RXY_GPIO_CNPUE(RB10_CN) = 0)
 
@@ -2343,7 +2694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB10_AN
+# if defined(_ANSB10) || defined(RB10_AN)
 #   define CONFIG_RB10_AS_ANALOG()       \
       do {                              \
         ENABLE_RB10_ANALOG();            \
@@ -2385,7 +2736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB11_AN
+# if defined(_ANSB11)
+#   define ENABLE_RB11_ANALOG()  (_ANSB11 = 1)
+#   define DISABLE_RB11_ANALOG() (_ANSB11 = 0)
+# elif defined(RB11_AN)
 #   define ENABLE_RB11_ANALOG()  (RXY_GPIO_PCFG(RB11_AN) = 1)
 #   define DISABLE_RB11_ANALOG() (RXY_GPIO_PCFG(RB11_AN) = 0)
 # else
@@ -2408,7 +2762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB11_CN
+# if defined(_CNIEB11)
+#   define ENABLE_RB11_PULLUP()  (_CNPUB11 = 1)
+#   define DISABLE_RB11_PULLUP() (_CNPUB11 = 0)
+
+#   define ENABLE_RB11_PULLDOWN()  (_CNPDB11 = 1)
+#   define DISABLE_RB11_PULLDOWN() (_CNPDB11 = 0)
+
+#   define ENABLE_RB11_CN_INTERRUPT()  (_CNIEB11 = 1)
+#   define DISABLE_RB11_CN_INTERRUPT() (_CNIEB11 = 0)
+
+# elif defined(RB11_CN)
 #   define ENABLE_RB11_PULLUP()  (RXY_GPIO_CNPUE(RB11_CN) = 1)
 #   define DISABLE_RB11_PULLUP() (RXY_GPIO_CNPUE(RB11_CN) = 0)
 
@@ -2430,7 +2794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB11_AN
+# if defined(_ANSB11) || defined(RB11_AN)
 #   define CONFIG_RB11_AS_ANALOG()       \
       do {                              \
         ENABLE_RB11_ANALOG();            \
@@ -2472,7 +2836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB12_AN
+# if defined(_ANSB12)
+#   define ENABLE_RB12_ANALOG()  (_ANSB12 = 1)
+#   define DISABLE_RB12_ANALOG() (_ANSB12 = 0)
+# elif defined(RB12_AN)
 #   define ENABLE_RB12_ANALOG()  (RXY_GPIO_PCFG(RB12_AN) = 1)
 #   define DISABLE_RB12_ANALOG() (RXY_GPIO_PCFG(RB12_AN) = 0)
 # else
@@ -2495,7 +2862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB12_CN
+# if defined(_CNIEB12)
+#   define ENABLE_RB12_PULLUP()  (_CNPUB12 = 1)
+#   define DISABLE_RB12_PULLUP() (_CNPUB12 = 0)
+
+#   define ENABLE_RB12_PULLDOWN()  (_CNPDB12 = 1)
+#   define DISABLE_RB12_PULLDOWN() (_CNPDB12 = 0)
+
+#   define ENABLE_RB12_CN_INTERRUPT()  (_CNIEB12 = 1)
+#   define DISABLE_RB12_CN_INTERRUPT() (_CNIEB12 = 0)
+
+# elif defined(RB12_CN)
 #   define ENABLE_RB12_PULLUP()  (RXY_GPIO_CNPUE(RB12_CN) = 1)
 #   define DISABLE_RB12_PULLUP() (RXY_GPIO_CNPUE(RB12_CN) = 0)
 
@@ -2517,7 +2894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB12_AN
+# if defined(_ANSB12) || defined(RB12_AN)
 #   define CONFIG_RB12_AS_ANALOG()       \
       do {                              \
         ENABLE_RB12_ANALOG();            \
@@ -2559,7 +2936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB13_AN
+# if defined(_ANSB13)
+#   define ENABLE_RB13_ANALOG()  (_ANSB13 = 1)
+#   define DISABLE_RB13_ANALOG() (_ANSB13 = 0)
+# elif defined(RB13_AN)
 #   define ENABLE_RB13_ANALOG()  (RXY_GPIO_PCFG(RB13_AN) = 1)
 #   define DISABLE_RB13_ANALOG() (RXY_GPIO_PCFG(RB13_AN) = 0)
 # else
@@ -2582,7 +2962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB13_CN
+# if defined(_CNIEB13)
+#   define ENABLE_RB13_PULLUP()  (_CNPUB13 = 1)
+#   define DISABLE_RB13_PULLUP() (_CNPUB13 = 0)
+
+#   define ENABLE_RB13_PULLDOWN()  (_CNPDB13 = 1)
+#   define DISABLE_RB13_PULLDOWN() (_CNPDB13 = 0)
+
+#   define ENABLE_RB13_CN_INTERRUPT()  (_CNIEB13 = 1)
+#   define DISABLE_RB13_CN_INTERRUPT() (_CNIEB13 = 0)
+
+# elif defined(RB13_CN)
 #   define ENABLE_RB13_PULLUP()  (RXY_GPIO_CNPUE(RB13_CN) = 1)
 #   define DISABLE_RB13_PULLUP() (RXY_GPIO_CNPUE(RB13_CN) = 0)
 
@@ -2604,7 +2994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB13_AN
+# if defined(_ANSB13) || defined(RB13_AN)
 #   define CONFIG_RB13_AS_ANALOG()       \
       do {                              \
         ENABLE_RB13_ANALOG();            \
@@ -2646,7 +3036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB14_AN
+# if defined(_ANSB14)
+#   define ENABLE_RB14_ANALOG()  (_ANSB14 = 1)
+#   define DISABLE_RB14_ANALOG() (_ANSB14 = 0)
+# elif defined(RB14_AN)
 #   define ENABLE_RB14_ANALOG()  (RXY_GPIO_PCFG(RB14_AN) = 1)
 #   define DISABLE_RB14_ANALOG() (RXY_GPIO_PCFG(RB14_AN) = 0)
 # else
@@ -2669,7 +3062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB14_CN
+# if defined(_CNIEB14)
+#   define ENABLE_RB14_PULLUP()  (_CNPUB14 = 1)
+#   define DISABLE_RB14_PULLUP() (_CNPUB14 = 0)
+
+#   define ENABLE_RB14_PULLDOWN()  (_CNPDB14 = 1)
+#   define DISABLE_RB14_PULLDOWN() (_CNPDB14 = 0)
+
+#   define ENABLE_RB14_CN_INTERRUPT()  (_CNIEB14 = 1)
+#   define DISABLE_RB14_CN_INTERRUPT() (_CNIEB14 = 0)
+
+# elif defined(RB14_CN)
 #   define ENABLE_RB14_PULLUP()  (RXY_GPIO_CNPUE(RB14_CN) = 1)
 #   define DISABLE_RB14_PULLUP() (RXY_GPIO_CNPUE(RB14_CN) = 0)
 
@@ -2691,7 +3094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB14_AN
+# if defined(_ANSB14) || defined(RB14_AN)
 #   define CONFIG_RB14_AS_ANALOG()       \
       do {                              \
         ENABLE_RB14_ANALOG();            \
@@ -2733,7 +3136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RB15_AN
+# if defined(_ANSB15)
+#   define ENABLE_RB15_ANALOG()  (_ANSB15 = 1)
+#   define DISABLE_RB15_ANALOG() (_ANSB15 = 0)
+# elif defined(RB15_AN)
 #   define ENABLE_RB15_ANALOG()  (RXY_GPIO_PCFG(RB15_AN) = 1)
 #   define DISABLE_RB15_ANALOG() (RXY_GPIO_PCFG(RB15_AN) = 0)
 # else
@@ -2756,7 +3162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RB15_CN
+# if defined(_CNIEB15)
+#   define ENABLE_RB15_PULLUP()  (_CNPUB15 = 1)
+#   define DISABLE_RB15_PULLUP() (_CNPUB15 = 0)
+
+#   define ENABLE_RB15_PULLDOWN()  (_CNPDB15 = 1)
+#   define DISABLE_RB15_PULLDOWN() (_CNPDB15 = 0)
+
+#   define ENABLE_RB15_CN_INTERRUPT()  (_CNIEB15 = 1)
+#   define DISABLE_RB15_CN_INTERRUPT() (_CNIEB15 = 0)
+
+# elif defined(RB15_CN)
 #   define ENABLE_RB15_PULLUP()  (RXY_GPIO_CNPUE(RB15_CN) = 1)
 #   define DISABLE_RB15_PULLUP() (RXY_GPIO_CNPUE(RB15_CN) = 0)
 
@@ -2778,7 +3194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RB15_AN
+# if defined(_ANSB15) || defined(RB15_AN)
 #   define CONFIG_RB15_AS_ANALOG()       \
       do {                              \
         ENABLE_RB15_ANALOG();            \
@@ -2820,7 +3236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC0_AN
+# if defined(_ANSC0)
+#   define ENABLE_RC0_ANALOG()  (_ANSC0 = 1)
+#   define DISABLE_RC0_ANALOG() (_ANSC0 = 0)
+# elif defined(RC0_AN)
 #   define ENABLE_RC0_ANALOG()  (RXY_GPIO_PCFG(RC0_AN) = 1)
 #   define DISABLE_RC0_ANALOG() (RXY_GPIO_PCFG(RC0_AN) = 0)
 # else
@@ -2843,7 +3262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC0_CN
+# if defined(_CNIEC0)
+#   define ENABLE_RC0_PULLUP()  (_CNPUC0 = 1)
+#   define DISABLE_RC0_PULLUP() (_CNPUC0 = 0)
+
+#   define ENABLE_RC0_PULLDOWN()  (_CNPDC0 = 1)
+#   define DISABLE_RC0_PULLDOWN() (_CNPDC0 = 0)
+
+#   define ENABLE_RC0_CN_INTERRUPT()  (_CNIEC0 = 1)
+#   define DISABLE_RC0_CN_INTERRUPT() (_CNIEC0 = 0)
+
+# elif defined(RC0_CN)
 #   define ENABLE_RC0_PULLUP()  (RXY_GPIO_CNPUE(RC0_CN) = 1)
 #   define DISABLE_RC0_PULLUP() (RXY_GPIO_CNPUE(RC0_CN) = 0)
 
@@ -2865,7 +3294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC0_AN
+# if defined(_ANSC0) || defined(RC0_AN)
 #   define CONFIG_RC0_AS_ANALOG()       \
       do {                              \
         ENABLE_RC0_ANALOG();            \
@@ -2907,7 +3336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC1_AN
+# if defined(_ANSC1)
+#   define ENABLE_RC1_ANALOG()  (_ANSC1 = 1)
+#   define DISABLE_RC1_ANALOG() (_ANSC1 = 0)
+# elif defined(RC1_AN)
 #   define ENABLE_RC1_ANALOG()  (RXY_GPIO_PCFG(RC1_AN) = 1)
 #   define DISABLE_RC1_ANALOG() (RXY_GPIO_PCFG(RC1_AN) = 0)
 # else
@@ -2930,7 +3362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC1_CN
+# if defined(_CNIEC1)
+#   define ENABLE_RC1_PULLUP()  (_CNPUC1 = 1)
+#   define DISABLE_RC1_PULLUP() (_CNPUC1 = 0)
+
+#   define ENABLE_RC1_PULLDOWN()  (_CNPDC1 = 1)
+#   define DISABLE_RC1_PULLDOWN() (_CNPDC1 = 0)
+
+#   define ENABLE_RC1_CN_INTERRUPT()  (_CNIEC1 = 1)
+#   define DISABLE_RC1_CN_INTERRUPT() (_CNIEC1 = 0)
+
+# elif defined(RC1_CN)
 #   define ENABLE_RC1_PULLUP()  (RXY_GPIO_CNPUE(RC1_CN) = 1)
 #   define DISABLE_RC1_PULLUP() (RXY_GPIO_CNPUE(RC1_CN) = 0)
 
@@ -2952,7 +3394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC1_AN
+# if defined(_ANSC1) || defined(RC1_AN)
 #   define CONFIG_RC1_AS_ANALOG()       \
       do {                              \
         ENABLE_RC1_ANALOG();            \
@@ -2994,7 +3436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC2_AN
+# if defined(_ANSC2)
+#   define ENABLE_RC2_ANALOG()  (_ANSC2 = 1)
+#   define DISABLE_RC2_ANALOG() (_ANSC2 = 0)
+# elif defined(RC2_AN)
 #   define ENABLE_RC2_ANALOG()  (RXY_GPIO_PCFG(RC2_AN) = 1)
 #   define DISABLE_RC2_ANALOG() (RXY_GPIO_PCFG(RC2_AN) = 0)
 # else
@@ -3017,7 +3462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC2_CN
+# if defined(_CNIEC2)
+#   define ENABLE_RC2_PULLUP()  (_CNPUC2 = 1)
+#   define DISABLE_RC2_PULLUP() (_CNPUC2 = 0)
+
+#   define ENABLE_RC2_PULLDOWN()  (_CNPDC2 = 1)
+#   define DISABLE_RC2_PULLDOWN() (_CNPDC2 = 0)
+
+#   define ENABLE_RC2_CN_INTERRUPT()  (_CNIEC2 = 1)
+#   define DISABLE_RC2_CN_INTERRUPT() (_CNIEC2 = 0)
+
+# elif defined(RC2_CN)
 #   define ENABLE_RC2_PULLUP()  (RXY_GPIO_CNPUE(RC2_CN) = 1)
 #   define DISABLE_RC2_PULLUP() (RXY_GPIO_CNPUE(RC2_CN) = 0)
 
@@ -3039,7 +3494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC2_AN
+# if defined(_ANSC2) || defined(RC2_AN)
 #   define CONFIG_RC2_AS_ANALOG()       \
       do {                              \
         ENABLE_RC2_ANALOG();            \
@@ -3081,7 +3536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC3_AN
+# if defined(_ANSC3)
+#   define ENABLE_RC3_ANALOG()  (_ANSC3 = 1)
+#   define DISABLE_RC3_ANALOG() (_ANSC3 = 0)
+# elif defined(RC3_AN)
 #   define ENABLE_RC3_ANALOG()  (RXY_GPIO_PCFG(RC3_AN) = 1)
 #   define DISABLE_RC3_ANALOG() (RXY_GPIO_PCFG(RC3_AN) = 0)
 # else
@@ -3104,7 +3562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC3_CN
+# if defined(_CNIEC3)
+#   define ENABLE_RC3_PULLUP()  (_CNPUC3 = 1)
+#   define DISABLE_RC3_PULLUP() (_CNPUC3 = 0)
+
+#   define ENABLE_RC3_PULLDOWN()  (_CNPDC3 = 1)
+#   define DISABLE_RC3_PULLDOWN() (_CNPDC3 = 0)
+
+#   define ENABLE_RC3_CN_INTERRUPT()  (_CNIEC3 = 1)
+#   define DISABLE_RC3_CN_INTERRUPT() (_CNIEC3 = 0)
+
+# elif defined(RC3_CN)
 #   define ENABLE_RC3_PULLUP()  (RXY_GPIO_CNPUE(RC3_CN) = 1)
 #   define DISABLE_RC3_PULLUP() (RXY_GPIO_CNPUE(RC3_CN) = 0)
 
@@ -3126,7 +3594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC3_AN
+# if defined(_ANSC3) || defined(RC3_AN)
 #   define CONFIG_RC3_AS_ANALOG()       \
       do {                              \
         ENABLE_RC3_ANALOG();            \
@@ -3168,7 +3636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC4_AN
+# if defined(_ANSC4)
+#   define ENABLE_RC4_ANALOG()  (_ANSC4 = 1)
+#   define DISABLE_RC4_ANALOG() (_ANSC4 = 0)
+# elif defined(RC4_AN)
 #   define ENABLE_RC4_ANALOG()  (RXY_GPIO_PCFG(RC4_AN) = 1)
 #   define DISABLE_RC4_ANALOG() (RXY_GPIO_PCFG(RC4_AN) = 0)
 # else
@@ -3191,7 +3662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC4_CN
+# if defined(_CNIEC4)
+#   define ENABLE_RC4_PULLUP()  (_CNPUC4 = 1)
+#   define DISABLE_RC4_PULLUP() (_CNPUC4 = 0)
+
+#   define ENABLE_RC4_PULLDOWN()  (_CNPDC4 = 1)
+#   define DISABLE_RC4_PULLDOWN() (_CNPDC4 = 0)
+
+#   define ENABLE_RC4_CN_INTERRUPT()  (_CNIEC4 = 1)
+#   define DISABLE_RC4_CN_INTERRUPT() (_CNIEC4 = 0)
+
+# elif defined(RC4_CN)
 #   define ENABLE_RC4_PULLUP()  (RXY_GPIO_CNPUE(RC4_CN) = 1)
 #   define DISABLE_RC4_PULLUP() (RXY_GPIO_CNPUE(RC4_CN) = 0)
 
@@ -3213,7 +3694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC4_AN
+# if defined(_ANSC4) || defined(RC4_AN)
 #   define CONFIG_RC4_AS_ANALOG()       \
       do {                              \
         ENABLE_RC4_ANALOG();            \
@@ -3255,7 +3736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC5_AN
+# if defined(_ANSC5)
+#   define ENABLE_RC5_ANALOG()  (_ANSC5 = 1)
+#   define DISABLE_RC5_ANALOG() (_ANSC5 = 0)
+# elif defined(RC5_AN)
 #   define ENABLE_RC5_ANALOG()  (RXY_GPIO_PCFG(RC5_AN) = 1)
 #   define DISABLE_RC5_ANALOG() (RXY_GPIO_PCFG(RC5_AN) = 0)
 # else
@@ -3278,7 +3762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC5_CN
+# if defined(_CNIEC5)
+#   define ENABLE_RC5_PULLUP()  (_CNPUC5 = 1)
+#   define DISABLE_RC5_PULLUP() (_CNPUC5 = 0)
+
+#   define ENABLE_RC5_PULLDOWN()  (_CNPDC5 = 1)
+#   define DISABLE_RC5_PULLDOWN() (_CNPDC5 = 0)
+
+#   define ENABLE_RC5_CN_INTERRUPT()  (_CNIEC5 = 1)
+#   define DISABLE_RC5_CN_INTERRUPT() (_CNIEC5 = 0)
+
+# elif defined(RC5_CN)
 #   define ENABLE_RC5_PULLUP()  (RXY_GPIO_CNPUE(RC5_CN) = 1)
 #   define DISABLE_RC5_PULLUP() (RXY_GPIO_CNPUE(RC5_CN) = 0)
 
@@ -3300,7 +3794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC5_AN
+# if defined(_ANSC5) || defined(RC5_AN)
 #   define CONFIG_RC5_AS_ANALOG()       \
       do {                              \
         ENABLE_RC5_ANALOG();            \
@@ -3342,7 +3836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC6_AN
+# if defined(_ANSC6)
+#   define ENABLE_RC6_ANALOG()  (_ANSC6 = 1)
+#   define DISABLE_RC6_ANALOG() (_ANSC6 = 0)
+# elif defined(RC6_AN)
 #   define ENABLE_RC6_ANALOG()  (RXY_GPIO_PCFG(RC6_AN) = 1)
 #   define DISABLE_RC6_ANALOG() (RXY_GPIO_PCFG(RC6_AN) = 0)
 # else
@@ -3365,7 +3862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC6_CN
+# if defined(_CNIEC6)
+#   define ENABLE_RC6_PULLUP()  (_CNPUC6 = 1)
+#   define DISABLE_RC6_PULLUP() (_CNPUC6 = 0)
+
+#   define ENABLE_RC6_PULLDOWN()  (_CNPDC6 = 1)
+#   define DISABLE_RC6_PULLDOWN() (_CNPDC6 = 0)
+
+#   define ENABLE_RC6_CN_INTERRUPT()  (_CNIEC6 = 1)
+#   define DISABLE_RC6_CN_INTERRUPT() (_CNIEC6 = 0)
+
+# elif defined(RC6_CN)
 #   define ENABLE_RC6_PULLUP()  (RXY_GPIO_CNPUE(RC6_CN) = 1)
 #   define DISABLE_RC6_PULLUP() (RXY_GPIO_CNPUE(RC6_CN) = 0)
 
@@ -3387,7 +3894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC6_AN
+# if defined(_ANSC6) || defined(RC6_AN)
 #   define CONFIG_RC6_AS_ANALOG()       \
       do {                              \
         ENABLE_RC6_ANALOG();            \
@@ -3429,7 +3936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC7_AN
+# if defined(_ANSC7)
+#   define ENABLE_RC7_ANALOG()  (_ANSC7 = 1)
+#   define DISABLE_RC7_ANALOG() (_ANSC7 = 0)
+# elif defined(RC7_AN)
 #   define ENABLE_RC7_ANALOG()  (RXY_GPIO_PCFG(RC7_AN) = 1)
 #   define DISABLE_RC7_ANALOG() (RXY_GPIO_PCFG(RC7_AN) = 0)
 # else
@@ -3452,7 +3962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC7_CN
+# if defined(_CNIEC7)
+#   define ENABLE_RC7_PULLUP()  (_CNPUC7 = 1)
+#   define DISABLE_RC7_PULLUP() (_CNPUC7 = 0)
+
+#   define ENABLE_RC7_PULLDOWN()  (_CNPDC7 = 1)
+#   define DISABLE_RC7_PULLDOWN() (_CNPDC7 = 0)
+
+#   define ENABLE_RC7_CN_INTERRUPT()  (_CNIEC7 = 1)
+#   define DISABLE_RC7_CN_INTERRUPT() (_CNIEC7 = 0)
+
+# elif defined(RC7_CN)
 #   define ENABLE_RC7_PULLUP()  (RXY_GPIO_CNPUE(RC7_CN) = 1)
 #   define DISABLE_RC7_PULLUP() (RXY_GPIO_CNPUE(RC7_CN) = 0)
 
@@ -3474,7 +3994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC7_AN
+# if defined(_ANSC7) || defined(RC7_AN)
 #   define CONFIG_RC7_AS_ANALOG()       \
       do {                              \
         ENABLE_RC7_ANALOG();            \
@@ -3516,7 +4036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC8_AN
+# if defined(_ANSC8)
+#   define ENABLE_RC8_ANALOG()  (_ANSC8 = 1)
+#   define DISABLE_RC8_ANALOG() (_ANSC8 = 0)
+# elif defined(RC8_AN)
 #   define ENABLE_RC8_ANALOG()  (RXY_GPIO_PCFG(RC8_AN) = 1)
 #   define DISABLE_RC8_ANALOG() (RXY_GPIO_PCFG(RC8_AN) = 0)
 # else
@@ -3539,7 +4062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC8_CN
+# if defined(_CNIEC8)
+#   define ENABLE_RC8_PULLUP()  (_CNPUC8 = 1)
+#   define DISABLE_RC8_PULLUP() (_CNPUC8 = 0)
+
+#   define ENABLE_RC8_PULLDOWN()  (_CNPDC8 = 1)
+#   define DISABLE_RC8_PULLDOWN() (_CNPDC8 = 0)
+
+#   define ENABLE_RC8_CN_INTERRUPT()  (_CNIEC8 = 1)
+#   define DISABLE_RC8_CN_INTERRUPT() (_CNIEC8 = 0)
+
+# elif defined(RC8_CN)
 #   define ENABLE_RC8_PULLUP()  (RXY_GPIO_CNPUE(RC8_CN) = 1)
 #   define DISABLE_RC8_PULLUP() (RXY_GPIO_CNPUE(RC8_CN) = 0)
 
@@ -3561,7 +4094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC8_AN
+# if defined(_ANSC8) || defined(RC8_AN)
 #   define CONFIG_RC8_AS_ANALOG()       \
       do {                              \
         ENABLE_RC8_ANALOG();            \
@@ -3603,7 +4136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC9_AN
+# if defined(_ANSC9)
+#   define ENABLE_RC9_ANALOG()  (_ANSC9 = 1)
+#   define DISABLE_RC9_ANALOG() (_ANSC9 = 0)
+# elif defined(RC9_AN)
 #   define ENABLE_RC9_ANALOG()  (RXY_GPIO_PCFG(RC9_AN) = 1)
 #   define DISABLE_RC9_ANALOG() (RXY_GPIO_PCFG(RC9_AN) = 0)
 # else
@@ -3626,7 +4162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC9_CN
+# if defined(_CNIEC9)
+#   define ENABLE_RC9_PULLUP()  (_CNPUC9 = 1)
+#   define DISABLE_RC9_PULLUP() (_CNPUC9 = 0)
+
+#   define ENABLE_RC9_PULLDOWN()  (_CNPDC9 = 1)
+#   define DISABLE_RC9_PULLDOWN() (_CNPDC9 = 0)
+
+#   define ENABLE_RC9_CN_INTERRUPT()  (_CNIEC9 = 1)
+#   define DISABLE_RC9_CN_INTERRUPT() (_CNIEC9 = 0)
+
+# elif defined(RC9_CN)
 #   define ENABLE_RC9_PULLUP()  (RXY_GPIO_CNPUE(RC9_CN) = 1)
 #   define DISABLE_RC9_PULLUP() (RXY_GPIO_CNPUE(RC9_CN) = 0)
 
@@ -3648,7 +4194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC9_AN
+# if defined(_ANSC9) || defined(RC9_AN)
 #   define CONFIG_RC9_AS_ANALOG()       \
       do {                              \
         ENABLE_RC9_ANALOG();            \
@@ -3690,7 +4236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC10_AN
+# if defined(_ANSC10)
+#   define ENABLE_RC10_ANALOG()  (_ANSC10 = 1)
+#   define DISABLE_RC10_ANALOG() (_ANSC10 = 0)
+# elif defined(RC10_AN)
 #   define ENABLE_RC10_ANALOG()  (RXY_GPIO_PCFG(RC10_AN) = 1)
 #   define DISABLE_RC10_ANALOG() (RXY_GPIO_PCFG(RC10_AN) = 0)
 # else
@@ -3713,7 +4262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC10_CN
+# if defined(_CNIEC10)
+#   define ENABLE_RC10_PULLUP()  (_CNPUC10 = 1)
+#   define DISABLE_RC10_PULLUP() (_CNPUC10 = 0)
+
+#   define ENABLE_RC10_PULLDOWN()  (_CNPDC10 = 1)
+#   define DISABLE_RC10_PULLDOWN() (_CNPDC10 = 0)
+
+#   define ENABLE_RC10_CN_INTERRUPT()  (_CNIEC10 = 1)
+#   define DISABLE_RC10_CN_INTERRUPT() (_CNIEC10 = 0)
+
+# elif defined(RC10_CN)
 #   define ENABLE_RC10_PULLUP()  (RXY_GPIO_CNPUE(RC10_CN) = 1)
 #   define DISABLE_RC10_PULLUP() (RXY_GPIO_CNPUE(RC10_CN) = 0)
 
@@ -3735,7 +4294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC10_AN
+# if defined(_ANSC10) || defined(RC10_AN)
 #   define CONFIG_RC10_AS_ANALOG()       \
       do {                              \
         ENABLE_RC10_ANALOG();            \
@@ -3777,7 +4336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC11_AN
+# if defined(_ANSC11)
+#   define ENABLE_RC11_ANALOG()  (_ANSC11 = 1)
+#   define DISABLE_RC11_ANALOG() (_ANSC11 = 0)
+# elif defined(RC11_AN)
 #   define ENABLE_RC11_ANALOG()  (RXY_GPIO_PCFG(RC11_AN) = 1)
 #   define DISABLE_RC11_ANALOG() (RXY_GPIO_PCFG(RC11_AN) = 0)
 # else
@@ -3800,7 +4362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC11_CN
+# if defined(_CNIEC11)
+#   define ENABLE_RC11_PULLUP()  (_CNPUC11 = 1)
+#   define DISABLE_RC11_PULLUP() (_CNPUC11 = 0)
+
+#   define ENABLE_RC11_PULLDOWN()  (_CNPDC11 = 1)
+#   define DISABLE_RC11_PULLDOWN() (_CNPDC11 = 0)
+
+#   define ENABLE_RC11_CN_INTERRUPT()  (_CNIEC11 = 1)
+#   define DISABLE_RC11_CN_INTERRUPT() (_CNIEC11 = 0)
+
+# elif defined(RC11_CN)
 #   define ENABLE_RC11_PULLUP()  (RXY_GPIO_CNPUE(RC11_CN) = 1)
 #   define DISABLE_RC11_PULLUP() (RXY_GPIO_CNPUE(RC11_CN) = 0)
 
@@ -3822,7 +4394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC11_AN
+# if defined(_ANSC11) || defined(RC11_AN)
 #   define CONFIG_RC11_AS_ANALOG()       \
       do {                              \
         ENABLE_RC11_ANALOG();            \
@@ -3864,7 +4436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC12_AN
+# if defined(_ANSC12)
+#   define ENABLE_RC12_ANALOG()  (_ANSC12 = 1)
+#   define DISABLE_RC12_ANALOG() (_ANSC12 = 0)
+# elif defined(RC12_AN)
 #   define ENABLE_RC12_ANALOG()  (RXY_GPIO_PCFG(RC12_AN) = 1)
 #   define DISABLE_RC12_ANALOG() (RXY_GPIO_PCFG(RC12_AN) = 0)
 # else
@@ -3887,7 +4462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC12_CN
+# if defined(_CNIEC12)
+#   define ENABLE_RC12_PULLUP()  (_CNPUC12 = 1)
+#   define DISABLE_RC12_PULLUP() (_CNPUC12 = 0)
+
+#   define ENABLE_RC12_PULLDOWN()  (_CNPDC12 = 1)
+#   define DISABLE_RC12_PULLDOWN() (_CNPDC12 = 0)
+
+#   define ENABLE_RC12_CN_INTERRUPT()  (_CNIEC12 = 1)
+#   define DISABLE_RC12_CN_INTERRUPT() (_CNIEC12 = 0)
+
+# elif defined(RC12_CN)
 #   define ENABLE_RC12_PULLUP()  (RXY_GPIO_CNPUE(RC12_CN) = 1)
 #   define DISABLE_RC12_PULLUP() (RXY_GPIO_CNPUE(RC12_CN) = 0)
 
@@ -3909,7 +4494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC12_AN
+# if defined(_ANSC12) || defined(RC12_AN)
 #   define CONFIG_RC12_AS_ANALOG()       \
       do {                              \
         ENABLE_RC12_ANALOG();            \
@@ -3951,7 +4536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC13_AN
+# if defined(_ANSC13)
+#   define ENABLE_RC13_ANALOG()  (_ANSC13 = 1)
+#   define DISABLE_RC13_ANALOG() (_ANSC13 = 0)
+# elif defined(RC13_AN)
 #   define ENABLE_RC13_ANALOG()  (RXY_GPIO_PCFG(RC13_AN) = 1)
 #   define DISABLE_RC13_ANALOG() (RXY_GPIO_PCFG(RC13_AN) = 0)
 # else
@@ -3974,7 +4562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC13_CN
+# if defined(_CNIEC13)
+#   define ENABLE_RC13_PULLUP()  (_CNPUC13 = 1)
+#   define DISABLE_RC13_PULLUP() (_CNPUC13 = 0)
+
+#   define ENABLE_RC13_PULLDOWN()  (_CNPDC13 = 1)
+#   define DISABLE_RC13_PULLDOWN() (_CNPDC13 = 0)
+
+#   define ENABLE_RC13_CN_INTERRUPT()  (_CNIEC13 = 1)
+#   define DISABLE_RC13_CN_INTERRUPT() (_CNIEC13 = 0)
+
+# elif defined(RC13_CN)
 #   define ENABLE_RC13_PULLUP()  (RXY_GPIO_CNPUE(RC13_CN) = 1)
 #   define DISABLE_RC13_PULLUP() (RXY_GPIO_CNPUE(RC13_CN) = 0)
 
@@ -3996,7 +4594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC13_AN
+# if defined(_ANSC13) || defined(RC13_AN)
 #   define CONFIG_RC13_AS_ANALOG()       \
       do {                              \
         ENABLE_RC13_ANALOG();            \
@@ -4038,7 +4636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC14_AN
+# if defined(_ANSC14)
+#   define ENABLE_RC14_ANALOG()  (_ANSC14 = 1)
+#   define DISABLE_RC14_ANALOG() (_ANSC14 = 0)
+# elif defined(RC14_AN)
 #   define ENABLE_RC14_ANALOG()  (RXY_GPIO_PCFG(RC14_AN) = 1)
 #   define DISABLE_RC14_ANALOG() (RXY_GPIO_PCFG(RC14_AN) = 0)
 # else
@@ -4061,7 +4662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC14_CN
+# if defined(_CNIEC14)
+#   define ENABLE_RC14_PULLUP()  (_CNPUC14 = 1)
+#   define DISABLE_RC14_PULLUP() (_CNPUC14 = 0)
+
+#   define ENABLE_RC14_PULLDOWN()  (_CNPDC14 = 1)
+#   define DISABLE_RC14_PULLDOWN() (_CNPDC14 = 0)
+
+#   define ENABLE_RC14_CN_INTERRUPT()  (_CNIEC14 = 1)
+#   define DISABLE_RC14_CN_INTERRUPT() (_CNIEC14 = 0)
+
+# elif defined(RC14_CN)
 #   define ENABLE_RC14_PULLUP()  (RXY_GPIO_CNPUE(RC14_CN) = 1)
 #   define DISABLE_RC14_PULLUP() (RXY_GPIO_CNPUE(RC14_CN) = 0)
 
@@ -4083,7 +4694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC14_AN
+# if defined(_ANSC14) || defined(RC14_AN)
 #   define CONFIG_RC14_AS_ANALOG()       \
       do {                              \
         ENABLE_RC14_ANALOG();            \
@@ -4125,7 +4736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RC15_AN
+# if defined(_ANSC15)
+#   define ENABLE_RC15_ANALOG()  (_ANSC15 = 1)
+#   define DISABLE_RC15_ANALOG() (_ANSC15 = 0)
+# elif defined(RC15_AN)
 #   define ENABLE_RC15_ANALOG()  (RXY_GPIO_PCFG(RC15_AN) = 1)
 #   define DISABLE_RC15_ANALOG() (RXY_GPIO_PCFG(RC15_AN) = 0)
 # else
@@ -4148,7 +4762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RC15_CN
+# if defined(_CNIEC15)
+#   define ENABLE_RC15_PULLUP()  (_CNPUC15 = 1)
+#   define DISABLE_RC15_PULLUP() (_CNPUC15 = 0)
+
+#   define ENABLE_RC15_PULLDOWN()  (_CNPDC15 = 1)
+#   define DISABLE_RC15_PULLDOWN() (_CNPDC15 = 0)
+
+#   define ENABLE_RC15_CN_INTERRUPT()  (_CNIEC15 = 1)
+#   define DISABLE_RC15_CN_INTERRUPT() (_CNIEC15 = 0)
+
+# elif defined(RC15_CN)
 #   define ENABLE_RC15_PULLUP()  (RXY_GPIO_CNPUE(RC15_CN) = 1)
 #   define DISABLE_RC15_PULLUP() (RXY_GPIO_CNPUE(RC15_CN) = 0)
 
@@ -4170,7 +4794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RC15_AN
+# if defined(_ANSC15) || defined(RC15_AN)
 #   define CONFIG_RC15_AS_ANALOG()       \
       do {                              \
         ENABLE_RC15_ANALOG();            \
@@ -4212,7 +4836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD0_AN
+# if defined(_ANSD0)
+#   define ENABLE_RD0_ANALOG()  (_ANSD0 = 1)
+#   define DISABLE_RD0_ANALOG() (_ANSD0 = 0)
+# elif defined(RD0_AN)
 #   define ENABLE_RD0_ANALOG()  (RXY_GPIO_PCFG(RD0_AN) = 1)
 #   define DISABLE_RD0_ANALOG() (RXY_GPIO_PCFG(RD0_AN) = 0)
 # else
@@ -4235,7 +4862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD0_CN
+# if defined(_CNIED0)
+#   define ENABLE_RD0_PULLUP()  (_CNPUD0 = 1)
+#   define DISABLE_RD0_PULLUP() (_CNPUD0 = 0)
+
+#   define ENABLE_RD0_PULLDOWN()  (_CNPDD0 = 1)
+#   define DISABLE_RD0_PULLDOWN() (_CNPDD0 = 0)
+
+#   define ENABLE_RD0_CN_INTERRUPT()  (_CNIED0 = 1)
+#   define DISABLE_RD0_CN_INTERRUPT() (_CNIED0 = 0)
+
+# elif defined(RD0_CN)
 #   define ENABLE_RD0_PULLUP()  (RXY_GPIO_CNPUE(RD0_CN) = 1)
 #   define DISABLE_RD0_PULLUP() (RXY_GPIO_CNPUE(RD0_CN) = 0)
 
@@ -4257,7 +4894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD0_AN
+# if defined(_ANSD0) || defined(RD0_AN)
 #   define CONFIG_RD0_AS_ANALOG()       \
       do {                              \
         ENABLE_RD0_ANALOG();            \
@@ -4299,7 +4936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD1_AN
+# if defined(_ANSD1)
+#   define ENABLE_RD1_ANALOG()  (_ANSD1 = 1)
+#   define DISABLE_RD1_ANALOG() (_ANSD1 = 0)
+# elif defined(RD1_AN)
 #   define ENABLE_RD1_ANALOG()  (RXY_GPIO_PCFG(RD1_AN) = 1)
 #   define DISABLE_RD1_ANALOG() (RXY_GPIO_PCFG(RD1_AN) = 0)
 # else
@@ -4322,7 +4962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD1_CN
+# if defined(_CNIED1)
+#   define ENABLE_RD1_PULLUP()  (_CNPUD1 = 1)
+#   define DISABLE_RD1_PULLUP() (_CNPUD1 = 0)
+
+#   define ENABLE_RD1_PULLDOWN()  (_CNPDD1 = 1)
+#   define DISABLE_RD1_PULLDOWN() (_CNPDD1 = 0)
+
+#   define ENABLE_RD1_CN_INTERRUPT()  (_CNIED1 = 1)
+#   define DISABLE_RD1_CN_INTERRUPT() (_CNIED1 = 0)
+
+# elif defined(RD1_CN)
 #   define ENABLE_RD1_PULLUP()  (RXY_GPIO_CNPUE(RD1_CN) = 1)
 #   define DISABLE_RD1_PULLUP() (RXY_GPIO_CNPUE(RD1_CN) = 0)
 
@@ -4344,7 +4994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD1_AN
+# if defined(_ANSD1) || defined(RD1_AN)
 #   define CONFIG_RD1_AS_ANALOG()       \
       do {                              \
         ENABLE_RD1_ANALOG();            \
@@ -4386,7 +5036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD2_AN
+# if defined(_ANSD2)
+#   define ENABLE_RD2_ANALOG()  (_ANSD2 = 1)
+#   define DISABLE_RD2_ANALOG() (_ANSD2 = 0)
+# elif defined(RD2_AN)
 #   define ENABLE_RD2_ANALOG()  (RXY_GPIO_PCFG(RD2_AN) = 1)
 #   define DISABLE_RD2_ANALOG() (RXY_GPIO_PCFG(RD2_AN) = 0)
 # else
@@ -4409,7 +5062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD2_CN
+# if defined(_CNIED2)
+#   define ENABLE_RD2_PULLUP()  (_CNPUD2 = 1)
+#   define DISABLE_RD2_PULLUP() (_CNPUD2 = 0)
+
+#   define ENABLE_RD2_PULLDOWN()  (_CNPDD2 = 1)
+#   define DISABLE_RD2_PULLDOWN() (_CNPDD2 = 0)
+
+#   define ENABLE_RD2_CN_INTERRUPT()  (_CNIED2 = 1)
+#   define DISABLE_RD2_CN_INTERRUPT() (_CNIED2 = 0)
+
+# elif defined(RD2_CN)
 #   define ENABLE_RD2_PULLUP()  (RXY_GPIO_CNPUE(RD2_CN) = 1)
 #   define DISABLE_RD2_PULLUP() (RXY_GPIO_CNPUE(RD2_CN) = 0)
 
@@ -4431,7 +5094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD2_AN
+# if defined(_ANSD2) || defined(RD2_AN)
 #   define CONFIG_RD2_AS_ANALOG()       \
       do {                              \
         ENABLE_RD2_ANALOG();            \
@@ -4473,7 +5136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD3_AN
+# if defined(_ANSD3)
+#   define ENABLE_RD3_ANALOG()  (_ANSD3 = 1)
+#   define DISABLE_RD3_ANALOG() (_ANSD3 = 0)
+# elif defined(RD3_AN)
 #   define ENABLE_RD3_ANALOG()  (RXY_GPIO_PCFG(RD3_AN) = 1)
 #   define DISABLE_RD3_ANALOG() (RXY_GPIO_PCFG(RD3_AN) = 0)
 # else
@@ -4496,7 +5162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD3_CN
+# if defined(_CNIED3)
+#   define ENABLE_RD3_PULLUP()  (_CNPUD3 = 1)
+#   define DISABLE_RD3_PULLUP() (_CNPUD3 = 0)
+
+#   define ENABLE_RD3_PULLDOWN()  (_CNPDD3 = 1)
+#   define DISABLE_RD3_PULLDOWN() (_CNPDD3 = 0)
+
+#   define ENABLE_RD3_CN_INTERRUPT()  (_CNIED3 = 1)
+#   define DISABLE_RD3_CN_INTERRUPT() (_CNIED3 = 0)
+
+# elif defined(RD3_CN)
 #   define ENABLE_RD3_PULLUP()  (RXY_GPIO_CNPUE(RD3_CN) = 1)
 #   define DISABLE_RD3_PULLUP() (RXY_GPIO_CNPUE(RD3_CN) = 0)
 
@@ -4518,7 +5194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD3_AN
+# if defined(_ANSD3) || defined(RD3_AN)
 #   define CONFIG_RD3_AS_ANALOG()       \
       do {                              \
         ENABLE_RD3_ANALOG();            \
@@ -4560,7 +5236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD4_AN
+# if defined(_ANSD4)
+#   define ENABLE_RD4_ANALOG()  (_ANSD4 = 1)
+#   define DISABLE_RD4_ANALOG() (_ANSD4 = 0)
+# elif defined(RD4_AN)
 #   define ENABLE_RD4_ANALOG()  (RXY_GPIO_PCFG(RD4_AN) = 1)
 #   define DISABLE_RD4_ANALOG() (RXY_GPIO_PCFG(RD4_AN) = 0)
 # else
@@ -4583,7 +5262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD4_CN
+# if defined(_CNIED4)
+#   define ENABLE_RD4_PULLUP()  (_CNPUD4 = 1)
+#   define DISABLE_RD4_PULLUP() (_CNPUD4 = 0)
+
+#   define ENABLE_RD4_PULLDOWN()  (_CNPDD4 = 1)
+#   define DISABLE_RD4_PULLDOWN() (_CNPDD4 = 0)
+
+#   define ENABLE_RD4_CN_INTERRUPT()  (_CNIED4 = 1)
+#   define DISABLE_RD4_CN_INTERRUPT() (_CNIED4 = 0)
+
+# elif defined(RD4_CN)
 #   define ENABLE_RD4_PULLUP()  (RXY_GPIO_CNPUE(RD4_CN) = 1)
 #   define DISABLE_RD4_PULLUP() (RXY_GPIO_CNPUE(RD4_CN) = 0)
 
@@ -4605,7 +5294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD4_AN
+# if defined(_ANSD4) || defined(RD4_AN)
 #   define CONFIG_RD4_AS_ANALOG()       \
       do {                              \
         ENABLE_RD4_ANALOG();            \
@@ -4647,7 +5336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD5_AN
+# if defined(_ANSD5)
+#   define ENABLE_RD5_ANALOG()  (_ANSD5 = 1)
+#   define DISABLE_RD5_ANALOG() (_ANSD5 = 0)
+# elif defined(RD5_AN)
 #   define ENABLE_RD5_ANALOG()  (RXY_GPIO_PCFG(RD5_AN) = 1)
 #   define DISABLE_RD5_ANALOG() (RXY_GPIO_PCFG(RD5_AN) = 0)
 # else
@@ -4670,7 +5362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD5_CN
+# if defined(_CNIED5)
+#   define ENABLE_RD5_PULLUP()  (_CNPUD5 = 1)
+#   define DISABLE_RD5_PULLUP() (_CNPUD5 = 0)
+
+#   define ENABLE_RD5_PULLDOWN()  (_CNPDD5 = 1)
+#   define DISABLE_RD5_PULLDOWN() (_CNPDD5 = 0)
+
+#   define ENABLE_RD5_CN_INTERRUPT()  (_CNIED5 = 1)
+#   define DISABLE_RD5_CN_INTERRUPT() (_CNIED5 = 0)
+
+# elif defined(RD5_CN)
 #   define ENABLE_RD5_PULLUP()  (RXY_GPIO_CNPUE(RD5_CN) = 1)
 #   define DISABLE_RD5_PULLUP() (RXY_GPIO_CNPUE(RD5_CN) = 0)
 
@@ -4692,7 +5394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD5_AN
+# if defined(_ANSD5) || defined(RD5_AN)
 #   define CONFIG_RD5_AS_ANALOG()       \
       do {                              \
         ENABLE_RD5_ANALOG();            \
@@ -4734,7 +5436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD6_AN
+# if defined(_ANSD6)
+#   define ENABLE_RD6_ANALOG()  (_ANSD6 = 1)
+#   define DISABLE_RD6_ANALOG() (_ANSD6 = 0)
+# elif defined(RD6_AN)
 #   define ENABLE_RD6_ANALOG()  (RXY_GPIO_PCFG(RD6_AN) = 1)
 #   define DISABLE_RD6_ANALOG() (RXY_GPIO_PCFG(RD6_AN) = 0)
 # else
@@ -4757,7 +5462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD6_CN
+# if defined(_CNIED6)
+#   define ENABLE_RD6_PULLUP()  (_CNPUD6 = 1)
+#   define DISABLE_RD6_PULLUP() (_CNPUD6 = 0)
+
+#   define ENABLE_RD6_PULLDOWN()  (_CNPDD6 = 1)
+#   define DISABLE_RD6_PULLDOWN() (_CNPDD6 = 0)
+
+#   define ENABLE_RD6_CN_INTERRUPT()  (_CNIED6 = 1)
+#   define DISABLE_RD6_CN_INTERRUPT() (_CNIED6 = 0)
+
+# elif defined(RD6_CN)
 #   define ENABLE_RD6_PULLUP()  (RXY_GPIO_CNPUE(RD6_CN) = 1)
 #   define DISABLE_RD6_PULLUP() (RXY_GPIO_CNPUE(RD6_CN) = 0)
 
@@ -4779,7 +5494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD6_AN
+# if defined(_ANSD6) || defined(RD6_AN)
 #   define CONFIG_RD6_AS_ANALOG()       \
       do {                              \
         ENABLE_RD6_ANALOG();            \
@@ -4821,7 +5536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD7_AN
+# if defined(_ANSD7)
+#   define ENABLE_RD7_ANALOG()  (_ANSD7 = 1)
+#   define DISABLE_RD7_ANALOG() (_ANSD7 = 0)
+# elif defined(RD7_AN)
 #   define ENABLE_RD7_ANALOG()  (RXY_GPIO_PCFG(RD7_AN) = 1)
 #   define DISABLE_RD7_ANALOG() (RXY_GPIO_PCFG(RD7_AN) = 0)
 # else
@@ -4844,7 +5562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD7_CN
+# if defined(_CNIED7)
+#   define ENABLE_RD7_PULLUP()  (_CNPUD7 = 1)
+#   define DISABLE_RD7_PULLUP() (_CNPUD7 = 0)
+
+#   define ENABLE_RD7_PULLDOWN()  (_CNPDD7 = 1)
+#   define DISABLE_RD7_PULLDOWN() (_CNPDD7 = 0)
+
+#   define ENABLE_RD7_CN_INTERRUPT()  (_CNIED7 = 1)
+#   define DISABLE_RD7_CN_INTERRUPT() (_CNIED7 = 0)
+
+# elif defined(RD7_CN)
 #   define ENABLE_RD7_PULLUP()  (RXY_GPIO_CNPUE(RD7_CN) = 1)
 #   define DISABLE_RD7_PULLUP() (RXY_GPIO_CNPUE(RD7_CN) = 0)
 
@@ -4866,7 +5594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD7_AN
+# if defined(_ANSD7) || defined(RD7_AN)
 #   define CONFIG_RD7_AS_ANALOG()       \
       do {                              \
         ENABLE_RD7_ANALOG();            \
@@ -4908,7 +5636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD8_AN
+# if defined(_ANSD8)
+#   define ENABLE_RD8_ANALOG()  (_ANSD8 = 1)
+#   define DISABLE_RD8_ANALOG() (_ANSD8 = 0)
+# elif defined(RD8_AN)
 #   define ENABLE_RD8_ANALOG()  (RXY_GPIO_PCFG(RD8_AN) = 1)
 #   define DISABLE_RD8_ANALOG() (RXY_GPIO_PCFG(RD8_AN) = 0)
 # else
@@ -4931,7 +5662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD8_CN
+# if defined(_CNIED8)
+#   define ENABLE_RD8_PULLUP()  (_CNPUD8 = 1)
+#   define DISABLE_RD8_PULLUP() (_CNPUD8 = 0)
+
+#   define ENABLE_RD8_PULLDOWN()  (_CNPDD8 = 1)
+#   define DISABLE_RD8_PULLDOWN() (_CNPDD8 = 0)
+
+#   define ENABLE_RD8_CN_INTERRUPT()  (_CNIED8 = 1)
+#   define DISABLE_RD8_CN_INTERRUPT() (_CNIED8 = 0)
+
+# elif defined(RD8_CN)
 #   define ENABLE_RD8_PULLUP()  (RXY_GPIO_CNPUE(RD8_CN) = 1)
 #   define DISABLE_RD8_PULLUP() (RXY_GPIO_CNPUE(RD8_CN) = 0)
 
@@ -4953,7 +5694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD8_AN
+# if defined(_ANSD8) || defined(RD8_AN)
 #   define CONFIG_RD8_AS_ANALOG()       \
       do {                              \
         ENABLE_RD8_ANALOG();            \
@@ -4995,7 +5736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD9_AN
+# if defined(_ANSD9)
+#   define ENABLE_RD9_ANALOG()  (_ANSD9 = 1)
+#   define DISABLE_RD9_ANALOG() (_ANSD9 = 0)
+# elif defined(RD9_AN)
 #   define ENABLE_RD9_ANALOG()  (RXY_GPIO_PCFG(RD9_AN) = 1)
 #   define DISABLE_RD9_ANALOG() (RXY_GPIO_PCFG(RD9_AN) = 0)
 # else
@@ -5018,7 +5762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD9_CN
+# if defined(_CNIED9)
+#   define ENABLE_RD9_PULLUP()  (_CNPUD9 = 1)
+#   define DISABLE_RD9_PULLUP() (_CNPUD9 = 0)
+
+#   define ENABLE_RD9_PULLDOWN()  (_CNPDD9 = 1)
+#   define DISABLE_RD9_PULLDOWN() (_CNPDD9 = 0)
+
+#   define ENABLE_RD9_CN_INTERRUPT()  (_CNIED9 = 1)
+#   define DISABLE_RD9_CN_INTERRUPT() (_CNIED9 = 0)
+
+# elif defined(RD9_CN)
 #   define ENABLE_RD9_PULLUP()  (RXY_GPIO_CNPUE(RD9_CN) = 1)
 #   define DISABLE_RD9_PULLUP() (RXY_GPIO_CNPUE(RD9_CN) = 0)
 
@@ -5040,7 +5794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD9_AN
+# if defined(_ANSD9) || defined(RD9_AN)
 #   define CONFIG_RD9_AS_ANALOG()       \
       do {                              \
         ENABLE_RD9_ANALOG();            \
@@ -5082,7 +5836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD10_AN
+# if defined(_ANSD10)
+#   define ENABLE_RD10_ANALOG()  (_ANSD10 = 1)
+#   define DISABLE_RD10_ANALOG() (_ANSD10 = 0)
+# elif defined(RD10_AN)
 #   define ENABLE_RD10_ANALOG()  (RXY_GPIO_PCFG(RD10_AN) = 1)
 #   define DISABLE_RD10_ANALOG() (RXY_GPIO_PCFG(RD10_AN) = 0)
 # else
@@ -5105,7 +5862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD10_CN
+# if defined(_CNIED10)
+#   define ENABLE_RD10_PULLUP()  (_CNPUD10 = 1)
+#   define DISABLE_RD10_PULLUP() (_CNPUD10 = 0)
+
+#   define ENABLE_RD10_PULLDOWN()  (_CNPDD10 = 1)
+#   define DISABLE_RD10_PULLDOWN() (_CNPDD10 = 0)
+
+#   define ENABLE_RD10_CN_INTERRUPT()  (_CNIED10 = 1)
+#   define DISABLE_RD10_CN_INTERRUPT() (_CNIED10 = 0)
+
+# elif defined(RD10_CN)
 #   define ENABLE_RD10_PULLUP()  (RXY_GPIO_CNPUE(RD10_CN) = 1)
 #   define DISABLE_RD10_PULLUP() (RXY_GPIO_CNPUE(RD10_CN) = 0)
 
@@ -5127,7 +5894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD10_AN
+# if defined(_ANSD10) || defined(RD10_AN)
 #   define CONFIG_RD10_AS_ANALOG()       \
       do {                              \
         ENABLE_RD10_ANALOG();            \
@@ -5169,7 +5936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD11_AN
+# if defined(_ANSD11)
+#   define ENABLE_RD11_ANALOG()  (_ANSD11 = 1)
+#   define DISABLE_RD11_ANALOG() (_ANSD11 = 0)
+# elif defined(RD11_AN)
 #   define ENABLE_RD11_ANALOG()  (RXY_GPIO_PCFG(RD11_AN) = 1)
 #   define DISABLE_RD11_ANALOG() (RXY_GPIO_PCFG(RD11_AN) = 0)
 # else
@@ -5192,7 +5962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD11_CN
+# if defined(_CNIED11)
+#   define ENABLE_RD11_PULLUP()  (_CNPUD11 = 1)
+#   define DISABLE_RD11_PULLUP() (_CNPUD11 = 0)
+
+#   define ENABLE_RD11_PULLDOWN()  (_CNPDD11 = 1)
+#   define DISABLE_RD11_PULLDOWN() (_CNPDD11 = 0)
+
+#   define ENABLE_RD11_CN_INTERRUPT()  (_CNIED11 = 1)
+#   define DISABLE_RD11_CN_INTERRUPT() (_CNIED11 = 0)
+
+# elif defined(RD11_CN)
 #   define ENABLE_RD11_PULLUP()  (RXY_GPIO_CNPUE(RD11_CN) = 1)
 #   define DISABLE_RD11_PULLUP() (RXY_GPIO_CNPUE(RD11_CN) = 0)
 
@@ -5214,7 +5994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD11_AN
+# if defined(_ANSD11) || defined(RD11_AN)
 #   define CONFIG_RD11_AS_ANALOG()       \
       do {                              \
         ENABLE_RD11_ANALOG();            \
@@ -5256,7 +6036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD12_AN
+# if defined(_ANSD12)
+#   define ENABLE_RD12_ANALOG()  (_ANSD12 = 1)
+#   define DISABLE_RD12_ANALOG() (_ANSD12 = 0)
+# elif defined(RD12_AN)
 #   define ENABLE_RD12_ANALOG()  (RXY_GPIO_PCFG(RD12_AN) = 1)
 #   define DISABLE_RD12_ANALOG() (RXY_GPIO_PCFG(RD12_AN) = 0)
 # else
@@ -5279,7 +6062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD12_CN
+# if defined(_CNIED12)
+#   define ENABLE_RD12_PULLUP()  (_CNPUD12 = 1)
+#   define DISABLE_RD12_PULLUP() (_CNPUD12 = 0)
+
+#   define ENABLE_RD12_PULLDOWN()  (_CNPDD12 = 1)
+#   define DISABLE_RD12_PULLDOWN() (_CNPDD12 = 0)
+
+#   define ENABLE_RD12_CN_INTERRUPT()  (_CNIED12 = 1)
+#   define DISABLE_RD12_CN_INTERRUPT() (_CNIED12 = 0)
+
+# elif defined(RD12_CN)
 #   define ENABLE_RD12_PULLUP()  (RXY_GPIO_CNPUE(RD12_CN) = 1)
 #   define DISABLE_RD12_PULLUP() (RXY_GPIO_CNPUE(RD12_CN) = 0)
 
@@ -5301,7 +6094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD12_AN
+# if defined(_ANSD12) || defined(RD12_AN)
 #   define CONFIG_RD12_AS_ANALOG()       \
       do {                              \
         ENABLE_RD12_ANALOG();            \
@@ -5343,7 +6136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD13_AN
+# if defined(_ANSD13)
+#   define ENABLE_RD13_ANALOG()  (_ANSD13 = 1)
+#   define DISABLE_RD13_ANALOG() (_ANSD13 = 0)
+# elif defined(RD13_AN)
 #   define ENABLE_RD13_ANALOG()  (RXY_GPIO_PCFG(RD13_AN) = 1)
 #   define DISABLE_RD13_ANALOG() (RXY_GPIO_PCFG(RD13_AN) = 0)
 # else
@@ -5366,7 +6162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD13_CN
+# if defined(_CNIED13)
+#   define ENABLE_RD13_PULLUP()  (_CNPUD13 = 1)
+#   define DISABLE_RD13_PULLUP() (_CNPUD13 = 0)
+
+#   define ENABLE_RD13_PULLDOWN()  (_CNPDD13 = 1)
+#   define DISABLE_RD13_PULLDOWN() (_CNPDD13 = 0)
+
+#   define ENABLE_RD13_CN_INTERRUPT()  (_CNIED13 = 1)
+#   define DISABLE_RD13_CN_INTERRUPT() (_CNIED13 = 0)
+
+# elif defined(RD13_CN)
 #   define ENABLE_RD13_PULLUP()  (RXY_GPIO_CNPUE(RD13_CN) = 1)
 #   define DISABLE_RD13_PULLUP() (RXY_GPIO_CNPUE(RD13_CN) = 0)
 
@@ -5388,7 +6194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD13_AN
+# if defined(_ANSD13) || defined(RD13_AN)
 #   define CONFIG_RD13_AS_ANALOG()       \
       do {                              \
         ENABLE_RD13_ANALOG();            \
@@ -5430,7 +6236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD14_AN
+# if defined(_ANSD14)
+#   define ENABLE_RD14_ANALOG()  (_ANSD14 = 1)
+#   define DISABLE_RD14_ANALOG() (_ANSD14 = 0)
+# elif defined(RD14_AN)
 #   define ENABLE_RD14_ANALOG()  (RXY_GPIO_PCFG(RD14_AN) = 1)
 #   define DISABLE_RD14_ANALOG() (RXY_GPIO_PCFG(RD14_AN) = 0)
 # else
@@ -5453,7 +6262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD14_CN
+# if defined(_CNIED14)
+#   define ENABLE_RD14_PULLUP()  (_CNPUD14 = 1)
+#   define DISABLE_RD14_PULLUP() (_CNPUD14 = 0)
+
+#   define ENABLE_RD14_PULLDOWN()  (_CNPDD14 = 1)
+#   define DISABLE_RD14_PULLDOWN() (_CNPDD14 = 0)
+
+#   define ENABLE_RD14_CN_INTERRUPT()  (_CNIED14 = 1)
+#   define DISABLE_RD14_CN_INTERRUPT() (_CNIED14 = 0)
+
+# elif defined(RD14_CN)
 #   define ENABLE_RD14_PULLUP()  (RXY_GPIO_CNPUE(RD14_CN) = 1)
 #   define DISABLE_RD14_PULLUP() (RXY_GPIO_CNPUE(RD14_CN) = 0)
 
@@ -5475,7 +6294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD14_AN
+# if defined(_ANSD14) || defined(RD14_AN)
 #   define CONFIG_RD14_AS_ANALOG()       \
       do {                              \
         ENABLE_RD14_ANALOG();            \
@@ -5517,7 +6336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RD15_AN
+# if defined(_ANSD15)
+#   define ENABLE_RD15_ANALOG()  (_ANSD15 = 1)
+#   define DISABLE_RD15_ANALOG() (_ANSD15 = 0)
+# elif defined(RD15_AN)
 #   define ENABLE_RD15_ANALOG()  (RXY_GPIO_PCFG(RD15_AN) = 1)
 #   define DISABLE_RD15_ANALOG() (RXY_GPIO_PCFG(RD15_AN) = 0)
 # else
@@ -5540,7 +6362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RD15_CN
+# if defined(_CNIED15)
+#   define ENABLE_RD15_PULLUP()  (_CNPUD15 = 1)
+#   define DISABLE_RD15_PULLUP() (_CNPUD15 = 0)
+
+#   define ENABLE_RD15_PULLDOWN()  (_CNPDD15 = 1)
+#   define DISABLE_RD15_PULLDOWN() (_CNPDD15 = 0)
+
+#   define ENABLE_RD15_CN_INTERRUPT()  (_CNIED15 = 1)
+#   define DISABLE_RD15_CN_INTERRUPT() (_CNIED15 = 0)
+
+# elif defined(RD15_CN)
 #   define ENABLE_RD15_PULLUP()  (RXY_GPIO_CNPUE(RD15_CN) = 1)
 #   define DISABLE_RD15_PULLUP() (RXY_GPIO_CNPUE(RD15_CN) = 0)
 
@@ -5562,7 +6394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RD15_AN
+# if defined(_ANSD15) || defined(RD15_AN)
 #   define CONFIG_RD15_AS_ANALOG()       \
       do {                              \
         ENABLE_RD15_ANALOG();            \
@@ -5604,7 +6436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE0_AN
+# if defined(_ANSE0)
+#   define ENABLE_RE0_ANALOG()  (_ANSE0 = 1)
+#   define DISABLE_RE0_ANALOG() (_ANSE0 = 0)
+# elif defined(RE0_AN)
 #   define ENABLE_RE0_ANALOG()  (RXY_GPIO_PCFG(RE0_AN) = 1)
 #   define DISABLE_RE0_ANALOG() (RXY_GPIO_PCFG(RE0_AN) = 0)
 # else
@@ -5627,7 +6462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE0_CN
+# if defined(_CNIEE0)
+#   define ENABLE_RE0_PULLUP()  (_CNPUE0 = 1)
+#   define DISABLE_RE0_PULLUP() (_CNPUE0 = 0)
+
+#   define ENABLE_RE0_PULLDOWN()  (_CNPDE0 = 1)
+#   define DISABLE_RE0_PULLDOWN() (_CNPDE0 = 0)
+
+#   define ENABLE_RE0_CN_INTERRUPT()  (_CNIEE0 = 1)
+#   define DISABLE_RE0_CN_INTERRUPT() (_CNIEE0 = 0)
+
+# elif defined(RE0_CN)
 #   define ENABLE_RE0_PULLUP()  (RXY_GPIO_CNPUE(RE0_CN) = 1)
 #   define DISABLE_RE0_PULLUP() (RXY_GPIO_CNPUE(RE0_CN) = 0)
 
@@ -5649,7 +6494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE0_AN
+# if defined(_ANSE0) || defined(RE0_AN)
 #   define CONFIG_RE0_AS_ANALOG()       \
       do {                              \
         ENABLE_RE0_ANALOG();            \
@@ -5691,7 +6536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE1_AN
+# if defined(_ANSE1)
+#   define ENABLE_RE1_ANALOG()  (_ANSE1 = 1)
+#   define DISABLE_RE1_ANALOG() (_ANSE1 = 0)
+# elif defined(RE1_AN)
 #   define ENABLE_RE1_ANALOG()  (RXY_GPIO_PCFG(RE1_AN) = 1)
 #   define DISABLE_RE1_ANALOG() (RXY_GPIO_PCFG(RE1_AN) = 0)
 # else
@@ -5714,7 +6562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE1_CN
+# if defined(_CNIEE1)
+#   define ENABLE_RE1_PULLUP()  (_CNPUE1 = 1)
+#   define DISABLE_RE1_PULLUP() (_CNPUE1 = 0)
+
+#   define ENABLE_RE1_PULLDOWN()  (_CNPDE1 = 1)
+#   define DISABLE_RE1_PULLDOWN() (_CNPDE1 = 0)
+
+#   define ENABLE_RE1_CN_INTERRUPT()  (_CNIEE1 = 1)
+#   define DISABLE_RE1_CN_INTERRUPT() (_CNIEE1 = 0)
+
+# elif defined(RE1_CN)
 #   define ENABLE_RE1_PULLUP()  (RXY_GPIO_CNPUE(RE1_CN) = 1)
 #   define DISABLE_RE1_PULLUP() (RXY_GPIO_CNPUE(RE1_CN) = 0)
 
@@ -5736,7 +6594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE1_AN
+# if defined(_ANSE1) || defined(RE1_AN)
 #   define CONFIG_RE1_AS_ANALOG()       \
       do {                              \
         ENABLE_RE1_ANALOG();            \
@@ -5778,7 +6636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE2_AN
+# if defined(_ANSE2)
+#   define ENABLE_RE2_ANALOG()  (_ANSE2 = 1)
+#   define DISABLE_RE2_ANALOG() (_ANSE2 = 0)
+# elif defined(RE2_AN)
 #   define ENABLE_RE2_ANALOG()  (RXY_GPIO_PCFG(RE2_AN) = 1)
 #   define DISABLE_RE2_ANALOG() (RXY_GPIO_PCFG(RE2_AN) = 0)
 # else
@@ -5801,7 +6662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE2_CN
+# if defined(_CNIEE2)
+#   define ENABLE_RE2_PULLUP()  (_CNPUE2 = 1)
+#   define DISABLE_RE2_PULLUP() (_CNPUE2 = 0)
+
+#   define ENABLE_RE2_PULLDOWN()  (_CNPDE2 = 1)
+#   define DISABLE_RE2_PULLDOWN() (_CNPDE2 = 0)
+
+#   define ENABLE_RE2_CN_INTERRUPT()  (_CNIEE2 = 1)
+#   define DISABLE_RE2_CN_INTERRUPT() (_CNIEE2 = 0)
+
+# elif defined(RE2_CN)
 #   define ENABLE_RE2_PULLUP()  (RXY_GPIO_CNPUE(RE2_CN) = 1)
 #   define DISABLE_RE2_PULLUP() (RXY_GPIO_CNPUE(RE2_CN) = 0)
 
@@ -5823,7 +6694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE2_AN
+# if defined(_ANSE2) || defined(RE2_AN)
 #   define CONFIG_RE2_AS_ANALOG()       \
       do {                              \
         ENABLE_RE2_ANALOG();            \
@@ -5865,7 +6736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE3_AN
+# if defined(_ANSE3)
+#   define ENABLE_RE3_ANALOG()  (_ANSE3 = 1)
+#   define DISABLE_RE3_ANALOG() (_ANSE3 = 0)
+# elif defined(RE3_AN)
 #   define ENABLE_RE3_ANALOG()  (RXY_GPIO_PCFG(RE3_AN) = 1)
 #   define DISABLE_RE3_ANALOG() (RXY_GPIO_PCFG(RE3_AN) = 0)
 # else
@@ -5888,7 +6762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE3_CN
+# if defined(_CNIEE3)
+#   define ENABLE_RE3_PULLUP()  (_CNPUE3 = 1)
+#   define DISABLE_RE3_PULLUP() (_CNPUE3 = 0)
+
+#   define ENABLE_RE3_PULLDOWN()  (_CNPDE3 = 1)
+#   define DISABLE_RE3_PULLDOWN() (_CNPDE3 = 0)
+
+#   define ENABLE_RE3_CN_INTERRUPT()  (_CNIEE3 = 1)
+#   define DISABLE_RE3_CN_INTERRUPT() (_CNIEE3 = 0)
+
+# elif defined(RE3_CN)
 #   define ENABLE_RE3_PULLUP()  (RXY_GPIO_CNPUE(RE3_CN) = 1)
 #   define DISABLE_RE3_PULLUP() (RXY_GPIO_CNPUE(RE3_CN) = 0)
 
@@ -5910,7 +6794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE3_AN
+# if defined(_ANSE3) || defined(RE3_AN)
 #   define CONFIG_RE3_AS_ANALOG()       \
       do {                              \
         ENABLE_RE3_ANALOG();            \
@@ -5952,7 +6836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE4_AN
+# if defined(_ANSE4)
+#   define ENABLE_RE4_ANALOG()  (_ANSE4 = 1)
+#   define DISABLE_RE4_ANALOG() (_ANSE4 = 0)
+# elif defined(RE4_AN)
 #   define ENABLE_RE4_ANALOG()  (RXY_GPIO_PCFG(RE4_AN) = 1)
 #   define DISABLE_RE4_ANALOG() (RXY_GPIO_PCFG(RE4_AN) = 0)
 # else
@@ -5975,7 +6862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE4_CN
+# if defined(_CNIEE4)
+#   define ENABLE_RE4_PULLUP()  (_CNPUE4 = 1)
+#   define DISABLE_RE4_PULLUP() (_CNPUE4 = 0)
+
+#   define ENABLE_RE4_PULLDOWN()  (_CNPDE4 = 1)
+#   define DISABLE_RE4_PULLDOWN() (_CNPDE4 = 0)
+
+#   define ENABLE_RE4_CN_INTERRUPT()  (_CNIEE4 = 1)
+#   define DISABLE_RE4_CN_INTERRUPT() (_CNIEE4 = 0)
+
+# elif defined(RE4_CN)
 #   define ENABLE_RE4_PULLUP()  (RXY_GPIO_CNPUE(RE4_CN) = 1)
 #   define DISABLE_RE4_PULLUP() (RXY_GPIO_CNPUE(RE4_CN) = 0)
 
@@ -5997,7 +6894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE4_AN
+# if defined(_ANSE4) || defined(RE4_AN)
 #   define CONFIG_RE4_AS_ANALOG()       \
       do {                              \
         ENABLE_RE4_ANALOG();            \
@@ -6039,7 +6936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE5_AN
+# if defined(_ANSE5)
+#   define ENABLE_RE5_ANALOG()  (_ANSE5 = 1)
+#   define DISABLE_RE5_ANALOG() (_ANSE5 = 0)
+# elif defined(RE5_AN)
 #   define ENABLE_RE5_ANALOG()  (RXY_GPIO_PCFG(RE5_AN) = 1)
 #   define DISABLE_RE5_ANALOG() (RXY_GPIO_PCFG(RE5_AN) = 0)
 # else
@@ -6062,7 +6962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE5_CN
+# if defined(_CNIEE5)
+#   define ENABLE_RE5_PULLUP()  (_CNPUE5 = 1)
+#   define DISABLE_RE5_PULLUP() (_CNPUE5 = 0)
+
+#   define ENABLE_RE5_PULLDOWN()  (_CNPDE5 = 1)
+#   define DISABLE_RE5_PULLDOWN() (_CNPDE5 = 0)
+
+#   define ENABLE_RE5_CN_INTERRUPT()  (_CNIEE5 = 1)
+#   define DISABLE_RE5_CN_INTERRUPT() (_CNIEE5 = 0)
+
+# elif defined(RE5_CN)
 #   define ENABLE_RE5_PULLUP()  (RXY_GPIO_CNPUE(RE5_CN) = 1)
 #   define DISABLE_RE5_PULLUP() (RXY_GPIO_CNPUE(RE5_CN) = 0)
 
@@ -6084,7 +6994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE5_AN
+# if defined(_ANSE5) || defined(RE5_AN)
 #   define CONFIG_RE5_AS_ANALOG()       \
       do {                              \
         ENABLE_RE5_ANALOG();            \
@@ -6126,7 +7036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE6_AN
+# if defined(_ANSE6)
+#   define ENABLE_RE6_ANALOG()  (_ANSE6 = 1)
+#   define DISABLE_RE6_ANALOG() (_ANSE6 = 0)
+# elif defined(RE6_AN)
 #   define ENABLE_RE6_ANALOG()  (RXY_GPIO_PCFG(RE6_AN) = 1)
 #   define DISABLE_RE6_ANALOG() (RXY_GPIO_PCFG(RE6_AN) = 0)
 # else
@@ -6149,7 +7062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE6_CN
+# if defined(_CNIEE6)
+#   define ENABLE_RE6_PULLUP()  (_CNPUE6 = 1)
+#   define DISABLE_RE6_PULLUP() (_CNPUE6 = 0)
+
+#   define ENABLE_RE6_PULLDOWN()  (_CNPDE6 = 1)
+#   define DISABLE_RE6_PULLDOWN() (_CNPDE6 = 0)
+
+#   define ENABLE_RE6_CN_INTERRUPT()  (_CNIEE6 = 1)
+#   define DISABLE_RE6_CN_INTERRUPT() (_CNIEE6 = 0)
+
+# elif defined(RE6_CN)
 #   define ENABLE_RE6_PULLUP()  (RXY_GPIO_CNPUE(RE6_CN) = 1)
 #   define DISABLE_RE6_PULLUP() (RXY_GPIO_CNPUE(RE6_CN) = 0)
 
@@ -6171,7 +7094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE6_AN
+# if defined(_ANSE6) || defined(RE6_AN)
 #   define CONFIG_RE6_AS_ANALOG()       \
       do {                              \
         ENABLE_RE6_ANALOG();            \
@@ -6213,7 +7136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE7_AN
+# if defined(_ANSE7)
+#   define ENABLE_RE7_ANALOG()  (_ANSE7 = 1)
+#   define DISABLE_RE7_ANALOG() (_ANSE7 = 0)
+# elif defined(RE7_AN)
 #   define ENABLE_RE7_ANALOG()  (RXY_GPIO_PCFG(RE7_AN) = 1)
 #   define DISABLE_RE7_ANALOG() (RXY_GPIO_PCFG(RE7_AN) = 0)
 # else
@@ -6236,7 +7162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE7_CN
+# if defined(_CNIEE7)
+#   define ENABLE_RE7_PULLUP()  (_CNPUE7 = 1)
+#   define DISABLE_RE7_PULLUP() (_CNPUE7 = 0)
+
+#   define ENABLE_RE7_PULLDOWN()  (_CNPDE7 = 1)
+#   define DISABLE_RE7_PULLDOWN() (_CNPDE7 = 0)
+
+#   define ENABLE_RE7_CN_INTERRUPT()  (_CNIEE7 = 1)
+#   define DISABLE_RE7_CN_INTERRUPT() (_CNIEE7 = 0)
+
+# elif defined(RE7_CN)
 #   define ENABLE_RE7_PULLUP()  (RXY_GPIO_CNPUE(RE7_CN) = 1)
 #   define DISABLE_RE7_PULLUP() (RXY_GPIO_CNPUE(RE7_CN) = 0)
 
@@ -6258,7 +7194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE7_AN
+# if defined(_ANSE7) || defined(RE7_AN)
 #   define CONFIG_RE7_AS_ANALOG()       \
       do {                              \
         ENABLE_RE7_ANALOG();            \
@@ -6300,7 +7236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE8_AN
+# if defined(_ANSE8)
+#   define ENABLE_RE8_ANALOG()  (_ANSE8 = 1)
+#   define DISABLE_RE8_ANALOG() (_ANSE8 = 0)
+# elif defined(RE8_AN)
 #   define ENABLE_RE8_ANALOG()  (RXY_GPIO_PCFG(RE8_AN) = 1)
 #   define DISABLE_RE8_ANALOG() (RXY_GPIO_PCFG(RE8_AN) = 0)
 # else
@@ -6323,7 +7262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE8_CN
+# if defined(_CNIEE8)
+#   define ENABLE_RE8_PULLUP()  (_CNPUE8 = 1)
+#   define DISABLE_RE8_PULLUP() (_CNPUE8 = 0)
+
+#   define ENABLE_RE8_PULLDOWN()  (_CNPDE8 = 1)
+#   define DISABLE_RE8_PULLDOWN() (_CNPDE8 = 0)
+
+#   define ENABLE_RE8_CN_INTERRUPT()  (_CNIEE8 = 1)
+#   define DISABLE_RE8_CN_INTERRUPT() (_CNIEE8 = 0)
+
+# elif defined(RE8_CN)
 #   define ENABLE_RE8_PULLUP()  (RXY_GPIO_CNPUE(RE8_CN) = 1)
 #   define DISABLE_RE8_PULLUP() (RXY_GPIO_CNPUE(RE8_CN) = 0)
 
@@ -6345,7 +7294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE8_AN
+# if defined(_ANSE8) || defined(RE8_AN)
 #   define CONFIG_RE8_AS_ANALOG()       \
       do {                              \
         ENABLE_RE8_ANALOG();            \
@@ -6387,7 +7336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE9_AN
+# if defined(_ANSE9)
+#   define ENABLE_RE9_ANALOG()  (_ANSE9 = 1)
+#   define DISABLE_RE9_ANALOG() (_ANSE9 = 0)
+# elif defined(RE9_AN)
 #   define ENABLE_RE9_ANALOG()  (RXY_GPIO_PCFG(RE9_AN) = 1)
 #   define DISABLE_RE9_ANALOG() (RXY_GPIO_PCFG(RE9_AN) = 0)
 # else
@@ -6410,7 +7362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE9_CN
+# if defined(_CNIEE9)
+#   define ENABLE_RE9_PULLUP()  (_CNPUE9 = 1)
+#   define DISABLE_RE9_PULLUP() (_CNPUE9 = 0)
+
+#   define ENABLE_RE9_PULLDOWN()  (_CNPDE9 = 1)
+#   define DISABLE_RE9_PULLDOWN() (_CNPDE9 = 0)
+
+#   define ENABLE_RE9_CN_INTERRUPT()  (_CNIEE9 = 1)
+#   define DISABLE_RE9_CN_INTERRUPT() (_CNIEE9 = 0)
+
+# elif defined(RE9_CN)
 #   define ENABLE_RE9_PULLUP()  (RXY_GPIO_CNPUE(RE9_CN) = 1)
 #   define DISABLE_RE9_PULLUP() (RXY_GPIO_CNPUE(RE9_CN) = 0)
 
@@ -6432,7 +7394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE9_AN
+# if defined(_ANSE9) || defined(RE9_AN)
 #   define CONFIG_RE9_AS_ANALOG()       \
       do {                              \
         ENABLE_RE9_ANALOG();            \
@@ -6474,7 +7436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE10_AN
+# if defined(_ANSE10)
+#   define ENABLE_RE10_ANALOG()  (_ANSE10 = 1)
+#   define DISABLE_RE10_ANALOG() (_ANSE10 = 0)
+# elif defined(RE10_AN)
 #   define ENABLE_RE10_ANALOG()  (RXY_GPIO_PCFG(RE10_AN) = 1)
 #   define DISABLE_RE10_ANALOG() (RXY_GPIO_PCFG(RE10_AN) = 0)
 # else
@@ -6497,7 +7462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE10_CN
+# if defined(_CNIEE10)
+#   define ENABLE_RE10_PULLUP()  (_CNPUE10 = 1)
+#   define DISABLE_RE10_PULLUP() (_CNPUE10 = 0)
+
+#   define ENABLE_RE10_PULLDOWN()  (_CNPDE10 = 1)
+#   define DISABLE_RE10_PULLDOWN() (_CNPDE10 = 0)
+
+#   define ENABLE_RE10_CN_INTERRUPT()  (_CNIEE10 = 1)
+#   define DISABLE_RE10_CN_INTERRUPT() (_CNIEE10 = 0)
+
+# elif defined(RE10_CN)
 #   define ENABLE_RE10_PULLUP()  (RXY_GPIO_CNPUE(RE10_CN) = 1)
 #   define DISABLE_RE10_PULLUP() (RXY_GPIO_CNPUE(RE10_CN) = 0)
 
@@ -6519,7 +7494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE10_AN
+# if defined(_ANSE10) || defined(RE10_AN)
 #   define CONFIG_RE10_AS_ANALOG()       \
       do {                              \
         ENABLE_RE10_ANALOG();            \
@@ -6561,7 +7536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE11_AN
+# if defined(_ANSE11)
+#   define ENABLE_RE11_ANALOG()  (_ANSE11 = 1)
+#   define DISABLE_RE11_ANALOG() (_ANSE11 = 0)
+# elif defined(RE11_AN)
 #   define ENABLE_RE11_ANALOG()  (RXY_GPIO_PCFG(RE11_AN) = 1)
 #   define DISABLE_RE11_ANALOG() (RXY_GPIO_PCFG(RE11_AN) = 0)
 # else
@@ -6584,7 +7562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE11_CN
+# if defined(_CNIEE11)
+#   define ENABLE_RE11_PULLUP()  (_CNPUE11 = 1)
+#   define DISABLE_RE11_PULLUP() (_CNPUE11 = 0)
+
+#   define ENABLE_RE11_PULLDOWN()  (_CNPDE11 = 1)
+#   define DISABLE_RE11_PULLDOWN() (_CNPDE11 = 0)
+
+#   define ENABLE_RE11_CN_INTERRUPT()  (_CNIEE11 = 1)
+#   define DISABLE_RE11_CN_INTERRUPT() (_CNIEE11 = 0)
+
+# elif defined(RE11_CN)
 #   define ENABLE_RE11_PULLUP()  (RXY_GPIO_CNPUE(RE11_CN) = 1)
 #   define DISABLE_RE11_PULLUP() (RXY_GPIO_CNPUE(RE11_CN) = 0)
 
@@ -6606,7 +7594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE11_AN
+# if defined(_ANSE11) || defined(RE11_AN)
 #   define CONFIG_RE11_AS_ANALOG()       \
       do {                              \
         ENABLE_RE11_ANALOG();            \
@@ -6648,7 +7636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE12_AN
+# if defined(_ANSE12)
+#   define ENABLE_RE12_ANALOG()  (_ANSE12 = 1)
+#   define DISABLE_RE12_ANALOG() (_ANSE12 = 0)
+# elif defined(RE12_AN)
 #   define ENABLE_RE12_ANALOG()  (RXY_GPIO_PCFG(RE12_AN) = 1)
 #   define DISABLE_RE12_ANALOG() (RXY_GPIO_PCFG(RE12_AN) = 0)
 # else
@@ -6671,7 +7662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE12_CN
+# if defined(_CNIEE12)
+#   define ENABLE_RE12_PULLUP()  (_CNPUE12 = 1)
+#   define DISABLE_RE12_PULLUP() (_CNPUE12 = 0)
+
+#   define ENABLE_RE12_PULLDOWN()  (_CNPDE12 = 1)
+#   define DISABLE_RE12_PULLDOWN() (_CNPDE12 = 0)
+
+#   define ENABLE_RE12_CN_INTERRUPT()  (_CNIEE12 = 1)
+#   define DISABLE_RE12_CN_INTERRUPT() (_CNIEE12 = 0)
+
+# elif defined(RE12_CN)
 #   define ENABLE_RE12_PULLUP()  (RXY_GPIO_CNPUE(RE12_CN) = 1)
 #   define DISABLE_RE12_PULLUP() (RXY_GPIO_CNPUE(RE12_CN) = 0)
 
@@ -6693,7 +7694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE12_AN
+# if defined(_ANSE12) || defined(RE12_AN)
 #   define CONFIG_RE12_AS_ANALOG()       \
       do {                              \
         ENABLE_RE12_ANALOG();            \
@@ -6735,7 +7736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE13_AN
+# if defined(_ANSE13)
+#   define ENABLE_RE13_ANALOG()  (_ANSE13 = 1)
+#   define DISABLE_RE13_ANALOG() (_ANSE13 = 0)
+# elif defined(RE13_AN)
 #   define ENABLE_RE13_ANALOG()  (RXY_GPIO_PCFG(RE13_AN) = 1)
 #   define DISABLE_RE13_ANALOG() (RXY_GPIO_PCFG(RE13_AN) = 0)
 # else
@@ -6758,7 +7762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE13_CN
+# if defined(_CNIEE13)
+#   define ENABLE_RE13_PULLUP()  (_CNPUE13 = 1)
+#   define DISABLE_RE13_PULLUP() (_CNPUE13 = 0)
+
+#   define ENABLE_RE13_PULLDOWN()  (_CNPDE13 = 1)
+#   define DISABLE_RE13_PULLDOWN() (_CNPDE13 = 0)
+
+#   define ENABLE_RE13_CN_INTERRUPT()  (_CNIEE13 = 1)
+#   define DISABLE_RE13_CN_INTERRUPT() (_CNIEE13 = 0)
+
+# elif defined(RE13_CN)
 #   define ENABLE_RE13_PULLUP()  (RXY_GPIO_CNPUE(RE13_CN) = 1)
 #   define DISABLE_RE13_PULLUP() (RXY_GPIO_CNPUE(RE13_CN) = 0)
 
@@ -6780,7 +7794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE13_AN
+# if defined(_ANSE13) || defined(RE13_AN)
 #   define CONFIG_RE13_AS_ANALOG()       \
       do {                              \
         ENABLE_RE13_ANALOG();            \
@@ -6822,7 +7836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE14_AN
+# if defined(_ANSE14)
+#   define ENABLE_RE14_ANALOG()  (_ANSE14 = 1)
+#   define DISABLE_RE14_ANALOG() (_ANSE14 = 0)
+# elif defined(RE14_AN)
 #   define ENABLE_RE14_ANALOG()  (RXY_GPIO_PCFG(RE14_AN) = 1)
 #   define DISABLE_RE14_ANALOG() (RXY_GPIO_PCFG(RE14_AN) = 0)
 # else
@@ -6845,7 +7862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE14_CN
+# if defined(_CNIEE14)
+#   define ENABLE_RE14_PULLUP()  (_CNPUE14 = 1)
+#   define DISABLE_RE14_PULLUP() (_CNPUE14 = 0)
+
+#   define ENABLE_RE14_PULLDOWN()  (_CNPDE14 = 1)
+#   define DISABLE_RE14_PULLDOWN() (_CNPDE14 = 0)
+
+#   define ENABLE_RE14_CN_INTERRUPT()  (_CNIEE14 = 1)
+#   define DISABLE_RE14_CN_INTERRUPT() (_CNIEE14 = 0)
+
+# elif defined(RE14_CN)
 #   define ENABLE_RE14_PULLUP()  (RXY_GPIO_CNPUE(RE14_CN) = 1)
 #   define DISABLE_RE14_PULLUP() (RXY_GPIO_CNPUE(RE14_CN) = 0)
 
@@ -6867,7 +7894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE14_AN
+# if defined(_ANSE14) || defined(RE14_AN)
 #   define CONFIG_RE14_AS_ANALOG()       \
       do {                              \
         ENABLE_RE14_ANALOG();            \
@@ -6909,7 +7936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RE15_AN
+# if defined(_ANSE15)
+#   define ENABLE_RE15_ANALOG()  (_ANSE15 = 1)
+#   define DISABLE_RE15_ANALOG() (_ANSE15 = 0)
+# elif defined(RE15_AN)
 #   define ENABLE_RE15_ANALOG()  (RXY_GPIO_PCFG(RE15_AN) = 1)
 #   define DISABLE_RE15_ANALOG() (RXY_GPIO_PCFG(RE15_AN) = 0)
 # else
@@ -6932,7 +7962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RE15_CN
+# if defined(_CNIEE15)
+#   define ENABLE_RE15_PULLUP()  (_CNPUE15 = 1)
+#   define DISABLE_RE15_PULLUP() (_CNPUE15 = 0)
+
+#   define ENABLE_RE15_PULLDOWN()  (_CNPDE15 = 1)
+#   define DISABLE_RE15_PULLDOWN() (_CNPDE15 = 0)
+
+#   define ENABLE_RE15_CN_INTERRUPT()  (_CNIEE15 = 1)
+#   define DISABLE_RE15_CN_INTERRUPT() (_CNIEE15 = 0)
+
+# elif defined(RE15_CN)
 #   define ENABLE_RE15_PULLUP()  (RXY_GPIO_CNPUE(RE15_CN) = 1)
 #   define DISABLE_RE15_PULLUP() (RXY_GPIO_CNPUE(RE15_CN) = 0)
 
@@ -6954,7 +7994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RE15_AN
+# if defined(_ANSE15) || defined(RE15_AN)
 #   define CONFIG_RE15_AS_ANALOG()       \
       do {                              \
         ENABLE_RE15_ANALOG();            \
@@ -6996,7 +8036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF0_AN
+# if defined(_ANSF0)
+#   define ENABLE_RF0_ANALOG()  (_ANSF0 = 1)
+#   define DISABLE_RF0_ANALOG() (_ANSF0 = 0)
+# elif defined(RF0_AN)
 #   define ENABLE_RF0_ANALOG()  (RXY_GPIO_PCFG(RF0_AN) = 1)
 #   define DISABLE_RF0_ANALOG() (RXY_GPIO_PCFG(RF0_AN) = 0)
 # else
@@ -7019,7 +8062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF0_CN
+# if defined(_CNIEF0)
+#   define ENABLE_RF0_PULLUP()  (_CNPUF0 = 1)
+#   define DISABLE_RF0_PULLUP() (_CNPUF0 = 0)
+
+#   define ENABLE_RF0_PULLDOWN()  (_CNPDF0 = 1)
+#   define DISABLE_RF0_PULLDOWN() (_CNPDF0 = 0)
+
+#   define ENABLE_RF0_CN_INTERRUPT()  (_CNIEF0 = 1)
+#   define DISABLE_RF0_CN_INTERRUPT() (_CNIEF0 = 0)
+
+# elif defined(RF0_CN)
 #   define ENABLE_RF0_PULLUP()  (RXY_GPIO_CNPUE(RF0_CN) = 1)
 #   define DISABLE_RF0_PULLUP() (RXY_GPIO_CNPUE(RF0_CN) = 0)
 
@@ -7041,7 +8094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF0_AN
+# if defined(_ANSF0) || defined(RF0_AN)
 #   define CONFIG_RF0_AS_ANALOG()       \
       do {                              \
         ENABLE_RF0_ANALOG();            \
@@ -7083,7 +8136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF1_AN
+# if defined(_ANSF1)
+#   define ENABLE_RF1_ANALOG()  (_ANSF1 = 1)
+#   define DISABLE_RF1_ANALOG() (_ANSF1 = 0)
+# elif defined(RF1_AN)
 #   define ENABLE_RF1_ANALOG()  (RXY_GPIO_PCFG(RF1_AN) = 1)
 #   define DISABLE_RF1_ANALOG() (RXY_GPIO_PCFG(RF1_AN) = 0)
 # else
@@ -7106,7 +8162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF1_CN
+# if defined(_CNIEF1)
+#   define ENABLE_RF1_PULLUP()  (_CNPUF1 = 1)
+#   define DISABLE_RF1_PULLUP() (_CNPUF1 = 0)
+
+#   define ENABLE_RF1_PULLDOWN()  (_CNPDF1 = 1)
+#   define DISABLE_RF1_PULLDOWN() (_CNPDF1 = 0)
+
+#   define ENABLE_RF1_CN_INTERRUPT()  (_CNIEF1 = 1)
+#   define DISABLE_RF1_CN_INTERRUPT() (_CNIEF1 = 0)
+
+# elif defined(RF1_CN)
 #   define ENABLE_RF1_PULLUP()  (RXY_GPIO_CNPUE(RF1_CN) = 1)
 #   define DISABLE_RF1_PULLUP() (RXY_GPIO_CNPUE(RF1_CN) = 0)
 
@@ -7128,7 +8194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF1_AN
+# if defined(_ANSF1) || defined(RF1_AN)
 #   define CONFIG_RF1_AS_ANALOG()       \
       do {                              \
         ENABLE_RF1_ANALOG();            \
@@ -7170,7 +8236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF2_AN
+# if defined(_ANSF2)
+#   define ENABLE_RF2_ANALOG()  (_ANSF2 = 1)
+#   define DISABLE_RF2_ANALOG() (_ANSF2 = 0)
+# elif defined(RF2_AN)
 #   define ENABLE_RF2_ANALOG()  (RXY_GPIO_PCFG(RF2_AN) = 1)
 #   define DISABLE_RF2_ANALOG() (RXY_GPIO_PCFG(RF2_AN) = 0)
 # else
@@ -7193,7 +8262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF2_CN
+# if defined(_CNIEF2)
+#   define ENABLE_RF2_PULLUP()  (_CNPUF2 = 1)
+#   define DISABLE_RF2_PULLUP() (_CNPUF2 = 0)
+
+#   define ENABLE_RF2_PULLDOWN()  (_CNPDF2 = 1)
+#   define DISABLE_RF2_PULLDOWN() (_CNPDF2 = 0)
+
+#   define ENABLE_RF2_CN_INTERRUPT()  (_CNIEF2 = 1)
+#   define DISABLE_RF2_CN_INTERRUPT() (_CNIEF2 = 0)
+
+# elif defined(RF2_CN)
 #   define ENABLE_RF2_PULLUP()  (RXY_GPIO_CNPUE(RF2_CN) = 1)
 #   define DISABLE_RF2_PULLUP() (RXY_GPIO_CNPUE(RF2_CN) = 0)
 
@@ -7215,7 +8294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF2_AN
+# if defined(_ANSF2) || defined(RF2_AN)
 #   define CONFIG_RF2_AS_ANALOG()       \
       do {                              \
         ENABLE_RF2_ANALOG();            \
@@ -7257,7 +8336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF3_AN
+# if defined(_ANSF3)
+#   define ENABLE_RF3_ANALOG()  (_ANSF3 = 1)
+#   define DISABLE_RF3_ANALOG() (_ANSF3 = 0)
+# elif defined(RF3_AN)
 #   define ENABLE_RF3_ANALOG()  (RXY_GPIO_PCFG(RF3_AN) = 1)
 #   define DISABLE_RF3_ANALOG() (RXY_GPIO_PCFG(RF3_AN) = 0)
 # else
@@ -7280,7 +8362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF3_CN
+# if defined(_CNIEF3)
+#   define ENABLE_RF3_PULLUP()  (_CNPUF3 = 1)
+#   define DISABLE_RF3_PULLUP() (_CNPUF3 = 0)
+
+#   define ENABLE_RF3_PULLDOWN()  (_CNPDF3 = 1)
+#   define DISABLE_RF3_PULLDOWN() (_CNPDF3 = 0)
+
+#   define ENABLE_RF3_CN_INTERRUPT()  (_CNIEF3 = 1)
+#   define DISABLE_RF3_CN_INTERRUPT() (_CNIEF3 = 0)
+
+# elif defined(RF3_CN)
 #   define ENABLE_RF3_PULLUP()  (RXY_GPIO_CNPUE(RF3_CN) = 1)
 #   define DISABLE_RF3_PULLUP() (RXY_GPIO_CNPUE(RF3_CN) = 0)
 
@@ -7302,7 +8394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF3_AN
+# if defined(_ANSF3) || defined(RF3_AN)
 #   define CONFIG_RF3_AS_ANALOG()       \
       do {                              \
         ENABLE_RF3_ANALOG();            \
@@ -7344,7 +8436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF4_AN
+# if defined(_ANSF4)
+#   define ENABLE_RF4_ANALOG()  (_ANSF4 = 1)
+#   define DISABLE_RF4_ANALOG() (_ANSF4 = 0)
+# elif defined(RF4_AN)
 #   define ENABLE_RF4_ANALOG()  (RXY_GPIO_PCFG(RF4_AN) = 1)
 #   define DISABLE_RF4_ANALOG() (RXY_GPIO_PCFG(RF4_AN) = 0)
 # else
@@ -7367,7 +8462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF4_CN
+# if defined(_CNIEF4)
+#   define ENABLE_RF4_PULLUP()  (_CNPUF4 = 1)
+#   define DISABLE_RF4_PULLUP() (_CNPUF4 = 0)
+
+#   define ENABLE_RF4_PULLDOWN()  (_CNPDF4 = 1)
+#   define DISABLE_RF4_PULLDOWN() (_CNPDF4 = 0)
+
+#   define ENABLE_RF4_CN_INTERRUPT()  (_CNIEF4 = 1)
+#   define DISABLE_RF4_CN_INTERRUPT() (_CNIEF4 = 0)
+
+# elif defined(RF4_CN)
 #   define ENABLE_RF4_PULLUP()  (RXY_GPIO_CNPUE(RF4_CN) = 1)
 #   define DISABLE_RF4_PULLUP() (RXY_GPIO_CNPUE(RF4_CN) = 0)
 
@@ -7389,7 +8494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF4_AN
+# if defined(_ANSF4) || defined(RF4_AN)
 #   define CONFIG_RF4_AS_ANALOG()       \
       do {                              \
         ENABLE_RF4_ANALOG();            \
@@ -7431,7 +8536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF5_AN
+# if defined(_ANSF5)
+#   define ENABLE_RF5_ANALOG()  (_ANSF5 = 1)
+#   define DISABLE_RF5_ANALOG() (_ANSF5 = 0)
+# elif defined(RF5_AN)
 #   define ENABLE_RF5_ANALOG()  (RXY_GPIO_PCFG(RF5_AN) = 1)
 #   define DISABLE_RF5_ANALOG() (RXY_GPIO_PCFG(RF5_AN) = 0)
 # else
@@ -7454,7 +8562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF5_CN
+# if defined(_CNIEF5)
+#   define ENABLE_RF5_PULLUP()  (_CNPUF5 = 1)
+#   define DISABLE_RF5_PULLUP() (_CNPUF5 = 0)
+
+#   define ENABLE_RF5_PULLDOWN()  (_CNPDF5 = 1)
+#   define DISABLE_RF5_PULLDOWN() (_CNPDF5 = 0)
+
+#   define ENABLE_RF5_CN_INTERRUPT()  (_CNIEF5 = 1)
+#   define DISABLE_RF5_CN_INTERRUPT() (_CNIEF5 = 0)
+
+# elif defined(RF5_CN)
 #   define ENABLE_RF5_PULLUP()  (RXY_GPIO_CNPUE(RF5_CN) = 1)
 #   define DISABLE_RF5_PULLUP() (RXY_GPIO_CNPUE(RF5_CN) = 0)
 
@@ -7476,7 +8594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF5_AN
+# if defined(_ANSF5) || defined(RF5_AN)
 #   define CONFIG_RF5_AS_ANALOG()       \
       do {                              \
         ENABLE_RF5_ANALOG();            \
@@ -7518,7 +8636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF6_AN
+# if defined(_ANSF6)
+#   define ENABLE_RF6_ANALOG()  (_ANSF6 = 1)
+#   define DISABLE_RF6_ANALOG() (_ANSF6 = 0)
+# elif defined(RF6_AN)
 #   define ENABLE_RF6_ANALOG()  (RXY_GPIO_PCFG(RF6_AN) = 1)
 #   define DISABLE_RF6_ANALOG() (RXY_GPIO_PCFG(RF6_AN) = 0)
 # else
@@ -7541,7 +8662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF6_CN
+# if defined(_CNIEF6)
+#   define ENABLE_RF6_PULLUP()  (_CNPUF6 = 1)
+#   define DISABLE_RF6_PULLUP() (_CNPUF6 = 0)
+
+#   define ENABLE_RF6_PULLDOWN()  (_CNPDF6 = 1)
+#   define DISABLE_RF6_PULLDOWN() (_CNPDF6 = 0)
+
+#   define ENABLE_RF6_CN_INTERRUPT()  (_CNIEF6 = 1)
+#   define DISABLE_RF6_CN_INTERRUPT() (_CNIEF6 = 0)
+
+# elif defined(RF6_CN)
 #   define ENABLE_RF6_PULLUP()  (RXY_GPIO_CNPUE(RF6_CN) = 1)
 #   define DISABLE_RF6_PULLUP() (RXY_GPIO_CNPUE(RF6_CN) = 0)
 
@@ -7563,7 +8694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF6_AN
+# if defined(_ANSF6) || defined(RF6_AN)
 #   define CONFIG_RF6_AS_ANALOG()       \
       do {                              \
         ENABLE_RF6_ANALOG();            \
@@ -7605,7 +8736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF7_AN
+# if defined(_ANSF7)
+#   define ENABLE_RF7_ANALOG()  (_ANSF7 = 1)
+#   define DISABLE_RF7_ANALOG() (_ANSF7 = 0)
+# elif defined(RF7_AN)
 #   define ENABLE_RF7_ANALOG()  (RXY_GPIO_PCFG(RF7_AN) = 1)
 #   define DISABLE_RF7_ANALOG() (RXY_GPIO_PCFG(RF7_AN) = 0)
 # else
@@ -7628,7 +8762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF7_CN
+# if defined(_CNIEF7)
+#   define ENABLE_RF7_PULLUP()  (_CNPUF7 = 1)
+#   define DISABLE_RF7_PULLUP() (_CNPUF7 = 0)
+
+#   define ENABLE_RF7_PULLDOWN()  (_CNPDF7 = 1)
+#   define DISABLE_RF7_PULLDOWN() (_CNPDF7 = 0)
+
+#   define ENABLE_RF7_CN_INTERRUPT()  (_CNIEF7 = 1)
+#   define DISABLE_RF7_CN_INTERRUPT() (_CNIEF7 = 0)
+
+# elif defined(RF7_CN)
 #   define ENABLE_RF7_PULLUP()  (RXY_GPIO_CNPUE(RF7_CN) = 1)
 #   define DISABLE_RF7_PULLUP() (RXY_GPIO_CNPUE(RF7_CN) = 0)
 
@@ -7650,7 +8794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF7_AN
+# if defined(_ANSF7) || defined(RF7_AN)
 #   define CONFIG_RF7_AS_ANALOG()       \
       do {                              \
         ENABLE_RF7_ANALOG();            \
@@ -7692,7 +8836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF8_AN
+# if defined(_ANSF8)
+#   define ENABLE_RF8_ANALOG()  (_ANSF8 = 1)
+#   define DISABLE_RF8_ANALOG() (_ANSF8 = 0)
+# elif defined(RF8_AN)
 #   define ENABLE_RF8_ANALOG()  (RXY_GPIO_PCFG(RF8_AN) = 1)
 #   define DISABLE_RF8_ANALOG() (RXY_GPIO_PCFG(RF8_AN) = 0)
 # else
@@ -7715,7 +8862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF8_CN
+# if defined(_CNIEF8)
+#   define ENABLE_RF8_PULLUP()  (_CNPUF8 = 1)
+#   define DISABLE_RF8_PULLUP() (_CNPUF8 = 0)
+
+#   define ENABLE_RF8_PULLDOWN()  (_CNPDF8 = 1)
+#   define DISABLE_RF8_PULLDOWN() (_CNPDF8 = 0)
+
+#   define ENABLE_RF8_CN_INTERRUPT()  (_CNIEF8 = 1)
+#   define DISABLE_RF8_CN_INTERRUPT() (_CNIEF8 = 0)
+
+# elif defined(RF8_CN)
 #   define ENABLE_RF8_PULLUP()  (RXY_GPIO_CNPUE(RF8_CN) = 1)
 #   define DISABLE_RF8_PULLUP() (RXY_GPIO_CNPUE(RF8_CN) = 0)
 
@@ -7737,7 +8894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF8_AN
+# if defined(_ANSF8) || defined(RF8_AN)
 #   define CONFIG_RF8_AS_ANALOG()       \
       do {                              \
         ENABLE_RF8_ANALOG();            \
@@ -7779,7 +8936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF9_AN
+# if defined(_ANSF9)
+#   define ENABLE_RF9_ANALOG()  (_ANSF9 = 1)
+#   define DISABLE_RF9_ANALOG() (_ANSF9 = 0)
+# elif defined(RF9_AN)
 #   define ENABLE_RF9_ANALOG()  (RXY_GPIO_PCFG(RF9_AN) = 1)
 #   define DISABLE_RF9_ANALOG() (RXY_GPIO_PCFG(RF9_AN) = 0)
 # else
@@ -7802,7 +8962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF9_CN
+# if defined(_CNIEF9)
+#   define ENABLE_RF9_PULLUP()  (_CNPUF9 = 1)
+#   define DISABLE_RF9_PULLUP() (_CNPUF9 = 0)
+
+#   define ENABLE_RF9_PULLDOWN()  (_CNPDF9 = 1)
+#   define DISABLE_RF9_PULLDOWN() (_CNPDF9 = 0)
+
+#   define ENABLE_RF9_CN_INTERRUPT()  (_CNIEF9 = 1)
+#   define DISABLE_RF9_CN_INTERRUPT() (_CNIEF9 = 0)
+
+# elif defined(RF9_CN)
 #   define ENABLE_RF9_PULLUP()  (RXY_GPIO_CNPUE(RF9_CN) = 1)
 #   define DISABLE_RF9_PULLUP() (RXY_GPIO_CNPUE(RF9_CN) = 0)
 
@@ -7824,7 +8994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF9_AN
+# if defined(_ANSF9) || defined(RF9_AN)
 #   define CONFIG_RF9_AS_ANALOG()       \
       do {                              \
         ENABLE_RF9_ANALOG();            \
@@ -7866,7 +9036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF10_AN
+# if defined(_ANSF10)
+#   define ENABLE_RF10_ANALOG()  (_ANSF10 = 1)
+#   define DISABLE_RF10_ANALOG() (_ANSF10 = 0)
+# elif defined(RF10_AN)
 #   define ENABLE_RF10_ANALOG()  (RXY_GPIO_PCFG(RF10_AN) = 1)
 #   define DISABLE_RF10_ANALOG() (RXY_GPIO_PCFG(RF10_AN) = 0)
 # else
@@ -7889,7 +9062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF10_CN
+# if defined(_CNIEF10)
+#   define ENABLE_RF10_PULLUP()  (_CNPUF10 = 1)
+#   define DISABLE_RF10_PULLUP() (_CNPUF10 = 0)
+
+#   define ENABLE_RF10_PULLDOWN()  (_CNPDF10 = 1)
+#   define DISABLE_RF10_PULLDOWN() (_CNPDF10 = 0)
+
+#   define ENABLE_RF10_CN_INTERRUPT()  (_CNIEF10 = 1)
+#   define DISABLE_RF10_CN_INTERRUPT() (_CNIEF10 = 0)
+
+# elif defined(RF10_CN)
 #   define ENABLE_RF10_PULLUP()  (RXY_GPIO_CNPUE(RF10_CN) = 1)
 #   define DISABLE_RF10_PULLUP() (RXY_GPIO_CNPUE(RF10_CN) = 0)
 
@@ -7911,7 +9094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF10_AN
+# if defined(_ANSF10) || defined(RF10_AN)
 #   define CONFIG_RF10_AS_ANALOG()       \
       do {                              \
         ENABLE_RF10_ANALOG();            \
@@ -7953,7 +9136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF11_AN
+# if defined(_ANSF11)
+#   define ENABLE_RF11_ANALOG()  (_ANSF11 = 1)
+#   define DISABLE_RF11_ANALOG() (_ANSF11 = 0)
+# elif defined(RF11_AN)
 #   define ENABLE_RF11_ANALOG()  (RXY_GPIO_PCFG(RF11_AN) = 1)
 #   define DISABLE_RF11_ANALOG() (RXY_GPIO_PCFG(RF11_AN) = 0)
 # else
@@ -7976,7 +9162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF11_CN
+# if defined(_CNIEF11)
+#   define ENABLE_RF11_PULLUP()  (_CNPUF11 = 1)
+#   define DISABLE_RF11_PULLUP() (_CNPUF11 = 0)
+
+#   define ENABLE_RF11_PULLDOWN()  (_CNPDF11 = 1)
+#   define DISABLE_RF11_PULLDOWN() (_CNPDF11 = 0)
+
+#   define ENABLE_RF11_CN_INTERRUPT()  (_CNIEF11 = 1)
+#   define DISABLE_RF11_CN_INTERRUPT() (_CNIEF11 = 0)
+
+# elif defined(RF11_CN)
 #   define ENABLE_RF11_PULLUP()  (RXY_GPIO_CNPUE(RF11_CN) = 1)
 #   define DISABLE_RF11_PULLUP() (RXY_GPIO_CNPUE(RF11_CN) = 0)
 
@@ -7998,7 +9194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF11_AN
+# if defined(_ANSF11) || defined(RF11_AN)
 #   define CONFIG_RF11_AS_ANALOG()       \
       do {                              \
         ENABLE_RF11_ANALOG();            \
@@ -8040,7 +9236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF12_AN
+# if defined(_ANSF12)
+#   define ENABLE_RF12_ANALOG()  (_ANSF12 = 1)
+#   define DISABLE_RF12_ANALOG() (_ANSF12 = 0)
+# elif defined(RF12_AN)
 #   define ENABLE_RF12_ANALOG()  (RXY_GPIO_PCFG(RF12_AN) = 1)
 #   define DISABLE_RF12_ANALOG() (RXY_GPIO_PCFG(RF12_AN) = 0)
 # else
@@ -8063,7 +9262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF12_CN
+# if defined(_CNIEF12)
+#   define ENABLE_RF12_PULLUP()  (_CNPUF12 = 1)
+#   define DISABLE_RF12_PULLUP() (_CNPUF12 = 0)
+
+#   define ENABLE_RF12_PULLDOWN()  (_CNPDF12 = 1)
+#   define DISABLE_RF12_PULLDOWN() (_CNPDF12 = 0)
+
+#   define ENABLE_RF12_CN_INTERRUPT()  (_CNIEF12 = 1)
+#   define DISABLE_RF12_CN_INTERRUPT() (_CNIEF12 = 0)
+
+# elif defined(RF12_CN)
 #   define ENABLE_RF12_PULLUP()  (RXY_GPIO_CNPUE(RF12_CN) = 1)
 #   define DISABLE_RF12_PULLUP() (RXY_GPIO_CNPUE(RF12_CN) = 0)
 
@@ -8085,7 +9294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF12_AN
+# if defined(_ANSF12) || defined(RF12_AN)
 #   define CONFIG_RF12_AS_ANALOG()       \
       do {                              \
         ENABLE_RF12_ANALOG();            \
@@ -8127,7 +9336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF13_AN
+# if defined(_ANSF13)
+#   define ENABLE_RF13_ANALOG()  (_ANSF13 = 1)
+#   define DISABLE_RF13_ANALOG() (_ANSF13 = 0)
+# elif defined(RF13_AN)
 #   define ENABLE_RF13_ANALOG()  (RXY_GPIO_PCFG(RF13_AN) = 1)
 #   define DISABLE_RF13_ANALOG() (RXY_GPIO_PCFG(RF13_AN) = 0)
 # else
@@ -8150,7 +9362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF13_CN
+# if defined(_CNIEF13)
+#   define ENABLE_RF13_PULLUP()  (_CNPUF13 = 1)
+#   define DISABLE_RF13_PULLUP() (_CNPUF13 = 0)
+
+#   define ENABLE_RF13_PULLDOWN()  (_CNPDF13 = 1)
+#   define DISABLE_RF13_PULLDOWN() (_CNPDF13 = 0)
+
+#   define ENABLE_RF13_CN_INTERRUPT()  (_CNIEF13 = 1)
+#   define DISABLE_RF13_CN_INTERRUPT() (_CNIEF13 = 0)
+
+# elif defined(RF13_CN)
 #   define ENABLE_RF13_PULLUP()  (RXY_GPIO_CNPUE(RF13_CN) = 1)
 #   define DISABLE_RF13_PULLUP() (RXY_GPIO_CNPUE(RF13_CN) = 0)
 
@@ -8172,7 +9394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF13_AN
+# if defined(_ANSF13) || defined(RF13_AN)
 #   define CONFIG_RF13_AS_ANALOG()       \
       do {                              \
         ENABLE_RF13_ANALOG();            \
@@ -8214,7 +9436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF14_AN
+# if defined(_ANSF14)
+#   define ENABLE_RF14_ANALOG()  (_ANSF14 = 1)
+#   define DISABLE_RF14_ANALOG() (_ANSF14 = 0)
+# elif defined(RF14_AN)
 #   define ENABLE_RF14_ANALOG()  (RXY_GPIO_PCFG(RF14_AN) = 1)
 #   define DISABLE_RF14_ANALOG() (RXY_GPIO_PCFG(RF14_AN) = 0)
 # else
@@ -8237,7 +9462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF14_CN
+# if defined(_CNIEF14)
+#   define ENABLE_RF14_PULLUP()  (_CNPUF14 = 1)
+#   define DISABLE_RF14_PULLUP() (_CNPUF14 = 0)
+
+#   define ENABLE_RF14_PULLDOWN()  (_CNPDF14 = 1)
+#   define DISABLE_RF14_PULLDOWN() (_CNPDF14 = 0)
+
+#   define ENABLE_RF14_CN_INTERRUPT()  (_CNIEF14 = 1)
+#   define DISABLE_RF14_CN_INTERRUPT() (_CNIEF14 = 0)
+
+# elif defined(RF14_CN)
 #   define ENABLE_RF14_PULLUP()  (RXY_GPIO_CNPUE(RF14_CN) = 1)
 #   define DISABLE_RF14_PULLUP() (RXY_GPIO_CNPUE(RF14_CN) = 0)
 
@@ -8259,7 +9494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF14_AN
+# if defined(_ANSF14) || defined(RF14_AN)
 #   define CONFIG_RF14_AS_ANALOG()       \
       do {                              \
         ENABLE_RF14_ANALOG();            \
@@ -8301,7 +9536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RF15_AN
+# if defined(_ANSF15)
+#   define ENABLE_RF15_ANALOG()  (_ANSF15 = 1)
+#   define DISABLE_RF15_ANALOG() (_ANSF15 = 0)
+# elif defined(RF15_AN)
 #   define ENABLE_RF15_ANALOG()  (RXY_GPIO_PCFG(RF15_AN) = 1)
 #   define DISABLE_RF15_ANALOG() (RXY_GPIO_PCFG(RF15_AN) = 0)
 # else
@@ -8324,7 +9562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RF15_CN
+# if defined(_CNIEF15)
+#   define ENABLE_RF15_PULLUP()  (_CNPUF15 = 1)
+#   define DISABLE_RF15_PULLUP() (_CNPUF15 = 0)
+
+#   define ENABLE_RF15_PULLDOWN()  (_CNPDF15 = 1)
+#   define DISABLE_RF15_PULLDOWN() (_CNPDF15 = 0)
+
+#   define ENABLE_RF15_CN_INTERRUPT()  (_CNIEF15 = 1)
+#   define DISABLE_RF15_CN_INTERRUPT() (_CNIEF15 = 0)
+
+# elif defined(RF15_CN)
 #   define ENABLE_RF15_PULLUP()  (RXY_GPIO_CNPUE(RF15_CN) = 1)
 #   define DISABLE_RF15_PULLUP() (RXY_GPIO_CNPUE(RF15_CN) = 0)
 
@@ -8346,7 +9594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RF15_AN
+# if defined(_ANSF15) || defined(RF15_AN)
 #   define CONFIG_RF15_AS_ANALOG()       \
       do {                              \
         ENABLE_RF15_ANALOG();            \
@@ -8388,7 +9636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG0_AN
+# if defined(_ANSG0)
+#   define ENABLE_RG0_ANALOG()  (_ANSG0 = 1)
+#   define DISABLE_RG0_ANALOG() (_ANSG0 = 0)
+# elif defined(RG0_AN)
 #   define ENABLE_RG0_ANALOG()  (RXY_GPIO_PCFG(RG0_AN) = 1)
 #   define DISABLE_RG0_ANALOG() (RXY_GPIO_PCFG(RG0_AN) = 0)
 # else
@@ -8411,7 +9662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG0_CN
+# if defined(_CNIEG0)
+#   define ENABLE_RG0_PULLUP()  (_CNPUG0 = 1)
+#   define DISABLE_RG0_PULLUP() (_CNPUG0 = 0)
+
+#   define ENABLE_RG0_PULLDOWN()  (_CNPDG0 = 1)
+#   define DISABLE_RG0_PULLDOWN() (_CNPDG0 = 0)
+
+#   define ENABLE_RG0_CN_INTERRUPT()  (_CNIEG0 = 1)
+#   define DISABLE_RG0_CN_INTERRUPT() (_CNIEG0 = 0)
+
+# elif defined(RG0_CN)
 #   define ENABLE_RG0_PULLUP()  (RXY_GPIO_CNPUE(RG0_CN) = 1)
 #   define DISABLE_RG0_PULLUP() (RXY_GPIO_CNPUE(RG0_CN) = 0)
 
@@ -8433,7 +9694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG0_AN
+# if defined(_ANSG0) || defined(RG0_AN)
 #   define CONFIG_RG0_AS_ANALOG()       \
       do {                              \
         ENABLE_RG0_ANALOG();            \
@@ -8475,7 +9736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG1_AN
+# if defined(_ANSG1)
+#   define ENABLE_RG1_ANALOG()  (_ANSG1 = 1)
+#   define DISABLE_RG1_ANALOG() (_ANSG1 = 0)
+# elif defined(RG1_AN)
 #   define ENABLE_RG1_ANALOG()  (RXY_GPIO_PCFG(RG1_AN) = 1)
 #   define DISABLE_RG1_ANALOG() (RXY_GPIO_PCFG(RG1_AN) = 0)
 # else
@@ -8498,7 +9762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG1_CN
+# if defined(_CNIEG1)
+#   define ENABLE_RG1_PULLUP()  (_CNPUG1 = 1)
+#   define DISABLE_RG1_PULLUP() (_CNPUG1 = 0)
+
+#   define ENABLE_RG1_PULLDOWN()  (_CNPDG1 = 1)
+#   define DISABLE_RG1_PULLDOWN() (_CNPDG1 = 0)
+
+#   define ENABLE_RG1_CN_INTERRUPT()  (_CNIEG1 = 1)
+#   define DISABLE_RG1_CN_INTERRUPT() (_CNIEG1 = 0)
+
+# elif defined(RG1_CN)
 #   define ENABLE_RG1_PULLUP()  (RXY_GPIO_CNPUE(RG1_CN) = 1)
 #   define DISABLE_RG1_PULLUP() (RXY_GPIO_CNPUE(RG1_CN) = 0)
 
@@ -8520,7 +9794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG1_AN
+# if defined(_ANSG1) || defined(RG1_AN)
 #   define CONFIG_RG1_AS_ANALOG()       \
       do {                              \
         ENABLE_RG1_ANALOG();            \
@@ -8562,7 +9836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG2_AN
+# if defined(_ANSG2)
+#   define ENABLE_RG2_ANALOG()  (_ANSG2 = 1)
+#   define DISABLE_RG2_ANALOG() (_ANSG2 = 0)
+# elif defined(RG2_AN)
 #   define ENABLE_RG2_ANALOG()  (RXY_GPIO_PCFG(RG2_AN) = 1)
 #   define DISABLE_RG2_ANALOG() (RXY_GPIO_PCFG(RG2_AN) = 0)
 # else
@@ -8585,7 +9862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG2_CN
+# if defined(_CNIEG2)
+#   define ENABLE_RG2_PULLUP()  (_CNPUG2 = 1)
+#   define DISABLE_RG2_PULLUP() (_CNPUG2 = 0)
+
+#   define ENABLE_RG2_PULLDOWN()  (_CNPDG2 = 1)
+#   define DISABLE_RG2_PULLDOWN() (_CNPDG2 = 0)
+
+#   define ENABLE_RG2_CN_INTERRUPT()  (_CNIEG2 = 1)
+#   define DISABLE_RG2_CN_INTERRUPT() (_CNIEG2 = 0)
+
+# elif defined(RG2_CN)
 #   define ENABLE_RG2_PULLUP()  (RXY_GPIO_CNPUE(RG2_CN) = 1)
 #   define DISABLE_RG2_PULLUP() (RXY_GPIO_CNPUE(RG2_CN) = 0)
 
@@ -8607,7 +9894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG2_AN
+# if defined(_ANSG2) || defined(RG2_AN)
 #   define CONFIG_RG2_AS_ANALOG()       \
       do {                              \
         ENABLE_RG2_ANALOG();            \
@@ -8649,7 +9936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG3_AN
+# if defined(_ANSG3)
+#   define ENABLE_RG3_ANALOG()  (_ANSG3 = 1)
+#   define DISABLE_RG3_ANALOG() (_ANSG3 = 0)
+# elif defined(RG3_AN)
 #   define ENABLE_RG3_ANALOG()  (RXY_GPIO_PCFG(RG3_AN) = 1)
 #   define DISABLE_RG3_ANALOG() (RXY_GPIO_PCFG(RG3_AN) = 0)
 # else
@@ -8672,7 +9962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG3_CN
+# if defined(_CNIEG3)
+#   define ENABLE_RG3_PULLUP()  (_CNPUG3 = 1)
+#   define DISABLE_RG3_PULLUP() (_CNPUG3 = 0)
+
+#   define ENABLE_RG3_PULLDOWN()  (_CNPDG3 = 1)
+#   define DISABLE_RG3_PULLDOWN() (_CNPDG3 = 0)
+
+#   define ENABLE_RG3_CN_INTERRUPT()  (_CNIEG3 = 1)
+#   define DISABLE_RG3_CN_INTERRUPT() (_CNIEG3 = 0)
+
+# elif defined(RG3_CN)
 #   define ENABLE_RG3_PULLUP()  (RXY_GPIO_CNPUE(RG3_CN) = 1)
 #   define DISABLE_RG3_PULLUP() (RXY_GPIO_CNPUE(RG3_CN) = 0)
 
@@ -8694,7 +9994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG3_AN
+# if defined(_ANSG3) || defined(RG3_AN)
 #   define CONFIG_RG3_AS_ANALOG()       \
       do {                              \
         ENABLE_RG3_ANALOG();            \
@@ -8736,7 +10036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG4_AN
+# if defined(_ANSG4)
+#   define ENABLE_RG4_ANALOG()  (_ANSG4 = 1)
+#   define DISABLE_RG4_ANALOG() (_ANSG4 = 0)
+# elif defined(RG4_AN)
 #   define ENABLE_RG4_ANALOG()  (RXY_GPIO_PCFG(RG4_AN) = 1)
 #   define DISABLE_RG4_ANALOG() (RXY_GPIO_PCFG(RG4_AN) = 0)
 # else
@@ -8759,7 +10062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG4_CN
+# if defined(_CNIEG4)
+#   define ENABLE_RG4_PULLUP()  (_CNPUG4 = 1)
+#   define DISABLE_RG4_PULLUP() (_CNPUG4 = 0)
+
+#   define ENABLE_RG4_PULLDOWN()  (_CNPDG4 = 1)
+#   define DISABLE_RG4_PULLDOWN() (_CNPDG4 = 0)
+
+#   define ENABLE_RG4_CN_INTERRUPT()  (_CNIEG4 = 1)
+#   define DISABLE_RG4_CN_INTERRUPT() (_CNIEG4 = 0)
+
+# elif defined(RG4_CN)
 #   define ENABLE_RG4_PULLUP()  (RXY_GPIO_CNPUE(RG4_CN) = 1)
 #   define DISABLE_RG4_PULLUP() (RXY_GPIO_CNPUE(RG4_CN) = 0)
 
@@ -8781,7 +10094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG4_AN
+# if defined(_ANSG4) || defined(RG4_AN)
 #   define CONFIG_RG4_AS_ANALOG()       \
       do {                              \
         ENABLE_RG4_ANALOG();            \
@@ -8823,7 +10136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG5_AN
+# if defined(_ANSG5)
+#   define ENABLE_RG5_ANALOG()  (_ANSG5 = 1)
+#   define DISABLE_RG5_ANALOG() (_ANSG5 = 0)
+# elif defined(RG5_AN)
 #   define ENABLE_RG5_ANALOG()  (RXY_GPIO_PCFG(RG5_AN) = 1)
 #   define DISABLE_RG5_ANALOG() (RXY_GPIO_PCFG(RG5_AN) = 0)
 # else
@@ -8846,7 +10162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG5_CN
+# if defined(_CNIEG5)
+#   define ENABLE_RG5_PULLUP()  (_CNPUG5 = 1)
+#   define DISABLE_RG5_PULLUP() (_CNPUG5 = 0)
+
+#   define ENABLE_RG5_PULLDOWN()  (_CNPDG5 = 1)
+#   define DISABLE_RG5_PULLDOWN() (_CNPDG5 = 0)
+
+#   define ENABLE_RG5_CN_INTERRUPT()  (_CNIEG5 = 1)
+#   define DISABLE_RG5_CN_INTERRUPT() (_CNIEG5 = 0)
+
+# elif defined(RG5_CN)
 #   define ENABLE_RG5_PULLUP()  (RXY_GPIO_CNPUE(RG5_CN) = 1)
 #   define DISABLE_RG5_PULLUP() (RXY_GPIO_CNPUE(RG5_CN) = 0)
 
@@ -8868,7 +10194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG5_AN
+# if defined(_ANSG5) || defined(RG5_AN)
 #   define CONFIG_RG5_AS_ANALOG()       \
       do {                              \
         ENABLE_RG5_ANALOG();            \
@@ -8910,7 +10236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG6_AN
+# if defined(_ANSG6)
+#   define ENABLE_RG6_ANALOG()  (_ANSG6 = 1)
+#   define DISABLE_RG6_ANALOG() (_ANSG6 = 0)
+# elif defined(RG6_AN)
 #   define ENABLE_RG6_ANALOG()  (RXY_GPIO_PCFG(RG6_AN) = 1)
 #   define DISABLE_RG6_ANALOG() (RXY_GPIO_PCFG(RG6_AN) = 0)
 # else
@@ -8933,7 +10262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG6_CN
+# if defined(_CNIEG6)
+#   define ENABLE_RG6_PULLUP()  (_CNPUG6 = 1)
+#   define DISABLE_RG6_PULLUP() (_CNPUG6 = 0)
+
+#   define ENABLE_RG6_PULLDOWN()  (_CNPDG6 = 1)
+#   define DISABLE_RG6_PULLDOWN() (_CNPDG6 = 0)
+
+#   define ENABLE_RG6_CN_INTERRUPT()  (_CNIEG6 = 1)
+#   define DISABLE_RG6_CN_INTERRUPT() (_CNIEG6 = 0)
+
+# elif defined(RG6_CN)
 #   define ENABLE_RG6_PULLUP()  (RXY_GPIO_CNPUE(RG6_CN) = 1)
 #   define DISABLE_RG6_PULLUP() (RXY_GPIO_CNPUE(RG6_CN) = 0)
 
@@ -8955,7 +10294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG6_AN
+# if defined(_ANSG6) || defined(RG6_AN)
 #   define CONFIG_RG6_AS_ANALOG()       \
       do {                              \
         ENABLE_RG6_ANALOG();            \
@@ -8997,7 +10336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG7_AN
+# if defined(_ANSG7)
+#   define ENABLE_RG7_ANALOG()  (_ANSG7 = 1)
+#   define DISABLE_RG7_ANALOG() (_ANSG7 = 0)
+# elif defined(RG7_AN)
 #   define ENABLE_RG7_ANALOG()  (RXY_GPIO_PCFG(RG7_AN) = 1)
 #   define DISABLE_RG7_ANALOG() (RXY_GPIO_PCFG(RG7_AN) = 0)
 # else
@@ -9020,7 +10362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG7_CN
+# if defined(_CNIEG7)
+#   define ENABLE_RG7_PULLUP()  (_CNPUG7 = 1)
+#   define DISABLE_RG7_PULLUP() (_CNPUG7 = 0)
+
+#   define ENABLE_RG7_PULLDOWN()  (_CNPDG7 = 1)
+#   define DISABLE_RG7_PULLDOWN() (_CNPDG7 = 0)
+
+#   define ENABLE_RG7_CN_INTERRUPT()  (_CNIEG7 = 1)
+#   define DISABLE_RG7_CN_INTERRUPT() (_CNIEG7 = 0)
+
+# elif defined(RG7_CN)
 #   define ENABLE_RG7_PULLUP()  (RXY_GPIO_CNPUE(RG7_CN) = 1)
 #   define DISABLE_RG7_PULLUP() (RXY_GPIO_CNPUE(RG7_CN) = 0)
 
@@ -9042,7 +10394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG7_AN
+# if defined(_ANSG7) || defined(RG7_AN)
 #   define CONFIG_RG7_AS_ANALOG()       \
       do {                              \
         ENABLE_RG7_ANALOG();            \
@@ -9084,7 +10436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG8_AN
+# if defined(_ANSG8)
+#   define ENABLE_RG8_ANALOG()  (_ANSG8 = 1)
+#   define DISABLE_RG8_ANALOG() (_ANSG8 = 0)
+# elif defined(RG8_AN)
 #   define ENABLE_RG8_ANALOG()  (RXY_GPIO_PCFG(RG8_AN) = 1)
 #   define DISABLE_RG8_ANALOG() (RXY_GPIO_PCFG(RG8_AN) = 0)
 # else
@@ -9107,7 +10462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG8_CN
+# if defined(_CNIEG8)
+#   define ENABLE_RG8_PULLUP()  (_CNPUG8 = 1)
+#   define DISABLE_RG8_PULLUP() (_CNPUG8 = 0)
+
+#   define ENABLE_RG8_PULLDOWN()  (_CNPDG8 = 1)
+#   define DISABLE_RG8_PULLDOWN() (_CNPDG8 = 0)
+
+#   define ENABLE_RG8_CN_INTERRUPT()  (_CNIEG8 = 1)
+#   define DISABLE_RG8_CN_INTERRUPT() (_CNIEG8 = 0)
+
+# elif defined(RG8_CN)
 #   define ENABLE_RG8_PULLUP()  (RXY_GPIO_CNPUE(RG8_CN) = 1)
 #   define DISABLE_RG8_PULLUP() (RXY_GPIO_CNPUE(RG8_CN) = 0)
 
@@ -9129,7 +10494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG8_AN
+# if defined(_ANSG8) || defined(RG8_AN)
 #   define CONFIG_RG8_AS_ANALOG()       \
       do {                              \
         ENABLE_RG8_ANALOG();            \
@@ -9171,7 +10536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG9_AN
+# if defined(_ANSG9)
+#   define ENABLE_RG9_ANALOG()  (_ANSG9 = 1)
+#   define DISABLE_RG9_ANALOG() (_ANSG9 = 0)
+# elif defined(RG9_AN)
 #   define ENABLE_RG9_ANALOG()  (RXY_GPIO_PCFG(RG9_AN) = 1)
 #   define DISABLE_RG9_ANALOG() (RXY_GPIO_PCFG(RG9_AN) = 0)
 # else
@@ -9194,7 +10562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG9_CN
+# if defined(_CNIEG9)
+#   define ENABLE_RG9_PULLUP()  (_CNPUG9 = 1)
+#   define DISABLE_RG9_PULLUP() (_CNPUG9 = 0)
+
+#   define ENABLE_RG9_PULLDOWN()  (_CNPDG9 = 1)
+#   define DISABLE_RG9_PULLDOWN() (_CNPDG9 = 0)
+
+#   define ENABLE_RG9_CN_INTERRUPT()  (_CNIEG9 = 1)
+#   define DISABLE_RG9_CN_INTERRUPT() (_CNIEG9 = 0)
+
+# elif defined(RG9_CN)
 #   define ENABLE_RG9_PULLUP()  (RXY_GPIO_CNPUE(RG9_CN) = 1)
 #   define DISABLE_RG9_PULLUP() (RXY_GPIO_CNPUE(RG9_CN) = 0)
 
@@ -9216,7 +10594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG9_AN
+# if defined(_ANSG9) || defined(RG9_AN)
 #   define CONFIG_RG9_AS_ANALOG()       \
       do {                              \
         ENABLE_RG9_ANALOG();            \
@@ -9258,7 +10636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG10_AN
+# if defined(_ANSG10)
+#   define ENABLE_RG10_ANALOG()  (_ANSG10 = 1)
+#   define DISABLE_RG10_ANALOG() (_ANSG10 = 0)
+# elif defined(RG10_AN)
 #   define ENABLE_RG10_ANALOG()  (RXY_GPIO_PCFG(RG10_AN) = 1)
 #   define DISABLE_RG10_ANALOG() (RXY_GPIO_PCFG(RG10_AN) = 0)
 # else
@@ -9281,7 +10662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG10_CN
+# if defined(_CNIEG10)
+#   define ENABLE_RG10_PULLUP()  (_CNPUG10 = 1)
+#   define DISABLE_RG10_PULLUP() (_CNPUG10 = 0)
+
+#   define ENABLE_RG10_PULLDOWN()  (_CNPDG10 = 1)
+#   define DISABLE_RG10_PULLDOWN() (_CNPDG10 = 0)
+
+#   define ENABLE_RG10_CN_INTERRUPT()  (_CNIEG10 = 1)
+#   define DISABLE_RG10_CN_INTERRUPT() (_CNIEG10 = 0)
+
+# elif defined(RG10_CN)
 #   define ENABLE_RG10_PULLUP()  (RXY_GPIO_CNPUE(RG10_CN) = 1)
 #   define DISABLE_RG10_PULLUP() (RXY_GPIO_CNPUE(RG10_CN) = 0)
 
@@ -9303,7 +10694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG10_AN
+# if defined(_ANSG10) || defined(RG10_AN)
 #   define CONFIG_RG10_AS_ANALOG()       \
       do {                              \
         ENABLE_RG10_ANALOG();            \
@@ -9345,7 +10736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG11_AN
+# if defined(_ANSG11)
+#   define ENABLE_RG11_ANALOG()  (_ANSG11 = 1)
+#   define DISABLE_RG11_ANALOG() (_ANSG11 = 0)
+# elif defined(RG11_AN)
 #   define ENABLE_RG11_ANALOG()  (RXY_GPIO_PCFG(RG11_AN) = 1)
 #   define DISABLE_RG11_ANALOG() (RXY_GPIO_PCFG(RG11_AN) = 0)
 # else
@@ -9368,7 +10762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG11_CN
+# if defined(_CNIEG11)
+#   define ENABLE_RG11_PULLUP()  (_CNPUG11 = 1)
+#   define DISABLE_RG11_PULLUP() (_CNPUG11 = 0)
+
+#   define ENABLE_RG11_PULLDOWN()  (_CNPDG11 = 1)
+#   define DISABLE_RG11_PULLDOWN() (_CNPDG11 = 0)
+
+#   define ENABLE_RG11_CN_INTERRUPT()  (_CNIEG11 = 1)
+#   define DISABLE_RG11_CN_INTERRUPT() (_CNIEG11 = 0)
+
+# elif defined(RG11_CN)
 #   define ENABLE_RG11_PULLUP()  (RXY_GPIO_CNPUE(RG11_CN) = 1)
 #   define DISABLE_RG11_PULLUP() (RXY_GPIO_CNPUE(RG11_CN) = 0)
 
@@ -9390,7 +10794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG11_AN
+# if defined(_ANSG11) || defined(RG11_AN)
 #   define CONFIG_RG11_AS_ANALOG()       \
       do {                              \
         ENABLE_RG11_ANALOG();            \
@@ -9432,7 +10836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG12_AN
+# if defined(_ANSG12)
+#   define ENABLE_RG12_ANALOG()  (_ANSG12 = 1)
+#   define DISABLE_RG12_ANALOG() (_ANSG12 = 0)
+# elif defined(RG12_AN)
 #   define ENABLE_RG12_ANALOG()  (RXY_GPIO_PCFG(RG12_AN) = 1)
 #   define DISABLE_RG12_ANALOG() (RXY_GPIO_PCFG(RG12_AN) = 0)
 # else
@@ -9455,7 +10862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG12_CN
+# if defined(_CNIEG12)
+#   define ENABLE_RG12_PULLUP()  (_CNPUG12 = 1)
+#   define DISABLE_RG12_PULLUP() (_CNPUG12 = 0)
+
+#   define ENABLE_RG12_PULLDOWN()  (_CNPDG12 = 1)
+#   define DISABLE_RG12_PULLDOWN() (_CNPDG12 = 0)
+
+#   define ENABLE_RG12_CN_INTERRUPT()  (_CNIEG12 = 1)
+#   define DISABLE_RG12_CN_INTERRUPT() (_CNIEG12 = 0)
+
+# elif defined(RG12_CN)
 #   define ENABLE_RG12_PULLUP()  (RXY_GPIO_CNPUE(RG12_CN) = 1)
 #   define DISABLE_RG12_PULLUP() (RXY_GPIO_CNPUE(RG12_CN) = 0)
 
@@ -9477,7 +10894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG12_AN
+# if defined(_ANSG12) || defined(RG12_AN)
 #   define CONFIG_RG12_AS_ANALOG()       \
       do {                              \
         ENABLE_RG12_ANALOG();            \
@@ -9519,7 +10936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG13_AN
+# if defined(_ANSG13)
+#   define ENABLE_RG13_ANALOG()  (_ANSG13 = 1)
+#   define DISABLE_RG13_ANALOG() (_ANSG13 = 0)
+# elif defined(RG13_AN)
 #   define ENABLE_RG13_ANALOG()  (RXY_GPIO_PCFG(RG13_AN) = 1)
 #   define DISABLE_RG13_ANALOG() (RXY_GPIO_PCFG(RG13_AN) = 0)
 # else
@@ -9542,7 +10962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG13_CN
+# if defined(_CNIEG13)
+#   define ENABLE_RG13_PULLUP()  (_CNPUG13 = 1)
+#   define DISABLE_RG13_PULLUP() (_CNPUG13 = 0)
+
+#   define ENABLE_RG13_PULLDOWN()  (_CNPDG13 = 1)
+#   define DISABLE_RG13_PULLDOWN() (_CNPDG13 = 0)
+
+#   define ENABLE_RG13_CN_INTERRUPT()  (_CNIEG13 = 1)
+#   define DISABLE_RG13_CN_INTERRUPT() (_CNIEG13 = 0)
+
+# elif defined(RG13_CN)
 #   define ENABLE_RG13_PULLUP()  (RXY_GPIO_CNPUE(RG13_CN) = 1)
 #   define DISABLE_RG13_PULLUP() (RXY_GPIO_CNPUE(RG13_CN) = 0)
 
@@ -9564,7 +10994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG13_AN
+# if defined(_ANSG13) || defined(RG13_AN)
 #   define CONFIG_RG13_AS_ANALOG()       \
       do {                              \
         ENABLE_RG13_ANALOG();            \
@@ -9606,7 +11036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG14_AN
+# if defined(_ANSG14)
+#   define ENABLE_RG14_ANALOG()  (_ANSG14 = 1)
+#   define DISABLE_RG14_ANALOG() (_ANSG14 = 0)
+# elif defined(RG14_AN)
 #   define ENABLE_RG14_ANALOG()  (RXY_GPIO_PCFG(RG14_AN) = 1)
 #   define DISABLE_RG14_ANALOG() (RXY_GPIO_PCFG(RG14_AN) = 0)
 # else
@@ -9629,7 +11062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG14_CN
+# if defined(_CNIEG14)
+#   define ENABLE_RG14_PULLUP()  (_CNPUG14 = 1)
+#   define DISABLE_RG14_PULLUP() (_CNPUG14 = 0)
+
+#   define ENABLE_RG14_PULLDOWN()  (_CNPDG14 = 1)
+#   define DISABLE_RG14_PULLDOWN() (_CNPDG14 = 0)
+
+#   define ENABLE_RG14_CN_INTERRUPT()  (_CNIEG14 = 1)
+#   define DISABLE_RG14_CN_INTERRUPT() (_CNIEG14 = 0)
+
+# elif defined(RG14_CN)
 #   define ENABLE_RG14_PULLUP()  (RXY_GPIO_CNPUE(RG14_CN) = 1)
 #   define DISABLE_RG14_PULLUP() (RXY_GPIO_CNPUE(RG14_CN) = 0)
 
@@ -9651,7 +11094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG14_AN
+# if defined(_ANSG14) || defined(RG14_AN)
 #   define CONFIG_RG14_AS_ANALOG()       \
       do {                              \
         ENABLE_RG14_ANALOG();            \
@@ -9693,7 +11136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RG15_AN
+# if defined(_ANSG15)
+#   define ENABLE_RG15_ANALOG()  (_ANSG15 = 1)
+#   define DISABLE_RG15_ANALOG() (_ANSG15 = 0)
+# elif defined(RG15_AN)
 #   define ENABLE_RG15_ANALOG()  (RXY_GPIO_PCFG(RG15_AN) = 1)
 #   define DISABLE_RG15_ANALOG() (RXY_GPIO_PCFG(RG15_AN) = 0)
 # else
@@ -9716,7 +11162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RG15_CN
+# if defined(_CNIEG15)
+#   define ENABLE_RG15_PULLUP()  (_CNPUG15 = 1)
+#   define DISABLE_RG15_PULLUP() (_CNPUG15 = 0)
+
+#   define ENABLE_RG15_PULLDOWN()  (_CNPDG15 = 1)
+#   define DISABLE_RG15_PULLDOWN() (_CNPDG15 = 0)
+
+#   define ENABLE_RG15_CN_INTERRUPT()  (_CNIEG15 = 1)
+#   define DISABLE_RG15_CN_INTERRUPT() (_CNIEG15 = 0)
+
+# elif defined(RG15_CN)
 #   define ENABLE_RG15_PULLUP()  (RXY_GPIO_CNPUE(RG15_CN) = 1)
 #   define DISABLE_RG15_PULLUP() (RXY_GPIO_CNPUE(RG15_CN) = 0)
 
@@ -9738,7 +11194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RG15_AN
+# if defined(_ANSG15) || defined(RG15_AN)
 #   define CONFIG_RG15_AS_ANALOG()       \
       do {                              \
         ENABLE_RG15_ANALOG();            \
@@ -9780,7 +11236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH0_AN
+# if defined(_ANSH0)
+#   define ENABLE_RH0_ANALOG()  (_ANSH0 = 1)
+#   define DISABLE_RH0_ANALOG() (_ANSH0 = 0)
+# elif defined(RH0_AN)
 #   define ENABLE_RH0_ANALOG()  (RXY_GPIO_PCFG(RH0_AN) = 1)
 #   define DISABLE_RH0_ANALOG() (RXY_GPIO_PCFG(RH0_AN) = 0)
 # else
@@ -9803,7 +11262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH0_CN
+# if defined(_CNIEH0)
+#   define ENABLE_RH0_PULLUP()  (_CNPUH0 = 1)
+#   define DISABLE_RH0_PULLUP() (_CNPUH0 = 0)
+
+#   define ENABLE_RH0_PULLDOWN()  (_CNPDH0 = 1)
+#   define DISABLE_RH0_PULLDOWN() (_CNPDH0 = 0)
+
+#   define ENABLE_RH0_CN_INTERRUPT()  (_CNIEH0 = 1)
+#   define DISABLE_RH0_CN_INTERRUPT() (_CNIEH0 = 0)
+
+# elif defined(RH0_CN)
 #   define ENABLE_RH0_PULLUP()  (RXY_GPIO_CNPUE(RH0_CN) = 1)
 #   define DISABLE_RH0_PULLUP() (RXY_GPIO_CNPUE(RH0_CN) = 0)
 
@@ -9825,7 +11294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH0_AN
+# if defined(_ANSH0) || defined(RH0_AN)
 #   define CONFIG_RH0_AS_ANALOG()       \
       do {                              \
         ENABLE_RH0_ANALOG();            \
@@ -9867,7 +11336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH1_AN
+# if defined(_ANSH1)
+#   define ENABLE_RH1_ANALOG()  (_ANSH1 = 1)
+#   define DISABLE_RH1_ANALOG() (_ANSH1 = 0)
+# elif defined(RH1_AN)
 #   define ENABLE_RH1_ANALOG()  (RXY_GPIO_PCFG(RH1_AN) = 1)
 #   define DISABLE_RH1_ANALOG() (RXY_GPIO_PCFG(RH1_AN) = 0)
 # else
@@ -9890,7 +11362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH1_CN
+# if defined(_CNIEH1)
+#   define ENABLE_RH1_PULLUP()  (_CNPUH1 = 1)
+#   define DISABLE_RH1_PULLUP() (_CNPUH1 = 0)
+
+#   define ENABLE_RH1_PULLDOWN()  (_CNPDH1 = 1)
+#   define DISABLE_RH1_PULLDOWN() (_CNPDH1 = 0)
+
+#   define ENABLE_RH1_CN_INTERRUPT()  (_CNIEH1 = 1)
+#   define DISABLE_RH1_CN_INTERRUPT() (_CNIEH1 = 0)
+
+# elif defined(RH1_CN)
 #   define ENABLE_RH1_PULLUP()  (RXY_GPIO_CNPUE(RH1_CN) = 1)
 #   define DISABLE_RH1_PULLUP() (RXY_GPIO_CNPUE(RH1_CN) = 0)
 
@@ -9912,7 +11394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH1_AN
+# if defined(_ANSH1) || defined(RH1_AN)
 #   define CONFIG_RH1_AS_ANALOG()       \
       do {                              \
         ENABLE_RH1_ANALOG();            \
@@ -9954,7 +11436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH2_AN
+# if defined(_ANSH2)
+#   define ENABLE_RH2_ANALOG()  (_ANSH2 = 1)
+#   define DISABLE_RH2_ANALOG() (_ANSH2 = 0)
+# elif defined(RH2_AN)
 #   define ENABLE_RH2_ANALOG()  (RXY_GPIO_PCFG(RH2_AN) = 1)
 #   define DISABLE_RH2_ANALOG() (RXY_GPIO_PCFG(RH2_AN) = 0)
 # else
@@ -9977,7 +11462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH2_CN
+# if defined(_CNIEH2)
+#   define ENABLE_RH2_PULLUP()  (_CNPUH2 = 1)
+#   define DISABLE_RH2_PULLUP() (_CNPUH2 = 0)
+
+#   define ENABLE_RH2_PULLDOWN()  (_CNPDH2 = 1)
+#   define DISABLE_RH2_PULLDOWN() (_CNPDH2 = 0)
+
+#   define ENABLE_RH2_CN_INTERRUPT()  (_CNIEH2 = 1)
+#   define DISABLE_RH2_CN_INTERRUPT() (_CNIEH2 = 0)
+
+# elif defined(RH2_CN)
 #   define ENABLE_RH2_PULLUP()  (RXY_GPIO_CNPUE(RH2_CN) = 1)
 #   define DISABLE_RH2_PULLUP() (RXY_GPIO_CNPUE(RH2_CN) = 0)
 
@@ -9999,7 +11494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH2_AN
+# if defined(_ANSH2) || defined(RH2_AN)
 #   define CONFIG_RH2_AS_ANALOG()       \
       do {                              \
         ENABLE_RH2_ANALOG();            \
@@ -10041,7 +11536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH3_AN
+# if defined(_ANSH3)
+#   define ENABLE_RH3_ANALOG()  (_ANSH3 = 1)
+#   define DISABLE_RH3_ANALOG() (_ANSH3 = 0)
+# elif defined(RH3_AN)
 #   define ENABLE_RH3_ANALOG()  (RXY_GPIO_PCFG(RH3_AN) = 1)
 #   define DISABLE_RH3_ANALOG() (RXY_GPIO_PCFG(RH3_AN) = 0)
 # else
@@ -10064,7 +11562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH3_CN
+# if defined(_CNIEH3)
+#   define ENABLE_RH3_PULLUP()  (_CNPUH3 = 1)
+#   define DISABLE_RH3_PULLUP() (_CNPUH3 = 0)
+
+#   define ENABLE_RH3_PULLDOWN()  (_CNPDH3 = 1)
+#   define DISABLE_RH3_PULLDOWN() (_CNPDH3 = 0)
+
+#   define ENABLE_RH3_CN_INTERRUPT()  (_CNIEH3 = 1)
+#   define DISABLE_RH3_CN_INTERRUPT() (_CNIEH3 = 0)
+
+# elif defined(RH3_CN)
 #   define ENABLE_RH3_PULLUP()  (RXY_GPIO_CNPUE(RH3_CN) = 1)
 #   define DISABLE_RH3_PULLUP() (RXY_GPIO_CNPUE(RH3_CN) = 0)
 
@@ -10086,7 +11594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH3_AN
+# if defined(_ANSH3) || defined(RH3_AN)
 #   define CONFIG_RH3_AS_ANALOG()       \
       do {                              \
         ENABLE_RH3_ANALOG();            \
@@ -10128,7 +11636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH4_AN
+# if defined(_ANSH4)
+#   define ENABLE_RH4_ANALOG()  (_ANSH4 = 1)
+#   define DISABLE_RH4_ANALOG() (_ANSH4 = 0)
+# elif defined(RH4_AN)
 #   define ENABLE_RH4_ANALOG()  (RXY_GPIO_PCFG(RH4_AN) = 1)
 #   define DISABLE_RH4_ANALOG() (RXY_GPIO_PCFG(RH4_AN) = 0)
 # else
@@ -10151,7 +11662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH4_CN
+# if defined(_CNIEH4)
+#   define ENABLE_RH4_PULLUP()  (_CNPUH4 = 1)
+#   define DISABLE_RH4_PULLUP() (_CNPUH4 = 0)
+
+#   define ENABLE_RH4_PULLDOWN()  (_CNPDH4 = 1)
+#   define DISABLE_RH4_PULLDOWN() (_CNPDH4 = 0)
+
+#   define ENABLE_RH4_CN_INTERRUPT()  (_CNIEH4 = 1)
+#   define DISABLE_RH4_CN_INTERRUPT() (_CNIEH4 = 0)
+
+# elif defined(RH4_CN)
 #   define ENABLE_RH4_PULLUP()  (RXY_GPIO_CNPUE(RH4_CN) = 1)
 #   define DISABLE_RH4_PULLUP() (RXY_GPIO_CNPUE(RH4_CN) = 0)
 
@@ -10173,7 +11694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH4_AN
+# if defined(_ANSH4) || defined(RH4_AN)
 #   define CONFIG_RH4_AS_ANALOG()       \
       do {                              \
         ENABLE_RH4_ANALOG();            \
@@ -10215,7 +11736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH5_AN
+# if defined(_ANSH5)
+#   define ENABLE_RH5_ANALOG()  (_ANSH5 = 1)
+#   define DISABLE_RH5_ANALOG() (_ANSH5 = 0)
+# elif defined(RH5_AN)
 #   define ENABLE_RH5_ANALOG()  (RXY_GPIO_PCFG(RH5_AN) = 1)
 #   define DISABLE_RH5_ANALOG() (RXY_GPIO_PCFG(RH5_AN) = 0)
 # else
@@ -10238,7 +11762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH5_CN
+# if defined(_CNIEH5)
+#   define ENABLE_RH5_PULLUP()  (_CNPUH5 = 1)
+#   define DISABLE_RH5_PULLUP() (_CNPUH5 = 0)
+
+#   define ENABLE_RH5_PULLDOWN()  (_CNPDH5 = 1)
+#   define DISABLE_RH5_PULLDOWN() (_CNPDH5 = 0)
+
+#   define ENABLE_RH5_CN_INTERRUPT()  (_CNIEH5 = 1)
+#   define DISABLE_RH5_CN_INTERRUPT() (_CNIEH5 = 0)
+
+# elif defined(RH5_CN)
 #   define ENABLE_RH5_PULLUP()  (RXY_GPIO_CNPUE(RH5_CN) = 1)
 #   define DISABLE_RH5_PULLUP() (RXY_GPIO_CNPUE(RH5_CN) = 0)
 
@@ -10260,7 +11794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH5_AN
+# if defined(_ANSH5) || defined(RH5_AN)
 #   define CONFIG_RH5_AS_ANALOG()       \
       do {                              \
         ENABLE_RH5_ANALOG();            \
@@ -10302,7 +11836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH6_AN
+# if defined(_ANSH6)
+#   define ENABLE_RH6_ANALOG()  (_ANSH6 = 1)
+#   define DISABLE_RH6_ANALOG() (_ANSH6 = 0)
+# elif defined(RH6_AN)
 #   define ENABLE_RH6_ANALOG()  (RXY_GPIO_PCFG(RH6_AN) = 1)
 #   define DISABLE_RH6_ANALOG() (RXY_GPIO_PCFG(RH6_AN) = 0)
 # else
@@ -10325,7 +11862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH6_CN
+# if defined(_CNIEH6)
+#   define ENABLE_RH6_PULLUP()  (_CNPUH6 = 1)
+#   define DISABLE_RH6_PULLUP() (_CNPUH6 = 0)
+
+#   define ENABLE_RH6_PULLDOWN()  (_CNPDH6 = 1)
+#   define DISABLE_RH6_PULLDOWN() (_CNPDH6 = 0)
+
+#   define ENABLE_RH6_CN_INTERRUPT()  (_CNIEH6 = 1)
+#   define DISABLE_RH6_CN_INTERRUPT() (_CNIEH6 = 0)
+
+# elif defined(RH6_CN)
 #   define ENABLE_RH6_PULLUP()  (RXY_GPIO_CNPUE(RH6_CN) = 1)
 #   define DISABLE_RH6_PULLUP() (RXY_GPIO_CNPUE(RH6_CN) = 0)
 
@@ -10347,7 +11894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH6_AN
+# if defined(_ANSH6) || defined(RH6_AN)
 #   define CONFIG_RH6_AS_ANALOG()       \
       do {                              \
         ENABLE_RH6_ANALOG();            \
@@ -10389,7 +11936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH7_AN
+# if defined(_ANSH7)
+#   define ENABLE_RH7_ANALOG()  (_ANSH7 = 1)
+#   define DISABLE_RH7_ANALOG() (_ANSH7 = 0)
+# elif defined(RH7_AN)
 #   define ENABLE_RH7_ANALOG()  (RXY_GPIO_PCFG(RH7_AN) = 1)
 #   define DISABLE_RH7_ANALOG() (RXY_GPIO_PCFG(RH7_AN) = 0)
 # else
@@ -10412,7 +11962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH7_CN
+# if defined(_CNIEH7)
+#   define ENABLE_RH7_PULLUP()  (_CNPUH7 = 1)
+#   define DISABLE_RH7_PULLUP() (_CNPUH7 = 0)
+
+#   define ENABLE_RH7_PULLDOWN()  (_CNPDH7 = 1)
+#   define DISABLE_RH7_PULLDOWN() (_CNPDH7 = 0)
+
+#   define ENABLE_RH7_CN_INTERRUPT()  (_CNIEH7 = 1)
+#   define DISABLE_RH7_CN_INTERRUPT() (_CNIEH7 = 0)
+
+# elif defined(RH7_CN)
 #   define ENABLE_RH7_PULLUP()  (RXY_GPIO_CNPUE(RH7_CN) = 1)
 #   define DISABLE_RH7_PULLUP() (RXY_GPIO_CNPUE(RH7_CN) = 0)
 
@@ -10434,7 +11994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH7_AN
+# if defined(_ANSH7) || defined(RH7_AN)
 #   define CONFIG_RH7_AS_ANALOG()       \
       do {                              \
         ENABLE_RH7_ANALOG();            \
@@ -10476,7 +12036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH8_AN
+# if defined(_ANSH8)
+#   define ENABLE_RH8_ANALOG()  (_ANSH8 = 1)
+#   define DISABLE_RH8_ANALOG() (_ANSH8 = 0)
+# elif defined(RH8_AN)
 #   define ENABLE_RH8_ANALOG()  (RXY_GPIO_PCFG(RH8_AN) = 1)
 #   define DISABLE_RH8_ANALOG() (RXY_GPIO_PCFG(RH8_AN) = 0)
 # else
@@ -10499,7 +12062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH8_CN
+# if defined(_CNIEH8)
+#   define ENABLE_RH8_PULLUP()  (_CNPUH8 = 1)
+#   define DISABLE_RH8_PULLUP() (_CNPUH8 = 0)
+
+#   define ENABLE_RH8_PULLDOWN()  (_CNPDH8 = 1)
+#   define DISABLE_RH8_PULLDOWN() (_CNPDH8 = 0)
+
+#   define ENABLE_RH8_CN_INTERRUPT()  (_CNIEH8 = 1)
+#   define DISABLE_RH8_CN_INTERRUPT() (_CNIEH8 = 0)
+
+# elif defined(RH8_CN)
 #   define ENABLE_RH8_PULLUP()  (RXY_GPIO_CNPUE(RH8_CN) = 1)
 #   define DISABLE_RH8_PULLUP() (RXY_GPIO_CNPUE(RH8_CN) = 0)
 
@@ -10521,7 +12094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH8_AN
+# if defined(_ANSH8) || defined(RH8_AN)
 #   define CONFIG_RH8_AS_ANALOG()       \
       do {                              \
         ENABLE_RH8_ANALOG();            \
@@ -10563,7 +12136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH9_AN
+# if defined(_ANSH9)
+#   define ENABLE_RH9_ANALOG()  (_ANSH9 = 1)
+#   define DISABLE_RH9_ANALOG() (_ANSH9 = 0)
+# elif defined(RH9_AN)
 #   define ENABLE_RH9_ANALOG()  (RXY_GPIO_PCFG(RH9_AN) = 1)
 #   define DISABLE_RH9_ANALOG() (RXY_GPIO_PCFG(RH9_AN) = 0)
 # else
@@ -10586,7 +12162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH9_CN
+# if defined(_CNIEH9)
+#   define ENABLE_RH9_PULLUP()  (_CNPUH9 = 1)
+#   define DISABLE_RH9_PULLUP() (_CNPUH9 = 0)
+
+#   define ENABLE_RH9_PULLDOWN()  (_CNPDH9 = 1)
+#   define DISABLE_RH9_PULLDOWN() (_CNPDH9 = 0)
+
+#   define ENABLE_RH9_CN_INTERRUPT()  (_CNIEH9 = 1)
+#   define DISABLE_RH9_CN_INTERRUPT() (_CNIEH9 = 0)
+
+# elif defined(RH9_CN)
 #   define ENABLE_RH9_PULLUP()  (RXY_GPIO_CNPUE(RH9_CN) = 1)
 #   define DISABLE_RH9_PULLUP() (RXY_GPIO_CNPUE(RH9_CN) = 0)
 
@@ -10608,7 +12194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH9_AN
+# if defined(_ANSH9) || defined(RH9_AN)
 #   define CONFIG_RH9_AS_ANALOG()       \
       do {                              \
         ENABLE_RH9_ANALOG();            \
@@ -10650,7 +12236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH10_AN
+# if defined(_ANSH10)
+#   define ENABLE_RH10_ANALOG()  (_ANSH10 = 1)
+#   define DISABLE_RH10_ANALOG() (_ANSH10 = 0)
+# elif defined(RH10_AN)
 #   define ENABLE_RH10_ANALOG()  (RXY_GPIO_PCFG(RH10_AN) = 1)
 #   define DISABLE_RH10_ANALOG() (RXY_GPIO_PCFG(RH10_AN) = 0)
 # else
@@ -10673,7 +12262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH10_CN
+# if defined(_CNIEH10)
+#   define ENABLE_RH10_PULLUP()  (_CNPUH10 = 1)
+#   define DISABLE_RH10_PULLUP() (_CNPUH10 = 0)
+
+#   define ENABLE_RH10_PULLDOWN()  (_CNPDH10 = 1)
+#   define DISABLE_RH10_PULLDOWN() (_CNPDH10 = 0)
+
+#   define ENABLE_RH10_CN_INTERRUPT()  (_CNIEH10 = 1)
+#   define DISABLE_RH10_CN_INTERRUPT() (_CNIEH10 = 0)
+
+# elif defined(RH10_CN)
 #   define ENABLE_RH10_PULLUP()  (RXY_GPIO_CNPUE(RH10_CN) = 1)
 #   define DISABLE_RH10_PULLUP() (RXY_GPIO_CNPUE(RH10_CN) = 0)
 
@@ -10695,7 +12294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH10_AN
+# if defined(_ANSH10) || defined(RH10_AN)
 #   define CONFIG_RH10_AS_ANALOG()       \
       do {                              \
         ENABLE_RH10_ANALOG();            \
@@ -10737,7 +12336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH11_AN
+# if defined(_ANSH11)
+#   define ENABLE_RH11_ANALOG()  (_ANSH11 = 1)
+#   define DISABLE_RH11_ANALOG() (_ANSH11 = 0)
+# elif defined(RH11_AN)
 #   define ENABLE_RH11_ANALOG()  (RXY_GPIO_PCFG(RH11_AN) = 1)
 #   define DISABLE_RH11_ANALOG() (RXY_GPIO_PCFG(RH11_AN) = 0)
 # else
@@ -10760,7 +12362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH11_CN
+# if defined(_CNIEH11)
+#   define ENABLE_RH11_PULLUP()  (_CNPUH11 = 1)
+#   define DISABLE_RH11_PULLUP() (_CNPUH11 = 0)
+
+#   define ENABLE_RH11_PULLDOWN()  (_CNPDH11 = 1)
+#   define DISABLE_RH11_PULLDOWN() (_CNPDH11 = 0)
+
+#   define ENABLE_RH11_CN_INTERRUPT()  (_CNIEH11 = 1)
+#   define DISABLE_RH11_CN_INTERRUPT() (_CNIEH11 = 0)
+
+# elif defined(RH11_CN)
 #   define ENABLE_RH11_PULLUP()  (RXY_GPIO_CNPUE(RH11_CN) = 1)
 #   define DISABLE_RH11_PULLUP() (RXY_GPIO_CNPUE(RH11_CN) = 0)
 
@@ -10782,7 +12394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH11_AN
+# if defined(_ANSH11) || defined(RH11_AN)
 #   define CONFIG_RH11_AS_ANALOG()       \
       do {                              \
         ENABLE_RH11_ANALOG();            \
@@ -10824,7 +12436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH12_AN
+# if defined(_ANSH12)
+#   define ENABLE_RH12_ANALOG()  (_ANSH12 = 1)
+#   define DISABLE_RH12_ANALOG() (_ANSH12 = 0)
+# elif defined(RH12_AN)
 #   define ENABLE_RH12_ANALOG()  (RXY_GPIO_PCFG(RH12_AN) = 1)
 #   define DISABLE_RH12_ANALOG() (RXY_GPIO_PCFG(RH12_AN) = 0)
 # else
@@ -10847,7 +12462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH12_CN
+# if defined(_CNIEH12)
+#   define ENABLE_RH12_PULLUP()  (_CNPUH12 = 1)
+#   define DISABLE_RH12_PULLUP() (_CNPUH12 = 0)
+
+#   define ENABLE_RH12_PULLDOWN()  (_CNPDH12 = 1)
+#   define DISABLE_RH12_PULLDOWN() (_CNPDH12 = 0)
+
+#   define ENABLE_RH12_CN_INTERRUPT()  (_CNIEH12 = 1)
+#   define DISABLE_RH12_CN_INTERRUPT() (_CNIEH12 = 0)
+
+# elif defined(RH12_CN)
 #   define ENABLE_RH12_PULLUP()  (RXY_GPIO_CNPUE(RH12_CN) = 1)
 #   define DISABLE_RH12_PULLUP() (RXY_GPIO_CNPUE(RH12_CN) = 0)
 
@@ -10869,7 +12494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH12_AN
+# if defined(_ANSH12) || defined(RH12_AN)
 #   define CONFIG_RH12_AS_ANALOG()       \
       do {                              \
         ENABLE_RH12_ANALOG();            \
@@ -10911,7 +12536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH13_AN
+# if defined(_ANSH13)
+#   define ENABLE_RH13_ANALOG()  (_ANSH13 = 1)
+#   define DISABLE_RH13_ANALOG() (_ANSH13 = 0)
+# elif defined(RH13_AN)
 #   define ENABLE_RH13_ANALOG()  (RXY_GPIO_PCFG(RH13_AN) = 1)
 #   define DISABLE_RH13_ANALOG() (RXY_GPIO_PCFG(RH13_AN) = 0)
 # else
@@ -10934,7 +12562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH13_CN
+# if defined(_CNIEH13)
+#   define ENABLE_RH13_PULLUP()  (_CNPUH13 = 1)
+#   define DISABLE_RH13_PULLUP() (_CNPUH13 = 0)
+
+#   define ENABLE_RH13_PULLDOWN()  (_CNPDH13 = 1)
+#   define DISABLE_RH13_PULLDOWN() (_CNPDH13 = 0)
+
+#   define ENABLE_RH13_CN_INTERRUPT()  (_CNIEH13 = 1)
+#   define DISABLE_RH13_CN_INTERRUPT() (_CNIEH13 = 0)
+
+# elif defined(RH13_CN)
 #   define ENABLE_RH13_PULLUP()  (RXY_GPIO_CNPUE(RH13_CN) = 1)
 #   define DISABLE_RH13_PULLUP() (RXY_GPIO_CNPUE(RH13_CN) = 0)
 
@@ -10956,7 +12594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH13_AN
+# if defined(_ANSH13) || defined(RH13_AN)
 #   define CONFIG_RH13_AS_ANALOG()       \
       do {                              \
         ENABLE_RH13_ANALOG();            \
@@ -10998,7 +12636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH14_AN
+# if defined(_ANSH14)
+#   define ENABLE_RH14_ANALOG()  (_ANSH14 = 1)
+#   define DISABLE_RH14_ANALOG() (_ANSH14 = 0)
+# elif defined(RH14_AN)
 #   define ENABLE_RH14_ANALOG()  (RXY_GPIO_PCFG(RH14_AN) = 1)
 #   define DISABLE_RH14_ANALOG() (RXY_GPIO_PCFG(RH14_AN) = 0)
 # else
@@ -11021,7 +12662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH14_CN
+# if defined(_CNIEH14)
+#   define ENABLE_RH14_PULLUP()  (_CNPUH14 = 1)
+#   define DISABLE_RH14_PULLUP() (_CNPUH14 = 0)
+
+#   define ENABLE_RH14_PULLDOWN()  (_CNPDH14 = 1)
+#   define DISABLE_RH14_PULLDOWN() (_CNPDH14 = 0)
+
+#   define ENABLE_RH14_CN_INTERRUPT()  (_CNIEH14 = 1)
+#   define DISABLE_RH14_CN_INTERRUPT() (_CNIEH14 = 0)
+
+# elif defined(RH14_CN)
 #   define ENABLE_RH14_PULLUP()  (RXY_GPIO_CNPUE(RH14_CN) = 1)
 #   define DISABLE_RH14_PULLUP() (RXY_GPIO_CNPUE(RH14_CN) = 0)
 
@@ -11043,7 +12694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH14_AN
+# if defined(_ANSH14) || defined(RH14_AN)
 #   define CONFIG_RH14_AS_ANALOG()       \
       do {                              \
         ENABLE_RH14_ANALOG();            \
@@ -11085,7 +12736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RH15_AN
+# if defined(_ANSH15)
+#   define ENABLE_RH15_ANALOG()  (_ANSH15 = 1)
+#   define DISABLE_RH15_ANALOG() (_ANSH15 = 0)
+# elif defined(RH15_AN)
 #   define ENABLE_RH15_ANALOG()  (RXY_GPIO_PCFG(RH15_AN) = 1)
 #   define DISABLE_RH15_ANALOG() (RXY_GPIO_PCFG(RH15_AN) = 0)
 # else
@@ -11108,7 +12762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RH15_CN
+# if defined(_CNIEH15)
+#   define ENABLE_RH15_PULLUP()  (_CNPUH15 = 1)
+#   define DISABLE_RH15_PULLUP() (_CNPUH15 = 0)
+
+#   define ENABLE_RH15_PULLDOWN()  (_CNPDH15 = 1)
+#   define DISABLE_RH15_PULLDOWN() (_CNPDH15 = 0)
+
+#   define ENABLE_RH15_CN_INTERRUPT()  (_CNIEH15 = 1)
+#   define DISABLE_RH15_CN_INTERRUPT() (_CNIEH15 = 0)
+
+# elif defined(RH15_CN)
 #   define ENABLE_RH15_PULLUP()  (RXY_GPIO_CNPUE(RH15_CN) = 1)
 #   define DISABLE_RH15_PULLUP() (RXY_GPIO_CNPUE(RH15_CN) = 0)
 
@@ -11130,7 +12794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RH15_AN
+# if defined(_ANSH15) || defined(RH15_AN)
 #   define CONFIG_RH15_AS_ANALOG()       \
       do {                              \
         ENABLE_RH15_ANALOG();            \
@@ -11172,7 +12836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ0_AN
+# if defined(_ANSJ0)
+#   define ENABLE_RJ0_ANALOG()  (_ANSJ0 = 1)
+#   define DISABLE_RJ0_ANALOG() (_ANSJ0 = 0)
+# elif defined(RJ0_AN)
 #   define ENABLE_RJ0_ANALOG()  (RXY_GPIO_PCFG(RJ0_AN) = 1)
 #   define DISABLE_RJ0_ANALOG() (RXY_GPIO_PCFG(RJ0_AN) = 0)
 # else
@@ -11195,7 +12862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ0_CN
+# if defined(_CNIEJ0)
+#   define ENABLE_RJ0_PULLUP()  (_CNPUJ0 = 1)
+#   define DISABLE_RJ0_PULLUP() (_CNPUJ0 = 0)
+
+#   define ENABLE_RJ0_PULLDOWN()  (_CNPDJ0 = 1)
+#   define DISABLE_RJ0_PULLDOWN() (_CNPDJ0 = 0)
+
+#   define ENABLE_RJ0_CN_INTERRUPT()  (_CNIEJ0 = 1)
+#   define DISABLE_RJ0_CN_INTERRUPT() (_CNIEJ0 = 0)
+
+# elif defined(RJ0_CN)
 #   define ENABLE_RJ0_PULLUP()  (RXY_GPIO_CNPUE(RJ0_CN) = 1)
 #   define DISABLE_RJ0_PULLUP() (RXY_GPIO_CNPUE(RJ0_CN) = 0)
 
@@ -11217,7 +12894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ0_AN
+# if defined(_ANSJ0) || defined(RJ0_AN)
 #   define CONFIG_RJ0_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ0_ANALOG();            \
@@ -11259,7 +12936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ1_AN
+# if defined(_ANSJ1)
+#   define ENABLE_RJ1_ANALOG()  (_ANSJ1 = 1)
+#   define DISABLE_RJ1_ANALOG() (_ANSJ1 = 0)
+# elif defined(RJ1_AN)
 #   define ENABLE_RJ1_ANALOG()  (RXY_GPIO_PCFG(RJ1_AN) = 1)
 #   define DISABLE_RJ1_ANALOG() (RXY_GPIO_PCFG(RJ1_AN) = 0)
 # else
@@ -11282,7 +12962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ1_CN
+# if defined(_CNIEJ1)
+#   define ENABLE_RJ1_PULLUP()  (_CNPUJ1 = 1)
+#   define DISABLE_RJ1_PULLUP() (_CNPUJ1 = 0)
+
+#   define ENABLE_RJ1_PULLDOWN()  (_CNPDJ1 = 1)
+#   define DISABLE_RJ1_PULLDOWN() (_CNPDJ1 = 0)
+
+#   define ENABLE_RJ1_CN_INTERRUPT()  (_CNIEJ1 = 1)
+#   define DISABLE_RJ1_CN_INTERRUPT() (_CNIEJ1 = 0)
+
+# elif defined(RJ1_CN)
 #   define ENABLE_RJ1_PULLUP()  (RXY_GPIO_CNPUE(RJ1_CN) = 1)
 #   define DISABLE_RJ1_PULLUP() (RXY_GPIO_CNPUE(RJ1_CN) = 0)
 
@@ -11304,7 +12994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ1_AN
+# if defined(_ANSJ1) || defined(RJ1_AN)
 #   define CONFIG_RJ1_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ1_ANALOG();            \
@@ -11346,7 +13036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ2_AN
+# if defined(_ANSJ2)
+#   define ENABLE_RJ2_ANALOG()  (_ANSJ2 = 1)
+#   define DISABLE_RJ2_ANALOG() (_ANSJ2 = 0)
+# elif defined(RJ2_AN)
 #   define ENABLE_RJ2_ANALOG()  (RXY_GPIO_PCFG(RJ2_AN) = 1)
 #   define DISABLE_RJ2_ANALOG() (RXY_GPIO_PCFG(RJ2_AN) = 0)
 # else
@@ -11369,7 +13062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ2_CN
+# if defined(_CNIEJ2)
+#   define ENABLE_RJ2_PULLUP()  (_CNPUJ2 = 1)
+#   define DISABLE_RJ2_PULLUP() (_CNPUJ2 = 0)
+
+#   define ENABLE_RJ2_PULLDOWN()  (_CNPDJ2 = 1)
+#   define DISABLE_RJ2_PULLDOWN() (_CNPDJ2 = 0)
+
+#   define ENABLE_RJ2_CN_INTERRUPT()  (_CNIEJ2 = 1)
+#   define DISABLE_RJ2_CN_INTERRUPT() (_CNIEJ2 = 0)
+
+# elif defined(RJ2_CN)
 #   define ENABLE_RJ2_PULLUP()  (RXY_GPIO_CNPUE(RJ2_CN) = 1)
 #   define DISABLE_RJ2_PULLUP() (RXY_GPIO_CNPUE(RJ2_CN) = 0)
 
@@ -11391,7 +13094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ2_AN
+# if defined(_ANSJ2) || defined(RJ2_AN)
 #   define CONFIG_RJ2_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ2_ANALOG();            \
@@ -11433,7 +13136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ3_AN
+# if defined(_ANSJ3)
+#   define ENABLE_RJ3_ANALOG()  (_ANSJ3 = 1)
+#   define DISABLE_RJ3_ANALOG() (_ANSJ3 = 0)
+# elif defined(RJ3_AN)
 #   define ENABLE_RJ3_ANALOG()  (RXY_GPIO_PCFG(RJ3_AN) = 1)
 #   define DISABLE_RJ3_ANALOG() (RXY_GPIO_PCFG(RJ3_AN) = 0)
 # else
@@ -11456,7 +13162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ3_CN
+# if defined(_CNIEJ3)
+#   define ENABLE_RJ3_PULLUP()  (_CNPUJ3 = 1)
+#   define DISABLE_RJ3_PULLUP() (_CNPUJ3 = 0)
+
+#   define ENABLE_RJ3_PULLDOWN()  (_CNPDJ3 = 1)
+#   define DISABLE_RJ3_PULLDOWN() (_CNPDJ3 = 0)
+
+#   define ENABLE_RJ3_CN_INTERRUPT()  (_CNIEJ3 = 1)
+#   define DISABLE_RJ3_CN_INTERRUPT() (_CNIEJ3 = 0)
+
+# elif defined(RJ3_CN)
 #   define ENABLE_RJ3_PULLUP()  (RXY_GPIO_CNPUE(RJ3_CN) = 1)
 #   define DISABLE_RJ3_PULLUP() (RXY_GPIO_CNPUE(RJ3_CN) = 0)
 
@@ -11478,7 +13194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ3_AN
+# if defined(_ANSJ3) || defined(RJ3_AN)
 #   define CONFIG_RJ3_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ3_ANALOG();            \
@@ -11520,7 +13236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ4_AN
+# if defined(_ANSJ4)
+#   define ENABLE_RJ4_ANALOG()  (_ANSJ4 = 1)
+#   define DISABLE_RJ4_ANALOG() (_ANSJ4 = 0)
+# elif defined(RJ4_AN)
 #   define ENABLE_RJ4_ANALOG()  (RXY_GPIO_PCFG(RJ4_AN) = 1)
 #   define DISABLE_RJ4_ANALOG() (RXY_GPIO_PCFG(RJ4_AN) = 0)
 # else
@@ -11543,7 +13262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ4_CN
+# if defined(_CNIEJ4)
+#   define ENABLE_RJ4_PULLUP()  (_CNPUJ4 = 1)
+#   define DISABLE_RJ4_PULLUP() (_CNPUJ4 = 0)
+
+#   define ENABLE_RJ4_PULLDOWN()  (_CNPDJ4 = 1)
+#   define DISABLE_RJ4_PULLDOWN() (_CNPDJ4 = 0)
+
+#   define ENABLE_RJ4_CN_INTERRUPT()  (_CNIEJ4 = 1)
+#   define DISABLE_RJ4_CN_INTERRUPT() (_CNIEJ4 = 0)
+
+# elif defined(RJ4_CN)
 #   define ENABLE_RJ4_PULLUP()  (RXY_GPIO_CNPUE(RJ4_CN) = 1)
 #   define DISABLE_RJ4_PULLUP() (RXY_GPIO_CNPUE(RJ4_CN) = 0)
 
@@ -11565,7 +13294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ4_AN
+# if defined(_ANSJ4) || defined(RJ4_AN)
 #   define CONFIG_RJ4_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ4_ANALOG();            \
@@ -11607,7 +13336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ5_AN
+# if defined(_ANSJ5)
+#   define ENABLE_RJ5_ANALOG()  (_ANSJ5 = 1)
+#   define DISABLE_RJ5_ANALOG() (_ANSJ5 = 0)
+# elif defined(RJ5_AN)
 #   define ENABLE_RJ5_ANALOG()  (RXY_GPIO_PCFG(RJ5_AN) = 1)
 #   define DISABLE_RJ5_ANALOG() (RXY_GPIO_PCFG(RJ5_AN) = 0)
 # else
@@ -11630,7 +13362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ5_CN
+# if defined(_CNIEJ5)
+#   define ENABLE_RJ5_PULLUP()  (_CNPUJ5 = 1)
+#   define DISABLE_RJ5_PULLUP() (_CNPUJ5 = 0)
+
+#   define ENABLE_RJ5_PULLDOWN()  (_CNPDJ5 = 1)
+#   define DISABLE_RJ5_PULLDOWN() (_CNPDJ5 = 0)
+
+#   define ENABLE_RJ5_CN_INTERRUPT()  (_CNIEJ5 = 1)
+#   define DISABLE_RJ5_CN_INTERRUPT() (_CNIEJ5 = 0)
+
+# elif defined(RJ5_CN)
 #   define ENABLE_RJ5_PULLUP()  (RXY_GPIO_CNPUE(RJ5_CN) = 1)
 #   define DISABLE_RJ5_PULLUP() (RXY_GPIO_CNPUE(RJ5_CN) = 0)
 
@@ -11652,7 +13394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ5_AN
+# if defined(_ANSJ5) || defined(RJ5_AN)
 #   define CONFIG_RJ5_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ5_ANALOG();            \
@@ -11694,7 +13436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ6_AN
+# if defined(_ANSJ6)
+#   define ENABLE_RJ6_ANALOG()  (_ANSJ6 = 1)
+#   define DISABLE_RJ6_ANALOG() (_ANSJ6 = 0)
+# elif defined(RJ6_AN)
 #   define ENABLE_RJ6_ANALOG()  (RXY_GPIO_PCFG(RJ6_AN) = 1)
 #   define DISABLE_RJ6_ANALOG() (RXY_GPIO_PCFG(RJ6_AN) = 0)
 # else
@@ -11717,7 +13462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ6_CN
+# if defined(_CNIEJ6)
+#   define ENABLE_RJ6_PULLUP()  (_CNPUJ6 = 1)
+#   define DISABLE_RJ6_PULLUP() (_CNPUJ6 = 0)
+
+#   define ENABLE_RJ6_PULLDOWN()  (_CNPDJ6 = 1)
+#   define DISABLE_RJ6_PULLDOWN() (_CNPDJ6 = 0)
+
+#   define ENABLE_RJ6_CN_INTERRUPT()  (_CNIEJ6 = 1)
+#   define DISABLE_RJ6_CN_INTERRUPT() (_CNIEJ6 = 0)
+
+# elif defined(RJ6_CN)
 #   define ENABLE_RJ6_PULLUP()  (RXY_GPIO_CNPUE(RJ6_CN) = 1)
 #   define DISABLE_RJ6_PULLUP() (RXY_GPIO_CNPUE(RJ6_CN) = 0)
 
@@ -11739,7 +13494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ6_AN
+# if defined(_ANSJ6) || defined(RJ6_AN)
 #   define CONFIG_RJ6_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ6_ANALOG();            \
@@ -11781,7 +13536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ7_AN
+# if defined(_ANSJ7)
+#   define ENABLE_RJ7_ANALOG()  (_ANSJ7 = 1)
+#   define DISABLE_RJ7_ANALOG() (_ANSJ7 = 0)
+# elif defined(RJ7_AN)
 #   define ENABLE_RJ7_ANALOG()  (RXY_GPIO_PCFG(RJ7_AN) = 1)
 #   define DISABLE_RJ7_ANALOG() (RXY_GPIO_PCFG(RJ7_AN) = 0)
 # else
@@ -11804,7 +13562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ7_CN
+# if defined(_CNIEJ7)
+#   define ENABLE_RJ7_PULLUP()  (_CNPUJ7 = 1)
+#   define DISABLE_RJ7_PULLUP() (_CNPUJ7 = 0)
+
+#   define ENABLE_RJ7_PULLDOWN()  (_CNPDJ7 = 1)
+#   define DISABLE_RJ7_PULLDOWN() (_CNPDJ7 = 0)
+
+#   define ENABLE_RJ7_CN_INTERRUPT()  (_CNIEJ7 = 1)
+#   define DISABLE_RJ7_CN_INTERRUPT() (_CNIEJ7 = 0)
+
+# elif defined(RJ7_CN)
 #   define ENABLE_RJ7_PULLUP()  (RXY_GPIO_CNPUE(RJ7_CN) = 1)
 #   define DISABLE_RJ7_PULLUP() (RXY_GPIO_CNPUE(RJ7_CN) = 0)
 
@@ -11826,7 +13594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ7_AN
+# if defined(_ANSJ7) || defined(RJ7_AN)
 #   define CONFIG_RJ7_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ7_ANALOG();            \
@@ -11868,7 +13636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ8_AN
+# if defined(_ANSJ8)
+#   define ENABLE_RJ8_ANALOG()  (_ANSJ8 = 1)
+#   define DISABLE_RJ8_ANALOG() (_ANSJ8 = 0)
+# elif defined(RJ8_AN)
 #   define ENABLE_RJ8_ANALOG()  (RXY_GPIO_PCFG(RJ8_AN) = 1)
 #   define DISABLE_RJ8_ANALOG() (RXY_GPIO_PCFG(RJ8_AN) = 0)
 # else
@@ -11891,7 +13662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ8_CN
+# if defined(_CNIEJ8)
+#   define ENABLE_RJ8_PULLUP()  (_CNPUJ8 = 1)
+#   define DISABLE_RJ8_PULLUP() (_CNPUJ8 = 0)
+
+#   define ENABLE_RJ8_PULLDOWN()  (_CNPDJ8 = 1)
+#   define DISABLE_RJ8_PULLDOWN() (_CNPDJ8 = 0)
+
+#   define ENABLE_RJ8_CN_INTERRUPT()  (_CNIEJ8 = 1)
+#   define DISABLE_RJ8_CN_INTERRUPT() (_CNIEJ8 = 0)
+
+# elif defined(RJ8_CN)
 #   define ENABLE_RJ8_PULLUP()  (RXY_GPIO_CNPUE(RJ8_CN) = 1)
 #   define DISABLE_RJ8_PULLUP() (RXY_GPIO_CNPUE(RJ8_CN) = 0)
 
@@ -11913,7 +13694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ8_AN
+# if defined(_ANSJ8) || defined(RJ8_AN)
 #   define CONFIG_RJ8_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ8_ANALOG();            \
@@ -11955,7 +13736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ9_AN
+# if defined(_ANSJ9)
+#   define ENABLE_RJ9_ANALOG()  (_ANSJ9 = 1)
+#   define DISABLE_RJ9_ANALOG() (_ANSJ9 = 0)
+# elif defined(RJ9_AN)
 #   define ENABLE_RJ9_ANALOG()  (RXY_GPIO_PCFG(RJ9_AN) = 1)
 #   define DISABLE_RJ9_ANALOG() (RXY_GPIO_PCFG(RJ9_AN) = 0)
 # else
@@ -11978,7 +13762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ9_CN
+# if defined(_CNIEJ9)
+#   define ENABLE_RJ9_PULLUP()  (_CNPUJ9 = 1)
+#   define DISABLE_RJ9_PULLUP() (_CNPUJ9 = 0)
+
+#   define ENABLE_RJ9_PULLDOWN()  (_CNPDJ9 = 1)
+#   define DISABLE_RJ9_PULLDOWN() (_CNPDJ9 = 0)
+
+#   define ENABLE_RJ9_CN_INTERRUPT()  (_CNIEJ9 = 1)
+#   define DISABLE_RJ9_CN_INTERRUPT() (_CNIEJ9 = 0)
+
+# elif defined(RJ9_CN)
 #   define ENABLE_RJ9_PULLUP()  (RXY_GPIO_CNPUE(RJ9_CN) = 1)
 #   define DISABLE_RJ9_PULLUP() (RXY_GPIO_CNPUE(RJ9_CN) = 0)
 
@@ -12000,7 +13794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ9_AN
+# if defined(_ANSJ9) || defined(RJ9_AN)
 #   define CONFIG_RJ9_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ9_ANALOG();            \
@@ -12042,7 +13836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ10_AN
+# if defined(_ANSJ10)
+#   define ENABLE_RJ10_ANALOG()  (_ANSJ10 = 1)
+#   define DISABLE_RJ10_ANALOG() (_ANSJ10 = 0)
+# elif defined(RJ10_AN)
 #   define ENABLE_RJ10_ANALOG()  (RXY_GPIO_PCFG(RJ10_AN) = 1)
 #   define DISABLE_RJ10_ANALOG() (RXY_GPIO_PCFG(RJ10_AN) = 0)
 # else
@@ -12065,7 +13862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ10_CN
+# if defined(_CNIEJ10)
+#   define ENABLE_RJ10_PULLUP()  (_CNPUJ10 = 1)
+#   define DISABLE_RJ10_PULLUP() (_CNPUJ10 = 0)
+
+#   define ENABLE_RJ10_PULLDOWN()  (_CNPDJ10 = 1)
+#   define DISABLE_RJ10_PULLDOWN() (_CNPDJ10 = 0)
+
+#   define ENABLE_RJ10_CN_INTERRUPT()  (_CNIEJ10 = 1)
+#   define DISABLE_RJ10_CN_INTERRUPT() (_CNIEJ10 = 0)
+
+# elif defined(RJ10_CN)
 #   define ENABLE_RJ10_PULLUP()  (RXY_GPIO_CNPUE(RJ10_CN) = 1)
 #   define DISABLE_RJ10_PULLUP() (RXY_GPIO_CNPUE(RJ10_CN) = 0)
 
@@ -12087,7 +13894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ10_AN
+# if defined(_ANSJ10) || defined(RJ10_AN)
 #   define CONFIG_RJ10_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ10_ANALOG();            \
@@ -12129,7 +13936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ11_AN
+# if defined(_ANSJ11)
+#   define ENABLE_RJ11_ANALOG()  (_ANSJ11 = 1)
+#   define DISABLE_RJ11_ANALOG() (_ANSJ11 = 0)
+# elif defined(RJ11_AN)
 #   define ENABLE_RJ11_ANALOG()  (RXY_GPIO_PCFG(RJ11_AN) = 1)
 #   define DISABLE_RJ11_ANALOG() (RXY_GPIO_PCFG(RJ11_AN) = 0)
 # else
@@ -12152,7 +13962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ11_CN
+# if defined(_CNIEJ11)
+#   define ENABLE_RJ11_PULLUP()  (_CNPUJ11 = 1)
+#   define DISABLE_RJ11_PULLUP() (_CNPUJ11 = 0)
+
+#   define ENABLE_RJ11_PULLDOWN()  (_CNPDJ11 = 1)
+#   define DISABLE_RJ11_PULLDOWN() (_CNPDJ11 = 0)
+
+#   define ENABLE_RJ11_CN_INTERRUPT()  (_CNIEJ11 = 1)
+#   define DISABLE_RJ11_CN_INTERRUPT() (_CNIEJ11 = 0)
+
+# elif defined(RJ11_CN)
 #   define ENABLE_RJ11_PULLUP()  (RXY_GPIO_CNPUE(RJ11_CN) = 1)
 #   define DISABLE_RJ11_PULLUP() (RXY_GPIO_CNPUE(RJ11_CN) = 0)
 
@@ -12174,7 +13994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ11_AN
+# if defined(_ANSJ11) || defined(RJ11_AN)
 #   define CONFIG_RJ11_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ11_ANALOG();            \
@@ -12216,7 +14036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ12_AN
+# if defined(_ANSJ12)
+#   define ENABLE_RJ12_ANALOG()  (_ANSJ12 = 1)
+#   define DISABLE_RJ12_ANALOG() (_ANSJ12 = 0)
+# elif defined(RJ12_AN)
 #   define ENABLE_RJ12_ANALOG()  (RXY_GPIO_PCFG(RJ12_AN) = 1)
 #   define DISABLE_RJ12_ANALOG() (RXY_GPIO_PCFG(RJ12_AN) = 0)
 # else
@@ -12239,7 +14062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ12_CN
+# if defined(_CNIEJ12)
+#   define ENABLE_RJ12_PULLUP()  (_CNPUJ12 = 1)
+#   define DISABLE_RJ12_PULLUP() (_CNPUJ12 = 0)
+
+#   define ENABLE_RJ12_PULLDOWN()  (_CNPDJ12 = 1)
+#   define DISABLE_RJ12_PULLDOWN() (_CNPDJ12 = 0)
+
+#   define ENABLE_RJ12_CN_INTERRUPT()  (_CNIEJ12 = 1)
+#   define DISABLE_RJ12_CN_INTERRUPT() (_CNIEJ12 = 0)
+
+# elif defined(RJ12_CN)
 #   define ENABLE_RJ12_PULLUP()  (RXY_GPIO_CNPUE(RJ12_CN) = 1)
 #   define DISABLE_RJ12_PULLUP() (RXY_GPIO_CNPUE(RJ12_CN) = 0)
 
@@ -12261,7 +14094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ12_AN
+# if defined(_ANSJ12) || defined(RJ12_AN)
 #   define CONFIG_RJ12_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ12_ANALOG();            \
@@ -12303,7 +14136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ13_AN
+# if defined(_ANSJ13)
+#   define ENABLE_RJ13_ANALOG()  (_ANSJ13 = 1)
+#   define DISABLE_RJ13_ANALOG() (_ANSJ13 = 0)
+# elif defined(RJ13_AN)
 #   define ENABLE_RJ13_ANALOG()  (RXY_GPIO_PCFG(RJ13_AN) = 1)
 #   define DISABLE_RJ13_ANALOG() (RXY_GPIO_PCFG(RJ13_AN) = 0)
 # else
@@ -12326,7 +14162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ13_CN
+# if defined(_CNIEJ13)
+#   define ENABLE_RJ13_PULLUP()  (_CNPUJ13 = 1)
+#   define DISABLE_RJ13_PULLUP() (_CNPUJ13 = 0)
+
+#   define ENABLE_RJ13_PULLDOWN()  (_CNPDJ13 = 1)
+#   define DISABLE_RJ13_PULLDOWN() (_CNPDJ13 = 0)
+
+#   define ENABLE_RJ13_CN_INTERRUPT()  (_CNIEJ13 = 1)
+#   define DISABLE_RJ13_CN_INTERRUPT() (_CNIEJ13 = 0)
+
+# elif defined(RJ13_CN)
 #   define ENABLE_RJ13_PULLUP()  (RXY_GPIO_CNPUE(RJ13_CN) = 1)
 #   define DISABLE_RJ13_PULLUP() (RXY_GPIO_CNPUE(RJ13_CN) = 0)
 
@@ -12348,7 +14194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ13_AN
+# if defined(_ANSJ13) || defined(RJ13_AN)
 #   define CONFIG_RJ13_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ13_ANALOG();            \
@@ -12390,7 +14236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ14_AN
+# if defined(_ANSJ14)
+#   define ENABLE_RJ14_ANALOG()  (_ANSJ14 = 1)
+#   define DISABLE_RJ14_ANALOG() (_ANSJ14 = 0)
+# elif defined(RJ14_AN)
 #   define ENABLE_RJ14_ANALOG()  (RXY_GPIO_PCFG(RJ14_AN) = 1)
 #   define DISABLE_RJ14_ANALOG() (RXY_GPIO_PCFG(RJ14_AN) = 0)
 # else
@@ -12413,7 +14262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ14_CN
+# if defined(_CNIEJ14)
+#   define ENABLE_RJ14_PULLUP()  (_CNPUJ14 = 1)
+#   define DISABLE_RJ14_PULLUP() (_CNPUJ14 = 0)
+
+#   define ENABLE_RJ14_PULLDOWN()  (_CNPDJ14 = 1)
+#   define DISABLE_RJ14_PULLDOWN() (_CNPDJ14 = 0)
+
+#   define ENABLE_RJ14_CN_INTERRUPT()  (_CNIEJ14 = 1)
+#   define DISABLE_RJ14_CN_INTERRUPT() (_CNIEJ14 = 0)
+
+# elif defined(RJ14_CN)
 #   define ENABLE_RJ14_PULLUP()  (RXY_GPIO_CNPUE(RJ14_CN) = 1)
 #   define DISABLE_RJ14_PULLUP() (RXY_GPIO_CNPUE(RJ14_CN) = 0)
 
@@ -12435,7 +14294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ14_AN
+# if defined(_ANSJ14) || defined(RJ14_AN)
 #   define CONFIG_RJ14_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ14_ANALOG();            \
@@ -12477,7 +14336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RJ15_AN
+# if defined(_ANSJ15)
+#   define ENABLE_RJ15_ANALOG()  (_ANSJ15 = 1)
+#   define DISABLE_RJ15_ANALOG() (_ANSJ15 = 0)
+# elif defined(RJ15_AN)
 #   define ENABLE_RJ15_ANALOG()  (RXY_GPIO_PCFG(RJ15_AN) = 1)
 #   define DISABLE_RJ15_ANALOG() (RXY_GPIO_PCFG(RJ15_AN) = 0)
 # else
@@ -12500,7 +14362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RJ15_CN
+# if defined(_CNIEJ15)
+#   define ENABLE_RJ15_PULLUP()  (_CNPUJ15 = 1)
+#   define DISABLE_RJ15_PULLUP() (_CNPUJ15 = 0)
+
+#   define ENABLE_RJ15_PULLDOWN()  (_CNPDJ15 = 1)
+#   define DISABLE_RJ15_PULLDOWN() (_CNPDJ15 = 0)
+
+#   define ENABLE_RJ15_CN_INTERRUPT()  (_CNIEJ15 = 1)
+#   define DISABLE_RJ15_CN_INTERRUPT() (_CNIEJ15 = 0)
+
+# elif defined(RJ15_CN)
 #   define ENABLE_RJ15_PULLUP()  (RXY_GPIO_CNPUE(RJ15_CN) = 1)
 #   define DISABLE_RJ15_PULLUP() (RXY_GPIO_CNPUE(RJ15_CN) = 0)
 
@@ -12522,7 +14394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RJ15_AN
+# if defined(_ANSJ15) || defined(RJ15_AN)
 #   define CONFIG_RJ15_AS_ANALOG()       \
       do {                              \
         ENABLE_RJ15_ANALOG();            \
@@ -12564,7 +14436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK0_AN
+# if defined(_ANSK0)
+#   define ENABLE_RK0_ANALOG()  (_ANSK0 = 1)
+#   define DISABLE_RK0_ANALOG() (_ANSK0 = 0)
+# elif defined(RK0_AN)
 #   define ENABLE_RK0_ANALOG()  (RXY_GPIO_PCFG(RK0_AN) = 1)
 #   define DISABLE_RK0_ANALOG() (RXY_GPIO_PCFG(RK0_AN) = 0)
 # else
@@ -12587,7 +14462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK0_CN
+# if defined(_CNIEK0)
+#   define ENABLE_RK0_PULLUP()  (_CNPUK0 = 1)
+#   define DISABLE_RK0_PULLUP() (_CNPUK0 = 0)
+
+#   define ENABLE_RK0_PULLDOWN()  (_CNPDK0 = 1)
+#   define DISABLE_RK0_PULLDOWN() (_CNPDK0 = 0)
+
+#   define ENABLE_RK0_CN_INTERRUPT()  (_CNIEK0 = 1)
+#   define DISABLE_RK0_CN_INTERRUPT() (_CNIEK0 = 0)
+
+# elif defined(RK0_CN)
 #   define ENABLE_RK0_PULLUP()  (RXY_GPIO_CNPUE(RK0_CN) = 1)
 #   define DISABLE_RK0_PULLUP() (RXY_GPIO_CNPUE(RK0_CN) = 0)
 
@@ -12609,7 +14494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK0_AN
+# if defined(_ANSK0) || defined(RK0_AN)
 #   define CONFIG_RK0_AS_ANALOG()       \
       do {                              \
         ENABLE_RK0_ANALOG();            \
@@ -12651,7 +14536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK1_AN
+# if defined(_ANSK1)
+#   define ENABLE_RK1_ANALOG()  (_ANSK1 = 1)
+#   define DISABLE_RK1_ANALOG() (_ANSK1 = 0)
+# elif defined(RK1_AN)
 #   define ENABLE_RK1_ANALOG()  (RXY_GPIO_PCFG(RK1_AN) = 1)
 #   define DISABLE_RK1_ANALOG() (RXY_GPIO_PCFG(RK1_AN) = 0)
 # else
@@ -12674,7 +14562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK1_CN
+# if defined(_CNIEK1)
+#   define ENABLE_RK1_PULLUP()  (_CNPUK1 = 1)
+#   define DISABLE_RK1_PULLUP() (_CNPUK1 = 0)
+
+#   define ENABLE_RK1_PULLDOWN()  (_CNPDK1 = 1)
+#   define DISABLE_RK1_PULLDOWN() (_CNPDK1 = 0)
+
+#   define ENABLE_RK1_CN_INTERRUPT()  (_CNIEK1 = 1)
+#   define DISABLE_RK1_CN_INTERRUPT() (_CNIEK1 = 0)
+
+# elif defined(RK1_CN)
 #   define ENABLE_RK1_PULLUP()  (RXY_GPIO_CNPUE(RK1_CN) = 1)
 #   define DISABLE_RK1_PULLUP() (RXY_GPIO_CNPUE(RK1_CN) = 0)
 
@@ -12696,7 +14594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK1_AN
+# if defined(_ANSK1) || defined(RK1_AN)
 #   define CONFIG_RK1_AS_ANALOG()       \
       do {                              \
         ENABLE_RK1_ANALOG();            \
@@ -12738,7 +14636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK2_AN
+# if defined(_ANSK2)
+#   define ENABLE_RK2_ANALOG()  (_ANSK2 = 1)
+#   define DISABLE_RK2_ANALOG() (_ANSK2 = 0)
+# elif defined(RK2_AN)
 #   define ENABLE_RK2_ANALOG()  (RXY_GPIO_PCFG(RK2_AN) = 1)
 #   define DISABLE_RK2_ANALOG() (RXY_GPIO_PCFG(RK2_AN) = 0)
 # else
@@ -12761,7 +14662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK2_CN
+# if defined(_CNIEK2)
+#   define ENABLE_RK2_PULLUP()  (_CNPUK2 = 1)
+#   define DISABLE_RK2_PULLUP() (_CNPUK2 = 0)
+
+#   define ENABLE_RK2_PULLDOWN()  (_CNPDK2 = 1)
+#   define DISABLE_RK2_PULLDOWN() (_CNPDK2 = 0)
+
+#   define ENABLE_RK2_CN_INTERRUPT()  (_CNIEK2 = 1)
+#   define DISABLE_RK2_CN_INTERRUPT() (_CNIEK2 = 0)
+
+# elif defined(RK2_CN)
 #   define ENABLE_RK2_PULLUP()  (RXY_GPIO_CNPUE(RK2_CN) = 1)
 #   define DISABLE_RK2_PULLUP() (RXY_GPIO_CNPUE(RK2_CN) = 0)
 
@@ -12783,7 +14694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK2_AN
+# if defined(_ANSK2) || defined(RK2_AN)
 #   define CONFIG_RK2_AS_ANALOG()       \
       do {                              \
         ENABLE_RK2_ANALOG();            \
@@ -12825,7 +14736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK3_AN
+# if defined(_ANSK3)
+#   define ENABLE_RK3_ANALOG()  (_ANSK3 = 1)
+#   define DISABLE_RK3_ANALOG() (_ANSK3 = 0)
+# elif defined(RK3_AN)
 #   define ENABLE_RK3_ANALOG()  (RXY_GPIO_PCFG(RK3_AN) = 1)
 #   define DISABLE_RK3_ANALOG() (RXY_GPIO_PCFG(RK3_AN) = 0)
 # else
@@ -12848,7 +14762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK3_CN
+# if defined(_CNIEK3)
+#   define ENABLE_RK3_PULLUP()  (_CNPUK3 = 1)
+#   define DISABLE_RK3_PULLUP() (_CNPUK3 = 0)
+
+#   define ENABLE_RK3_PULLDOWN()  (_CNPDK3 = 1)
+#   define DISABLE_RK3_PULLDOWN() (_CNPDK3 = 0)
+
+#   define ENABLE_RK3_CN_INTERRUPT()  (_CNIEK3 = 1)
+#   define DISABLE_RK3_CN_INTERRUPT() (_CNIEK3 = 0)
+
+# elif defined(RK3_CN)
 #   define ENABLE_RK3_PULLUP()  (RXY_GPIO_CNPUE(RK3_CN) = 1)
 #   define DISABLE_RK3_PULLUP() (RXY_GPIO_CNPUE(RK3_CN) = 0)
 
@@ -12870,7 +14794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK3_AN
+# if defined(_ANSK3) || defined(RK3_AN)
 #   define CONFIG_RK3_AS_ANALOG()       \
       do {                              \
         ENABLE_RK3_ANALOG();            \
@@ -12912,7 +14836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK4_AN
+# if defined(_ANSK4)
+#   define ENABLE_RK4_ANALOG()  (_ANSK4 = 1)
+#   define DISABLE_RK4_ANALOG() (_ANSK4 = 0)
+# elif defined(RK4_AN)
 #   define ENABLE_RK4_ANALOG()  (RXY_GPIO_PCFG(RK4_AN) = 1)
 #   define DISABLE_RK4_ANALOG() (RXY_GPIO_PCFG(RK4_AN) = 0)
 # else
@@ -12935,7 +14862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK4_CN
+# if defined(_CNIEK4)
+#   define ENABLE_RK4_PULLUP()  (_CNPUK4 = 1)
+#   define DISABLE_RK4_PULLUP() (_CNPUK4 = 0)
+
+#   define ENABLE_RK4_PULLDOWN()  (_CNPDK4 = 1)
+#   define DISABLE_RK4_PULLDOWN() (_CNPDK4 = 0)
+
+#   define ENABLE_RK4_CN_INTERRUPT()  (_CNIEK4 = 1)
+#   define DISABLE_RK4_CN_INTERRUPT() (_CNIEK4 = 0)
+
+# elif defined(RK4_CN)
 #   define ENABLE_RK4_PULLUP()  (RXY_GPIO_CNPUE(RK4_CN) = 1)
 #   define DISABLE_RK4_PULLUP() (RXY_GPIO_CNPUE(RK4_CN) = 0)
 
@@ -12957,7 +14894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK4_AN
+# if defined(_ANSK4) || defined(RK4_AN)
 #   define CONFIG_RK4_AS_ANALOG()       \
       do {                              \
         ENABLE_RK4_ANALOG();            \
@@ -12999,7 +14936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK5_AN
+# if defined(_ANSK5)
+#   define ENABLE_RK5_ANALOG()  (_ANSK5 = 1)
+#   define DISABLE_RK5_ANALOG() (_ANSK5 = 0)
+# elif defined(RK5_AN)
 #   define ENABLE_RK5_ANALOG()  (RXY_GPIO_PCFG(RK5_AN) = 1)
 #   define DISABLE_RK5_ANALOG() (RXY_GPIO_PCFG(RK5_AN) = 0)
 # else
@@ -13022,7 +14962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK5_CN
+# if defined(_CNIEK5)
+#   define ENABLE_RK5_PULLUP()  (_CNPUK5 = 1)
+#   define DISABLE_RK5_PULLUP() (_CNPUK5 = 0)
+
+#   define ENABLE_RK5_PULLDOWN()  (_CNPDK5 = 1)
+#   define DISABLE_RK5_PULLDOWN() (_CNPDK5 = 0)
+
+#   define ENABLE_RK5_CN_INTERRUPT()  (_CNIEK5 = 1)
+#   define DISABLE_RK5_CN_INTERRUPT() (_CNIEK5 = 0)
+
+# elif defined(RK5_CN)
 #   define ENABLE_RK5_PULLUP()  (RXY_GPIO_CNPUE(RK5_CN) = 1)
 #   define DISABLE_RK5_PULLUP() (RXY_GPIO_CNPUE(RK5_CN) = 0)
 
@@ -13044,7 +14994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK5_AN
+# if defined(_ANSK5) || defined(RK5_AN)
 #   define CONFIG_RK5_AS_ANALOG()       \
       do {                              \
         ENABLE_RK5_ANALOG();            \
@@ -13086,7 +15036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK6_AN
+# if defined(_ANSK6)
+#   define ENABLE_RK6_ANALOG()  (_ANSK6 = 1)
+#   define DISABLE_RK6_ANALOG() (_ANSK6 = 0)
+# elif defined(RK6_AN)
 #   define ENABLE_RK6_ANALOG()  (RXY_GPIO_PCFG(RK6_AN) = 1)
 #   define DISABLE_RK6_ANALOG() (RXY_GPIO_PCFG(RK6_AN) = 0)
 # else
@@ -13109,7 +15062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK6_CN
+# if defined(_CNIEK6)
+#   define ENABLE_RK6_PULLUP()  (_CNPUK6 = 1)
+#   define DISABLE_RK6_PULLUP() (_CNPUK6 = 0)
+
+#   define ENABLE_RK6_PULLDOWN()  (_CNPDK6 = 1)
+#   define DISABLE_RK6_PULLDOWN() (_CNPDK6 = 0)
+
+#   define ENABLE_RK6_CN_INTERRUPT()  (_CNIEK6 = 1)
+#   define DISABLE_RK6_CN_INTERRUPT() (_CNIEK6 = 0)
+
+# elif defined(RK6_CN)
 #   define ENABLE_RK6_PULLUP()  (RXY_GPIO_CNPUE(RK6_CN) = 1)
 #   define DISABLE_RK6_PULLUP() (RXY_GPIO_CNPUE(RK6_CN) = 0)
 
@@ -13131,7 +15094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK6_AN
+# if defined(_ANSK6) || defined(RK6_AN)
 #   define CONFIG_RK6_AS_ANALOG()       \
       do {                              \
         ENABLE_RK6_ANALOG();            \
@@ -13173,7 +15136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK7_AN
+# if defined(_ANSK7)
+#   define ENABLE_RK7_ANALOG()  (_ANSK7 = 1)
+#   define DISABLE_RK7_ANALOG() (_ANSK7 = 0)
+# elif defined(RK7_AN)
 #   define ENABLE_RK7_ANALOG()  (RXY_GPIO_PCFG(RK7_AN) = 1)
 #   define DISABLE_RK7_ANALOG() (RXY_GPIO_PCFG(RK7_AN) = 0)
 # else
@@ -13196,7 +15162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK7_CN
+# if defined(_CNIEK7)
+#   define ENABLE_RK7_PULLUP()  (_CNPUK7 = 1)
+#   define DISABLE_RK7_PULLUP() (_CNPUK7 = 0)
+
+#   define ENABLE_RK7_PULLDOWN()  (_CNPDK7 = 1)
+#   define DISABLE_RK7_PULLDOWN() (_CNPDK7 = 0)
+
+#   define ENABLE_RK7_CN_INTERRUPT()  (_CNIEK7 = 1)
+#   define DISABLE_RK7_CN_INTERRUPT() (_CNIEK7 = 0)
+
+# elif defined(RK7_CN)
 #   define ENABLE_RK7_PULLUP()  (RXY_GPIO_CNPUE(RK7_CN) = 1)
 #   define DISABLE_RK7_PULLUP() (RXY_GPIO_CNPUE(RK7_CN) = 0)
 
@@ -13218,7 +15194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK7_AN
+# if defined(_ANSK7) || defined(RK7_AN)
 #   define CONFIG_RK7_AS_ANALOG()       \
       do {                              \
         ENABLE_RK7_ANALOG();            \
@@ -13260,7 +15236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK8_AN
+# if defined(_ANSK8)
+#   define ENABLE_RK8_ANALOG()  (_ANSK8 = 1)
+#   define DISABLE_RK8_ANALOG() (_ANSK8 = 0)
+# elif defined(RK8_AN)
 #   define ENABLE_RK8_ANALOG()  (RXY_GPIO_PCFG(RK8_AN) = 1)
 #   define DISABLE_RK8_ANALOG() (RXY_GPIO_PCFG(RK8_AN) = 0)
 # else
@@ -13283,7 +15262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK8_CN
+# if defined(_CNIEK8)
+#   define ENABLE_RK8_PULLUP()  (_CNPUK8 = 1)
+#   define DISABLE_RK8_PULLUP() (_CNPUK8 = 0)
+
+#   define ENABLE_RK8_PULLDOWN()  (_CNPDK8 = 1)
+#   define DISABLE_RK8_PULLDOWN() (_CNPDK8 = 0)
+
+#   define ENABLE_RK8_CN_INTERRUPT()  (_CNIEK8 = 1)
+#   define DISABLE_RK8_CN_INTERRUPT() (_CNIEK8 = 0)
+
+# elif defined(RK8_CN)
 #   define ENABLE_RK8_PULLUP()  (RXY_GPIO_CNPUE(RK8_CN) = 1)
 #   define DISABLE_RK8_PULLUP() (RXY_GPIO_CNPUE(RK8_CN) = 0)
 
@@ -13305,7 +15294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK8_AN
+# if defined(_ANSK8) || defined(RK8_AN)
 #   define CONFIG_RK8_AS_ANALOG()       \
       do {                              \
         ENABLE_RK8_ANALOG();            \
@@ -13347,7 +15336,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK9_AN
+# if defined(_ANSK9)
+#   define ENABLE_RK9_ANALOG()  (_ANSK9 = 1)
+#   define DISABLE_RK9_ANALOG() (_ANSK9 = 0)
+# elif defined(RK9_AN)
 #   define ENABLE_RK9_ANALOG()  (RXY_GPIO_PCFG(RK9_AN) = 1)
 #   define DISABLE_RK9_ANALOG() (RXY_GPIO_PCFG(RK9_AN) = 0)
 # else
@@ -13370,7 +15362,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK9_CN
+# if defined(_CNIEK9)
+#   define ENABLE_RK9_PULLUP()  (_CNPUK9 = 1)
+#   define DISABLE_RK9_PULLUP() (_CNPUK9 = 0)
+
+#   define ENABLE_RK9_PULLDOWN()  (_CNPDK9 = 1)
+#   define DISABLE_RK9_PULLDOWN() (_CNPDK9 = 0)
+
+#   define ENABLE_RK9_CN_INTERRUPT()  (_CNIEK9 = 1)
+#   define DISABLE_RK9_CN_INTERRUPT() (_CNIEK9 = 0)
+
+# elif defined(RK9_CN)
 #   define ENABLE_RK9_PULLUP()  (RXY_GPIO_CNPUE(RK9_CN) = 1)
 #   define DISABLE_RK9_PULLUP() (RXY_GPIO_CNPUE(RK9_CN) = 0)
 
@@ -13392,7 +15394,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK9_AN
+# if defined(_ANSK9) || defined(RK9_AN)
 #   define CONFIG_RK9_AS_ANALOG()       \
       do {                              \
         ENABLE_RK9_ANALOG();            \
@@ -13434,7 +15436,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK10_AN
+# if defined(_ANSK10)
+#   define ENABLE_RK10_ANALOG()  (_ANSK10 = 1)
+#   define DISABLE_RK10_ANALOG() (_ANSK10 = 0)
+# elif defined(RK10_AN)
 #   define ENABLE_RK10_ANALOG()  (RXY_GPIO_PCFG(RK10_AN) = 1)
 #   define DISABLE_RK10_ANALOG() (RXY_GPIO_PCFG(RK10_AN) = 0)
 # else
@@ -13457,7 +15462,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK10_CN
+# if defined(_CNIEK10)
+#   define ENABLE_RK10_PULLUP()  (_CNPUK10 = 1)
+#   define DISABLE_RK10_PULLUP() (_CNPUK10 = 0)
+
+#   define ENABLE_RK10_PULLDOWN()  (_CNPDK10 = 1)
+#   define DISABLE_RK10_PULLDOWN() (_CNPDK10 = 0)
+
+#   define ENABLE_RK10_CN_INTERRUPT()  (_CNIEK10 = 1)
+#   define DISABLE_RK10_CN_INTERRUPT() (_CNIEK10 = 0)
+
+# elif defined(RK10_CN)
 #   define ENABLE_RK10_PULLUP()  (RXY_GPIO_CNPUE(RK10_CN) = 1)
 #   define DISABLE_RK10_PULLUP() (RXY_GPIO_CNPUE(RK10_CN) = 0)
 
@@ -13479,7 +15494,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK10_AN
+# if defined(_ANSK10) || defined(RK10_AN)
 #   define CONFIG_RK10_AS_ANALOG()       \
       do {                              \
         ENABLE_RK10_ANALOG();            \
@@ -13521,7 +15536,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK11_AN
+# if defined(_ANSK11)
+#   define ENABLE_RK11_ANALOG()  (_ANSK11 = 1)
+#   define DISABLE_RK11_ANALOG() (_ANSK11 = 0)
+# elif defined(RK11_AN)
 #   define ENABLE_RK11_ANALOG()  (RXY_GPIO_PCFG(RK11_AN) = 1)
 #   define DISABLE_RK11_ANALOG() (RXY_GPIO_PCFG(RK11_AN) = 0)
 # else
@@ -13544,7 +15562,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK11_CN
+# if defined(_CNIEK11)
+#   define ENABLE_RK11_PULLUP()  (_CNPUK11 = 1)
+#   define DISABLE_RK11_PULLUP() (_CNPUK11 = 0)
+
+#   define ENABLE_RK11_PULLDOWN()  (_CNPDK11 = 1)
+#   define DISABLE_RK11_PULLDOWN() (_CNPDK11 = 0)
+
+#   define ENABLE_RK11_CN_INTERRUPT()  (_CNIEK11 = 1)
+#   define DISABLE_RK11_CN_INTERRUPT() (_CNIEK11 = 0)
+
+# elif defined(RK11_CN)
 #   define ENABLE_RK11_PULLUP()  (RXY_GPIO_CNPUE(RK11_CN) = 1)
 #   define DISABLE_RK11_PULLUP() (RXY_GPIO_CNPUE(RK11_CN) = 0)
 
@@ -13566,7 +15594,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK11_AN
+# if defined(_ANSK11) || defined(RK11_AN)
 #   define CONFIG_RK11_AS_ANALOG()       \
       do {                              \
         ENABLE_RK11_ANALOG();            \
@@ -13608,7 +15636,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK12_AN
+# if defined(_ANSK12)
+#   define ENABLE_RK12_ANALOG()  (_ANSK12 = 1)
+#   define DISABLE_RK12_ANALOG() (_ANSK12 = 0)
+# elif defined(RK12_AN)
 #   define ENABLE_RK12_ANALOG()  (RXY_GPIO_PCFG(RK12_AN) = 1)
 #   define DISABLE_RK12_ANALOG() (RXY_GPIO_PCFG(RK12_AN) = 0)
 # else
@@ -13631,7 +15662,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK12_CN
+# if defined(_CNIEK12)
+#   define ENABLE_RK12_PULLUP()  (_CNPUK12 = 1)
+#   define DISABLE_RK12_PULLUP() (_CNPUK12 = 0)
+
+#   define ENABLE_RK12_PULLDOWN()  (_CNPDK12 = 1)
+#   define DISABLE_RK12_PULLDOWN() (_CNPDK12 = 0)
+
+#   define ENABLE_RK12_CN_INTERRUPT()  (_CNIEK12 = 1)
+#   define DISABLE_RK12_CN_INTERRUPT() (_CNIEK12 = 0)
+
+# elif defined(RK12_CN)
 #   define ENABLE_RK12_PULLUP()  (RXY_GPIO_CNPUE(RK12_CN) = 1)
 #   define DISABLE_RK12_PULLUP() (RXY_GPIO_CNPUE(RK12_CN) = 0)
 
@@ -13653,7 +15694,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK12_AN
+# if defined(_ANSK12) || defined(RK12_AN)
 #   define CONFIG_RK12_AS_ANALOG()       \
       do {                              \
         ENABLE_RK12_ANALOG();            \
@@ -13695,7 +15736,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK13_AN
+# if defined(_ANSK13)
+#   define ENABLE_RK13_ANALOG()  (_ANSK13 = 1)
+#   define DISABLE_RK13_ANALOG() (_ANSK13 = 0)
+# elif defined(RK13_AN)
 #   define ENABLE_RK13_ANALOG()  (RXY_GPIO_PCFG(RK13_AN) = 1)
 #   define DISABLE_RK13_ANALOG() (RXY_GPIO_PCFG(RK13_AN) = 0)
 # else
@@ -13718,7 +15762,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK13_CN
+# if defined(_CNIEK13)
+#   define ENABLE_RK13_PULLUP()  (_CNPUK13 = 1)
+#   define DISABLE_RK13_PULLUP() (_CNPUK13 = 0)
+
+#   define ENABLE_RK13_PULLDOWN()  (_CNPDK13 = 1)
+#   define DISABLE_RK13_PULLDOWN() (_CNPDK13 = 0)
+
+#   define ENABLE_RK13_CN_INTERRUPT()  (_CNIEK13 = 1)
+#   define DISABLE_RK13_CN_INTERRUPT() (_CNIEK13 = 0)
+
+# elif defined(RK13_CN)
 #   define ENABLE_RK13_PULLUP()  (RXY_GPIO_CNPUE(RK13_CN) = 1)
 #   define DISABLE_RK13_PULLUP() (RXY_GPIO_CNPUE(RK13_CN) = 0)
 
@@ -13740,7 +15794,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK13_AN
+# if defined(_ANSK13) || defined(RK13_AN)
 #   define CONFIG_RK13_AS_ANALOG()       \
       do {                              \
         ENABLE_RK13_ANALOG();            \
@@ -13782,7 +15836,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK14_AN
+# if defined(_ANSK14)
+#   define ENABLE_RK14_ANALOG()  (_ANSK14 = 1)
+#   define DISABLE_RK14_ANALOG() (_ANSK14 = 0)
+# elif defined(RK14_AN)
 #   define ENABLE_RK14_ANALOG()  (RXY_GPIO_PCFG(RK14_AN) = 1)
 #   define DISABLE_RK14_ANALOG() (RXY_GPIO_PCFG(RK14_AN) = 0)
 # else
@@ -13805,7 +15862,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK14_CN
+# if defined(_CNIEK14)
+#   define ENABLE_RK14_PULLUP()  (_CNPUK14 = 1)
+#   define DISABLE_RK14_PULLUP() (_CNPUK14 = 0)
+
+#   define ENABLE_RK14_PULLDOWN()  (_CNPDK14 = 1)
+#   define DISABLE_RK14_PULLDOWN() (_CNPDK14 = 0)
+
+#   define ENABLE_RK14_CN_INTERRUPT()  (_CNIEK14 = 1)
+#   define DISABLE_RK14_CN_INTERRUPT() (_CNIEK14 = 0)
+
+# elif defined(RK14_CN)
 #   define ENABLE_RK14_PULLUP()  (RXY_GPIO_CNPUE(RK14_CN) = 1)
 #   define DISABLE_RK14_PULLUP() (RXY_GPIO_CNPUE(RK14_CN) = 0)
 
@@ -13827,7 +15894,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK14_AN
+# if defined(_ANSK14) || defined(RK14_AN)
 #   define CONFIG_RK14_AS_ANALOG()       \
       do {                              \
         ENABLE_RK14_ANALOG();            \
@@ -13869,7 +15936,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RK15_AN
+# if defined(_ANSK15)
+#   define ENABLE_RK15_ANALOG()  (_ANSK15 = 1)
+#   define DISABLE_RK15_ANALOG() (_ANSK15 = 0)
+# elif defined(RK15_AN)
 #   define ENABLE_RK15_ANALOG()  (RXY_GPIO_PCFG(RK15_AN) = 1)
 #   define DISABLE_RK15_ANALOG() (RXY_GPIO_PCFG(RK15_AN) = 0)
 # else
@@ -13892,7 +15962,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RK15_CN
+# if defined(_CNIEK15)
+#   define ENABLE_RK15_PULLUP()  (_CNPUK15 = 1)
+#   define DISABLE_RK15_PULLUP() (_CNPUK15 = 0)
+
+#   define ENABLE_RK15_PULLDOWN()  (_CNPDK15 = 1)
+#   define DISABLE_RK15_PULLDOWN() (_CNPDK15 = 0)
+
+#   define ENABLE_RK15_CN_INTERRUPT()  (_CNIEK15 = 1)
+#   define DISABLE_RK15_CN_INTERRUPT() (_CNIEK15 = 0)
+
+# elif defined(RK15_CN)
 #   define ENABLE_RK15_PULLUP()  (RXY_GPIO_CNPUE(RK15_CN) = 1)
 #   define DISABLE_RK15_PULLUP() (RXY_GPIO_CNPUE(RK15_CN) = 0)
 
@@ -13914,7 +15994,7 @@
 
 // High-level config
 // -----------------
-# ifdef RK15_AN
+# if defined(_ANSK15) || defined(RK15_AN)
 #   define CONFIG_RK15_AS_ANALOG()       \
       do {                              \
         ENABLE_RK15_ANALOG();            \
@@ -13956,7 +16036,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RT1_AN
+# if defined(_ANST1)
+#   define ENABLE_RT1_ANALOG()  (_ANST1 = 1)
+#   define DISABLE_RT1_ANALOG() (_ANST1 = 0)
+# elif defined(RT1_AN)
 #   define ENABLE_RT1_ANALOG()  (RXY_GPIO_PCFG(RT1_AN) = 1)
 #   define DISABLE_RT1_ANALOG() (RXY_GPIO_PCFG(RT1_AN) = 0)
 # else
@@ -13979,7 +16062,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RT1_CN
+# if defined(_CNIET1)
+#   define ENABLE_RT1_PULLUP()  (_CNPUT1 = 1)
+#   define DISABLE_RT1_PULLUP() (_CNPUT1 = 0)
+
+#   define ENABLE_RT1_PULLDOWN()  (_CNPDT1 = 1)
+#   define DISABLE_RT1_PULLDOWN() (_CNPDT1 = 0)
+
+#   define ENABLE_RT1_CN_INTERRUPT()  (_CNIET1 = 1)
+#   define DISABLE_RT1_CN_INTERRUPT() (_CNIET1 = 0)
+
+# elif defined(RT1_CN)
 #   define ENABLE_RT1_PULLUP()  (RXY_GPIO_CNPUE(RT1_CN) = 1)
 #   define DISABLE_RT1_PULLUP() (RXY_GPIO_CNPUE(RT1_CN) = 0)
 
@@ -14001,7 +16094,7 @@
 
 // High-level config
 // -----------------
-# ifdef RT1_AN
+# if defined(_ANST1) || defined(RT1_AN)
 #   define CONFIG_RT1_AS_ANALOG()       \
       do {                              \
         ENABLE_RT1_ANALOG();            \
@@ -14043,7 +16136,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RT2_AN
+# if defined(_ANST2)
+#   define ENABLE_RT2_ANALOG()  (_ANST2 = 1)
+#   define DISABLE_RT2_ANALOG() (_ANST2 = 0)
+# elif defined(RT2_AN)
 #   define ENABLE_RT2_ANALOG()  (RXY_GPIO_PCFG(RT2_AN) = 1)
 #   define DISABLE_RT2_ANALOG() (RXY_GPIO_PCFG(RT2_AN) = 0)
 # else
@@ -14066,7 +16162,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RT2_CN
+# if defined(_CNIET2)
+#   define ENABLE_RT2_PULLUP()  (_CNPUT2 = 1)
+#   define DISABLE_RT2_PULLUP() (_CNPUT2 = 0)
+
+#   define ENABLE_RT2_PULLDOWN()  (_CNPDT2 = 1)
+#   define DISABLE_RT2_PULLDOWN() (_CNPDT2 = 0)
+
+#   define ENABLE_RT2_CN_INTERRUPT()  (_CNIET2 = 1)
+#   define DISABLE_RT2_CN_INTERRUPT() (_CNIET2 = 0)
+
+# elif defined(RT2_CN)
 #   define ENABLE_RT2_PULLUP()  (RXY_GPIO_CNPUE(RT2_CN) = 1)
 #   define DISABLE_RT2_PULLUP() (RXY_GPIO_CNPUE(RT2_CN) = 0)
 
@@ -14088,7 +16194,7 @@
 
 // High-level config
 // -----------------
-# ifdef RT2_AN
+# if defined(_ANST2) || defined(RT2_AN)
 #   define CONFIG_RT2_AS_ANALOG()       \
       do {                              \
         ENABLE_RT2_ANALOG();            \
@@ -14130,7 +16236,10 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef RT3_AN
+# if defined(_ANST3)
+#   define ENABLE_RT3_ANALOG()  (_ANST3 = 1)
+#   define DISABLE_RT3_ANALOG() (_ANST3 = 0)
+# elif defined(RT3_AN)
 #   define ENABLE_RT3_ANALOG()  (RXY_GPIO_PCFG(RT3_AN) = 1)
 #   define DISABLE_RT3_ANALOG() (RXY_GPIO_PCFG(RT3_AN) = 0)
 # else
@@ -14153,7 +16262,17 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef RT3_CN
+# if defined(_CNIET3)
+#   define ENABLE_RT3_PULLUP()  (_CNPUT3 = 1)
+#   define DISABLE_RT3_PULLUP() (_CNPUT3 = 0)
+
+#   define ENABLE_RT3_PULLDOWN()  (_CNPDT3 = 1)
+#   define DISABLE_RT3_PULLDOWN() (_CNPDT3 = 0)
+
+#   define ENABLE_RT3_CN_INTERRUPT()  (_CNIET3 = 1)
+#   define DISABLE_RT3_CN_INTERRUPT() (_CNIET3 = 0)
+
+# elif defined(RT3_CN)
 #   define ENABLE_RT3_PULLUP()  (RXY_GPIO_CNPUE(RT3_CN) = 1)
 #   define DISABLE_RT3_PULLUP() (RXY_GPIO_CNPUE(RT3_CN) = 0)
 
@@ -14175,7 +16294,7 @@
 
 // High-level config
 // -----------------
-# ifdef RT3_AN
+# if defined(_ANST3) || defined(RT3_AN)
 #   define CONFIG_RT3_AS_ANALOG()       \
       do {                              \
         ENABLE_RT3_ANALOG();            \

@@ -84,7 +84,7 @@ def c_template_builder(target, source, env):
   if (g == "pic24_spi"):
     genFromTemplate(s, t, 2)
 
-## This routine builds a pic24_ports_XX_config.h file from a template. To do so:
+## This routine builds a pic24_ports_config.h file from its template. To do so:
 #
 # #. Open the output and template files.
 # #. Write the header.
@@ -197,13 +197,13 @@ def h_template_builder(target, source, env):
   t=str(target[0])
   f=os.path.split(str(target[0]))[-1]
   g=os.path.splitext(f)[0]
-  if ( g == "pic24_uart"):
+  if (g == "pic24_uart"):
     genFromTemplate(s, t, 4)
-  if ( g == "pic24_i2c"):
+  if (g == "pic24_i2c"):
     genFromTemplate(s, t, 2)
-  if ( g == "pic24_ecan"):
+  if (g == "pic24_ecan"):
     genFromTemplate(s, t, 2)
-  if (g == "pic24_ports_fh_config") or (g == "pic24_ports_e_config"):
+  if (g == "pic24_ports_config"):
     genConfigFromTemplate(s, t)
 
 ## Define and register a template-driven builder for .c files
@@ -229,8 +229,7 @@ env.Append(BUILDERS = {'CSVTemplate' : csvbldr})
 env.HTemplate('../lib/include/pic24_uart','pic24_uart')
 env.HTemplate('../lib/include/pic24_i2c','pic24_i2c')
 env.HTemplate('../lib/include/pic24_ecan','pic24_ecan')
-env.HTemplate('../lib/include/pic24_ports_fh_config','pic24_ports_fh_config')
-env.HTemplate('../lib/include/pic24_ports_e_config','pic24_ports_e_config')
+env.HTemplate('../lib/include/pic24_ports_config','pic24_ports_config')
 env.CSVTemplate('../lib/include/pic24_ports_mapping','pic24_devices')
 env.CTemplate('../lib/src/pic24_uart','pic24_uart')
 env.CTemplate('../lib/src/pic24_i2c','pic24_i2c')

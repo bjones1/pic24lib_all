@@ -5,9 +5,12 @@
 // Low-level config
 // ----------------
 // Analog:
-# ifdef _ANS${x}
+# if defined(_ANS${x})
 #   define ENABLE_R${x}_ANALOG()  (_ANS${x} = 1)
 #   define DISABLE_R${x}_ANALOG() (_ANS${x} = 0)
+# elif defined(R${x}_AN)
+#   define ENABLE_R${x}_ANALOG()  (RXY_GPIO_PCFG(R${x}_AN) = 1)
+#   define DISABLE_R${x}_ANALOG() (RXY_GPIO_PCFG(R${x}_AN) = 0)
 # else
 #   define DISABLE_R${x}_ANALOG() ((void) 0)
 # endif
@@ -20,12 +23,15 @@
 # if defined(_ODC${x})
 #   define ENABLE_R${x}_OPENDRAIN()  (_ODC${x} = 1)
 #   define DISABLE_R${x}_OPENDRAIN() (_ODC${x} = 0)
+# elif defined(_OD${x})   // The PIF24F names this bit _OD instead of _ODC.
+#   define ENABLE_R${x}_OPENDRAIN()  (_OD${x} = 1)
+#   define DISABLE_R${x}_OPENDRAIN() (_OD${x} = 0)
 # else
 #   define DISABLE_R${x}_OPENDRAIN() ((void) 0)
 # endif
 
 // Change notification, pullups and pulldowns:
-# ifdef _CNIE${x}
+# if defined(_CNIE${x})
 #   define ENABLE_R${x}_PULLUP()  (_CNPU${x} = 1)
 #   define DISABLE_R${x}_PULLUP() (_CNPU${x} = 0)
 
@@ -35,6 +41,20 @@
 #   define ENABLE_R${x}_CN_INTERRUPT()  (_CNIE${x} = 1)
 #   define DISABLE_R${x}_CN_INTERRUPT() (_CNIE${x} = 0)
 
+# elif defined(R${x}_CN)
+#   define ENABLE_R${x}_PULLUP()  (RXY_GPIO_CNPUE(R${x}_CN) = 1)
+#   define DISABLE_R${x}_PULLUP() (RXY_GPIO_CNPUE(R${x}_CN) = 0)
+
+#   if RXY_HAS_CNPDE(R${x}_CN)
+#     define ENABLE_R${x}_PULLDOWN()  (RXY_GPIO_CNPDE(R${x}_CN) = 1)
+#     define DISABLE_R${x}_PULLDOWN() (RXY_GPIO_CNPDE(R${x}_CN) = 0)
+#   else
+#     define DISABLE_R${x}_PULLDOWN() ((void) 0)
+#   endif
+
+#   define ENABLE_R${x}_CN_INTERRUPT()  (RXY_GPIO_CNIE(R${x}_CN) = 1)
+#   define DISABLE_R${x}_CN_INTERRUPT() (RXY_GPIO_CNIE(R${x}_CN) = 0)
+
 # else
 #   define DISABLE_R${x}_PULLUP() ((void) 0)
 #   define DISABLE_R${x}_PULLDOWN() ((void) 0)
@@ -43,7 +63,7 @@
 
 // High-level config
 // -----------------
-# ifdef _ANS${x}
+# if defined(_ANS${x}) || defined(R${x}_AN)
 #   define CONFIG_R${x}_AS_ANALOG()       \
       do {                              \
         ENABLE_R${x}_ANALOG();            \
