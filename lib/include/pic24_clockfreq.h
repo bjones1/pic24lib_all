@@ -219,12 +219,12 @@
 // Step 3. Call the macros above to set constants based on the
 //         clock config selected.
 /// \endcond
-#define CLOCK_CONFIG_INDEX      GET_CLOCK_CONFIG_INDEX(CLOCK_CONFIG)
-#define FNOSC_SEL               GET_FNOSC_SEL(CLOCK_CONFIG)
-#define FCY                     GET_FCY(CLOCK_CONFIG)
-#define POSCMD_SEL              GET_POSCMD_SEL(CLOCK_CONFIG)
-#define POSC_FREQ               GET_POSC_FREQ(CLOCK_CONFIG)
-#define CONFIG_DEFAULT_CLOCK()  GET_CONFIG_DEFAULT_CLOCK(CLOCK_CONFIG)()
+#define CLOCK_CONFIG_INDEX      (GET_CLOCK_CONFIG_INDEX(CLOCK_CONFIG))
+#define FNOSC_SEL               (GET_FNOSC_SEL(CLOCK_CONFIG))
+#define FCY                     (GET_FCY(CLOCK_CONFIG))
+#define POSCMD_SEL              (GET_POSCMD_SEL(CLOCK_CONFIG))
+#define POSC_FREQ               (GET_POSC_FREQ(CLOCK_CONFIG))
+#define CONFIG_DEFAULT_CLOCK()  (GET_CONFIG_DEFAULT_CLOCK(CLOCK_CONFIG)())
 
 // Check to see if this clock configuration supports that processor.
 #if !GET_IS_SUPPORTED(CLOCK_CONFIG)

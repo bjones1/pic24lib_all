@@ -68,10 +68,10 @@ inline static void delayAndUpdateHeartbeatCount(uint32_t u32_cyc) {
  *  to delay.
  * \param ms The number of milliseconds to delay.
  */
-#define DELAY_MS(ms)  delayAndUpdateHeartbeatCount(CYCLES_PER_MS * ((uint32_t) ms));
+#define DELAY_MS(ms)  delayAndUpdateHeartbeatCount(CYCLES_PER_MS * ((uint32_t) (ms)));
 
 /** A macro to delay the given number of microseconds.
  *  \see \ref DELAY_MS for additional information.
  * \param us The number of microseconds to delay.
  */
-#define DELAY_US(us)  delayAndUpdateHeartbeatCount(CYCLES_PER_US * ((uint32_t) us));
+#define DELAY_US(us)  delayAndUpdateHeartbeatCount(CYCLES_PER_US * ((uint32_t) (us)));

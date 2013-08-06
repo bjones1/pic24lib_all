@@ -39,6 +39,8 @@ HELLO_MSG: .asciz "asm_echo.s ready!\n" ; Define a null-terminated ASCII string
 .global _main
 _main:
 
+  ;; char c;
+  ;;
   ;;               W0
   ;; configBasic(HELLO_MSG)
   mov #HELLO_MSG, W0
@@ -47,13 +49,15 @@ _main:
   ;; while (1) {
   while_top:
 
-    ;; W0 = inChar();
+    ;; W0
+    ;; c  = inChar();
     call _inChar
 
-    ;; W0++;
+    ;; c++;
     inc W0, W0
 
-    ;; outChar(W0);
+    ;;         W0
+    ;; outChar(c);
     call _outChar
 
   bra while_top

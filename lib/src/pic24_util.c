@@ -211,26 +211,26 @@ void checkDeviceAndRevision(void) {
     case EXPECTED_REVISION1 :
       revisionStr = EXPECTED_REVISION1_STR;
       break;
-#ifdef EXPECTED_REVISION2
+# ifdef EXPECTED_REVISION2
     case EXPECTED_REVISION2 :
       revisionStr = EXPECTED_REVISION2_STR;
       break;
-#endif
-#ifdef EXPECTED_REVISION3
+# endif
+# ifdef EXPECTED_REVISION3
     case EXPECTED_REVISION3 :
       revisionStr = EXPECTED_REVISION3_STR;
       break;
-#endif
-#ifdef EXPECTED_REVISION4
+# endif
+# ifdef EXPECTED_REVISION4
     case EXPECTED_REVISION4 :
       revisionStr = EXPECTED_REVISION4_STR;
       break;
-#endif
-#ifdef EXPECTED_REVISION5
+# endif
+# ifdef EXPECTED_REVISION5
     case EXPECTED_REVISION5 :
       revisionStr = EXPECTED_REVISION5_STR;
       break;
-#endif
+# endif
   }
 
   outString("Device ID = ");
@@ -286,19 +286,19 @@ void checkOscOption(void) {
     case 5:
       outString("Low Power RC Osc\n");
       break;
-#if ( defined(__PIC24H__) || defined(__dsPIC33F__) || defined(__PIC24E__) || defined(__dsPIC33E__))
+#if defined(__PIC24H__) || defined(__dsPIC33F__) || defined(__PIC24E__) || defined(__dsPIC33E__)
     case 6:
       outString("Fast RC Osc/16\n");
       break;
     case 7:
       outString("Fast RC Osc/N\n");
       break;
-#elif ( defined(__PIC24F__) || defined(__PIC24FK__) )
+#elif defined(__PIC24F__) || defined(__PIC24FK__)
     case 7 :
       outString("Fast RC Osc with Postscale");
       break;
 #else
-#error "Unknown processor."
+# error "Unknown processor."
 #endif
     default :
       reportError("Unknown oscillator type.");
@@ -388,7 +388,7 @@ void printResetCause(void) {
     outString("Error trapped: ");
     outString(sz_lastError);
     if (u16_INTTREGlast != 0) {
-#if ( defined(__PIC24H__) || defined(__dsPIC33F__)  || defined(__PIC24E__) || defined(__dsPIC33E__)    )
+#if defined(__PIC24H__) || defined(__dsPIC33F__)  || defined(__PIC24E__) || defined(__dsPIC33E__)
       outString("Priority: ");
       outUint8(INTTREGBITS_last.ILR);
       outString(", Vector number: ");

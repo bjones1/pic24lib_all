@@ -43,7 +43,7 @@ void config_led1() {
   ENABLE_RB15_OPENDRAIN();
 }
 
-//_LATB15 is port register for RB15
+//_LATB15 is port register for RB15.
 #define LED1 (_LATB15)
 
 int main(void) {
