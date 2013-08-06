@@ -639,6 +639,74 @@
 #endif
 
 
+#ifdef __PIC24F32KA304__
+#define DEV_ID 0x004516
+#define DEV_ID_STR "PIC24F32KA304"
+#endif
+
+#ifdef __PIC24F32KA302__
+#define DEV_ID 0x004512
+#define DEV_ID_STR "PIC24F32KA302"
+#endif
+
+#ifdef __PIC24F32KA301__
+#define DEV_ID 0x004518
+#define DEV_ID_STR "PIC24F32KA301"
+#endif
+
+#ifdef __PIC24F16KA304__
+#define DEV_ID 0x004506
+#define DEV_ID_STR "PIC24F16KA304"
+#endif
+
+#ifdef __PIC24F16KA302__
+#define DEV_ID 0x004502
+#define DEV_ID_STR "PIC24F16KA302"
+#endif
+
+#ifdef __PIC24F16KA301__
+#define DEV_ID 0x004508
+#define DEV_ID_STR "PIC24F16KA301"
+#endif
+
+#ifdef __PIC24FV32KA304__
+#define DEV_ID 0x004517
+#define DEV_ID_STR "PIC24FV32KA304"
+#endif
+
+#ifdef __PIC24FV32KA302__
+#define DEV_ID 0x004513
+#define DEV_ID_STR "PIC24FV32KA302"
+#endif
+
+#ifdef __PIC24FV32KA301__
+#define DEV_ID 0x004519
+#define DEV_ID_STR "PIC24FV32KA301"
+#endif
+
+#ifdef __PIC24FV16KA304__
+#define DEV_ID 0x004507
+#define DEV_ID_STR "PIC24FV16KA304"
+#endif
+
+#ifdef __PIC24FV16KA302__
+#define DEV_ID 0x004503
+#define DEV_ID_STR "PIC24FV16KA302"
+#endif
+
+#ifdef __PIC24FV16KA301__
+#define DEV_ID 0x004509
+#define DEV_ID_STR "PIC24FV16KA301"
+#endif
+
+#if defined(__PIC24F32KA304__) || defined(__PIC24F32KA302__) || defined(__PIC24F32KA301__) || defined(__PIC24F16KA304__)|| defined(__PIC24F16KA302__)|| defined(__PIC24F16KA301__) || defined(__PIC24FV32KA304__) || defined(__PIC24FV32KA302__) || defined(__PIC24FV32KA301__) || defined(__PIC24FV16KA304__) || defined(__PIC24FV16KA302__) || defined(__PIC24FV16KA301__)
+#define EXPECTED_REVISION1 0x000004
+#define EXPECTED_REVISION1_STR "A4"
+#define EXPECTED_REVISION2 0x000006
+#define EXPECTED_REVISION2_STR "A6"
+#endif
+
+
 
 /***** PIC24F GB ****/
 

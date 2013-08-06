@@ -226,8 +226,8 @@ for clock in ['SIM_CLOCK', 'FRCPLL_FCY16MHz', 'FRC_FCY4MHz',
       env.Clone(MCU='24FJ64GA002', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
     buildTargetsSConscript(['reset'],
       env.Clone(MCU='24FJ64GA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
-#        buildTargetsSConscript(['reset'],
-#          env.Clone(MCU='24F16KA102', CPPDEFINES='CLOCK_CONFIG=' + clock + ' HARDWARE_PLATFORM=HARDMAPPED_UART'), clock)
+    buildTargetsSConscript(['reset'],
+      env.Clone(MCU='24F32KA302', CPPDEFINES=['CLOCK_CONFIG=' + clock, 'HARDWARE_PLATFORM=HARDMAPPED_UART']), clock)
 for clock in ['SIM_CLOCK', 'PRI_NO_PLL_7372KHzCrystal', 'FRC_FCY3685KHz',
 'FRCPLL_FCY40MHz', 'PRIPLL_7372KHzCrystal_40MHzFCY', 'PRIPLL_8MHzCrystal_40MHzFCY']:
     buildTargetsSConscript(['reset'],
@@ -258,7 +258,7 @@ for mcu in ('24FJ32GA002',
             '24FJ64GA102',
             '24FJ64GB002',
             '24FJ64GB004',
-
+            
             '24HJ12GP202',
             '24HJ32GP202',
             '24HJ64GP502',
@@ -273,6 +273,12 @@ for mcu in ('24FJ32GA002',
             '33EP128GP504',
            ):
     buildTargetsBootloader(env, mcu)
+    
+for mcu in ('24F32KA302',):
+    buildTargetsBootloader(env.Clone(CPPDEFINES='HARDWARE_PLATFORM=HARDMAPPED_UART'), mcu)
+    
+
+
 
 ## ESOS builds
 ## -----------
