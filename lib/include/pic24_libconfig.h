@@ -77,17 +77,21 @@
  */
 #define DEFAULT_DESIGN 3
 
+/** A device with hard-mapped pins for UART TX and RX. */
+#define HARDMAPPED_UART 4
+
 
 /** Select one of the hardware platform above to compile for. */
 #ifndef HARDWARE_PLATFORM
-#  define HARDWARE_PLATFORM DEFAULT_DESIGN
+# define HARDWARE_PLATFORM DEFAULT_DESIGN
 #endif
 // Verify that a valid hardware platform is selectd
 #if (HARDWARE_PLATFORM != EXPLORER16_100P)   && \
     (HARDWARE_PLATFORM != DANGEROUS_WEB)     && \
     (HARDWARE_PLATFORM != STARTER_BOARD_28P) && \
-    (HARDWARE_PLATFORM != DEFAULT_DESIGN)
-#  error "Invalid hardware platform selected."
+    (HARDWARE_PLATFORM != DEFAULT_DESIGN)    && \
+    (HARDWARE_PLATFORM != HARDMAPPED_UART)
+# error "Invalid hardware platform selected."
 #endif
 //@}
 
@@ -129,7 +133,7 @@
  */
 // Uncomment one of the #defines below to make
 // a clock choice. If all the #defines below
-// are commented out, code in pic24_clockfreq.h
+// are commented out, code in below
 // will pick a default clock choice.
 #ifndef CLOCK_CONFIG
 //#define CLOCK_CONFIG SIM_CLOCK
@@ -268,7 +272,7 @@
 #endif
 
 /** Default BRGH value used by \ref configUART1 to 4
- *  when configurating a UART. This value may be
+ *  when configuring a UART. This value may be
  *  overridden on a per-UART basis by \#defineing
  *  DEFAULT_BRGHn (where n = the UART to override)
  *  to the values given below. Allowed values:

@@ -258,7 +258,7 @@ void configUART1(uint32_t u32_baudRate) {
   // instructions on how to modify this configuration.
   // More information on each of these board is given
   // in the HARDWARE_PLATFORM section of pic24_libconfig.h.
-#if (HARDWARE_PLATFORM == EXPLORER16_100P)
+#if (HARDWARE_PLATFORM == EXPLORER16_100P) || (HARDWARE_PLATFORM == HARDMAPPED_UART)
   // There's nothing to do, since pins on these boards are
   // mapped to fixed ports.
 #elif (1 == 1)
@@ -664,7 +664,7 @@ void configUART2(uint32_t u32_baudRate) {
   // instructions on how to modify this configuration.
   // More information on each of these board is given
   // in the HARDWARE_PLATFORM section of pic24_libconfig.h.
-#if (HARDWARE_PLATFORM == EXPLORER16_100P)
+#if (HARDWARE_PLATFORM == EXPLORER16_100P) || (HARDWARE_PLATFORM == HARDMAPPED_UART)
   // There's nothing to do, since pins on these boards are
   // mapped to fixed ports.
 #elif (2 == 1)
@@ -1070,7 +1070,7 @@ void configUART3(uint32_t u32_baudRate) {
   // instructions on how to modify this configuration.
   // More information on each of these board is given
   // in the HARDWARE_PLATFORM section of pic24_libconfig.h.
-#if (HARDWARE_PLATFORM == EXPLORER16_100P)
+#if (HARDWARE_PLATFORM == EXPLORER16_100P) || (HARDWARE_PLATFORM == HARDMAPPED_UART)
   // There's nothing to do, since pins on these boards are
   // mapped to fixed ports.
 #elif (3 == 1)
@@ -1476,7 +1476,7 @@ void configUART4(uint32_t u32_baudRate) {
   // instructions on how to modify this configuration.
   // More information on each of these board is given
   // in the HARDWARE_PLATFORM section of pic24_libconfig.h.
-#if (HARDWARE_PLATFORM == EXPLORER16_100P)
+#if (HARDWARE_PLATFORM == EXPLORER16_100P) || (HARDWARE_PLATFORM == HARDMAPPED_UART)
   // There's nothing to do, since pins on these boards are
   // mapped to fixed ports.
 #elif (4 == 1)

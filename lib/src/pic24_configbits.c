@@ -459,7 +459,7 @@ _CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_ON & IOL1WAY_OFF & POSCM
 /* The PIC24FK is a subfamily of the PIC24F -- functionality like the PIC24F, but config bits like the PIC24H */
 #ifdef __PIC24FK__
 _FBS(BSS_OFF & BWRP_OFF);
-_FGS(GCP_OFF & GWRP_OFF);
+_FGS(GWRP_OFF);
 
 #if  (POSC_FREQ < 100000L)
 _FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL & POSCFREQ_LS);
@@ -473,10 +473,10 @@ _FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL & POSCFREQ_MS);
 _FOSCSEL(FNOSC_FRC & IESO_OFF);
 _FWDT(FWDTEN_OFF & WINDIS_OFF & FWPSA_PR128 & WDTPS_PS512);
 _FPOR(PWRTEN_ON & MCLRE_ON & I2C1SEL_PRI);
-_FICD(BKBUG_OFF & ICS_PGx1);
+_FICD(ICS_PGx1);
 
 //new config word for deep sleep operation, set these for your needs
-_FDS(DSWDTEN_OFF & DSBOREN_OFF & RTCOSC_LPRC & DSWDTOSC_SOSC);
+_FDS(DSWDTEN_OFF & DSBOREN_OFF & DSWDTOSC_SOSC);
 
 #warning "Using default config bit settings for the PIC24FK family."
 #warning "Edit this file to define bits for your processor!"

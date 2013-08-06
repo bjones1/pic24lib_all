@@ -185,9 +185,9 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10',                'chap11nodm
 buildTargetsSConscript(                            ['chap10large'],
   env.Clone(MCU='33FJ64GP202'), 'default')
 
-# Minimally test the 24F16KA102
-#    buildTargetsSConscript(['reset', 'echo'],
-#      env.Clone(MCU='24F16KA102'), 'default')
+# Minimally test the 24F16KA102. It has hardmapped UART pins.
+buildTargetsSConscript(['reset', 'echo'],
+  env.Clone(MCU='24F32KA302', CPPDEFINES='HARDWARE_PLATFORM=HARDMAPPED_UART'), 'default')
 
 # Build the PIC24HJGP502-compatible directories
 buildTargetsSConscript(['chap11dma', 'chap13', 'chap15'],
@@ -227,7 +227,7 @@ for clock in ['SIM_CLOCK', 'FRCPLL_FCY16MHz', 'FRC_FCY4MHz',
     buildTargetsSConscript(['reset'],
       env.Clone(MCU='24FJ64GA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
 #        buildTargetsSConscript(['reset'],
-#          env.Clone(MCU='24F16KA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
+#          env.Clone(MCU='24F16KA102', CPPDEFINES='CLOCK_CONFIG=' + clock + ' HARDWARE_PLATFORM=HARDMAPPED_UART'), clock)
 for clock in ['SIM_CLOCK', 'PRI_NO_PLL_7372KHzCrystal', 'FRC_FCY3685KHz',
 'FRCPLL_FCY40MHz', 'PRIPLL_7372KHzCrystal_40MHzFCY', 'PRIPLL_8MHzCrystal_40MHzFCY']:
     buildTargetsSConscript(['reset'],
