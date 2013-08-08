@@ -1,12 +1,32 @@
 // Provide GPIO for R${x}
 // ====================
-#ifdef _R${x}
+#if defined(_R${x}) || defined(__DOXYGEN__)
+
+// Dummy macros for documentation only
+# ifdef __DOXYGEN__
+/// This macro specifies the RPy value associated with pin R${x}.
+/// Its device-specific definition is given in pic24_ports_mapping.h.
+#   define R${x}_RP xx
+
+/// This macro specifies the ANn value associated with pin R${x}.
+/// Its device-specific definition is given in pic24_ports_mapping.h.
+#   define R${x}_AN xx
+
+/// This macro specifies the CNm value associated with pin R${x}.
+/// Its device-specific definition is given in pic24_ports_mapping.h.
+#   define R${x}_CN xx
+
+//@}
+# endif // #ifdef __DOXYGEN__
+
 
 // Low-level config
 // ----------------
 // Analog:
-# if defined(_ANS${x})
+# if defined(_ANS${x}) || defined(__DOXYGEN__)
+/// Enable analog functionality on pin R${x}.
 #   define ENABLE_R${x}_ANALOG()  (_ANS${x} = 1)
+/// Disable analog functionality on pin R${x}.
 #   define DISABLE_R${x}_ANALOG() (_ANS${x} = 0)
 # elif defined(R${x}_AN)
 #   define ENABLE_R${x}_ANALOG()  (RXY_GPIO_PCFG(R${x}_AN) = 1)
@@ -16,12 +36,16 @@
 # endif
 
 // Input/output:
+/// Configure pin R${x} as an input.
 # define CONFIG_R${x}_AS_INPUT()  (_TRIS${x} = 1)
+/// Configure pin R${x} as an output.
 # define CONFIG_R${x}_AS_OUTPUT() (_TRIS${x} = 0)
 
 // Open-drain:
-# if defined(_ODC${x})
+# if defined(_ODC${x}) || defined(__DOXYGEN__)
+/// Enable the open-drain driver on pin R${x}.
 #   define ENABLE_R${x}_OPENDRAIN()  (_ODC${x} = 1)
+/// Disable the open-drain driver on pin R${x}.
 #   define DISABLE_R${x}_OPENDRAIN() (_ODC${x} = 0)
 # elif defined(_OD${x})   // The PIF24F names this bit _OD instead of _ODC.
 #   define ENABLE_R${x}_OPENDRAIN()  (_OD${x} = 1)
@@ -31,14 +55,20 @@
 # endif
 
 // Change notification, pullups and pulldowns:
-# if defined(_CNIE${x})
+# if defined(_CNIE${x}) || defined(__DOXYGEN__)
+/// Enable the pullup on pin R${x}.
 #   define ENABLE_R${x}_PULLUP()  (_CNPU${x} = 1)
+/// Disable the pullup on pin R${x}.
 #   define DISABLE_R${x}_PULLUP() (_CNPU${x} = 0)
 
+/// Enable the pulldown on pin R${x}.
 #   define ENABLE_R${x}_PULLDOWN()  (_CNPD${x} = 1)
+/// Disable the pulldown on pin R${x}.
 #   define DISABLE_R${x}_PULLDOWN() (_CNPD${x} = 0)
 
+/// Enable the change notification interrupt on pin R${x}.
 #   define ENABLE_R${x}_CN_INTERRUPT()  (_CNIE${x} = 1)
+/// Disable the change notification interrupt on pin R${x}.
 #   define DISABLE_R${x}_CN_INTERRUPT() (_CNIE${x} = 0)
 
 # elif defined(R${x}_CN)
@@ -63,7 +93,10 @@
 
 // High-level config
 // -----------------
-# if defined(_ANS${x}) || defined(R${x}_AN)
+/** This macro disables pullups/downs, enables analog functionality, and configures
+ *  pin R${x} as an input.
+ */
+# if defined(_ANS${x}) || defined(R${x}_AN) || defined(__DOXYGEN__)
 #   define CONFIG_R${x}_AS_ANALOG()       \
       do {                              \
         ENABLE_R${x}_ANALOG();            \
@@ -74,6 +107,10 @@
       } while (0)
 # endif
 
+/** This macro disables open-drain and pullups/downs,
+ *  configures pin R${x} for digital (not analog) operation, and
+ *  configures the pin as an input.
+ */
 # define CONFIG_R${x}_AS_DIG_INPUT()    \
     do {                              \
       DISABLE_R${x}_ANALOG();           \
@@ -83,6 +120,10 @@
       DISABLE_R${x}_PULLDOWN();         \
     } while (0)
 
+/** This macro disables open-drain and pullups/downs,
+ *  configures pin R${x} for digital (not analog) operation, and
+ *  configures the pin as an output.
+ */
 # define CONFIG_R${x}_AS_DIG_OUTPUT()   \
     do {                              \
       DISABLE_R${x}_ANALOG();           \
@@ -92,7 +133,7 @@
       DISABLE_R${x}_PULLDOWN();         \
     } while (0)
 
-#endif // #ifdef _R${x}: Provide GPIO for R${x}
+#endif // #if defined(_R${x}) || defined(__DOXYGEN__): Provide GPIO for R${x}
 
 
 

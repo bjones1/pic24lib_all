@@ -53,10 +53,13 @@
  * * Change notification interrupts: ENABLE/DISABLE_Rxy_CN_INTERRUPT().  The DISABLE version
  *   will always exist; the ENABLE version exists only if the given pin has change notification
  *   capability.
- * * Remappable pin to Rxy translation: the Rxy_REMAPPABLE macro identifies the RPy value for
- *   the given Rxy port. Typical usage with the remappable macros: CONFIG_INT1_TO(RB4_REMAPPABLE);
- * * Analog port to Rxy translation: The Rxy_AN_PORT macro identifies the ANn value for
- *   the given Rxy port. Typical usage: configADC1_ManualCH0(RB4_AN_PORT, 31, 0).
+ * * Remappable pin to Rxy translation: the Rxy_RP macro identifies the RPy value for
+ *   the given Rxy port. Typical usage with the remappable macros: CONFIG_INT1_TO(RB4_RP);
+ * * Analog port to Rxy translation: The Rxy_AN macro identifies the ANn value for
+ *   the given Rxy port. Typical usage: configADC1_ManualCH0(RB4_AN, 31, 0).
+ * * Change notification pin to Rxy translation: The Rxy_CN macro identifies the CNm value for
+ *   the given Rxy port. Rather than directly using this value, the ENABLE/DISABLE_Rxy_PULLUP/DOWN()
+ *   and ENABLE/DISABLE_Rxy_CN_INTERRUPT() are typically used.
  *
  * Combining these produces higher-level configuration:
  * * CONFIG_Rxy_AS_ANALOG(): disables pullups/pulldowns, makes pin an input, and
@@ -67,142 +70,23 @@
  * Implementation notes
  * --------------------
  * \todo Explain double macros
- *
- * \todo
- * - Put stub documentation for ALL port macros (doxygen only) so
- *   they hyperlink in source code
  */
-
-// Dummy macros for documentation only
-#ifdef __DOXYGEN__
-/** \name High-level port configuration
- *  <a name="highLevelPortConfig">These</a> macros choose
- *  digital or analog, input or
- *  output, open-drain or standard. Use the low-level
- *  \ref ENABLE_Rxy_PULLUP() "ENABLE"/\ref DISABLE_Rxy_PULLUP() to
- *  configure the pullup.
- */
-//@{
-/** This macro disables open-drain and pullups/downs,
- *  configures port x pin y for digital (not analog) operation, and
- *  sets the pin as an output. For example, CONFIG_RA10_AS_DIG_OUTPUT()
- *  makes port A, pin 10 a digital output.
- */
-# define CONFIG_Rxy_AS_DIG_OUTPUT() STUB_CODE
-
-/** This macro disables pullups/downs and analog functionality and sets
- *  the pin as an input. For example, CONFIG_RA10_AS_DIG_OUTPUT() makes
- *  port A, pin 10 a digital input.
- */
-# define CONFIG_Rxy_AS_DIG_INPUT() STUB_CODE
-
-/** This macro disables pullups/downs, enables analog functionality, and sets
- *  the pin as an input. For example, CONFIG_RA10_AS_ANALOG() makes
- *  port A, pin 10 an analog input.
- */
-# define CONFIG_Rxy_AS_ANALOG() STUB_CODE
-//@}
-
-/** \name Low-level port configuration macros
- *  <a name="lowLevelPortConfig">These</a> macros support low-level pin
- *  configuration.
- */
-//@{
-
-/** Enables analog functionality on port x, pin y. For example,
- *  ENABLE_RA10_ANALOG() enables analog functionality on port A, pin 10.
- */
-# define ENABLE_Rxy_ANALOG() _PCFGn = 1
-
-/** Disables analog functionality on port x, pin y. For example,
- *  DISABLE_RA10_ANALOG() disables analog functionality on port A, pin 10.
- */
-# define DISABLE_Rxy_ANALOG() _PCFGn = 1
-
-/** Configures port x, pin y as an input. For example,
- *  CONFIG_RA10_AS_INPUT() makes port A, pin 10 an input.
- */
-# define CONFIG_Rxy_AS_INPUT() _TRISxy = 1
-
-/** Configures port x, pin y as an output. For example,
- *  CONFIG_RA10_AS_OUTPUT() makes port A, pin 10 an output.
- */
-# define CONFIG_Rxy_AS_OUTPUT() _TRISxy = 0
-
-/** Enables the open-drain driver on port x, pin y. For example,
- *  ENABLE_RA10_OPENDRAIN() enables open-drain drives on port A, pin 10.
- */
-# define ENABLE_Rxy_OPENDRAIN() _ODCxy = 1
-
-/** Disables the open-drain driver on port x, pin y. For example,
- *  DISABLE_RA10_OPENDRAIN() disables open-drain drives on port A, pin 10.
- */
-# define DISABLE_Rxy_OPENDRAIN() _ODCxy = 0
-
-/** Enable the pullup on port x, pin y. For example,
- *  ENABLE_RA10_PULLUP() enables the pullup on port A, pin 10.
- */
-# define ENABLE_Rxy_PULLUP() _CNmPUE = 1
-
-/** Disable the pullup on port x, pin y. For example,
- *  DISABLE_RA10_PULLUP() disables the pullup on port A, pin 10.
- */
-# define DISABLE_Rxy_PULLUP() _CNmPUE = 1
-
-/** Enable the pulldown on port x, pin y. For example,
- *  ENABLE_RA10_PULLDOWN() enables the pulldown on port A, pin 10.
- */
-# define ENABLE_Rxy_PULLDOWN() _CNmPDE = 1
-
-/** Disable the pulldown on port x, pin y. For example,
- *  DISABLE_RA10_PULLDOWN() disables the pulldown on port A, pin 10.
- */
-# define DISABLE_Rxy_PULLDOWN() _CNmPDE = 1
-
-/** Enables the change notification interrupt on port x, pin y.
- *  For example, ENABLE_RA10_CN_INTERRUPT() enables the change
- *  notification interrupt on port A, pin 10.
- */
-# define ENABLE_Rxy_CN_INTERRUPT() _CNmIE = 1
-
-/** Disables the change notification interrupt on port x, pin y.
- *  For example, DISABLE_RA10_CN_INTERRUPT() disables the change
- *  notification interrupt on port A, pin 10.
- */
-# define DISABLE_Rxy_CN_INTERRUPT() _CNmIE = 0
-
-/** This macro specifies the CNm value associated with port x, pin y. For example,
- *  RA10_CN gives the number of the change notification for port A, pin 10.
- */
-# define Rxy_RP xx
-/** This macro specifies the RPy value associated with port x, pin y. For example,
- *  RA10_CN gives the number of the remappable pin for port A, pin 10.
- */
-# define Rxy_AN xx
-/** This macro specifies the ANn value associated with port x, pin y. For example,
- *  RA10_CN gives the number of the analog input for port A, pin 10.
- */
-# define Rxy_CN xx
-
-//@}
-#endif // #ifdef __DOXYGEN__
 
 
 // Port configuration
 // ==================
-// Include the table data used to drive GPIO config.
-#include "pic24_ports_mapping.h"
-
 // Port configuration macros
-// =========================
+// -------------------------
+// The macros below are used by the following include files to define GPIO macros.
+//
 // Analog
-// ------
+// ^^^^^^
 // Return the PCFG pin for the given Rxy_AN value.
 #define RXY_GPIO_PCFG(Rxy_AN) _RXY_GPIO_PCFG(Rxy_AN)
 #define _RXY_GPIO_PCFG(Rxy_AN) (_PCFG ## Rxy_AN)
 
 // Change notification / pullups and pulldowns
-// -------------------------------------------
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // Return the _CNmPUE pin for the given Rxy_CN value.
 #define RXY_GPIO_CNPUE(Rxy_CN) _RXY_GPIO_CNPUE(Rxy_CN)
 #define _RXY_GPIO_CNPUE(Rxy_CN) (_CN ## Rxy_CN ## PUE)
@@ -216,6 +100,9 @@
 // Return the _CNmPDE pin for the given Rxy_GPIO value.
 #define RXY_GPIO_CNPDE(Rxy_CN) _RXY_GPIO_CNPDE(Rxy_CN)
 #define _RXY_GPIO_CNPDE(Rxy_CN) (_CN ## Rxy_CN ## PDE)
+
+// Include the table data used to drive GPIO config.
+#include "pic24_ports_mapping.h"
 
 // Using the above macros, transform the table data into GPIO config.
 #include "pic24_ports_config.h"

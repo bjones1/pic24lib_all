@@ -97,6 +97,9 @@ def genConfigFromTemplate(templateFileName, destFileName):
   with open(destFileName, "wb") as outFile:
     # Write the header
     outFile.write(c_license_header)
+    outFile.write('/// \\brief Define GPIO configuration macros for all pins of a device.\n' +
+                  '/// See pic24_ports.h for more details.\n\n\n');
+
     # Iterate over every port
     portlist = enumeratePic24Ports()
     # Add in some extra ports for unit testing
@@ -132,7 +135,7 @@ def genTablesFromTemplate(csvFileName, destFileName):
     with open(destFileName, "wb") as outFile:
       # Write the header
       outFile.write(c_license_header)
-      outFile.write('#if 0\n')
+      outFile.write('/// \\brief Define device-specific mappings from Rxy to RPy, ANn, and CNm pins.\n\n#if 0\n')
       # Walk through the file
       while True:
           # Read three rows
@@ -239,8 +242,7 @@ env.CTemplate('../lib/src/pic24_spi','pic24_spi')
 env.Alias('template-build', ['../lib/include/pic24_uart.h',
                              '../lib/include/pic24_i2c.h',
                              '../lib/include/pic24_ecan.h',
-                             '../lib/include/pic24_ports_fh_config.h',
-                             '../lib/include/pic24_ports_e_config.h',
+                             '../lib/include/pic24_ports_config.h',
                              '../lib/include/pic24_ports_mapping.h',
                              '../lib/src/pic24_uart.c',
                              '../lib/src/pic24_i2c.c',
@@ -281,6 +283,5 @@ c_license_header = """/*
  *
  */
 
-
-
+/// \\file
 """

@@ -27,7 +27,8 @@
  *
  */
 
-
+/// \file
+/// \brief Define device-specific mappings from Rxy to RPy, ANn, and CNm pins.
 
 #if 0
 
