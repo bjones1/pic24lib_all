@@ -80,6 +80,9 @@
 /** A device with hard-mapped pins for UART TX and RX. */
 #define HARDMAPPED_UART 4
 
+/** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University. */
+#define EMBEDDED_C1 5
+
 
 /** Select one of the hardware platform above to compile for. */
 #ifndef HARDWARE_PLATFORM
@@ -90,7 +93,8 @@
     (HARDWARE_PLATFORM != DANGEROUS_WEB)     && \
     (HARDWARE_PLATFORM != STARTER_BOARD_28P) && \
     (HARDWARE_PLATFORM != DEFAULT_DESIGN)    && \
-    (HARDWARE_PLATFORM != HARDMAPPED_UART)
+    (HARDWARE_PLATFORM != HARDMAPPED_UART)   && \
+    (HARDWARE_PLATFORM != EMBEDDED_C1)
 # error "Invalid hardware platform selected."
 #endif
 //@}
