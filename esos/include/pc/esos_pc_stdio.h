@@ -45,7 +45,7 @@ extern struct termios stored_settings;
 /* P U B L I C  P R O T O T Y P E S *****************************************/
 void    __esos_hw_signal_start_tx(void);
 void    __esos_hw_signal_stop_tx(void);
-uint8   kbhit(void);
+uint8_t   kbhit(void);
 void set_keypress(void);
 
 // Documentation for this file. If the \file tag isn't present,
@@ -57,9 +57,9 @@ void set_keypress(void);
 
 // communications commands used outside of ESOS tasks (like user_init routine)
 // these routines/macros should almost never be used.
-void __esos_hw_PutUint8(uint8 u8_c);
-void __esos_hw_PutString(uint8* psz_in);
-uint8 __esos_hw_GetUint8(void);
+void __esos_hw_PutUint8(uint8_t u8_c);
+void __esos_hw_PutString(uint8_t* psz_in);
+uint8_t __esos_hw_GetUint8(void);
 
 void __esos_hw_InitCommSystem(void);
 

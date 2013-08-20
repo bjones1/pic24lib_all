@@ -53,17 +53,29 @@
  *
  */
 void reverseString(char *psz_s1, char *psz_s2);
-uint32    randomNumInRange(uint32 u32_lo, uint32 u32_hi);
+uint32_t    randomNumInRange(uint32_t u32_lo, uint32_t u32_hi);
+
+ESOS_USER_TASK(mailtaskA);
+ESOS_USER_TASK(mailtaskAA);
+ESOS_USER_TASK(mailtaskB);
+ESOS_USER_TASK(mailtaskC);
+ESOS_USER_TASK(mailtask0);
+ESOS_USER_TASK(mailtask1);
+ESOS_USER_TASK(mailtask2);
+
+ESOS_USER_TASK(mailtaskMSGA);
+ESOS_USER_TASK(mailtaskMSG0);
+ESOS_USER_TASK(mailtaskMSG1);
 
 // GLOBALs go here
 //  Generally, the user-created semaphores will be defined/allocated here
-static uint8 psz_CRNL[3]= {0x0D, 0x0A, 0};
+static uint8_t psz_CRNL[3]= {0x0D, 0x0A, 0};
 
 
 // timer globals
-uint32    u32_myT1Count = 0;
-uint8     LED1 = TRUE;
-uint8     LED2 = TRUE;
+uint32_t    u32_myT1Count = 0;
+uint8_t     LED1 = TRUE;
+uint8_t     LED2 = TRUE;
 
 ESOS_SEMAPHORE(sem_BCanRun);
 ESOS_SEMAPHORE(sem_CCanRun);
@@ -102,8 +114,8 @@ ESOS_USER_TASK( __simulated_isr ) {
  * I am in a really big hurry right now.
  */
 
-uint32    randomNumInRange(uint32 u32_lo, uint32 u32_hi) {
-  uint32  u32_d1, u32_d2, u32_d4, u32_ret;
+uint32_t    randomNumInRange(uint32_t u32_lo, uint32_t u32_hi) {
+  uint32_t  u32_d1, u32_d2, u32_d4, u32_ret;
   UINT32  U32_temp;
 
   while (TRUE) {
@@ -137,21 +149,21 @@ ESOS_USER_TIMER( swTimerLED ) {
 
 // user-created timer callback
 ESOS_USER_TIMER( swTimerPrintA ) {
-  static uint32    u32_cnt;
+  static uint32_t    u32_cnt;
 
   printf("A:%d\n", u32_cnt++);
   fflush(stdout);
 } //endof swTimerPrintA
 
 ESOS_USER_TIMER( swTimerPrintB ) {
-  static uint32  u32_cnt;
+  static uint32_t  u32_cnt;
 
   printf("B:%d\n", u32_cnt++);
   fflush(stdout);
 } //endof swTimerPrintB
 
 ESOS_USER_TIMER( swTimerPrintC ) {
-  static uint32    u32_cnt;
+  static uint32_t    u32_cnt;
 
   printf("C:%d\n", u32_cnt++);
   fflush(stdout);
@@ -165,7 +177,7 @@ ESOS_USER_TIMER( swTimerPrintC ) {
  * ======================================
  */
 ESOS_USER_TASK( task1 ) {
-  uint32     u32_rnd;
+  uint32_t     u32_rnd;
 
   ESOS_TASK_BEGIN();
   while (TRUE) {
@@ -178,7 +190,7 @@ ESOS_USER_TASK( task1 ) {
 } // end task1()
 
 ESOS_USER_TASK( task2 ) {
-  uint32     u32_rnd;
+  uint32_t     u32_rnd;
 
   ESOS_TASK_BEGIN();
   while (TRUE) {
@@ -191,7 +203,7 @@ ESOS_USER_TASK( task2 ) {
 } // end task2()
 
 ESOS_USER_TASK( task3 ) {
-  uint32    u32_rnd;
+  uint32_t    u32_rnd;
 
   ESOS_TASK_BEGIN();
   while (TRUE) {
@@ -211,7 +223,7 @@ ESOS_USER_TASK( task3 ) {
  * ======================================
  */
 ESOS_USER_TASK( taskSemA ) {
-  uint32     u32_rnd;
+  uint32_t     u32_rnd;
   static     u8_cnt;
 
   ESOS_TASK_BEGIN();
@@ -233,7 +245,7 @@ ESOS_USER_TASK( taskSemA ) {
 } // end taskSemA()
 
 ESOS_USER_TASK( taskSemB ) {
-  uint32     u32_rnd;
+  uint32_t     u32_rnd;
   static     u8_cnt;
 
   ESOS_TASK_BEGIN();
@@ -250,7 +262,7 @@ ESOS_USER_TASK( taskSemB ) {
 } // end taskSemB()
 
 ESOS_USER_TASK( taskSemC ) {
-  uint32    u32_rnd;
+  uint32_t    u32_rnd;
   static     u8_cnt;
 
   ESOS_TASK_BEGIN();
@@ -268,7 +280,7 @@ ESOS_USER_TASK( taskSemC ) {
 
 
 ESOS_USER_TASK( taskMutexA ) {
-  uint32    u32_rnd;
+  uint32_t    u32_rnd;
   static     u8_cnt;
 
   ESOS_TASK_BEGIN();
@@ -287,7 +299,7 @@ ESOS_USER_TASK( taskMutexA ) {
 
 
 ESOS_USER_TASK( taskMutexB ) {
-  uint32    u32_rnd;
+  uint32_t    u32_rnd;
   static     u8_cnt;
 
   ESOS_TASK_BEGIN();
@@ -333,7 +345,7 @@ ESOS_USER_TASK( task_LED ) {
  * safe.
  */
 ESOS_USER_TASK( query_swTmrCnt ) {
-  static uint8           u8_char;
+  static uint8_t           u8_char;
 
   ESOS_TASK_BEGIN();
   while (TRUE) {
@@ -357,7 +369,7 @@ ESOS_USER_TASK( query_swTmrCnt ) {
  * character at a time.
  */
 ESOS_USER_TASK( upper_case ) {
-  static uint8           u8_char;
+  static uint8_t           u8_char;
 
   ESOS_TASK_BEGIN();
   while (TRUE) {
@@ -382,9 +394,9 @@ ESOS_USER_TASK( upper_case ) {
  * a suitable return/linefeed character.
  */
 ESOS_USER_TASK( upper_case2 ) {
-  static uint8           u8_i;
-  static uint8           au8_x[257];
-  static uint8           au8_y[257];
+  static uint8_t           u8_i;
+  static uint8_t           au8_x[257];
+  static uint8_t           au8_y[257];
 
   ESOS_TASK_BEGIN();
   while (TRUE) {
@@ -413,7 +425,7 @@ ESOS_USER_TASK( upper_case2 ) {
  * Read "in" stream and reverses it
  */
 ESOS_USER_TASK( reverse_string ) {
-  static uint8           u8_char;
+  static uint8_t           u8_char;
   static char            sz_in[257];
   static char            sz_out[257];
 
@@ -466,6 +478,300 @@ void reverseString(char *psz_s1, char *psz_s2) {
   *psz_s2 = 0;
 }
 
+/**********************************************************
+**
+**     a few tasks to send mail messages to each other
+**
+************************************************************
+*/
+ESOS_USER_TASK( mailtask0 ) {
+  uint32_t     									u32_rnd;
+  static	uint8_t								u8_cnt;
+  static	ESOS_TASK_HANDLE		hTask, hTask16, hTask32;
+
+  ESOS_TASK_BEGIN();
+  u8_cnt=0;
+  hTask = esos_GetTaskHandle( mailtaskA );
+  hTask16 = esos_GetTaskHandle( mailtaskB );
+  hTask32 = esos_GetTaskHandle( mailtaskC );
+
+  while (TRUE) {
+    u32_rnd = 1+(0x0F & esos_GetRandomUint32());
+    u32_rnd <<= 8;
+    ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask, 1);
+    printf("T0 sending %d					%d\n", u8_cnt, __pstSelf->u16_taskID);
+
+    __esos_CB_WriteUINT8( hTask->pst_Mailbox->pst_CBuffer, u8_cnt );
+    // ESOS_TASK_WRITE_MAILBOX_BYTE(hTask, u8_cnt );
+
+    ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask16, sizeof(uint16_t));
+    printf("T0 sending %d					%d\n", 10000+u8_cnt, __pstSelf->u16_taskID);
+    __esos_CB_WriteUINT16( hTask16->pst_Mailbox->pst_CBuffer, 10000+u8_cnt );
+
+    ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask32, sizeof(uint32_t));
+    printf("T0 sending %d					%d\n", 1000000+u8_cnt, __pstSelf->u16_taskID);
+    __esos_CB_WriteUINT32( hTask32->pst_Mailbox->pst_CBuffer, 1000000+u8_cnt );
+
+    u8_cnt++;
+    if (u8_cnt>50) u8_cnt=0;
+    ESOS_TASK_WAIT_TICKS( u32_rnd);
+  } // endof while(TRUE)
+  ESOS_TASK_END();
+} // end mailtask0()
+
+
+ESOS_USER_TASK( mailtask1 ) {
+  uint32_t     				u32_rnd;
+  static uint8_t			u8_cnt;
+  static ESOS_TASK_HANDLE		hTask, hTask16, hTask32;
+
+  ESOS_TASK_BEGIN();
+  hTask = esos_GetTaskHandle( mailtaskA );   
+  hTask16 = esos_GetTaskHandle( mailtaskB );
+  hTask32 = esos_GetTaskHandle( mailtaskC );
+ 
+  u8_cnt = 0;
+  while (TRUE) {
+    u32_rnd = 1+(0x0F & esos_GetRandomUint32());
+    u32_rnd <<= 8;
+    ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask, 1);
+    printf("T1 sending %d					%d\n", 100+u8_cnt, __pstSelf->u16_taskID);
+
+    __esos_CB_WriteUINT8(hTask->pst_Mailbox->pst_CBuffer, 100+u8_cnt );
+    // ESOS_TASK_WRITE_MAILBOX_BYTE(hTask, 100+u8_cnt );
+
+    ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask16, sizeof(uint16_t));
+    printf("T1 sending %d					%d\n", 20000+u8_cnt, __pstSelf->u16_taskID);
+    __esos_CB_WriteUINT16( hTask16->pst_Mailbox->pst_CBuffer, 20000+u8_cnt );
+
+    ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask32, sizeof(uint32_t));
+    printf("T1 sending %d					%d\n", 2000000+u8_cnt, __pstSelf->u16_taskID);
+    __esos_CB_WriteUINT32( hTask32->pst_Mailbox->pst_CBuffer, 2000000+u8_cnt );
+
+    u8_cnt++;
+    if (u8_cnt>50) u8_cnt=0;
+    ESOS_TASK_WAIT_TICKS( u32_rnd);
+  } // endof while(TRUE)
+  ESOS_TASK_END();
+} // end mailtask1()
+
+ESOS_USER_TASK( mailtask2 ) {
+  uint32_t    u32_rnd;
+  static uint8_t			u8_cnt;
+  static	ESOS_TASK_HANDLE		hTask, hTask16;
+
+
+  ESOS_TASK_BEGIN();
+  hTask = esos_GetTaskHandle( mailtaskA );
+  hTask16 = esos_GetTaskHandle (mailtaskB );
+	u8_cnt = 0;
+  while (TRUE) {
+    u32_rnd = 1+(0x0F & esos_GetRandomUint32());
+    u32_rnd <<= 8;
+    ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask, 1);
+    printf("T2 sending %d					%d\n", 200+u8_cnt, __pstSelf->u16_taskID);
+
+    __esos_CB_WriteUINT8(hTask->pst_Mailbox->pst_CBuffer, 200+u8_cnt );
+    // ESOS_TASK_WRITE_MAILBOX_BYTE(hTask, 200+u8_cnt );
+
+    ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask16, sizeof(uint16_t));
+    printf("T2 sending %d					%d\n", 30000+u8_cnt, __pstSelf->u16_taskID);
+    __esos_CB_WriteUINT16( hTask16->pst_Mailbox->pst_CBuffer, 30000+u8_cnt );
+
+    //ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(esos_GetTaskHandle(mailtaskC), sizeof(uint32_t));
+    //printf("T2 sending %d					%d\n", 3000000+u8_cnt, __pstSelf->u16_taskID);
+    //__esos_CB_WriteUINT32( esos_GetTaskHandle(mailtaskC)->pst_Mailbox->pst_CBuffer, 3000000+u8_cnt );
+
+    u8_cnt++;
+    if (u8_cnt>50) u8_cnt=0;
+    ESOS_TASK_WAIT_TICKS( u32_rnd);
+  } // endof while(TRUE)
+  ESOS_TASK_END();
+} // end mailtask2()
+
+//TASK that doesn't check mail very often
+ESOS_USER_TASK( mailtaskA ) {
+  uint32_t     			u32_rnd;
+  uint8_t						u8_x;
+  static uint8_t		u8_cnt;
+
+  ESOS_TASK_BEGIN();
+  while (TRUE) {
+    u32_rnd = 1+(0x0F & esos_GetRandomUint32());
+    u32_rnd <<= 10;
+		ESOS_TASK_WAIT_TICKS( u32_rnd );
+		ESOS_TASK_WAIT_FOR_MAIL();
+		u8_cnt=0;
+		while ( ESOS_TASK_IVE_GOT_MAIL() ) {
+			u8_cnt++;
+			
+			u8_x = __esos_CB_ReadUINT8( __pstSelf->pst_Mailbox->pst_CBuffer );
+			//u8_x = __esos_ReadMailboxUINT8( __pstSelf->pst_Mailbox );
+			
+			if (TRUE) {
+    		printf("mailtaskA got mail.... %3d             %d\n", u8_x, __pstSelf->pst_Mailbox->pst_CBuffer->u16_Count);
+    	} else {
+    		printf("mailtaskA got mail.... %3d             %d\n", u8_x, u8_cnt);
+    	} //endif
+   } //endof while()
+  } // endof while(TRUE)
+  ESOS_TASK_END();
+} // end mailtaskA()
+
+//TASK that does nothing but repeatedly check its mailbox
+ESOS_USER_TASK( mailtaskAA ) {
+  uint32_t     	u32_rnd;
+  uint8_t				u8_x;
+
+  ESOS_TASK_BEGIN();
+  while (TRUE) {
+		ESOS_TASK_WAIT_FOR_MAIL();
+
+		u8_x = __esos_CB_ReadUINT8( __pstSelf->pst_Mailbox->pst_CBuffer );
+		// u8_x = __esos_ReadMailboxUINT8( __pstSelf->pst_Mailbox );
+		
+    printf("mailtaskAA got mail.... %d\n", u8_x);
+  } // endof while(TRUE)
+  ESOS_TASK_END();
+} // end mailtaskAA()
+
+//TASK that does nothing but repeatedly check its mailbox
+ESOS_USER_TASK( mailtaskB ) {
+  uint32_t     	u32_rnd;
+  uint8_t				u8_x;
+  uint16_t			u16_x;
+
+  ESOS_TASK_BEGIN();
+  while (TRUE) {
+		ESOS_TASK_WAIT_FOR_MAIL();
+
+		u16_x = __esos_CB_ReadUINT16( __pstSelf->pst_Mailbox->pst_CBuffer );		
+    printf("mailtaskB got mail.... %d\n", u16_x);
+  } // endof while(TRUE)
+  ESOS_TASK_END();
+} // 	end mailtaskB()
+
+//TASK that does nothing but repeatedly check its mailbox
+ESOS_USER_TASK( mailtaskC ) {
+  uint32_t     	u32_x;
+  uint8_t				u8_x;
+
+  ESOS_TASK_BEGIN();
+  while (TRUE) {
+		ESOS_TASK_WAIT_FOR_MAIL();
+
+		u32_x = __esos_CB_ReadUINT32( __pstSelf->pst_Mailbox->pst_CBuffer );		
+    printf("mailtaskC got mail.... %d\n", u32_x);
+		ESOS_TASK_WAIT_TICKS( 1000 );
+    
+  } // endof while(TRUE)
+  ESOS_TASK_END();
+} // end mailtaskC()
+
+ESOS_USER_TASK( mailtaskMSG0 ) {
+  uint32_t     									u32_rnd;
+  static	uint8_t								u8_cnt;
+  static	ESOS_TASK_HANDLE		hTask, hTask16, hTask32;
+  static	MAILMESSAGE					st_Message;
+
+  ESOS_TASK_BEGIN();
+  u8_cnt=0;
+  hTask = esos_GetTaskHandle( mailtaskMSGA );
+
+  while (TRUE) {
+    u32_rnd = 1+(0x0F & esos_GetRandomUint32());
+    u32_rnd <<= 8;
+    
+    ESOS_TASK_MAKE_MSG_UINT8(st_Message, u8_cnt);
+    /* create a random (50-50) message that wants ACK */
+    if ( (u8_cnt % 5) ==0 ) {
+    	st_Message.u8_flags |= ESOS_MAILMESSAGE_REQUEST_ACK;
+    }
+    ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask, 9);
+		if (st_Message.u8_flags & ESOS_MAILMESSAGE_REQUEST_ACK) {
+	    printf("T0 sending MESSAGE with ACK request %d\n", u8_cnt);
+			ESOS_TASK_SEND_MESSAGE_WAIT_DELIVERY(hTask, &st_Message);
+		} else {
+	    printf("T0 sending MESSAGE %d\n", u8_cnt);
+			ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
+	    ESOS_TASK_WAIT_TICKS( u32_rnd);			
+		}
+    u8_cnt++;
+    if (u8_cnt>50) u8_cnt=0;
+  } // endof while(TRUE)
+  ESOS_TASK_END();
+} // end mailtaskMSG0()
+
+ESOS_USER_TASK( mailtaskMSG1 ) {
+  uint32_t     									u32_rnd;
+  static	uint8_t								u8_cnt;
+  static	ESOS_TASK_HANDLE		hTask, hTask16, hTask32;
+  static	MAILMESSAGE					st_Message;
+
+  ESOS_TASK_BEGIN();
+  u8_cnt=0;
+  hTask = esos_GetTaskHandle( mailtaskMSGA );
+
+  while (TRUE) {
+    u32_rnd = 1+(0x0F & esos_GetRandomUint32());
+    u32_rnd <<= 7;
+    
+    ESOS_TASK_MAKE_MSG_UINT8(st_Message, u8_cnt);
+    /* create a random (50-50) message that wants ACK */
+    if ( (u8_cnt % 3) ==0 ) {
+    	st_Message.u8_flags |= ESOS_MAILMESSAGE_REQUEST_ACK;
+    }
+    ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask, 9);
+		if (st_Message.u8_flags & ESOS_MAILMESSAGE_REQUEST_ACK) {
+	    printf("T1 sending MESSAGE with ACK request %d\n", u8_cnt);
+			ESOS_TASK_SEND_MESSAGE_WAIT_DELIVERY(hTask, &st_Message);
+		} else {
+	    printf("T1 sending MESSAGE %d\n", u8_cnt );
+			ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
+	    ESOS_TASK_WAIT_TICKS( u32_rnd);			
+		}
+    u8_cnt++;
+    if (u8_cnt>50) u8_cnt=0;
+  } // endof while(TRUE)
+  ESOS_TASK_END();
+} // end mailtaskMSG1()
+
+
+//TASK that doesn't check mail very often
+ESOS_USER_TASK( mailtaskMSGA ) {
+  uint32_t     						u32_rnd;
+  uint8_t									u8_x;
+  static uint8_t					u8_cnt;
+  static MAILMESSAGE		stMsg;
+
+  ESOS_TASK_BEGIN();
+  while (TRUE) {
+    u32_rnd = 1+(0x0F & esos_GetRandomUint32());
+    u32_rnd <<= 10;
+		ESOS_TASK_WAIT_TICKS( u32_rnd );
+		ESOS_TASK_WAIT_FOR_MAIL();
+		u8_cnt=0;
+		while ( ESOS_TASK_IVE_GOT_MAIL() ) {
+			__esos_ReadMailMessage(__pstSelf, &stMsg ); 
+			//PRINTF_MESSAGE( stMsg);
+			printf("Got a message from ");
+			if (ESOS_DOES_TASK_HAVE_ID(mailtaskMSG0,stMsg.u16_FromTaskID)) {
+				printf("mailtaskMSG0");
+			}
+			else if (ESOS_DOES_TASK_HAVE_ID(mailtaskMSG1,stMsg.u16_FromTaskID)) {
+				printf("mailtaskMSG1");
+			}
+			else {
+				printf("UNKNOWN");
+			}
+			printf (" containing %d          delivery time = %d ms\n", stMsg.au8_Contents[0], esos_GetSystemTick()-stMsg.u32_Postmark );
+   	} //endof while()
+  } // endof while(TRUE)
+  ESOS_TASK_END();
+} // end mailtaskMSGA()
+
+
+
 /******************************************************************************
  * Function:        void user_init(void)
  *
@@ -500,8 +806,8 @@ void reverseString(char *psz_s1, char *psz_s2) {
  *
  *****************************************************************************/
 void user_init(void) {
-  uint16*   pu16_ptr;
-  uint16    u16_junk;
+  uint16_t*		pu16_ptr;
+  uint16_t		u16_junk;
   ESOS_TMR_HANDLE    tmrhnd_t1,tmrhnd_t2,tmrhnd_t3;
 
   __esos_unsafe_PutString( HELLO_MSG );
@@ -598,12 +904,31 @@ void user_init(void) {
   esos_RegisterTask( taskSemC );
 #endif
 
-#if 1
+#if 0
   // test code based on mutex semaphore problem
-  // descried by Jeff Brantley
+  // described by Jeff Brantley
   ESOS_INIT_SEMAPHORE(sem_mutex, 1);
   esos_RegisterTask( taskMutexA );
   esos_RegisterTask( taskMutexB );
 #endif
+
+#if 0
+  esos_RegisterTimer( swTimerLED, 1000 );
+  esos_RegisterTask( mailtaskA );
+  esos_RegisterTask( mailtaskAA );
+  esos_RegisterTask( mailtaskB );
+  esos_RegisterTask( mailtaskC );  
+  esos_RegisterTask( mailtask0 );
+  esos_RegisterTask( mailtask1 );
+  esos_RegisterTask( mailtask2 );
+#endif
+
+#if 1
+  //esos_RegisterTimer( swTimerLED, 1000 );
+  esos_RegisterTask( mailtaskMSGA );
+  esos_RegisterTask( mailtaskMSG0 );
+  esos_RegisterTask( mailtaskMSG1 );  
+#endif
+
 
 } // end user_init()

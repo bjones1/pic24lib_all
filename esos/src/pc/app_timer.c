@@ -27,7 +27,7 @@
  *
  */
 
-#define ESOS_USE_IRQS
+#define	ESOS_USE_IRQS
 
 // INCLUDEs go here  (First include the main esos.h file)
 //      After that, the user can include what they need
@@ -48,24 +48,24 @@
  * PROTOTYPEs go here
  *
  */
-uint32    randomNumInRange(uint32 u32_lo, uint32 u32_hi);
+uint32_t    randomNumInRange(uint32_t u32_lo, uint32_t u32_hi);
 
 
 // GLOBALs go here
 //  Generally, the user-created semaphores will be defined/allocated here
-volatile uint32   u32_T2Count;
-volatile uint32   u32_T3Count;
-static uint8 psz_T2Is[]="T2 is ";
-static uint8 psz_T3Is[]="T3 is ";
-static uint8 psz_Enabled[]="enabled.";
-static uint8 psz_Disabled[]="disabled.";
-static uint8 psz_CRNL[3]= {0x0D, 0x0A, 0};
+volatile uint32_t		u32_T2Count;
+volatile uint32_t		u32_T3Count;
+static uint8_t psz_T2Is[]="T2 is ";
+static uint8_t psz_T3Is[]="T3 is ";
+static uint8_t psz_Enabled[]="enabled.";
+static uint8_t psz_Disabled[]="disabled.";
+static uint8_t psz_CRNL[3]= {0x0D, 0x0A, 0};
 
 
 // timer globals
-uint32    u32_myT1Count = 0;
-uint8     LED1 = TRUE;
-uint8     LED2 = TRUE;
+uint32_t    u32_myT1Count = 0;
+uint8_t     LED1 = TRUE;
+uint8_t     LED2 = TRUE;
 
 struct stTask*    pst_MyTasks[3];
 
@@ -79,7 +79,7 @@ struct stTask*    pst_MyTasks[3];
 //  call the timer services callback instead.
 //  USED ONLY FOR DEVELOPMENT AND TESTING!
 ESOS_USER_TASK( __simulated_isr ) {
-  static uint32    u32_count, u32_tick;
+  static uint32_t    u32_count, u32_tick;
 
   ESOS_TASK_BEGIN(pstTask);
   u32_count = 0;
@@ -92,8 +92,8 @@ ESOS_USER_TASK( __simulated_isr ) {
   ESOS_TASK_END(pstTask);
 } // end child_task
 
-uint32    randomNumInRange(uint32 u32_lo, uint32 u32_hi) {
-  uint32  u32_d1, u32_d2, u32_d4, u32_ret;
+uint32_t    randomNumInRange(uint32_t u32_lo, uint32_t u32_hi) {
+  uint32_t  u32_d1, u32_d2, u32_d4, u32_ret;
   UINT32  U32_temp;
 
   while (TRUE) {
@@ -101,7 +101,7 @@ uint32    randomNumInRange(uint32 u32_lo, uint32 u32_hi) {
     u32_ret = u32_lo + u32_d4;
     if (u32_ret <= u32_hi) return u32_ret;
 
-    U32_temp._uint32 = u32_d4;
+    U32_temp._uint32_t = u32_d4;
     u32_d2 = U32_temp.u16LoWord ^ U32_temp.u16HiWord;
     u32_ret = u32_lo + u32_d2;
     if (u32_ret <= u32_hi) return u32_ret;
@@ -129,7 +129,7 @@ ESOS_USER_TIMER( swTimerLED ) {
   LED2 = !LED2;
 } //endof sw_Timer_LED
 
-uint32    u32_cnt1, u32_cnt2, u32_cnt3;
+uint32_t    u32_cnt1, u32_cnt2, u32_cnt3;
 
 // user-created timer callback
 ESOS_USER_TIMER( swTimerPrintA ) {
@@ -151,7 +151,7 @@ ESOS_USER_TIMER( swTimerPrintC ) {
 } //endof sw_Timer_LED
 
 ESOS_USER_TASK( task1 ) {
-  uint32     u32_rnd;
+  uint32_t     u32_rnd;
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -163,7 +163,7 @@ ESOS_USER_TASK( task1 ) {
 } // end task1()
 
 ESOS_USER_TASK( task2 ) {
-  uint32     u32_rnd;
+  uint32_t     u32_rnd;
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -175,7 +175,7 @@ ESOS_USER_TASK( task2 ) {
 } // end task1()
 
 ESOS_USER_TASK( task3 ) {
-  uint32    u32_rnd;
+  uint32_t    u32_rnd;
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -200,9 +200,9 @@ ESOS_USER_TASK( task_LED ) {
 // user task to randomly turn on and off some timer service
 //
 ESOS_USER_TASK( random_tmr ) {
-  static uint32       u32_RandomNumber;
-  static uint8        u8_RandomNumber;
-  static uint8        u8_Count;
+  static uint32_t       u32_RandomNumber;
+  static uint8_t        u8_RandomNumber;
+  static uint8_t        u8_Count;
   static ESOS_TMR_HANDLE    tmrhnd_t1;
   UINT32              U32_Temp;
 
@@ -253,9 +253,9 @@ ESOS_USER_TASK( random_tmr ) {
 // user task to randomly turn on and off some timer service
 //
 ESOS_USER_TASK( random_tmr_dbg ) {
-  static uint32       u32_RandomNumber;
-  static uint8        u8_RandomNumber;
-  static uint8        u8_Count;
+  static uint32_t       u32_RandomNumber;
+  static uint8_t        u8_RandomNumber;
+  static uint8_t        u8_Count;
   static ESOS_TMR_HANDLE    tmrhnd_t1;
   static ESOS_TMR_HANDLE    tmrhnd_ret;
   UINT32              U32_Temp;
@@ -340,7 +340,7 @@ ESOS_USER_TASK( random_tmr_dbg ) {
 } // end child_task
 
 ESOS_USER_TASK( upper_case ) {
-  static uint8           u8_char;
+  static uint8_t           u8_char;
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -359,9 +359,9 @@ ESOS_USER_TASK( upper_case ) {
 } // end upper_case()
 
 ESOS_USER_TASK( upper_case2 ) {
-  static uint8           u8_i;
-  static uint8           au8_x[257];
-  static uint8           au8_y[257];
+  static uint8_t           u8_i;
+  static uint8_t           au8_x[257];
+  static uint8_t           au8_y[257];
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -388,7 +388,7 @@ ESOS_USER_TASK( upper_case2 ) {
 
 
 ESOS_USER_TASK( reverse_string ) {
-  static uint8           u8_char;
+  static uint8_t           u8_char;
   \
   static char*           sz_in[257];
   static char*           sz_out[257];
@@ -476,8 +476,8 @@ void reverseString(char *psz_s1, char *psz_s2) {
  *
  *****************************************************************************/
 void user_init(void) {
-  uint16*   pu16_ptr;
-  uint16    u16_junk;
+  uint16_t*		pu16_ptr;
+  uint16_t		u16_junk;
   ESOS_TMR_HANDLE    tmrhnd_t1,tmrhnd_t2,tmrhnd_t3;
 
   __esos_hw_PutString( HELLO_MSG );

@@ -78,7 +78,7 @@ void    __esos_hw_signal_stop_tx(void) {
 }
 
 ESOS_USER_TASK( __Linux_check_keyboard ) {
-  static uint8      u8_c;
+  static uint8_t      u8_c;
 
   ESOS_TASK_BEGIN();
   set_keypress();
@@ -102,7 +102,7 @@ ESOS_USER_TASK( __Linux_check_keyboard ) {
 ** we can poll or wait on kbhit().  When it is true, we can
 ** call the normal getch()
 */
-uint8 kbhit(void) {
+uint8_t kbhit(void) {
   struct timeval tv;
   fd_set read_fd;
 
@@ -160,7 +160,7 @@ void reset_keypress(void) {
  *****************************************************************************/
 void __esos_hw_InitCommSystem(void) {
   // Init the NCURSES system instead of the serial port....
-  uint8       u8_char;
+  uint8_t       u8_char;
 
 #if 0
   initscr();                      /* Start curses mode            */
@@ -189,17 +189,17 @@ void __esos_hw_InitCommSystem(void) {
 
 
 /******************************************************************************
- * Function:        uint8 esos_GetCommSystemMaxInDataLen(void)
+ * Function:        uint8_t esos_GetCommSystemMaxInDataLen(void)
  *
  * PreCondition:    None.
  *
  * Input:           None
  *
- * Output:          the maximum number of uint8s that the comm system will
+ * Output:          the maximum number of uint8_ts that the comm system will
  *                  receive in a single buffer transfer from the host -- OR --
- *          in the case of single uint8 xfers (like RS232), the maximum
- *          number of uint8s that can be RX-ed before the buffers
- *          overflow
+ *					in the case of single uint8_t xfers (like RS232), the maximum
+ *					number of uint8_ts that can be RX-ed before the buffers
+ *					overflow
  *
  * Side Effects:    None
  *
@@ -210,21 +210,21 @@ void __esos_hw_InitCommSystem(void) {
  *                  it chooses to be.
  *
  *****************************************************************************/
-uint8 esos_GetCommSystemMaxInDataLen(void) {
+uint8_t	esos_GetCommSystemMaxInDataLen(void) {
   return ESOS_SERIAL_OUT_EP_SIZE;
 } //end esos_GetCommSystemMaxInDataLen()
 
 /******************************************************************************
- * Function:        uint8 esos_GetCommSystemMaxOutDataLen(void)
+ * Function:        uint8_t esos_GetCommSystemMaxOutDataLen(void)
  *
  * PreCondition:    None.
  *
  * Input:           None
  *
- * Output:          the maximum number of uint8s that the comm system will
+ * Output:          the maximum number of uint8_ts that the comm system will
  *                  transfer back to the host in a single buffer  -- OR --
- *          in the case of singe uint8 xfers (like RS232), the maximum
- *          number of uint8s in the output buffer before overflow
+ *					in the case of singe uint8_t xfers (like RS232), the maximum
+ *					number of uint8_ts in the output buffer before overflow
  *
  * Side Effects:    None
  *
@@ -238,12 +238,12 @@ uint8 esos_GetCommSystemMaxInDataLen(void) {
  *                  if it chooses to be.
  *
  *****************************************************************************/
-uint8 esos_GetCommSystemMaxOutDataLen(void) {
+uint8_t esos_GetCommSystemMaxOutDataLen(void) {
   return  ESOS_SERIAL_IN_EP_SIZE;
 } //end esos_GetCommSystemMaxOutDataLen()
 
 /******************************************************************************
- * Function:        uint8 _esos_hw_GetUartVersion(void)
+ * Function:        uint8_t _esos_hw_GetUartVersion(void)
  *
  * PreCondition:    None.
  *
@@ -258,6 +258,6 @@ uint8 esos_GetCommSystemMaxOutDataLen(void) {
  * Side Effects:    None
  *
  *****************************************************************************/
-uint8 _esos_hw_GetSerialUartVersion(void) {
+uint8_t _esos_hw_GetSerialUartVersion(void) {
   return  ESOS_COMM_SYS_SERIAL_REV;
 } //end _esos_hw_GetUartVersion()

@@ -482,14 +482,14 @@ uint8_t esos_GetCommSystemVersion(void);
 
 /**
 * Returns the size of the ESOS communication systems "out" buffers
-* \retval uint8   Number of bytes
+* \retval uint8_t   Number of bytes
 * \hideinitializer
 */
 uint8_t esos_GetCommSystemMaxOutDataLen(void);
 
 /**
 * Returns the size of the ESOS communication systems "in" buffers
-* \retval uint8   Number of bytes
+* \retval uint8_t   Number of bytes
 * \hideinitializer
 */
 uint8_t esos_GetCommSystemMaxInDataLen(void);

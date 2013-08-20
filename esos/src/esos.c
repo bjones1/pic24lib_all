@@ -38,36 +38,20 @@
 
 #include    "esos.h"
 
-//*********************************************************************
-// P R I V A T E    D E F I N I T I O N S
-//*********************************************************************
-/**
- * Define the maximum number of user tasks in the system
- *    \note Technically, this is actually the maximum number of
- *          tasks that will be running "concurrently".  Usually,
- *          this number is the maximum number of tasks that the
- *          user has defined, UNLESS they are absolutely sure that
- *          two (or more) tasks are mutually exclusive in execution.
- *
- *    \note BOTH "parent" and "child" tasks use this NUMBER to allocate
- *      their pool of tasks.  So this number should be equal to or greater
- *          than the MAXIMUM number of concurrently running child --OR--
- *          parent tasks.
- */
-#define     MAX_NUM_USER_TASKS      16
-#define     MAX_NUM_CHILD_TASKS     MAX_NUM_USER_TASKS
-
-#define     REMOVE_IDX              0xFE
 
 //**********************************************************
 // GLOBAL variables for ESOS to use/maintain
 //**********************************************************
-struct stTask         __astUserTaskPool[MAX_NUM_USER_TASKS];
-uint8_t                 __au8UserTaskStructIndex[MAX_NUM_USER_TASKS];
-struct stTask         __astChildTaskPool[MAX_NUM_CHILD_TASKS];
-uint8_t               __u8UserTasksRegistered;
-uint8_t                 __u8ChildTasksRegistered;
 
+// Tasks management variables
+struct stTask       __astUserTaskPool[MAX_NUM_USER_TASKS];
+uint8_t               __au8UserTaskStructIndex[MAX_NUM_USER_TASKS];
+struct stTask       __astChildTaskPool[MAX_NUM_CHILD_TASKS];
+uint8_t	              __u8UserTasksRegistered;
+uint8_t               __u8ChildTasksRegistered;
+uint16_t							__u16NumTasksEverCreated;
+
+// ESOS timer managmentment variables
 struct stTimer        __astTmrSvcs[MAX_NUM_TMRS];
 uint8_t                 __esos_u8TmrSvcsRegistered;
 uint16_t                __esos_u16TmrActiveFlags;
@@ -76,7 +60,14 @@ uint16_t                __esos_u16TmrActiveFlags;
 static struct stTask        __stUsbCommSystem;
 #endif
 
-uint16_t      __esos_u16UserFlags, __esos_u16SystemFlags;
+// ESOS task mail services
+MAILBOX			__astMailbox[MAX_NUM_USER_TASKS];
+uint8_t				__au8_MBData[MAX_NUM_USER_TASKS][MAX_SIZE_TASK_MAILBOX];
+CBUFFER			__astCircularBuffers[MAX_NUM_USER_TASKS];
+
+
+// misc ESOS variables
+uint16_t			__esos_u16UserFlags, __esos_u16SystemFlags;
 uint32_t      __u32_esos_PRNG_Seed;
 
 /****************************************************************
@@ -99,36 +90,74 @@ ESOS_TASK_HANDLE    esos_RegisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstT
   uint8_t     u8_FoundFree = FALSE;
 
   if (__u8UserTasksRegistered < MAX_NUM_USER_TASKS) {
+    /* First, we will look to see if the request task
+       has already been allocated to a task from the pool.
+       If so, then let's just reactivate/reset/etc the task.
+    */
     for (u8_i=0; u8_i<MAX_NUM_USER_TASKS; u8_i++) {
       if (__astUserTaskPool[u8_i].pfn == taskname) {
         u8_FoundFcn = TRUE;
         u8_IndexFcn = u8_i;
         break;
       } // endof if()
+      /* While we are looping through, take note of the first unused task
+         we find in the pool.  We will assign this slot to the new task if
+         we can't find it already allocated a (dead) slot
+      */ 
       if ((!u8_FoundFree) && (__astUserTaskPool[u8_i].pfn == NULLPTR)) {
         u8_FoundFree = TRUE;
         u8_IndexFree = u8_i;
       } // endof if()
     } // endof for()
+    
+    /* OK. We looked at all the tasks in the pool.  We either
+       * found the new task already allocated (u8_FoundFcn),
+       OR
+       * we did not.  In this case, there are two cases:
+       		# We found a dead/free task slot in our search (u8_FoundFree),
+       		OR
+       		# we did not.  (All slots are already being used.  WE ARE IN TROUBLE!)
+       
+       If we found the new task already (dead but allocated) in the pool, then we need to
+         1) initialize the task, its flags, and its mailbox, and
+         2) add the task to the task rotation
+    */
     if (u8_FoundFcn) {
-      __ESOS_INIT_TASK( &__astUserTaskPool[u8_IndexFcn]);
-      __astUserTaskPool[u8_IndexFcn].flags = 0;
+      __ESOS_INIT_TASK( &__astUserTaskPool[u8_IndexFcn]);									// reset the task state
+      __astUserTaskPool[u8_IndexFcn].flags = 0;														// reset the task flags
+      ESOS_TASK_FLUSH_TASK_MAILBOX(&__astUserTaskPool[u8_IndexFcn]);			// reset the task mailbox
       __au8UserTaskStructIndex[__u8UserTasksRegistered] = u8_IndexFcn;
       __u8UserTasksRegistered++;
+      // make sure this task has a non-zero task identifier
+      if ( __astUserTaskPool[u8_IndexFree].u16_taskID == 0 ) {
+      	__u16NumTasksEverCreated++;
+      	__astUserTaskPool[u8_IndexFree].u16_taskID = __MAKE_UINT16_TASK_ID(taskname);
+     	} // endif
       return &__astUserTaskPool[u8_IndexFcn];
     } // endof if
-    /* we did NOT find our function in the pool, so allocate a new struct */
+    /* We did NOT find our task already in the pool, so allocate a new struct
+       It has never been registered before, or it's location was garbage collected at some
+       point.
+       
+       If we found a free task slot in the pool, then give this free slot to the new task.
+    */
     if (u8_FoundFree) {
-      __astUserTaskPool[u8_IndexFree].pfn = taskname;
-      __ESOS_INIT_TASK(&__astUserTaskPool[u8_IndexFree]);
-      __astUserTaskPool[u8_IndexFree].flags = 0;                     // reset the task flags
+      __astUserTaskPool[u8_IndexFree].pfn = taskname;										// attach task to the free slot
+      __ESOS_INIT_TASK(&__astUserTaskPool[u8_IndexFree]);								// reset the task state
+      __astUserTaskPool[u8_IndexFree].flags = 0;                     		// reset the task flags
+      ESOS_TASK_FLUSH_TASK_MAILBOX(&__astUserTaskPool[u8_IndexFree]);		// reset the task mailbox
       __au8UserTaskStructIndex[__u8UserTasksRegistered] = u8_IndexFree;
       __u8UserTasksRegistered++;
+      // Since this is a "new" task, give it a new identifier number
+      __u16NumTasksEverCreated++;
+			__astUserTaskPool[u8_IndexFree].u16_taskID = __MAKE_UINT16_TASK_ID(taskname);
       return &__astUserTaskPool[u8_IndexFree];
     } // endof if
     /*  we did NOT find our function in the pool OR a free struct to use, so
-        we will return a NULLPTR for now.  In the future, we will do some garbage
-        collection here.
+        we will return a NULLPTR for now.  In the future, maybe the garbage can be called here
+        to find some space by looking for killed/dead tasks.  (Current dead tasks are garbaged
+        at the end of a complete pool rotation.  Possibly we can do an early garbage collection
+        here, but it will only help in very rare circumstances.)
     */
     return NULLPTR;
   } else {
@@ -149,16 +178,24 @@ uint8_t    esos_UnregisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstTask) ) 
   uint8_t                 u8_i, u8_z;
   ESOS_TASK_HANDLE      pstNowTask;
 
+  /* Search through the pool and find out where the task needing unregistering
+     is residing in the pool.  Then, we will mark this slot as needing removal
+     and setting a flag for task pool repacking at the end of the current
+     rotation through the pool.
+  */
   for (u8_i=0; u8_i<__u8UserTasksRegistered; u8_i++) {
     // get next index from array so we can get the task handle
     u8_z = __au8UserTaskStructIndex[u8_i];
-    // check for unregistered tasks that have NOT been garbage collected yet
+    /* check tasks that have been allocated (not a NULLIDX) and
+       not been garbage collected (not REMOVE_IDX) yet.  If our
+       task is among them, the mark it to be garbaged collected
+       (REMOVE_IDX) at the next opportunity
+    */
     if ((u8_z != NULLIDX) & (u8_z != REMOVE_IDX)) {
       pstNowTask = &__astUserTaskPool[u8_z];
+      // If we find our task, mark it and signal ESOS to repack task pool
       if (pstNowTask->pfn == taskname) {
         __au8UserTaskStructIndex[u8_i] = REMOVE_IDX;
-        // REMOVE THIS LINE.... let the task packing operation change u8UserTasksRegistered
-        //__u8UserTasksRegistered--;
         __esos_SetSystemFlag( __ESOS_SYS_FLAG_PACK_TASKS );
         u8Status=TRUE;
         break;
@@ -167,6 +204,79 @@ uint8_t    esos_UnregisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstTask) ) 
   } // end for
   return  u8Status;
 }// end esos_UnregisterTask()
+
+/**
+ * Find the (active) task handle for a given task function
+ * \param taskname name of task (argument to \ref ESOS_USER_TASK declaration
+ * \retval NULLPTR   if task is not found among the active tasks
+ * \retval TaskHandle the handle to the task function requested
+ *  \sa ESOS_USER_TASK
+ *  \sa esos_RegisterTask
+ *  \sa esos_UnregisterTask
+*/
+ESOS_TASK_HANDLE    esos_GetTaskHandle( uint8_t (*taskname)(ESOS_TASK_HANDLE pstTask) ) {
+  uint8_t     						u8_i, u8_z;
+  ESOS_TASK_HANDLE			pst_NowTask;
+  ESOS_TASK_HANDLE			pst_ReturnTask = (ESOS_TASK_HANDLE) NULLPTR;
+
+  /* Scan through the pool of "registered" tasks and see
+     if we can find the task function name requested 
+  */  
+  for (u8_i=0; u8_i<__u8UserTasksRegistered; u8_i++) {
+ 		// get next index from array so we can get the task handle
+	  u8_z = __au8UserTaskStructIndex[u8_i];
+    /* check tasks that have been allocated (not a NULLIDX) and
+ 	     not been garbage collected (not REMOVE_IDX) yet.  If our
+       task is among them, then return the handle to the caller
+		*/
+    if ((u8_z != NULLIDX) & (u8_z != REMOVE_IDX)) {
+      pst_NowTask = &__astUserTaskPool[u8_z];
+      // If we find our task, save the pstXXX so we can return it
+      if (pst_NowTask->pfn == taskname) {
+        pst_ReturnTask = pst_NowTask;
+        break;
+      } // end if (pfn == taskname)
+    } // end if (!NULLIDX)
+  } //end for
+  return pst_ReturnTask;
+} //end esos_GetTaskHandle()
+
+/**
+ * Find the (active) task handle for a given task function
+ * \param taskname name of task (argument to \ref ESOS_USER_TASK declaration
+ * \retval NULLPTR   if task is not found among the active tasks
+ * \retval TaskHandle the handle to the task function requested
+ *  \sa ESOS_USER_TASK
+ *  \sa esos_RegisterTask
+ *  \sa esos_UnregisterTask
+*/
+ESOS_TASK_HANDLE    esos_GetTaskHandleFromID( uint16_t u16_TaskID ) {
+  uint8_t     						u8_i, u8_z;
+  ESOS_TASK_HANDLE			pst_NowTask;
+  ESOS_TASK_HANDLE			pst_ReturnTask = (ESOS_TASK_HANDLE) NULLPTR;
+
+  /* Scan through the pool of "registered" tasks and see
+     if we can find the task function name requested 
+  */  
+  for (u8_i=0; u8_i<__u8UserTasksRegistered; u8_i++) {
+ 		// get next index from array so we can get the task handle
+	  u8_z = __au8UserTaskStructIndex[u8_i];
+    /* check tasks that have been allocated (not a NULLIDX) and
+ 	     not been garbage collected (not REMOVE_IDX) yet.  If our
+       task is among them, then return the handle to the caller
+		*/
+    if ((u8_z != NULLIDX) & (u8_z != REMOVE_IDX)) {
+      pst_NowTask = &__astUserTaskPool[u8_z];
+      // If we find our task, save the pstXXX so we can return it
+      if (pst_NowTask->u16_taskID == u16_TaskID) {
+        pst_ReturnTask = pst_NowTask;
+        break;
+      } // end if (pfn == taskname)
+    } // end if (!NULLIDX)
+  } //end for
+  return pst_ReturnTask;
+} //end esos_GetTaskHandleFromID()
+
 
 
 // TODO: I DONT THINK I NEED TO STORE THE ACTUAL PFNs SINCE THE PARENT'S
@@ -183,8 +293,8 @@ uint8_t    esos_UnregisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstTask) ) 
 * \retval TaskHandle if a child task structure is available
 * \retval ESOS_BAD_CHILD_TASK_HANDLE  if no structures are available at this time
 */
-ESOS_TASK_HANDLE  esos_GetFreeChildTaskStruct() {
-  uint16_t    u16_i = 0;
+ESOS_TASK_HANDLE	esos_GetFreeChildTaskStruct() {
+  uint16_t		u16_i = 0;
 
   while (u16_i < MAX_NUM_CHILD_TASKS) {
     if (ESOS_IS_TASK_INITED( &__astChildTaskPool[u16_i]) )
@@ -385,17 +495,21 @@ uint8_t    esos_ChangeTimerPeriod( ESOS_TMR_HANDLE hnd_timer, uint32_t u32_perio
 } //end esos_geTimerHandle()
 
 void __esosInit(void) {
-  uint8_t     i;
+  uint8_t			u8_i;
 
-  // initialize the fcn ptrs to point to nothing
-  for (i=0; i<MAX_NUM_USER_TASKS; i++) {
-    __astUserTaskPool[i].pfn = NULLPTR;
-    __au8UserTaskStructIndex[i] = NULLIDX;
-    __astChildTaskPool[i].pfn = NULLPTR;
+  // initialize the pool of available user tasks
+  for (u8_i=0; u8_i<MAX_NUM_USER_TASKS; u8_i++) {
+    __astUserTaskPool[u8_i].pfn = NULLPTR;
+    __au8UserTaskStructIndex[u8_i] = NULLIDX;
+    __astChildTaskPool[u8_i].pfn = NULLPTR;
+    // assign each possible user task a mailbox and initialize it
+    __astUserTaskPool[u8_i].pst_Mailbox = &__astMailbox[u8_i];
+    (__astUserTaskPool[u8_i].pst_Mailbox)->pst_CBuffer = &__astCircularBuffers[u8_i];
+    __esos_InitMailbox(__astUserTaskPool[u8_i].pst_Mailbox, &__au8_MBData[u8_i][0]); 
   }
   __esos_u16TmrActiveFlags = 0;
-  for (i=0; i<MAX_NUM_TMRS; i++) {
-    __astTmrSvcs[i].pfn = NULLPTR;
+  for (u8_i=0; u8_i<MAX_NUM_TMRS; u8_i++) {
+    __astTmrSvcs[u8_i].pfn = NULLPTR;
   }
 
   // no user tasks are currently registered
@@ -445,11 +559,10 @@ main_t main(void) {
   ESOS_TASK_HANDLE  pstNowTask;
 
   __esosInit();
-  /*
-  * Then we schedule the two protothreads by repeatedly calling their
-  * protothread functions and passing a pointer to the protothread
-  * state variables as arguments.
+  /* Keep a running counter of number of tasks we've created
+  ** to serve as stupid/simple task identifier
   */
+  __u16NumTasksEverCreated = 0;					
   while (TRUE) {
     /* First, let ESOS get something done.....
      *      service communications, garbage collection, etc.
@@ -462,7 +575,14 @@ main_t main(void) {
      * change the variable __u8UserTasksRegistered as they go!
      */
     u8NumRegdTasksTemp = __u8UserTasksRegistered;
+ 
+ 	// if there are registered tasks, let them run (call them)
     while ( u8i < u8NumRegdTasksTemp  ) {
+      /* Get the next task up for execution.  Call it and catch
+         its state (returned value) when it gives focus back.
+         We may need to do something depending on its new state,
+         e.g. if it has ended, we need to remove it from the rotation
+      */
       pstNowTask = &__astUserTaskPool[__au8UserTaskStructIndex[u8i]];
       u8TaskReturnedVal = pstNowTask->pfn( pstNowTask );
       if (u8TaskReturnedVal == ESOS_TASK_ENDED) {
@@ -473,20 +593,25 @@ main_t main(void) {
       OS_ITERATE;
     } //end while()
 
-    // see if any tasks have been unregistered this time thru
+    /* we have completed a rotation through the set of active tasks
+       Now repack the pool (if necessary) to keep everything nice and
+       tight.
+    */
     if (__esos_IsSystemFlagSet( __ESOS_SYS_FLAG_PACK_TASKS) ) {
-      // Now, loop over the UserTasks and pack them into
-      // the beginning of our arrays
-      //
-      //  Loop over the original number of registered tasks and
-      //  look for NULLPTRs.  If you find one, scoot all the following
-      //  tasks down by one and make the last one a NULLPTR.  Reduce
-      //  our count of tasks by one to make the next search shorter.
-      //
-      //  NOTE: we can't "break" the for-loop search becasue there
-      //        may be more than one unregistered tasks in our arrays
-      // u8i=0; while ( u8i < __u8UserTasksRegistered) {
+      /* Now, loop over the UserTasks and pack them into
+         the beginning of our arrays.  We loop through the list
+         backwards.....
+        
+          Loop over the original number of registered tasks and
+          look for NULLPTRs.  If you find one, scoot all the following
+          tasks down by one and make the last one a NULLPTR.  Reduce
+          our count of tasks by one to make the next search shorter.
+        
+          NOTE: we can't "break" the for-loop search because there
+                may be more than one unregistered tasks in the pool
+      */
       u8i = __u8UserTasksRegistered;
+      // TODO:  CHANGE THIS TO A   do{}while(u8i)
       while(TRUE) {
         pstNowTask = &__astUserTaskPool[u8i];
         if (__au8UserTaskStructIndex[u8i] == REMOVE_IDX) {
@@ -496,10 +621,18 @@ main_t main(void) {
           __au8UserTaskStructIndex[u8NumRegdTasksTemp-1] = NULLIDX;
           u8NumRegdTasksTemp--;
         } // end if
-        //u8i++;
-        if (u8i) u8i--;
-        else break;
+        /* Have we hit the beginning of the task pool yet?
+           If not, decrement (do another).
+           If so, we are done (break)
+        */
+        if (u8i)
+          u8i--;
+        else
+          break;
       } // end while
+      /* We have repacked the task pool (possibly multiple times), so update
+         the new number of registered tasks and clear the task PACK flag
+      */
       __u8UserTasksRegistered=u8NumRegdTasksTemp;   // set record the new number of registered tasks
       __esos_ClearSystemFlag( __ESOS_SYS_FLAG_PACK_TASKS );
     } // end if

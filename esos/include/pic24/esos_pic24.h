@@ -47,7 +47,7 @@
 
 // Emulate the PIC24's registers in RAM variable
 // The user must provide these variables in the user file
-// extern uint8        PIE1;  etc. etc. etc.
+// extern uint8_t        PIE1;  etc. etc. etc.
 
 #else
 /*

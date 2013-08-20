@@ -27,7 +27,7 @@
  *
  */
 
-#define ESOS_USE_IRQS
+#define	ESOS_USE_IRQS
 
 // INCLUDEs go here  (First include the main esos.h file)
 //      After that, the user can include what they need
@@ -45,13 +45,13 @@
 
 // GLOBALs go here
 //  Generally, the user-created semaphores will be defined/allocated here
-volatile uint32   u32_T2Count;
-volatile uint32   u32_T3Count;
-static uint8 psz_T2Is[]="T2 is ";
-static uint8 psz_T3Is[]="T3 is ";
-static uint8 psz_Enabled[]="enabled.";
-static uint8 psz_Disabled[]="disabled.";
-static uint8 psz_CRNL[3]= {0x0D, 0x0A, 0};
+volatile uint32_t		u32_T2Count;
+volatile uint32_t		u32_T3Count;
+static uint8_t psz_T2Is[]="T2 is ";
+static uint8_t psz_T3Is[]="T3 is ";
+static uint8_t psz_Enabled[]="enabled.";
+static uint8_t psz_Disabled[]="disabled.";
+static uint8_t psz_CRNL[3]= {0x0D, 0x0A, 0};
 
 struct stTask*    pst_MyTasks[3];
 
@@ -78,7 +78,7 @@ struct stTask*    pst_MyTasks[3];
  *
  *****************************************************************************/
 ESOS_USER_TASK( upper_case ) {
-  static uint8      u8_Char;
+  static uint8_t	    u8_Char;
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -113,7 +113,7 @@ ESOS_USER_TASK( upper_case ) {
  *
  *****************************************************************************/
 ESOS_USER_TASK( echo ) {
-  static uint8      u8_Char;
+  static uint8_t	    u8_Char;
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -138,8 +138,8 @@ ESOS_USER_TASK( child_echo_buffers ) {
 
 #define   LOCAL_BUFFER_LEN    16
 
-  static uint8            u8_i;
-  static uint8            au8_Char[LOCAL_BUFFER_LEN+4];
+  static uint8_t       			u8_i;
+  static uint8_t 			      au8_Char[LOCAL_BUFFER_LEN+4];
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -164,15 +164,15 @@ ESOS_USER_TASK( child_echo_buffers ) {
 //
 //  USED ONLY FOR DEVELOPMENT AND TESTING!
 ESOS_USER_TASK( random_xmit ) {
-  static uint32    u32_RandomNumber;
-  static uint32    u32_count;
+  static uint32_t    u32_RandomNumber;
+  static uint32_t    u32_count;
   UINT32    U32_Temp;
 
   ESOS_TASK_BEGIN(pstTask);
   u32_RandomNumber = 0;
   while (TRUE) {
     u32_RandomNumber = 245 + (esos_GetRandomUint32() & 0xFF);
-    U32_Temp._uint32 = u32_RandomNumber;
+    U32_Temp._uint32_t = u32_RandomNumber;
     ESOS_TASK_WAIT_ON_AVAILABLE_OUT_COMM();
     ESOS_TASK_SIGNAL_BUSY_OUT_COMM();
 #if FALSE
@@ -196,9 +196,9 @@ ESOS_USER_TASK( random_xmit ) {
 //
 //  USED ONLY FOR DEVELOPMENT AND TESTING!
 ESOS_USER_TASK( random_1 ) {
-  static uint32       u32_RandomNumber;
-  static uint8        u8_RandomNumber;
-  static uint8        u8_Count;
+  static uint32_t       u32_RandomNumber;
+  static uint8_t        u8_RandomNumber;
+  static uint8_t        u8_Count;
   UINT32              U32_Temp;
 
   ESOS_TASK_BEGIN(pstTask);
@@ -206,7 +206,7 @@ ESOS_USER_TASK( random_1 ) {
     u8_Count = 0x13;
     while (u8_Count--) {
       u32_RandomNumber = esos_GetRandomUint32();
-      U32_Temp._uint32 = u32_RandomNumber;
+      U32_Temp._uint32_t = u32_RandomNumber;
       u8_RandomNumber = U32_Temp.u8LoLsb ^ U32_Temp.u8LoMsb ^ U32_Temp.u8HiLsb ^ U32_Temp.u8HiMsb;
       ESOS_TASK_WAIT_ON_AVAILABLE_OUT_COMM();
       ESOS_TASK_SIGNAL_BUSY_OUT_COMM();
@@ -227,9 +227,9 @@ ESOS_USER_TASK( random_1 ) {
 //
 //  USED ONLY FOR DEVELOPMENT AND TESTING!
 ESOS_USER_TASK( random_2 ) {
-  static uint32       u32_RandomNumber;
-  static uint8        u8_RandomNumber;
-  static uint8        u8_Count;
+  static uint32_t       u32_RandomNumber;
+  static uint8_t        u8_RandomNumber;
+  static uint8_t        u8_Count;
   UINT32              U32_Temp;
 
   ESOS_TASK_BEGIN(pstTask);
@@ -237,7 +237,7 @@ ESOS_USER_TASK( random_2 ) {
   u8_Count = 0x16 ;
   while (u8_Count--) {
     u32_RandomNumber = esos_GetRandomUint32();
-    U32_Temp._uint32 = u32_RandomNumber;
+    U32_Temp._uint32_t = u32_RandomNumber;
     u8_RandomNumber = U32_Temp.u8LoLsb ^ U32_Temp.u8LoMsb ^ U32_Temp.u8HiLsb ^ U32_Temp.u8HiMsb;
     ESOS_TASK_WAIT_ON_AVAILABLE_OUT_COMM();
     ESOS_TASK_SIGNAL_BUSY_OUT_COMM();
@@ -262,9 +262,9 @@ ESOS_USER_TASK( random_2 ) {
 //
 //  USED ONLY FOR DEVELOPMENT AND TESTING!
 ESOS_USER_TASK( random_3 ) {
-  static uint32       u32_RandomNumber;
-  static uint8        u8_RandomNumber;
-  static uint8        u8_Count;
+  static uint32_t       u32_RandomNumber;
+  static uint8_t        u8_RandomNumber;
+  static uint8_t        u8_Count;
   UINT32              U32_Temp;
 
   ESOS_TASK_BEGIN(pstTask);
@@ -272,7 +272,7 @@ ESOS_USER_TASK( random_3 ) {
     u8_Count = 0x11;
     while (u8_Count--) {
       u32_RandomNumber = esos_GetRandomUint32();
-      U32_Temp._uint32 = u32_RandomNumber;
+      U32_Temp._uint32_t = u32_RandomNumber;
       u8_RandomNumber = U32_Temp.u8LoLsb;
       ESOS_TASK_WAIT_ON_AVAILABLE_OUT_COMM();
       ESOS_TASK_SIGNAL_BUSY_OUT_COMM();
@@ -308,8 +308,8 @@ ESOS_USER_TASK( random_3 ) {
  *
  *****************************************************************************/
 ESOS_USER_TASK( task_ctrl ) {
-  static  uint8         u8_Char;
-  static  uint8         u8_i;
+  static  uint8_t					u8_Char;
+  static  uint8_t         u8_i;
 
   ESOS_TASK_BEGIN(pstTask);
   while (TRUE) {
@@ -426,7 +426,7 @@ ESOS_USER_TASK( task_ctrl ) {
  *
  *****************************************************************************/
 ESOS_USER_TASK( watchdog ) {
-  static    uint8           u8_i;
+  static    uint8_t           u8_i;
 
   u8_i = FALSE;
   ESOS_TASK_BEGIN(pstTask);
@@ -440,17 +440,17 @@ ESOS_USER_TASK( watchdog ) {
 
       if ( u8_i && BIT0 ) {
         ESOS_TASK_WAIT_ON_SEND_STRING( "pstTasks[0] is now " );
-        ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32) pst_MyTasks[0]->pfn );
+        ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32_t) pst_MyTasks[0]->pfn );
         ESOS_TASK_WAIT_ON_SEND_STRING( psz_CRNL );
       }
       if ( u8_i && BIT1 ) {
         ESOS_TASK_WAIT_ON_SEND_STRING( "pstTasks[1] is now" );
-        ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32) pst_MyTasks[1]->pfn );
+        ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32_t) pst_MyTasks[1]->pfn );
         ESOS_TASK_WAIT_ON_SEND_STRING( psz_CRNL );
       }
       if ( u8_i && BIT2 ) {
         ESOS_TASK_WAIT_ON_SEND_STRING( "pstTasks[2] is now" );
-        ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32) pst_MyTasks[2]->pfn );
+        ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32_t) pst_MyTasks[2]->pfn );
         ESOS_TASK_WAIT_ON_SEND_STRING( psz_CRNL );
       }
       ESOS_TASK_RELEASE_OUT_COMM();
@@ -484,13 +484,13 @@ ESOS_USER_TASK( init_print ) {
   ESOS_TASK_WAIT_ON_AVAILABLE_OUT_COMM();
   ESOS_TASK_SIGNAL_BUSY_OUT_COMM();
   ESOS_TASK_WAIT_ON_SEND_STRING( "pstTasks[0] is " );
-  ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32) pst_MyTasks[0]->pfn );
+  ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32_t) pst_MyTasks[0]->pfn );
   ESOS_TASK_WAIT_ON_SEND_STRING( psz_CRNL );
   ESOS_TASK_WAIT_ON_SEND_STRING( "pstTasks[1] is " );
-  ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32) pst_MyTasks[1]->pfn );
+  ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32_t) pst_MyTasks[1]->pfn );
   ESOS_TASK_WAIT_ON_SEND_STRING( psz_CRNL );
   ESOS_TASK_WAIT_ON_SEND_STRING( "pstTasks[2] is " );
-  ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32) pst_MyTasks[2]->pfn );
+  ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING( (uint32_t) pst_MyTasks[2]->pfn );
   ESOS_TASK_WAIT_ON_SEND_STRING( psz_CRNL );
   ESOS_TASK_RELEASE_OUT_COMM();
   ESOS_TASK_END(pstTask);
@@ -534,8 +534,8 @@ ESOS_USER_TASK( init_print ) {
  *
  *****************************************************************************/
 void user_init(void) {
-  uint16*   pu16_ptr;
-  uint16    u16_junk;
+  uint16_t*		pu16_ptr;
+  uint16_t		u16_junk;
 
   __esos_hw_PutString( HELLO_MSG );
 

@@ -96,7 +96,7 @@ unsigned b7:
  * have to be reordered!
  * \note Prefix for all UINT16 structs is <em>U16_</em>
  * \code
- * uint8      u8_a, u8_b;
+ * uint8_t      u8_a, u8_b;
  * UINT16     U16_y;
  *
  * U16_y._uint16 = 0xF00D;

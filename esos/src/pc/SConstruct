@@ -13,6 +13,8 @@ opt.Append(CPPPATH=['../../include', '../../include/pc'])
 
 ESOS_common = Split("""../esos.c
                 ../esos_comm.c
+                ../esos_mail.c
+                ../esos_cb.c
                 """)
        
 ESOS_pic24 = Split("""esos_pic24_tick.c

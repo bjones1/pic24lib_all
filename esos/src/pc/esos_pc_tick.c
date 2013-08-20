@@ -44,10 +44,10 @@
 #include    "all_generic.h"
 
 // PROTOTYPE our private little helper functions
-uint32  clock_time(void);
+uint32_t  clock_time(void);
 
 // create a variable to save the initial clock time in
-static uint32     initClockCount;
+static uint32_t     initClockCount;
 
 /*
  * User must provide the HW-specific routine to setup a system
@@ -71,11 +71,11 @@ void    __esos_hw_InitSystemTick(void) {
  *
  * get the current time and compute delta back to init time
  */
-uint32   __esos_hw_GetSystemTickCount(void) {
+uint32_t   __esos_hw_GetSystemTickCount(void) {
   return (clock_time()-initClockCount);
 }  // end _esos_hw_GetSystemTickCount()
 
-uint32 clock_time(void) {
+uint32_t clock_time(void) {
   struct timeval tv;
   struct timezone tz;
 

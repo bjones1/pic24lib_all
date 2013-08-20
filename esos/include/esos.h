@@ -41,11 +41,15 @@
 #define BUILT_ON_ESOS
 #endif
 
+// Place this define here because many of the the following INCLUDE files need this macro variable
+#define     MAX_NUM_USER_TASKS      16
+
 
 // Include all the files we need
 //#include "user_config.h"      // get the user's configuration requests
 #include "all_generic.h"
 #include "esos_task.h"          // defines ESOS tasks and semaphores
+#include "esos_mail.h"					// defines ESOS task mailboxes (eventually make MAILBOXes optional)
 
 // PUT THESE HERE FOR NOW.  They belong somewhere else
 // in the long-run.
@@ -89,9 +93,48 @@ typedef             int                 main_t;
 #define             OS_ITERATE
 #endif
 
-/*
- *  Create the ESOS structures we need
+//*********************************************************************
+// P R I V A T E    D E F I N I T I O N S
+//*********************************************************************
+/**
+ * Define the maximum number of user tasks in the system
+ *    \note Technically, this is actually the maximum number of
+ *          tasks that will be running "concurrently".  Usually,
+ *          this number is the maximum number of tasks that the
+ *          user has defined, UNLESS they are absolutely sure that
+ *          two (or more) tasks are mutually exclusive in execution.
+ *
+ *	  \note BOTH "parent" and "child" tasks use this NUMBER to allocate
+ *			their pool of tasks.  So this number should be equal to or greater
+ *          than the MAXIMUM number of concurrently running child --OR--
+ *          parent tasks.
  */
+#define     MAX_NUM_CHILD_TASKS     MAX_NUM_USER_TASKS
+#define     REMOVE_IDX              0xFE
+
+
+/* S T R U C T U R E S ******************************************************/
+/**
+* structure to contain a set of descriptors about the buffers used
+* to implement ESOS task mailboxes
+**/
+struct stMailBoxDesc {
+  volatile uint8_t*	pau8_Data;
+  int16_t	                u16_Head;
+  int16_t	                u16_Tail;
+  uint16_t                u16_Length;
+  struct stTask		pst_Task;
+};
+
+/**
+* structure to contain a mail message "envelope" -- a set of descriptors
+* about a mail message and the contents within
+**/
+struct stMailEnvelope {
+  uint16_t                u16_Header;
+  uint32_t		u32_Postmark;
+};
+
 struct stTimer {
   void    (*pfn)(void);
   uint32_t  u32_period;
@@ -231,6 +274,8 @@ ESOS_TASK_HANDLE   esos_RegisterTask( uint8_t (*pfn_TaskFcn)(struct stTask *pst_
 uint8_t   esos_UnregisterTask( uint8_t (*pfn_TaskFcn)(struct stTask *pst_Task) ) ;
 ESOS_TASK_HANDLE  esos_GetFreeChildTaskStruct();
 uint32_t    esos_GetRandomUint32();
+ESOS_TASK_HANDLE    esos_GetTaskHandle( uint8_t (*taskname)(ESOS_TASK_HANDLE pstTask) );
+ESOS_TASK_HANDLE    esos_GetTaskHandleFromID( uint16_t u16_TaskID );
 
 // prototypes for ESOS software timers
 ESOS_TMR_HANDLE    esos_RegisterTimer( void (*pfnTmrFcn)(void), uint32_t u32_period );
@@ -248,12 +293,14 @@ uint32_t  __esos_hw_GetSystemTickCount(void);
  * Therefore, the value returned by this function is approximately
  * equal to the number of milliseconds since the since was last
  * reset.
- * \return The \ref uint32 value of current value of the ESOS
+ * \return The \ref uint32_t value of current value of the ESOS
  * system tick counter
  * \note This counter value will roll-over every 49.7 days.
  * \hideinitializer
  */
 #define   esos_GetSystemTick()          __esos_hw_GetSystemTickCount()
+
+
 uint16_t  __esos_hasTickDurationPassed(uint32_t u32_startTick, uint32_t u32_period);
 void    __esos_tmrSvcsExecute(void);
 
@@ -270,7 +317,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 /**
  * Get the current number of user task registered with the
  * ESOS scheduler.
- * \return The \ref uint8 number of currently registered user tasks
+ * \return The \ref uint8_t number of currently registered user tasks
  * \note This value does not include the number of child tasks
  * (tasks of the type \ref ESOS_CHILD_TASK ), just the tasks
  * of the type \ref ESOS_USER_TASK
@@ -282,16 +329,16 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
  * Returns the system tick value of a future time
  * \param deltaT the number of ticks in the future you'd like the
  * system tick value for
- * \return The \ref uint32 number corresponding to the system tick
+ * \return The \ref uint32_t number corresponding to the system tick
  * value of that future time
  * \sa esos_GetSystemTick
  * \hideinitializer
  */
-#define esos_GetFutureSystemTick(deltaT)    ((uint32)(deltaT) + __esos_hw_GetSystemTickCount());
+#define esos_GetFutureSystemTick(deltaT)    ((uint32_t)(deltaT) + __esos_hw_GetSystemTickCount());
 
 /**
  * Sets bits in the global user flags provided by ESOS
- * \param mask An \ref uint16 value composed of the OR-ed user
+ * \param mask An \ref uint16_t value composed of the OR-ed user
  * mask flag masks, where each flag in the OR will be set
  * \note User should use the provided bits masks like \ref ESOS_USER_FLAG_0
  *  to create their own readable constants
@@ -309,7 +356,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 
 /**
  * Clears bits in the global user flags provided by ESOS
- * \param mask An \ref uint16 value composed of the OR-ed user
+ * \param mask An \ref uint16_t value composed of the OR-ed user
  * mask flag masks, where each flag in the OR will be cleared
  * \note User should use the provided bits masks like \ref ESOS_USER_FLAG_0
  * and \ref ESOS_USER_FLAG_1 and ... \ref ESOS_USER_FLAG_F
@@ -329,7 +376,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 
 /**
  * Queries whether the global user flags provided by ESOS are set
- * \param mask An \ref uint16 value composed of the OR-ed user
+ * \param mask An \ref uint16_t value composed of the OR-ed user
  * mask flag masks, where each flag in the OR will be checked for being set
  * \retval TRUE if <em>at least</em> one of the flags is set
  * \retval FALSE if none of the flags are set
@@ -351,7 +398,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 
 /**
  * Queries whether the global user flags provided by ESOS are clear
- * \param mask An \ref uint16 value composed of the OR-ed user
+ * \param mask An \ref uint16_t value composed of the OR-ed user
  * mask flag masks, where each flag in the OR will be checked for being clear
  * \retval TRUE if <em>at least</em> one of the flags is clear
  * \retval FALSE if none of the flags are clear
@@ -385,7 +432,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 /**
  * Get the current number of user software timers registers (running)
  * in the ESOS timer services
- * \return The \ref uint8 number of currently registered user tasks
+ * \return The \ref uint8_t number of currently registered user tasks
  * \hideinitializer
  */
 #define esos_GetNumberRunningTimers()          (__esos_u8TmrSvcsRegistered)

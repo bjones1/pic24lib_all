@@ -50,13 +50,16 @@
 #define __ESOS_TASK_H__
 
 #include "lc.h"
+#include "esos_mail.h"
 
 struct stTask {
-  lc_t    lc;
-  uint8_t   flags;
-  uint8_t   (*pfn)(struct stTask *);
-  uint32_t  u32_savedTick;
-  uint32_t  u32_waitLen;
+  lc_t    							lc;
+  uint8_t   							flags;
+  uint8_t   							(*pfn)(struct stTask *);
+  uint32_t  							u32_savedTick;
+  uint32_t  							u32_waitLen;
+  uint16_t								u16_taskID;
+  MAILBOX*							pst_Mailbox;
 };
 
 /** \struct ESOS_TASK_HANDLE
@@ -70,9 +73,23 @@ struct stTask {
  */
 typedef   struct stTask*                   ESOS_TASK_HANDLE;
 
+/******************************
+** create a typedef to represent pointers to ESOS
+** user task functions
+*******************************/
+// typedef   uint8_t (*pfn_ESOS_USER_TASK)(struct stTask *pst_Task);
+#define		__MAKE_UINT16_TASK_ID(pfn)								(uint16_t) (pfn)
+#define		ESOS_DOES_TASK_HAVE_ID(pfn,taskID)				((taskID)==__MAKE_UINT16_TASK_ID((pfn)))
+
 /* Task "return" values.  Used by scheduler to determine what to do with task **/
 #define ESOS_TASK_WAITING 0
 #define ESOS_TASK_ENDED  3
+
+
+/* Task flag : task is waiting on ACK from other task reading mail */
+#define __TASK_MAILNACK_MASK     BIT5
+/* Task flag : task has mail needing to be read */
+#define __TASK_HASMAIL_MASK      BIT4
 
 /* Task flag : task has ended (hit ESOS_TASK_END) */
 #define __TASK_ENDED_MASK        BIT3
@@ -97,6 +114,12 @@ typedef   struct stTask*                   ESOS_TASK_HANDLE;
 #define   __ESOS_IS_TASK_CALLED(TaskHandle)            IS_BIT_SET_MASK((TaskHandle)->flags, __TASK_CALLED_MASK)
 #define   __ESOS_SET_TASK_ENDED_FLAG(TaskHandle)       BIT_SET_MASK((TaskHandle)->flags, __TASK_ENDED_MASK)
 #define   __ESOS_CLEAR_TASK_ENDED_FLAG(TaskHandle)     BIT_CLEAR_MASK((TaskHandle)->flags, __TASK_ENDED_MASK)
+
+/* mailbox task flags */
+#define   __ESOS_SET_TASK_HASMAIL_FLAG(TaskHandle)     BIT_SET_MASK((TaskHandle)->flags, __TASK_HASMAIL_MASK)
+#define   __ESOS_CLEAR_TASK_HASMAIL_FLAG(TaskHandle)   BIT_CLEAR_MASK((TaskHandle)->flags, __TASK_HASMAIL_MASK)
+#define   __ESOS_SET_TASK_MAILNACK_FLAG(TaskHandle)    BIT_SET_MASK((TaskHandle)->flags, __TASK_MAILNACK_MASK)
+#define   __ESOS_CLEAR_TASK_MAILNACK_FLAG(TaskHandle)  BIT_CLEAR_MASK((TaskHandle)->flags, __TASK_MAILNACK_MASK)
 
 
 /**
@@ -617,7 +640,7 @@ struct stSemaphore {
  * between -32768 and +32767
  *
  * \param semaphoreName An ESOS semaphore created by \ref ESOS_SEMAPHORE
- * \param i16_val (int16) The initial count of the semaphore.
+ * \param i16_val (int16_t) The initial count of the semaphore.
  * \sa ESOS_SEMAPHORE
  * \sa ESOS_TASK_WAIT_SEMAPHORE
  * \sa ESOS_SIGNAL_SEMAPHORE
@@ -634,7 +657,7 @@ struct stSemaphore {
  * zero. When the counter reaches a value larger than zero, the
  * task will continue.
  * \param semaphoreName An ESOS semaphore created by \ref ESOS_SEMAPHORE
- * \param i16_val (int16) number to decrement semaphore value
+ * \param i16_val (int16_t) number to decrement semaphore value
  * \sa ESOS_SEMAPHORE
  * \sa ESOS_INIT_SEMAPHORE
  * \sa ESOS_SIGNAL_SEMAPHORE
@@ -654,7 +677,7 @@ struct stSemaphore {
  * signal operation increments the counter inside the semaphore, which
  * eventually will cause waiting protothreads to continue executing.
  * \param semaphoreName An ESOS semaphore created by \ref ESOS_SEMAPHORE
- * \param i16_val (int16) number to decrement semaphore value
+ * \param i16_val (int16_t) number to decrement semaphore value
  * \sa ESOS_SEMAPHORE
  * \sa ESOS_TASK_WAIT_SEMAPHORE
  * \sa ESOS_INIT_SEMAPHORE
