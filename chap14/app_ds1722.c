@@ -238,9 +238,19 @@ void configSPI1(void) {
              SPI_MODE8_ON        | //8-bit mode
              MASTER_ENABLE_ON;     //master mode
   //configure pins. Only need SDO, SCLK, and SDI
+// Only remap pins if the pin isn't hard assigned.
+#if defined(_SDI1R)
   CONFIG_SDO1_TO_RP(RB6_RP);      //use RB6 for SDO
   CONFIG_SCK1OUT_TO_RP(RB7_RP);   //use RB7 for SCLK
   CONFIG_SDI1_TO_RP(RB5_RP);      //use RB5 for SDI
+#else
+  // SDI1 on dsPIC33EP128GP504
+  CONFIG_RA9_AS_DIG_INPUT();
+  // SDO
+  CONFIG_RA4_AS_DIG_OUTPUT();
+  // SCK
+  CONFIG_RC3_AS_DIG_OUTPUT();
+#endif
   CONFIG_SLAVE_ENABLE();       //chip select for DS1722
   SLAVE_DISABLE();             //disable the chip select
   SPI1STATbits.SPIEN = 1;  //enable SPI mode
