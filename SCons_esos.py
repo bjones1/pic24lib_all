@@ -17,6 +17,8 @@ for sourceFile in Glob('chap14/*.c', True, True, True):
         'lib/src/pic24_uart.c',
         'esos/src/esos.c',
         'esos/src/esos_comm.c',
+        'esos/src/esos_cb.c',
+        'esos/src/esos_mail.c',
         'esos/src/pic24/esos_pic24_i2c.c',
         'esos/src/pic24/esos_pic24_irq.c',
         'esos/src/pic24/esos_pic24_rs232.c',
