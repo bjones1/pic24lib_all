@@ -18,6 +18,8 @@
         <itemPath>../../esos/include/all_generic.h</itemPath>
         <itemPath>../../esos/include/pic24/esos_pic24_i2c.h</itemPath>
         <itemPath>../../esos/include/pic24/esos_pic24_spi.h</itemPath>
+        <itemPath>../../esos/include/esos_cb.h</itemPath>
+        <itemPath>../../esos/include/esos_mail.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="PIC24" projectFiles="true">
         <itemPath>../../lib/include/pic24_all.h</itemPath>
@@ -48,6 +50,8 @@
         <itemPath>../../esos/src/pic24/esos_pic24_tick.c</itemPath>
         <itemPath>../../esos/src/pic24/esos_pic24_i2c.c</itemPath>
         <itemPath>../../esos/src/pic24/esos_pic24_spi.c</itemPath>
+        <itemPath>../../esos/src/esos_cb.c</itemPath>
+        <itemPath>../../esos/src/esos_mail.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="Main Project Files" projectFiles="true">
         <itemPath>../esos_skel.c</itemPath>
@@ -89,7 +93,7 @@
     <conf name="app_childtask" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC24HJ32GP202</targetDevice>
+        <targetDevice>dsPIC33EP128GP504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -116,46 +120,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
       <item path="../../lib/include/pic24_serial.h" ex="true" overriding="false">
         <C30>
         </C30>
@@ -187,6 +151,46 @@
         </C30Global>
       </item>
       <item path="../../lib/include/pic24_util.h" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -370,7 +374,7 @@
     <conf name="app_ds1631" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC24HJ32GP202</targetDevice>
+        <targetDevice>dsPIC33EP128GP504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -397,46 +401,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
       <item path="../../lib/include/pic24_serial.h" ex="true" overriding="false">
         <C30>
         </C30>
@@ -468,6 +432,46 @@
         </C30Global>
       </item>
       <item path="../../lib/include/pic24_util.h" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -634,7 +638,7 @@
     <conf name="app_ds1722" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC24HJ32GP202</targetDevice>
+        <targetDevice>dsPIC33EP128GP504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -661,46 +665,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
       <item path="../../lib/include/pic24_serial.h" ex="true" overriding="false">
         <C30>
         </C30>
@@ -732,6 +696,46 @@
         </C30Global>
       </item>
       <item path="../../lib/include/pic24_util.h" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -898,7 +902,7 @@
     <conf name="app_echo1" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC24HJ32GP202</targetDevice>
+        <targetDevice>dsPIC33EP128GP504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -925,46 +929,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
       <item path="../../lib/include/pic24_serial.h" ex="true" overriding="false">
         <C30>
         </C30>
@@ -996,6 +960,46 @@
         </C30Global>
       </item>
       <item path="../../lib/include/pic24_util.h" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1179,7 +1183,7 @@
     <conf name="app_flashled" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC24HJ32GP202</targetDevice>
+        <targetDevice>dsPIC33EP128GP504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -1206,46 +1210,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
       <item path="../../lib/include/pic24_serial.h" ex="true" overriding="false">
         <C30>
         </C30>
@@ -1277,6 +1241,46 @@
         </C30Global>
       </item>
       <item path="../../lib/include/pic24_util.h" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1443,7 +1447,7 @@
     <conf name="app_irqs" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC24HJ32GP202</targetDevice>
+        <targetDevice>dsPIC33EP128GP504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -1627,7 +1631,7 @@
     <conf name="app_reverse" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC24HJ32GP202</targetDevice>
+        <targetDevice>dsPIC33EP128GP504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -1654,46 +1658,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
       <item path="../../lib/include/pic24_serial.h" ex="true" overriding="false">
         <C30>
         </C30>
@@ -1725,6 +1689,46 @@
         </C30Global>
       </item>
       <item path="../../lib/include/pic24_util.h" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -1891,7 +1895,7 @@
     <conf name="app_semaphore1" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC24HJ32GP202</targetDevice>
+        <targetDevice>dsPIC33EP128GP504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -1918,46 +1922,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
       <item path="../../lib/include/pic24_serial.h" ex="true" overriding="false">
         <C30>
         </C30>
@@ -1989,6 +1953,46 @@
         </C30Global>
       </item>
       <item path="../../lib/include/pic24_util.h" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2155,7 +2159,7 @@
     <conf name="app_semaphore2" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC24HJ32GP202</targetDevice>
+        <targetDevice>dsPIC33EP128GP504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -2182,46 +2186,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
       <item path="../../lib/include/pic24_serial.h" ex="true" overriding="false">
         <C30>
         </C30>
@@ -2253,6 +2217,46 @@
         </C30Global>
       </item>
       <item path="../../lib/include/pic24_util.h" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2419,7 +2423,7 @@
     <conf name="app_timerLEDecho" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC24HJ32GP202</targetDevice>
+        <targetDevice>dsPIC33EP128GP504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -2446,46 +2450,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
       <item path="../../lib/include/pic24_serial.h" ex="true" overriding="false">
         <C30>
         </C30>
@@ -2517,6 +2481,46 @@
         </C30Global>
       </item>
       <item path="../../lib/include/pic24_util.h" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
@@ -2683,7 +2687,7 @@
     <conf name="esos_skel" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC24HJ32GP202</targetDevice>
+        <targetDevice>dsPIC33EP128GP504</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
@@ -2710,46 +2714,6 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
-      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AS>
-        </C30-AS>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
-      </item>
       <item path="../../lib/include/pic24_serial.h" ex="true" overriding="false">
         <C30>
         </C30>
@@ -2781,6 +2745,46 @@
         </C30Global>
       </item>
       <item path="../../lib/include/pic24_util.h" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_serial.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_timer.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_uart.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/src/pic24_util.c" ex="true" overriding="false">
         <C30>
         </C30>
         <C30-AS>
