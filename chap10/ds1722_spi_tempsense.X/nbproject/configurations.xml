@@ -19,7 +19,7 @@
         <itemPath>../../lib/include/pic24_i2c.h</itemPath>
         <itemPath>../../lib/include/pic24_libconfig.h</itemPath>
         <itemPath>../../lib/include/pic24_ports.h</itemPath>
-        <itemPath>../../lib/include/pic24_ports_e_config.h</itemPath>
+        <itemPath>../../lib/include/pic24_ports_config.h</itemPath>
         <itemPath>../../lib/include/pic24_ports_mapping.h</itemPath>
         <itemPath>../../lib/include/pic24_serial.h</itemPath>
         <itemPath>../../lib/include/pic24_spi.h</itemPath>
