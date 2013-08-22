@@ -43,7 +43,7 @@ void config_led1() {
   ENABLE_RB15_OPENDRAIN();
 }
 
-//_LATB15 is port register for RB15.
+// _LATB15 is the port register for RB15.
 #define LED1 (_LATB15)
 
 int main(void) {
@@ -51,7 +51,9 @@ int main(void) {
   config_led1();
   LED1 = 0;
   while (1) {
-    DELAY_MS(250);  //delay long enough to see LED blink
-    LED1 = !LED1;  // Toggle LED
+    // Delay long enough to see LED blink.
+    DELAY_MS(250);
+    // Toggle the LED.
+    LED1 = !LED1;
   } // end while (1)
 }

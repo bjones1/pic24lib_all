@@ -18,21 +18,24 @@
 ; asm_echo.s -- Demonstrates calling C from assembly
 ; **************************************************
 ; Demonstrates how to call C functions from assembly lanaguage.
-; Implements a UART1 character echo, and calls the
-; \ref configBasic, \ref inChar, and \ref outChar functions.
+; Implements a UART1 character echo, and calls the configBasic, inChar, and outChar functions.
 
-.include "xc.inc"         ; Include processor-specific headers
-
-
-           .section psv psv		; Place following statements in PSV space
-HELLO_MSG: .asciz "asm_echo.s ready!\n" ; Define a null-terminated ASCII string
+; Include processor-specific headers
+.include "xc.inc"
 
 
-;..............................................................................
-;Code Section in Program Memory
-;..............................................................................
+; Data section
+; ============
+; This directive causes the assember to place the following statements in PSV space (constant memory).
+           .section psv psv
+; Define a null-terminated ASCII string.
+HELLO_MSG: .asciz "asm_echo.s ready!\n"
 
-.text                             ;Start of Code section
+
+; Code Section
+; ============
+; This directive causes the assembler to place the following statements in program memory.
+.text
 
 ;; int main() {
 ; Make ``main`` visible outside this file so that *C* startup code can call it.
