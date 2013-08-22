@@ -169,7 +169,7 @@ uint32_t __esos_CB_ReadUINT32(CBUFFER* pst_CBuffer ) {
 
 
 void __esos_CB_ReadUINT8Buffer(CBUFFER* pst_CBuffer, uint8_t* pu8_x, uint16_t u16_size ) {
-		uint16_t		u16_i, u16_end;
+		uint16_t		u16_i;
 		
 		for (u16_i=0; u16_i<u16_size; u16_i++) {		
 			__READ_CB_UINT8(pst_CBuffer, pu8_x[u16_i]);
