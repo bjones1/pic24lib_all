@@ -205,6 +205,9 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap10stdio', 'chap11dma'
 buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big', 'chap12_24E'],
   env.Clone(MCU='24EP64GP202'), 'default')
 
+# Build some for the CAN2 rev.C1 board used in ECE4723 Embedded Systems
+buildTargetsSConscript(['embeddedC1'],
+  env.Clone(MCU='33EP128GP504', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_C1'), 'default')
 
 # Build for the explorer board
 buildTargetsSConscript(['explorer'],

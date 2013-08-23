@@ -172,5 +172,11 @@ if 'explorerh' in buildTargets:  # Don't build rtcc.c, since the PIC24H doesn't 
     'explorer16_100p/timer1_sosc.c'], PIC24SupportLibObjects, env, {}, 'explorerh')
 if 'explorer' in buildTargets:
   buildWithCommonSources(['explorer16_100p/*.c'], PIC24SupportLibObjects, env, {}, 'explorer')
+if 'embeddedC1' in buildTargets:
+  buildWithCommonSources(['chap08/echo.c','chap08/lcd4bit.c','chap08/ledsw1.c',
+                'chap08/ledtoggle.c','chap08/ledflash.c'],
+                PIC24SupportLibObjects, env, {}, 'embeddedC1')
+
+
 
 ## @}

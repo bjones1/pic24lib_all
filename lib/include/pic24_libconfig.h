@@ -330,6 +330,9 @@
 # elif (HARDWARE_PLATFORM == DANGEROUS_WEB)
 #   define HB_LED _LATA8
 #   define CONFIG_HB_LED() CONFIG_RA8_AS_DIG_OUTPUT()
+# elif (HARDWARE_PLATFORM == EMBEDDED_C1)
+#   define HB_LED _LATB15
+#   define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
 # else // All other hardware platforms
 /** Choose a pin for the heartbeat.
  *  If \ref USE_HEARTBEAT is false, the heartbeat is disabled.
