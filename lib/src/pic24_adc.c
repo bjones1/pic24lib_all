@@ -101,7 +101,12 @@ void configADC1_ManualCH0(uint16_t u16_ch0PositiveMask,
   ASSERT(u8_use12bit == 0);
 #endif
   AD1CON3 = ADC_CONV_CLK_INTERNAL_RC | (u8_autoSampleTime<<8);
+
+#ifdef EMBEDDED_C1
+  AD1CON2 = ADC_VREF_AVDD_EXT; // Brings in VREF on the Embedded board.
+#else
   AD1CON2 = ADC_VREF_AVDD_AVSS;
+
 #if (defined(__PIC24H__)|| defined(__dsPIC33F__) || defined(__PIC24E__)|| defined(__dsPIC33E__))
   AD1CHS0 = ADC_CH0_NEG_SAMPLEA_VREFN | u16_ch0PositiveMask;
 #else
