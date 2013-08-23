@@ -38,14 +38,24 @@
 // Pushbutton configuration and access
 // ===================================
 void config_pb()  {
+#if (HARDWARE_PLATFORM == EMBEDDED_C1)
+  CONFIG_RB7_AS_DIG_INPUT();
+  ENABLE_RB7_PULLUP();
+#else
   CONFIG_RB13_AS_DIG_INPUT();
   ENABLE_RB13_PULLUP();
+#endif
   // Give the pullup some time to take effect.
   DELAY_US(1);
 }
 
-#define PB_PRESSED()   (_RB13 == 0)
-#define PB_RELEASED()  (_RB13 == 1)
+#if (HARDWARE_PLATFORM == EMBEDDED_C1)
+  #define PB_PRESSED()   (_RB7 == 0)
+  #define PB_RELEASED()  (_RB7 == 1)
+#else
+  #define PB_PRESSED()   (_RB13 == 0)
+  #define PB_RELEASED()  (_RB13 == 1)
+#endif
 
 // State machine
 // =============

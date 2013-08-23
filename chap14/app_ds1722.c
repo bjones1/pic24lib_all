@@ -237,21 +237,19 @@ void configSPI1(void) {
              SPI_CKE_OFF          | //out changes inactive to active (CKE=0)
              SPI_MODE8_ON        | //8-bit mode
              MASTER_ENABLE_ON;     //master mode
-  //configure pins. Only need SDO, SCLK, and SDI
-// Only remap pins if the pin isn't hard assigned.
-#if defined(_SDI1R)
-  CONFIG_SDO1_TO_RP(RB6_RP);      //use RB6 for SDO
-  CONFIG_SCK1OUT_TO_RP(RB7_RP);   //use RB7 for SCLK
-  CONFIG_SDI1_TO_RP(RB5_RP);      //use RB5 for SDI
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  //nothing to do here. On this family, the SPI1 port uses dedicated
+  //pins for higher speed. The SPI2 port can be used with remappable pins.
 #else
-  // SDI1 on dsPIC33EP128GP504
-  CONFIG_RA9_AS_DIG_INPUT();
-  // SDO
-  CONFIG_RA4_AS_DIG_OUTPUT();
-  // SCK
-  CONFIG_RC3_AS_DIG_OUTPUT();
+//all other families (PIC24H/PIC24F/dsPIC33F)
+  CONFIG_SDO1_TO_RP(RB6_RP);      //use RB6 for SDO
+  CONFIG_RB6_AS_DIG_OUTPUT();   //Ensure that this is a digital output
+  CONFIG_SCK1OUT_TO_RP(RB7_RP);   //use RB7 for SCLK
+  CONFIG_RB7_AS_DIG_INPUT();   //Ensure that this is a digital input
+  CONFIG_SDI1_TO_RP(RB5_RP);      //use RP5 for SDI
+  CONFIG_RB5_AS_DIG_INPUT();   //Ensure that this is a digital input
 #endif
-  CONFIG_SLAVE_ENABLE();       //chip select for DS1722
+  CONFIG_SLAVE_ENABLE();       //chip select for MCP41xxx
   SLAVE_DISABLE();             //disable the chip select
   SPI1STATbits.SPIEN = 1;  //enable SPI mode
 }

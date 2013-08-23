@@ -89,8 +89,11 @@ def bin2hex(binName, buildEnvironment, aliasString):
   # Add this hex file to a convenient alias
   buildEnvironment.Alias(aliasString, myHex)
 
+# TODO this environment appears to need to go away...... The XC compiler tools
+#  have common names across platforms now so the default environment above
+#  seems to get the job done.
 # Adjust our environment to be specific the host OS
-if os.name == 'posix':
+if os.name == 'posix_NOT_USED_ANYMORE':
   print "Modifiying environment for Linux"
   incDirs = Split( """include
     /usr/pic30-elf/include
@@ -202,6 +205,9 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap10stdio', 'chap11dma'
 buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big', 'chap12_24E'],
   env.Clone(MCU='24EP64GP202'), 'default')
 
+# Build some for the CAN2 rev.C1 board used in ECE4723 Embedded Systems
+buildTargetsSConscript(['embeddedC1'],
+  env.Clone(MCU='33EP128GP504', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_C1'), 'default')
 
 # Build for the explorer board
 buildTargetsSConscript(['explorer'],
@@ -294,12 +300,12 @@ def buildTargetsEsos(env, mcu):
       
 # Build ESOS over a variety of chips.
 for mcu in (
-#            '24HJ32GP202',
-#            '24FJ32GA002',
-#            '24HJ128GP502',
+    #       '24HJ32GP202',
+    #        '24FJ32GA002',
+            '24HJ128GP502',
             '24EP64GP202',
-#            '33FJ32GP202',
-#            '33FJ128GP802',
+    #        '33FJ32GP202',
+            '33FJ128GP802',
             '33EP128GP502',
             '33EP128GP504',
            ):

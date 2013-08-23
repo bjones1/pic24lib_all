@@ -119,7 +119,7 @@
 /*
 *  IRQ masks for the PIC24HJ32GP202
 */
-#if defined(__PIC24HJ32GP202__)  || defined(__DOXYGEN__)
+#if defined(__PIC24H__) || defined(__PIC24F__) || defined(__dsPIC33H__) || defined(__dsPIC33F__) || defined(__DOXYGEN__) 
 //         MNEMONIC            C30 ISR ATTRIB, IVT addr, IFS register, IFS bit, IPC register, IPC bit
 /**
  * AD1 Conversion Complete Interrupt (User interrupt descriptor)
@@ -435,7 +435,7 @@
 
 #endif      // end of UART1 constants
 
-#endif      // __PIC24HJ32GP202__
+#endif      // __PIC24H__ family
 
 // This covers the dsPIC33EPxxxGP50x, dsPIC33EPxxxMC20x/50x, and PIC24EPxxxGP/MC20x - rnn13 8/21/2013
 #if defined(__PIC24EP32GP202__)		|| defined(__PIC24EP64GP202__)		|| \

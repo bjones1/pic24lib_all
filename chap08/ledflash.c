@@ -39,8 +39,12 @@
 
 
 void config_led1() {
+#if (HARDWARE_PLATFORM == EMBEDDED_C1)
+  CONFIG_RB15_AS_DIG_OUTPUT();
+#else
   CONFIG_RB15_AS_DIG_OUTPUT();
   ENABLE_RB15_OPENDRAIN();
+#endif
 }
 
 // _LATB15 is the port register for RB15.
