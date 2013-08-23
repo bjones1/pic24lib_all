@@ -61,6 +61,10 @@ typedef union _UINT8 {
   /** uint8 viewed as an uint8 */
   uint8_t u8;
   struct {
+	unsigned LSN: 4; /** Least significant nibble of the uint8 */
+	unsigned MSN: 4;    /** Most signficant nibble of the uint8 */
+  };
+  struct {
     /** bit 0 (the LSb) of the uint8 */
 unsigned b0:
     1;
@@ -110,11 +114,21 @@ typedef union _UINT16 {
   uint16_t _uint16;
   /** uint16 viewed as an uint16 */
   uint16_t u16;
+  /** int16 viewed as an int16*/
+  int16_t int16;
+  /** int16 viewed as an int16*/
+  int16_t i16;
   struct {
     /** LSB (uint8) of the uint16 */
     uint8_t u8Lsb;
     /** MSB (uint8) of the uint16 */
     uint8_t u8Msb;
+  };
+  struct {
+      unsigned LSBLSN: 4;
+      unsigned LSBMSN: 4;
+      unsigned MSBLSN: 4;
+      unsigned MSBMSN: 4;
   };
   struct {
     /** The uint16 viewed as an array of two (2) uint8s */
@@ -396,26 +410,36 @@ typedef enum _BOOL {
 #define OK              TRUE
 /** another way to say \ref FALSE */
 #define FAIL            FALSE
+
+#define ON				TRUE
+#define OFF				FALSE
+
+#define HIGH			TRUE
+#define LOW				FALSE
+
+#define ENABLE			TRUE
+#define DISABLE			FALSE
+
 /** An uninitialized pointer */
 #define NULLPTR         0
 /** An unitialized index value */
 #define NULLIDX         0xFF
 /** Mask to represent bit 0 (the LSb) */
-#define BIT0            0x01
+#define BIT0            0x0001
 /** Mask to represent bit 1 */
-#define BIT1            0x02
+#define BIT1            0x0002
 /** Mask to represent bit 2 */
-#define BIT2            0x04
+#define BIT2            0x0004
 /** Mask to represent bit 3 */
-#define BIT3            0x08
+#define BIT3            0x0008
 /** Mask to represent bit 4 */
-#define BIT4            0x10
+#define BIT4            0x0010
 /** Mask to represent bit 5 */
-#define BIT5            0x20
+#define BIT5            0x0020
 /** Mask to represent bit 6 */
-#define BIT6            0x40
+#define BIT6            0x0040
 /** Mask to represent bit 7 (the MSb of a uint8) */
-#define BIT7            0x80
+#define BIT7            0x0080
 /** Mask to represent bit 8 (the LSb of the most-significant byte in an uint8)*/
 #define BIT8            0x0100
 /** Mask to represent bit 9 */
