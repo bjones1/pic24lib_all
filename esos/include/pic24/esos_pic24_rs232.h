@@ -68,10 +68,13 @@ void    __esos_hw_signal_stop_tx(void);
  */
 
 /* ########################################################################### */
-/** Chose a default baud rate for the UART, used by
- *  \ref configUART1 to set up the UART.
+/** The underlying PIC24 HW libraries choose a default baudrate
+ *  appropriate to the chosen MCU model.  Only uncomment the line
+ *  below if you want ESOS to build the UART with a "non-standard"
+ *  baudrate.   Used by \ref configUART1 to set up the UART.
+ *
+ *       #define DEFAULT_BAUDRATE  9600
  */
-#define DEFAULT_BAUDRATE  57600
 
 /** Configure the UART's baud rate, based on \ref FCY.
  *  Note that the value computed is truncated, not

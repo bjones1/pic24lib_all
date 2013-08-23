@@ -89,8 +89,11 @@ def bin2hex(binName, buildEnvironment, aliasString):
   # Add this hex file to a convenient alias
   buildEnvironment.Alias(aliasString, myHex)
 
+# TODO this environment appears to need to go away...... The XC compiler tools
+#  have common names across platforms now so the default environment above
+#  seems to get the job done.
 # Adjust our environment to be specific the host OS
-if os.name == 'posix':
+if os.name == 'posix_NOT_USED_ANYMORE':
   print "Modifiying environment for Linux"
   incDirs = Split( """include
     /usr/pic30-elf/include
