@@ -105,10 +105,17 @@ void __esos_configUART1(uint32_t u32_baudRate) {
   /*************************  UART config ********************/
   //Pin mapping macros in pic24_ports.h
 
+#ifdef (HARDWARE_PLATFORM == EMBEDDED_C1)
+	CONFIG_RB12_AS_DIG_INPUT();
+	CONFIG_U1RX_TO_RP(RB12_RP);	// U1RX <- RB12
+	CONFIG_RC8_AS_DIG_OUTPUT();
+	CONFIG_U1TX_TO_RP(RC8_RP);	// U1TX -> RC8
+#else
   CONFIG_RB10_AS_DIG_INPUT();
-  CONFIG_U1RX_TO_RP(RB10_RP);                 //U1RX <- RP10
+  CONFIG_U1RX_TO_RP(RB10_RP);	//U1RX <- RP10
   CONFIG_RB11_AS_DIG_OUTPUT();
-  CONFIG_U1TX_TO_RP(RB11_RP);                 //U1TX -> RP11
+  CONFIG_U1TX_TO_RP(RB11_RP);	//U1TX -> RP11
+#endif
 
   //UART macros defined in "pic24_uart.h"
   CONFIG_BAUDRATE_UART1(u32_baudRate);   //baud rate

@@ -102,7 +102,7 @@ void configADC1_ManualCH0(uint16_t u16_ch0PositiveMask,
 #endif
   AD1CON3 = ADC_CONV_CLK_INTERNAL_RC | (u8_autoSampleTime<<8);
 
-#ifdef EMBEDDED_C1
+#if (HARDWARE_PLATFORM == EMBEDDED_C1)
   AD1CON2 = ADC_VREF_AVDD_EXT; // Brings in VREF on the Embedded board.
 #else
   AD1CON2 = ADC_VREF_AVDD_AVSS;
