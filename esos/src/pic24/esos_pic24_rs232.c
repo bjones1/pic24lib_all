@@ -105,7 +105,7 @@ void __esos_configUART1(uint32_t u32_baudRate) {
   /*************************  UART config ********************/
   //Pin mapping macros in pic24_ports.h
 
-#ifdef (HARDWARE_PLATFORM == EMBEDDED_C1)
+#if (HARDWARE_PLATFORM == EMBEDDED_C1)
 	CONFIG_RB12_AS_DIG_INPUT();
 	CONFIG_U1RX_TO_RP(RB12_RP);	// U1RX <- RB12
 	CONFIG_RC8_AS_DIG_OUTPUT();
