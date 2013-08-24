@@ -315,7 +315,9 @@
  */
 //@{
 
-#ifndef USE_HEARTBEAT
+#if defined(BUILT_ON_ESOS) // Disable heartbeat when using ESOS
+# define USE_HEARTBEAT 0
+#elif !defined(USE_HEARTBEAT)
 /** If this macro is true, heartbeat functionality is enabled.
  *  If false, heartbeat is disabled.
  */
