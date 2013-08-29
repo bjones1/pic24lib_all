@@ -101,10 +101,17 @@
 
 // Defines for compiling the bootloader
 #ifdef BOOTLOADER
-# define _NOFLOAT
 # define USE_HEARTBEAT 0
 # define USE_CLOCK_TIMEOUT 0
 # define _NOASSERT
+# define _NOFLOAT
+#endif
+
+// Defines for compiling ESOS.
+#ifdef BUILT_ON_ESOS
+# define USE_HEARTBEAT 0
+# define _NOASSERT
+# define _NOFLOAT
 #endif
 
 /** @{
@@ -315,9 +322,7 @@
  */
 //@{
 
-#if defined(BUILT_ON_ESOS) // Disable heartbeat when using ESOS
-# define USE_HEARTBEAT 0
-#elif !defined(USE_HEARTBEAT)
+#ifndef USE_HEARTBEAT
 /** If this macro is true, heartbeat functionality is enabled.
  *  If false, heartbeat is disabled.
  */

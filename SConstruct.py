@@ -291,7 +291,7 @@ for mcu in ('24F32KA302',):
 def buildTargetsEsos(env, mcu):
     # Create an environment for building ESOS.
     env = env.Clone(MCU = mcu)
-    env.Append(CPPDEFINES = ['BUILT_ON_ESOS', '_NOASSERT', 'USE_HEARTBEAT=0', '_NOFLOAT'], 
+    env.Append(CPPDEFINES = 'BUILT_ON_ESOS',
                CPPPATH = ['esos/include', 'esos/include/pic24']) 
 
     # Now, invoke a variant build using this environment.
