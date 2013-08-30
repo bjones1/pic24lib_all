@@ -40,11 +40,8 @@
 #include "pic24_unittest.h"
 #include "pic24_util.h"
 
-/*********************************
- * Function private to this file *
- *********************************/
 
-
+#ifndef _NOFLOAT
 /** Converts milliseconds to 16-bit timer ticks.
  *  \param u16_ms Time, in milliseconds, to convert to ticks
  *  \param u16_pre Prescale set for this timer. Note that
@@ -101,19 +98,6 @@ uint32_t usToU32Ticks(uint32_t u32_us, uint16_t u16_pre) {
 
 
 
-/** Given the TCKPS bitfield, return the timer prescale encoded
- *  by these bits. Use \ref getTimerPrescale as a convenient
- *  way to extract the TCKPS bitfield from a TxCONbits SFT
- *  then call this function.
- *  \param u8_TCKPS TCKPS bitfield from the timer in question
- *  \return Prescale value.
- */
-uint16_t getTimerPrescaleBits(uint8_t u8_TCKPS) {
-  uint16_t au16_prescaleValue[] = { 1, 8, 64, 256 };
-  ASSERT(u8_TCKPS <= 3);
-  return au16_prescaleValue[u8_TCKPS];
-}
-
 /** Converts timer ticks to milliseconds
  *  \param u32_ticks  Timer ticks
  *  \param u16_tmrPre Timer prescale value
@@ -136,7 +120,7 @@ uint32_t ticksToMs (uint32_t u32_ticks, uint16_t u16_tmrPre) {
  *  \param u16_tmrPre Timer prescale value
  *  \return time in microseconds
  */
-uint32_t ticksToUs (uint32_t u32_ticks, uint16_t u16_tmrPre) {
+uint32_t ticksToUs(uint32_t u32_ticks, uint16_t u16_tmrPre) {
   //because of the wide range of the numbers, use a float for precision
   float f_ticks;
   uint32_t u32_timeUs;
@@ -152,7 +136,7 @@ uint32_t ticksToUs (uint32_t u32_ticks, uint16_t u16_tmrPre) {
  *  \param u16_tmrPre Timer prescale value
  *  \return time in nanoseconds
  */
-uint32_t ticksToNs (uint32_t u32_ticks, uint16_t u16_tmrPre) {
+uint32_t ticksToNs(uint32_t u32_ticks, uint16_t u16_tmrPre) {
   //because of the wide range of the numbers, use a float for precision
   float f_ticks;
   uint32_t u32_timeNs;
@@ -161,6 +145,20 @@ uint32_t ticksToNs (uint32_t u32_ticks, uint16_t u16_tmrPre) {
   f_ticks = ((f_ticks * u16_tmrPre)/FCY) * 1000000000L;
   u32_timeNs = roundFloatToUint32(f_ticks);  //back to int32_t
   return (u32_timeNs);
+}
+#endif // #ifndef _NOFLOAT
+
+/** Given the TCKPS bitfield, return the timer prescale encoded
+ *  by these bits. Use \ref getTimerPrescale as a convenient
+ *  way to extract the TCKPS bitfield from a TxCONbits SFT
+ *  then call this function.
+ *  \param u8_TCKPS TCKPS bitfield from the timer in question
+ *  \return Prescale value.
+ */
+uint16_t getTimerPrescaleBits(uint8_t u8_TCKPS) {
+  uint16_t au16_prescaleValue[] = { 1, 8, 64, 256 };
+  ASSERT(u8_TCKPS <= 3);
+  return au16_prescaleValue[u8_TCKPS];
 }
 
 /** Computes delta ticks between two Timer register captures

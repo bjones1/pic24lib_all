@@ -424,6 +424,7 @@ void configBasic(const char* sz_helloMsg) {
 }
 
 
+#ifndef _NOFLOAT
 /** Round a floating-point number to the nearest integer.
  *  \param f_x Floating-point value to round
  *  \return The nearest uint32_t to f_x.
@@ -447,3 +448,4 @@ uint16_t roundFloatToUint16(float f_x) {
   if ((f_x - u16_y) < 0.5) return u16_y;
   else return u16_y+1;
 }
+#endif

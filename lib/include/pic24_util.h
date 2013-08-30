@@ -88,8 +88,10 @@ void checkOscOption(void);
 void printResetCause(void);
 void configPinsForLowPower(void);
 void configBasic(const char* psz_helloMsg);
+#ifndef _NOFLOAT
 uint32_t roundFloatToUint32(float f_x);
 uint16_t roundFloatToUint16(float f_x);
+#endif
 
 extern _PERSISTENT const char* sz_lastTimeoutError;
 
