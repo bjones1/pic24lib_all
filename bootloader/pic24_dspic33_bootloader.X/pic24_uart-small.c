@@ -37,6 +37,28 @@
 void doHeartbeat(void) {
 }
 
+// Copied from the pic24_util.c, the _NOFLOAT version, but with ASSERTs removed.
+uint16_t compute_brg(uint32_t u32_fcy, uint16_t u16_brgh, uint32_t u32_baudrate) {
+  uint32_t u32_brg;
+
+  u32_brg = u32_fcy/u32_baudrate;
+  if (u16_brgh == 0) {
+    if ((u32_brg & 0x0FL) >= 8) {
+      u32_brg = u32_brg/16;
+    } else {
+      u32_brg = u32_brg/16 - 1;
+    }
+  } else {
+    if ((u32_brg & 0x03L) >= 2) {
+      u32_brg = u32_brg/4;
+    } else {
+      u32_brg = u32_brg/4 - 1;
+    }
+  }
+  return u32_brg;
+}
+
+
 
 // Text below copied and pasted from portions of pic24_uart.c.
 /** Configures a UART based compiler setting of DEFAULT_UART

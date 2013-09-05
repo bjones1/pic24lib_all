@@ -35,6 +35,7 @@
 #include "pic24_ports.h"
 #include "pic24_unittest.h"
 #include "pic24_delay.h"
+#include "pic24_util.h"
 
 // Only include if this UART exists.
 #if (NUM_UART_MODS >= ${x})
@@ -247,12 +248,6 @@ uint8_t inChar${x}(void) {
  *  \param u32_baudRate The baud rate to use.
  */
 void configUART${x}(uint32_t u32_baudRate) {
-#ifdef _NOFLOAT
-  uint32_t u32_brg;
-#else
-  float f_brg;
-#endif
-
   /*************************  UART config ********************/
   // See comments in the #warning statements below for
   // instructions on how to modify this configuration.
@@ -305,32 +300,8 @@ void configUART${x}(uint32_t u32_baudRate) {
   // In particular, this clears UTXEN.
   U${x}MODE = (0u << 15); // UARTEN = 0 to disable.
 
-  /* Configure UART baud rate, based on \ref FCY.
-   *  NOTE: Be careful about using BRGH=1 - this uses only four clock
-   *  periods to sample each bit and can be very intolerant of
-   *  baud rate % error - you may see framing errors. BRGH is selected
-   *  via the DEFAULT_BRGH1 define above.
-   */
-#ifdef _NOFLOAT
-  u32_brg = FCY/u32_baudRate;
-# if (DEFAULT_BRGH${x} == 0)
-  if ((u32_brg & 0x0FL) >= 8) u32_brg = u32_brg/16;
-  else u32_brg = u32_brg/16 - 1;
-# else
-  if ((u32_brg & 0x03L) >= 2) u32_brg = u32_brg/4;
-  else u32_brg = u32_brg/4 - 1;
-# endif
-  ASSERT(u32_brg < 65536);
-  U${x}BRG = u32_brg;
-#else
-# if (DEFAULT_BRGH${x} == 0)
-  f_brg = (((float) FCY)/((float) u32_baudRate)/16.0) - 1.0;
-# else
-  f_brg = (((float) FCY)/((float) u32_baudRate)/4.0) - 1.0;
-# endif
-  ASSERT(f_brg < 65535.5);
-  U${x}BRG = roundFloatToUint16(f_brg);
-#endif
+  // Configure UART baud rate, based on \ref FCY.
+  U${x}BRG = compute_brg(FCY, DEFAULT_BRGH${x}, u32_baudRate);
 
   // Set up the UART mode register
   U${x}MODE =

@@ -88,6 +88,7 @@ void checkOscOption(void);
 void printResetCause(void);
 void configPinsForLowPower(void);
 void configBasic(const char* psz_helloMsg);
+uint16_t compute_brg(uint32_t u32_fcy, uint16_t u16_brgh, uint32_t u32_baudrate);
 #ifndef _NOFLOAT
 uint32_t roundFloatToUint32(float f_x);
 uint16_t roundFloatToUint16(float f_x);

@@ -96,8 +96,6 @@ does not occur.
 
 
 static void configFrcUART(void) {
-  float f_brg;
-
   // First, switch to a known-good clock
 # if ( defined(__PIC24H__) || defined(__dsPIC33F__) )
   configClockFRCPLL_FCY40MHz();
@@ -112,24 +110,19 @@ static void configFrcUART(void) {
 
   // Second, get UART I/O pins mapped and general config done.
   configDefaultUART(DEFAULT_BAUDRATE);
-  // BRG register is probably wrong since not using defined FCY. Fix it.
-# if (FRC_BRGH == 0)
-  f_brg = (((float) FRC_FCY)/((float) DEFAULT_BAUDRATE)/16.0) - 1.0;
-# else
-  f_brg = (((float) FRC_FCY)/((float) DEFAULT_BAUDRATE)/4.0) - 1.0;
-# endif
 
+  // BRG register is probably wrong since it uses FCY, not FRC_FCY. Fix it.
 # if (DEFAULT_UART == 1)
-  U1BRG = roundFloatToUint16(f_brg);
+  U1BRG = compute_brg(FRC_FCY, FRC_BRGH, DEFAULT_BAUDRATE);
   U1MODEbits.BRGH = FRC_BRGH;
 # elif (DEFAULT_UART == 2)
-  U2BRG = roundFloatToUint16(f_brg);
+  U2BRG = compute_brg(FRC_FCY, FRC_BRGH, DEFAULT_BAUDRATE);
   U2MODEbits.BRGH = FRC_BRGH;
 # elif (DEFAULT_UART == 3)
-  U3BRG = roundFloatToUint16(f_brg);
+  U3BRG = compute_brg(FRC_FCY, FRC_BRGH, DEFAULT_BAUDRATE);
   U3MODEbits.BRGH = FRC_BRGH;
 # elif (DEFAULT_UART == 4)
-  U4BRG = roundFloatToUint16(f_brg);
+  U4BRG = compute_brg(FRC_FCY, FRC_BRGH, DEFAULT_BAUDRATE);
   U4MODEbits.BRGH = FRC_BRGH;
 # else
 #   error "Invalid DEFAULT_UART."
