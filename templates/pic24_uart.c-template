@@ -317,7 +317,7 @@ void configUART${x}(uint32_t u32_baudRate) {
   if ((u32_brg & 0x0FL) >= 8) u32_brg = u32_brg/16;
   else u32_brg = u32_brg/16 - 1;
 # else
-  if ((brg & 0x03L) >= 2) u32_brg = u32_brg/4;
+  if ((u32_brg & 0x03L) >= 2) u32_brg = u32_brg/4;
   else u32_brg = u32_brg/4 - 1;
 # endif
   ASSERT(u32_brg < 65536);
