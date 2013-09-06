@@ -288,15 +288,15 @@ for mcu in ('24F32KA302',):
 
 ## ESOS builds
 ## -----------
-def buildTargetsEsos(env, mcu):
+def buildTargetsEsos(env, mcu, hardware_platform = 'DEFAULT_DESIGN'):
     # Create an environment for building ESOS.
     env = env.Clone(MCU = mcu)
-    env.Append(CPPDEFINES = 'BUILT_ON_ESOS',
+    env.Append(CPPDEFINES = ['BUILT_ON_ESOS', 'HARDWARE_PLATFORM=' + hardware_platform],
                CPPPATH = ['esos/include', 'esos/include/pic24']) 
 
     # Now, invoke a variant build using this environment.
     SConscript('SCons_esos.py', exports = 'env bin2hex',
-      variant_dir = 'build/esos_' + mcu)
+      variant_dir = 'build/esos_' + mcu + '_' + hardware_platform)
       
 # Build ESOS over a variety of chips.
 for mcu in (
@@ -310,4 +310,4 @@ for mcu in (
             '33EP128GP504',
            ):
     buildTargetsEsos(env, mcu)
-
+buildTargetsEsos(env, '33EP128GP504', 'EMBEDDED_C1')
