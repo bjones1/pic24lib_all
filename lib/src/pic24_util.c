@@ -424,28 +424,8 @@ void configBasic(const char* sz_helloMsg) {
   outString(sz_helloMsg);
 }
 
+
 #ifndef _NOFLOAT
-
-/**  Choose UART baud rate, based on u32_fct.
-  *  NOTE: Be careful about using BRGH=1 - this uses only four clock
-  *  periods to sample each bit and can be very intolerant of
-  *  baud rate % error - you may see framing errors. BRGH is selected
-  *  via the DEFAULT_BRGH1 define above.
-  */
-uint16_t compute_brg(uint32_t u32_fcy, uint16_t u16_brgh, uint32_t u32_baudrate) {
-  float f_brg;
-
-  // Make sure brgh is value (1 or 0)
-  ASSERT(u16_brgh <= 1);
-  if (u16_brgh == 0) {
-    f_brg = (((float) u32_fcy)/((float) u32_baudrate)/16.0) - 1.0;
-  } else {
-    f_brg = (((float) u32_fcy)/((float) u32_baudrate)/4.0) - 1.0;
-  }
-  ASSERT(f_brg < 65535.5);
-  return roundFloatToUint16(f_brg);
-}
-
 /** Round a floating-point number to the nearest integer.
  *  \param f_x Floating-point value to round
  *  \return The nearest uint32_t to f_x.
@@ -469,6 +449,27 @@ uint16_t roundFloatToUint16(float f_x) {
   if ((f_x - u16_y) < 0.5) return u16_y;
   else return u16_y+1;
 }
+
+/**  Choose UART baud rate, based on u32_fct.
+  *  NOTE: Be careful about using BRGH=1 - this uses only four clock
+  *  periods to sample each bit and can be very intolerant of
+  *  baud rate % error - you may see framing errors. BRGH is selected
+  *  via the DEFAULT_BRGH1 define above.
+  */
+uint16_t compute_brg(uint32_t u32_fcy, uint16_t u16_brgh, uint32_t u32_baudrate) {
+  float f_brg;
+
+  // Make sure brgh is value (1 or 0)
+  ASSERT(u16_brgh <= 1);
+  if (u16_brgh == 0) {
+    f_brg = (((float) u32_fcy)/((float) u32_baudrate)/16.0) - 1.0;
+  } else {
+    f_brg = (((float) u32_fcy)/((float) u32_baudrate)/4.0) - 1.0;
+  }
+  ASSERT(f_brg < 65535.5);
+  return roundFloatToUint16(f_brg);
+}
+
 #else // #ifndef _NOFLOAT, so _NOFLOAT is defined.
 
 uint16_t compute_brg(uint32_t u32_fcy, uint16_t u16_brgh, uint32_t u32_baudrate) {
