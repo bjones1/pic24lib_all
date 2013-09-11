@@ -155,9 +155,11 @@ ESOS_USER_TASK(start_ds1722) {
   ESOS_TASK_BEGIN();
   configSPI1();
   // configure DS1722 for 12-bit mode, continuous conversion
+  ESOS_TASK_WAIT_ON_AVAILABLE_SPI();
   SLAVE_ENABLE();       //assert chipselect
   ESOS_TASK_WAIT_ON_WRITE2SPI1(0x80, 0xE8);
   SLAVE_DISABLE();      //deassert chipselect
+  ESOS_TASK_SIGNAL_AVAILABLE_SPI();
   // wait for first conversion to finish, then let other tasks proceed
   ESOS_TASK_WAIT_TICKS(1500);
   ESOS_SIGNAL_SEMAPHORE(sem_ds1722Ready, 1);
@@ -193,9 +195,11 @@ ESOS_USER_TASK(read_ds1722) {
     au16_data[0]= 0x01;
     au16_data[1]= 0x00;
     au16_data[2]= 0x00;
+	ESOS_TASK_WAIT_ON_AVAILABLE_SPI();
     SLAVE_ENABLE();
     ESOS_TASK_WAIT_ON_XFERNSPI1(&au16_data[0],&au16_data[0],3);
     SLAVE_DISABLE();
+	ESOS_TASK_SIGNAL_AVAILABLE_SPI();
     u16_hi = au16_data[2];
     u16_lo = au16_data[1];
 #endif
