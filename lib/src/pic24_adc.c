@@ -53,6 +53,8 @@
  *  \return Integer value (10- or 12-bit, depending on ADC configuration)
  *          corresponding to the ADC conversion result.
  */
+
+#ifndef BUILT_ON_ESOS // Excluded from ESOS builds due to a busy loop
 uint16_t convertADC1(void) {
   uint8_t u8_wdtState;
 
@@ -66,6 +68,7 @@ uint16_t convertADC1(void) {
   sz_lastTimeoutError = NULL;             //reset error message
   return(ADC1BUF0);
 }
+#endif
 
 /** Configures ADC1 to perform 10-/12-bit conversion on a single channel via
  *  CH0.  The sampling is done against the AVDD and AVSS references and
