@@ -66,6 +66,14 @@ extern uint8_t            __esos_i2c_dataBytes[2];                    // used to
 #define I2C_WADDR(x) (x & 0xFE) //clear R/W bit of I2C addr
 #define I2C_RADDR(x) (x | 0x01) //set R/W bit of I2C addr
 
+#define ESOS_TASK_WAIT_ON_AVAILABLE_I2C()                                           \
+        do {                                                                        \
+		    ESOS_TASK_WAIT_WHILE(__esos_IsSystemFlagSet(__ESOS_SYS_I2C_IS_BUSY));   \
+		    __esos_SetSystemFlag(__ESOS_SYS_I2C_IS_BUSY);                           \
+		} while(0)
+
+#define ESOS_TASK_SIGNAL_AVAILABLE_I2C() __esos_ClearSystemFlag(__ESOS_SYS_I2C_IS_BUSY)
+
 // Macros to perform I2C operations within a child task
 #define __PIC24_I2C1_START()                   \
    do{                                         \

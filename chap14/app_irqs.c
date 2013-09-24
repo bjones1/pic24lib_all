@@ -103,6 +103,15 @@ void  configTimer23(void) {
   T2CONbits.TON = 1;               //turn on the timer
 }
 
+/** Converts timer ticks to microseconds
+ *  \param u32_ticks  Timer ticks
+ *  \param u16_tmrPre Timer prescale value
+ *  \return time in microseconds
+ */
+inline uint32_t ticksToUs(uint32_t u32_ticks, uint16_t u16_tmrPre) {
+  return ((uint32_t) (((uint64_t) u32_ticks) * ((uint64_t) u16_tmrPre) * 1000000LL) / ((uint64_t) FCY));
+}
+
 //Interrupt Service Routine for INT1
 //void _ISRFAST _INT1Interrupt (void) {
 ESOS_USER_INTERRUPT( ESOS_IRQ_PIC24_INT1 ) {

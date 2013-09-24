@@ -454,10 +454,13 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 
 
 // System flag definitions... only ESOS needs to use these
-#define     __ESOS_SYS_FLAG_PACK_TASKS              BIT0
-#define     __ESOS_SYS_FLAG_NULL_LAST_TASK          BIT1
-#define     __ESOS_SYS_COMM_TX_IS_BUSY        BIT2
-#define     __ESOS_SYS_COMM_RX_IS_BUSY        BIT3
+#define     __ESOS_SYS_FLAG_PACK_TASKS				BIT0
+#define     __ESOS_SYS_FLAG_NULL_LAST_TASK			BIT1
+#define     __ESOS_SYS_COMM_TX_IS_BUSY				BIT2
+#define     __ESOS_SYS_COMM_RX_IS_BUSY				BIT3
+#define		__ESOS_SYS_I2C_IS_BUSY					BIT4
+#define		__ESOS_SYS_SPI_IS_BUSY					BIT5
+#define		__ESOS_SYS_ADC_IS_BUSY					BIT6
 
 // Other useful macros for the user
 #define   __abs(x)    (((x) < 0) ? -(x) : (x))
