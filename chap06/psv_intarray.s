@@ -4,7 +4,7 @@
 ; illustrates array initialization from program memory
 ; using the PSV window
 
-.include "p24Hxxxx.inc"
+.include "xc.inc"
 
 .global __reset          ;The label for the first line of code. 
 
