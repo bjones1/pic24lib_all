@@ -163,9 +163,13 @@ if 'zipit' in COMMAND_LINE_TARGETS:
 ## PIC24/dsPIC33 chip/clock variant builds
 ## ---------------------------------------
 ## Call SConscript with a specific buildTargets value
-def buildTargetsSConscript(buildTargets, env, variantDirName):
+def buildTargetsSConscript(buildTargets, env, hardware_platform, extra_defines = ''):
+  # Build a variant directory name, based on the hardware platform, MCU, and extra defines (if any)
+  vdir = 'build/' + '_'.join([hardware_platform, env['MCU']])
+  if extra_defines:
+    vdir += '_' + extra_defines
   SConscript('SCons_build.py', exports = 'buildTargets env bin2hex',
-    variant_dir = 'build/' + env['MCU'] + "_" + variantDirName)
+    variant_dir = vdir)
 
 # Build small, non-DMA on the PIC24HJ32GP202
 buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11nodma', 'chap12'],
@@ -207,17 +211,17 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big'
 
 # Build some for the CAN2 rev.C1 board used in ECE4723 Embedded Systems
 buildTargetsSConscript(['embeddedC1'],
-  env.Clone(MCU='33EP128GP504', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_C1'), 'default')
+  env.Clone(MCU='33EP128GP504', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_C1'), 'EMBEDDED_C1')
 
 # Build for the explorer board
 buildTargetsSConscript(['explorer'],
-  env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')
+  env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'EXPLORER16_100P')
 buildTargetsSConscript(['explorerh'],
-  env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'default')
+  env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'EXPLORER16_100P')
 
 # Do a no-float build of reset
 buildTargetsSConscript(['reset'],
-  env.Clone(MCU='24HJ32GP202',  CPPDEFINES='_NOFLOAT'), 'nofloat')
+  env.Clone(MCU='24HJ32GP202',  CPPDEFINES='_NOFLOAT'), 'default', 'nofloat')
 
 # Build reset on other supported platforms
 buildTargetsSConscript(['reset'],
@@ -229,17 +233,17 @@ buildTargetsSConscript(['reset'],
 for clock in ['SIM_CLOCK', 'FRCPLL_FCY16MHz', 'FRC_FCY4MHz',
 'PRI_NO_PLL_7372KHzCrystal', 'PRIPLL_8MHzCrystal_16MHzFCY']:
     buildTargetsSConscript(['reset'],
-      env.Clone(MCU='24FJ64GA002', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
+      env.Clone(MCU='24FJ64GA002', CPPDEFINES='CLOCK_CONFIG=' + clock), 'default', clock)
     buildTargetsSConscript(['reset'],
-      env.Clone(MCU='24FJ64GA102', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
+      env.Clone(MCU='24FJ64GA102', CPPDEFINES='CLOCK_CONFIG=' + clock), 'default', clock)
     buildTargetsSConscript(['reset'],
-      env.Clone(MCU='24F32KA302', CPPDEFINES=['CLOCK_CONFIG=' + clock, 'HARDWARE_PLATFORM=HARDMAPPED_UART']), clock)
+      env.Clone(MCU='24F32KA302', CPPDEFINES=['CLOCK_CONFIG=' + clock, 'HARDWARE_PLATFORM=HARDMAPPED_UART']), 'HARDMAPPED_UART', clock)
 for clock in ['SIM_CLOCK', 'PRI_NO_PLL_7372KHzCrystal', 'FRC_FCY3685KHz',
 'FRCPLL_FCY40MHz', 'PRIPLL_7372KHzCrystal_40MHzFCY', 'PRIPLL_8MHzCrystal_40MHzFCY']:
     buildTargetsSConscript(['reset'],
-      env.Clone(MCU='24HJ32GP202',  CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
+      env.Clone(MCU='24HJ32GP202',  CPPDEFINES='CLOCK_CONFIG=' + clock), 'default', clock)
     buildTargetsSConscript(['reset'],
-      env.Clone(MCU='33FJ128GP802', CPPDEFINES='CLOCK_CONFIG=' + clock), clock)
+      env.Clone(MCU='33FJ128GP802', CPPDEFINES='CLOCK_CONFIG=' + clock), 'default', clock)
 
 
 ## Bootloader targets
@@ -256,7 +260,7 @@ def buildTargetsBootloader(env, mcu):
 
     # Now, invoke a variant build using this environment.
     SConscript('SCons_bootloader.py', exports = 'env bin2hex',
-      variant_dir = 'build/bootloader_' + mcu)
+      variant_dir = 'build/default_bootloader_' + mcu)
 
 for mcu in ('24FJ32GA002',
             '24FJ64GA002',
