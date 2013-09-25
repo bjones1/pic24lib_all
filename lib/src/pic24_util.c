@@ -459,7 +459,7 @@ uint16_t roundFloatToUint16(float f_x) {
 uint16_t compute_brg(uint32_t u32_fcy, uint16_t u16_brgh, uint32_t u32_baudrate) {
   float f_brg;
 
-  // Make sure brgh is value (1 or 0)
+  // Make sure u16_brgh is valid (1 or 0)
   ASSERT(u16_brgh <= 1);
   if (u16_brgh == 0) {
     f_brg = (((float) u32_fcy)/((float) u32_baudrate)/16.0) - 1.0;
@@ -475,7 +475,7 @@ uint16_t compute_brg(uint32_t u32_fcy, uint16_t u16_brgh, uint32_t u32_baudrate)
 uint16_t compute_brg(uint32_t u32_fcy, uint16_t u16_brgh, uint32_t u32_baudrate) {
   uint32_t u32_brg;
 
-  // Make sure brgh is value (1 or 0)
+  // Make sure u16_brgh is valid (1 or 0)
   ASSERT(u16_brgh <= 1);
   u32_brg = u32_fcy/u32_baudrate;
   if (u16_brgh == 0) {

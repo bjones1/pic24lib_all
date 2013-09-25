@@ -37,7 +37,7 @@
 - Fix to I2C baud rate calcuation (BRG register is 9 bits only).
 - More projects converted to MPLAB X.
 - Rewrites to chap 8, 9 files for the book.
-- Support for deviecs with hardmapped UART pins (28-pins PIC24FK, for example).
+- Support for deviecs with hardmapped UART pins (28-pin PIC24FK, for example).
 - Combined pic24_e/fh_ports.h into a single file, added support for PIC24FK analog config.
 - Doxygen comments added to every GPIO config macro.
 - New ESOS features: mailboxes and more.
