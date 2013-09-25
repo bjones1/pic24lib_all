@@ -33,7 +33,7 @@
 /**
 \page history History and release notes for this library collection.
 
-Next release:
+25-Aug-2013 (r385 / e818e78a9810):
 - Fix to I2C baud rate calcuation (BRG register is 9 bits only).
 - More projects converted to MPLAB X.
 - Rewrites to chap 8, 9 files for the book.
@@ -41,8 +41,9 @@ Next release:
 - Combined pic24_e/fh_ports.h into a single file, added support for PIC24FK analog config.
 - Doxygen comments added to every GPIO config macro.
 - New ESOS features: mailboxes and more.
+- _NOFLOAT actually removes all floats in the library.
 
-09-Jul-3013 (r267 / 992b80bc0901):
+09-Jul-2013 (r267 / 992b80bc0901):
 This is a major release / revision in the beta stage. The upcoming book will provide a full description. Just a few highlights:
 - Update to MPLAB X.
 - Revised GPIO system.
