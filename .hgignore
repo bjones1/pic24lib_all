@@ -9,6 +9,7 @@ docs/search/
 # SCONS generated flies
 .sconsign.dblite
 err*.txt
+build_errors.txt
 build/
 hex/
 # MPLAB X generated files
