@@ -142,16 +142,17 @@ static void checkClockTimeout(void) {
   u32_timeoutCount++;
   if (u32_timeoutCount < CLOCKTIMEOUT_MAX) return;
 
-  // Clock switch failed. Mark this in the timeout.
-  u32_timeoutCount = 0xFFFFFFFF;
-
   configFrcUART();
-  outString("\n\n"
-            "Your clock choice failed to initialize, have switched to internal Fast RC oscillator+PLL.\n"
-            "Check your setting for the 'CLOCK_CONFIG' macro.\n"
-            "Watch the compiler output window when pic24_clockfreq.c is compiled, a warning message\n"
-            "will tell you the selected value for 'CLOCK_CONFIG'.\n"
-            "In MPLAB, use Project->Build Options->Project, then click on MPLAB C30 tab to see if \n");
+  outString("\n\nYour clock choice failed to initialize. See " __FILE__ " line " TOSTRING(__LINE__) " for more details.");
+  // If the above string was printed out, either:
+  // 1. Check the crystal / oscillator attached to your chip. It doesn't work.
+  // 2. Tell the library to use the built-in oscillator, instead of an external one.
+  //    To do thi, check your setting for the 'CLOCK_CONFIG' macro.
+  //    Watch the compiler output window when pic24_clockfreq.c is compiled; a warning message
+  //    there will tell you the selected value for CLOCK_CONFIG. Change this value to
+  //    something that doesn't require an oscillator. See pic24_clockfreq.h for a list
+  //    of valid choices.
+
 
   while(1) {
     doHeartbeat();  // never return.
