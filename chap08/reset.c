@@ -35,7 +35,7 @@
 //  - Configuring all digital I/O pins as inputs and enabling pullups on them.
 //  - Configuring all analog I/O pins shared with digital I/O pins to be digital only.
 //  - Disabling the internal voltage regulators when in sleep mode.
-//  - Disabling all peripherals.
+//  - Disabling all peripherals, except UART 1.
 //
 // WARNING: if pullups are enabled on pins used by the oscillator, the clock typically stops running. Therefore, this code only works with the FRC oscillator.
 //
@@ -54,8 +54,8 @@ void configPinsForLowPower(void) {
   // Turn off the internal voltage regulators when in sleep.
   _VREGS = 0;
   _VREGSF = 0;
-  // Power off all peripherals.
-  PMD1 = 0xFFFF;
+  // Power off all peripherals except UART 1.
+  PMD1 = 0xFFDF;
   PMD2 = 0xFFFF;
   PMD3 = 0xFFFF;
   PMD4 = 0xFFFF;
