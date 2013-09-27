@@ -98,7 +98,11 @@ UWord32 ReadLatch(UWord16 addrhi, UWord16 addrlo) {
   asm("	mov	W0,TBLPAG");
   asm("	tblrdl [W1],W0");
   asm("	tblrdh [W1],W1");
-
+  //this gives a compiler warning because not explicitly returning 
+  //a value from the function, but since this is assembly, do not
+  //know how to prevent warning.  The function is correct, since
+  //W1:W0 being used to return the tblrdl,tblrdh. Could write
+  //less efficient code and use a temporary UWord32.
 }
 
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))

@@ -43,7 +43,7 @@ A simple example of run time self programming - reads/writes a single 16-bit val
 #define LAST_IMPLEMENTED_PMEM 0x00ABFF
 #elif defined(__PIC24HJ32GP202__) || defined(__PIC24FJ32GA002__) || defined(__dsPIC33FJ32GP202__)
 #define LAST_IMPLEMENTED_PMEM 0x0057FF
-#elif defined(__dsPIC33FJ128GP802__)
+#elif defined(__dsPIC33FJ128GP802__) || defined(__dsPIC33EP128GP502__)
 #define LAST_IMPLEMENTED_PMEM 0x0157FF
 #elif defined(__PIC24EP64GP202__)     //PIC24E test
 #define LAST_IMPLEMENTED_PMEM 0x00AFFF

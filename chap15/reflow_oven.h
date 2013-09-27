@@ -81,7 +81,7 @@ typedef struct _PROFILE {
 extern const PROFILE profiles[NUM_PROFILES];
 
 typedef struct _CALDATA {
-  uint16_t temp[100];    //temp data from 1 to 100
+  int16_t temp[100];    //temp data from 1 to 100
 } CALDATA;
 
 

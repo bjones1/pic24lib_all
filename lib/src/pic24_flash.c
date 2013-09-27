@@ -56,20 +56,26 @@ void doWriteLatchFlash(uint16_t u16_addrhi, uint16_t u16_addrlo, uint16_t u16_wo
 //this family uses double word programming.
 //_LoadTwoWords: ;W0=TBLPAG,W1=Wn,W2=WordHi,W3=WordLo W4=Word2Hi,W5=Word2Lo
 //W0,W1 is not used.
-void LoadTwoWords(uint16_t addrhi,uint16_t addrlo,uint16_t wordhi, uint16_t wordlo, uint16_t word2hi, uint16_t word2lo) {
+//This is writing to 'write latches' that are at a fixed address.
+//These contents are transfered to addresses specified by the NVMADRU/NVMADR registers which
+//have previously been loaded
+void LoadTwoWords(uint16_t wordhi, uint16_t wordlo, uint16_t word2hi, uint16_t word2lo) {
   asm("	mov	#0xFA,W0");
   asm(" mov W0, TBLPAG");
   asm("	mov	#0,W1");
-  asm("	tblwtl W3,[W1]");
-  asm("	tblwth W2,[W1++]");
-  asm("	tblwtl W5,[W1]");
-  asm("	tblwth W4,[W1++]");
+  __builtin_tblwtl(0,wordlo);     //  asm("	tblwtl W1,[W1]");
+  __builtin_tblwth(0,wordhi);     //  asm("	tblwth W0,[W1++]");
+  __builtin_tblwtl(2,word2lo);    //  asm("	tblwtl W3,[W1]");
+  __builtin_tblwth(2,word2hi);   //  asm("	tblwth W2,[W1++]");
+
+
 }
 
 void WriteMem2(uint16_t addrhi,uint16_t addrlo,uint16_t val) {
-  asm("mov     w0,NVMADRU");           //; Init Pointer to page to be erased
-  asm("mov     w1,NVMADR");           //; Init Pointer to offset to be erased
-  asm("mov	W2,NVMCON");
+
+  NVMADRU = addrhi;  //; Init Pointer to page to be modified
+  NVMADR = addrlo;    //; Init Pointer to offset to be modified
+  NVMCON = val;
   //__builtin_write_NVM();
   asm("disi #06");
   asm("mov #0x55,W0");
@@ -211,7 +217,7 @@ void doWritePageFlash(union32 u32_pmemAddress, uint8_t* pu8_data, uint16_t u16_l
     u32_b.u8[1] = pu8_data[u16_byteCnt+4];
     u32_b.u8[2] = pu8_data[u16_byteCnt+5];
     u32_b.u8[3] = 0;
-    LoadTwoWords(u32_pmemAddress.u16.ms16, u32_pmemAddress.u16.ls16,u32_a.u16.ms16,u32_a.u16.ls16,u32_b.u16.ms16,u32_b.u16.ls16);
+    LoadTwoWords(u32_a.u16.ms16,u32_a.u16.ls16,u32_b.u16.ms16,u32_b.u16.ls16);
     WriteMem2(u32_pmemAddress.u16.ms16, u32_pmemAddress.u16.ls16,0x4001);
     u32_pmemAddress.u32 += 4;  //program memory address increments by 4
   }
