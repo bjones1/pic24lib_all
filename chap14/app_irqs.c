@@ -70,10 +70,6 @@ uint8_t     LED1 = TRUE;      // LED1 is initially "on"
 
 // GLOBALs go here
 //  Generally, the user-created semaphores will be defined/allocated here
-char psz_CRNL[3]= {0x0D, 0x0A, 0};
-char psz_prompt[] = "Press button...";
-char psz_r1[] = "Pulse width = ";
-char psz_r2[] = "us\n";
 
 ESOS_SEMAPHORE( sem_CapturedData );
 
@@ -85,7 +81,7 @@ volatile int32_t u32_delta;
 inline void CONFIG_SW1()  {
   CONFIG_RB13_AS_DIG_INPUT();   //use RB13 for switch input
   ENABLE_RB13_PULLUP();         //enable the pullup
-  CONFIG_INT1_TO_RP(13);   //map INT1 to RP13
+  CONFIG_INT1_TO_RP(13);        //map INT1 to RP13
 }
 
 //Timer2/3 used as single 32-bit timer, control word of Timer2 controls timer,
@@ -103,13 +99,14 @@ void  configTimer23(void) {
   T2CONbits.TON = 1;               //turn on the timer
 }
 
+
 /** Converts timer ticks to microseconds
  *  \param u32_ticks  Timer ticks
  *  \param u16_tmrPre Timer prescale value
  *  \return time in microseconds
  */
-inline uint32_t ticksToUs(uint32_t u32_ticks, uint16_t u16_tmrPre) {
-  return ((uint32_t) (((uint64_t) u32_ticks) * ((uint64_t) u16_tmrPre) * 1000000LL) / ((uint64_t) FCY));
+uint32_t ticksToUs(uint32_t u32_ticks, uint16_t u16_tmrPre) {
+  return ((uint32_t) ((((uint64_t) u32_ticks) * ((uint64_t) u16_tmrPre) * 1000000LL) / ((uint64_t) FCY)));
 }
 
 //Interrupt Service Routine for INT1
@@ -175,13 +172,36 @@ ESOS_USER_TASK(task1) {
 
   ESOS_TASK_BEGIN();
   while (TRUE) {
-    ESOS_TASK_WAIT_ON_SEND_STRING(psz_prompt);
+	  
+	// Print prompt
+	ESOS_TASK_WAIT_ON_AVAILABLE_OUT_COMM();
+    ESOS_TASK_WAIT_ON_SEND_STRING("Press button...\r\n");
+	ESOS_TASK_SIGNAL_AVAILABLE_OUT_COMM();
+
+	// Wait on capture flag
     ESOS_TASK_WAIT_UNTIL(esos_IsUserFlagSet(CAPTURED_FLAG));
-    u32_pulseWidth = ticksToUs(u32_delta, getTimerPrescale(T2CONbits));
+
+	// Convert processor ticks to microseconds
+	u32_pulseWidth = ticksToUs(u32_delta, getTimerPrescale(T2CONbits));
+
+	// Clear capture flag
     esos_ClearUserFlag(CAPTURED_FLAG);
-    ESOS_TASK_WAIT_ON_SEND_STRING(psz_r1);
-    ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING(u32_pulseWidth);
-    ESOS_TASK_WAIT_ON_SEND_STRING(psz_r2);
+
+	// Print delta times
+	ESOS_TASK_WAIT_ON_AVAILABLE_OUT_COMM();
+
+	ESOS_TASK_WAIT_ON_SEND_STRING("Ticks =\t\t");
+	ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING(u32_delta);
+	ESOS_TASK_WAIT_ON_SEND_STRING("\r\n");
+
+	ESOS_TASK_WAIT_ON_SEND_STRING("Pulse width =\t");
+	ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING(u32_pulseWidth);
+	ESOS_TASK_WAIT_ON_SEND_STRING(" us\r\n\r\n");
+
+
+  
+
+	ESOS_TASK_SIGNAL_AVAILABLE_OUT_COMM();
   } // endof while
   ESOS_TASK_END();
 } // end task1()
@@ -226,7 +246,7 @@ void user_init(void) {
   // Configure INT1
   esos_SetUserFlag(WAITING_FOR_FALLING_EDGE);
   _INT1EP = 1;     //negative edge triggerred
-  ESOS_REGISTER_PIC24_USER_INTERRUPT( ESOS_IRQ_PIC24_INT1, ESOS_USER_IRQ_LEVEL1, _INT1Interrupt );
+  ESOS_REGISTER_PIC24_USER_INTERRUPT( ESOS_IRQ_PIC24_INT1, ESOS_USER_IRQ_LEVEL1, _INT1Interrupt);
   ESOS_ENABLE_PIC24_USER_INTERRUPT(ESOS_IRQ_PIC24_INT1);
 
 } // end user_init()
