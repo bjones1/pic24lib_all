@@ -243,7 +243,7 @@ ESOS_TASK_HANDLE    esos_GetTaskHandle( uint8_t (*taskname)(ESOS_TASK_HANDLE pst
 
 /**
  * Find the (active) task handle for a given task function
- * \param taskname name of task (argument to \ref ESOS_USER_TASK declaration
+ * \param u16_TaskID name of task (argument to \ref ESOS_USER_TASK declaration)
  * \retval NULLPTR   if task is not found among the active tasks
  * \retval TaskHandle the handle to the task function requested
  *  \sa ESOS_USER_TASK
