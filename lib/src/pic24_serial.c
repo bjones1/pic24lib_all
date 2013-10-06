@@ -44,6 +44,7 @@
  *********************************************************/
 
 #ifdef BUILT_ON_ESOS
+# include "esos.h"
 # define outChar      __esos_unsafe_PutUint8
 #else
 /** Write a character to the serial port.
