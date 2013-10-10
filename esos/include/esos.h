@@ -293,7 +293,7 @@ uint32_t  __esos_hw_GetSystemTickCount(void);
  * Therefore, the value returned by this function is approximately
  * equal to the number of milliseconds since the since was last
  * reset.
- * \return The \ref uint32 value of current value of the ESOS
+ * \return The uint32 value of current value of the ESOS
  * system tick counter
  * \note This counter value will roll-over every 49.7 days.
  * \hideinitializer
@@ -317,7 +317,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 /**
  * Get the current number of user task registered with the
  * ESOS scheduler.
- * \return The \ref uint8_t number of currently registered user tasks
+ * \return The uint8_t number of currently registered user tasks
  * \note This value does not include the number of child tasks
  * (tasks of the type \ref ESOS_CHILD_TASK ), just the tasks
  * of the type \ref ESOS_USER_TASK
@@ -329,7 +329,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
  * Returns the system tick value of a future time
  * \param deltaT the number of ticks in the future you'd like the
  * system tick value for
- * \return The \ref uint32 number corresponding to the system tick
+ * \return The uint32 number corresponding to the system tick
  * value of that future time
  * \sa esos_GetSystemTick
  * \hideinitializer
@@ -338,7 +338,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 
 /**
  * Sets bits in the global user flags provided by ESOS
- * \param mask An \ref uint16 value composed of the OR-ed user
+ * \param mask An uint16 value composed of the OR-ed user
  * mask flag masks, where each flag in the OR will be set
  * \note User should use the provided bits masks like \ref ESOS_USER_FLAG_0
  *  to create their own readable constants
@@ -356,7 +356,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 
 /**
  * Clears bits in the global user flags provided by ESOS
- * \param mask An \ref uint16 value composed of the OR-ed user
+ * \param mask An uint16 value composed of the OR-ed user
  * mask flag masks, where each flag in the OR will be cleared
  * \note User should use the provided bits masks like \ref ESOS_USER_FLAG_0
  * and \ref ESOS_USER_FLAG_1 and ... \ref ESOS_USER_FLAG_F
@@ -376,7 +376,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 
 /**
  * Queries whether the global user flags provided by ESOS are set
- * \param mask An \ref uint16 value composed of the OR-ed user
+ * \param mask An uint16 value composed of the OR-ed user
  * mask flag masks, where each flag in the OR will be checked for being set
  * \retval TRUE if <em>at least</em> one of the flags is set
  * \retval FALSE if none of the flags are set
@@ -398,7 +398,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 
 /**
  * Queries whether the global user flags provided by ESOS are clear
- * \param mask An \ref uint16 value composed of the OR-ed user
+ * \param mask An uint16 value composed of the OR-ed user
  * mask flag masks, where each flag in the OR will be checked for being clear
  * \retval TRUE if <em>at least</em> one of the flags is clear
  * \retval FALSE if none of the flags are clear
@@ -432,7 +432,7 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 /**
  * Get the current number of user software timers registers (running)
  * in the ESOS timer services
- * \return The \ref uint8_t number of currently registered user tasks
+ * \return The uint8_t number of currently registered user tasks
  * \hideinitializer
  */
 #define esos_GetNumberRunningTimers()          (__esos_u8TmrSvcsRegistered)
