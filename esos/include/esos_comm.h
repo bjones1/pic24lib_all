@@ -460,9 +460,9 @@ uint8_t __esos_unsafe_GetUint8(void);
 * Data transfer can be over USB or old-fashioned RS-232 serial UART
 **/
 typedef struct _ESOS_COMM_BUFF_DSC {
-  volatile uint8_t* pau8_Data;
-  int16_t                 u16_Head;
-  int16_t                 u16_Tail;
+  volatile uint8_t*       pau8_Data;
+  uint16_t                u16_Head;
+  uint16_t                u16_Tail;
   uint16_t                u16_Length;
 } ESOS_COMM_BUFF_DSC;
 
