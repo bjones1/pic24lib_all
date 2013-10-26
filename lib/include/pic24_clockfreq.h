@@ -167,13 +167,17 @@
 
 ///@}
 
+#define GET_MAGIC(params) _GET_MAGIC(params)
+#define _GET_MAGIC(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic) magic
+
+
 
 #ifndef __DOXYGEN__   // The following non-standard #if confuses Doxygen.
 // Check to make sure the CLOCK_CONFIG choice selected
 // exists and is valid. Otherwise, the compiler emits some very
 // confusing errors. Cute hack: the last value in the #define
 // above (the magic number) is what the #if tests in gcc.
-# if (CLOCK_CONFIG != 498)
+# if (GET_MAGIC(CLOCK_CONFIG) != 498)
 #   error "***********************************************************************"
 #   error "* Value chosen for CLOCK_CONFIG does not exist or is not valid!       *"
 #   error "* This produces very confusing compiler errors below.                 *"
