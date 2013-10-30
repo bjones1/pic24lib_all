@@ -29,8 +29,8 @@
 /// Disable analog functionality on pin R${x}.
 #   define DISABLE_R${x}_ANALOG() (_ANS${x} = 0)
 # elif defined(R${x}_AN)
-#   define ENABLE_R${x}_ANALOG()  (RXY_GPIO_PCFG(R${x}_AN) = 1)
-#   define DISABLE_R${x}_ANALOG() (RXY_GPIO_PCFG(R${x}_AN) = 0)
+#   define ENABLE_R${x}_ANALOG()  (RXY_GPIO_PCFG(R${x}_AN) = 0)
+#   define DISABLE_R${x}_ANALOG() (RXY_GPIO_PCFG(R${x}_AN) = 1)
 # else
 #   define DISABLE_R${x}_ANALOG() ((void) 0)
 # endif

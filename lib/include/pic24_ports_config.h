@@ -63,8 +63,8 @@
 /// Disable analog functionality on pin RA0.
 #   define DISABLE_RA0_ANALOG() (_ANSA0 = 0)
 # elif defined(RA0_AN)
-#   define ENABLE_RA0_ANALOG()  (RXY_GPIO_PCFG(RA0_AN) = 1)
-#   define DISABLE_RA0_ANALOG() (RXY_GPIO_PCFG(RA0_AN) = 0)
+#   define ENABLE_RA0_ANALOG()  (RXY_GPIO_PCFG(RA0_AN) = 0)
+#   define DISABLE_RA0_ANALOG() (RXY_GPIO_PCFG(RA0_AN) = 1)
 # else
 #   define DISABLE_RA0_ANALOG() ((void) 0)
 # endif
@@ -204,8 +204,8 @@
 /// Disable analog functionality on pin RA1.
 #   define DISABLE_RA1_ANALOG() (_ANSA1 = 0)
 # elif defined(RA1_AN)
-#   define ENABLE_RA1_ANALOG()  (RXY_GPIO_PCFG(RA1_AN) = 1)
-#   define DISABLE_RA1_ANALOG() (RXY_GPIO_PCFG(RA1_AN) = 0)
+#   define ENABLE_RA1_ANALOG()  (RXY_GPIO_PCFG(RA1_AN) = 0)
+#   define DISABLE_RA1_ANALOG() (RXY_GPIO_PCFG(RA1_AN) = 1)
 # else
 #   define DISABLE_RA1_ANALOG() ((void) 0)
 # endif
@@ -345,8 +345,8 @@
 /// Disable analog functionality on pin RA2.
 #   define DISABLE_RA2_ANALOG() (_ANSA2 = 0)
 # elif defined(RA2_AN)
-#   define ENABLE_RA2_ANALOG()  (RXY_GPIO_PCFG(RA2_AN) = 1)
-#   define DISABLE_RA2_ANALOG() (RXY_GPIO_PCFG(RA2_AN) = 0)
+#   define ENABLE_RA2_ANALOG()  (RXY_GPIO_PCFG(RA2_AN) = 0)
+#   define DISABLE_RA2_ANALOG() (RXY_GPIO_PCFG(RA2_AN) = 1)
 # else
 #   define DISABLE_RA2_ANALOG() ((void) 0)
 # endif
@@ -486,8 +486,8 @@
 /// Disable analog functionality on pin RA3.
 #   define DISABLE_RA3_ANALOG() (_ANSA3 = 0)
 # elif defined(RA3_AN)
-#   define ENABLE_RA3_ANALOG()  (RXY_GPIO_PCFG(RA3_AN) = 1)
-#   define DISABLE_RA3_ANALOG() (RXY_GPIO_PCFG(RA3_AN) = 0)
+#   define ENABLE_RA3_ANALOG()  (RXY_GPIO_PCFG(RA3_AN) = 0)
+#   define DISABLE_RA3_ANALOG() (RXY_GPIO_PCFG(RA3_AN) = 1)
 # else
 #   define DISABLE_RA3_ANALOG() ((void) 0)
 # endif
@@ -627,8 +627,8 @@
 /// Disable analog functionality on pin RA4.
 #   define DISABLE_RA4_ANALOG() (_ANSA4 = 0)
 # elif defined(RA4_AN)
-#   define ENABLE_RA4_ANALOG()  (RXY_GPIO_PCFG(RA4_AN) = 1)
-#   define DISABLE_RA4_ANALOG() (RXY_GPIO_PCFG(RA4_AN) = 0)
+#   define ENABLE_RA4_ANALOG()  (RXY_GPIO_PCFG(RA4_AN) = 0)
+#   define DISABLE_RA4_ANALOG() (RXY_GPIO_PCFG(RA4_AN) = 1)
 # else
 #   define DISABLE_RA4_ANALOG() ((void) 0)
 # endif
@@ -768,8 +768,8 @@
 /// Disable analog functionality on pin RA5.
 #   define DISABLE_RA5_ANALOG() (_ANSA5 = 0)
 # elif defined(RA5_AN)
-#   define ENABLE_RA5_ANALOG()  (RXY_GPIO_PCFG(RA5_AN) = 1)
-#   define DISABLE_RA5_ANALOG() (RXY_GPIO_PCFG(RA5_AN) = 0)
+#   define ENABLE_RA5_ANALOG()  (RXY_GPIO_PCFG(RA5_AN) = 0)
+#   define DISABLE_RA5_ANALOG() (RXY_GPIO_PCFG(RA5_AN) = 1)
 # else
 #   define DISABLE_RA5_ANALOG() ((void) 0)
 # endif
@@ -909,8 +909,8 @@
 /// Disable analog functionality on pin RA6.
 #   define DISABLE_RA6_ANALOG() (_ANSA6 = 0)
 # elif defined(RA6_AN)
-#   define ENABLE_RA6_ANALOG()  (RXY_GPIO_PCFG(RA6_AN) = 1)
-#   define DISABLE_RA6_ANALOG() (RXY_GPIO_PCFG(RA6_AN) = 0)
+#   define ENABLE_RA6_ANALOG()  (RXY_GPIO_PCFG(RA6_AN) = 0)
+#   define DISABLE_RA6_ANALOG() (RXY_GPIO_PCFG(RA6_AN) = 1)
 # else
 #   define DISABLE_RA6_ANALOG() ((void) 0)
 # endif
@@ -1050,8 +1050,8 @@
 /// Disable analog functionality on pin RA7.
 #   define DISABLE_RA7_ANALOG() (_ANSA7 = 0)
 # elif defined(RA7_AN)
-#   define ENABLE_RA7_ANALOG()  (RXY_GPIO_PCFG(RA7_AN) = 1)
-#   define DISABLE_RA7_ANALOG() (RXY_GPIO_PCFG(RA7_AN) = 0)
+#   define ENABLE_RA7_ANALOG()  (RXY_GPIO_PCFG(RA7_AN) = 0)
+#   define DISABLE_RA7_ANALOG() (RXY_GPIO_PCFG(RA7_AN) = 1)
 # else
 #   define DISABLE_RA7_ANALOG() ((void) 0)
 # endif
@@ -1191,8 +1191,8 @@
 /// Disable analog functionality on pin RA8.
 #   define DISABLE_RA8_ANALOG() (_ANSA8 = 0)
 # elif defined(RA8_AN)
-#   define ENABLE_RA8_ANALOG()  (RXY_GPIO_PCFG(RA8_AN) = 1)
-#   define DISABLE_RA8_ANALOG() (RXY_GPIO_PCFG(RA8_AN) = 0)
+#   define ENABLE_RA8_ANALOG()  (RXY_GPIO_PCFG(RA8_AN) = 0)
+#   define DISABLE_RA8_ANALOG() (RXY_GPIO_PCFG(RA8_AN) = 1)
 # else
 #   define DISABLE_RA8_ANALOG() ((void) 0)
 # endif
@@ -1332,8 +1332,8 @@
 /// Disable analog functionality on pin RA9.
 #   define DISABLE_RA9_ANALOG() (_ANSA9 = 0)
 # elif defined(RA9_AN)
-#   define ENABLE_RA9_ANALOG()  (RXY_GPIO_PCFG(RA9_AN) = 1)
-#   define DISABLE_RA9_ANALOG() (RXY_GPIO_PCFG(RA9_AN) = 0)
+#   define ENABLE_RA9_ANALOG()  (RXY_GPIO_PCFG(RA9_AN) = 0)
+#   define DISABLE_RA9_ANALOG() (RXY_GPIO_PCFG(RA9_AN) = 1)
 # else
 #   define DISABLE_RA9_ANALOG() ((void) 0)
 # endif
@@ -1473,8 +1473,8 @@
 /// Disable analog functionality on pin RA10.
 #   define DISABLE_RA10_ANALOG() (_ANSA10 = 0)
 # elif defined(RA10_AN)
-#   define ENABLE_RA10_ANALOG()  (RXY_GPIO_PCFG(RA10_AN) = 1)
-#   define DISABLE_RA10_ANALOG() (RXY_GPIO_PCFG(RA10_AN) = 0)
+#   define ENABLE_RA10_ANALOG()  (RXY_GPIO_PCFG(RA10_AN) = 0)
+#   define DISABLE_RA10_ANALOG() (RXY_GPIO_PCFG(RA10_AN) = 1)
 # else
 #   define DISABLE_RA10_ANALOG() ((void) 0)
 # endif
@@ -1614,8 +1614,8 @@
 /// Disable analog functionality on pin RA11.
 #   define DISABLE_RA11_ANALOG() (_ANSA11 = 0)
 # elif defined(RA11_AN)
-#   define ENABLE_RA11_ANALOG()  (RXY_GPIO_PCFG(RA11_AN) = 1)
-#   define DISABLE_RA11_ANALOG() (RXY_GPIO_PCFG(RA11_AN) = 0)
+#   define ENABLE_RA11_ANALOG()  (RXY_GPIO_PCFG(RA11_AN) = 0)
+#   define DISABLE_RA11_ANALOG() (RXY_GPIO_PCFG(RA11_AN) = 1)
 # else
 #   define DISABLE_RA11_ANALOG() ((void) 0)
 # endif
@@ -1755,8 +1755,8 @@
 /// Disable analog functionality on pin RA12.
 #   define DISABLE_RA12_ANALOG() (_ANSA12 = 0)
 # elif defined(RA12_AN)
-#   define ENABLE_RA12_ANALOG()  (RXY_GPIO_PCFG(RA12_AN) = 1)
-#   define DISABLE_RA12_ANALOG() (RXY_GPIO_PCFG(RA12_AN) = 0)
+#   define ENABLE_RA12_ANALOG()  (RXY_GPIO_PCFG(RA12_AN) = 0)
+#   define DISABLE_RA12_ANALOG() (RXY_GPIO_PCFG(RA12_AN) = 1)
 # else
 #   define DISABLE_RA12_ANALOG() ((void) 0)
 # endif
@@ -1896,8 +1896,8 @@
 /// Disable analog functionality on pin RA13.
 #   define DISABLE_RA13_ANALOG() (_ANSA13 = 0)
 # elif defined(RA13_AN)
-#   define ENABLE_RA13_ANALOG()  (RXY_GPIO_PCFG(RA13_AN) = 1)
-#   define DISABLE_RA13_ANALOG() (RXY_GPIO_PCFG(RA13_AN) = 0)
+#   define ENABLE_RA13_ANALOG()  (RXY_GPIO_PCFG(RA13_AN) = 0)
+#   define DISABLE_RA13_ANALOG() (RXY_GPIO_PCFG(RA13_AN) = 1)
 # else
 #   define DISABLE_RA13_ANALOG() ((void) 0)
 # endif
@@ -2037,8 +2037,8 @@
 /// Disable analog functionality on pin RA14.
 #   define DISABLE_RA14_ANALOG() (_ANSA14 = 0)
 # elif defined(RA14_AN)
-#   define ENABLE_RA14_ANALOG()  (RXY_GPIO_PCFG(RA14_AN) = 1)
-#   define DISABLE_RA14_ANALOG() (RXY_GPIO_PCFG(RA14_AN) = 0)
+#   define ENABLE_RA14_ANALOG()  (RXY_GPIO_PCFG(RA14_AN) = 0)
+#   define DISABLE_RA14_ANALOG() (RXY_GPIO_PCFG(RA14_AN) = 1)
 # else
 #   define DISABLE_RA14_ANALOG() ((void) 0)
 # endif
@@ -2178,8 +2178,8 @@
 /// Disable analog functionality on pin RA15.
 #   define DISABLE_RA15_ANALOG() (_ANSA15 = 0)
 # elif defined(RA15_AN)
-#   define ENABLE_RA15_ANALOG()  (RXY_GPIO_PCFG(RA15_AN) = 1)
-#   define DISABLE_RA15_ANALOG() (RXY_GPIO_PCFG(RA15_AN) = 0)
+#   define ENABLE_RA15_ANALOG()  (RXY_GPIO_PCFG(RA15_AN) = 0)
+#   define DISABLE_RA15_ANALOG() (RXY_GPIO_PCFG(RA15_AN) = 1)
 # else
 #   define DISABLE_RA15_ANALOG() ((void) 0)
 # endif
@@ -2319,8 +2319,8 @@
 /// Disable analog functionality on pin RB0.
 #   define DISABLE_RB0_ANALOG() (_ANSB0 = 0)
 # elif defined(RB0_AN)
-#   define ENABLE_RB0_ANALOG()  (RXY_GPIO_PCFG(RB0_AN) = 1)
-#   define DISABLE_RB0_ANALOG() (RXY_GPIO_PCFG(RB0_AN) = 0)
+#   define ENABLE_RB0_ANALOG()  (RXY_GPIO_PCFG(RB0_AN) = 0)
+#   define DISABLE_RB0_ANALOG() (RXY_GPIO_PCFG(RB0_AN) = 1)
 # else
 #   define DISABLE_RB0_ANALOG() ((void) 0)
 # endif
@@ -2460,8 +2460,8 @@
 /// Disable analog functionality on pin RB1.
 #   define DISABLE_RB1_ANALOG() (_ANSB1 = 0)
 # elif defined(RB1_AN)
-#   define ENABLE_RB1_ANALOG()  (RXY_GPIO_PCFG(RB1_AN) = 1)
-#   define DISABLE_RB1_ANALOG() (RXY_GPIO_PCFG(RB1_AN) = 0)
+#   define ENABLE_RB1_ANALOG()  (RXY_GPIO_PCFG(RB1_AN) = 0)
+#   define DISABLE_RB1_ANALOG() (RXY_GPIO_PCFG(RB1_AN) = 1)
 # else
 #   define DISABLE_RB1_ANALOG() ((void) 0)
 # endif
@@ -2601,8 +2601,8 @@
 /// Disable analog functionality on pin RB2.
 #   define DISABLE_RB2_ANALOG() (_ANSB2 = 0)
 # elif defined(RB2_AN)
-#   define ENABLE_RB2_ANALOG()  (RXY_GPIO_PCFG(RB2_AN) = 1)
-#   define DISABLE_RB2_ANALOG() (RXY_GPIO_PCFG(RB2_AN) = 0)
+#   define ENABLE_RB2_ANALOG()  (RXY_GPIO_PCFG(RB2_AN) = 0)
+#   define DISABLE_RB2_ANALOG() (RXY_GPIO_PCFG(RB2_AN) = 1)
 # else
 #   define DISABLE_RB2_ANALOG() ((void) 0)
 # endif
@@ -2742,8 +2742,8 @@
 /// Disable analog functionality on pin RB3.
 #   define DISABLE_RB3_ANALOG() (_ANSB3 = 0)
 # elif defined(RB3_AN)
-#   define ENABLE_RB3_ANALOG()  (RXY_GPIO_PCFG(RB3_AN) = 1)
-#   define DISABLE_RB3_ANALOG() (RXY_GPIO_PCFG(RB3_AN) = 0)
+#   define ENABLE_RB3_ANALOG()  (RXY_GPIO_PCFG(RB3_AN) = 0)
+#   define DISABLE_RB3_ANALOG() (RXY_GPIO_PCFG(RB3_AN) = 1)
 # else
 #   define DISABLE_RB3_ANALOG() ((void) 0)
 # endif
@@ -2883,8 +2883,8 @@
 /// Disable analog functionality on pin RB4.
 #   define DISABLE_RB4_ANALOG() (_ANSB4 = 0)
 # elif defined(RB4_AN)
-#   define ENABLE_RB4_ANALOG()  (RXY_GPIO_PCFG(RB4_AN) = 1)
-#   define DISABLE_RB4_ANALOG() (RXY_GPIO_PCFG(RB4_AN) = 0)
+#   define ENABLE_RB4_ANALOG()  (RXY_GPIO_PCFG(RB4_AN) = 0)
+#   define DISABLE_RB4_ANALOG() (RXY_GPIO_PCFG(RB4_AN) = 1)
 # else
 #   define DISABLE_RB4_ANALOG() ((void) 0)
 # endif
@@ -3024,8 +3024,8 @@
 /// Disable analog functionality on pin RB5.
 #   define DISABLE_RB5_ANALOG() (_ANSB5 = 0)
 # elif defined(RB5_AN)
-#   define ENABLE_RB5_ANALOG()  (RXY_GPIO_PCFG(RB5_AN) = 1)
-#   define DISABLE_RB5_ANALOG() (RXY_GPIO_PCFG(RB5_AN) = 0)
+#   define ENABLE_RB5_ANALOG()  (RXY_GPIO_PCFG(RB5_AN) = 0)
+#   define DISABLE_RB5_ANALOG() (RXY_GPIO_PCFG(RB5_AN) = 1)
 # else
 #   define DISABLE_RB5_ANALOG() ((void) 0)
 # endif
@@ -3165,8 +3165,8 @@
 /// Disable analog functionality on pin RB6.
 #   define DISABLE_RB6_ANALOG() (_ANSB6 = 0)
 # elif defined(RB6_AN)
-#   define ENABLE_RB6_ANALOG()  (RXY_GPIO_PCFG(RB6_AN) = 1)
-#   define DISABLE_RB6_ANALOG() (RXY_GPIO_PCFG(RB6_AN) = 0)
+#   define ENABLE_RB6_ANALOG()  (RXY_GPIO_PCFG(RB6_AN) = 0)
+#   define DISABLE_RB6_ANALOG() (RXY_GPIO_PCFG(RB6_AN) = 1)
 # else
 #   define DISABLE_RB6_ANALOG() ((void) 0)
 # endif
@@ -3306,8 +3306,8 @@
 /// Disable analog functionality on pin RB7.
 #   define DISABLE_RB7_ANALOG() (_ANSB7 = 0)
 # elif defined(RB7_AN)
-#   define ENABLE_RB7_ANALOG()  (RXY_GPIO_PCFG(RB7_AN) = 1)
-#   define DISABLE_RB7_ANALOG() (RXY_GPIO_PCFG(RB7_AN) = 0)
+#   define ENABLE_RB7_ANALOG()  (RXY_GPIO_PCFG(RB7_AN) = 0)
+#   define DISABLE_RB7_ANALOG() (RXY_GPIO_PCFG(RB7_AN) = 1)
 # else
 #   define DISABLE_RB7_ANALOG() ((void) 0)
 # endif
@@ -3447,8 +3447,8 @@
 /// Disable analog functionality on pin RB8.
 #   define DISABLE_RB8_ANALOG() (_ANSB8 = 0)
 # elif defined(RB8_AN)
-#   define ENABLE_RB8_ANALOG()  (RXY_GPIO_PCFG(RB8_AN) = 1)
-#   define DISABLE_RB8_ANALOG() (RXY_GPIO_PCFG(RB8_AN) = 0)
+#   define ENABLE_RB8_ANALOG()  (RXY_GPIO_PCFG(RB8_AN) = 0)
+#   define DISABLE_RB8_ANALOG() (RXY_GPIO_PCFG(RB8_AN) = 1)
 # else
 #   define DISABLE_RB8_ANALOG() ((void) 0)
 # endif
@@ -3588,8 +3588,8 @@
 /// Disable analog functionality on pin RB9.
 #   define DISABLE_RB9_ANALOG() (_ANSB9 = 0)
 # elif defined(RB9_AN)
-#   define ENABLE_RB9_ANALOG()  (RXY_GPIO_PCFG(RB9_AN) = 1)
-#   define DISABLE_RB9_ANALOG() (RXY_GPIO_PCFG(RB9_AN) = 0)
+#   define ENABLE_RB9_ANALOG()  (RXY_GPIO_PCFG(RB9_AN) = 0)
+#   define DISABLE_RB9_ANALOG() (RXY_GPIO_PCFG(RB9_AN) = 1)
 # else
 #   define DISABLE_RB9_ANALOG() ((void) 0)
 # endif
@@ -3729,8 +3729,8 @@
 /// Disable analog functionality on pin RB10.
 #   define DISABLE_RB10_ANALOG() (_ANSB10 = 0)
 # elif defined(RB10_AN)
-#   define ENABLE_RB10_ANALOG()  (RXY_GPIO_PCFG(RB10_AN) = 1)
-#   define DISABLE_RB10_ANALOG() (RXY_GPIO_PCFG(RB10_AN) = 0)
+#   define ENABLE_RB10_ANALOG()  (RXY_GPIO_PCFG(RB10_AN) = 0)
+#   define DISABLE_RB10_ANALOG() (RXY_GPIO_PCFG(RB10_AN) = 1)
 # else
 #   define DISABLE_RB10_ANALOG() ((void) 0)
 # endif
@@ -3870,8 +3870,8 @@
 /// Disable analog functionality on pin RB11.
 #   define DISABLE_RB11_ANALOG() (_ANSB11 = 0)
 # elif defined(RB11_AN)
-#   define ENABLE_RB11_ANALOG()  (RXY_GPIO_PCFG(RB11_AN) = 1)
-#   define DISABLE_RB11_ANALOG() (RXY_GPIO_PCFG(RB11_AN) = 0)
+#   define ENABLE_RB11_ANALOG()  (RXY_GPIO_PCFG(RB11_AN) = 0)
+#   define DISABLE_RB11_ANALOG() (RXY_GPIO_PCFG(RB11_AN) = 1)
 # else
 #   define DISABLE_RB11_ANALOG() ((void) 0)
 # endif
@@ -4011,8 +4011,8 @@
 /// Disable analog functionality on pin RB12.
 #   define DISABLE_RB12_ANALOG() (_ANSB12 = 0)
 # elif defined(RB12_AN)
-#   define ENABLE_RB12_ANALOG()  (RXY_GPIO_PCFG(RB12_AN) = 1)
-#   define DISABLE_RB12_ANALOG() (RXY_GPIO_PCFG(RB12_AN) = 0)
+#   define ENABLE_RB12_ANALOG()  (RXY_GPIO_PCFG(RB12_AN) = 0)
+#   define DISABLE_RB12_ANALOG() (RXY_GPIO_PCFG(RB12_AN) = 1)
 # else
 #   define DISABLE_RB12_ANALOG() ((void) 0)
 # endif
@@ -4152,8 +4152,8 @@
 /// Disable analog functionality on pin RB13.
 #   define DISABLE_RB13_ANALOG() (_ANSB13 = 0)
 # elif defined(RB13_AN)
-#   define ENABLE_RB13_ANALOG()  (RXY_GPIO_PCFG(RB13_AN) = 1)
-#   define DISABLE_RB13_ANALOG() (RXY_GPIO_PCFG(RB13_AN) = 0)
+#   define ENABLE_RB13_ANALOG()  (RXY_GPIO_PCFG(RB13_AN) = 0)
+#   define DISABLE_RB13_ANALOG() (RXY_GPIO_PCFG(RB13_AN) = 1)
 # else
 #   define DISABLE_RB13_ANALOG() ((void) 0)
 # endif
@@ -4293,8 +4293,8 @@
 /// Disable analog functionality on pin RB14.
 #   define DISABLE_RB14_ANALOG() (_ANSB14 = 0)
 # elif defined(RB14_AN)
-#   define ENABLE_RB14_ANALOG()  (RXY_GPIO_PCFG(RB14_AN) = 1)
-#   define DISABLE_RB14_ANALOG() (RXY_GPIO_PCFG(RB14_AN) = 0)
+#   define ENABLE_RB14_ANALOG()  (RXY_GPIO_PCFG(RB14_AN) = 0)
+#   define DISABLE_RB14_ANALOG() (RXY_GPIO_PCFG(RB14_AN) = 1)
 # else
 #   define DISABLE_RB14_ANALOG() ((void) 0)
 # endif
@@ -4434,8 +4434,8 @@
 /// Disable analog functionality on pin RB15.
 #   define DISABLE_RB15_ANALOG() (_ANSB15 = 0)
 # elif defined(RB15_AN)
-#   define ENABLE_RB15_ANALOG()  (RXY_GPIO_PCFG(RB15_AN) = 1)
-#   define DISABLE_RB15_ANALOG() (RXY_GPIO_PCFG(RB15_AN) = 0)
+#   define ENABLE_RB15_ANALOG()  (RXY_GPIO_PCFG(RB15_AN) = 0)
+#   define DISABLE_RB15_ANALOG() (RXY_GPIO_PCFG(RB15_AN) = 1)
 # else
 #   define DISABLE_RB15_ANALOG() ((void) 0)
 # endif
@@ -4575,8 +4575,8 @@
 /// Disable analog functionality on pin RC0.
 #   define DISABLE_RC0_ANALOG() (_ANSC0 = 0)
 # elif defined(RC0_AN)
-#   define ENABLE_RC0_ANALOG()  (RXY_GPIO_PCFG(RC0_AN) = 1)
-#   define DISABLE_RC0_ANALOG() (RXY_GPIO_PCFG(RC0_AN) = 0)
+#   define ENABLE_RC0_ANALOG()  (RXY_GPIO_PCFG(RC0_AN) = 0)
+#   define DISABLE_RC0_ANALOG() (RXY_GPIO_PCFG(RC0_AN) = 1)
 # else
 #   define DISABLE_RC0_ANALOG() ((void) 0)
 # endif
@@ -4716,8 +4716,8 @@
 /// Disable analog functionality on pin RC1.
 #   define DISABLE_RC1_ANALOG() (_ANSC1 = 0)
 # elif defined(RC1_AN)
-#   define ENABLE_RC1_ANALOG()  (RXY_GPIO_PCFG(RC1_AN) = 1)
-#   define DISABLE_RC1_ANALOG() (RXY_GPIO_PCFG(RC1_AN) = 0)
+#   define ENABLE_RC1_ANALOG()  (RXY_GPIO_PCFG(RC1_AN) = 0)
+#   define DISABLE_RC1_ANALOG() (RXY_GPIO_PCFG(RC1_AN) = 1)
 # else
 #   define DISABLE_RC1_ANALOG() ((void) 0)
 # endif
@@ -4857,8 +4857,8 @@
 /// Disable analog functionality on pin RC2.
 #   define DISABLE_RC2_ANALOG() (_ANSC2 = 0)
 # elif defined(RC2_AN)
-#   define ENABLE_RC2_ANALOG()  (RXY_GPIO_PCFG(RC2_AN) = 1)
-#   define DISABLE_RC2_ANALOG() (RXY_GPIO_PCFG(RC2_AN) = 0)
+#   define ENABLE_RC2_ANALOG()  (RXY_GPIO_PCFG(RC2_AN) = 0)
+#   define DISABLE_RC2_ANALOG() (RXY_GPIO_PCFG(RC2_AN) = 1)
 # else
 #   define DISABLE_RC2_ANALOG() ((void) 0)
 # endif
@@ -4998,8 +4998,8 @@
 /// Disable analog functionality on pin RC3.
 #   define DISABLE_RC3_ANALOG() (_ANSC3 = 0)
 # elif defined(RC3_AN)
-#   define ENABLE_RC3_ANALOG()  (RXY_GPIO_PCFG(RC3_AN) = 1)
-#   define DISABLE_RC3_ANALOG() (RXY_GPIO_PCFG(RC3_AN) = 0)
+#   define ENABLE_RC3_ANALOG()  (RXY_GPIO_PCFG(RC3_AN) = 0)
+#   define DISABLE_RC3_ANALOG() (RXY_GPIO_PCFG(RC3_AN) = 1)
 # else
 #   define DISABLE_RC3_ANALOG() ((void) 0)
 # endif
@@ -5139,8 +5139,8 @@
 /// Disable analog functionality on pin RC4.
 #   define DISABLE_RC4_ANALOG() (_ANSC4 = 0)
 # elif defined(RC4_AN)
-#   define ENABLE_RC4_ANALOG()  (RXY_GPIO_PCFG(RC4_AN) = 1)
-#   define DISABLE_RC4_ANALOG() (RXY_GPIO_PCFG(RC4_AN) = 0)
+#   define ENABLE_RC4_ANALOG()  (RXY_GPIO_PCFG(RC4_AN) = 0)
+#   define DISABLE_RC4_ANALOG() (RXY_GPIO_PCFG(RC4_AN) = 1)
 # else
 #   define DISABLE_RC4_ANALOG() ((void) 0)
 # endif
@@ -5280,8 +5280,8 @@
 /// Disable analog functionality on pin RC5.
 #   define DISABLE_RC5_ANALOG() (_ANSC5 = 0)
 # elif defined(RC5_AN)
-#   define ENABLE_RC5_ANALOG()  (RXY_GPIO_PCFG(RC5_AN) = 1)
-#   define DISABLE_RC5_ANALOG() (RXY_GPIO_PCFG(RC5_AN) = 0)
+#   define ENABLE_RC5_ANALOG()  (RXY_GPIO_PCFG(RC5_AN) = 0)
+#   define DISABLE_RC5_ANALOG() (RXY_GPIO_PCFG(RC5_AN) = 1)
 # else
 #   define DISABLE_RC5_ANALOG() ((void) 0)
 # endif
@@ -5421,8 +5421,8 @@
 /// Disable analog functionality on pin RC6.
 #   define DISABLE_RC6_ANALOG() (_ANSC6 = 0)
 # elif defined(RC6_AN)
-#   define ENABLE_RC6_ANALOG()  (RXY_GPIO_PCFG(RC6_AN) = 1)
-#   define DISABLE_RC6_ANALOG() (RXY_GPIO_PCFG(RC6_AN) = 0)
+#   define ENABLE_RC6_ANALOG()  (RXY_GPIO_PCFG(RC6_AN) = 0)
+#   define DISABLE_RC6_ANALOG() (RXY_GPIO_PCFG(RC6_AN) = 1)
 # else
 #   define DISABLE_RC6_ANALOG() ((void) 0)
 # endif
@@ -5562,8 +5562,8 @@
 /// Disable analog functionality on pin RC7.
 #   define DISABLE_RC7_ANALOG() (_ANSC7 = 0)
 # elif defined(RC7_AN)
-#   define ENABLE_RC7_ANALOG()  (RXY_GPIO_PCFG(RC7_AN) = 1)
-#   define DISABLE_RC7_ANALOG() (RXY_GPIO_PCFG(RC7_AN) = 0)
+#   define ENABLE_RC7_ANALOG()  (RXY_GPIO_PCFG(RC7_AN) = 0)
+#   define DISABLE_RC7_ANALOG() (RXY_GPIO_PCFG(RC7_AN) = 1)
 # else
 #   define DISABLE_RC7_ANALOG() ((void) 0)
 # endif
@@ -5703,8 +5703,8 @@
 /// Disable analog functionality on pin RC8.
 #   define DISABLE_RC8_ANALOG() (_ANSC8 = 0)
 # elif defined(RC8_AN)
-#   define ENABLE_RC8_ANALOG()  (RXY_GPIO_PCFG(RC8_AN) = 1)
-#   define DISABLE_RC8_ANALOG() (RXY_GPIO_PCFG(RC8_AN) = 0)
+#   define ENABLE_RC8_ANALOG()  (RXY_GPIO_PCFG(RC8_AN) = 0)
+#   define DISABLE_RC8_ANALOG() (RXY_GPIO_PCFG(RC8_AN) = 1)
 # else
 #   define DISABLE_RC8_ANALOG() ((void) 0)
 # endif
@@ -5844,8 +5844,8 @@
 /// Disable analog functionality on pin RC9.
 #   define DISABLE_RC9_ANALOG() (_ANSC9 = 0)
 # elif defined(RC9_AN)
-#   define ENABLE_RC9_ANALOG()  (RXY_GPIO_PCFG(RC9_AN) = 1)
-#   define DISABLE_RC9_ANALOG() (RXY_GPIO_PCFG(RC9_AN) = 0)
+#   define ENABLE_RC9_ANALOG()  (RXY_GPIO_PCFG(RC9_AN) = 0)
+#   define DISABLE_RC9_ANALOG() (RXY_GPIO_PCFG(RC9_AN) = 1)
 # else
 #   define DISABLE_RC9_ANALOG() ((void) 0)
 # endif
@@ -5985,8 +5985,8 @@
 /// Disable analog functionality on pin RC10.
 #   define DISABLE_RC10_ANALOG() (_ANSC10 = 0)
 # elif defined(RC10_AN)
-#   define ENABLE_RC10_ANALOG()  (RXY_GPIO_PCFG(RC10_AN) = 1)
-#   define DISABLE_RC10_ANALOG() (RXY_GPIO_PCFG(RC10_AN) = 0)
+#   define ENABLE_RC10_ANALOG()  (RXY_GPIO_PCFG(RC10_AN) = 0)
+#   define DISABLE_RC10_ANALOG() (RXY_GPIO_PCFG(RC10_AN) = 1)
 # else
 #   define DISABLE_RC10_ANALOG() ((void) 0)
 # endif
@@ -6126,8 +6126,8 @@
 /// Disable analog functionality on pin RC11.
 #   define DISABLE_RC11_ANALOG() (_ANSC11 = 0)
 # elif defined(RC11_AN)
-#   define ENABLE_RC11_ANALOG()  (RXY_GPIO_PCFG(RC11_AN) = 1)
-#   define DISABLE_RC11_ANALOG() (RXY_GPIO_PCFG(RC11_AN) = 0)
+#   define ENABLE_RC11_ANALOG()  (RXY_GPIO_PCFG(RC11_AN) = 0)
+#   define DISABLE_RC11_ANALOG() (RXY_GPIO_PCFG(RC11_AN) = 1)
 # else
 #   define DISABLE_RC11_ANALOG() ((void) 0)
 # endif
@@ -6267,8 +6267,8 @@
 /// Disable analog functionality on pin RC12.
 #   define DISABLE_RC12_ANALOG() (_ANSC12 = 0)
 # elif defined(RC12_AN)
-#   define ENABLE_RC12_ANALOG()  (RXY_GPIO_PCFG(RC12_AN) = 1)
-#   define DISABLE_RC12_ANALOG() (RXY_GPIO_PCFG(RC12_AN) = 0)
+#   define ENABLE_RC12_ANALOG()  (RXY_GPIO_PCFG(RC12_AN) = 0)
+#   define DISABLE_RC12_ANALOG() (RXY_GPIO_PCFG(RC12_AN) = 1)
 # else
 #   define DISABLE_RC12_ANALOG() ((void) 0)
 # endif
@@ -6408,8 +6408,8 @@
 /// Disable analog functionality on pin RC13.
 #   define DISABLE_RC13_ANALOG() (_ANSC13 = 0)
 # elif defined(RC13_AN)
-#   define ENABLE_RC13_ANALOG()  (RXY_GPIO_PCFG(RC13_AN) = 1)
-#   define DISABLE_RC13_ANALOG() (RXY_GPIO_PCFG(RC13_AN) = 0)
+#   define ENABLE_RC13_ANALOG()  (RXY_GPIO_PCFG(RC13_AN) = 0)
+#   define DISABLE_RC13_ANALOG() (RXY_GPIO_PCFG(RC13_AN) = 1)
 # else
 #   define DISABLE_RC13_ANALOG() ((void) 0)
 # endif
@@ -6549,8 +6549,8 @@
 /// Disable analog functionality on pin RC14.
 #   define DISABLE_RC14_ANALOG() (_ANSC14 = 0)
 # elif defined(RC14_AN)
-#   define ENABLE_RC14_ANALOG()  (RXY_GPIO_PCFG(RC14_AN) = 1)
-#   define DISABLE_RC14_ANALOG() (RXY_GPIO_PCFG(RC14_AN) = 0)
+#   define ENABLE_RC14_ANALOG()  (RXY_GPIO_PCFG(RC14_AN) = 0)
+#   define DISABLE_RC14_ANALOG() (RXY_GPIO_PCFG(RC14_AN) = 1)
 # else
 #   define DISABLE_RC14_ANALOG() ((void) 0)
 # endif
@@ -6690,8 +6690,8 @@
 /// Disable analog functionality on pin RC15.
 #   define DISABLE_RC15_ANALOG() (_ANSC15 = 0)
 # elif defined(RC15_AN)
-#   define ENABLE_RC15_ANALOG()  (RXY_GPIO_PCFG(RC15_AN) = 1)
-#   define DISABLE_RC15_ANALOG() (RXY_GPIO_PCFG(RC15_AN) = 0)
+#   define ENABLE_RC15_ANALOG()  (RXY_GPIO_PCFG(RC15_AN) = 0)
+#   define DISABLE_RC15_ANALOG() (RXY_GPIO_PCFG(RC15_AN) = 1)
 # else
 #   define DISABLE_RC15_ANALOG() ((void) 0)
 # endif
@@ -6831,8 +6831,8 @@
 /// Disable analog functionality on pin RD0.
 #   define DISABLE_RD0_ANALOG() (_ANSD0 = 0)
 # elif defined(RD0_AN)
-#   define ENABLE_RD0_ANALOG()  (RXY_GPIO_PCFG(RD0_AN) = 1)
-#   define DISABLE_RD0_ANALOG() (RXY_GPIO_PCFG(RD0_AN) = 0)
+#   define ENABLE_RD0_ANALOG()  (RXY_GPIO_PCFG(RD0_AN) = 0)
+#   define DISABLE_RD0_ANALOG() (RXY_GPIO_PCFG(RD0_AN) = 1)
 # else
 #   define DISABLE_RD0_ANALOG() ((void) 0)
 # endif
@@ -6972,8 +6972,8 @@
 /// Disable analog functionality on pin RD1.
 #   define DISABLE_RD1_ANALOG() (_ANSD1 = 0)
 # elif defined(RD1_AN)
-#   define ENABLE_RD1_ANALOG()  (RXY_GPIO_PCFG(RD1_AN) = 1)
-#   define DISABLE_RD1_ANALOG() (RXY_GPIO_PCFG(RD1_AN) = 0)
+#   define ENABLE_RD1_ANALOG()  (RXY_GPIO_PCFG(RD1_AN) = 0)
+#   define DISABLE_RD1_ANALOG() (RXY_GPIO_PCFG(RD1_AN) = 1)
 # else
 #   define DISABLE_RD1_ANALOG() ((void) 0)
 # endif
@@ -7113,8 +7113,8 @@
 /// Disable analog functionality on pin RD2.
 #   define DISABLE_RD2_ANALOG() (_ANSD2 = 0)
 # elif defined(RD2_AN)
-#   define ENABLE_RD2_ANALOG()  (RXY_GPIO_PCFG(RD2_AN) = 1)
-#   define DISABLE_RD2_ANALOG() (RXY_GPIO_PCFG(RD2_AN) = 0)
+#   define ENABLE_RD2_ANALOG()  (RXY_GPIO_PCFG(RD2_AN) = 0)
+#   define DISABLE_RD2_ANALOG() (RXY_GPIO_PCFG(RD2_AN) = 1)
 # else
 #   define DISABLE_RD2_ANALOG() ((void) 0)
 # endif
@@ -7254,8 +7254,8 @@
 /// Disable analog functionality on pin RD3.
 #   define DISABLE_RD3_ANALOG() (_ANSD3 = 0)
 # elif defined(RD3_AN)
-#   define ENABLE_RD3_ANALOG()  (RXY_GPIO_PCFG(RD3_AN) = 1)
-#   define DISABLE_RD3_ANALOG() (RXY_GPIO_PCFG(RD3_AN) = 0)
+#   define ENABLE_RD3_ANALOG()  (RXY_GPIO_PCFG(RD3_AN) = 0)
+#   define DISABLE_RD3_ANALOG() (RXY_GPIO_PCFG(RD3_AN) = 1)
 # else
 #   define DISABLE_RD3_ANALOG() ((void) 0)
 # endif
@@ -7395,8 +7395,8 @@
 /// Disable analog functionality on pin RD4.
 #   define DISABLE_RD4_ANALOG() (_ANSD4 = 0)
 # elif defined(RD4_AN)
-#   define ENABLE_RD4_ANALOG()  (RXY_GPIO_PCFG(RD4_AN) = 1)
-#   define DISABLE_RD4_ANALOG() (RXY_GPIO_PCFG(RD4_AN) = 0)
+#   define ENABLE_RD4_ANALOG()  (RXY_GPIO_PCFG(RD4_AN) = 0)
+#   define DISABLE_RD4_ANALOG() (RXY_GPIO_PCFG(RD4_AN) = 1)
 # else
 #   define DISABLE_RD4_ANALOG() ((void) 0)
 # endif
@@ -7536,8 +7536,8 @@
 /// Disable analog functionality on pin RD5.
 #   define DISABLE_RD5_ANALOG() (_ANSD5 = 0)
 # elif defined(RD5_AN)
-#   define ENABLE_RD5_ANALOG()  (RXY_GPIO_PCFG(RD5_AN) = 1)
-#   define DISABLE_RD5_ANALOG() (RXY_GPIO_PCFG(RD5_AN) = 0)
+#   define ENABLE_RD5_ANALOG()  (RXY_GPIO_PCFG(RD5_AN) = 0)
+#   define DISABLE_RD5_ANALOG() (RXY_GPIO_PCFG(RD5_AN) = 1)
 # else
 #   define DISABLE_RD5_ANALOG() ((void) 0)
 # endif
@@ -7677,8 +7677,8 @@
 /// Disable analog functionality on pin RD6.
 #   define DISABLE_RD6_ANALOG() (_ANSD6 = 0)
 # elif defined(RD6_AN)
-#   define ENABLE_RD6_ANALOG()  (RXY_GPIO_PCFG(RD6_AN) = 1)
-#   define DISABLE_RD6_ANALOG() (RXY_GPIO_PCFG(RD6_AN) = 0)
+#   define ENABLE_RD6_ANALOG()  (RXY_GPIO_PCFG(RD6_AN) = 0)
+#   define DISABLE_RD6_ANALOG() (RXY_GPIO_PCFG(RD6_AN) = 1)
 # else
 #   define DISABLE_RD6_ANALOG() ((void) 0)
 # endif
@@ -7818,8 +7818,8 @@
 /// Disable analog functionality on pin RD7.
 #   define DISABLE_RD7_ANALOG() (_ANSD7 = 0)
 # elif defined(RD7_AN)
-#   define ENABLE_RD7_ANALOG()  (RXY_GPIO_PCFG(RD7_AN) = 1)
-#   define DISABLE_RD7_ANALOG() (RXY_GPIO_PCFG(RD7_AN) = 0)
+#   define ENABLE_RD7_ANALOG()  (RXY_GPIO_PCFG(RD7_AN) = 0)
+#   define DISABLE_RD7_ANALOG() (RXY_GPIO_PCFG(RD7_AN) = 1)
 # else
 #   define DISABLE_RD7_ANALOG() ((void) 0)
 # endif
@@ -7959,8 +7959,8 @@
 /// Disable analog functionality on pin RD8.
 #   define DISABLE_RD8_ANALOG() (_ANSD8 = 0)
 # elif defined(RD8_AN)
-#   define ENABLE_RD8_ANALOG()  (RXY_GPIO_PCFG(RD8_AN) = 1)
-#   define DISABLE_RD8_ANALOG() (RXY_GPIO_PCFG(RD8_AN) = 0)
+#   define ENABLE_RD8_ANALOG()  (RXY_GPIO_PCFG(RD8_AN) = 0)
+#   define DISABLE_RD8_ANALOG() (RXY_GPIO_PCFG(RD8_AN) = 1)
 # else
 #   define DISABLE_RD8_ANALOG() ((void) 0)
 # endif
@@ -8100,8 +8100,8 @@
 /// Disable analog functionality on pin RD9.
 #   define DISABLE_RD9_ANALOG() (_ANSD9 = 0)
 # elif defined(RD9_AN)
-#   define ENABLE_RD9_ANALOG()  (RXY_GPIO_PCFG(RD9_AN) = 1)
-#   define DISABLE_RD9_ANALOG() (RXY_GPIO_PCFG(RD9_AN) = 0)
+#   define ENABLE_RD9_ANALOG()  (RXY_GPIO_PCFG(RD9_AN) = 0)
+#   define DISABLE_RD9_ANALOG() (RXY_GPIO_PCFG(RD9_AN) = 1)
 # else
 #   define DISABLE_RD9_ANALOG() ((void) 0)
 # endif
@@ -8241,8 +8241,8 @@
 /// Disable analog functionality on pin RD10.
 #   define DISABLE_RD10_ANALOG() (_ANSD10 = 0)
 # elif defined(RD10_AN)
-#   define ENABLE_RD10_ANALOG()  (RXY_GPIO_PCFG(RD10_AN) = 1)
-#   define DISABLE_RD10_ANALOG() (RXY_GPIO_PCFG(RD10_AN) = 0)
+#   define ENABLE_RD10_ANALOG()  (RXY_GPIO_PCFG(RD10_AN) = 0)
+#   define DISABLE_RD10_ANALOG() (RXY_GPIO_PCFG(RD10_AN) = 1)
 # else
 #   define DISABLE_RD10_ANALOG() ((void) 0)
 # endif
@@ -8382,8 +8382,8 @@
 /// Disable analog functionality on pin RD11.
 #   define DISABLE_RD11_ANALOG() (_ANSD11 = 0)
 # elif defined(RD11_AN)
-#   define ENABLE_RD11_ANALOG()  (RXY_GPIO_PCFG(RD11_AN) = 1)
-#   define DISABLE_RD11_ANALOG() (RXY_GPIO_PCFG(RD11_AN) = 0)
+#   define ENABLE_RD11_ANALOG()  (RXY_GPIO_PCFG(RD11_AN) = 0)
+#   define DISABLE_RD11_ANALOG() (RXY_GPIO_PCFG(RD11_AN) = 1)
 # else
 #   define DISABLE_RD11_ANALOG() ((void) 0)
 # endif
@@ -8523,8 +8523,8 @@
 /// Disable analog functionality on pin RD12.
 #   define DISABLE_RD12_ANALOG() (_ANSD12 = 0)
 # elif defined(RD12_AN)
-#   define ENABLE_RD12_ANALOG()  (RXY_GPIO_PCFG(RD12_AN) = 1)
-#   define DISABLE_RD12_ANALOG() (RXY_GPIO_PCFG(RD12_AN) = 0)
+#   define ENABLE_RD12_ANALOG()  (RXY_GPIO_PCFG(RD12_AN) = 0)
+#   define DISABLE_RD12_ANALOG() (RXY_GPIO_PCFG(RD12_AN) = 1)
 # else
 #   define DISABLE_RD12_ANALOG() ((void) 0)
 # endif
@@ -8664,8 +8664,8 @@
 /// Disable analog functionality on pin RD13.
 #   define DISABLE_RD13_ANALOG() (_ANSD13 = 0)
 # elif defined(RD13_AN)
-#   define ENABLE_RD13_ANALOG()  (RXY_GPIO_PCFG(RD13_AN) = 1)
-#   define DISABLE_RD13_ANALOG() (RXY_GPIO_PCFG(RD13_AN) = 0)
+#   define ENABLE_RD13_ANALOG()  (RXY_GPIO_PCFG(RD13_AN) = 0)
+#   define DISABLE_RD13_ANALOG() (RXY_GPIO_PCFG(RD13_AN) = 1)
 # else
 #   define DISABLE_RD13_ANALOG() ((void) 0)
 # endif
@@ -8805,8 +8805,8 @@
 /// Disable analog functionality on pin RD14.
 #   define DISABLE_RD14_ANALOG() (_ANSD14 = 0)
 # elif defined(RD14_AN)
-#   define ENABLE_RD14_ANALOG()  (RXY_GPIO_PCFG(RD14_AN) = 1)
-#   define DISABLE_RD14_ANALOG() (RXY_GPIO_PCFG(RD14_AN) = 0)
+#   define ENABLE_RD14_ANALOG()  (RXY_GPIO_PCFG(RD14_AN) = 0)
+#   define DISABLE_RD14_ANALOG() (RXY_GPIO_PCFG(RD14_AN) = 1)
 # else
 #   define DISABLE_RD14_ANALOG() ((void) 0)
 # endif
@@ -8946,8 +8946,8 @@
 /// Disable analog functionality on pin RD15.
 #   define DISABLE_RD15_ANALOG() (_ANSD15 = 0)
 # elif defined(RD15_AN)
-#   define ENABLE_RD15_ANALOG()  (RXY_GPIO_PCFG(RD15_AN) = 1)
-#   define DISABLE_RD15_ANALOG() (RXY_GPIO_PCFG(RD15_AN) = 0)
+#   define ENABLE_RD15_ANALOG()  (RXY_GPIO_PCFG(RD15_AN) = 0)
+#   define DISABLE_RD15_ANALOG() (RXY_GPIO_PCFG(RD15_AN) = 1)
 # else
 #   define DISABLE_RD15_ANALOG() ((void) 0)
 # endif
@@ -9087,8 +9087,8 @@
 /// Disable analog functionality on pin RE0.
 #   define DISABLE_RE0_ANALOG() (_ANSE0 = 0)
 # elif defined(RE0_AN)
-#   define ENABLE_RE0_ANALOG()  (RXY_GPIO_PCFG(RE0_AN) = 1)
-#   define DISABLE_RE0_ANALOG() (RXY_GPIO_PCFG(RE0_AN) = 0)
+#   define ENABLE_RE0_ANALOG()  (RXY_GPIO_PCFG(RE0_AN) = 0)
+#   define DISABLE_RE0_ANALOG() (RXY_GPIO_PCFG(RE0_AN) = 1)
 # else
 #   define DISABLE_RE0_ANALOG() ((void) 0)
 # endif
@@ -9228,8 +9228,8 @@
 /// Disable analog functionality on pin RE1.
 #   define DISABLE_RE1_ANALOG() (_ANSE1 = 0)
 # elif defined(RE1_AN)
-#   define ENABLE_RE1_ANALOG()  (RXY_GPIO_PCFG(RE1_AN) = 1)
-#   define DISABLE_RE1_ANALOG() (RXY_GPIO_PCFG(RE1_AN) = 0)
+#   define ENABLE_RE1_ANALOG()  (RXY_GPIO_PCFG(RE1_AN) = 0)
+#   define DISABLE_RE1_ANALOG() (RXY_GPIO_PCFG(RE1_AN) = 1)
 # else
 #   define DISABLE_RE1_ANALOG() ((void) 0)
 # endif
@@ -9369,8 +9369,8 @@
 /// Disable analog functionality on pin RE2.
 #   define DISABLE_RE2_ANALOG() (_ANSE2 = 0)
 # elif defined(RE2_AN)
-#   define ENABLE_RE2_ANALOG()  (RXY_GPIO_PCFG(RE2_AN) = 1)
-#   define DISABLE_RE2_ANALOG() (RXY_GPIO_PCFG(RE2_AN) = 0)
+#   define ENABLE_RE2_ANALOG()  (RXY_GPIO_PCFG(RE2_AN) = 0)
+#   define DISABLE_RE2_ANALOG() (RXY_GPIO_PCFG(RE2_AN) = 1)
 # else
 #   define DISABLE_RE2_ANALOG() ((void) 0)
 # endif
@@ -9510,8 +9510,8 @@
 /// Disable analog functionality on pin RE3.
 #   define DISABLE_RE3_ANALOG() (_ANSE3 = 0)
 # elif defined(RE3_AN)
-#   define ENABLE_RE3_ANALOG()  (RXY_GPIO_PCFG(RE3_AN) = 1)
-#   define DISABLE_RE3_ANALOG() (RXY_GPIO_PCFG(RE3_AN) = 0)
+#   define ENABLE_RE3_ANALOG()  (RXY_GPIO_PCFG(RE3_AN) = 0)
+#   define DISABLE_RE3_ANALOG() (RXY_GPIO_PCFG(RE3_AN) = 1)
 # else
 #   define DISABLE_RE3_ANALOG() ((void) 0)
 # endif
@@ -9651,8 +9651,8 @@
 /// Disable analog functionality on pin RE4.
 #   define DISABLE_RE4_ANALOG() (_ANSE4 = 0)
 # elif defined(RE4_AN)
-#   define ENABLE_RE4_ANALOG()  (RXY_GPIO_PCFG(RE4_AN) = 1)
-#   define DISABLE_RE4_ANALOG() (RXY_GPIO_PCFG(RE4_AN) = 0)
+#   define ENABLE_RE4_ANALOG()  (RXY_GPIO_PCFG(RE4_AN) = 0)
+#   define DISABLE_RE4_ANALOG() (RXY_GPIO_PCFG(RE4_AN) = 1)
 # else
 #   define DISABLE_RE4_ANALOG() ((void) 0)
 # endif
@@ -9792,8 +9792,8 @@
 /// Disable analog functionality on pin RE5.
 #   define DISABLE_RE5_ANALOG() (_ANSE5 = 0)
 # elif defined(RE5_AN)
-#   define ENABLE_RE5_ANALOG()  (RXY_GPIO_PCFG(RE5_AN) = 1)
-#   define DISABLE_RE5_ANALOG() (RXY_GPIO_PCFG(RE5_AN) = 0)
+#   define ENABLE_RE5_ANALOG()  (RXY_GPIO_PCFG(RE5_AN) = 0)
+#   define DISABLE_RE5_ANALOG() (RXY_GPIO_PCFG(RE5_AN) = 1)
 # else
 #   define DISABLE_RE5_ANALOG() ((void) 0)
 # endif
@@ -9933,8 +9933,8 @@
 /// Disable analog functionality on pin RE6.
 #   define DISABLE_RE6_ANALOG() (_ANSE6 = 0)
 # elif defined(RE6_AN)
-#   define ENABLE_RE6_ANALOG()  (RXY_GPIO_PCFG(RE6_AN) = 1)
-#   define DISABLE_RE6_ANALOG() (RXY_GPIO_PCFG(RE6_AN) = 0)
+#   define ENABLE_RE6_ANALOG()  (RXY_GPIO_PCFG(RE6_AN) = 0)
+#   define DISABLE_RE6_ANALOG() (RXY_GPIO_PCFG(RE6_AN) = 1)
 # else
 #   define DISABLE_RE6_ANALOG() ((void) 0)
 # endif
@@ -10074,8 +10074,8 @@
 /// Disable analog functionality on pin RE7.
 #   define DISABLE_RE7_ANALOG() (_ANSE7 = 0)
 # elif defined(RE7_AN)
-#   define ENABLE_RE7_ANALOG()  (RXY_GPIO_PCFG(RE7_AN) = 1)
-#   define DISABLE_RE7_ANALOG() (RXY_GPIO_PCFG(RE7_AN) = 0)
+#   define ENABLE_RE7_ANALOG()  (RXY_GPIO_PCFG(RE7_AN) = 0)
+#   define DISABLE_RE7_ANALOG() (RXY_GPIO_PCFG(RE7_AN) = 1)
 # else
 #   define DISABLE_RE7_ANALOG() ((void) 0)
 # endif
@@ -10215,8 +10215,8 @@
 /// Disable analog functionality on pin RE8.
 #   define DISABLE_RE8_ANALOG() (_ANSE8 = 0)
 # elif defined(RE8_AN)
-#   define ENABLE_RE8_ANALOG()  (RXY_GPIO_PCFG(RE8_AN) = 1)
-#   define DISABLE_RE8_ANALOG() (RXY_GPIO_PCFG(RE8_AN) = 0)
+#   define ENABLE_RE8_ANALOG()  (RXY_GPIO_PCFG(RE8_AN) = 0)
+#   define DISABLE_RE8_ANALOG() (RXY_GPIO_PCFG(RE8_AN) = 1)
 # else
 #   define DISABLE_RE8_ANALOG() ((void) 0)
 # endif
@@ -10356,8 +10356,8 @@
 /// Disable analog functionality on pin RE9.
 #   define DISABLE_RE9_ANALOG() (_ANSE9 = 0)
 # elif defined(RE9_AN)
-#   define ENABLE_RE9_ANALOG()  (RXY_GPIO_PCFG(RE9_AN) = 1)
-#   define DISABLE_RE9_ANALOG() (RXY_GPIO_PCFG(RE9_AN) = 0)
+#   define ENABLE_RE9_ANALOG()  (RXY_GPIO_PCFG(RE9_AN) = 0)
+#   define DISABLE_RE9_ANALOG() (RXY_GPIO_PCFG(RE9_AN) = 1)
 # else
 #   define DISABLE_RE9_ANALOG() ((void) 0)
 # endif
@@ -10497,8 +10497,8 @@
 /// Disable analog functionality on pin RE10.
 #   define DISABLE_RE10_ANALOG() (_ANSE10 = 0)
 # elif defined(RE10_AN)
-#   define ENABLE_RE10_ANALOG()  (RXY_GPIO_PCFG(RE10_AN) = 1)
-#   define DISABLE_RE10_ANALOG() (RXY_GPIO_PCFG(RE10_AN) = 0)
+#   define ENABLE_RE10_ANALOG()  (RXY_GPIO_PCFG(RE10_AN) = 0)
+#   define DISABLE_RE10_ANALOG() (RXY_GPIO_PCFG(RE10_AN) = 1)
 # else
 #   define DISABLE_RE10_ANALOG() ((void) 0)
 # endif
@@ -10638,8 +10638,8 @@
 /// Disable analog functionality on pin RE11.
 #   define DISABLE_RE11_ANALOG() (_ANSE11 = 0)
 # elif defined(RE11_AN)
-#   define ENABLE_RE11_ANALOG()  (RXY_GPIO_PCFG(RE11_AN) = 1)
-#   define DISABLE_RE11_ANALOG() (RXY_GPIO_PCFG(RE11_AN) = 0)
+#   define ENABLE_RE11_ANALOG()  (RXY_GPIO_PCFG(RE11_AN) = 0)
+#   define DISABLE_RE11_ANALOG() (RXY_GPIO_PCFG(RE11_AN) = 1)
 # else
 #   define DISABLE_RE11_ANALOG() ((void) 0)
 # endif
@@ -10779,8 +10779,8 @@
 /// Disable analog functionality on pin RE12.
 #   define DISABLE_RE12_ANALOG() (_ANSE12 = 0)
 # elif defined(RE12_AN)
-#   define ENABLE_RE12_ANALOG()  (RXY_GPIO_PCFG(RE12_AN) = 1)
-#   define DISABLE_RE12_ANALOG() (RXY_GPIO_PCFG(RE12_AN) = 0)
+#   define ENABLE_RE12_ANALOG()  (RXY_GPIO_PCFG(RE12_AN) = 0)
+#   define DISABLE_RE12_ANALOG() (RXY_GPIO_PCFG(RE12_AN) = 1)
 # else
 #   define DISABLE_RE12_ANALOG() ((void) 0)
 # endif
@@ -10920,8 +10920,8 @@
 /// Disable analog functionality on pin RE13.
 #   define DISABLE_RE13_ANALOG() (_ANSE13 = 0)
 # elif defined(RE13_AN)
-#   define ENABLE_RE13_ANALOG()  (RXY_GPIO_PCFG(RE13_AN) = 1)
-#   define DISABLE_RE13_ANALOG() (RXY_GPIO_PCFG(RE13_AN) = 0)
+#   define ENABLE_RE13_ANALOG()  (RXY_GPIO_PCFG(RE13_AN) = 0)
+#   define DISABLE_RE13_ANALOG() (RXY_GPIO_PCFG(RE13_AN) = 1)
 # else
 #   define DISABLE_RE13_ANALOG() ((void) 0)
 # endif
@@ -11061,8 +11061,8 @@
 /// Disable analog functionality on pin RE14.
 #   define DISABLE_RE14_ANALOG() (_ANSE14 = 0)
 # elif defined(RE14_AN)
-#   define ENABLE_RE14_ANALOG()  (RXY_GPIO_PCFG(RE14_AN) = 1)
-#   define DISABLE_RE14_ANALOG() (RXY_GPIO_PCFG(RE14_AN) = 0)
+#   define ENABLE_RE14_ANALOG()  (RXY_GPIO_PCFG(RE14_AN) = 0)
+#   define DISABLE_RE14_ANALOG() (RXY_GPIO_PCFG(RE14_AN) = 1)
 # else
 #   define DISABLE_RE14_ANALOG() ((void) 0)
 # endif
@@ -11202,8 +11202,8 @@
 /// Disable analog functionality on pin RE15.
 #   define DISABLE_RE15_ANALOG() (_ANSE15 = 0)
 # elif defined(RE15_AN)
-#   define ENABLE_RE15_ANALOG()  (RXY_GPIO_PCFG(RE15_AN) = 1)
-#   define DISABLE_RE15_ANALOG() (RXY_GPIO_PCFG(RE15_AN) = 0)
+#   define ENABLE_RE15_ANALOG()  (RXY_GPIO_PCFG(RE15_AN) = 0)
+#   define DISABLE_RE15_ANALOG() (RXY_GPIO_PCFG(RE15_AN) = 1)
 # else
 #   define DISABLE_RE15_ANALOG() ((void) 0)
 # endif
@@ -11343,8 +11343,8 @@
 /// Disable analog functionality on pin RF0.
 #   define DISABLE_RF0_ANALOG() (_ANSF0 = 0)
 # elif defined(RF0_AN)
-#   define ENABLE_RF0_ANALOG()  (RXY_GPIO_PCFG(RF0_AN) = 1)
-#   define DISABLE_RF0_ANALOG() (RXY_GPIO_PCFG(RF0_AN) = 0)
+#   define ENABLE_RF0_ANALOG()  (RXY_GPIO_PCFG(RF0_AN) = 0)
+#   define DISABLE_RF0_ANALOG() (RXY_GPIO_PCFG(RF0_AN) = 1)
 # else
 #   define DISABLE_RF0_ANALOG() ((void) 0)
 # endif
@@ -11484,8 +11484,8 @@
 /// Disable analog functionality on pin RF1.
 #   define DISABLE_RF1_ANALOG() (_ANSF1 = 0)
 # elif defined(RF1_AN)
-#   define ENABLE_RF1_ANALOG()  (RXY_GPIO_PCFG(RF1_AN) = 1)
-#   define DISABLE_RF1_ANALOG() (RXY_GPIO_PCFG(RF1_AN) = 0)
+#   define ENABLE_RF1_ANALOG()  (RXY_GPIO_PCFG(RF1_AN) = 0)
+#   define DISABLE_RF1_ANALOG() (RXY_GPIO_PCFG(RF1_AN) = 1)
 # else
 #   define DISABLE_RF1_ANALOG() ((void) 0)
 # endif
@@ -11625,8 +11625,8 @@
 /// Disable analog functionality on pin RF2.
 #   define DISABLE_RF2_ANALOG() (_ANSF2 = 0)
 # elif defined(RF2_AN)
-#   define ENABLE_RF2_ANALOG()  (RXY_GPIO_PCFG(RF2_AN) = 1)
-#   define DISABLE_RF2_ANALOG() (RXY_GPIO_PCFG(RF2_AN) = 0)
+#   define ENABLE_RF2_ANALOG()  (RXY_GPIO_PCFG(RF2_AN) = 0)
+#   define DISABLE_RF2_ANALOG() (RXY_GPIO_PCFG(RF2_AN) = 1)
 # else
 #   define DISABLE_RF2_ANALOG() ((void) 0)
 # endif
@@ -11766,8 +11766,8 @@
 /// Disable analog functionality on pin RF3.
 #   define DISABLE_RF3_ANALOG() (_ANSF3 = 0)
 # elif defined(RF3_AN)
-#   define ENABLE_RF3_ANALOG()  (RXY_GPIO_PCFG(RF3_AN) = 1)
-#   define DISABLE_RF3_ANALOG() (RXY_GPIO_PCFG(RF3_AN) = 0)
+#   define ENABLE_RF3_ANALOG()  (RXY_GPIO_PCFG(RF3_AN) = 0)
+#   define DISABLE_RF3_ANALOG() (RXY_GPIO_PCFG(RF3_AN) = 1)
 # else
 #   define DISABLE_RF3_ANALOG() ((void) 0)
 # endif
@@ -11907,8 +11907,8 @@
 /// Disable analog functionality on pin RF4.
 #   define DISABLE_RF4_ANALOG() (_ANSF4 = 0)
 # elif defined(RF4_AN)
-#   define ENABLE_RF4_ANALOG()  (RXY_GPIO_PCFG(RF4_AN) = 1)
-#   define DISABLE_RF4_ANALOG() (RXY_GPIO_PCFG(RF4_AN) = 0)
+#   define ENABLE_RF4_ANALOG()  (RXY_GPIO_PCFG(RF4_AN) = 0)
+#   define DISABLE_RF4_ANALOG() (RXY_GPIO_PCFG(RF4_AN) = 1)
 # else
 #   define DISABLE_RF4_ANALOG() ((void) 0)
 # endif
@@ -12048,8 +12048,8 @@
 /// Disable analog functionality on pin RF5.
 #   define DISABLE_RF5_ANALOG() (_ANSF5 = 0)
 # elif defined(RF5_AN)
-#   define ENABLE_RF5_ANALOG()  (RXY_GPIO_PCFG(RF5_AN) = 1)
-#   define DISABLE_RF5_ANALOG() (RXY_GPIO_PCFG(RF5_AN) = 0)
+#   define ENABLE_RF5_ANALOG()  (RXY_GPIO_PCFG(RF5_AN) = 0)
+#   define DISABLE_RF5_ANALOG() (RXY_GPIO_PCFG(RF5_AN) = 1)
 # else
 #   define DISABLE_RF5_ANALOG() ((void) 0)
 # endif
@@ -12189,8 +12189,8 @@
 /// Disable analog functionality on pin RF6.
 #   define DISABLE_RF6_ANALOG() (_ANSF6 = 0)
 # elif defined(RF6_AN)
-#   define ENABLE_RF6_ANALOG()  (RXY_GPIO_PCFG(RF6_AN) = 1)
-#   define DISABLE_RF6_ANALOG() (RXY_GPIO_PCFG(RF6_AN) = 0)
+#   define ENABLE_RF6_ANALOG()  (RXY_GPIO_PCFG(RF6_AN) = 0)
+#   define DISABLE_RF6_ANALOG() (RXY_GPIO_PCFG(RF6_AN) = 1)
 # else
 #   define DISABLE_RF6_ANALOG() ((void) 0)
 # endif
@@ -12330,8 +12330,8 @@
 /// Disable analog functionality on pin RF7.
 #   define DISABLE_RF7_ANALOG() (_ANSF7 = 0)
 # elif defined(RF7_AN)
-#   define ENABLE_RF7_ANALOG()  (RXY_GPIO_PCFG(RF7_AN) = 1)
-#   define DISABLE_RF7_ANALOG() (RXY_GPIO_PCFG(RF7_AN) = 0)
+#   define ENABLE_RF7_ANALOG()  (RXY_GPIO_PCFG(RF7_AN) = 0)
+#   define DISABLE_RF7_ANALOG() (RXY_GPIO_PCFG(RF7_AN) = 1)
 # else
 #   define DISABLE_RF7_ANALOG() ((void) 0)
 # endif
@@ -12471,8 +12471,8 @@
 /// Disable analog functionality on pin RF8.
 #   define DISABLE_RF8_ANALOG() (_ANSF8 = 0)
 # elif defined(RF8_AN)
-#   define ENABLE_RF8_ANALOG()  (RXY_GPIO_PCFG(RF8_AN) = 1)
-#   define DISABLE_RF8_ANALOG() (RXY_GPIO_PCFG(RF8_AN) = 0)
+#   define ENABLE_RF8_ANALOG()  (RXY_GPIO_PCFG(RF8_AN) = 0)
+#   define DISABLE_RF8_ANALOG() (RXY_GPIO_PCFG(RF8_AN) = 1)
 # else
 #   define DISABLE_RF8_ANALOG() ((void) 0)
 # endif
@@ -12612,8 +12612,8 @@
 /// Disable analog functionality on pin RF9.
 #   define DISABLE_RF9_ANALOG() (_ANSF9 = 0)
 # elif defined(RF9_AN)
-#   define ENABLE_RF9_ANALOG()  (RXY_GPIO_PCFG(RF9_AN) = 1)
-#   define DISABLE_RF9_ANALOG() (RXY_GPIO_PCFG(RF9_AN) = 0)
+#   define ENABLE_RF9_ANALOG()  (RXY_GPIO_PCFG(RF9_AN) = 0)
+#   define DISABLE_RF9_ANALOG() (RXY_GPIO_PCFG(RF9_AN) = 1)
 # else
 #   define DISABLE_RF9_ANALOG() ((void) 0)
 # endif
@@ -12753,8 +12753,8 @@
 /// Disable analog functionality on pin RF10.
 #   define DISABLE_RF10_ANALOG() (_ANSF10 = 0)
 # elif defined(RF10_AN)
-#   define ENABLE_RF10_ANALOG()  (RXY_GPIO_PCFG(RF10_AN) = 1)
-#   define DISABLE_RF10_ANALOG() (RXY_GPIO_PCFG(RF10_AN) = 0)
+#   define ENABLE_RF10_ANALOG()  (RXY_GPIO_PCFG(RF10_AN) = 0)
+#   define DISABLE_RF10_ANALOG() (RXY_GPIO_PCFG(RF10_AN) = 1)
 # else
 #   define DISABLE_RF10_ANALOG() ((void) 0)
 # endif
@@ -12894,8 +12894,8 @@
 /// Disable analog functionality on pin RF11.
 #   define DISABLE_RF11_ANALOG() (_ANSF11 = 0)
 # elif defined(RF11_AN)
-#   define ENABLE_RF11_ANALOG()  (RXY_GPIO_PCFG(RF11_AN) = 1)
-#   define DISABLE_RF11_ANALOG() (RXY_GPIO_PCFG(RF11_AN) = 0)
+#   define ENABLE_RF11_ANALOG()  (RXY_GPIO_PCFG(RF11_AN) = 0)
+#   define DISABLE_RF11_ANALOG() (RXY_GPIO_PCFG(RF11_AN) = 1)
 # else
 #   define DISABLE_RF11_ANALOG() ((void) 0)
 # endif
@@ -13035,8 +13035,8 @@
 /// Disable analog functionality on pin RF12.
 #   define DISABLE_RF12_ANALOG() (_ANSF12 = 0)
 # elif defined(RF12_AN)
-#   define ENABLE_RF12_ANALOG()  (RXY_GPIO_PCFG(RF12_AN) = 1)
-#   define DISABLE_RF12_ANALOG() (RXY_GPIO_PCFG(RF12_AN) = 0)
+#   define ENABLE_RF12_ANALOG()  (RXY_GPIO_PCFG(RF12_AN) = 0)
+#   define DISABLE_RF12_ANALOG() (RXY_GPIO_PCFG(RF12_AN) = 1)
 # else
 #   define DISABLE_RF12_ANALOG() ((void) 0)
 # endif
@@ -13176,8 +13176,8 @@
 /// Disable analog functionality on pin RF13.
 #   define DISABLE_RF13_ANALOG() (_ANSF13 = 0)
 # elif defined(RF13_AN)
-#   define ENABLE_RF13_ANALOG()  (RXY_GPIO_PCFG(RF13_AN) = 1)
-#   define DISABLE_RF13_ANALOG() (RXY_GPIO_PCFG(RF13_AN) = 0)
+#   define ENABLE_RF13_ANALOG()  (RXY_GPIO_PCFG(RF13_AN) = 0)
+#   define DISABLE_RF13_ANALOG() (RXY_GPIO_PCFG(RF13_AN) = 1)
 # else
 #   define DISABLE_RF13_ANALOG() ((void) 0)
 # endif
@@ -13317,8 +13317,8 @@
 /// Disable analog functionality on pin RF14.
 #   define DISABLE_RF14_ANALOG() (_ANSF14 = 0)
 # elif defined(RF14_AN)
-#   define ENABLE_RF14_ANALOG()  (RXY_GPIO_PCFG(RF14_AN) = 1)
-#   define DISABLE_RF14_ANALOG() (RXY_GPIO_PCFG(RF14_AN) = 0)
+#   define ENABLE_RF14_ANALOG()  (RXY_GPIO_PCFG(RF14_AN) = 0)
+#   define DISABLE_RF14_ANALOG() (RXY_GPIO_PCFG(RF14_AN) = 1)
 # else
 #   define DISABLE_RF14_ANALOG() ((void) 0)
 # endif
@@ -13458,8 +13458,8 @@
 /// Disable analog functionality on pin RF15.
 #   define DISABLE_RF15_ANALOG() (_ANSF15 = 0)
 # elif defined(RF15_AN)
-#   define ENABLE_RF15_ANALOG()  (RXY_GPIO_PCFG(RF15_AN) = 1)
-#   define DISABLE_RF15_ANALOG() (RXY_GPIO_PCFG(RF15_AN) = 0)
+#   define ENABLE_RF15_ANALOG()  (RXY_GPIO_PCFG(RF15_AN) = 0)
+#   define DISABLE_RF15_ANALOG() (RXY_GPIO_PCFG(RF15_AN) = 1)
 # else
 #   define DISABLE_RF15_ANALOG() ((void) 0)
 # endif
@@ -13599,8 +13599,8 @@
 /// Disable analog functionality on pin RG0.
 #   define DISABLE_RG0_ANALOG() (_ANSG0 = 0)
 # elif defined(RG0_AN)
-#   define ENABLE_RG0_ANALOG()  (RXY_GPIO_PCFG(RG0_AN) = 1)
-#   define DISABLE_RG0_ANALOG() (RXY_GPIO_PCFG(RG0_AN) = 0)
+#   define ENABLE_RG0_ANALOG()  (RXY_GPIO_PCFG(RG0_AN) = 0)
+#   define DISABLE_RG0_ANALOG() (RXY_GPIO_PCFG(RG0_AN) = 1)
 # else
 #   define DISABLE_RG0_ANALOG() ((void) 0)
 # endif
@@ -13740,8 +13740,8 @@
 /// Disable analog functionality on pin RG1.
 #   define DISABLE_RG1_ANALOG() (_ANSG1 = 0)
 # elif defined(RG1_AN)
-#   define ENABLE_RG1_ANALOG()  (RXY_GPIO_PCFG(RG1_AN) = 1)
-#   define DISABLE_RG1_ANALOG() (RXY_GPIO_PCFG(RG1_AN) = 0)
+#   define ENABLE_RG1_ANALOG()  (RXY_GPIO_PCFG(RG1_AN) = 0)
+#   define DISABLE_RG1_ANALOG() (RXY_GPIO_PCFG(RG1_AN) = 1)
 # else
 #   define DISABLE_RG1_ANALOG() ((void) 0)
 # endif
@@ -13881,8 +13881,8 @@
 /// Disable analog functionality on pin RG2.
 #   define DISABLE_RG2_ANALOG() (_ANSG2 = 0)
 # elif defined(RG2_AN)
-#   define ENABLE_RG2_ANALOG()  (RXY_GPIO_PCFG(RG2_AN) = 1)
-#   define DISABLE_RG2_ANALOG() (RXY_GPIO_PCFG(RG2_AN) = 0)
+#   define ENABLE_RG2_ANALOG()  (RXY_GPIO_PCFG(RG2_AN) = 0)
+#   define DISABLE_RG2_ANALOG() (RXY_GPIO_PCFG(RG2_AN) = 1)
 # else
 #   define DISABLE_RG2_ANALOG() ((void) 0)
 # endif
@@ -14022,8 +14022,8 @@
 /// Disable analog functionality on pin RG3.
 #   define DISABLE_RG3_ANALOG() (_ANSG3 = 0)
 # elif defined(RG3_AN)
-#   define ENABLE_RG3_ANALOG()  (RXY_GPIO_PCFG(RG3_AN) = 1)
-#   define DISABLE_RG3_ANALOG() (RXY_GPIO_PCFG(RG3_AN) = 0)
+#   define ENABLE_RG3_ANALOG()  (RXY_GPIO_PCFG(RG3_AN) = 0)
+#   define DISABLE_RG3_ANALOG() (RXY_GPIO_PCFG(RG3_AN) = 1)
 # else
 #   define DISABLE_RG3_ANALOG() ((void) 0)
 # endif
@@ -14163,8 +14163,8 @@
 /// Disable analog functionality on pin RG4.
 #   define DISABLE_RG4_ANALOG() (_ANSG4 = 0)
 # elif defined(RG4_AN)
-#   define ENABLE_RG4_ANALOG()  (RXY_GPIO_PCFG(RG4_AN) = 1)
-#   define DISABLE_RG4_ANALOG() (RXY_GPIO_PCFG(RG4_AN) = 0)
+#   define ENABLE_RG4_ANALOG()  (RXY_GPIO_PCFG(RG4_AN) = 0)
+#   define DISABLE_RG4_ANALOG() (RXY_GPIO_PCFG(RG4_AN) = 1)
 # else
 #   define DISABLE_RG4_ANALOG() ((void) 0)
 # endif
@@ -14304,8 +14304,8 @@
 /// Disable analog functionality on pin RG5.
 #   define DISABLE_RG5_ANALOG() (_ANSG5 = 0)
 # elif defined(RG5_AN)
-#   define ENABLE_RG5_ANALOG()  (RXY_GPIO_PCFG(RG5_AN) = 1)
-#   define DISABLE_RG5_ANALOG() (RXY_GPIO_PCFG(RG5_AN) = 0)
+#   define ENABLE_RG5_ANALOG()  (RXY_GPIO_PCFG(RG5_AN) = 0)
+#   define DISABLE_RG5_ANALOG() (RXY_GPIO_PCFG(RG5_AN) = 1)
 # else
 #   define DISABLE_RG5_ANALOG() ((void) 0)
 # endif
@@ -14445,8 +14445,8 @@
 /// Disable analog functionality on pin RG6.
 #   define DISABLE_RG6_ANALOG() (_ANSG6 = 0)
 # elif defined(RG6_AN)
-#   define ENABLE_RG6_ANALOG()  (RXY_GPIO_PCFG(RG6_AN) = 1)
-#   define DISABLE_RG6_ANALOG() (RXY_GPIO_PCFG(RG6_AN) = 0)
+#   define ENABLE_RG6_ANALOG()  (RXY_GPIO_PCFG(RG6_AN) = 0)
+#   define DISABLE_RG6_ANALOG() (RXY_GPIO_PCFG(RG6_AN) = 1)
 # else
 #   define DISABLE_RG6_ANALOG() ((void) 0)
 # endif
@@ -14586,8 +14586,8 @@
 /// Disable analog functionality on pin RG7.
 #   define DISABLE_RG7_ANALOG() (_ANSG7 = 0)
 # elif defined(RG7_AN)
-#   define ENABLE_RG7_ANALOG()  (RXY_GPIO_PCFG(RG7_AN) = 1)
-#   define DISABLE_RG7_ANALOG() (RXY_GPIO_PCFG(RG7_AN) = 0)
+#   define ENABLE_RG7_ANALOG()  (RXY_GPIO_PCFG(RG7_AN) = 0)
+#   define DISABLE_RG7_ANALOG() (RXY_GPIO_PCFG(RG7_AN) = 1)
 # else
 #   define DISABLE_RG7_ANALOG() ((void) 0)
 # endif
@@ -14727,8 +14727,8 @@
 /// Disable analog functionality on pin RG8.
 #   define DISABLE_RG8_ANALOG() (_ANSG8 = 0)
 # elif defined(RG8_AN)
-#   define ENABLE_RG8_ANALOG()  (RXY_GPIO_PCFG(RG8_AN) = 1)
-#   define DISABLE_RG8_ANALOG() (RXY_GPIO_PCFG(RG8_AN) = 0)
+#   define ENABLE_RG8_ANALOG()  (RXY_GPIO_PCFG(RG8_AN) = 0)
+#   define DISABLE_RG8_ANALOG() (RXY_GPIO_PCFG(RG8_AN) = 1)
 # else
 #   define DISABLE_RG8_ANALOG() ((void) 0)
 # endif
@@ -14868,8 +14868,8 @@
 /// Disable analog functionality on pin RG9.
 #   define DISABLE_RG9_ANALOG() (_ANSG9 = 0)
 # elif defined(RG9_AN)
-#   define ENABLE_RG9_ANALOG()  (RXY_GPIO_PCFG(RG9_AN) = 1)
-#   define DISABLE_RG9_ANALOG() (RXY_GPIO_PCFG(RG9_AN) = 0)
+#   define ENABLE_RG9_ANALOG()  (RXY_GPIO_PCFG(RG9_AN) = 0)
+#   define DISABLE_RG9_ANALOG() (RXY_GPIO_PCFG(RG9_AN) = 1)
 # else
 #   define DISABLE_RG9_ANALOG() ((void) 0)
 # endif
@@ -15009,8 +15009,8 @@
 /// Disable analog functionality on pin RG10.
 #   define DISABLE_RG10_ANALOG() (_ANSG10 = 0)
 # elif defined(RG10_AN)
-#   define ENABLE_RG10_ANALOG()  (RXY_GPIO_PCFG(RG10_AN) = 1)
-#   define DISABLE_RG10_ANALOG() (RXY_GPIO_PCFG(RG10_AN) = 0)
+#   define ENABLE_RG10_ANALOG()  (RXY_GPIO_PCFG(RG10_AN) = 0)
+#   define DISABLE_RG10_ANALOG() (RXY_GPIO_PCFG(RG10_AN) = 1)
 # else
 #   define DISABLE_RG10_ANALOG() ((void) 0)
 # endif
@@ -15150,8 +15150,8 @@
 /// Disable analog functionality on pin RG11.
 #   define DISABLE_RG11_ANALOG() (_ANSG11 = 0)
 # elif defined(RG11_AN)
-#   define ENABLE_RG11_ANALOG()  (RXY_GPIO_PCFG(RG11_AN) = 1)
-#   define DISABLE_RG11_ANALOG() (RXY_GPIO_PCFG(RG11_AN) = 0)
+#   define ENABLE_RG11_ANALOG()  (RXY_GPIO_PCFG(RG11_AN) = 0)
+#   define DISABLE_RG11_ANALOG() (RXY_GPIO_PCFG(RG11_AN) = 1)
 # else
 #   define DISABLE_RG11_ANALOG() ((void) 0)
 # endif
@@ -15291,8 +15291,8 @@
 /// Disable analog functionality on pin RG12.
 #   define DISABLE_RG12_ANALOG() (_ANSG12 = 0)
 # elif defined(RG12_AN)
-#   define ENABLE_RG12_ANALOG()  (RXY_GPIO_PCFG(RG12_AN) = 1)
-#   define DISABLE_RG12_ANALOG() (RXY_GPIO_PCFG(RG12_AN) = 0)
+#   define ENABLE_RG12_ANALOG()  (RXY_GPIO_PCFG(RG12_AN) = 0)
+#   define DISABLE_RG12_ANALOG() (RXY_GPIO_PCFG(RG12_AN) = 1)
 # else
 #   define DISABLE_RG12_ANALOG() ((void) 0)
 # endif
@@ -15432,8 +15432,8 @@
 /// Disable analog functionality on pin RG13.
 #   define DISABLE_RG13_ANALOG() (_ANSG13 = 0)
 # elif defined(RG13_AN)
-#   define ENABLE_RG13_ANALOG()  (RXY_GPIO_PCFG(RG13_AN) = 1)
-#   define DISABLE_RG13_ANALOG() (RXY_GPIO_PCFG(RG13_AN) = 0)
+#   define ENABLE_RG13_ANALOG()  (RXY_GPIO_PCFG(RG13_AN) = 0)
+#   define DISABLE_RG13_ANALOG() (RXY_GPIO_PCFG(RG13_AN) = 1)
 # else
 #   define DISABLE_RG13_ANALOG() ((void) 0)
 # endif
@@ -15573,8 +15573,8 @@
 /// Disable analog functionality on pin RG14.
 #   define DISABLE_RG14_ANALOG() (_ANSG14 = 0)
 # elif defined(RG14_AN)
-#   define ENABLE_RG14_ANALOG()  (RXY_GPIO_PCFG(RG14_AN) = 1)
-#   define DISABLE_RG14_ANALOG() (RXY_GPIO_PCFG(RG14_AN) = 0)
+#   define ENABLE_RG14_ANALOG()  (RXY_GPIO_PCFG(RG14_AN) = 0)
+#   define DISABLE_RG14_ANALOG() (RXY_GPIO_PCFG(RG14_AN) = 1)
 # else
 #   define DISABLE_RG14_ANALOG() ((void) 0)
 # endif
@@ -15714,8 +15714,8 @@
 /// Disable analog functionality on pin RG15.
 #   define DISABLE_RG15_ANALOG() (_ANSG15 = 0)
 # elif defined(RG15_AN)
-#   define ENABLE_RG15_ANALOG()  (RXY_GPIO_PCFG(RG15_AN) = 1)
-#   define DISABLE_RG15_ANALOG() (RXY_GPIO_PCFG(RG15_AN) = 0)
+#   define ENABLE_RG15_ANALOG()  (RXY_GPIO_PCFG(RG15_AN) = 0)
+#   define DISABLE_RG15_ANALOG() (RXY_GPIO_PCFG(RG15_AN) = 1)
 # else
 #   define DISABLE_RG15_ANALOG() ((void) 0)
 # endif
@@ -15855,8 +15855,8 @@
 /// Disable analog functionality on pin RH0.
 #   define DISABLE_RH0_ANALOG() (_ANSH0 = 0)
 # elif defined(RH0_AN)
-#   define ENABLE_RH0_ANALOG()  (RXY_GPIO_PCFG(RH0_AN) = 1)
-#   define DISABLE_RH0_ANALOG() (RXY_GPIO_PCFG(RH0_AN) = 0)
+#   define ENABLE_RH0_ANALOG()  (RXY_GPIO_PCFG(RH0_AN) = 0)
+#   define DISABLE_RH0_ANALOG() (RXY_GPIO_PCFG(RH0_AN) = 1)
 # else
 #   define DISABLE_RH0_ANALOG() ((void) 0)
 # endif
@@ -15996,8 +15996,8 @@
 /// Disable analog functionality on pin RH1.
 #   define DISABLE_RH1_ANALOG() (_ANSH1 = 0)
 # elif defined(RH1_AN)
-#   define ENABLE_RH1_ANALOG()  (RXY_GPIO_PCFG(RH1_AN) = 1)
-#   define DISABLE_RH1_ANALOG() (RXY_GPIO_PCFG(RH1_AN) = 0)
+#   define ENABLE_RH1_ANALOG()  (RXY_GPIO_PCFG(RH1_AN) = 0)
+#   define DISABLE_RH1_ANALOG() (RXY_GPIO_PCFG(RH1_AN) = 1)
 # else
 #   define DISABLE_RH1_ANALOG() ((void) 0)
 # endif
@@ -16137,8 +16137,8 @@
 /// Disable analog functionality on pin RH2.
 #   define DISABLE_RH2_ANALOG() (_ANSH2 = 0)
 # elif defined(RH2_AN)
-#   define ENABLE_RH2_ANALOG()  (RXY_GPIO_PCFG(RH2_AN) = 1)
-#   define DISABLE_RH2_ANALOG() (RXY_GPIO_PCFG(RH2_AN) = 0)
+#   define ENABLE_RH2_ANALOG()  (RXY_GPIO_PCFG(RH2_AN) = 0)
+#   define DISABLE_RH2_ANALOG() (RXY_GPIO_PCFG(RH2_AN) = 1)
 # else
 #   define DISABLE_RH2_ANALOG() ((void) 0)
 # endif
@@ -16278,8 +16278,8 @@
 /// Disable analog functionality on pin RH3.
 #   define DISABLE_RH3_ANALOG() (_ANSH3 = 0)
 # elif defined(RH3_AN)
-#   define ENABLE_RH3_ANALOG()  (RXY_GPIO_PCFG(RH3_AN) = 1)
-#   define DISABLE_RH3_ANALOG() (RXY_GPIO_PCFG(RH3_AN) = 0)
+#   define ENABLE_RH3_ANALOG()  (RXY_GPIO_PCFG(RH3_AN) = 0)
+#   define DISABLE_RH3_ANALOG() (RXY_GPIO_PCFG(RH3_AN) = 1)
 # else
 #   define DISABLE_RH3_ANALOG() ((void) 0)
 # endif
@@ -16419,8 +16419,8 @@
 /// Disable analog functionality on pin RH4.
 #   define DISABLE_RH4_ANALOG() (_ANSH4 = 0)
 # elif defined(RH4_AN)
-#   define ENABLE_RH4_ANALOG()  (RXY_GPIO_PCFG(RH4_AN) = 1)
-#   define DISABLE_RH4_ANALOG() (RXY_GPIO_PCFG(RH4_AN) = 0)
+#   define ENABLE_RH4_ANALOG()  (RXY_GPIO_PCFG(RH4_AN) = 0)
+#   define DISABLE_RH4_ANALOG() (RXY_GPIO_PCFG(RH4_AN) = 1)
 # else
 #   define DISABLE_RH4_ANALOG() ((void) 0)
 # endif
@@ -16560,8 +16560,8 @@
 /// Disable analog functionality on pin RH5.
 #   define DISABLE_RH5_ANALOG() (_ANSH5 = 0)
 # elif defined(RH5_AN)
-#   define ENABLE_RH5_ANALOG()  (RXY_GPIO_PCFG(RH5_AN) = 1)
-#   define DISABLE_RH5_ANALOG() (RXY_GPIO_PCFG(RH5_AN) = 0)
+#   define ENABLE_RH5_ANALOG()  (RXY_GPIO_PCFG(RH5_AN) = 0)
+#   define DISABLE_RH5_ANALOG() (RXY_GPIO_PCFG(RH5_AN) = 1)
 # else
 #   define DISABLE_RH5_ANALOG() ((void) 0)
 # endif
@@ -16701,8 +16701,8 @@
 /// Disable analog functionality on pin RH6.
 #   define DISABLE_RH6_ANALOG() (_ANSH6 = 0)
 # elif defined(RH6_AN)
-#   define ENABLE_RH6_ANALOG()  (RXY_GPIO_PCFG(RH6_AN) = 1)
-#   define DISABLE_RH6_ANALOG() (RXY_GPIO_PCFG(RH6_AN) = 0)
+#   define ENABLE_RH6_ANALOG()  (RXY_GPIO_PCFG(RH6_AN) = 0)
+#   define DISABLE_RH6_ANALOG() (RXY_GPIO_PCFG(RH6_AN) = 1)
 # else
 #   define DISABLE_RH6_ANALOG() ((void) 0)
 # endif
@@ -16842,8 +16842,8 @@
 /// Disable analog functionality on pin RH7.
 #   define DISABLE_RH7_ANALOG() (_ANSH7 = 0)
 # elif defined(RH7_AN)
-#   define ENABLE_RH7_ANALOG()  (RXY_GPIO_PCFG(RH7_AN) = 1)
-#   define DISABLE_RH7_ANALOG() (RXY_GPIO_PCFG(RH7_AN) = 0)
+#   define ENABLE_RH7_ANALOG()  (RXY_GPIO_PCFG(RH7_AN) = 0)
+#   define DISABLE_RH7_ANALOG() (RXY_GPIO_PCFG(RH7_AN) = 1)
 # else
 #   define DISABLE_RH7_ANALOG() ((void) 0)
 # endif
@@ -16983,8 +16983,8 @@
 /// Disable analog functionality on pin RH8.
 #   define DISABLE_RH8_ANALOG() (_ANSH8 = 0)
 # elif defined(RH8_AN)
-#   define ENABLE_RH8_ANALOG()  (RXY_GPIO_PCFG(RH8_AN) = 1)
-#   define DISABLE_RH8_ANALOG() (RXY_GPIO_PCFG(RH8_AN) = 0)
+#   define ENABLE_RH8_ANALOG()  (RXY_GPIO_PCFG(RH8_AN) = 0)
+#   define DISABLE_RH8_ANALOG() (RXY_GPIO_PCFG(RH8_AN) = 1)
 # else
 #   define DISABLE_RH8_ANALOG() ((void) 0)
 # endif
@@ -17124,8 +17124,8 @@
 /// Disable analog functionality on pin RH9.
 #   define DISABLE_RH9_ANALOG() (_ANSH9 = 0)
 # elif defined(RH9_AN)
-#   define ENABLE_RH9_ANALOG()  (RXY_GPIO_PCFG(RH9_AN) = 1)
-#   define DISABLE_RH9_ANALOG() (RXY_GPIO_PCFG(RH9_AN) = 0)
+#   define ENABLE_RH9_ANALOG()  (RXY_GPIO_PCFG(RH9_AN) = 0)
+#   define DISABLE_RH9_ANALOG() (RXY_GPIO_PCFG(RH9_AN) = 1)
 # else
 #   define DISABLE_RH9_ANALOG() ((void) 0)
 # endif
@@ -17265,8 +17265,8 @@
 /// Disable analog functionality on pin RH10.
 #   define DISABLE_RH10_ANALOG() (_ANSH10 = 0)
 # elif defined(RH10_AN)
-#   define ENABLE_RH10_ANALOG()  (RXY_GPIO_PCFG(RH10_AN) = 1)
-#   define DISABLE_RH10_ANALOG() (RXY_GPIO_PCFG(RH10_AN) = 0)
+#   define ENABLE_RH10_ANALOG()  (RXY_GPIO_PCFG(RH10_AN) = 0)
+#   define DISABLE_RH10_ANALOG() (RXY_GPIO_PCFG(RH10_AN) = 1)
 # else
 #   define DISABLE_RH10_ANALOG() ((void) 0)
 # endif
@@ -17406,8 +17406,8 @@
 /// Disable analog functionality on pin RH11.
 #   define DISABLE_RH11_ANALOG() (_ANSH11 = 0)
 # elif defined(RH11_AN)
-#   define ENABLE_RH11_ANALOG()  (RXY_GPIO_PCFG(RH11_AN) = 1)
-#   define DISABLE_RH11_ANALOG() (RXY_GPIO_PCFG(RH11_AN) = 0)
+#   define ENABLE_RH11_ANALOG()  (RXY_GPIO_PCFG(RH11_AN) = 0)
+#   define DISABLE_RH11_ANALOG() (RXY_GPIO_PCFG(RH11_AN) = 1)
 # else
 #   define DISABLE_RH11_ANALOG() ((void) 0)
 # endif
@@ -17547,8 +17547,8 @@
 /// Disable analog functionality on pin RH12.
 #   define DISABLE_RH12_ANALOG() (_ANSH12 = 0)
 # elif defined(RH12_AN)
-#   define ENABLE_RH12_ANALOG()  (RXY_GPIO_PCFG(RH12_AN) = 1)
-#   define DISABLE_RH12_ANALOG() (RXY_GPIO_PCFG(RH12_AN) = 0)
+#   define ENABLE_RH12_ANALOG()  (RXY_GPIO_PCFG(RH12_AN) = 0)
+#   define DISABLE_RH12_ANALOG() (RXY_GPIO_PCFG(RH12_AN) = 1)
 # else
 #   define DISABLE_RH12_ANALOG() ((void) 0)
 # endif
@@ -17688,8 +17688,8 @@
 /// Disable analog functionality on pin RH13.
 #   define DISABLE_RH13_ANALOG() (_ANSH13 = 0)
 # elif defined(RH13_AN)
-#   define ENABLE_RH13_ANALOG()  (RXY_GPIO_PCFG(RH13_AN) = 1)
-#   define DISABLE_RH13_ANALOG() (RXY_GPIO_PCFG(RH13_AN) = 0)
+#   define ENABLE_RH13_ANALOG()  (RXY_GPIO_PCFG(RH13_AN) = 0)
+#   define DISABLE_RH13_ANALOG() (RXY_GPIO_PCFG(RH13_AN) = 1)
 # else
 #   define DISABLE_RH13_ANALOG() ((void) 0)
 # endif
@@ -17829,8 +17829,8 @@
 /// Disable analog functionality on pin RH14.
 #   define DISABLE_RH14_ANALOG() (_ANSH14 = 0)
 # elif defined(RH14_AN)
-#   define ENABLE_RH14_ANALOG()  (RXY_GPIO_PCFG(RH14_AN) = 1)
-#   define DISABLE_RH14_ANALOG() (RXY_GPIO_PCFG(RH14_AN) = 0)
+#   define ENABLE_RH14_ANALOG()  (RXY_GPIO_PCFG(RH14_AN) = 0)
+#   define DISABLE_RH14_ANALOG() (RXY_GPIO_PCFG(RH14_AN) = 1)
 # else
 #   define DISABLE_RH14_ANALOG() ((void) 0)
 # endif
@@ -17970,8 +17970,8 @@
 /// Disable analog functionality on pin RH15.
 #   define DISABLE_RH15_ANALOG() (_ANSH15 = 0)
 # elif defined(RH15_AN)
-#   define ENABLE_RH15_ANALOG()  (RXY_GPIO_PCFG(RH15_AN) = 1)
-#   define DISABLE_RH15_ANALOG() (RXY_GPIO_PCFG(RH15_AN) = 0)
+#   define ENABLE_RH15_ANALOG()  (RXY_GPIO_PCFG(RH15_AN) = 0)
+#   define DISABLE_RH15_ANALOG() (RXY_GPIO_PCFG(RH15_AN) = 1)
 # else
 #   define DISABLE_RH15_ANALOG() ((void) 0)
 # endif
@@ -18111,8 +18111,8 @@
 /// Disable analog functionality on pin RJ0.
 #   define DISABLE_RJ0_ANALOG() (_ANSJ0 = 0)
 # elif defined(RJ0_AN)
-#   define ENABLE_RJ0_ANALOG()  (RXY_GPIO_PCFG(RJ0_AN) = 1)
-#   define DISABLE_RJ0_ANALOG() (RXY_GPIO_PCFG(RJ0_AN) = 0)
+#   define ENABLE_RJ0_ANALOG()  (RXY_GPIO_PCFG(RJ0_AN) = 0)
+#   define DISABLE_RJ0_ANALOG() (RXY_GPIO_PCFG(RJ0_AN) = 1)
 # else
 #   define DISABLE_RJ0_ANALOG() ((void) 0)
 # endif
@@ -18252,8 +18252,8 @@
 /// Disable analog functionality on pin RJ1.
 #   define DISABLE_RJ1_ANALOG() (_ANSJ1 = 0)
 # elif defined(RJ1_AN)
-#   define ENABLE_RJ1_ANALOG()  (RXY_GPIO_PCFG(RJ1_AN) = 1)
-#   define DISABLE_RJ1_ANALOG() (RXY_GPIO_PCFG(RJ1_AN) = 0)
+#   define ENABLE_RJ1_ANALOG()  (RXY_GPIO_PCFG(RJ1_AN) = 0)
+#   define DISABLE_RJ1_ANALOG() (RXY_GPIO_PCFG(RJ1_AN) = 1)
 # else
 #   define DISABLE_RJ1_ANALOG() ((void) 0)
 # endif
@@ -18393,8 +18393,8 @@
 /// Disable analog functionality on pin RJ2.
 #   define DISABLE_RJ2_ANALOG() (_ANSJ2 = 0)
 # elif defined(RJ2_AN)
-#   define ENABLE_RJ2_ANALOG()  (RXY_GPIO_PCFG(RJ2_AN) = 1)
-#   define DISABLE_RJ2_ANALOG() (RXY_GPIO_PCFG(RJ2_AN) = 0)
+#   define ENABLE_RJ2_ANALOG()  (RXY_GPIO_PCFG(RJ2_AN) = 0)
+#   define DISABLE_RJ2_ANALOG() (RXY_GPIO_PCFG(RJ2_AN) = 1)
 # else
 #   define DISABLE_RJ2_ANALOG() ((void) 0)
 # endif
@@ -18534,8 +18534,8 @@
 /// Disable analog functionality on pin RJ3.
 #   define DISABLE_RJ3_ANALOG() (_ANSJ3 = 0)
 # elif defined(RJ3_AN)
-#   define ENABLE_RJ3_ANALOG()  (RXY_GPIO_PCFG(RJ3_AN) = 1)
-#   define DISABLE_RJ3_ANALOG() (RXY_GPIO_PCFG(RJ3_AN) = 0)
+#   define ENABLE_RJ3_ANALOG()  (RXY_GPIO_PCFG(RJ3_AN) = 0)
+#   define DISABLE_RJ3_ANALOG() (RXY_GPIO_PCFG(RJ3_AN) = 1)
 # else
 #   define DISABLE_RJ3_ANALOG() ((void) 0)
 # endif
@@ -18675,8 +18675,8 @@
 /// Disable analog functionality on pin RJ4.
 #   define DISABLE_RJ4_ANALOG() (_ANSJ4 = 0)
 # elif defined(RJ4_AN)
-#   define ENABLE_RJ4_ANALOG()  (RXY_GPIO_PCFG(RJ4_AN) = 1)
-#   define DISABLE_RJ4_ANALOG() (RXY_GPIO_PCFG(RJ4_AN) = 0)
+#   define ENABLE_RJ4_ANALOG()  (RXY_GPIO_PCFG(RJ4_AN) = 0)
+#   define DISABLE_RJ4_ANALOG() (RXY_GPIO_PCFG(RJ4_AN) = 1)
 # else
 #   define DISABLE_RJ4_ANALOG() ((void) 0)
 # endif
@@ -18816,8 +18816,8 @@
 /// Disable analog functionality on pin RJ5.
 #   define DISABLE_RJ5_ANALOG() (_ANSJ5 = 0)
 # elif defined(RJ5_AN)
-#   define ENABLE_RJ5_ANALOG()  (RXY_GPIO_PCFG(RJ5_AN) = 1)
-#   define DISABLE_RJ5_ANALOG() (RXY_GPIO_PCFG(RJ5_AN) = 0)
+#   define ENABLE_RJ5_ANALOG()  (RXY_GPIO_PCFG(RJ5_AN) = 0)
+#   define DISABLE_RJ5_ANALOG() (RXY_GPIO_PCFG(RJ5_AN) = 1)
 # else
 #   define DISABLE_RJ5_ANALOG() ((void) 0)
 # endif
@@ -18957,8 +18957,8 @@
 /// Disable analog functionality on pin RJ6.
 #   define DISABLE_RJ6_ANALOG() (_ANSJ6 = 0)
 # elif defined(RJ6_AN)
-#   define ENABLE_RJ6_ANALOG()  (RXY_GPIO_PCFG(RJ6_AN) = 1)
-#   define DISABLE_RJ6_ANALOG() (RXY_GPIO_PCFG(RJ6_AN) = 0)
+#   define ENABLE_RJ6_ANALOG()  (RXY_GPIO_PCFG(RJ6_AN) = 0)
+#   define DISABLE_RJ6_ANALOG() (RXY_GPIO_PCFG(RJ6_AN) = 1)
 # else
 #   define DISABLE_RJ6_ANALOG() ((void) 0)
 # endif
@@ -19098,8 +19098,8 @@
 /// Disable analog functionality on pin RJ7.
 #   define DISABLE_RJ7_ANALOG() (_ANSJ7 = 0)
 # elif defined(RJ7_AN)
-#   define ENABLE_RJ7_ANALOG()  (RXY_GPIO_PCFG(RJ7_AN) = 1)
-#   define DISABLE_RJ7_ANALOG() (RXY_GPIO_PCFG(RJ7_AN) = 0)
+#   define ENABLE_RJ7_ANALOG()  (RXY_GPIO_PCFG(RJ7_AN) = 0)
+#   define DISABLE_RJ7_ANALOG() (RXY_GPIO_PCFG(RJ7_AN) = 1)
 # else
 #   define DISABLE_RJ7_ANALOG() ((void) 0)
 # endif
@@ -19239,8 +19239,8 @@
 /// Disable analog functionality on pin RJ8.
 #   define DISABLE_RJ8_ANALOG() (_ANSJ8 = 0)
 # elif defined(RJ8_AN)
-#   define ENABLE_RJ8_ANALOG()  (RXY_GPIO_PCFG(RJ8_AN) = 1)
-#   define DISABLE_RJ8_ANALOG() (RXY_GPIO_PCFG(RJ8_AN) = 0)
+#   define ENABLE_RJ8_ANALOG()  (RXY_GPIO_PCFG(RJ8_AN) = 0)
+#   define DISABLE_RJ8_ANALOG() (RXY_GPIO_PCFG(RJ8_AN) = 1)
 # else
 #   define DISABLE_RJ8_ANALOG() ((void) 0)
 # endif
@@ -19380,8 +19380,8 @@
 /// Disable analog functionality on pin RJ9.
 #   define DISABLE_RJ9_ANALOG() (_ANSJ9 = 0)
 # elif defined(RJ9_AN)
-#   define ENABLE_RJ9_ANALOG()  (RXY_GPIO_PCFG(RJ9_AN) = 1)
-#   define DISABLE_RJ9_ANALOG() (RXY_GPIO_PCFG(RJ9_AN) = 0)
+#   define ENABLE_RJ9_ANALOG()  (RXY_GPIO_PCFG(RJ9_AN) = 0)
+#   define DISABLE_RJ9_ANALOG() (RXY_GPIO_PCFG(RJ9_AN) = 1)
 # else
 #   define DISABLE_RJ9_ANALOG() ((void) 0)
 # endif
@@ -19521,8 +19521,8 @@
 /// Disable analog functionality on pin RJ10.
 #   define DISABLE_RJ10_ANALOG() (_ANSJ10 = 0)
 # elif defined(RJ10_AN)
-#   define ENABLE_RJ10_ANALOG()  (RXY_GPIO_PCFG(RJ10_AN) = 1)
-#   define DISABLE_RJ10_ANALOG() (RXY_GPIO_PCFG(RJ10_AN) = 0)
+#   define ENABLE_RJ10_ANALOG()  (RXY_GPIO_PCFG(RJ10_AN) = 0)
+#   define DISABLE_RJ10_ANALOG() (RXY_GPIO_PCFG(RJ10_AN) = 1)
 # else
 #   define DISABLE_RJ10_ANALOG() ((void) 0)
 # endif
@@ -19662,8 +19662,8 @@
 /// Disable analog functionality on pin RJ11.
 #   define DISABLE_RJ11_ANALOG() (_ANSJ11 = 0)
 # elif defined(RJ11_AN)
-#   define ENABLE_RJ11_ANALOG()  (RXY_GPIO_PCFG(RJ11_AN) = 1)
-#   define DISABLE_RJ11_ANALOG() (RXY_GPIO_PCFG(RJ11_AN) = 0)
+#   define ENABLE_RJ11_ANALOG()  (RXY_GPIO_PCFG(RJ11_AN) = 0)
+#   define DISABLE_RJ11_ANALOG() (RXY_GPIO_PCFG(RJ11_AN) = 1)
 # else
 #   define DISABLE_RJ11_ANALOG() ((void) 0)
 # endif
@@ -19803,8 +19803,8 @@
 /// Disable analog functionality on pin RJ12.
 #   define DISABLE_RJ12_ANALOG() (_ANSJ12 = 0)
 # elif defined(RJ12_AN)
-#   define ENABLE_RJ12_ANALOG()  (RXY_GPIO_PCFG(RJ12_AN) = 1)
-#   define DISABLE_RJ12_ANALOG() (RXY_GPIO_PCFG(RJ12_AN) = 0)
+#   define ENABLE_RJ12_ANALOG()  (RXY_GPIO_PCFG(RJ12_AN) = 0)
+#   define DISABLE_RJ12_ANALOG() (RXY_GPIO_PCFG(RJ12_AN) = 1)
 # else
 #   define DISABLE_RJ12_ANALOG() ((void) 0)
 # endif
@@ -19944,8 +19944,8 @@
 /// Disable analog functionality on pin RJ13.
 #   define DISABLE_RJ13_ANALOG() (_ANSJ13 = 0)
 # elif defined(RJ13_AN)
-#   define ENABLE_RJ13_ANALOG()  (RXY_GPIO_PCFG(RJ13_AN) = 1)
-#   define DISABLE_RJ13_ANALOG() (RXY_GPIO_PCFG(RJ13_AN) = 0)
+#   define ENABLE_RJ13_ANALOG()  (RXY_GPIO_PCFG(RJ13_AN) = 0)
+#   define DISABLE_RJ13_ANALOG() (RXY_GPIO_PCFG(RJ13_AN) = 1)
 # else
 #   define DISABLE_RJ13_ANALOG() ((void) 0)
 # endif
@@ -20085,8 +20085,8 @@
 /// Disable analog functionality on pin RJ14.
 #   define DISABLE_RJ14_ANALOG() (_ANSJ14 = 0)
 # elif defined(RJ14_AN)
-#   define ENABLE_RJ14_ANALOG()  (RXY_GPIO_PCFG(RJ14_AN) = 1)
-#   define DISABLE_RJ14_ANALOG() (RXY_GPIO_PCFG(RJ14_AN) = 0)
+#   define ENABLE_RJ14_ANALOG()  (RXY_GPIO_PCFG(RJ14_AN) = 0)
+#   define DISABLE_RJ14_ANALOG() (RXY_GPIO_PCFG(RJ14_AN) = 1)
 # else
 #   define DISABLE_RJ14_ANALOG() ((void) 0)
 # endif
@@ -20226,8 +20226,8 @@
 /// Disable analog functionality on pin RJ15.
 #   define DISABLE_RJ15_ANALOG() (_ANSJ15 = 0)
 # elif defined(RJ15_AN)
-#   define ENABLE_RJ15_ANALOG()  (RXY_GPIO_PCFG(RJ15_AN) = 1)
-#   define DISABLE_RJ15_ANALOG() (RXY_GPIO_PCFG(RJ15_AN) = 0)
+#   define ENABLE_RJ15_ANALOG()  (RXY_GPIO_PCFG(RJ15_AN) = 0)
+#   define DISABLE_RJ15_ANALOG() (RXY_GPIO_PCFG(RJ15_AN) = 1)
 # else
 #   define DISABLE_RJ15_ANALOG() ((void) 0)
 # endif
@@ -20367,8 +20367,8 @@
 /// Disable analog functionality on pin RK0.
 #   define DISABLE_RK0_ANALOG() (_ANSK0 = 0)
 # elif defined(RK0_AN)
-#   define ENABLE_RK0_ANALOG()  (RXY_GPIO_PCFG(RK0_AN) = 1)
-#   define DISABLE_RK0_ANALOG() (RXY_GPIO_PCFG(RK0_AN) = 0)
+#   define ENABLE_RK0_ANALOG()  (RXY_GPIO_PCFG(RK0_AN) = 0)
+#   define DISABLE_RK0_ANALOG() (RXY_GPIO_PCFG(RK0_AN) = 1)
 # else
 #   define DISABLE_RK0_ANALOG() ((void) 0)
 # endif
@@ -20508,8 +20508,8 @@
 /// Disable analog functionality on pin RK1.
 #   define DISABLE_RK1_ANALOG() (_ANSK1 = 0)
 # elif defined(RK1_AN)
-#   define ENABLE_RK1_ANALOG()  (RXY_GPIO_PCFG(RK1_AN) = 1)
-#   define DISABLE_RK1_ANALOG() (RXY_GPIO_PCFG(RK1_AN) = 0)
+#   define ENABLE_RK1_ANALOG()  (RXY_GPIO_PCFG(RK1_AN) = 0)
+#   define DISABLE_RK1_ANALOG() (RXY_GPIO_PCFG(RK1_AN) = 1)
 # else
 #   define DISABLE_RK1_ANALOG() ((void) 0)
 # endif
@@ -20649,8 +20649,8 @@
 /// Disable analog functionality on pin RK2.
 #   define DISABLE_RK2_ANALOG() (_ANSK2 = 0)
 # elif defined(RK2_AN)
-#   define ENABLE_RK2_ANALOG()  (RXY_GPIO_PCFG(RK2_AN) = 1)
-#   define DISABLE_RK2_ANALOG() (RXY_GPIO_PCFG(RK2_AN) = 0)
+#   define ENABLE_RK2_ANALOG()  (RXY_GPIO_PCFG(RK2_AN) = 0)
+#   define DISABLE_RK2_ANALOG() (RXY_GPIO_PCFG(RK2_AN) = 1)
 # else
 #   define DISABLE_RK2_ANALOG() ((void) 0)
 # endif
@@ -20790,8 +20790,8 @@
 /// Disable analog functionality on pin RK3.
 #   define DISABLE_RK3_ANALOG() (_ANSK3 = 0)
 # elif defined(RK3_AN)
-#   define ENABLE_RK3_ANALOG()  (RXY_GPIO_PCFG(RK3_AN) = 1)
-#   define DISABLE_RK3_ANALOG() (RXY_GPIO_PCFG(RK3_AN) = 0)
+#   define ENABLE_RK3_ANALOG()  (RXY_GPIO_PCFG(RK3_AN) = 0)
+#   define DISABLE_RK3_ANALOG() (RXY_GPIO_PCFG(RK3_AN) = 1)
 # else
 #   define DISABLE_RK3_ANALOG() ((void) 0)
 # endif
@@ -20931,8 +20931,8 @@
 /// Disable analog functionality on pin RK4.
 #   define DISABLE_RK4_ANALOG() (_ANSK4 = 0)
 # elif defined(RK4_AN)
-#   define ENABLE_RK4_ANALOG()  (RXY_GPIO_PCFG(RK4_AN) = 1)
-#   define DISABLE_RK4_ANALOG() (RXY_GPIO_PCFG(RK4_AN) = 0)
+#   define ENABLE_RK4_ANALOG()  (RXY_GPIO_PCFG(RK4_AN) = 0)
+#   define DISABLE_RK4_ANALOG() (RXY_GPIO_PCFG(RK4_AN) = 1)
 # else
 #   define DISABLE_RK4_ANALOG() ((void) 0)
 # endif
@@ -21072,8 +21072,8 @@
 /// Disable analog functionality on pin RK5.
 #   define DISABLE_RK5_ANALOG() (_ANSK5 = 0)
 # elif defined(RK5_AN)
-#   define ENABLE_RK5_ANALOG()  (RXY_GPIO_PCFG(RK5_AN) = 1)
-#   define DISABLE_RK5_ANALOG() (RXY_GPIO_PCFG(RK5_AN) = 0)
+#   define ENABLE_RK5_ANALOG()  (RXY_GPIO_PCFG(RK5_AN) = 0)
+#   define DISABLE_RK5_ANALOG() (RXY_GPIO_PCFG(RK5_AN) = 1)
 # else
 #   define DISABLE_RK5_ANALOG() ((void) 0)
 # endif
@@ -21213,8 +21213,8 @@
 /// Disable analog functionality on pin RK6.
 #   define DISABLE_RK6_ANALOG() (_ANSK6 = 0)
 # elif defined(RK6_AN)
-#   define ENABLE_RK6_ANALOG()  (RXY_GPIO_PCFG(RK6_AN) = 1)
-#   define DISABLE_RK6_ANALOG() (RXY_GPIO_PCFG(RK6_AN) = 0)
+#   define ENABLE_RK6_ANALOG()  (RXY_GPIO_PCFG(RK6_AN) = 0)
+#   define DISABLE_RK6_ANALOG() (RXY_GPIO_PCFG(RK6_AN) = 1)
 # else
 #   define DISABLE_RK6_ANALOG() ((void) 0)
 # endif
@@ -21354,8 +21354,8 @@
 /// Disable analog functionality on pin RK7.
 #   define DISABLE_RK7_ANALOG() (_ANSK7 = 0)
 # elif defined(RK7_AN)
-#   define ENABLE_RK7_ANALOG()  (RXY_GPIO_PCFG(RK7_AN) = 1)
-#   define DISABLE_RK7_ANALOG() (RXY_GPIO_PCFG(RK7_AN) = 0)
+#   define ENABLE_RK7_ANALOG()  (RXY_GPIO_PCFG(RK7_AN) = 0)
+#   define DISABLE_RK7_ANALOG() (RXY_GPIO_PCFG(RK7_AN) = 1)
 # else
 #   define DISABLE_RK7_ANALOG() ((void) 0)
 # endif
@@ -21495,8 +21495,8 @@
 /// Disable analog functionality on pin RK8.
 #   define DISABLE_RK8_ANALOG() (_ANSK8 = 0)
 # elif defined(RK8_AN)
-#   define ENABLE_RK8_ANALOG()  (RXY_GPIO_PCFG(RK8_AN) = 1)
-#   define DISABLE_RK8_ANALOG() (RXY_GPIO_PCFG(RK8_AN) = 0)
+#   define ENABLE_RK8_ANALOG()  (RXY_GPIO_PCFG(RK8_AN) = 0)
+#   define DISABLE_RK8_ANALOG() (RXY_GPIO_PCFG(RK8_AN) = 1)
 # else
 #   define DISABLE_RK8_ANALOG() ((void) 0)
 # endif
@@ -21636,8 +21636,8 @@
 /// Disable analog functionality on pin RK9.
 #   define DISABLE_RK9_ANALOG() (_ANSK9 = 0)
 # elif defined(RK9_AN)
-#   define ENABLE_RK9_ANALOG()  (RXY_GPIO_PCFG(RK9_AN) = 1)
-#   define DISABLE_RK9_ANALOG() (RXY_GPIO_PCFG(RK9_AN) = 0)
+#   define ENABLE_RK9_ANALOG()  (RXY_GPIO_PCFG(RK9_AN) = 0)
+#   define DISABLE_RK9_ANALOG() (RXY_GPIO_PCFG(RK9_AN) = 1)
 # else
 #   define DISABLE_RK9_ANALOG() ((void) 0)
 # endif
@@ -21777,8 +21777,8 @@
 /// Disable analog functionality on pin RK10.
 #   define DISABLE_RK10_ANALOG() (_ANSK10 = 0)
 # elif defined(RK10_AN)
-#   define ENABLE_RK10_ANALOG()  (RXY_GPIO_PCFG(RK10_AN) = 1)
-#   define DISABLE_RK10_ANALOG() (RXY_GPIO_PCFG(RK10_AN) = 0)
+#   define ENABLE_RK10_ANALOG()  (RXY_GPIO_PCFG(RK10_AN) = 0)
+#   define DISABLE_RK10_ANALOG() (RXY_GPIO_PCFG(RK10_AN) = 1)
 # else
 #   define DISABLE_RK10_ANALOG() ((void) 0)
 # endif
@@ -21918,8 +21918,8 @@
 /// Disable analog functionality on pin RK11.
 #   define DISABLE_RK11_ANALOG() (_ANSK11 = 0)
 # elif defined(RK11_AN)
-#   define ENABLE_RK11_ANALOG()  (RXY_GPIO_PCFG(RK11_AN) = 1)
-#   define DISABLE_RK11_ANALOG() (RXY_GPIO_PCFG(RK11_AN) = 0)
+#   define ENABLE_RK11_ANALOG()  (RXY_GPIO_PCFG(RK11_AN) = 0)
+#   define DISABLE_RK11_ANALOG() (RXY_GPIO_PCFG(RK11_AN) = 1)
 # else
 #   define DISABLE_RK11_ANALOG() ((void) 0)
 # endif
@@ -22059,8 +22059,8 @@
 /// Disable analog functionality on pin RK12.
 #   define DISABLE_RK12_ANALOG() (_ANSK12 = 0)
 # elif defined(RK12_AN)
-#   define ENABLE_RK12_ANALOG()  (RXY_GPIO_PCFG(RK12_AN) = 1)
-#   define DISABLE_RK12_ANALOG() (RXY_GPIO_PCFG(RK12_AN) = 0)
+#   define ENABLE_RK12_ANALOG()  (RXY_GPIO_PCFG(RK12_AN) = 0)
+#   define DISABLE_RK12_ANALOG() (RXY_GPIO_PCFG(RK12_AN) = 1)
 # else
 #   define DISABLE_RK12_ANALOG() ((void) 0)
 # endif
@@ -22200,8 +22200,8 @@
 /// Disable analog functionality on pin RK13.
 #   define DISABLE_RK13_ANALOG() (_ANSK13 = 0)
 # elif defined(RK13_AN)
-#   define ENABLE_RK13_ANALOG()  (RXY_GPIO_PCFG(RK13_AN) = 1)
-#   define DISABLE_RK13_ANALOG() (RXY_GPIO_PCFG(RK13_AN) = 0)
+#   define ENABLE_RK13_ANALOG()  (RXY_GPIO_PCFG(RK13_AN) = 0)
+#   define DISABLE_RK13_ANALOG() (RXY_GPIO_PCFG(RK13_AN) = 1)
 # else
 #   define DISABLE_RK13_ANALOG() ((void) 0)
 # endif
@@ -22341,8 +22341,8 @@
 /// Disable analog functionality on pin RK14.
 #   define DISABLE_RK14_ANALOG() (_ANSK14 = 0)
 # elif defined(RK14_AN)
-#   define ENABLE_RK14_ANALOG()  (RXY_GPIO_PCFG(RK14_AN) = 1)
-#   define DISABLE_RK14_ANALOG() (RXY_GPIO_PCFG(RK14_AN) = 0)
+#   define ENABLE_RK14_ANALOG()  (RXY_GPIO_PCFG(RK14_AN) = 0)
+#   define DISABLE_RK14_ANALOG() (RXY_GPIO_PCFG(RK14_AN) = 1)
 # else
 #   define DISABLE_RK14_ANALOG() ((void) 0)
 # endif
@@ -22482,8 +22482,8 @@
 /// Disable analog functionality on pin RK15.
 #   define DISABLE_RK15_ANALOG() (_ANSK15 = 0)
 # elif defined(RK15_AN)
-#   define ENABLE_RK15_ANALOG()  (RXY_GPIO_PCFG(RK15_AN) = 1)
-#   define DISABLE_RK15_ANALOG() (RXY_GPIO_PCFG(RK15_AN) = 0)
+#   define ENABLE_RK15_ANALOG()  (RXY_GPIO_PCFG(RK15_AN) = 0)
+#   define DISABLE_RK15_ANALOG() (RXY_GPIO_PCFG(RK15_AN) = 1)
 # else
 #   define DISABLE_RK15_ANALOG() ((void) 0)
 # endif
@@ -22623,8 +22623,8 @@
 /// Disable analog functionality on pin RT1.
 #   define DISABLE_RT1_ANALOG() (_ANST1 = 0)
 # elif defined(RT1_AN)
-#   define ENABLE_RT1_ANALOG()  (RXY_GPIO_PCFG(RT1_AN) = 1)
-#   define DISABLE_RT1_ANALOG() (RXY_GPIO_PCFG(RT1_AN) = 0)
+#   define ENABLE_RT1_ANALOG()  (RXY_GPIO_PCFG(RT1_AN) = 0)
+#   define DISABLE_RT1_ANALOG() (RXY_GPIO_PCFG(RT1_AN) = 1)
 # else
 #   define DISABLE_RT1_ANALOG() ((void) 0)
 # endif
@@ -22764,8 +22764,8 @@
 /// Disable analog functionality on pin RT2.
 #   define DISABLE_RT2_ANALOG() (_ANST2 = 0)
 # elif defined(RT2_AN)
-#   define ENABLE_RT2_ANALOG()  (RXY_GPIO_PCFG(RT2_AN) = 1)
-#   define DISABLE_RT2_ANALOG() (RXY_GPIO_PCFG(RT2_AN) = 0)
+#   define ENABLE_RT2_ANALOG()  (RXY_GPIO_PCFG(RT2_AN) = 0)
+#   define DISABLE_RT2_ANALOG() (RXY_GPIO_PCFG(RT2_AN) = 1)
 # else
 #   define DISABLE_RT2_ANALOG() ((void) 0)
 # endif
@@ -22905,8 +22905,8 @@
 /// Disable analog functionality on pin RT3.
 #   define DISABLE_RT3_ANALOG() (_ANST3 = 0)
 # elif defined(RT3_AN)
-#   define ENABLE_RT3_ANALOG()  (RXY_GPIO_PCFG(RT3_AN) = 1)
-#   define DISABLE_RT3_ANALOG() (RXY_GPIO_PCFG(RT3_AN) = 0)
+#   define ENABLE_RT3_ANALOG()  (RXY_GPIO_PCFG(RT3_AN) = 0)
+#   define DISABLE_RT3_ANALOG() (RXY_GPIO_PCFG(RT3_AN) = 1)
 # else
 #   define DISABLE_RT3_ANALOG() ((void) 0)
 # endif
