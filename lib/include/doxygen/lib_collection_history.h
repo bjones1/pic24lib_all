@@ -33,6 +33,14 @@
 /**
 \page history History and release notes for this library collection.
 
+Next release:
+- CAN code ported to the dsPIC33.
+
+4-Nov-2013 (r404 / 3a1ac95477ff):
+- Fixed ENABLE/DISABLE_Rxy_ANALOG for older (PIC24H) parts.
+- Eliminated many compiler warnings during a full build.
+- Fixes to various project files so they'll build.
+
 25-Aug-2013 (r385 / e818e78a9810):
 - Fix to I2C baud rate calcuation (BRG register is 9 bits only).
 - More projects converted to MPLAB X.
