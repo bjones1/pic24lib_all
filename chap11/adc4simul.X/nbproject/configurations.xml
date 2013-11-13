@@ -45,6 +45,7 @@
         <itemPath>../../lib/src/pic24_uart.c</itemPath>
         <itemPath>../../lib/src/pic24_util.c</itemPath>
         <itemPath>../../lib/src/pic24_adc.c</itemPath>
+        <itemPath>../../lib/src/pic24_timer.c</itemPath>
       </logicalFolder>
       <itemPath>../adc4simul.c</itemPath>
     </logicalFolder>
