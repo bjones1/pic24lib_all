@@ -1,27 +1,54 @@
+# .. "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+#    All rights reserved.
+#    (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
+#    (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
+#    (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
+#
+#    Permission to use, copy, modify, and distribute this software and its
+#    documentation for any purpose, without fee, and without written agreement is
+#    hereby granted, provided that the above copyright notice, the following
+#    two paragraphs and the authors appear in all copies of this software.
+#
+#    IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
+#    DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
+#    OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
+#    HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#    THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+#    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+#    AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+#    ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
+#    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
+#
+#    Please maintain this header in its entirety when copying/modifying
+#    these files.
+#
+# ****************************************************************
+# SConstruct.py - Build all libraries and examples over many chips
+# ****************************************************************
 # This file contains all that a SConstruct file normally contains.
-# In order to use Doxygen, however, all Python files must end with
-# a .py extension. So, SConstuct simply executes this file.
-
-# Documentation for this file. If the \file tag isn't present,
-# this file won't be documented.
-## \file
+# In order to use CodeChat, however, all Python files must end with
+# a ``.py`` extension. So, SConstuct simply executes this file.
+#
 #  This file provides an automated build process for the
 #  \ref index "libraries" included in this collection.
 #  To use:
-#  -# Install SCons.
-#  -# Install the Microchip compiler. Make sure your path
+#
+#  #. Install SCons.
+#  #. Install the Microchip compiler. Make sure your path
 #     includes the directories in which the compiler binaries
 #     exist.
-#  -# From the command line, change to the directory in which
+#  #. From the command line, change to the directory in which
 #     this file lies.
-#  -# Execute <code>SCons</code>, which builds everything.
+#  #. Execute ``SCons``, which builds everything. Optionally use :doc:`runscons.bat <runscons.bat>` to filter through the resulting warnings.
 #
 #  The build process can be modified by passing options to
-#  SCons. See <code>SCons --help</code> for options specific
-#  to this build and <code>SCons -H</code> for generic SCons
+#  SCons. See ``SCons --help`` for options specific
+#  to this build and ``SCons -H`` for generic SCons
 #  options.
 #
-#  \todo
+#  To do:
+#
 #  - Some flags for I2C master/slave not done yet
 #  - Create some reset replacement that uses more of the functionality
 #    (calls functions from all our .c/.h files
@@ -29,15 +56,14 @@
 
 import os
 
-## Make sure SCons is recent enough.
+# Make sure SCons is recent enough.
 EnsureSConsVersion(2, 0)
 
 
-## @{
-#  \name Create a Microchip MCC24 (PIC24F/H) Construction Environment
-###############################################################################
+# Create a Microchip XC16 Construction Environment
+# ================================================
 
-## Define command-line options to set processor, bootloader
+# Define command-line options to set processor, bootloader
 opts = Variables()
 opts.Add(EnumVariable('BOOTLDR', 'Determines bootloader type', 'msu',
                     allowed_values=('msu', 'none')))
@@ -79,7 +105,7 @@ b2h = Builder(
         src_suffix = 'elf')
 env.Append(BUILDERS = {'Hex' : b2h})
 
-## This functions converts a binary (.elf or .cof) file to a hex file.
+# This functions converts a binary (.elf or .cof) file to a hex file.
 #  \param binName The name of the .elf/.cof file to be converted
 #  \param buildEnvinonment An Environment in which to build these sources.
 #  \param aliasString A string to serve as an alias for this build.
@@ -117,8 +143,8 @@ dict = env.Dictionary()
 if dict['BOOTLDR'] != 'msu':
     env.Replace(LINKERSCRIPT = '--script="p${MCU}.gld"')
 
-## By default, run two jobs at once (assume a dual-core PC)
-#  For some reason I haven't yet determined, this causes build errors. Turn it off for now.
+# By default, run two jobs at once (assume a dual-core PC)
+# For some reason I haven't yet determined, this causes build errors. Turn it off for now.
 #env.SetOption('num_jobs', 2)
 
 # generate some command line help for our custom options
@@ -137,11 +163,11 @@ Help("""Additional targets:
 
 
 
-## Definition of targets
-## =====================
-## First, set up for defining targets.
-##
-## Inform SCons about the dependencies in the template-based files
+# Definition of targets
+# =====================
+# First, set up for defining targets.
+#
+# Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
 
 ## Create a target which zips up library files. Only built it if explicitly requested on the command line.
@@ -160,9 +186,9 @@ if 'zipit' in COMMAND_LINE_TARGETS:
 # Only build this if it's explicitly requested. Since the dependencies of '' are wrong, force a build using AlwaysBuild.
     env.AlwaysBuild(zip_file)
 
-## PIC24/dsPIC33 chip/clock variant builds
-## ---------------------------------------
-## Call SConscript with a specific buildTargets value
+# PIC24/dsPIC33 chip/clock variant builds
+# ---------------------------------------
+# Call SConscript with a specific buildTargets value
 def buildTargetsSConscript(buildTargets, env, hardware_platform, extra_defines = ''):
   # Build a variant directory name, based on the hardware platform, MCU, and extra defines (if any)
   vdir = 'build/' + '_'.join([hardware_platform, env['MCU']])
@@ -246,8 +272,8 @@ for clock in ['SIM_CLOCK', 'PRI_NO_PLL_7372KHzCrystal', 'FRC_FCY3685KHz',
       env.Clone(MCU='33FJ128GP802', CPPDEFINES='CLOCK_CONFIG=' + clock), 'default', clock)
 
 
-## Bootloader targets
-## ------------------
+# Bootloader targets
+# ------------------
 def buildTargetsBootloader(env, mcu):
     # Create an environment for building the bootloader:
     # 1. Define the MCU.
@@ -290,8 +316,8 @@ for mcu in ('24F32KA302',):
 
 
 
-## ESOS builds
-## -----------
+# ESOS builds
+# -----------
 def buildTargetsEsos(env, mcu, hardware_platform = 'DEFAULT_DESIGN'):
     # Create an environment for building ESOS.
     env = env.Clone(MCU = mcu)

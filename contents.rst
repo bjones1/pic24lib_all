@@ -1,9 +1,10 @@
 Table of Contents
 -----------------
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    textbook_examples
+   utilities
 
 Indices and tables
 ------------------

@@ -28,16 +28,16 @@
  */
 #include "pic24_all.h"
 
-/** \file
- *  Inputs a string, outputs the reverse. This file is used
- *  in three MPLAB projects:
- *   reverse_string.mcp - polled RX, TX I/O
- *   uartrx_fifo.mcp - interrupt RX, polled TX I/O
- *   uartrxtx_fifo.mcp - interrupt RX, interrupt TX I/O
- * Interrupt RX inChar1() is selected by defining  UART1_RX_INTERRUPT macro
- * Interrupt TX outChar1() is selected by defining UART1_TX_INTERRUPT macro
- * These macros are defined in their respective MPLAB projects.
-*/
+// *******************************************************
+// reverse_string.c - Inputs a string, outputs the reverse
+// *******************************************************
+// This file is used in three MPLAB projects:
+//  - reverse_string.mcp - polled RX, TX I/O
+//  - uartrx_fifo.mcp - interrupt RX, polled TX I/O
+//  - uartrxtx_fifo.mcp - interrupt RX, interrupt TX I/O
+//  - Interrupt RX inChar1() is selected by defining  UART1_RX_INTERRUPT macro
+//  - Interrupt TX outChar1() is selected by defining UART1_TX_INTERRUPT macro
+// These macros are defined in their respective MPLAB projects.
 
 void reverseString(char *psz_s1, char *psz_s2) {
   char *psz_s1end;

@@ -1,40 +1,38 @@
-/*
- * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
- * All rights reserved.
- * (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
- * (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
- * (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
- *
- * Permission to use, copy, modify, and distribute this software and its
- * documentation for any purpose, without fee, and without written agreement is
- * hereby granted, provided that the above copyright notice, the following
- * two paragraphs and the authors appear in all copies of this software.
- *
- * IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
- * DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
- * OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
- * HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
- * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
- * ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
- * PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
- *
- * Please maintain this header in its entirety when copying/modifying
- * these files.
- *
- *
- */
+// .. "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+//    All rights reserved.
+//    (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
+//    (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
+//    (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
+//
+//    Permission to use, copy, modify, and distribute this software and its
+//    documentation for any purpose, without fee, and without written agreement is
+//    hereby granted, provided that the above copyright notice, the following
+//    two paragraphs and the authors appear in all copies of this software.
+//
+//    IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
+//    DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
+//    OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
+//    HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//    THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+//    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+//    AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+//    ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
+//    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
+//
+//    Please maintain this header in its entirety when copying/modifying
+//    these files.
+//
+// *****************************************************************
+// spi_master_revstring.c - SPI master uses slave to reverse strings
+// *****************************************************************
+// SPI example: PIC24 uC in Master mode talking to a PIC24 uC in slave mode, using
+// the slave PIC24 uC (:doc:`spi_slave_revstring.c`) to reverse strings. The master
+// expects the slave to assert a PIO output (SLAVE_ORDY in code) when a string
+// has been reversed; the master then reads the string from the slave.
+
 
 #include "pic24_all.h"
-
-/** \file
- *  SPI example: PIC24 uC in Master mode talking to a PIC24 uC in slave mode, using
- *  the slave PIC24 uC (spi_slave_revstring.c) to reverse strings. The master
- *  expects the slave to assert a PIO output (SLAVE_ORDY in code) when a string
- *  has been reversed; the master then reads the string from the slave.
-*/
 
 #define CONFIG_SLAVE_ENABLE() CONFIG_RB3_AS_DIG_OUTPUT()
 #define SLAVE_ENABLE()      _LATB3 = 0  //low true assertion

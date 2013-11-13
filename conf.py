@@ -101,6 +101,8 @@ exclude_patterns = ['_build',
                     'lib',
                     'misc',
                     'conf.py.rst',
+                    # Used only for SCons build
+                    'chap10/reverse_string1.c.rst',
                     # Ignore MPLAB X auto-generated files.
                     '**.X/build',
                     '**.X/dist',

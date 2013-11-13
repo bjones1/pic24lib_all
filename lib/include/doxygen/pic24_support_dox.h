@@ -86,24 +86,6 @@ int main(void) {
  * - UART support in pic24_uart.h and pic24_uart.c, which
  *   is typically called by routines in pic24_serial.h.
  *
- * \subsection codeTools Tools used to create the code
- * <a href="http://www.scons.org/">SCons</a> provides automated
- * library building and testing. See SConstruct.py for
- * documentation of this process. Capabilities include:
- * - Automated build of all example code in the textbook
- * - Support for multiple copies of a device, such as the UART,
- *   I<sup>2</sup>C, and SPI, is auto-generated from templates
- *   which contain a single copy of the code. The templates/
- *   directory contains the templates from which these files
- *   are built.
- *
- * To maintain a consistent style, a batch file which runs
- * the <a href="http://astyle.sourceforge.net/">Artistic Style</a>
- * code formatter is available as runAStyle.bat.
- *
- * The code resides in a <a href="http://mercurial.selenic.com/">Mercurial</a>
- * publicly-readable, web-accessible
- * <a href="http://bitbucket.org/bjones/pic24lib_all">repository</a>.
- * Please send any updates or fixes to the authors for
- * incorporation into the library!
+ * \subsection codeUtils Utilities
+ * The <a href="sphinx/utilities.html">utilities</a> page documents tools for library development and maintenance.
  */

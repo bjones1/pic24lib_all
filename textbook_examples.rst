@@ -102,8 +102,8 @@ Chapter 9: interrupts, simple timer usage
    chap09/rot_enc_trace.c
 
 
-Chapter 9 extras
-^^^^^^^^^^^^^^^^
+Extras
+^^^^^^
 These programs demonstrate related concepts, but are not directly discussed in the textbook.
 
 .. toctree::
@@ -119,14 +119,29 @@ These programs demonstrate related concepts, but are not directly discussed in t
 
 Chapter 10 (UART, SPI, I2C)
 ---------------------------
-  - chap10/soft_uart.c - Demonstrates a software driven UART TX/RX using PIO pins
-  - chap10/reverse_string.c - Used in three different projects to illustrate polled UART RX/TX (reverse_string.mcp), interrupt driven RX/polled TX (uartrx_fifo.mcp), interrupt driven RX/TX (uartrxtx_fifo.mcp)
-  - chap10/mcp41xxx_spi_pot.c - PIC24 uC in Master mode to Microchip MCP41xxx Digital Potentiometer
-  - chap10/ds1722_spi_tempsense.c - PIC24 uC in Master mode to Maxim DS1722 Digital Thermometer using SPI
-  - chap10/spi_master_revstring.c, spi_slave_revstring.c - uses SPI for PIC24 uC to PIC24 uC communication, master uses slave to reverse strings.
-  - chap10/ds1621_i2c.c - PIC24 uC in Master mode to Maxim DS1621 Digital Thermometer using I2C
-  - chap10/ds1631_i2c.c - PIC24 uC in Master mode to Maxim DS1631 Digital Thermometer using I2C
-  - chap10/mcp24lc515_i2c_eeprom.c - PIC24 uC in Master mode to Microchip 24LC515 EEPROM using I2C
+.. toctree::
+   :titlesonly:
+
+   chap10/soft_uart.c
+   chap10/reverse_string.c
+   chap10/mcp41xxx_spi_pot.c
+   chap10/ds1722_spi_tempsense.c
+   chap10/spi_master_revstring.c
+   chap10/spi_slave_revstring.c
+   chap10/ds1621_i2c.c
+   chap10/ds1631_i2c.c
+   chap10/mcp24lc515_i2c_eeprom.c
+
+Extras
+^^^^^^
+These programs demonstrate related concepts, but are not directly discussed in the textbook.
+
+.. toctree::
+   :titlesonly:
+
+   chap10/reverse_string_stdio.c
+   chap10/stdio_test.c
+   chap10/uart_wakeup.c   
 
 Chapter 11: Data Conversion - ADC, DAC
 --------------------------------------
