@@ -86,8 +86,8 @@ void _ISR _T2Interrupt(void) {
   //update the PWM duty cycle from the ADC value
   u32_temp = ADC1BUF0;  //use 32-bit value for range
   //compute new pulse width using ADC value
-  // (max - min) * ADC/1024 + min
-  u32_temp = ((u32_temp * (u16_maxPWTicks-u16_minPWTicks))>> 10) + u16_minPWTicks;  // >>10 is same as divide/1024
+  // (max - min) * ADC/4096 + min
+  u32_temp = ((u32_temp * (u16_maxPWTicks-u16_minPWTicks))>> 12) + u16_minPWTicks;  // >>12 is same as divide/4096
   OC1RS = u32_temp;  //update pulse width value
   AD1CON1bits.SAMP = 1; //start next ADC conversion for next interrupt
 }
@@ -98,7 +98,7 @@ int main(void) {
   configTimer2();
   configOutputCompare1();
   CONFIG_RA0_AS_ANALOG();
-  configADC1_ManualCH0(RA0_AN, 31, 1);
+  configADC1_ManualCH0(RA0_AN, 31, 1); //this is 12-bit mode
   SET_SAMP_BIT_ADC1();      //start sampling and conversion
   T2CONbits.TON = 1;       //turn on Timer2 to start PWM
   while (1) {
