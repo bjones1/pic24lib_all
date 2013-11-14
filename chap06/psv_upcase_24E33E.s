@@ -1,7 +1,7 @@
  
 ;
 ; illustrates string initialization from program memory
-; using the PSV window for the PIC24H/dsPIC33F
+; using the PSV window for the PIC24E/dsPIC33E family
 
 .include "xc.inc"
 
@@ -9,14 +9,14 @@
 
 
       .bss        ;unitialized data section
-;;These start at location 0x00800 because 0-0x07FF is reserved for SFRs
+;;These start at location 0x01000 because 0-0x0FFF is reserved for SFRs
 sz_1:   .space  6        ;Allocating space (in bytes) to variable
 sz_2:   .space 12        ;reserve space
 
 ;; constant data to be moved to data memory
 .section .const,psv
 sz_1_const: .asciz  "Hello"
-sz_2_const: .asciz "UPPER/lower"
+sz_2_const: .asciz  "UPPER/lower"
 
 .text                             ;Start of Code section
 __reset:                          ; first instruction located at __reset label
@@ -58,19 +58,19 @@ upcase_exit:
 
 
 init_variables:
-;turn on Program Visibility Space, use default PSVPAG value of 0
-   bset CORCON, #2  ;enable PSV
+   movpag #psvpage(sz_1_const), DSRPAG   ;PIC24E/dsPIC33E family
 ;copy source address in program memory to W0
     mov  #psvoffset(sz_1_const),W0
     mov  #sz_1,W1        ;destination address in data memory
     rcall copy_cstring
 ;copy source address in program memory to W0
+   movpag #psvpage(sz_2_const), DSRPAG  ;PIC24E/dsPIC33E family
     mov  #psvoffset(sz_2_const),W0
     mov  #sz_2,W1        ;destination address in data memory
     rcall copy_cstring
     return
 ;;copy constant null-terminated string from program memory to data memory
-;;W2 points to program memory, W3 to data memory
+;;W0 points to program memory, W1 to data memory
 copy_cstring:
     mov.b [W0],W2
     cp.b W2,#0
