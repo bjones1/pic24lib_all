@@ -2,7 +2,7 @@
 ;
 ;
 ; illustrates array initialization from program memory
-; using the PSV window, PIC24H/dsPIC33F
+; using the PSV window, PIC 24E/33E
 
 .include "xc.inc"
 
@@ -42,11 +42,8 @@ done:
 
 init_variables:
 ;turn on Program Visibility Space
-;value of 0
-    bset CORCON,#2   ;enable PSV 
-;only set the PSVPAG once since these are all on the same page
-    mov #psvpage(i8_a_const), W0
-    mov W0,PSVPAG
+;only set DSRPAG once since they are on the same page
+    movpag #psvpage(i8_a_const), DSRPAG   ;PIC24E/dsPIC33E family
 ;copy i8_a_const to i8_a
     mov  #psvoffset(i8_a_const),W0
     mov  #i8_a,W1        ;destination address in data memory
@@ -54,7 +51,7 @@ init_variables:
     call byte_copy  
 ;copy i16_b_const to i16_b
     mov  #psvoffset(i16_b_const),W0
-    mov  #i16_b,W1        ;destination address in data memory
+    mov  #i16_b,W2        ;destination address in data memory
     mov  #((4*2)-1),W2    ;(number of bytes)-1 to copy
     call byte_copy
 ;copy i32_c_const to i32_c

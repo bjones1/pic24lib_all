@@ -58,13 +58,13 @@ upcase_exit:
 
 
 init_variables:
-   movpag #psvpage(sz_1_const), DSRPAG   ;PIC24E/dsPIC33E family
+    movpag #psvpage(sz_1_const), DSRPAG   ;PIC24E/dsPIC33E family
 ;copy source address in program memory to W0
     mov  #psvoffset(sz_1_const),W0
     mov  #sz_1,W1        ;destination address in data memory
     rcall copy_cstring
 ;copy source address in program memory to W0
-   movpag #psvpage(sz_2_const), DSRPAG  ;PIC24E/dsPIC33E family
+    movpag #psvpage(sz_2_const), DSRPAG  ;PIC24E/dsPIC33E family
     mov  #psvoffset(sz_2_const),W0
     mov  #sz_2,W1        ;destination address in data memory
     rcall copy_cstring

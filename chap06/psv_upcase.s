@@ -61,10 +61,14 @@ init_variables:
 ;turn on Program Visibility Space, use default PSVPAG value of 0
    bset CORCON, #2  ;enable PSV
 ;copy source address in program memory to W0
+    mov #psvpage(sz_1_const), W0
+    mov W0,PSVPAG
     mov  #psvoffset(sz_1_const),W0
     mov  #sz_1,W1        ;destination address in data memory
     rcall copy_cstring
 ;copy source address in program memory to W0
+    mov #psvpage(sz_2_const), W0
+    mov W0,PSVPAG
     mov  #psvoffset(sz_2_const),W0
     mov  #sz_2,W1        ;destination address in data memory
     rcall copy_cstring
