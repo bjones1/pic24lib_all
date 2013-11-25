@@ -29,5 +29,7 @@ ESOS_app = Split("""app_example.c""")
 
 #opt.Program('app-rel', ESOS_common+ESOS_pc+ESOS_app)
 dbg.Program('app-dbg', ESOS_common+ESOS_pc+ESOS_app )
-   
+dbg.Program('app-mailA', ESOS_common+ESOS_pc+ Split("""app_mail_A.c""") )
+dbg.Program('app-mailB', ESOS_common+ESOS_pc+ Split("""app_mail_B.c""") )
+dbg.Program('app-mailC', ESOS_common+ESOS_pc+ Split("""app_mail_C.c""") )
 

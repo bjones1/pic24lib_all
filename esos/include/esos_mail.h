@@ -50,18 +50,6 @@
 #include    "esos.h"
 #include		"esos_cb.h"
 
-/* D E F I N E S ************************************************************/
-// DEFINEs user can NOT change
-#define	__MAIL_MSG_HEADER_LEN    	8			// verify this against the MAILMESSAGE struct below
-#define __MAIL_MSG_MAX_DATA_LEN		16		// can be no BIGGER than 16
-#define __MAIL_MSG_MAX_LEN				(__MAIL_MSG_HEADER_LEN+__MAIL_MSG_MAX_DATA_LEN)
-
-
-// size of each task's mailbox (in bytes)
-//#define	MAX_SIZE_TASK_MAILBOX		    16
-#define	MAX_SIZE_TASK_MAILBOX		  5*__MAIL_MSG_MAX_LEN
-
-
 // TODO  we have included esos.h but for some reason the MAX_NUM_USER_TASKS
 //  define is not being found in the declaration of mailboxes below??????
 
@@ -80,11 +68,16 @@ typedef struct __stMAILBOX {
 * structure to contain a mail message "envelope" -- a set of descriptors
 * about a mail message and the contents within
 **/
+
+/*  DEPRECATED MAIL MESSAGE structure
 typedef struct __stMAILMSG {
   uint16_t    u16_Header;				// bits F-C RESERVED; bits B-4 fromTaskHash?; bits 3-0 payload length 
   uint32_t		u32_Postmark;			// ESOS tick timestamp
   uint8_t 		au8_Contents[__MAIL_MSG_MAX_LEN]; // data storage	
 }  MAILMSG;
+*/ 
+
+#define __MAIL_MSG_MAX_DATA_LEN		16		// can be no BIGGER than 16
 
 typedef struct __stMAILMESSAGE {
 	uint8_t									u8_flags;					// various bits to help us decode message
@@ -92,19 +85,27 @@ typedef struct __stMAILMESSAGE {
 	uint8_t									u8_DataLength;		// how many bytes in data payload
   uint32_t								u32_Postmark;			// ESOS tick timestamp on message
   union {
-    uint8_t 					au8_Contents[16]; 		// message contents
-    uint16_t 					au16_Contents[8]; 		// message contents
-		uint32_t					au32_Contents[4];			// message contents
-		char					 	  ach_Contents[16];			// message contents
+    uint8_t 					au8_Contents[__MAIL_MSG_MAX_DATA_LEN]; 		    // message contents
+    uint16_t 					au16_Contents[__MAIL_MSG_MAX_DATA_LEN/2]; 		// message contents
+	uint32_t					au32_Contents[__MAIL_MSG_MAX_DATA_LEN/4];	    // message contents
+	char					 	 ach_Contents[__MAIL_MSG_MAX_DATA_LEN];	        // message contents
   };
 }  MAILMESSAGE;
 
+/* D E F I N E S ************************************************************/
+// DEFINEs user can NOT change
 #define	ESOS_MAILMESSAGE_STRING					0x0
 #define	ESOS_MAILMESSAGE_UINT8					0x1
 #define	ESOS_MAILMESSAGE_UINT16					0x2
 #define	ESOS_MAILMESSAGE_UINT32					0x4
-#define	ESOS_MAILMESSAGE_REQUEST_ACK		0x8
+#define	ESOS_MAILMESSAGE_REQUEST_ACK		    0x8
 
+// verify these against the MAILMESSAGE struct above
+#define	__MAIL_MSG_HEADER_LEN    	(1+2+1+4)			    
+#define __MAIL_MSG_MAX_LEN			(__MAIL_MSG_HEADER_LEN+__MAIL_MSG_MAX_DATA_LEN)
+
+// size of each task's mailbox (in bytes)
+#define	MAX_SIZE_TASK_MAILBOX		  5*__MAIL_MSG_MAX_LEN
 
 /* M A C R O S ************************************************************/
 
@@ -150,7 +151,7 @@ typedef struct __stMAILMESSAGE {
 
 
 /**
-* Evaluates to the booelan to determine if the specified task's mailbox
+* Block current task until the specified task's mailbox
 * has <em>at least</em> x bytes available for holding messages
 *
 * \param pstTask	pointer to task structure (ESOS_TASK_HANDLE) 
@@ -160,7 +161,25 @@ typedef struct __stMAILMESSAGE {
 *
 * \hideinitializer
 */
-#define ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(pstTask, x)		   ESOS_TASK_WAIT_UNTIL(ESOS_TASK_MAILBOX_GOT_AT_LEAST_DATA_BYTES((pstTask), (x)))
+#define ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(pstTask, x)		   ESOS_TASK_WAIT_UNTIL(ESOS_TASK_MAILBOX_GOT_AT_LEAST_DATA_BYTES((pstTask), ((x)+__MAIL_MSG_HEADER_LEN)))
+
+/**
+* Block the current task until the specified recipient task mailbox
+* has room for the specified message
+*
+* \param pstTask	pointer to task structure (ESOS_TASK_HANDLE) 
+* \param x    number of bytes to check for
+* \retval TRUE   if task's mailbox has  x bytes <em>or more</em>
+* \retval FALSE   otherwise
+*
+* \hideinitializer
+* \todo BRAIN-DEAD implementation.  needs to properly parse the message
+*      header and computer the data payload size.  A bit harder than it
+*      first appears
+*/
+#define ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_ROOM_MESSAGE(pstTask, pstMsg)       \
+             ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(pstTask, __MAIL_MSG_MAX_DATA_LEN )
+
 
 /**
 * Evaluates to the number of bytes available in the mailbox association
@@ -169,7 +188,7 @@ typedef struct __stMAILMESSAGE {
 * \retval N   number of bytes available for writing in task's mailbox
 * \hideinitializer
 */
-#define ESOS_TASK_MAILBOX_GET_AVAILABLE_LEN(pstTask)   					__ESOS_CB_GET_AVAILABLE((pstTask)->pst_Mailbox->pst_CBuffer)
+#define ESOS_TASK_MAILBOX_GET_AVAILABLE_LEN(pstTask)   			((__ESOS_CB_GET_AVAILABLE((pstTask)->pst_Mailbox->pst_CBuffer))-__MAIL_MSG_HEADER_LEN)
 /**
 * Evaluates to the booelan to determine if the specified task's mailbox
 * has  <em>exactly</em> x bytes available for holding messages
@@ -181,7 +200,7 @@ typedef struct __stMAILMESSAGE {
 *
 * \hideinitializer
 */
-#define ESOS_TASK_MAILBOX_GOT_EXACTLY_DATA_BYTES(pstTask,x)				(ESOS_TASK_MAILBOX_GET_AVAILABLE_LEN((pstTask)) == x)
+#define ESOS_TASK_MAILBOX_GOT_EXACTLY_DATA_BYTES(pstTask,x)			(ESOS_TASK_MAILBOX_GET_AVAILABLE_LEN((pstTask)) == ((x)+__MAIL_MSG_HEADER_LEN))
 
 /**
 * Evaluates to the booelan to determine if the specified task's mailbox
@@ -194,7 +213,7 @@ typedef struct __stMAILMESSAGE {
 *
 * \hideinitializer
 */
-#define ESOS_TASK_MAILBOX_GOT_AT_LEAST_DATA_BYTES(pstTask, x)			(ESOS_TASK_MAILBOX_GET_AVAILABLE_LEN((pstTask)) >= x)
+#define ESOS_TASK_MAILBOX_GOT_AT_LEAST_DATA_BYTES(pstTask, x)		(ESOS_TASK_MAILBOX_GET_AVAILABLE_LEN((pstTask)) >= ((x)+__MAIL_MSG_HEADER_LEN))
 
 /**
 * Flushes the specified task's mailbox contents.  All unread data in the mailbox
@@ -255,6 +274,27 @@ typedef struct __stMAILMESSAGE {
 	   stMsg.au8_Contents[1] = u8x1;													\
 	} while(0)
 
+#define ESOS_TASK_MAKE_MSG_UINT8_X3(stMsg, u8x0, u8x1, u8x2)			\
+	do{																	\
+	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT8);			\
+	   ESOS_SET_MSG_FROM_TASK(stMsg, __pstSelf->u16_taskID);	\
+	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 3);										\
+	   stMsg.au8_Contents[0] = u8x0;													\
+	   stMsg.au8_Contents[1] = u8x1;													\
+	   stMsg.au8_Contents[2] = u8x2;													\	   
+	} while(0)
+
+#define ESOS_TASK_MAKE_MSG_UINT8_X4(stMsg, u8x0, u8x1, u8x2, u8x3)			\
+	do{																	\
+	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT8);			\
+	   ESOS_SET_MSG_FROM_TASK(stMsg, __pstSelf->u16_taskID);	\
+	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 4);										\
+	   stMsg.au8_Contents[0] = u8x0;													\
+	   stMsg.au8_Contents[1] = u8x1;													\
+	   stMsg.au8_Contents[2] = u8x2;													\	   
+	   stMsg.au8_Contents[3] = u8x3;													\	   
+	} while(0)
+
 #define ESOS_TASK_MAKE_MSG_AUINT8(stMsg, pau8x, len)				\
 	do{																												\
 	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT8);			\
@@ -280,6 +320,27 @@ typedef struct __stMAILMESSAGE {
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 2);										\
 	   stMsg.au16_Contents[0] = u16x0;												\
 	   stMsg.au16_Contents[1] = u16x1;												\
+	} while(0)
+
+#define ESOS_TASK_MAKE_MSG_UINT16_X3(stMsg, u16x0, u16x1, u16x2)		\
+	do{																												\
+	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT16);			\
+	   ESOS_SET_MSG_FROM_TASK(stMsg, __pstSelf->u16_taskID);	\
+	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 3);										\
+	   stMsg.au16_Contents[0] = u16x0;												\
+	   stMsg.au16_Contents[1] = u16x1;												\
+	   stMsg.au16_Contents[2] = u16x2;												\
+	} while(0)
+
+#define ESOS_TASK_MAKE_MSG_UINT16_X4(stMsg, u16x0, u16x1, u16x2, u16x3)		\
+	do{																												\
+	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT16);			\
+	   ESOS_SET_MSG_FROM_TASK(stMsg, __pstSelf->u16_taskID);	\
+	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 4);										\
+	   stMsg.au16_Contents[0] = u16x0;												\
+	   stMsg.au16_Contents[1] = u16x1;												\
+	   stMsg.au16_Contents[2] = u16x2;												\
+	   stMsg.au16_Contents[3] = u16x3;												\
 	} while(0)
 
 #define ESOS_TASK_MAKE_MSG_UINT32(stMsg, u32x)							\
@@ -310,8 +371,6 @@ typedef struct __stMAILMESSAGE {
 	} while(0) 
 
 /* E X T E R N S ************************************************************/
-//extern 		MAILBOX				__astMailbox;
-//extern 		uint8_t				__au8_MBData;
 extern		MAILBOX					__astMailbox[MAX_NUM_USER_TASKS];
 extern		uint8_t					__au8_MBData[MAX_NUM_USER_TASKS][MAX_SIZE_TASK_MAILBOX];
 extern		uint8_t					__u8_esos_mail_routines_dummy_uint8;
