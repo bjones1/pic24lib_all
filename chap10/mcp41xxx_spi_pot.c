@@ -36,9 +36,16 @@
 
 
 void configSPI1(void) {
-  //spi clock = 40MHz/1*4 = 40MHz/4 = 10MHz
-  SPI1CON1 = SEC_PRESCAL_1_1 |     //1:1 secondary prescale
+   SPI1CON1 = 
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+             //spi clock = 60MHz/1*6 = 60MHz/4 = 10MHz
+             PRI_PRESCAL_1_1 |     //1:1 primary prescale
+             SEC_PRESCAL_6_1 |     //6:1 secondary prescale
+#else
+             //spi clock = 40MHz/4*1 = 40MHz/4 = 10MHz
              PRI_PRESCAL_4_1 |     //4:1 primary prescale
+             SEC_PRESCAL_1_1 |     //1:1 secondary prescale
+#endif
              CLK_POL_ACTIVE_HIGH | //clock active high (CKP = 0)
              SPI_CKE_ON          | //out changes active to inactive (CKE=1)
              SPI_MODE8_ON        | //8-bit mode
