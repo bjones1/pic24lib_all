@@ -65,6 +65,34 @@
 
 #include "pic24_clockfreq.h"
 
+#ifndef IOL1WAY_OFF
+#define IOL1WAY_OFF 0xFFFF  //has no effect
+#endif
+
+#ifndef OSCIOFNC_OFF
+#define OSCIOFNC_OFF 0xFFFF  //has no effect
+#endif
+
+#if !((POSCMD_SEL == POSCMD_EC) ||(POSCMD_SEL == POSCMD_XT) ||(POSCMD_SEL == POSCMD_HS) ||(POSCMD_SEL == POSCMD_NONE))
+# error "Unknown primary oscillator selection."
+#endif
+
+#ifdef BOOTLOADER
+ //True if want osc pins enabled if using the bootloader, this way an application
+ //code can switch to an external oscillator if desired
+ //this assumes an XT crystal, would need to be changed if wanted HS or EC.
+#define OSCPIN_CONFIG (OSCIOFNC_OFF  & POSCMD_XT)
+#else
+//enable/disable OSC IO pins based on oscillator selection
+#if   POSCMD_SEL == POSCMD_NONE
+#define OSCPIN_CONFIG (OSCIOFNC_ON  & POSCMD_NONE)   //enable the OSC IO pins
+#else
+#define OSCPIN_CONFIG (OSCIOFNC_OFF  & POSCMD_SEL)   //disable the OSC IO pins
+#endif
+#endif
+ 
+
+
 /// \name PIC24H configuration bits
 //@{
 #if (defined(__PIC24HJ12GP202__) || \
@@ -171,7 +199,9 @@ _FOSCSEL(FNOSC_FRC & IESO_OFF);
  **
  \endcode
  */
-_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_ON & POSCMD_SEL);
+ 
+ _FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG );
+
 
 
 /** FWDT: Watchdog Timer Configuration Register
@@ -262,7 +292,7 @@ _FICD(JTAGEN_OFF & ICS_PGD1);
 _FBS(BWRP_WRPROTECT_OFF);
 _FGS(GSS_OFF & GCP_OFF & GWRP_OFF);
 _FOSCSEL(FNOSC_FRC & IESO_OFF);
-_FOSC(FCKSM_CSECMD & OSCIOFNC_OFF & POSCMD_SEL);
+_FOSC(FCKSM_CSECMD & OSCPIN_CONFIG );
 _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FPOR(FPWRT_PWR16);
 _FICD(JTAGEN_OFF & ICS_PGD1);
@@ -381,7 +411,8 @@ _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF & BKBUG_OFF & COE_OFF & ICS_PGx1 & FWDT
  **
 \endcode
 */
-_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_ON & IOL1WAY_OFF & POSCMD_SEL);
+_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG );
+
 
 
 ///\cond doxygen_ignore
@@ -392,13 +423,13 @@ _CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_ON & IOL1WAY_OFF & POSCM
 
 #if defined(EXPLORER16_100P) && defined(__PIC24FJ128GA010__)
 _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF & BKBUG_OFF & COE_OFF & ICS_PGx1 & FWDTEN_OFF & WINDIS_OFF & FWPSA_PR128 & WDTPS_PS512);
-_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_OFF & POSCMD_SEL);
+_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCPIN_CONFIG);
 #define CONFIG_BITS_DEFINED
 #endif
 
 #if defined(__PIC24FJ64GB002__) ||(__PIC24FJ64GB004__)
 _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF  & ICS_PGx1 & FWDTEN_OFF & WINDIS_OFF & FWPSA_PR128 & WDTPS_PS512);
-_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_ON & IOL1WAY_OFF & POSCMD_SEL & PLL96MHZ_OFF & PLLDIV_DIV2 );
+_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & IOL1WAY_OFF & PLL96MHZ_OFF & PLLDIV_DIV2 & OSCPIN_CONFIG );
 _CONFIG4(DSWDTPS_DSWDTPSF & DSWDTEN_OFF & DSBOREN_OFF)
 #define CONFIG_BITS_DEFINED
 ///\endcond
@@ -414,11 +445,8 @@ _FGS(GSS_OFF & GCP_OFF & GWRP_OFF);
 _FSS(RSS_NO_RAM & SSS_NO_FLASH & SWRP_WRPROTECT_OFF);
 #endif
 
-#ifdef IOL1WAY_OFF
-_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_ON & POSCMD_SEL);
-#else
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL);
-#endif
+_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG);
+
 _FOSCSEL(FNOSC_FRC & IESO_OFF);
 _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FPOR(FPWRT_PWR16);
@@ -441,11 +469,8 @@ _FICD(JTAGEN_OFF & ICS_PGD1);
 #endif
 
 _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF & BKBUG_OFF & COE_OFF & ICS_PGx1 & FWDTEN_OFF & WINDIS_OFF & FWPSA_PR128 & WDTPS_PS512);
+_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG);
 
-#ifndef IOL1WAY_OFF
-#define IOL1WAY_OFF 0xFFFF
-#endif
-_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_ON & IOL1WAY_OFF & POSCMD_SEL);
 
 #warning "Using default config bit settings for the PIC24F family."
 #warning "Edit this file to define bits for your processor!"
@@ -462,11 +487,11 @@ _FBS(BSS_OFF & BWRP_OFF);
 _FGS(GWRP_OFF);
 
 #if  (POSC_FREQ < 100000L)
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL & POSCFREQ_LS);
+_FOSC(FCKSM_CSECMD & OSCPIN_CONFIG & POSCFREQ_LS);
 #elif (POSC_FREQ > 8000000L)
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL & POSCFREQ_HS);
+_FOSC(FCKSM_CSECMD & OSCPIN_CONFIG & POSCFREQ_HS);
 #else
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL & POSCFREQ_MS);
+_FOSC(FCKSM_CSECMD & OSCPIN_CONFIG & POSCFREQ_MS);
 #endif
 
 
@@ -493,11 +518,13 @@ _FOSCSEL(FNOSC_FRC & IESO_OFF);
 #ifdef RSS_NO_RAM
 _FSS(RSS_NO_RAM & SSS_NO_FLASH & SWRP_WRPROTECT_OFF);
 #endif
-#ifdef IOL1WAY_OFF
-_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_ON & POSCMD_SEL);
-#else
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL);
+
+#ifndef IOL1WAY_OFF
+#define IOL1WAY_OFF 0xFFFF
 #endif
+
+_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG);
+
 _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FPOR(FPWRT_PWR16);
 _FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
@@ -517,12 +544,7 @@ _FGS(0xFFFF);
 //28 pin devices only have ALT2IC1 pins!!?
 _FPOR(ALTI2C1_ON & 0xFFFF);
 
-#ifdef IOL1WAY_OFF
-_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_ON & POSCMD_SEL);
-//_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_OFF & POSCMD_SEL);
-#else
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL);
-#endif
+_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG);
 _FOSCSEL(FNOSC_FRC & IESO_OFF);
 _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
@@ -556,24 +578,9 @@ _FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
 #pragma config FWDTEN = OFF             // Watchdog Timer Enable bit (Watchdog timer enabled/disabled by user software)
 
 // FOSC
-#if   POSCMD_SEL == POSCMD_EC
-#pragma config POSCMD = EC              // Primary Oscillator Mode Select bits (EC Crystal Oscillator Mode)
-#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
-#elif POSCMD_SEL == POSCMD_XT
-#pragma config POSCMD = XT              // Primary Oscillator Mode Select bits (XT Crystal Oscillator Mode)
-#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
-#elif POSCMD_SEL == POSCMD_HS
-#pragma config POSCMD = HS              // Primary Oscillator Mode Select bits (HS Crystal Oscillator Mode)
-#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
-#elif POSCMD_SEL == POSCMD_NONE
-#pragma config POSCMD = NONE            // Primary Oscillator Mode Select bits (Primary Oscillator disabled)
-#pragma config OSCIOFNC = ON            // OSC2 Pin Function bit (OSC2 is general purpose digital I/O pin)
-#else
-# error "Unknown primary oscillator selection."
-#endif
-
-#pragma config IOL1WAY = OFF            // Peripheral pin select configuration (Allow multiple reconfigurations)
-#pragma config FCKSM = CSECMD           // Clock Switching Mode bits (Clock switching is enabled,Fail-safe Clock Monitor is disabled)
+//IOL1WAY = OFF  Peripheral pin select configuration (Allow multiple reconfigurations)
+//FCKSM = CSECMD Clock Switching Mode bits (Clock switching is enabled,Fail-safe Clock Monitor is disabled)
+_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG);
 
 // FOSCSEL
 #pragma config FNOSC = FRC              // Oscillator Source Selection (Internal Fast RC (FRC))
