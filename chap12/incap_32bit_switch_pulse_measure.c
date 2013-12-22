@@ -24,28 +24,24 @@
 //    these files.
 //
 // *****************************************************************
-// incap_switch_pulse_measure.c - Uses 16-bit input capture to measure pulse width
+// incap_32bit_switch_pulse_measure.c - Uses IC1,IC2 in cascade mode to measure pulse width
 // *****************************************************************
-// Measures the pulse width of pushbutton switching using IC1 input capture and Timer2
-// Timer overflow tracking is used to measure long pulse widths.
+// Measures the pulse width of pushbutton switching using IC1,IC2 in cascade mode.
+// Timer 2 is used as the clock source, and pulse width is assume to not exceed
+// the 32-bit range of cascade mode. This example only runs on dsPIC33E/PIC24E families.
 // This example assumes a debounced switch.
 // To configure this example to run with an external 8 MHz crystal for
 // for a FCY=40MHz, define the C preprocessor macro: CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY
 // and have an external crysal + 2 capacitors on the OSC1/OSC2 pins.
 // Typical crystal accuracy for through hole is +/-20 pmm, so for a 100000 us
 // pulse width measurement this is +/- 2 us.
+
 #include "pic24_all.h"
 #include <stdio.h>
 
-
-volatile uint16_t u16_oflowCount = 0;
-
-//Interrupt Service Routine for Timer2
-void _ISRFAST _T2Interrupt (void) {
-  u16_oflowCount++;
-  _T2IF = 0;                 //clear the timer interrupt bit
-}
-
+#if (! (defined(__dsPIC33E__) || defined(__PIC24E__)))
+#error "This example only works with the dsPIC33/PIC24E families"
+#endif
 typedef enum  {
   STATE_WAIT_FOR_FALL_EDGE = 0,
   STATE_WAIT_FOR_RISE_EDGE,
@@ -53,25 +49,23 @@ typedef enum  {
 
 ICSTATE e_isrICState = STATE_WAIT_FOR_FALL_EDGE;
 volatile uint8_t u8_captureFlag = 0;
-volatile uint16_t u16_lastCapture;
-volatile uint16_t u16_thisCapture;
+volatile union32 u32_lastCapture;
+volatile union32 u32_thisCapture;
 volatile uint32_t u32_pulseWidth;
 
 void _ISRFAST _IC1Interrupt() {
   _IC1IF = 0;
-  u16_thisCapture = IC1BUF;  //always read the buffer to prevent overflow
+  u32_thisCapture.u16.ls16 = IC1BUF;  //read LSW
+  u32_thisCapture.u16.ms16 = IC2BUF;  //read MSW
   switch (e_isrICState) {
     case STATE_WAIT_FOR_FALL_EDGE:
       if (u8_captureFlag == 0) {
-        if (u16_thisCapture == 0 && _T2IF) u16_oflowCount = 0 -1; //simultaneous timer with capture
-        else u16_oflowCount = 0;
-        u16_lastCapture = u16_thisCapture;
+        u32_lastCapture = u32_thisCapture;
         e_isrICState = STATE_WAIT_FOR_RISE_EDGE;
       }
       break;
     case STATE_WAIT_FOR_RISE_EDGE:
-      if (u16_thisCapture == 0 && _T2IF) u16_oflowCount++; //simultaneous interrupt, increment oflow count
-      u32_pulseWidth = computeDeltaTicksLong(u16_lastCapture,u16_thisCapture,PR2, u16_oflowCount); //get delta ticks
+      u32_pulseWidth = u32_thisCapture.u32 - u32_lastCapture.u32;  //get delta ticks
       u32_pulseWidth = ticksToUs(u32_pulseWidth,getTimerPrescale(T2CONbits)); //convert to microseconds
       u8_captureFlag = 1;
       e_isrICState = STATE_WAIT_FOR_FALL_EDGE;
@@ -88,24 +82,25 @@ inline void CONFIG_SW1()  {
   DELAY_US(1);            //delay for pull-up
 }
 
-void configInputCapture1(void) {
+
+
+void configInputCapture(void) {
   CONFIG_IC1_TO_RP(RB13_RP);      //map IC1 to RB13
-#ifdef IC1CON                  //older familes
-  IC1CON = IC_TIMER2_SRC |     //Timer2 source
-           IC_INT_1CAPTURE |   //Interrupt every capture
-           IC_EVERY_EDGE;      //Capture every edge
-#endif
-#ifdef IC1CON1                  //PIC24E/dsPIC33E
+  CONFIG_IC2_TO_RP(RB13_RP);      //map IC2 to RB13
+  //first, config the MSW (EVEN) module IC2 - configuration order matters!
+  IC2CON1 = IC_TIMER2_SRC |     //Timer2 source
+            IC_EVERY_EDGE;      //Capture every edge
+  //cascade on, sync mode, no timer sync, just use clock source
+  IC2CON2 = IC_IC32_ON| IC_SYNC_MODE | IC_SYNCSEL_NOSYNC;
+  //now config LSW (ODD) module IC1
   IC1CON1 = IC_TIMER2_SRC |     //Timer2 source
             IC_INT_1CAPTURE |   //Interrupt every capture
             IC_EVERY_EDGE;      //Capture every edge
-  //      cascade off, sync mode, sync to timer 2
-  IC1CON2 = IC_IC32_OFF| IC_SYNC_MODE | IC_SYNCSEL_TIMER2;
-#endif
+  //cascade on, sync mode, no timer sync, just use clock source
+  IC1CON2 = IC_IC32_ON| IC_SYNC_MODE | IC_SYNCSEL_NOSYNC;
   _IC1IF = 0;
   _IC1IP = 2;   //higher than Timer2 so that Timer2 does not interrupt IC1
   _IC1IE = 1;   //enable
-
 }
 
 void  configTimer2(void) {
@@ -115,18 +110,16 @@ void  configTimer2(void) {
           | T2_PS_1_8 ;  //1 tick = 0.2 us at FCY=40 MHz
   PR2 = 0xFFFF;                    //maximum period
   TMR2  = 0;                       //clear timer2 value
-  _T2IF = 0;                       //clear interrupt flag
-  _T2IP = 1;                       //choose a priority
-  _T2IE = 1;                       //enable the interrupt
+  _T2IP = 0;                       //interrupt disabled
+  _T2IE = 0;                       //interrupt disabled
   T2CONbits.TON = 1;               //turn on the timer
 }
 
 int main (void) {
   configBasic(HELLO_MSG);
   CONFIG_SW1();    //use RB13
-  configInputCapture1();
+  configInputCapture();
   configTimer2();
-
 
   while (1) {
     outString("Press button...");

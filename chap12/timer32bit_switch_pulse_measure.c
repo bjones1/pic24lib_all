@@ -1,41 +1,41 @@
-/*
- * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
- * All rights reserved.
- * (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
- * (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
- * (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
- *
- * Permission to use, copy, modify, and distribute this software and its
- * documentation for any purpose, without fee, and without written agreement is
- * hereby granted, provided that the above copyright notice, the following
- * two paragraphs and the authors appear in all copies of this software.
- *
- * IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
- * DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
- * OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
- * HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
- * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
- * ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
- * PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
- *
- * Please maintain this header in its entirety when copying/modifying
- * these files.
- *
- *
- */
+// .. "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+//    All rights reserved.
+//    (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
+//    (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
+//    (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
+//
+//    Permission to use, copy, modify, and distribute this software and its
+//    documentation for any purpose, without fee, and without written agreement is
+//    hereby granted, provided that the above copyright notice, the following
+//    two paragraphs and the authors appear in all copies of this software.
+//
+//    IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
+//    DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
+//    OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
+//    HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//    THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+//    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+//    AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+//    ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
+//    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
+//
+//    Please maintain this header in its entirety when copying/modifying
+//    these files.
+//
+// *****************************************************************
+// timer32bit_switch_pulse_measure.c - Uses 32-bit timer to measure pulse width
+// *****************************************************************
+// 32-bit Timer example: Measures the pulse width of pushbutton switch using
+// Timer2/3 in 32-bit mode with INT1 for edge detection.
+// To configure this example to run with an external 8 MHz crystal for
+// for a FCY=40MHz, define the C preprocessor macro: CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY
+// and have an external crysal + 2 capacitors on the OSC1/OSC2 pins.
+// Typical crystal accuracy for through hole is +/-20 pmm, so for a 100000 us
+// pulse width measurement this is +/- 2 us.
 #include "pic24_all.h"
 #include <stdio.h>
 
-/** \file
- * Measures the pulse width of pushbutton switch using Timer2/3 in 32-bit mode with INT1 for edge detection.
- * For more accuracy,  use an external crystal and define
- * CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY in your MPLAB project.
- * Typical crystal accuracy for through hole is +/-20 pmm, so for a 100000 us
- * pulse width measurement this is +/- 2 us.
-*/
 
 typedef enum  {
   STATE_WAIT_FOR_FALL_EDGE = 0,
@@ -79,11 +79,7 @@ void _ISRFAST _INT1Interrupt (void) {
 inline void CONFIG_SW1()  {
   CONFIG_RB13_AS_DIG_INPUT();   //use RB13 for switch input
   ENABLE_RB13_PULLUP();         //enable the pullup
-#if (defined(__dsPIC33E__) || defined(__PIC24E__))
-  CONFIG_INT1_TO_RP(45);   //map INT1 to RP45/RB13
-#else
-  CONFIG_INT1_TO_RP(13);   //map INT1 to RP13/RB13
-#endif
+  CONFIG_INT1_TO_RP(RB13_RP);   //map INT1 to RB13
   DELAY_US(1);             //Wait for pullup
   /** Configure INT1 interrupt  */
   _INT1IF = 0;     //Clear the interrupt flag
