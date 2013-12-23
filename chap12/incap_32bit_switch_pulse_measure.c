@@ -40,7 +40,7 @@
 #include <stdio.h>
 
 #if (! (defined(__dsPIC33E__) || defined(__PIC24E__)))
-#error "This example only works with the dsPIC33/PIC24E families"
+#error "This example only works with the dsPIC33E/PIC24E families"
 #endif
 typedef enum  {
   STATE_WAIT_FOR_FALL_EDGE = 0,

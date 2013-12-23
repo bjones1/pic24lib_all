@@ -24,39 +24,39 @@
 //    these files.
 //
 // *****************************************************************
-// outcompare_squarewave.c - generates a square wave using output compare, compatible with PIC24F/H/E families
+// outcompare_squarewave_24e.c - generates a square wave using output compare, demos a mode available only on dsPIC33e/PIC24E
 // *****************************************************************
-// Generates a square wave using output compare (OC1). The example uses
-// the Timer2 clock2 and is compatible with the PIC24F/H/E families
+// Generates a square wave using output compare (OC1). The internal timer uses
+// the Timer2 clock2 and is synchrononized to the OCxRS match event, which means
+// that  the internal timer resets to zero on OCxRS match.  This example only works
+// on the PIC24E/dsPIC33E
 
 #include "pic24_all.h"
-
+#if (! (defined(__dsPIC33E__) || defined(__PIC24E__)))
+#error "This example only works with the dsPIC33E/PIC24E families"
+#endif
 
 #define SQWAVE_PERIOD 5000   // desired period, in us
-
 void  configTimer2(void) {
   T2CON = T2_OFF | T2_IDLE_CON | T2_GATE_OFF
           | T2_32BIT_MODE_OFF
           | T2_SOURCE_INT
           | T2_PS_1_64 ;  //1 tick = 1.6 us at FCY=40 MHz
-  PR2 = usToU16Ticks(SQWAVE_PERIOD/2,getTimerPrescale(T2CONbits)) -1;
-  TMR2 = 0;  //clear timer2 value
+  PR2 = 0xFFFF;    //maximum period
+  TMR2  = 0;       //clear timer2 value
 }
 
+
 void configOutputCompare1(void) {
-  T2CONbits.TON = 0;         //disable Timer when configuring Output compare
-  CONFIG_OC1_TO_RP(RB5_RP);  //map OC1 to RB5
-  //initialize the compare register to 1/4 the squarewave period
-  //assumes TIMER2 initialized before OC1 so PRE bits are set
-  OC1R = usToU16Ticks(SQWAVE_PERIOD/4, getTimerPrescale(T2CONbits));
-#ifdef OC1CON1 
-  OC1CON1 = OC_TIMER2_SRC |      //Timer2 source
-            OC_TOGGLE_PULSE;     //single compare toggle
-  OC1CON2 = OC_SYNCSEL_TIMER2;   //synchronize to timer2
-#else
- OC1CON = OC_TIMER2_SRC |      //Timer2 source
-          OC_TOGGLE_PULSE;     //single compare toggle
-#endif  
+  T2CONbits.TON = 0;       //disable Timer when configuring Output compare
+  CONFIG_OC1_TO_RP(RB5_RP);     //map OC1 to RB5
+//use OC1R to set pulse high, OC1RS to set pulse low, timer reset on OC1RS match.
+//assumes TIMER2 initialized before OC1 so PRE bits are set
+  OC1RS = usToU16Ticks(SQWAVE_PERIOD/2, getTimerPrescale(T2CONbits));   //used to reset timer
+  OC1R = OC1RS/2;    //1/4 period
+  OC1CON1 = OC_TIMER2_SRC |         //Timer2 source
+            OC_TOGGLE_PULSE;        //single compare toggle
+  OC1CON2 = OC_SYNCSEL_OCxRS;       //reset internal timer when OCxRS match occurs
 }
 
 int main (void) {
