@@ -46,6 +46,8 @@
         <itemPath>../../lib/src/pic24_util.c</itemPath>
         <itemPath>../../lib/src/pic24_adc.c</itemPath>
         <itemPath>../../lib/src/pic24_timer.c</itemPath>
+        <itemPath>../../lib/src/dataXfer.c</itemPath>
+        <itemPath>../../lib/src/dataXferImpl.c</itemPath>
       </logicalFolder>
       <itemPath>../ledpwm_bullymon.c</itemPath>
     </logicalFolder>
