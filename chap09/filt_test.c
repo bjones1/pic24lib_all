@@ -31,22 +31,29 @@
 #include "pic24_all.h"
 
 
+// Use RB2 as the test output (TOUT).
 #define CONFIG_TOUT() CONFIG_RB2_AS_DIG_OUTPUT()
-#define TOUT  _LATB2     //output state
+#define TOUT (_LATB2)
 
-#define TIN          _RB3     //test in
+// Use RB3 as the RC filter test intput (TIN).
 #define CONFIG_TIN()  CONFIG_RB3_AS_DIG_INPUT();
+#define TIN (_RB3)
 
-#define TPW  1     // in ms, pulsewidth of TOUT
+// Define the pulse width of TOUT in ms.
+#define TPW  (1)
 
-int main (void) {
+int main(void) {
   uint8_t u8_oldvalueTIN;
+
   configBasic(HELLO_MSG);
-  TOUT = 1;  // TOUT drives TIN
+  // TOUT drives TIN. Have a value ready when it's enabled.
+  TOUT = 1;
   CONFIG_TIN();
   CONFIG_TOUT();
-  DELAY_MS(10);   //wait for output to stablize because of filter
+  // Wait for output to stablize because of filter.
+  DELAY_MS(10);
   u8_oldvalueTIN = TIN;
+
   while (1) {
     TOUT = !TOUT;
     DELAY_MS(TPW);

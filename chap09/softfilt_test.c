@@ -30,16 +30,21 @@
 #include "pic24_all.h"
 
 
+// Use RB9 as the test output (TOUT).
 #define CONFIG_TOUT() CONFIG_RB9_AS_DIG_OUTPUT()
-#define TOUT  _LATB9     //output state
+#define TOUT  (_LATB9)
 
-#define TIN_RAW         _RB8     //raw test in
-#define CONFIG_TIN()  CONFIG_RB8_AS_DIG_INPUT();
+// Use RB8 as the raw test input (TIN).
+#define CONFIG_TIN_RAW()  CONFIG_RB8_AS_DIG_INPUT();
+#define TIN_RAW (_RB8)
 
 
-#define ISR_PERIOD        1      // in ms
-#define MIN_STABLE       15      // in ms
-#define MIN_STABLECOUNT  MIN_STABLE/ISR_PERIOD
+// Define the time, in ms, between Timer3 interrupts.
+#define ISR_PERIOD (1)
+// The software filter only passes changes in the TIN input if the TIN input is stable for MIN_STABLE number of milliseconds
+#define MIN_STABLE (15)
+// The minimum number of timer3 interrupts that TIN must be stable for in order for a new value to pass through the filter.
+#define MIN_STABLECOUNT  (MIN_STABLE/ISR_PERIOD)
 
 
 uint16_t u16_stableCountTIN = 0;
@@ -47,13 +52,13 @@ uint8_t u8_rawTIN = 0;
 uint8_t u8_oldrawTIN = 0;
 
 
-//debounced switch value that is set in the timer ISR
-//any variable written by an ISR, and accessed outside of the ISR
-//should be declared volatile
+// Debounced switch value that is set in the timer ISR.
+// Any variable written by an ISR, and accessed outside of the ISR
+// should be declared volatile.
 volatile uint8_t u8_valueTIN = 0;
 
-//Interrupt Service Routine for Timer3
-void _ISRFAST _T3Interrupt (void) {
+// Interrupt Service Routine for Timer3
+void _ISR _T3Interrupt(void) {
   u8_rawTIN = TIN_RAW;     //sample the switch
   if (u8_rawTIN != u8_oldrawTIN) {
     //changed values, zero the stability counter
@@ -69,35 +74,38 @@ void _ISRFAST _T3Interrupt (void) {
   _T3IF = 0;                 //clear the timer interrupt bit
 }
 
-
-
 void  configTimer3(void) {
-  //ensure that Timer2,3 configured as separate timers.
+  // Ensure that Timer2,3 configured as separate timers.
   T2CONbits.T32 = 0;     // 32-bit mode off
-  //T3CON set like this for documentation purposes.
+  // T3CON set like this for documentation purposes.
   T3CON = T3_OFF |T3_IDLE_CON | T3_GATE_OFF
           | T3_SOURCE_INT
-          | T3_PS_1_1 ;
-  PR3 = msToU16Ticks (ISR_PERIOD, getTimerPrescale(T3CONbits)) - 1;
-  TMR3  = 0;                       //clear timer3 value
-  _T3IF = 0;                       //clear interrupt flag
-  _T3IP = 1;                       //choose a priority
-  _T3IE = 1;                       //enable the interrupt
-  T3CONbits.TON = 1;               //turn on the timer
+          | T3_PS_1_1;
+  // Subtract 1 from ticks value assigned to PR3 because period is PRx + 1.
+  PR3 = msToU16Ticks(ISR_PERIOD, getTimerPrescale(T3CONbits)) - 1;
+  // Start with a cleared timer2 value.
+  TMR3  = 0;
+  // Enable Timer3 interrupts.
+  _T3IF = 0;
+  _T3IP = 1;
+  _T3IE = 1;
+  // Start the timer only after all timer-related configuration is complete.
+  T3CONbits.TON = 1;
 }
-
 
 uint8_t u8_oldvalueTIN = 0;
 
-#define TPW  20     // in ms, pulsewidth of TOUT
+// Define the pulse width of TOUT in ms.
+#define TPW  (20)
 
-int main (void) {
+int main(void) {
   configBasic(HELLO_MSG);
+  // TOUT drives TIN.
   TOUT = 0;
-  // TOUT drives TIN
-  CONFIG_TIN();
+  CONFIG_TIN_RAW();
   CONFIG_TOUT();
   configTimer3();
+
   while (1) {
     TOUT = !TOUT;
     DELAY_MS(TPW);

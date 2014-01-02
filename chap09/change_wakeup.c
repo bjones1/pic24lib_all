@@ -27,7 +27,7 @@
 // change_wakeup.c - wake from sleep using a change notification interrupt
 // ***********************************************************************
 // Demonstrates the use of change notification interrupt
-// to wake from Sleep mode. Pushbutton on a change notfication pin will be used
+// to wake from Sleep mode. A pushbutton on a change notfication pin will be used
 // to wake the from Sleep mode.
 
 #include "pic24_all.h"
@@ -35,21 +35,23 @@
 
 // Interrupt Service Routine for Change Notification
 void _ISRFAST _CNInterrupt(void) {
-  _CNIF = 0;    //clear the change notification interrupt bit
+  // Clear the change notification interrupt bit.
+  _CNIF = 0;
 }
 
-// Switch1 configuration
-void config_sw1()  {
-  CONFIG_RB13_AS_DIG_INPUT();     //use RB13 for switch input
-  ENABLE_RB13_PULLUP();           //enable the pull-up
-  ENABLE_RB13_CN_INTERRUPT();     //CN13IE = 1
-  DELAY_US(1);                    // Wait for pull-up
+// Pushbutton configuration: assumes PB is on RB13.
+void config_pb(void)  {
+  CONFIG_RB13_AS_DIG_INPUT();
+  ENABLE_RB13_PULLUP();
+  ENABLE_RB13_CN_INTERRUPT();
+  // Wait for pull-up to take effect.
+  DELAY_US(1);
 }
 
-int main (void) {
+int main(void) {
   configBasic(HELLO_MSG);
   /** Configure the switch ***********/
-  config_sw1();  //enables individual CN interrupt also
+  config_pb();  //enables individual CN interrupt also
   /** Configure Change Notification general interrupt  */
   _CNIF = 0;         //Clear the interrupt flag
   _CNIP = 2;         //Choose a priority > 0

@@ -35,12 +35,14 @@ void _ISR _INT1Interrupt(void) {
   _INT1IF = 0;    //clear the interrupt bit
 }
 
-// Switch1 configuration, use RB13
+// Pushbutton configuration, uses RB13.
 void config_pb(void) {
-  CONFIG_RB13_AS_DIG_INPUT();   //use RB13 for switch input
-  ENABLE_RB13_PULLUP();         //enable the pullup
-  DELAY_US(1);                  // Wait for pull-up
+  CONFIG_RB13_AS_DIG_INPUT();
+  ENABLE_RB13_PULLUP();
+  // Wait for pull-up to take effect.
+  DELAY_US(1);
 }
+
 int main(void) {
   configBasic(HELLO_MSG);
   config_pb();
