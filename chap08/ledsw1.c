@@ -28,12 +28,13 @@
 // *************************************************************************
 // A program that uses a finite state machine approach for implementing switch/LED input/output.
 
+#include <stdio.h>
 #include "pic24_all.h"
 
 // LED1 configuration and access
 // =============================
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
-#define LED1 _LATB14     //led1 state
+#define LED1 (_LATB14)     //led1 state
 
 // Pushbutton configuration and access
 // ===================================
@@ -87,7 +88,8 @@ const char* apsz_state_names[] = {
 
 // Provide a convenient function to print out the state.
 void print_state(state_t e_state) {
-  static state_t e_last_state = 0xFFFF;  // Force an initial print of the state
+  // Force an initial print of the state
+  static state_t e_last_state = 0xFFFF;  
 
   // Only print if the state changes.
   if (e_state != e_last_state) {
@@ -102,10 +104,14 @@ void print_state(state_t e_state) {
 // This function defines the state machine.
 void update_state() {
   static state_t e_state = STATE_RELEASED1;
+  // The number of times the LED was toggled in the blink state
+  static uint16_t u16_led_toggles;
 
   switch (e_state) {
     case STATE_RELEASED1:
-      if (PB_PRESSED()) e_state = STATE_PRESSED1;
+      if (PB_PRESSED()) {
+	e_state = STATE_PRESSED1;
+      }
       break;
 
     case STATE_PRESSED1:
@@ -117,28 +123,41 @@ void update_state() {
       break;
 
     case STATE_RELEASED2:
-      if (PB_PRESSED()) e_state = STATE_PRESSED2;
+      if (PB_PRESSED()) {
+	e_state = STATE_PRESSED2;
+      }
       break;
 
     case STATE_PRESSED2:
-      if (PB_RELEASED()) {
-        if (SW) {
-          e_state = STATE_RELEASED3_BLINK;
-        } else {
-          // Turn the LED off when moving to STATE_RELEASED1.
-          e_state = STATE_RELEASED1;
-          LED1 = 0;
-        }
+      if (PB_RELEASED() && SW) {
+	e_state = STATE_RELEASED3_BLINK;
+	// Zero the toggled count before entering the blink state.
+	u16_led_toggles = 0;
+      }
+      if (PB_RELEASED() && !SW) {
+	// Turn the LED off when moving to STATE_RELEASED1.
+	e_state = STATE_RELEASED1;
+	LED1 = 0;
       }
       break;
 
     case STATE_RELEASED3_BLINK:
-      LED1 = !LED1;
-      DELAY_MS(100);
       if (PB_PRESSED()) {
         // Freeze the LED on when existing the blink state.
         e_state = STATE_PRESSED3;
         LED1 = 1;
+      }
+      if (!PB_PRESSED() && (u16_led_toggles < 10)) {
+	u16_led_toggles++;
+	printf("toggles = %d\n", u16_led_toggles);
+        LED1 = !LED1;
+	// Delay to make LED blinks visible
+        DELAY_MS(250);
+      }
+      if (!PB_PRESSED() && (u16_led_toggles >= 10)) {
+	// Turn the LED off when moving to STATE_RELEASED1.
+	e_state = STATE_RELEASED1;
+	LED1 = 0;
       }
       break;
 
