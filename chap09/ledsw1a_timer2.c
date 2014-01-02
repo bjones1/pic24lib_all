@@ -29,85 +29,46 @@
 // Demonstrates the use of a events to create an energy-efficient FSM implementation. All of the FSM work is done in the ISR.
 
 
+#include <stdio.h>
 #include "pic24_all.h"
+
+void update_state(void);
 
 // LED1 configuration and access
 // =============================
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
-#define LED1 (_LATB14)
+#define LED1 (_LATB14)     //led1 state
 
 // Pushbutton configuration and access
 // ===================================
-void config_pb(void)  {
+void config_pb()  {
   CONFIG_RB13_AS_DIG_INPUT();
   ENABLE_RB13_PULLUP();
   // Give the pullup some time to take effect.
   DELAY_US(1);
 }
 
-#define PB_PRESSED()   (_RB13 == 0)
-#define PB_RELEASED()  (_RB13 == 1)
+#if (HARDWARE_PLATFORM == EMBEDDED_C1)
+  #define PB_PRESSED()   (_RB7 == 0)
+  #define PB_RELEASED()  (_RB7 == 1)
+#else
+  #define PB_PRESSED()   (_RB13 == 0)
+  #define PB_RELEASED()  (_RB13 == 1)
+#endif
 
 // Switch configuration and access
 // ===============================
-void config_sw(void)  {
+void config_sw()  {
   CONFIG_RB12_AS_DIG_INPUT();
   ENABLE_RB12_PULLUP();
   // Give the pullup some time to take effect.
   DELAY_US(1);
 }
 
-#define SW              (_RB12)
+#define SW (_RB12)
 
-// State machine
-// =============
-// State definition
-// ----------------
-// First, define the states, along with a human-readable version.
-typedef enum  {
-  STATE_RELEASED1,
-  STATE_PRESSED1,
-  STATE_RELEASED2,
-  STATE_PRESSED2,
-  STATE_RELEASED3_BLINK,
-  STATE_PRESSED3,
-} state_t;
-
-const char* apsz_state_names[] = {
-  "STATE_RELEASED1 - LED is off",
-  "STATE_PRESSED1 - LED is off",
-  "STATE_RELEASED2 - LED is on",
-  "STATE_PRESSED2 - SW on goes to blink else go to RELEASED1",
-  "STATE_RELEASED3_BLINK - LED blinks, waiting for PB press",
-  "STATE_PRESSED3 - LED is on",
-};
-
-// Event definition
-// ----------------
-// Define events known to this system. They identify the interrupt source.
-typedef enum {
-  EVENT_CN,
-  EVENT_T3,
-} event_t;
-
-const char* apsz_event_names[] = {
-  "EVENT_CN",
-  "EVENT_T3",
-};
-
-// Provide a convenient function to print out the state and event.
-void print_state(event_t e_event, state_t e_state) {
-  // Verify that the event has a string representation before printing it.
-  ASSERT(e_event <= N_ELEMENTS(apsz_event_names));
-  outString(apsz_event_names[e_event]);
-  outString(", ");
-
-  // Verify that the state has a string representation before printing it.
-  ASSERT(e_state <= N_ELEMENTS(apsz_state_names));
-  outString(apsz_state_names[e_state]);
-  outString(".\n");
-}
-
+// Interrupts
+// ==========
 // Timer arming
 // ------------
 // This function prepares the timer to interrupt after the given delay (in ms).
@@ -120,133 +81,177 @@ void timer3_arm(uint16_t u16_time_ms) {
   T3CONbits.TON = 1;
 }
 
-// State machine
-// -------------
-// This function defines the state machine.
-void update_state(event_t e_event) {
-  static state_t e_state = STATE_RELEASED1;
-
-  switch (e_event) {
-    case EVENT_T3 :
-    // Make this a one-shot timer: turn it off.
-    T3CONbits.TON = 0;
-    // Clear any pending change notification interrupts due to switch bounce.
-    _CNIF = 0;
-    // Re-enable change notification interrupts now that all bounces have died out.
-    _CNIE = 1;
-    // There are two possible timer event sources:
-    if (e_state == STATE_RELEASED3_BLINK) {
-      // A 100ms blink delay.
-      LED1 = !LED1;
-      timer3_arm(100);
-    }
-    break;
-
-    // If this is a change notification event, wait a debounce delay before accepting further CN events.
-    case EVENT_CN :
-    _CNIE = 0;
-    timer3_arm(DEBOUNCE_DLY);
-    // Now, update the state due to a cn event.
-    switch (e_state) {
-      case STATE_RELEASED1:
-	if (PB_PRESSED()) e_state = STATE_PRESSED1;
-	break;
-
-      case STATE_PRESSED1:
-	if (PB_RELEASED()) {
-	  // Turn the LED on when entering STATE_RELEASED2.
-	  e_state = STATE_RELEASED2;
-	  LED1 = 1;
-	}
-	break;
-
-      case STATE_RELEASED2:
-	if (PB_PRESSED()) e_state = STATE_PRESSED2;
-	break;
-
-      case STATE_PRESSED2:
-	if (PB_RELEASED()) {
-	  if (SW) {
-	    e_state = STATE_RELEASED3_BLINK;
-	  } else {
-	    // Turn the LED off when moving to STATE_RELEASED1.
-	    e_state = STATE_RELEASED1;
-	    LED1 = 0;
-	  }
-	}
-	break;
-
-      case STATE_RELEASED3_BLINK:
-	if (PB_PRESSED()) {
-	  // Freeze the LED on when existing the blink state.
-	  e_state = STATE_PRESSED3;
-	  LED1 = 1;
-	}
-	break;
-
-      case STATE_PRESSED3:
-	if (PB_RELEASED()) {
-	  // Turn the LED off when moving to STATE_RELEASED1.
-	  e_state = STATE_RELEASED1;
-	  LED1 = 0;
-	}
-	break;
-
-      default:
-	ASSERT(0);
-    }
-    break;
-
-    default:
-    ASSERT(0);
-  }
-
-  print_state(e_event, e_state);
+// Change notification
+// -------------------
+// Enable change-notification interrupts on the pushbutton.
+void config_cn(void) {
+  // Enable change notifications on RB13 specifically.
+  ENABLE_RB13_CN_INTERRUPT();
+  // Clear the interrupt flag.
+  _CNIF = 0;
+  // Choose a priority.
+  _CNIP = 1;
+  // Enable the Change Notification general interrupt.
+  _CNIE = 1;
 }
 
-// Event sources
-// =============
-// Timer events
-// ------------
-// Configure the timer to produce interrupts.
+// Interrupt service routine for change notification interrupts. Disable this
+// interrupt to avoid bounce, then arm the timer to update the FSM state after
+// a debounce delay.
+void _ISR _CNInterrupt(void) {
+  // Acknowledge the interrupt, then disble it. Otherwise, any switch bounce would
+  // cause spurious interrupts.
+  _CNIF = 0;
+  _CNIE = 0;
+  // Schedule a timer interrupt after a debounce delay.
+  timer3_arm(DEBOUNCE_DLY);
+}
+
+// Timer
+// -----
+// Configure the timer to produce interrupts. Do not yet turn it on.
 void configTimer3(void) {
-  //ensure that Timer2,3 configured as separate timers.
-  T2CONbits.T32 = 0;     // 32-bit mode off
-  //T3CON set like this for documentation purposes.
-  //could be replaced by T3CON = 0x0020
+  // Ensure that Timer2,3 configured as separate timers by
+  // turning 32-bit mode off.
+  T2CONbits.T32 = 0;
+  // T3CON set like this for documentation purposes.
+  // This could be replaced by T3CON = 0x0020.
   T3CON = T3_OFF | T3_IDLE_CON | T3_GATE_OFF
           | T3_SOURCE_INT
           | T3_PS_1_256;
-  _T3IF = 0;                       //clear interrupt flag
-  _T3IP = 1;                       //choose a priority
-  _T3IE = 1;                       //enable the interrupt
+  // Clear the interrupt flag.
+  _T3IF = 0;
+  // Choose a priority.
+  _T3IP = 1;
+  // Enable the timer3 interrupt.
+  _T3IE = 1;
 }
 
 // Interrupt Service Routine for Timer3
 void _ISR _T3Interrupt(void) {
   // Clear the interrupt flag.
   _T3IF = 0;
-  // Inform our state machine of an event.
-  update_state(EVENT_T3);
-}
-
-// Enable change-notification interrupts on the switch.
-void config_cn(void) {
-  ENABLE_RB13_CN_INTERRUPT();
-  _CNIF = 0;         //Clear the interrupt flag
-  _CNIP = 1;         //Choose a priority
-  _CNIE = 1;         //enable the Change Notification general interrupt
-}
-
-// Interrupt service routine for change notification interrupts.
-void _ISR _CNInterrupt(void) {
+  // Stop the timer; the debounce delay is done.
+  T3CONbits.TON = 0;
+  // Clear the change notification interrupt because switch bounce may have set it.
   _CNIF = 0;
-  update_state(EVENT_CN);
+  // Re-enable change notification interrupts, since the debounce delay is done.
+  _CNIE = 1;
+  // Inform our state machine of an event.
+  update_state();
 }
+
+// State machine
+// =============
+// First, define the states, along with a human-readable version.
+
+typedef enum  {
+  STATE_RELEASED1,
+  STATE_PRESSED1,
+  STATE_RELEASED2,
+  STATE_PRESSED2,
+  STATE_RELEASED3_BLINK,
+  STATE_PRESSED3,
+} state_t;
+
+const char* apsz_state_names[] = {
+  "STATE_RELEASED1 - LED is off",
+  "STATE_PRESSED1",
+  "STATE_RELEASED2 - LED is on",
+  "STATE_PRESSED2 - SW2 on goes to blink else go to RELEASED1",
+  "STATE_RELEASED3_BLINK - LED blinks, waiting for SW1 press",
+  "STATE_PRESSED3 - LED is on",
+};
+
+// Provide a convenient function to print out the state.
+void print_state(state_t e_state) {
+  // Verify that the state has a string representation before printing it.
+  ASSERT(e_state <= N_ELEMENTS(apsz_state_names));
+  outString(apsz_state_names[e_state]);
+  outChar('\n');
+}
+
+// This function defines the state machine.
+void update_state(void) {
+  static state_t e_state = STATE_RELEASED1;
+  // The number of times the LED was toggled in the blink state
+  static uint16_t u16_led_toggles;
+
+  switch (e_state) {
+    case STATE_RELEASED1:
+      if (PB_PRESSED()) {
+	e_state = STATE_PRESSED1;
+      }
+      break;
+
+    case STATE_PRESSED1:
+      if (PB_RELEASED()) {
+        // Turn the LED on when entering STATE_RELEASED2.
+        e_state = STATE_RELEASED2;
+        LED1 = 1;
+      }
+      break;
+
+    case STATE_RELEASED2:
+      if (PB_PRESSED()) {
+	e_state = STATE_PRESSED2;
+      }
+      break;
+
+    case STATE_PRESSED2:
+      if (PB_RELEASED() && SW) {
+	e_state = STATE_RELEASED3_BLINK;
+	// Zero the toggled count before entering the blink state.
+	u16_led_toggles = 0;
+	// Schedule a timer interrupt to start the blinking.
+	timer3_arm(250);
+      }
+      if (PB_RELEASED() && !SW) {
+	// Turn the LED off when moving to STATE_RELEASED1.
+	e_state = STATE_RELEASED1;
+	LED1 = 0;
+      }
+      break;
+
+    case STATE_RELEASED3_BLINK:
+      if (PB_PRESSED()) {
+        // Freeze the LED on when existing the blink state.
+        e_state = STATE_PRESSED3;
+        LED1 = 1;
+      }
+      if (!PB_PRESSED() && (u16_led_toggles < 10)) {
+	u16_led_toggles++;
+	printf("toggles = %d, ", u16_led_toggles);
+        LED1 = !LED1;
+	// Schedule a timer interrupt for the next LED blink.
+	timer3_arm(250);
+      }
+      if (!PB_PRESSED() && (u16_led_toggles >= 10)) {
+	// Turn the LED off when moving to STATE_RELEASED1.
+	e_state = STATE_RELEASED1;
+	LED1 = 0;
+      }
+      break;
+
+    case STATE_PRESSED3:
+      if (PB_RELEASED()) {
+        // Turn the LED off when moving to STATE_RELEASED1.
+        e_state = STATE_RELEASED1;
+        LED1 = 0;
+      }
+      break;
+
+    default:
+      ASSERT(0);
+  }
+
+  print_state(e_state);
+}
+
 
 // Main
 // ====
-int main (void) {
+int main(void) {
   configBasic(HELLO_MSG);
   config_pb();
   config_sw();
@@ -254,8 +259,8 @@ int main (void) {
   configTimer3();
   config_cn();
 
-  // Idle when the ISR doesn't run to reduce power consumption.
   while (1) {
+    // Enter a low-power state, which still keeps timer3 and uart1 running.
     IDLE();
   }
 }
