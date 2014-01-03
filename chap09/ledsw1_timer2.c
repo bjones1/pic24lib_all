@@ -39,7 +39,7 @@ void update_state(void);
 // LED1 configuration and access
 // -----------------------------
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
-#define LED1 (_LATB14)     //led1 state
+#define LED1 (_LATB14)
 
 // Pushbutton configuration and access
 // -----------------------------------
@@ -110,12 +110,13 @@ void configTimer3(void) {
 // ------------
 // This function prepares the timer to interrupt after the given delay (in ms).
 void timer3_arm(uint16_t u16_time_ms) {
-  // If a timer interrupt has occurred but not been processed, discard it and rearm.
-  _T3IF = 0;
   // Convert arm time to timer3 ticks.
   PR3 = msToU16Ticks(u16_time_ms, getTimerPrescale(T3CONbits)) - 1;
+  // Zero then start the timer.
   TMR3 = 0;
   T3CONbits.TON = 1;
+  // If a timer interrupt has occurred but not been processed, discard it.
+  _T3IF = 0;
 }
 
 // Change notification
