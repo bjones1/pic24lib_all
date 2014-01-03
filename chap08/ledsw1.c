@@ -46,11 +46,11 @@ void config_pb()  {
 }
 
 #if (HARDWARE_PLATFORM == EMBEDDED_C1)
-  #define PB_PRESSED()   (_RB7 == 0)
-  #define PB_RELEASED()  (_RB7 == 1)
+# define PB_PRESSED()   (_RB7 == 0)
+# define PB_RELEASED()  (_RB7 == 1)
 #else
-  #define PB_PRESSED()   (_RB13 == 0)
-  #define PB_RELEASED()  (_RB13 == 1)
+# define PB_PRESSED()   (_RB13 == 0)
+# define PB_RELEASED()  (_RB13 == 1)
 #endif
 
 // Switch configuration and access
@@ -89,7 +89,7 @@ const char* apsz_state_names[] = {
 // Provide a convenient function to print out the state.
 void print_state(state_t e_state) {
   // Force an initial print of the state
-  static state_t e_last_state = 0xFFFF;  
+  static state_t e_last_state = 0xFFFF;
 
   // Only print if the state changes.
   if (e_state != e_last_state) {
@@ -110,7 +110,7 @@ void update_state() {
   switch (e_state) {
     case STATE_RELEASED1:
       if (PB_PRESSED()) {
-	e_state = STATE_PRESSED1;
+        e_state = STATE_PRESSED1;
       }
       break;
 
@@ -124,20 +124,20 @@ void update_state() {
 
     case STATE_RELEASED2:
       if (PB_PRESSED()) {
-	e_state = STATE_PRESSED2;
+        e_state = STATE_PRESSED2;
       }
       break;
 
     case STATE_PRESSED2:
       if (PB_RELEASED() && SW) {
-	e_state = STATE_RELEASED3_BLINK;
-	// Zero the toggled count before entering the blink state.
-	u16_led_toggles = 0;
+        e_state = STATE_RELEASED3_BLINK;
+        // Zero the toggled count before entering the blink state.
+        u16_led_toggles = 0;
       }
       if (PB_RELEASED() && !SW) {
-	// Turn the LED off when moving to STATE_RELEASED1.
-	e_state = STATE_RELEASED1;
-	LED1 = 0;
+        // Turn the LED off when moving to STATE_RELEASED1.
+        e_state = STATE_RELEASED1;
+        LED1 = 0;
       }
       break;
 
@@ -148,16 +148,16 @@ void update_state() {
         LED1 = 1;
       }
       if (!PB_PRESSED() && (u16_led_toggles < 10)) {
-	u16_led_toggles++;
-	printf("toggles = %d\n", u16_led_toggles);
+        u16_led_toggles++;
+        printf("toggles = %d\n", u16_led_toggles);
         LED1 = !LED1;
-	// Delay to make LED blinks visible
+        // Delay to make LED blinks visible
         DELAY_MS(250);
       }
       if (!PB_PRESSED() && (u16_led_toggles >= 10)) {
-	// Turn the LED off when moving to STATE_RELEASED1.
-	e_state = STATE_RELEASED1;
-	LED1 = 0;
+        // Turn the LED off when moving to STATE_RELEASED1.
+        e_state = STATE_RELEASED1;
+        LED1 = 0;
       }
       break;
 
@@ -176,7 +176,7 @@ void update_state() {
   print_state(e_state);
 }
 
-int main (void) {
+int main(void) {
   // Configure the hardware.
   configBasic(HELLO_MSG);
   config_pb();

@@ -131,8 +131,8 @@ void configOutputCapture1(void) {
             OC_TOGGLE_PULSE;     //single compare toggle, just care about compare event
   OC1CON2 = OC_SYNCSEL_TIMER2;   //synchronize to timer2
 #else
- OC1CON = OC_TIMER2_SRC |      //Timer2 source
-          OC_TOGGLE_PULSE;     //single compare toggle, just care about compare event
+  OC1CON = OC_TIMER2_SRC |      //Timer2 source
+           OC_TOGGLE_PULSE;     //single compare toggle, just care about compare event
 #endif
   _OC1IF = 0;
   _OC1IP = 1;

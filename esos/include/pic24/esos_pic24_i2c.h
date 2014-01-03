@@ -68,9 +68,9 @@ extern uint8_t            __esos_i2c_dataBytes[2];                    // used to
 
 #define ESOS_TASK_WAIT_ON_AVAILABLE_I2C()                                           \
         do {                                                                        \
-		    ESOS_TASK_WAIT_WHILE(__esos_IsSystemFlagSet(__ESOS_SYS_I2C_IS_BUSY));   \
-		    __esos_SetSystemFlag(__ESOS_SYS_I2C_IS_BUSY);                           \
-		} while(0)
+        ESOS_TASK_WAIT_WHILE(__esos_IsSystemFlagSet(__ESOS_SYS_I2C_IS_BUSY));   \
+        __esos_SetSystemFlag(__ESOS_SYS_I2C_IS_BUSY);                           \
+    } while(0)
 
 #define ESOS_TASK_SIGNAL_AVAILABLE_I2C() __esos_ClearSystemFlag(__ESOS_SYS_I2C_IS_BUSY)
 

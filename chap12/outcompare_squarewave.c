@@ -49,14 +49,14 @@ void configOutputCompare1(void) {
   //initialize the compare register to 1/4 the squarewave period
   //assumes TIMER2 initialized before OC1 so PRE bits are set
   OC1R = usToU16Ticks(SQWAVE_PERIOD/4, getTimerPrescale(T2CONbits));
-#ifdef OC1CON1 
+#ifdef OC1CON1
   OC1CON1 = OC_TIMER2_SRC |      //Timer2 source
             OC_TOGGLE_PULSE;     //single compare toggle
   OC1CON2 = OC_SYNCSEL_TIMER2;   //synchronize to timer2
 #else
- OC1CON = OC_TIMER2_SRC |      //Timer2 source
-          OC_TOGGLE_PULSE;     //single compare toggle
-#endif  
+  OC1CON = OC_TIMER2_SRC |      //Timer2 source
+           OC_TOGGLE_PULSE;     //single compare toggle
+#endif
 }
 
 int main (void) {

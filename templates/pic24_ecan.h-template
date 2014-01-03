@@ -59,8 +59,8 @@
 
 // CANCKS: ECANx Module Clock (FCAN) Source Select Bit - rnn13
 #ifdef __dsPIC33E__ // Only enable for certain chips.
-     #define ECAN_FCAN_IS_2FP 1 // FCAN is equal to 2 * FP
-     #define ECAN_FCAN_IS_FP  0 // FCAN is equal to FP
+# define ECAN_FCAN_IS_2FP 1 // FCAN is equal to 2 * FP
+# define ECAN_FCAN_IS_FP  0 // FCAN is equal to FP
 #endif
 
 
@@ -294,6 +294,4 @@ uint8_t getTxInProgressECAN${x}(uint8_t u8_bufNum);
 
 
 #endif // #if (NUM_ECAN_MODS >= ${x})
-
-
 

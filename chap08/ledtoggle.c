@@ -50,11 +50,11 @@ void config_pb()  {
 }
 
 #if (HARDWARE_PLATFORM == EMBEDDED_C1)
-  #define PB_PRESSED()   (_RB7 == 0)
-  #define PB_RELEASED()  (_RB7 == 1)
+# define PB_PRESSED()   (_RB7 == 0)
+# define PB_RELEASED()  (_RB7 == 1)
 #else
-  #define PB_PRESSED()   (_RB13 == 0)
-  #define PB_RELEASED()  (_RB13 == 1)
+# define PB_PRESSED()   (_RB13 == 0)
+# define PB_RELEASED()  (_RB13 == 1)
 #endif
 
 // State machine

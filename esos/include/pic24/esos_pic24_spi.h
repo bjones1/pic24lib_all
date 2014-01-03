@@ -155,9 +155,9 @@ extern uint16_t            __esos_spi_u16s[2];     // used to store arguments
 
 #define ESOS_TASK_WAIT_ON_AVAILABLE_SPI()                                           \
         do {                                                                        \
-    		ESOS_TASK_WAIT_WHILE(__esos_IsSystemFlagSet(__ESOS_SYS_SPI_IS_BUSY));   \
-    		__esos_SetSystemFlag(__ESOS_SYS_SPI_IS_BUSY);                           \
-    	}while(0)
+        ESOS_TASK_WAIT_WHILE(__esos_IsSystemFlagSet(__ESOS_SYS_SPI_IS_BUSY));   \
+        __esos_SetSystemFlag(__ESOS_SYS_SPI_IS_BUSY);                           \
+      }while(0)
 
 #define ESOS_TASK_SIGNAL_AVAILABLE_SPI() __esos_ClearSystemFlag(__ESOS_SYS_SPI_IS_BUSY)
 

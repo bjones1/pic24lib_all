@@ -49,7 +49,7 @@
 //#include "user_config.h"      // get the user's configuration requests
 #include "all_generic.h"
 #include "esos_task.h"          // defines ESOS tasks and semaphores
-#include "esos_mail.h"					// defines ESOS task mailboxes (eventually make MAILBOXes optional)
+#include "esos_mail.h"          // defines ESOS task mailboxes (eventually make MAILBOXes optional)
 
 // PUT THESE HERE FOR NOW.  They belong somewhere else
 // in the long-run.
@@ -104,8 +104,8 @@ typedef             int                 main_t;
  *          user has defined, UNLESS they are absolutely sure that
  *          two (or more) tasks are mutually exclusive in execution.
  *
- *	  \note BOTH "parent" and "child" tasks use this NUMBER to allocate
- *			their pool of tasks.  So this number should be equal to or greater
+ *    \note BOTH "parent" and "child" tasks use this NUMBER to allocate
+ *      their pool of tasks.  So this number should be equal to or greater
  *          than the MAXIMUM number of concurrently running child --OR--
  *          parent tasks.
  */
@@ -119,11 +119,11 @@ typedef             int                 main_t;
 * to implement ESOS task mailboxes
 **/
 struct stMailBoxDesc {
-  volatile uint8_t*	pau8_Data;
-  int16_t	                u16_Head;
-  int16_t	                u16_Tail;
+  volatile uint8_t* pau8_Data;
+  int16_t                 u16_Head;
+  int16_t                 u16_Tail;
   uint16_t                u16_Length;
-  struct stTask		pst_Task;
+  struct stTask   pst_Task;
 };
 
 /**
@@ -132,7 +132,7 @@ struct stMailBoxDesc {
 **/
 struct stMailEnvelope {
   uint16_t                u16_Header;
-  uint32_t		u32_Postmark;
+  uint32_t    u32_Postmark;
 };
 
 struct stTimer {
@@ -454,13 +454,13 @@ extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
 
 
 // System flag definitions... only ESOS needs to use these
-#define     __ESOS_SYS_FLAG_PACK_TASKS				BIT0
-#define     __ESOS_SYS_FLAG_NULL_LAST_TASK			BIT1
-#define     __ESOS_SYS_COMM_TX_IS_BUSY				BIT2
-#define     __ESOS_SYS_COMM_RX_IS_BUSY				BIT3
-#define		__ESOS_SYS_I2C_IS_BUSY					BIT4
-#define		__ESOS_SYS_SPI_IS_BUSY					BIT5
-#define		__ESOS_SYS_ADC_IS_BUSY					BIT6
+#define     __ESOS_SYS_FLAG_PACK_TASKS        BIT0
+#define     __ESOS_SYS_FLAG_NULL_LAST_TASK      BIT1
+#define     __ESOS_SYS_COMM_TX_IS_BUSY        BIT2
+#define     __ESOS_SYS_COMM_RX_IS_BUSY        BIT3
+#define   __ESOS_SYS_I2C_IS_BUSY          BIT4
+#define   __ESOS_SYS_SPI_IS_BUSY          BIT5
+#define   __ESOS_SYS_ADC_IS_BUSY          BIT6
 
 // Other useful macros for the user
 #define   __abs(x)    (((x) < 0) ? -(x) : (x))

@@ -24,7 +24,7 @@
 //    these files.
 //
 // *************************************************************************************************************************************************
-// time1_sosc.c - Demonstrates use of Timer1 with a secondary oscillator. 
+// time1_sosc.c - Demonstrates use of Timer1 with a secondary oscillator.
 // *************************************************************************************************************************************************
 // Only works a device with a secondary oscillator (many PIC24H/F, dsPIC33F devices, few PIC24E/dsPIC33E).
 #include <stdio.h>
@@ -56,7 +56,7 @@ void  configTimer1(void) {
 
 
 int main(void) {
-   __builtin_write_OSCCONL(OSCCON | 0x02);    //OSCCON.LPOSCEN=1;
+  __builtin_write_OSCCONL(OSCCON | 0x02);    //OSCCON.LPOSCEN=1;
   configBasic(HELLO_MSG);   //say Hello!
   configTimer1();
   while (1) {

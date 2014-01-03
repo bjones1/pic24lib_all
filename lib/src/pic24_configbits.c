@@ -78,9 +78,9 @@
 #endif
 
 #ifdef BOOTLOADER
- //True if want osc pins enabled if using the bootloader, this way an application
- //code can switch to an external oscillator if desired
- //this assumes an XT crystal, would need to be changed if wanted HS or EC.
+//True if want osc pins enabled if using the bootloader, this way an application
+//code can switch to an external oscillator if desired
+//this assumes an XT crystal, would need to be changed if wanted HS or EC.
 #define OSCPIN_CONFIG (OSCIOFNC_OFF  & POSCMD_XT)
 #else
 //enable/disable OSC IO pins based on oscillator selection
@@ -90,7 +90,7 @@
 #define OSCPIN_CONFIG (OSCIOFNC_OFF  & POSCMD_SEL)   //disable the OSC IO pins
 #endif
 #endif
- 
+
 
 
 /// \name PIC24H configuration bits
@@ -199,8 +199,8 @@ _FOSCSEL(FNOSC_FRC & IESO_OFF);
  **
  \endcode
  */
- 
- _FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG );
+
+_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG );
 
 
 

@@ -332,6 +332,9 @@ void configUART1(uint32_t u32_baudRate) {
     (0u   << 13) |      // UTXISEL0 = 0  (With bit 15 above, UTXISEL = 00:
     //                  //  Interrupt generated when any character
     //                  //  is transferred to the Transmit Shift Register).
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+    (1u   << 12) |      //URXEN=1, defined on some dsPIC33E/PIC24E members, enables RX.
+#endif
     (0u   << 11) |      // UTXBRK = 0    (Sync break transmission disabled)
     (1u   << 10) |      // UTXEN = 0     (UARTx transmitter enabled. NOTE: per
     //                  //  the data sheet, this must be set *AFTER* UARTEN
@@ -714,6 +717,9 @@ void configUART2(uint32_t u32_baudRate) {
     (0u   << 13) |      // UTXISEL0 = 0  (With bit 15 above, UTXISEL = 00:
     //                  //  Interrupt generated when any character
     //                  //  is transferred to the Transmit Shift Register).
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+    (1u   << 12) |      //URXEN=1, defined on some dsPIC33E/PIC24E members, enables RX.
+#endif
     (0u   << 11) |      // UTXBRK = 0    (Sync break transmission disabled)
     (1u   << 10) |      // UTXEN = 0     (UARTx transmitter enabled. NOTE: per
     //                  //  the data sheet, this must be set *AFTER* UARTEN
@@ -1096,6 +1102,9 @@ void configUART3(uint32_t u32_baudRate) {
     (0u   << 13) |      // UTXISEL0 = 0  (With bit 15 above, UTXISEL = 00:
     //                  //  Interrupt generated when any character
     //                  //  is transferred to the Transmit Shift Register).
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+    (1u   << 12) |      //URXEN=1, defined on some dsPIC33E/PIC24E members, enables RX.
+#endif
     (0u   << 11) |      // UTXBRK = 0    (Sync break transmission disabled)
     (1u   << 10) |      // UTXEN = 0     (UARTx transmitter enabled. NOTE: per
     //                  //  the data sheet, this must be set *AFTER* UARTEN
@@ -1478,6 +1487,9 @@ void configUART4(uint32_t u32_baudRate) {
     (0u   << 13) |      // UTXISEL0 = 0  (With bit 15 above, UTXISEL = 00:
     //                  //  Interrupt generated when any character
     //                  //  is transferred to the Transmit Shift Register).
+#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+    (1u   << 12) |      //URXEN=1, defined on some dsPIC33E/PIC24E members, enables RX.
+#endif
     (0u   << 11) |      // UTXBRK = 0    (Sync break transmission disabled)
     (1u   << 10) |      // UTXEN = 0     (UARTx transmitter enabled. NOTE: per
     //                  //  the data sheet, this must be set *AFTER* UARTEN

@@ -67,7 +67,7 @@ void configInputCapture1(void) {
   IC1CON1 = IC_TIMER2_SRC |     //Timer2 source
             IC_INT_1CAPTURE |   //Interrupt every capture
             IC_EVERY_16_RISE_EDGE;   //capture every 16th edge
-   //      cascade off, sync mode, sync to timer 2
+  //      cascade off, sync mode, sync to timer 2
   IC1CON2 = IC_IC32_OFF| IC_SYNC_MODE | IC_SYNCSEL_TIMER2;
 #endif
 #ifdef IC1CON
