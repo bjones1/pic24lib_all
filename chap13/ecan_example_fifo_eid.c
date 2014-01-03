@@ -39,11 +39,18 @@ Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B, Example 21-9),
 Produces data rate of 1 Mbps assuming FCY = 40 MHz, quanta = 20, Prescale = 2.
 **/
 
-void configBaudECAN1(void) {
-//set baud rate
-#if FCY == 40000000L
+void configBaudECAN1(void) { //set baud rate
+ // The following were removed from the PIC24 Library due to Microchip removing support for them in their recent documentation for the PIC24 - rnn13
+ //  C1CTRL1bits.CANCKS = ECAN_FCAN_IS_FCY; // CANCKS = 1, sets FCAN = FCY = 40 MHz
+
+ #ifdef __dsPIC33E__ // Microchip added support for CANCKS for the dsPIC33EP, but it has a different meaning now - rnn13
+  // Set the ECAN Module Clock to FCY
+  C1CTRL1bits.CANCKS = ECAN_FCAN_IS_FP;
+ #endif
+
+
+#if FCY == GET_FCY(FRCPLL_FCY40MHz) // <- This needs to be reverified! - rnn13
 // FCAN = FCY = 40 MHz. TQ = 20. Prescale = 2, Data Rate = FCAN/(TQ * pre) = 40MHz/40 = 1 MHz.
-  C1CTRL1bits.CANCKS = ECAN_FCAN_IS_FCY; // CANCKS = 1, sets FCAN = FCY = 40 MHz
 //20 TQ for a bit time. 20 = Sync(1) + Seg1 (8) + Seg2 (6) + Prop seg (5)
   C1CFG2 = ECAN_NO_WAKEUP |
            ECAN_SAMPLE_3TIMES |      //sample three times at sample point
@@ -55,51 +62,110 @@ void configBaudECAN1(void) {
   C1CFG1 = ECAN_SYNC_JUMP_4 |    //use maximum sync jump width
            ECAN_PRE_2x1;         //prescalers to 2x1
 
+#elif FCY == GET_FCY(FRCPLL_FCY60MHz)
+ // FCAN = FCY = 60 MHz. TQ = 15. Prescale = 4, Data Rate = FCAN/(TQ * Prescale) = 60MHz/60 = 1 MHz.
+ // Bit Time = [ Sync Segment(1) + Propagation Delay(4) + Phase Segment 1(5) + Phase Segment 2(5) ] = 15 * TQ
+   C1CFG2 = ECAN_NO_WAKEUP |
+           ECAN_SAMPLE_3TIMES |      //sample three times at sample point
+           ECAN_SEG1PH_8TQ |         //seg1 = 8 TQ
+           ECAN_SEG2_PROGRAMMABLE |  //seg2 is programmable
+           ECAN_SEG2PH_6TQ |         //seg2 = 6 TQ
+           ECAN_PRSEG_5TQ;           //propagation delay segment = 5 TQ
+
+  C1CFG1 = ECAN_SYNC_JUMP_4 |    //use maximum sync jump width
+           ECAN_PRE_2x4;         //prescalers to 2x4
+
 #else
-#warning "ECAN module not configured! Edit function configECAN1()."
+ #warning "ECAN module not configured for current processor frequency! Edit function configECAN1()."
 #endif
 }
 
 #define NUM_TX_BUFS  1   //reserve 1 for TX
 #define NUM_BUFS    8   //make this a power of 2 for the alignment to work or enter alignment manually
-ECANMSG msgBuf[NUM_BUFS] __attribute__((space(dma),aligned(NUM_BUFS*16)));
 
 #define MSG_ID 0x10B2ABC0    //arbitrary choice for extended messsage ID
 
-//configure DMA transmit buffer
-void configDMA0(void) {
-  _DMA0IF = 0;
-  DMA0PAD = (unsigned int) &C1TXD;
-  DMA0REQ = DMA_IRQ_ECAN1TX;
-  DMA0STA = __builtin_dmaoffset(msgBuf);
-  DMA0CNT =   sizeof(ECANMSG)/2 -1;  // == 7
-  DMA0CON =   //configure and enable the module Module
-    (DMA_MODULE_ON |
-     DMA_SIZE_WORD |
-     DMA_DIR_WRITE_PERIPHERAL |
-     DMA_INTERRUPT_FULL |
-     DMA_NULLW_OFF |
-     DMA_AMODE_PERIPHERAL_INDIRECT |
-     DMA_MODE_CONTINUOUS);
-}
+#if defined(__PIC24H__) || defined (__dsPIC33F__)
+    ECANMSG msgBuf[NUM_BUFS] __attribute__((space(dma),aligned(NUM_BUFS*16)));
 
-//configure DMA receive buffer
-void configDMA1(void) {
-  _DMA1IF = 0;
-  DMA1PAD = (unsigned int) &C1RXD;
-  DMA1REQ = DMA_IRQ_ECAN1RX;
-  DMA1STA = __builtin_dmaoffset(msgBuf);
-  DMA1CNT =   sizeof(ECANMSG)/2 -1;
-  DMA1CON =   //configure and enable the module Module
-    (DMA_MODULE_ON |
-     DMA_SIZE_WORD |
-     DMA_DIR_READ_PERIPHERAL |
-     DMA_INTERRUPT_FULL |
-     DMA_NULLW_OFF |
-     DMA_AMODE_PERIPHERAL_INDIRECT |
-     DMA_MODE_CONTINUOUS);
+    //configure DMA transmit buffer
+    void configDMA0(void) {
+      DMACS0 = 0;
+      _DMA0IF = 0;
+      DMA0PAD = (unsigned int) &C1TXD;
+      DMA0REQ = DMA_IRQ_ECAN1TX;
+      DMA0STA = __builtin_dmaoffset(msgBuf);
+      DMA0CNT =   sizeof(ECANMSG)/2 -1;  // == 7
+      DMA0CON =   //configure and enable the module Module
+        (DMA_MODULE_ON |
+         DMA_SIZE_WORD |
+         DMA_DIR_WRITE_PERIPHERAL |
+         DMA_INTERRUPT_FULL |
+         DMA_NULLW_OFF |
+         DMA_AMODE_PERIPHERAL_INDIRECT |
+         DMA_MODE_CONTINUOUS);
+    }
 
-}
+    //configure DMA receive buffer
+    void configDMA1(void) {
+      _DMA1IF = 0;
+      DMA1PAD = (unsigned int) &C1RXD;
+      DMA1REQ = DMA_IRQ_ECAN1RX;
+      DMA1STA = __builtin_dmaoffset(msgBuf);
+      DMA1CNT =  sizeof(ECANMSG)/2 -1;  // == 7
+      DMA1CON =   //configure and enable the module Module
+        (DMA_MODULE_ON |
+         DMA_SIZE_WORD |
+         DMA_DIR_READ_PERIPHERAL |
+         DMA_INTERRUPT_FULL |
+         DMA_NULLW_OFF |
+         DMA_AMODE_PERIPHERAL_INDIRECT |
+         DMA_MODE_CONTINUOUS);
+
+    }
+#elif defined(__dsPIC33E__)
+
+    ECANMSG msgBuf[NUM_BUFS] __attribute__((space(xmemory),aligned(NUM_BUFS*16)));
+
+    //configure DMA transmit buffer
+    void configDMA0(void) {
+      DMAPWC = 0; // Reset the DMA Peripheral Write Collision Status Register
+      _DMA0IF = 0;
+      DMA0PAD = (unsigned int) &C1TXD;
+      DMA0REQ = DMA_IRQ_ECAN1TX;
+      DMA0STAL = (unsigned int) &msgBuf;
+      DMA0STAH = (unsigned int) &msgBuf;
+      DMA0CNT =   sizeof(ECANMSG)/2 -1;  // == 7
+      DMA0CON =   //configure and enable the module Module
+        (DMA_MODULE_ON |
+         DMA_SIZE_WORD |
+         DMA_DIR_WRITE_PERIPHERAL |
+         DMA_INTERRUPT_FULL |
+         DMA_NULLW_OFF |
+         DMA_AMODE_PERIPHERAL_INDIRECT |
+         DMA_MODE_CONTINUOUS);
+    }
+
+    //configure DMA receive buffer
+    void configDMA1(void) {
+      _DMA1IF = 0;
+      DMA1PAD = (unsigned int) &C1RXD;
+      DMA1REQ = DMA_IRQ_ECAN1RX;
+      DMA1STAL = (unsigned int) &msgBuf;
+      DMA1STAH = (unsigned int) &msgBuf;
+      DMA1CNT =  sizeof(ECANMSG)/2 -1;  // == 7
+      DMA1CON =   //configure and enable the module Module
+        (DMA_MODULE_ON |
+         DMA_SIZE_WORD |
+         DMA_DIR_READ_PERIPHERAL |
+         DMA_INTERRUPT_FULL |
+         DMA_NULLW_OFF |
+         DMA_AMODE_PERIPHERAL_INDIRECT |
+         DMA_MODE_CONTINUOUS);
+    }
+#else
+#error "Configure DMA for your chip here."
+#endif
 
 #define RX_BUFFER_ID  15  //a value of 15 means to use a FIFO for RX
 
@@ -109,6 +175,7 @@ void configECAN1() {
   configBaudECAN1();
   C1FCTRL = ECAN_DMA_BUF_SIZE_8 | ECAN_FIFO_START_AREA_1;
 //use Filter 0 with Mask 0
+  configRxFilterECAN1(0, MSG_ID, ECAN_MATCH_EID, RX_BUFFER_ID, 0);
   configRxFilterECAN1(0, MSG_ID, ECAN_MATCH_EID, RX_BUFFER_ID, 0);
   configRxMaskECAN1(0, 0x1FFFFFFC, ECAN_MATCH_EID, 1);  //check all bits except last 2
   clrRxFullOvfFlagsECAN1();  //clear all RX full, overflow flags.
