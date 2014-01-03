@@ -29,18 +29,19 @@
 //  Test installing an ISR for the MathError trap.
 //  Then, execute a divide by 0 and see if the trap
 //  silently handles the call or not (it does). If the trap
-//  is not handled, then \ref _DefaultInterrupt will
+//  is not handled, then _DefaultInterrupt will
 //  catch it and report an error. See the
 //  :doc:`trap_test.c <trap_test.c>` file for an example of an unhandled
 //  math error trap.
 
 #include "pic24_all.h"
 
-//Interrupt Service Routine for MathError
-void _ISRFAST _MathError(void) {
-  // Do not anything, just clear the error and continue/
-  _MATHERR = 0;   // Clear the _MATHERR flag to signal trap is handled.
-  RCOUNT = 0;     // Clear the RCOUNT to break repeat loop in a divide.
+// Interrupt Service Routine for MathError. Do not anything, just clear the error and continue
+void _ISR _MathError(void) {
+  // Clear the _MATHERR flag to signal trap is handled.
+  _MATHERR = 0;
+  // Clear RCOUNT to stop DO loop in a divide.
+  RCOUNT = 0;
 }
 
 int main(void) {
