@@ -34,13 +34,15 @@
 
 void update_state(void);
 
+// Configuration
+// =============
 // LED1 configuration and access
-// =============================
+// -----------------------------
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
 #define LED1 (_LATB14)     //led1 state
 
 // Pushbutton configuration and access
-// ===================================
+// -----------------------------------
 void config_pb()  {
   CONFIG_RB13_AS_DIG_INPUT();
   ENABLE_RB13_PULLUP();
@@ -49,15 +51,15 @@ void config_pb()  {
 }
 
 #if (HARDWARE_PLATFORM == EMBEDDED_C1)
-  #define PB_PRESSED()   (_RB7 == 0)
-  #define PB_RELEASED()  (_RB7 == 1)
+# define PB_PRESSED()   (_RB7 == 0)
+# define PB_RELEASED()  (_RB7 == 1)
 #else
-  #define PB_PRESSED()   (_RB13 == 0)
-  #define PB_RELEASED()  (_RB13 == 1)
+# define PB_PRESSED()   (_RB13 == 0)
+# define PB_RELEASED()  (_RB13 == 1)
 #endif
 
 // Switch configuration and access
-// ===============================
+// -------------------------------
 void config_sw()  {
   CONFIG_RB12_AS_DIG_INPUT();
   ENABLE_RB12_PULLUP();
@@ -67,22 +69,8 @@ void config_sw()  {
 
 #define SW (_RB12)
 
-// Interrupts
-// ==========
-// Timer arming
-// ------------
-// This function prepares the timer to interrupt after the given delay (in ms).
-void timer3_arm(uint16_t u16_time_ms) {
-  // If a timer interrpt has occurred but not been processed, discard it and rearm.
-  _T3IF = 0;
-  // Convert arm time to timer3 ticks.
-  PR3 = msToU16Ticks(u16_time_ms, getTimerPrescale(T3CONbits)) - 1;
-  TMR3 = 0;
-  T3CONbits.TON = 1;
-}
-
-// Change notification
-// -------------------
+// Change notification interrupt configuration
+// -------------------------------------------
 // Enable change-notification interrupts on the pushbutton.
 void config_cn(void) {
   // Enable change notifications on RB13 specifically.
@@ -95,20 +83,8 @@ void config_cn(void) {
   _CNIE = 1;
 }
 
-// Interrupt service routine for change notification interrupts. Disable this
-// interrupt to avoid bounce, then arm the timer to update the FSM state after
-// a debounce delay.
-void _ISR _CNInterrupt(void) {
-  // Acknowledge the interrupt, then disble it. Otherwise, any switch bounce would
-  // cause spurious interrupts.
-  _CNIF = 0;
-  _CNIE = 0;
-  // Schedule a timer interrupt after a debounce delay.
-  timer3_arm(DEBOUNCE_DLY);
-}
-
-// Timer
-// -----
+// Timer3 interrupt configuration
+// ------------------------------
 // Configure the timer to produce interrupts. Do not yet turn it on.
 void configTimer3(void) {
   // Ensure that Timer2,3 configured as separate timers by
@@ -127,6 +103,37 @@ void configTimer3(void) {
   _T3IE = 1;
 }
 
+
+// Interrupts
+// ==========
+// Timer arming
+// ------------
+// This function prepares the timer to interrupt after the given delay (in ms).
+void timer3_arm(uint16_t u16_time_ms) {
+  // If a timer interrupt has occurred but not been processed, discard it and rearm.
+  _T3IF = 0;
+  // Convert arm time to timer3 ticks.
+  PR3 = msToU16Ticks(u16_time_ms, getTimerPrescale(T3CONbits)) - 1;
+  TMR3 = 0;
+  T3CONbits.TON = 1;
+}
+
+// Change notification
+// -------------------
+// Interrupt service routine for change notification interrupts. Disable this
+// interrupt to avoid bounce, then arm the timer to update the FSM state after
+// a debounce delay.
+void _ISR _CNInterrupt(void) {
+  // Acknowledge the interrupt, then disable it. Otherwise, any switch bounce would
+  // cause spurious interrupts.
+  _CNIF = 0;
+  _CNIE = 0;
+  // Schedule a timer interrupt after a debounce delay.
+  timer3_arm(DEBOUNCE_DLY);
+}
+
+// Timer
+// -----
 // Interrupt Service Routine for Timer3
 void _ISR _T3Interrupt(void) {
   // Clear the interrupt flag.
@@ -137,14 +144,13 @@ void _ISR _T3Interrupt(void) {
   _CNIF = 0;
   // Re-enable change notification interrupts, since the debounce delay is done.
   _CNIE = 1;
-  // Inform our state machine of an event.
+  // Run our state machine.
   update_state();
 }
 
 // State machine
 // =============
 // First, define the states, along with a human-readable version.
-
 typedef enum  {
   STATE_RELEASED1,
   STATE_PRESSED1,
@@ -180,7 +186,7 @@ void update_state(void) {
   switch (e_state) {
     case STATE_RELEASED1:
       if (PB_PRESSED()) {
-	e_state = STATE_PRESSED1;
+        e_state = STATE_PRESSED1;
       }
       break;
 
@@ -194,22 +200,22 @@ void update_state(void) {
 
     case STATE_RELEASED2:
       if (PB_PRESSED()) {
-	e_state = STATE_PRESSED2;
+        e_state = STATE_PRESSED2;
       }
       break;
 
     case STATE_PRESSED2:
       if (PB_RELEASED() && SW) {
-	e_state = STATE_RELEASED3_BLINK;
-	// Zero the toggled count before entering the blink state.
-	u16_led_toggles = 0;
-	// Schedule a timer interrupt to start the blinking.
-	timer3_arm(250);
+        e_state = STATE_RELEASED3_BLINK;
+        // Zero the toggled count before entering the blink state.
+        u16_led_toggles = 0;
+        // Schedule a timer interrupt to start the blinking.
+        timer3_arm(250);
       }
       if (PB_RELEASED() && !SW) {
-	// Turn the LED off when moving to STATE_RELEASED1.
-	e_state = STATE_RELEASED1;
-	LED1 = 0;
+        // Turn the LED off when moving to STATE_RELEASED1.
+        e_state = STATE_RELEASED1;
+        LED1 = 0;
       }
       break;
 
@@ -220,16 +226,16 @@ void update_state(void) {
         LED1 = 1;
       }
       if (!PB_PRESSED() && (u16_led_toggles < 10)) {
-	u16_led_toggles++;
-	printf("toggles = %d, ", u16_led_toggles);
+        u16_led_toggles++;
+        printf("toggles = %d, ", u16_led_toggles);
         LED1 = !LED1;
-	// Schedule a timer interrupt for the next LED blink.
-	timer3_arm(250);
+        // Schedule a timer interrupt for the next LED blink.
+        timer3_arm(250);
       }
       if (!PB_PRESSED() && (u16_led_toggles >= 10)) {
-	// Turn the LED off when moving to STATE_RELEASED1.
-	e_state = STATE_RELEASED1;
-	LED1 = 0;
+        // Turn the LED off when moving to STATE_RELEASED1.
+        e_state = STATE_RELEASED1;
+        LED1 = 0;
       }
       break;
 
