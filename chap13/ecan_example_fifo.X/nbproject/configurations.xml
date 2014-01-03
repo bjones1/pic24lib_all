@@ -35,6 +35,7 @@
                    projectFiles="true">
       <itemPath>../../lib/lkr/p33EP128GP504_bootldr.gld</itemPath>
       <itemPath>../../lib/lkr/p24HJ64GP502_bootldr.gld</itemPath>
+      <itemPath>../../lib/lkr/p33FJ128GP802_bootldr.gld</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -79,7 +80,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC16</languageToolchain>
-        <languageToolchainVersion>1.11</languageToolchainVersion>
+        <languageToolchainVersion>1.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -102,6 +103,18 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <item path="../../lib/lkr/p33EP128GP504_bootldr.gld"
+            ex="true"
+            overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/lkr/p33FJ128GP802_bootldr.gld"
             ex="true"
             overriding="false">
         <C30>
@@ -153,6 +166,23 @@
         <property key="use-iar" value="false"/>
       </C30>
       <C30-AS>
+        <property key="assembler-symbols" value=""/>
+        <property key="expand-macros" value="false"/>
+        <property key="extra-include-directories-for-assembler" value=""/>
+        <property key="extra-include-directories-for-preprocessor" value=""/>
+        <property key="false-conditionals" value="false"/>
+        <property key="keep-locals" value="false"/>
+        <property key="list-assembly" value="false"/>
+        <property key="list-section-info" value="false"/>
+        <property key="list-source" value="false"/>
+        <property key="list-symbols" value="false"/>
+        <property key="oXC16asm-extra-opts" value=""/>
+        <property key="oXC16asm-list-to-file" value="false"/>
+        <property key="omit-debug-dirs" value="false"/>
+        <property key="omit-forms" value="false"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="relax" value="false"/>
+        <property key="warning-level" value="emit-warnings"/>
       </C30-AS>
       <C30-LD>
         <property key="additional-options-use-response-files" value="false"/>
@@ -255,7 +285,7 @@
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
     </conf>
-    <conf name="Embedded_C1_dsPIC33EP128GP504" type="2">
+    <conf name="dsPIC33EP128GP504" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>dsPIC33EP128GP504</targetDevice>
@@ -263,7 +293,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC16</languageToolchain>
-        <languageToolchainVersion>1.11</languageToolchainVersion>
+        <languageToolchainVersion>1.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -286,6 +316,18 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <item path="../../lib/lkr/p24HJ64GP502_bootldr.gld"
+            ex="true"
+            overriding="false">
+        <C30>
+        </C30>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../../lib/lkr/p33FJ128GP802_bootldr.gld"
             ex="true"
             overriding="false">
         <C30>
@@ -379,7 +421,7 @@
         <property key="fast-math" value="false"/>
         <property key="generic-16-bit" value="false"/>
         <property key="legacy-libc" value="false"/>
-        <property key="oXC16glb-macros" value="HARDWARE_PLATFORM=EMBEDDED_C1"/>
+        <property key="oXC16glb-macros" value=""/>
         <property key="output-file-format" value="elf"/>
         <property key="save-temps" value="false"/>
       </C30Global>
