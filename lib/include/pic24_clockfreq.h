@@ -167,23 +167,6 @@
 
 ///@}
 
-#define GET_MAGIC(params) _GET_MAGIC(params)
-#define _GET_MAGIC(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic) magic
-
-
-
-#ifndef __DOXYGEN__   // The following non-standard #if confuses Doxygen.
-// Check to make sure the CLOCK_CONFIG choice selected
-// exists and is valid. Otherwise, the compiler emits some very
-// confusing errors. Cute hack: the last value in the #define
-// above (the magic number) is what the #if tests in gcc.
-# if (GET_MAGIC(CLOCK_CONFIG) != 498)
-#   error "***********************************************************************"
-#   error "* Value chosen for CLOCK_CONFIG does not exist or is not valid!       *"
-#   error "* This produces very confusing compiler errors below.                 *"
-#   error "***********************************************************************"
-# endif
-#endif
 
 // For some reason, primary oscillator selections are named
 // POSCMD_xx in the PIC24H/E, dsPIC33F/E but POSCMOD_xx in the PIC24F/FK.
@@ -209,6 +192,7 @@
 #define GET_POSC_FREQ(params)             _GET_POSC_FREQ(params)
 #define GET_CONFIG_DEFAULT_CLOCK(params)  _GET_CONFIG_DEFAULT_CLOCK(params)
 #define GET_IS_SUPPORTED(params)          _GET_IS_SUPPORTED(params)
+#define GET_MAGIC(params)                 _GET_MAGIC(params)
 
 // Step 2. Return the desired parameter, now that params are seen as
 //         individual arguments.
@@ -219,6 +203,17 @@
 #define _GET_POSC_FREQ(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic)             poscFreq
 #define _GET_CONFIG_DEFAULT_CLOCK(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic)  configClockFunc
 #define _GET_IS_SUPPORTED(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic)          isSupported
+#define _GET_MAGIC(ndx, oscSel, Fcy, posCmdSel, poscFreq, configClockFunc, isSupported, magic)                 magic
+
+// Check to make sure the CLOCK_CONFIG choice selected
+// exists and is valid. Otherwise, the compiler emits some very
+// confusing errors.
+# if GET_MAGIC(CLOCK_CONFIG) != 498
+#   error "***********************************************************************"
+#   error "* Value chosen for CLOCK_CONFIG does not exist or is not valid!       *"
+#   error "* This produces very confusing compiler errors below.                 *"
+#   error "***********************************************************************"
+# endif
 
 // Step 3. Call the macros above to set constants based on the
 //         clock config selected.
@@ -233,6 +228,12 @@
 // Check to see if this clock configuration supports that processor.
 #if !GET_IS_SUPPORTED(CLOCK_CONFIG)
 # error "The clock configuration chosen is not supported by this processor."
+#endif
+
+// Check that the primary oscillator type chosen works is valid.
+#if !( (POSCMD_SEL == POSCMD_EC) || (POSCMD_SEL == POSCMD_XT) || \
+       (POSCMD_SEL == POSCMD_HS) || (POSCMD_SEL == POSCMD_NONE) )
+# error "Unknown primary oscillator selection."
 #endif
 
 // Check that the primary oscillator type chosen works for the
