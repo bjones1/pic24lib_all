@@ -263,13 +263,11 @@ void checkDeviceAndRevision(void) {
 }
 
 /** Reports the oscillator currently in use to the default
- *  serial port.
+ *  serial port. See \ref FNOSC_SEL for a table of which chips support which
+ *  clocks.
  */
 void checkOscOption(void) {
-  uint8_t u8_x;
-
-  u8_x = _COSC;   // Get current oscillator setting
-  switch (u8_x) {
+  switch (_COSC) {
     case 0:
       outString("Fast RC Osc\n");
       break;
@@ -296,8 +294,13 @@ void checkOscOption(void) {
       outString("Fast RC Osc/N\n");
       break;
 #elif defined(__PIC24F__) || defined(__PIC24FK__)
+# ifdef __PIC24FK__
+    case 6:
+      outString("Low power fast RC Osc with Postscaler\n");
+      break;
+# endif
     case 7 :
-      outString("Fast RC Osc with Postscale");
+      outString("Fast RC Osc with Postscaler\n");
       break;
 #else
 # error "Unknown processor."
