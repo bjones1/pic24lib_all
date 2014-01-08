@@ -123,10 +123,11 @@ static _PERSISTENT const char* sz_lastError;
  */
 _PERSISTENT const char* sz_lastTimeoutError;
 
-#ifndef __PIC24F__
+#ifdef _ILR
 /** Store a copy of the INTTREG register as a bitfield.
- *  This is not defined for the PIC24F, so work around
- *  with an \#ifdef. This is _PERSISTENT so that it
+ *  This is not defined for all PICs, so work around
+ *  with an \#ifdef of ILR, one of the bitfields in this register.
+ *  This is _PERSISTENT so that it
  *  survives the resets which occurs immeidately after
  *  the default interrupt handler \ref _DefaultInterrupt
  *  copies INTTREG to this variable.
@@ -148,7 +149,7 @@ static uint16_t u16_INTTREGlast;
  *  print the error.
  */
 void _ISR _DefaultInterrupt(void) {
-#ifndef __PIC24F__
+#ifdef _ILR
   // Record the interrupt vector and priority of the
   // unhandled interrupt.
   u16_INTTREGlast = INTTREG;
@@ -389,7 +390,7 @@ void printResetCause(void) {
     outString("Error trapped: ");
     outString(sz_lastError);
     if (u16_INTTREGlast != 0) {
-#if defined(__PIC24H__) || defined(__dsPIC33F__)  || defined(__PIC24E__) || defined(__dsPIC33E__)
+#ifdef _ILR
       outString("Priority: ");
       outUint8(INTTREGBITS_last.ILR);
       outString(", Vector number: ");
