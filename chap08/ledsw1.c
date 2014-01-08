@@ -82,7 +82,7 @@ const char* apsz_state_names[] = {
   "STATE_PRESSED1",
   "STATE_RELEASED2 - LED is on",
   "STATE_PRESSED2 - SW2 on goes to blink else go to RELEASED1",
-  "STATE_RELEASED3_BLINK - LED blinks, waiting for SW1 press",
+  "STATE_RELEASED3_BLINK - LED blinks 5x, waiting for PB press",
   "STATE_PRESSED3 - LED is on",
 };
 
@@ -109,6 +109,7 @@ void update_state() {
 
   switch (e_state) {
     case STATE_RELEASED1:
+      LED1 = 0;
       if (PB_PRESSED()) {
         e_state = STATE_PRESSED1;
       }
@@ -116,13 +117,12 @@ void update_state() {
 
     case STATE_PRESSED1:
       if (PB_RELEASED()) {
-        // Turn the LED on when entering STATE_RELEASED2.
         e_state = STATE_RELEASED2;
-        LED1 = 1;
       }
       break;
 
     case STATE_RELEASED2:
+      LED1 = 1;
       if (PB_PRESSED()) {
         e_state = STATE_PRESSED2;
       }
@@ -131,41 +131,34 @@ void update_state() {
     case STATE_PRESSED2:
       if (PB_RELEASED() && SW) {
         e_state = STATE_RELEASED3_BLINK;
-        // Zero the toggled count before entering the blink state.
+        // Zero the toggled count when entering the blink state.
         u16_led_toggles = 0;
       }
       if (PB_RELEASED() && !SW) {
-        // Turn the LED off when moving to STATE_RELEASED1.
         e_state = STATE_RELEASED1;
-        LED1 = 0;
       }
       break;
 
     case STATE_RELEASED3_BLINK:
-      if (PB_PRESSED()) {
-        // Freeze the LED on when existing the blink state.
-        e_state = STATE_PRESSED3;
-        LED1 = 1;
-      }
-      if (!PB_PRESSED() && (u16_led_toggles < 10)) {
-        u16_led_toggles++;
-        printf("toggles = %d\n", u16_led_toggles);
-        LED1 = !LED1;
-        // Delay to make LED blinks visible
-        DELAY_MS(250);
-      }
-      if (!PB_PRESSED() && (u16_led_toggles >= 10)) {
-        // Turn the LED off when moving to STATE_RELEASED1.
+      // Toggle the LED.
+      LED1 = !LED1;
+      u16_led_toggles++;
+      printf("toggles = %d\n", u16_led_toggles);
+      // Delay to make LED blinks visible
+      DELAY_MS(250);
+
+      if (u16_led_toggles >= 10) {
         e_state = STATE_RELEASED1;
-        LED1 = 0;
+      }
+      if (PB_PRESSED()) {
+        e_state = STATE_PRESSED3;
       }
       break;
 
     case STATE_PRESSED3:
+      LED1 = 1;
       if (PB_RELEASED()) {
-        // Turn the LED off when moving to STATE_RELEASED1.
         e_state = STATE_RELEASED1;
-        LED1 = 0;
       }
       break;
 
