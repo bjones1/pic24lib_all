@@ -221,22 +221,22 @@ void update_state(void) {
       break;
 
     case STATE_RELEASED3_BLINK:
+      // Toggle the LED.
+      LED1 = !LED1;
+      u16_led_toggles++;
+      printf("toggles = %d\n", u16_led_toggles);
+      // Schedule a timer interrupt to continue the blinking.
+      timer3_arm(250);
+
+      if (u16_led_toggles >= 10) {
+        // Turn the LED off when moving to STATE_RELEASED1.
+        e_state = STATE_RELEASED1;
+        LED1 = 0;
+      }
       if (PB_PRESSED()) {
         // Freeze the LED on when existing the blink state.
         e_state = STATE_PRESSED3;
         LED1 = 1;
-      }
-      if (!PB_PRESSED() && (u16_led_toggles < 10)) {
-        u16_led_toggles++;
-        printf("toggles = %d, ", u16_led_toggles);
-        LED1 = !LED1;
-        // Schedule a timer interrupt for the next LED blink.
-        timer3_arm(250);
-      }
-      if (!PB_PRESSED() && (u16_led_toggles >= 10)) {
-        // Turn the LED off when moving to STATE_RELEASED1.
-        e_state = STATE_RELEASED1;
-        LED1 = 0;
       }
       break;
 
