@@ -100,8 +100,6 @@ uint16_t ioMasterSPI1(uint16_t u16_c) {
 
 
 
-
-
 /*
  * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
  * All rights reserved.
@@ -199,8 +197,6 @@ uint16_t ioMasterSPI2(uint16_t u16_c) {
 }
 
 #endif // #if (NUM_SPI_MODS >= 2)
-
-
 
 
 
