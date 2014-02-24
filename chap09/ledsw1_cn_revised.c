@@ -23,9 +23,9 @@
 //    Please maintain this header in its entirety when copying/modifying
 //   these files.
 //
-// *****************************************************************
-// ledsw1a_timer2.c - Example of implementing a FSM in an interrupt.
-// *****************************************************************
+// ****************************************************************************************************
+// ledsw1_cn_revised.c - Example of implementing a FSM using a timer and change notification interrupt.
+// ****************************************************************************************************
 // Demonstrates the use of a events to create an energy-efficient FSM implementation. All of the FSM work is done in the ISR.
 
 
