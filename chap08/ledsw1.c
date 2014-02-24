@@ -102,7 +102,7 @@ void print_state(state_t e_state) {
 }
 
 // This function defines the state machine.
-void update_state() {
+void update_state(void) {
   static state_t e_state = STATE_RELEASED1;
   // The number of times the LED was toggled in the blink state
   static uint16_t u16_led_toggles;
