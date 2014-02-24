@@ -122,7 +122,19 @@ if dict['BOOTLDR'] != 'msu':
     env.Replace(LINKERSCRIPT = '--script="p${MCU}.gld"')
 
 # By default, run number_of_cpus*2 jobs at once. This only works if the --no-cpp option is passed to the linker; otherwise, the linker produces a temporary file in the root build directory, which gets overwritten and confused when multiple builds run. There's some nice examples and explanation for tihs in the `SCons user guide <http://www.scons.org/doc/production/HTML/scons-user/c2092.html#AEN2183>`_.
-env.SetOption('num_jobs', psutil.NUM_CPUS*2)
+#
+# Some results from running on my 8-core PC:, gathered from the Total build time returned by the --debug=time scons command-line option:
+#
+# -j  Time (sec)  Time (hh:mm:ss)  Speedup
+# --  ----------  ---------------  ------------
+# 32   303        0:05:03          11.66006601
+# 16   348.7      0:05:49          10.13191855
+#  8   510.9      0:08:31           6.915247602
+#  4   916        0:15:16           3.8569869
+#  2  1777        0:29:37           1.98818233
+#  1  3533        0:58:53           1
+
+env.SetOption('num_jobs', psutil.NUM_CPUS*4)
 print("Running with -j %d." % GetOption('num_jobs'))
 
 # generate some command line help for our custom options
