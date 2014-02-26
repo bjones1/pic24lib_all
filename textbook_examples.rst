@@ -69,6 +69,41 @@ Chapter 4 - Unsigned 8/16-bit arithmetic
 
    chap04/nsc.s
 
+Chapter 6 - Pointers and subroutines
+------------------------------------
+.. toctree::
+   :titlesonly:
+
+   chap06/countOnes.c
+   chap06/countOnes_assem.s
+   chap06/fib.c
+   chap06/fib_register.s
+   chap06/fib_stack.s
+   chap06/psv_intarray.s
+   chap06/psv_intarray_24E33E.s
+   chap06/psv_upcase.s
+   chap06/psv_upcase_24E33E.s
+   chap06/swapU32.s
+   chap06/upcase.s
+   chap06/upcase_cversion.c
+
+Chapter 7 - Advanced assembly language: higher math
+---------------------------------------------------
+.. toctree::
+   :titlesonly:
+
+   chap07/aschex2byte.c
+   chap07/aschex2byte_asm.s
+   chap07/bcd_test.s
+   chap07/byte2aschex.c
+   chap07/byte2aschex_asm.s
+   chap07/div_asm_tests.s
+   chap07/float_bench.c
+   chap07/float_encoding.s
+   chap07/mult_32x32_uns.s
+   chap07/mult_asm_tests.s
+   chap07/sat_add.s
+
 Chapter 8 - initial startup, parallel port examples
 ---------------------------------------------------
 .. toctree::
@@ -82,6 +117,7 @@ Chapter 8 - initial startup, parallel port examples
    chap08/ledtoggle.c
    chap08/ledsw1.c
    chap08/lcd4bit.c
+   chap08/lcd4bit_4lines.c
 
 Chapter 9: interrupts, simple timer usage
 -----------------------------------------
@@ -96,7 +132,9 @@ Chapter 9: interrupts, simple timer usage
    chap09/squarewave.c
    chap09/filt_test.c
    chap09/softfilt_test.c
-   chap09/ledsw1_timer2.c
+   chap09/ledsw1_sampling.c
+   chap09/ledsw1_cn.c
+   chap09/ledsw1_cn_revised.c
    chap09/rot_enc.c
    chap09/keypad.c
    chap09/rot_enc_trace.c
