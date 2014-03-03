@@ -42,9 +42,9 @@ Most of the examples are meant for a reference dsPIC33EP128GP502 system. The pro
 
 If you have a different PIC24 Family member, simply change the target device in the MPLAB to that device. When you compile the files, you will get warnings that the internal oscillator with PLL is being used, and that the default configuration bit settings are being used.
 
-To change clock options, see the documentation in `common/pic24_clockfreq.c <pic24__clockfreq_8c.html>`_ and `include/pic24_clockfreq.h <pic24__clockfreq_8h.html>`_  To change config bits, see the documentation on `common/pic24_configbits.c <pic24__configbits_8c.html>`_
+To change clock options, see the documentation in `common/pic24_clockfreq.c <../pic24__clockfreq_8c.html>`_ and `include/pic24_clockfreq.h <../pic24__clockfreq_8h.html>`_  To change config bits, see the documentation on `common/pic24_configbits.c <../pic24__configbits_8c.html>`_
 
-All of the examples assume a serial port using UART1; our reference system uses pins RP10 (RX) and RP11 (TX) with a default baud rate of 230,400 baud. To change these assignments, edit the function called configUART1() in `common/pic24_uart.c <../pic24__uart_8h.html>`_.  To change the default baudrate, edit the ``#define DEFAULT_BAUDRATE`` in `include/pic24_libconfig.h <pic24__libconfig_8h.html>`_ (this file includes all of the macros for configuring user-defineable behavior for library functions).
+All of the examples assume a serial port using UART1; our reference system uses pins RP10 (RX) and RP11 (TX) with a default baud rate of 230,400 baud. To change these assignments, edit the function called configUART1() in `common/pic24_uart.c <../pic24__uart_8h.html>`_.  To change the default baudrate, edit the ``#define DEFAULT_BAUDRATE`` in `include/pic24_libconfig.h <../pic24__libconfig_8h.html>`_ (this file includes all of the macros for configuring user-defineable behavior for library functions).
 
 If the end-of-line (EOL) output behavior is not correct for the serial terminal program that you are using (i.e, printed new lines do not return to the left edge of the screen), then you can change this by selecting an appropriate value for the ``SERIAL_EOL_DEFAULT`` macro contained in `include/pic24_libconfig.h`_. By default, the library signals an EOL using a line feed only.
 
