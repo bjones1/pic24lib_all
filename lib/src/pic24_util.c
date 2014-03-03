@@ -118,12 +118,12 @@ void toggleHeartbeat(void) {
  *  \ref printResetCause.
  */
 static _PERSISTENT const char* sz_lastError;
+
 /** Persistent storage for a timeout error, to be reported
  *  if a watchdog reset occurs.
  */
 _PERSISTENT const char* sz_lastTimeoutError;
 
-#ifdef _ILR
 /** Store a copy of the INTTREG register as a bitfield.
  *  This is not defined for all PICs, so work around
  *  with an \#ifdef of ILR, one of the bitfields in this register.
@@ -132,13 +132,15 @@ _PERSISTENT const char* sz_lastTimeoutError;
  *  the default interrupt handler \ref _DefaultInterrupt
  *  copies INTTREG to this variable.
  */
+#ifdef _ILR
 static _PERSISTENT INTTREGBITS INTTREGBITS_last;
+
 /** Make the \ref INTTREGBITS_last also accessible as
  *  a word. This is like <code>uint16_t u16_INTTREGlast</code>
  *  except that INTTREGBITS_last and u16_INTTREGlast
  *  refer to the same data.
  */
-#define u16_INTTREGlast BITS2WORD(INTTREGBITS_last)
+# define u16_INTTREGlast BITS2WORD(INTTREGBITS_last)
 #else
 static uint16_t u16_INTTREGlast;
 #endif

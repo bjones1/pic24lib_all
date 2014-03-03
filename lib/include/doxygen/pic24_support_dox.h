@@ -34,7 +34,7 @@
  * \page PIC24_support PIC24 support library
  * The PIC24 support library is divided into
  * \ref external "external components", \ref internal "internal components",
- * and \ref codeTools "tools" used in creating the library.
+ * and \ref codeUtils "utilities" used in creating the library.
  * External components should be called by
  * the typical user to set up the PIC, communicate over the UART,
  * I<sup>2</sup>C bus, etc. Internal components include both
