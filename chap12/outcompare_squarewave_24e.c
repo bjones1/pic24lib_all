@@ -23,9 +23,9 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
-// *****************************************************************
-// outcompare_squarewave_24e.c - generates a square wave using output compare, demos a mode available only on dsPIC33e/PIC24E
-// *****************************************************************
+// *************************************************************************************************
+// outcompare_squarewave_24e.c - generates a square wave using output compare (dsPIC33E/PIC24E only)
+// *************************************************************************************************
 // Generates a square wave using output compare (OC1). The internal timer uses
 // the Timer2 clock2 and is synchrononized to the OCxRS match event, which means
 // that  the internal timer resets to zero on OCxRS match.  This example only works

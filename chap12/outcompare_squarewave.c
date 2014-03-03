@@ -23,9 +23,9 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
-// *****************************************************************
-// outcompare_squarewave.c - generates a square wave using output compare, compatible with PIC24F/H/E families
-// *****************************************************************
+// ********************************************************************************************
+// outcompare_squarewave.c - generates a square wave using output compare (PIC24F/H/E families)
+// ********************************************************************************************
 // Generates a square wave using output compare (OC1). The example uses
 // the Timer2 clock2 and is compatible with the PIC24F/H/E families
 

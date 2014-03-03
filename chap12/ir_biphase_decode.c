@@ -23,9 +23,9 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
-// *****************************************************************
+// **************************************************************************
 // ir_biphase_decode.c - Decodes IR bi-phase bitstream from IR remote control
-// *****************************************************************
+// **************************************************************************
 // Decodes bi-phase bitstream from IR remote control as output by IR receiver
 // Protocol is Phillips VCR control, 13 bit command (start bit, toggle bit, 5-bit address, 6-bit data)
 // Timer2 divider must be set such that one bit time does not exceed the timer period.

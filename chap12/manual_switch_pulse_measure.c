@@ -23,9 +23,9 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
-// *****************************************************************
+// ************************************************************************
 // manual_switch_pulse_measure.c - Uses 16-bit timer to measure pulse width
-// *****************************************************************
+// ************************************************************************
 // 16-bit Timer2 example: Watches an I/O pin for a low true pulse, records
 // timer value on falling edge, records timer value on rising edge, and uses
 // the difference (delta) of these values to compute the low true pulse width.

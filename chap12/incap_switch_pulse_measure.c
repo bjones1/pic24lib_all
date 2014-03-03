@@ -23,9 +23,9 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
-// *****************************************************************
+// *******************************************************************************
 // incap_switch_pulse_measure.c - Uses 16-bit input capture to measure pulse width
-// *****************************************************************
+// *******************************************************************************
 // Measures the pulse width of pushbutton switching using IC1 input capture and Timer2
 // Timer overflow tracking is used to measure long pulse widths.
 // This example assumes a debounced switch.

@@ -23,9 +23,9 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
-// *****************************************************************
+// ****************************************************************************************
 // incap_32bit_switch_pulse_measure.c - Uses IC1,IC2 in cascade mode to measure pulse width
-// *****************************************************************
+// ****************************************************************************************
 // Measures the pulse width of pushbutton switching using IC1,IC2 in cascade mode.
 // Timer 2 is used as the clock source, and pulse width is assume to not exceed
 // the 32-bit range of cascade mode. This example only runs on dsPIC33E/PIC24E families.

@@ -23,16 +23,16 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
-// *****************************************************************
+// ********************************************************************************************************************************************************
 // outcompare_multiservo.c - Demonstrates pulse width modulation using four digital outputs and the OC1 module to create four PWM outputs for hobby servos.
-// *****************************************************************
+// ********************************************************************************************************************************************************
 // Demonstrates pulse width modulation using four digital outputs
 // and the OC1 module to create four PWM outputs for hobby servos.
 // A table is used to control the pulse widths of the four servos.
 #include "pic24_all.h"
 #include <stdio.h>
 
-#define PWM_PERIOD 20000   //in microseconds  
+#define PWM_PERIOD 20000   //in microseconds
 
 void  configTimer2(void) {
   T2CON = T2_OFF | T2_IDLE_CON | T2_GATE_OFF

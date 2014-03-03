@@ -37,6 +37,7 @@
 //  - uartrxtx_fifo.mcp - interrupt RX, interrupt TX I/O
 //  - Interrupt RX inChar1() is selected by defining  UART1_RX_INTERRUPT macro
 //  - Interrupt TX outChar1() is selected by defining UART1_TX_INTERRUPT macro
+//
 // These macros are defined in their respective MPLAB projects.
 
 void reverseString(char *psz_s1, char *psz_s2) {

@@ -23,9 +23,9 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
-// *****************************************************************
+// **********************************************************************
 // incap_freqmeasure.c - Uses IC1 to measure period, uses averaging mode.
-// *****************************************************************
+// **********************************************************************
 //Measures square wave frequency using input capture and Timer2
 
 #include "pic24_all.h"

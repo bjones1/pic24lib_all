@@ -23,9 +23,9 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
-// *****************************************************************
+// ****************************************************************************
 // timer32bit_switch_pulse_measure.c - Uses 32-bit timer to measure pulse width
-// *****************************************************************
+// ****************************************************************************
 // 32-bit Timer example: Measures the pulse width of pushbutton switch using
 // Timer2/3 in 32-bit mode with INT1 for edge detection.
 // To configure this example to run with an external 8 MHz crystal for
@@ -115,4 +115,3 @@ int main (void) {
     u8_captureFlag = 0;
   }
 }
-
