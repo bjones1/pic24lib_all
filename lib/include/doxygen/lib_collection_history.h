@@ -36,7 +36,7 @@
 Next release:
 - No changes yet.
 
-3-Mar-2014 (r474 / ):
+3-Mar-2014 (r476):
 - Revisions to support the E family devices:
   - CAN code ported.
   - UART init code updated.
