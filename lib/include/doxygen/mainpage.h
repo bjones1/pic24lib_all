@@ -45,18 +45,30 @@ The latest version of this document is located
 
 
 \section internalWelcome PIC24 library collection
-Welcome to the PIC24 library collection! This \ref PIC24_support "library"
-(the latest version is
-<a href="http://www.ece.msstate.edu/courses/ece3724/main_pic24/labs/files/pic24_code_examples.zip">here</a>),
-accompanied by detailed explanations in the
+Welcome to the PIC24 library collection! These downloadable libraries are
+available in two versions:
+- The <a href="http://www.ece.msstate.edu/courses/ece3724/main_pic24/labs/files/pic24_code_examples.zip">latest version</a>
+  that uses MPLAB X and is currently in flux as of August 2013 as it is being
+  modified for a second edition of the textbook. The base device for projects in
+  this library is the dsPIC33EP128GP502 (which is pin and function compatible
+  with the PIC24EP128GP202). Modifications to this library will be completed by
+  May 2014.
+- A <a href="http://www.ece.msstate.edu/courses/ece3724/main_pic24/labs/files/pic24_code_examples_mplab8.zip">frozen version</a>
+  consisting of the last library snapshot before the move to MPLAB X; this
+  version uses MPLAB 8 and matches what is in the first edition of the textbook
+  (the base device is the PIC24HJ64GP202).
+
+The libraries are compatible with most devices in the PIC24E/H/F and dsPIC33E/F
+families. These libraries are accompanied by detailed explanations in the
 <a href="http://www.reesemicro.com/Home/textbook">textbook</a>,
-supplemented with numerous real-world <a href="sphinx/textbook_examples.html">examples</a>, and
-accompanied by extensive on-line documentation given below,
-enable developers to take advantage of the wide range of peripherals offered by the PIC24.
-The collection consists of the
+supplemented with numerous real-world <a href="sphinx/textbook_examples.html">examples</a>,
+and accompanied by extensive on-line documentation given below, enable
+developers to take advantage of the wide range of peripherals offered by the
+PIC24. The collection consists of the
 <a href="http://www.reesemicro.com/Home/pic24-software-library-collection/getting-started">getting
 started guide</a>; the \ref PIC24_support "PIC24 support library"; and
 \ref ESOS, the Embedded Systems Operating System.
+
 
 \section internalStarted Getting started
 The
@@ -67,10 +79,12 @@ Finally, documentation below provides a detailed reference to each of the librar
 
 
 \section internalSupport PIC24 support library
-The \ref PIC24_support "PIC24 support library" supports all the major subsystems of the PIC24:
-clock configuration, configuration bits, delays, interrupts,
-digital I/O, timers, serial I/O, SPI, I2C, ECAN, comparators, A/D conversion, FLASH reads/writes, and DMA.
-An extensive set of <a href="sphinx/textbook_examples.html">examples</a> accompanying the library provide working sample code to guide newcomers to using the library.
+The \ref PIC24_support "PIC24 support library" supports all the major subsystems
+of the PIC24: clock configuration, configuration bits, delays, interrupts,
+digital I/O, timers, serial I/O, SPI, I2C, ECAN, comparators, A/D conversion,
+FLASH reads/writes, and DMA. An extensive set of
+<a href="sphinx/textbook_examples.html">examples</a> accompanying the library
+provide working sample code to guide newcomers to using the library.
 
 
 \section internalESOS ESOS
@@ -78,6 +92,11 @@ An extensive set of <a href="sphinx/textbook_examples.html">examples</a> accompa
 very low memory overhead. ESOS is a task-driven programming paradigm within an event-driven framework.
 ESOS gives the user timer, interrupt, and communication services commonly needed in embedded systems programs.
 
+
+\section feedback Feedback
+To report bugs, request features, or made contributions, use the
+<a href="https://bitbucket.org/bjones/pic24lib_all">Bitbucket
+repository</a>.
 
 \section internalLicense License and history
 These libraries are released under terms given in the \ref License "license".
