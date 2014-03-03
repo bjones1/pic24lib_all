@@ -41,27 +41,17 @@ Build tools
 
 The code resides in a `Mercurial <http://mercurial.selenic.com/>`_ publicly-readable, web-accessible `repository <http://bitbucket.org/bjones/pic24lib_all>`_. Please send any updates or fixes to the authors for incorporation into the library!
 
-Contents
---------
-
 .. toctree::
    :titlesonly:
 
    runAStyle.bat
    runscons.bat
    SConstruct.py
-   SCons_bootloader.py
-   SCons_build.py
-   SCons_esos.py
-   SCons_zipit.py
-   templates/SConscript.py
+
    
 Code generation tools
 =====================
 The files below assist in generating and maintaining a mapping between the Rxy pins on a PIC and its associated CNm, ANn pins for many processors.
-
-Contents
---------
 
 .. toctree::
    :titlesonly:
@@ -71,12 +61,10 @@ Contents
    templates/build-exe.bat
    templates/data_sheet_to_csv.bat
 
+
 Testing
 =======
 The following programs provide some unit testing of various libary-related routines.
-
-Contents
---------
 
 .. toctree::
    :titlesonly:

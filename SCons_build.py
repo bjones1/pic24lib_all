@@ -1,30 +1,55 @@
-# Documentation for this file. If the \file tag isn't present,
-# this file won't be documented.
-## \file
+# .. "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+#    All rights reserved.
+#    (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
+#    (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
+#    (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
+#
+#    Permission to use, copy, modify, and distribute this software and its
+#    documentation for any purpose, without fee, and without written agreement is
+#    hereby granted, provided that the above copyright notice, the following
+#    two paragraphs and the authors appear in all copies of this software.
+#
+#    IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
+#    DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
+#    OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
+#    HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#    THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+#    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+#    AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+#    ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
+#    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
+#
+#    Please maintain this header in its entirety when copying/modifying
+#    these files.
+#
+# ***************************************************************
+# SCons_build.py -- Build the libary for a specific configuration
+# ***************************************************************
 #  Given a build environment, this file performs specific builds
 #  using the PIC24 library. It should be called from an SCons script
 #  that exports:
+#
 #  - env: the build environment to use
 #  - buildTargets: a list of strings specifying what to build
 #    (see if statements toward the end of this file).
 #
-#  This file delegates to templates/SConscript.py to build all
+#  This file delegates to :doc:`templates/SConscript.py <templates/SConscript.py>` to build all
 #  templates.
 
 
 import os
 Import('buildTargets env bin2hex')
 
-## Inform SCons about the dependencies in the template-based files
+# Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
 
 
-## @{
-#  \name Setup for building files based on the PIC24 support library
-###############################################################################
+# Setup for building files based on the PIC24 support library
+# ===========================================================
 
 
-## Common sources used for the PIC24 support library
+# Common sources used for the PIC24 support library
 PIC24SupportLibSources = [
   'lib/src/dataXfer.c',
   'lib/src/dataXferImpl.c',
@@ -42,42 +67,47 @@ PIC24SupportLibSources = [
 
 
 
-## @}
+# Example code build
+# ------------------
 
-## @{
-#  \name Example code build
-###############################################################################
+# This function builds a program which includes the PIC24 library.
+def buildProgramWithCommonSources(
+# A list of source files to be built into one program.
+  sourceFileList,
+# A list of source files upon which all sources
+# in the sourceFileList depend. Wildcards are not
+# supported.
+  commonSources,
+# An Environment in which to build these sources.
+  buildEnvironment,
+# A string to serve as an alias for this build.
+  aliasString):
 
-## This function builds a program which includes the PIC24 library.
-#  \param sourceFileList A list of source files to be built into one program.
-#  \param commonSources  A list of source files upon which all sources
-#                        in the sourceFileList depend. Wildcards are not
-#                        supported.
-#  \param buildEnvinonment An Environment in which to build these sources.
-#  \param aliasString    A string to serve as an alias for this build.
-def buildProgramWithCommonSources(sourceFileList, commonSources, buildEnvironment,
-                                  aliasString):
   be = buildEnvironment
   be.Program(sourceFileList + commonSources)
   # Pick the name of the target to be the first c file in the list
   bin2hex(sourceFileList[0], be, aliasString)
 
-## This function takes a list of source files (including wildcards),
-#  adds the PIC24 common
-#  sources to each item, then uses Program to build each item.
-#  \param sourceFileList A list of source files (which may include
-#                        wildcards) to be built.
-#  \param commonSources  A list of source files upon which all sources
-#                        in the sourceFileList depend. Wildcards are not
-#                        supported.
-#  \param buildEnvinonment An Environment in which to build these sources.
-#  \param exceptionDict A exceptionFileName={key=value pairs used to create the
-#                          custom environment correpsonding to the
-#                          exceptionFile} dict
-#  \param aliasString    A string to serve as an alias for this set of
-#                        builds.
-def buildWithCommonSources(sourceFileList, commonSources, buildEnvironment,
-                           exceptionDict, aliasString):
+# This function takes a list of source files (including wildcards), adds the
+# PIC24 common sources to each item, then uses Program to build each item.
+def buildWithCommonSources(
+# A list of source files (which may include
+# wildcards) to be built.
+  sourceFileList,
+# A list of source files upon which all sources
+# in the sourceFileList depend. Wildcards are not
+# supported.
+  commonSources,
+# An Environment in which to build these sources.
+  buildEnvironment,
+# A exceptionFileName={key=value pairs used to create the
+# custom environment correpsonding to the
+# exceptionFile} dict
+  exceptionDict,
+# A string to serve as an alias for this set of
+# builds.
+  aliasString):
+
   for sourceFileGlob in sourceFileList:
     for sourceFile in Glob(sourceFileGlob, True, True, True):
         # See if this is an exception
@@ -85,8 +115,8 @@ def buildWithCommonSources(sourceFileList, commonSources, buildEnvironment,
           # Yes, so modify environment with dict of changes.
           be = buildEnvironment.Clone()
           flags = exceptionDict[sourceFile]
-#          print flags
-#          be.MergeFlags(flags) # produces weird
+##          print flags
+##          be.MergeFlags(flags) # produces weird
           # errors, so hand-code a simple alternative
           # TODO: This overwrites flags, which is a BAD thing
           for a in flags:
@@ -98,7 +128,7 @@ def buildWithCommonSources(sourceFileList, commonSources, buildEnvironment,
           aliasString)
 
 
-## Compile the support library into objects for the default
+# Compile the support library into objects for the default
 #  environment.
 PIC24SupportLibObjects = env.Object(PIC24SupportLibSources)
 
@@ -177,7 +207,3 @@ if 'embeddedC1' in buildTargets:
                 'chap08/ledtoggle.c','chap08/ledflash.c',
                 ],
                 PIC24SupportLibObjects, env, {}, 'embeddedC1')
-
-
-
-## @}

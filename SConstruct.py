@@ -40,7 +40,8 @@
 #     exist.
 #  #. From the command line, change to the directory in which
 #     this file lies.
-#  #. Execute ``SCons``, which builds everything. Optionally use :doc:`runscons.bat <runscons.bat>` to filter through the resulting warnings.
+#  #. Execute ``SCons``, which builds everything. Optionally use 
+#     :doc:`runscons.bat <runscons.bat>` to filter through the resulting warnings.
 #
 #  The build process can be modified by passing options to
 #  SCons. See ``SCons --help`` for options specific
@@ -52,7 +53,17 @@
 #  - Some flags for I2C master/slave not done yet
 #  - Create some reset replacement that uses more of the functionality
 #    (calls functions from all our .c/.h files
-
+#
+# This script calls the following scripts as part of the build process:
+#
+# .. toctree::
+#    :titlesonly:
+#
+#    SCons_bootloader.py
+#    SCons_build.py
+#    SCons_esos.py
+#    SCons_zipit.py
+#    templates/SConscript.py
 
 import os
 import psutil
@@ -276,7 +287,7 @@ def buildTargetsBootloader(env, mcu):
     )
     env.Append(CPPDEFINES = ['BOOTLOADER'])
 
-    # Now, invoke a variant build using this environment.
+    # Now, invoke a variant build of :doc:`SCons_bootloader.py` using this environment.
     SConscript('SCons_bootloader.py', exports = 'env bin2hex',
       variant_dir = 'build/default_bootloader_' + mcu)
 
@@ -286,7 +297,7 @@ for mcu in ('24FJ32GA002',
             '24FJ64GA102',
             '24FJ64GB002',
             '24FJ64GB004',
-            
+
             '24HJ12GP202',
             '24HJ32GP202',
             '24HJ64GP502',
@@ -301,10 +312,10 @@ for mcu in ('24FJ32GA002',
             '33EP128GP504',
            ):
     buildTargetsBootloader(env, mcu)
-    
+
 for mcu in ('24F32KA302',):
     buildTargetsBootloader(env.Clone(CPPDEFINES='HARDWARE_PLATFORM=HARDMAPPED_UART'), mcu)
-    
+
 
 
 
@@ -314,12 +325,12 @@ def buildTargetsEsos(env, mcu, hardware_platform = 'DEFAULT_DESIGN'):
     # Create an environment for building ESOS.
     env = env.Clone(MCU = mcu)
     env.Append(CPPDEFINES = ['BUILT_ON_ESOS', 'HARDWARE_PLATFORM=' + hardware_platform],
-               CPPPATH = ['esos/include', 'esos/include/pic24']) 
+               CPPPATH = ['esos/include', 'esos/include/pic24'])
 
     # Now, invoke a variant build using this environment.
     SConscript('SCons_esos.py', exports = 'env bin2hex',
       variant_dir = 'build/esos_' + mcu + '_' + hardware_platform)
-      
+
 # Build ESOS over a variety of chips.
 for mcu in (
             '24HJ64GP202',
