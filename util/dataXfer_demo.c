@@ -67,8 +67,8 @@ int main(void) {
       outUint8Decimal(c);
       outString(") ");
       if ( (c >= '0') && (c <= '9') )
-      // A plain char received, so turn it into a number.
-      // Otherwise, a new total was sent.
+        // A plain char received, so turn it into a number.
+        // Otherwise, a new total was sent.
         i16_val += c - '0';
     } else {
       ASSERT(u16_index == I16_VAL_NDX);
