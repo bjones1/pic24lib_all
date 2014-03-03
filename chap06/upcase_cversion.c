@@ -6,8 +6,8 @@ void upcase (char *p) {
     //convert to upper case
     if (*p > 0x60 &&
         *p < 0x7B)  {
-      //lowercase ‘a’-’z’, so
-      //convert to ‘A’-’Z’
+      //lowercase 'a'-'z', so
+      //convert to 'A'-'Z'
       *p = *p - 0x20;
     }
     p++;  //advance to next char
