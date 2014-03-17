@@ -54,23 +54,23 @@ The best project to start with is :doc:`reset.c <chap08/reset.c>` - this just as
 
 Example code directory
 ======================
-Chapter 3 - translation from *C* arithmetic to assembly
--------------------------------------------------------
+Chapter 3: translation from *C* arithmetic to assembly
+------------------------------------------------------
 .. toctree::
    :titlesonly:
 
    chap03/mptst_word.s
    chap03/mptst_byte.s
 
-Chapter 4 - Unsigned 8/16-bit arithmetic
-----------------------------------------
+Chapter 4: Unsigned 8/16-bit arithmetic
+---------------------------------------
 .. toctree::
    :titlesonly:
 
    chap04/nsc.s
 
-Chapter 6 - Pointers and subroutines
-------------------------------------
+Chapter 6: Pointers and subroutines
+-----------------------------------
 .. toctree::
    :titlesonly:
 
@@ -87,7 +87,7 @@ Chapter 6 - Pointers and subroutines
    chap06/upcase.s
    chap06/upcase_cversion.c
 
-Chapter 7 - Advanced assembly language: higher math
+Chapter 7: Advanced assembly language - higher math
 ---------------------------------------------------
 .. toctree::
    :titlesonly:
@@ -104,8 +104,8 @@ Chapter 7 - Advanced assembly language: higher math
    chap07/mult_asm_tests.s
    chap07/sat_add.s
 
-Chapter 8 - initial startup, parallel port examples
----------------------------------------------------
+Chapter 8: initial startup, parallel port examples
+--------------------------------------------------
 .. toctree::
    :titlesonly:
 
