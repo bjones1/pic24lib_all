@@ -116,7 +116,7 @@ void reverseString(volatile char *psz_s1, volatile char *psz_s2) {
 void configSPI1(void) {
   //no need for prescaler since master supplies the clock
   SPI1CON1 =  CLK_POL_ACTIVE_HIGH |
-              SPI_CKE_ON          |
+              SPI_CKE_OFF         |
               SLAVE_ENABLE_ON     |
               SPI_MODE8_ON        |
               MASTER_ENABLE_OFF;

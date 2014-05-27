@@ -65,20 +65,36 @@ void checkRxErrorSPI${x}() {
  */
 
 uint16_t ioMasterSPI${x}(uint16_t u16_c) {
+
   checkRxErrorSPI${x}();
+#if defined(_SRXMPT) && defined(_SPIBEN)
+  //enhanced SPI module, need to handle possibility of enhanced SPI mode
+  if (!SPI${x}CON2bits.SPIBEN) {//check enhanced buffer mode bit
+    //legacy mode
+    _SPI${x}IF = 0;    //clear interrupt flag since we are about to write new value
+    SPI${x}BUF = u16_c;
+    while (!_SPI${x}IF) { //wait for operation to complete
+      doHeartbeat();
+    }
+  } else {
+    //enhanced buffer mode
+    SPI${x}BUF = u16_c;
+    while (SPI${x}STATbits.SRXMPT) { //this flag is zero when RX buffer has data
+      doHeartbeat();
+    }
+  }
+#else
+  //legacy mode
   _SPI${x}IF = 0;    //clear interrupt flag since we are about to write new value
   SPI${x}BUF = u16_c;
   while (!_SPI${x}IF) { //wait for operation to complete
     doHeartbeat();
-  };
+  }
+#endif
   return(SPI${x}BUF);
 }
 
 #endif // #if (NUM_SPI_MODS >= ${x})
-
-
-
-
 
 
 

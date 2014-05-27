@@ -50,21 +50,18 @@ void  configTimer2(void) {
 
 
 void configOutputCompare1(void) {
-  T2CONbits.TON = 0;       //disable Timer when configuring Output compare
-#if (defined(__dsPIC33E__) || defined(__PIC24E__))
-  CONFIG_OC1_TO_RP(36);        //map OC1 to RP36/RB4
-#else
-  CONFIG_OC1_TO_RP(14);        //map OC1 to RP14/RB14
-#endif
-//assumes TIMER2 initialized before OC1 so PRE bits are set
-  OC1RS = 0;  //initially off
-#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+  T2CONbits.TON = 0;          //disable Timer when configuring Output compare
+  CONFIG_OC1_TO_RP(RB4_RP);   //map OC1 to RB4
+  OC1RS = 0;  //clear both registers
+  OC1R = 0;
+#ifdef OC1CON1
 //turn on the compare toggle mode using Timer2
   OC1CON1 = OC_TIMER2_SRC |     //Timer2 source
             OC_PWM_CENTER_ALIGN;  //PWM
-  OC1CON2 = 0x000C;           //sync source is Timer2.
+  OC1CON2 = OC_SYNCSEL_TIMER2;   //synchronize to timer2
 #else
-//turn on the compare toggle mode using Timer2
+//older families, this PWM mode is compatible with center-aligned, OC1R=0
+//as writes to OC1RS sets the pulse widith.
   OC1CON = OC_TIMER2_SRC |     //Timer2 source
            OC_PWM_FAULT_PIN_DISABLE;  //PWM, no fault detection
 #endif
@@ -76,8 +73,8 @@ void _ISR _T2Interrupt(void) {
   //update the PWM duty cycle from the ADC value
   u32_temp = ADC1BUF0;  //use 32-bit value for range
   //compute new pulse width that is 0 to 99% of PR2
-  // pulse width (PR2) * ADC/4096
-  u32_temp = (u32_temp * (PR2))>> 12 ;  // >>12 is same as divide/4096
+  // pulse width (PR2) * ADC/1024
+  u32_temp = (u32_temp * (PR2))>> 10 ;  // >>10 is same as divide/1024
   OC1RS = u32_temp;  //update pulse width value
   SET_SAMP_BIT_ADC1();      //start sampling and conversion
 }
@@ -92,10 +89,9 @@ int main(void) {
   configTimer2();
   configOutputCompare1();
   CONFIG_RA0_AS_ANALOG();
-  configADC1_ManualCH0(RA0_AN, 31, 1);
+  configADC1_ManualCH0(RA0_AN, 31, 0);
   SET_SAMP_BIT_ADC1();      //start sampling and conversion
   T2CONbits.TON = 1;       //turn on Timer2 to start PWM
-
   // Report results only
   while (1) {
     u32_pw = ticksToUs(OC1RS, getTimerPrescale(T2CONbits));

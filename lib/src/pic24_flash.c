@@ -63,10 +63,10 @@ void LoadTwoWords(uint16_t wordhi, uint16_t wordlo, uint16_t word2hi, uint16_t w
   asm("	mov	#0xFA,W0");
   asm(" mov W0, TBLPAG");
   asm("	mov	#0,W1");
-  __builtin_tblwtl(0,wordlo);     //  asm("	tblwtl W1,[W1]");
-  __builtin_tblwth(0,wordhi);     //  asm("	tblwth W0,[W1++]");
-  __builtin_tblwtl(2,word2lo);    //  asm("	tblwtl W3,[W1]");
-  __builtin_tblwth(2,word2hi);   //  asm("	tblwth W2,[W1++]");
+  __builtin_tblwtl(0,wordlo);     //  asm(" tblwtl W1,[W1]");
+  __builtin_tblwth(0,wordhi);     //  asm(" tblwth W0,[W1++]");
+  __builtin_tblwtl(2,word2lo);    //  asm(" tblwtl W3,[W1]");
+  __builtin_tblwth(2,word2hi);   //  asm("  tblwth W2,[W1++]");
 
 
 }

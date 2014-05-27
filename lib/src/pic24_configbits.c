@@ -65,14 +65,46 @@
 
 #include "pic24_clockfreq.h"
 
+#ifndef IOL1WAY_OFF
+// If this device dones't have the IOL1WAY config bit, define the OFF value
+// to have no effect (to be all 1s, since config bits are ANDed together).
+# define IOL1WAY_OFF 0xFFFF
+#endif
+
+#ifndef OSCIOFNC_OFF
+// Same as above for OSCIOFNC.
+# define OSCIOFNC_OFF 0xFFFF
+#endif
+
+#ifdef BOOTLOADER
+// POSCMD_XT: Select bootloader config bits which allow user code to optionally
+// use an XT oscillator. Change this for an HS crystal or an external clock (EC).
+//
+// OSCIOFNC_OFF:  Reserve OSC2 as a potential crystal pin, instead of making it
+// a digital I/O pin.
+# define OSCPIN_CONFIG (OSCIOFNC_OFF  & POSCMD_XT)
+#else
+// Enable/disable OSC IO pins based on oscillator selection.
+# if POSCMD_SEL == POSCMD_NONE
+// Make the OSC2 pin a digital I/O.
+#   define OSCPIN_CONFIG (OSCIOFNC_ON  & POSCMD_NONE)
+# else
+// Reserve the OSC pins for use with an oscillator (HS and XT modes) or
+// have it output the clock (EC mode).
+#   define OSCPIN_CONFIG (OSCIOFNC_OFF & POSCMD_SEL)
+# endif
+#endif
+
+
+
 /// \name PIC24H configuration bits
 //@{
-#if (defined(__PIC24HJ12GP202__) || \
-defined(__PIC24HJ12GP201__) || \
-defined(__PIC24HJ32GP202__) || \
-defined(__PIC24HJ32GP202__) || \
-defined(__PIC24HJ16GP304__) || \
-defined(__DOXYGEN__)) // NOTE: DOXYGEN only used for documentation generation
+#if defined(__PIC24HJ12GP202__) || \
+  defined(__PIC24HJ12GP201__) || \
+  defined(__PIC24HJ32GP202__) || \
+  defined(__PIC24HJ32GP202__) || \
+  defined(__PIC24HJ16GP304__) || \
+  defined(__DOXYGEN__) // NOTE: DOXYGEN only used for documentation generation
 
 
 /** FBS: Boot Code Segment Configuration Register
@@ -171,7 +203,9 @@ _FOSCSEL(FNOSC_FRC & IESO_OFF);
  **
  \endcode
  */
-_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_ON & POSCMD_SEL);
+
+_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG );
+
 
 
 /** FWDT: Watchdog Timer Configuration Register
@@ -262,7 +296,7 @@ _FICD(JTAGEN_OFF & ICS_PGD1);
 _FBS(BWRP_WRPROTECT_OFF);
 _FGS(GSS_OFF & GCP_OFF & GWRP_OFF);
 _FOSCSEL(FNOSC_FRC & IESO_OFF);
-_FOSC(FCKSM_CSECMD & OSCIOFNC_OFF & POSCMD_SEL);
+_FOSC(FCKSM_CSECMD & OSCPIN_CONFIG );
 _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FPOR(FPWRT_PWR16);
 _FICD(JTAGEN_OFF & ICS_PGD1);
@@ -272,7 +306,7 @@ _FICD(JTAGEN_OFF & ICS_PGD1);
 
 /// \name PIC24F configuration bits
 //@{
-#if (defined(__PIC24FJ64GA002__) ) || defined(__DOXYGEN__)
+#if defined(__PIC24FJ64GA002__) || defined(__DOXYGEN__)
 
 /** Register CONFIG1
  ** \code
@@ -381,7 +415,8 @@ _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF & BKBUG_OFF & COE_OFF & ICS_PGx1 & FWDT
  **
 \endcode
 */
-_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_ON & IOL1WAY_OFF & POSCMD_SEL);
+_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG );
+
 
 
 ///\cond doxygen_ignore
@@ -392,82 +427,76 @@ _CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_ON & IOL1WAY_OFF & POSCM
 
 #if defined(EXPLORER16_100P) && defined(__PIC24FJ128GA010__)
 _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF & BKBUG_OFF & COE_OFF & ICS_PGx1 & FWDTEN_OFF & WINDIS_OFF & FWPSA_PR128 & WDTPS_PS512);
-_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_OFF & POSCMD_SEL);
+_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCPIN_CONFIG);
 #define CONFIG_BITS_DEFINED
 #endif
 
 #if defined(__PIC24FJ64GB002__) ||(__PIC24FJ64GB004__)
 _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF  & ICS_PGx1 & FWDTEN_OFF & WINDIS_OFF & FWPSA_PR128 & WDTPS_PS512);
-_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_ON & IOL1WAY_OFF & POSCMD_SEL & PLL96MHZ_OFF & PLLDIV_DIV2 );
+_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & IOL1WAY_OFF & PLL96MHZ_OFF & PLLDIV_DIV2 & OSCPIN_CONFIG );
 _CONFIG4(DSWDTPS_DSWDTPSF & DSWDTEN_OFF & DSBOREN_OFF)
 #define CONFIG_BITS_DEFINED
 ///\endcond
 #endif
 
-//default config bits, use these if a processor is not defined.
+// Default config bits, use these if a processor is not defined.
 #ifndef CONFIG_BITS_DEFINED
-#ifdef __PIC24H__
+# ifdef __PIC24H__
 _FBS(BWRP_WRPROTECT_OFF);
 _FGS(GSS_OFF & GCP_OFF & GWRP_OFF);
 
-#ifdef RSS_NO_RAM
+#   ifdef RSS_NO_RAM
 _FSS(RSS_NO_RAM & SSS_NO_FLASH & SWRP_WRPROTECT_OFF);
-#endif
+#   endif
 
-#ifdef IOL1WAY_OFF
-_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_ON & POSCMD_SEL);
-#else
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL);
-#endif
+_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG);
+
 _FOSCSEL(FNOSC_FRC & IESO_OFF);
 _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FPOR(FPWRT_PWR16);
 _FICD(JTAGEN_OFF & ICS_PGD1);
 
-#warning "Using default config bit settings for the PIC24H family."
-#warning "Edit this file to define bits for your processor!"
+#   warning "Using default config bit settings for the PIC24H family."
+#   warning "Edit this file to define bits for your processor!"
 ///\cond doxygen_ignore
-#define CONFIG_BITS_DEFINED
+#   define CONFIG_BITS_DEFINED
 ///\endcond
-#endif
+# endif
 
-#ifdef __PIC24F__
+# ifdef __PIC24F__
 
-#ifndef BKBUG_OFF
-#define BKBUG_OFF 0xFFFF
-#endif
-#ifndef COE_OFF
-#define COE_OFF 0xFFFF
-#endif
+#   ifndef BKBUG_OFF
+#     define BKBUG_OFF 0xFFFF
+#   endif
+#   ifndef COE_OFF
+#     define COE_OFF 0xFFFF
+#   endif
 
 _CONFIG1(JTAGEN_OFF & GCP_OFF & GWRP_OFF & BKBUG_OFF & COE_OFF & ICS_PGx1 & FWDTEN_OFF & WINDIS_OFF & FWPSA_PR128 & WDTPS_PS512);
+_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG);
 
-#ifndef IOL1WAY_OFF
-#define IOL1WAY_OFF 0xFFFF
-#endif
-_CONFIG2(IESO_OFF & FNOSC_FRC & FCKSM_CSECMD & OSCIOFNC_ON & IOL1WAY_OFF & POSCMD_SEL);
 
-#warning "Using default config bit settings for the PIC24F family."
-#warning "Edit this file to define bits for your processor!"
+#   warning "Using default config bit settings for the PIC24F family."
+#   warning "Edit this file to define bits for your processor!"
 ///\cond doxygen_ignore
-#define CONFIG_BITS_DEFINED
+#   define CONFIG_BITS_DEFINED
 ///\endcond
-#endif
+# endif
 
 
 
 /* The PIC24FK is a subfamily of the PIC24F -- functionality like the PIC24F, but config bits like the PIC24H */
-#ifdef __PIC24FK__
+# ifdef __PIC24FK__
 _FBS(BSS_OFF & BWRP_OFF);
 _FGS(GWRP_OFF);
 
-#if  (POSC_FREQ < 100000L)
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL & POSCFREQ_LS);
-#elif (POSC_FREQ > 8000000L)
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL & POSCFREQ_HS);
-#else
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL & POSCFREQ_MS);
-#endif
+#   if  (POSC_FREQ < 100000L)
+_FOSC(FCKSM_CSECMD & OSCPIN_CONFIG & POSCFREQ_LS);
+#   elif (POSC_FREQ > 8000000L)
+_FOSC(FCKSM_CSECMD & OSCPIN_CONFIG & POSCFREQ_HS);
+#   else
+_FOSC(FCKSM_CSECMD & OSCPIN_CONFIG & POSCFREQ_MS);
+#   endif
 
 
 _FOSCSEL(FNOSC_FRC & IESO_OFF);
@@ -478,125 +507,105 @@ _FICD(ICS_PGx1);
 //new config word for deep sleep operation, set these for your needs
 _FDS(DSWDTEN_OFF & DSBOREN_OFF & DSWDTOSC_SOSC);
 
-#warning "Using default config bit settings for the PIC24FK family."
-#warning "Edit this file to define bits for your processor!"
+#   warning "Using default config bit settings for the PIC24FK family."
+#   warning "Edit this file to define bits for your processor!"
 ///\cond doxygen_ignore
-#define CONFIG_BITS_DEFINED
+#   define CONFIG_BITS_DEFINED
 ///\endcond
-#endif
+# endif
 
 
-#ifdef __dsPIC33F__
+# ifdef __dsPIC33F__
 _FBS(BWRP_WRPROTECT_OFF);
 _FGS(GSS_OFF & GCP_OFF & GWRP_OFF);
 _FOSCSEL(FNOSC_FRC & IESO_OFF);
-#ifdef RSS_NO_RAM
+#   ifdef RSS_NO_RAM
 _FSS(RSS_NO_RAM & SSS_NO_FLASH & SWRP_WRPROTECT_OFF);
-#endif
-#ifdef IOL1WAY_OFF
-_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_ON & POSCMD_SEL);
-#else
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL);
-#endif
+#   endif
+
+_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG);
+
 _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FPOR(FPWRT_PWR16);
 _FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
-#warning "Using default config bit settings for the dsPIC33F family."
-#warning "Edit this file to define bits for your processor!"
+#   warning "Using default config bit settings for the dsPIC33F family."
+#   warning "Edit this file to define bits for your processor!"
 ///\cond doxygen_ignore
-#define CONFIG_BITS_DEFINED
+#   define CONFIG_BITS_DEFINED
 ///\endcond
-#endif
+# endif
 
-#ifdef __PIC24E__
-#ifdef GCP_OFF
+# ifdef __PIC24E__
+#   ifdef GCP_OFF
 _FGS( GCP_OFF & GWRP_OFF);
-#else
+#   else
 _FGS(0xFFFF);
-#endif
+#   endif
 //28 pin devices only have ALT2IC1 pins!!?
 _FPOR(ALTI2C1_ON & 0xFFFF);
 
-#ifdef IOL1WAY_OFF
-_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_ON & POSCMD_SEL);
-//_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCIOFNC_OFF & POSCMD_SEL);
-#else
-_FOSC(FCKSM_CSECMD & OSCIOFNC_ON & POSCMD_SEL);
-#endif
+_FOSC(FCKSM_CSECMD & IOL1WAY_OFF & OSCPIN_CONFIG);
 _FOSCSEL(FNOSC_FRC & IESO_OFF);
 _FWDT(FWDTEN_OFF & WINDIS_OFF & WDTPRE_PR128 & WDTPOST_PS512);
 _FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
 
-#warning "Using default config bit settings for the PIC24E family."
-#warning "Edit this file to define bits for your processor!"
+#   warning "Using default config bit settings for the PIC24E family."
+#   warning "Edit this file to define bits for your processor!"
 ///\cond doxygen_ignore
-#define CONFIG_BITS_DEFINED
+#   define CONFIG_BITS_DEFINED
 ///\endcond
-#endif
+# endif
 
 
-#ifdef __dsPIC33E__
+# ifdef __dsPIC33E__
 
 // DSPIC33EP128GP502 Configuration Bit Settings
 
 // FICD
-#pragma config ICS = PGD1               // ICD Communication Channel Select bits (Communicate on PGEC1 and PGED1)
-#pragma config JTAGEN = OFF             // JTAG Enable bit (JTAG is disabled)
+#   pragma config ICS = PGD1               // ICD Communication Channel Select bits (Communicate on PGEC1 and PGED1)
+#   pragma config JTAGEN = OFF             // JTAG Enable bit (JTAG is disabled)
 
 // FPOR
-#pragma config ALTI2C1 = ON             // Alternate I2C1 pins (I2C1 mapped to ASDA1/ASCL1 pins)
-#pragma config ALTI2C2 = OFF            // Alternate I2C2 pins (I2C2 mapped to SDA2/SCL2 pins)
-#pragma config WDTWIN = WIN25           // Watchdog Window Select bits (WDT Window is 25% of WDT period)
+#   pragma config ALTI2C1 = ON             // Alternate I2C1 pins (I2C1 mapped to ASDA1/ASCL1 pins)
+#   pragma config ALTI2C2 = OFF            // Alternate I2C2 pins (I2C2 mapped to SDA2/SCL2 pins)
+#   pragma config WDTWIN = WIN25           // Watchdog Window Select bits (WDT Window is 25% of WDT period)
 
 // FWDT
-#pragma config WDTPOST = PS512          // Watchdog Timer Postscaler bits (1:512)
-#pragma config WDTPRE = PR128           // Watchdog Timer Prescaler bit (1:128)
-#pragma config PLLKEN = ON              // PLL Lock Enable bit (Clock switch to PLL source will wait until the PLL lock signal is valid.)
-#pragma config WINDIS = OFF             // Watchdog Timer Window Enable bit (Watchdog Timer in Non-Window mode)
-#pragma config FWDTEN = OFF             // Watchdog Timer Enable bit (Watchdog timer enabled/disabled by user software)
+#   pragma config WDTPOST = PS512          // Watchdog Timer Postscaler bits (1:512)
+#   pragma config WDTPRE = PR128           // Watchdog Timer Prescaler bit (1:128)
+#   pragma config PLLKEN = ON              // PLL Lock Enable bit (Clock switch to PLL source will wait until the PLL lock signal is valid.)
+#   pragma config WINDIS = OFF             // Watchdog Timer Window Enable bit (Watchdog Timer in Non-Window mode)
+#   pragma config FWDTEN = OFF             // Watchdog Timer Enable bit (Watchdog timer enabled/disabled by user software)
 
 // FOSC
-#if   POSCMD_SEL == POSCMD_EC
-#pragma config POSCMD = EC              // Primary Oscillator Mode Select bits (EC Crystal Oscillator Mode)
-#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
-#elif POSCMD_SEL == POSCMD_XT
-#pragma config POSCMD = XT              // Primary Oscillator Mode Select bits (XT Crystal Oscillator Mode)
-#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
-#elif POSCMD_SEL == POSCMD_HS
-#pragma config POSCMD = HS              // Primary Oscillator Mode Select bits (HS Crystal Oscillator Mode)
-#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
-#elif POSCMD_SEL == POSCMD_NONE
-#pragma config POSCMD = NONE            // Primary Oscillator Mode Select bits (Primary Oscillator disabled)
-#pragma config OSCIOFNC = ON            // OSC2 Pin Function bit (OSC2 is general purpose digital I/O pin)
-#else
-# error "Unknown primary oscillator selection."
-#endif
-
-#pragma config IOL1WAY = OFF            // Peripheral pin select configuration (Allow multiple reconfigurations)
-#pragma config FCKSM = CSECMD           // Clock Switching Mode bits (Clock switching is enabled,Fail-safe Clock Monitor is disabled)
+// Use the old-style config here, since #pragmas don't work with #defined
+// constants.
+//
+// IOL1WAY_OFF: Peripheral pin select configuration (Allow multiple reconfigurations)
+// FCKSM_CSDCMD: Clock Switching Mode bits (Both Clock switching and Fail-safe Clock Monitor are disabled)
+_FOSC(OSCPIN_CONFIG & FCKSM_CSECMD & IOL1WAY_OFF);
 
 // FOSCSEL
-#pragma config FNOSC = FRC              // Oscillator Source Selection (Internal Fast RC (FRC))
-#pragma config IESO = OFF               // Two-speed Oscillator Start-up Enable bit (Start up with user-selected oscillator source)
+#   pragma config FNOSC = FRC              // Oscillator Source Selection (Internal Fast RC (FRC))
+#   pragma config IESO = OFF               // Two-speed Oscillator Start-up Enable bit (Start up with user-selected oscillator source)
 
 // FGS
-#pragma config GWRP = OFF               // General Segment Write-Protect bit (General Segment may be written)
-#pragma config GCP = OFF                // General Segment Code-Protect bit (General Segment Code protect is Disabled)
+#   pragma config GWRP = OFF               // General Segment Write-Protect bit (General Segment may be written)
+#   pragma config GCP = OFF                // General Segment Code-Protect bit (General Segment Code protect is Disabled)
 
 
-#ifndef __dsPIC33EP128GP502__
-# warning "Using default config bit settings for the dsPIC33E family."
-# warning "Edit this file to define bits for your processor!"
-#endif
+#   ifndef __dsPIC33EP128GP502__
+#     warning "Using default config bit settings for the dsPIC33E family."
+#     warning "Edit this file to define bits for your processor!"
+#   endif
 ///\cond doxygen_ignore
-#define CONFIG_BITS_DEFINED
+#   define CONFIG_BITS_DEFINED
 ///\endcond
-#endif
+# endif // #ifdef __dsPIC33E__
 
-
-#endif
+#endif // #ifndef CONFIG_BITS_DEFINED
 
 
 #ifndef CONFIG_BITS_DEFINED
-#error "Edit common/pic24_configbits.c to add config bits for your processor!"
+# error "Edit common/pic24_configbits.c to add config bits for your processor!"
 #endif

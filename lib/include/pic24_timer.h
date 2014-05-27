@@ -304,6 +304,10 @@ specified in the MPLAB C30/src/peripheral_24F/incap.h header.
 #define IC_IDLE_CON             0x0000 /* IC operate in sleep mode */
 #define IC_IDLE_MASK            (~IC_IDLE_STOP)
 
+#define IC_FP_SRC               (7 << 10) /* Peripheral Clock is the clock source for Capture */
+#define IC_TIMER1_SRC           (4 << 10) /* Timer1 is the clock source for Capture */
+#define IC_TIMER5_SRC           (3 << 10) /* Timer5 is the clock source for Capture */
+#define IC_TIMER4_SRC           (2 << 10) /* Timer4 is the clock source for Capture */
 #define IC_TIMER2_SRC           (1 << 10) /* Timer2 is the clock source for Capture */
 #define IC_TIMER3_SRC           0x0000 /* Timer3 is the clock source for Capture */
 #define IC_TIMER_SRC_MASK       (~ (7 << 10) )
@@ -322,6 +326,37 @@ specified in the MPLAB C30/src/peripheral_24F/incap.h header.
 #define IC_EVERY_EDGE           0x0001 /* Every rising/falling edge */
 #define IC_INPUTCAP_OFF         0x0000 /* Input Capture Off      */
 #define IC_CAPTURE_MODE_MASK    (~IC_INTERRUPT)
+
+//ICxCON2 register bits (dsPIC33E/PIC24E)
+#define IC_IC32_ON             (0x01 << 8)
+#define IC_IC32_OFF            (0x00 << 8)
+#define IC_TRIG_MODE           (0x01 << 7)
+#define IC_SYNC_MODE           (0x00 << 7)
+
+//Sync/Trigger Bits for Input Capture
+//these are device dependent, but this works for many devices
+#define IC_SYNCSEL_NOSYNC          0x00
+#define IC_SYNCSEL_OC1             0x01
+#define IC_SYNCSEL_OC2             0x02
+#define IC_SYNCSEL_OC3             0x03
+#define IC_SYNCSEL_OC4             0x04
+#define IC_SYNCSEL_PTGO            0x0A
+#define IC_SYNCSEL_TIMER1          0x0B
+#define IC_SYNCSEL_TIMER2          0x0C
+#define IC_SYNCSEL_TIMER3          0x0D
+#define IC_SYNCSEL_TIMER4          0x0E
+#define IC_SYNCSEL_TIMER5          0x0F
+#define IC_SYNCSEL_IC1             0x10
+#define IC_SYNCSEL_IC2             0x11
+#define IC_SYNCSEL_IC3             0x12
+#define IC_SYNCSEL_IC4             0x13
+#define IC_SYNCSEL_CMP1            0x18
+#define IC_SYNCSEL_CMP2            0x19
+#define IC_SYNCSEL_CMP3            0x1A
+#define IC_SYNCSEL_ADC1            0x1B
+#define IC_SYNCSEL_CTMU            0x1C
+
+
 
 #else
 #define IC_IDLE_STOP            0x2000 /* IC stop in sleep mode */
@@ -362,9 +397,13 @@ specified in the MPLAB C30/src/peripheral_24F/outcompare.h header.
 #define OC_IDLE_CON                0x0000 /*  continue operation in idle mode */
 #define OC_IDLE_STOP               0x2000 /* stop in idle mode */
 #define OC_IDLE_MASK               (~OC_IDLE_STOP)
-#define OC_TIMER2_SRC               0x0000 /* Timer2 is the clock source for OutputCompare */
-#define OC_TIMER3_SRC               (1 << 10) /* Timer3 is the clock source for OutputCompare */
-#define OC_TIMER_SRC_MASK           (~ (7 << 10) )
+#define OC_TIMER2_SRC               (0 << 10)        /* Timer2 is the clock source for OutputCompare */
+#define OC_TIMER3_SRC               (1 << 10)        /* Timer3 is the clock source for OutputCompare */
+#define OC_TIMER4_SRC               (2 << 10)        /* Timer3 is the clock source for OutputCompare */
+#define OC_TIMER5_SRC               (3 << 10)        /* Timer3 is the clock source for OutputCompare */
+#define OC_TIMER1_SRC               (4 << 10)        /* Timer3 is the clock source for OutputCompare */
+#define OC_FP_SRC                   (7 << 10)        /* Peripheral Clock is the clock source for OutputCompare */
+
 
 #define OC_PWM_CENTER_ALIGN         0x0007 /* PWM Mode on OCx, fault pin enabled, (TxIF bit is set for PWM, OCxIF is set for fault)*/
 #define OC_PWM_EDGE_ALIGN           0x0006 /* PWM Mode on OCx, fault pin disabled */
@@ -378,6 +417,49 @@ specified in the MPLAB C30/src/peripheral_24F/outcompare.h header.
 
 #define OC_PWM_FAULT_PIN_ENABLE     0x0007 /* PWM Mode on OCx, keep for compatibility with PIC24H source*/
 #define OC_PWM_FAULT_PIN_DISABLE    0x0006 /* PWM Mode on OCx, keep for compatibility with PIC24H source */
+
+//OCxCON2 register bits (dsPIC33E/PIC24E)
+#define OC_FLTMD_ON               (0x01 << 15)
+#define OC_FLTMD_OFF              (0x00 << 15)
+#define OC_FLTOUT_ON               (0x01 << 14)
+#define OC_FLTOUT_OFF              (0x00 << 14)
+#define OC_FLTTRIEN_ON             (0x01 << 13)
+#define OC_FLTTRIEN_OFF            (0x00 << 13)
+#define OC_OCINV_ON                (0x01 << 12)
+#define OC_OCINV_OFF               (0x00 << 12)
+
+#define OC_IC32_ON             (0x01 << 8)
+#define OC_IC32_OFF            (0x00 << 8)
+#define OC_TRIG_MODE           (0x01 << 7)
+#define OC_SYNC_MODE           (0x00 << 7)
+#define OC_TRIS_ON             (0x01 << 5)
+#define OC_TRIS_OFF            (0x00 << 5)
+
+//Sync/Trigger Bits for Input Capture
+//these are device dependent, but this works for many devices
+#define OC_SYNCSEL_NOSYNC          0x00
+#define OC_SYNCSEL_OC1             0x01
+#define OC_SYNCSEL_OC2             0x02
+#define OC_SYNCSEL_OC3             0x03
+#define OC_SYNCSEL_OC4             0x04
+#define OC_SYNCSEL_PTGO            0x0A
+#define OC_SYNCSEL_TIMER1          0x0B
+#define OC_SYNCSEL_TIMER2          0x0C
+#define OC_SYNCSEL_TIMER3          0x0D
+#define OC_SYNCSEL_TIMER4          0x0E
+#define OC_SYNCSEL_TIMER5          0x0F
+#define OC_SYNCSEL_IC1             0x10
+#define OC_SYNCSEL_IC2             0x11
+#define OC_SYNCSEL_IC3             0x12
+#define OC_SYNCSEL_IC4             0x13
+#define OC_SYNCSEL_CMP1            0x18
+#define OC_SYNCSEL_CMP2            0x19
+#define OC_SYNCSEL_CMP3            0x1A
+#define OC_SYNCSEL_ADC1            0x1B
+#define OC_SYNCSEL_CTMU            0x1C
+#define OC_SYNCSEL_INT1            0x1D
+#define OC_SYNCSEL_INT2            0x1E
+#define OC_SYNCSEL_OCxRS           0x1F
 
 #else
 /* Section : Output Compare Stop in Idle mode Bit defines */

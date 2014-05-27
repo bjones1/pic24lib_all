@@ -37,23 +37,23 @@ to be used for the four-bit data bus because they are
 Tested with Hantronix HDM20416L-M.
 */
 
-#define RS_HIGH()        _LATB9 = 1
-#define RS_LOW()         _LATB9 = 0
+#define RS_HIGH()        (_LATB9 = 1)
+#define RS_LOW()         (_LATB9 = 0)
 #define CONFIG_RS()      CONFIG_RB9_AS_DIG_OUTPUT()
 
-#define RW_HIGH()        _LATB13 = 1
-#define RW_LOW()         _LATB13 = 0
+#define RW_HIGH()        (_LATB13 = 1)
+#define RW_LOW()         (_LATB13 = 0)
 #define CONFIG_RW()      CONFIG_RB13_AS_DIG_OUTPUT()
 
-#define E_HIGH()         _LATB14 = 1
-#define E_LOW()          _LATB14 = 0
+#define E_HIGH()         (_LATB14 = 1)
+#define E_LOW()          (_LATB14 = 0)
 #define CONFIG_E()       CONFIG_RB14_AS_DIG_OUTPUT()
 
-#define LCD4O          _LATB5
-#define LCD5O          _LATB6
-#define LCD6O          _LATB7
-#define LCD7O          _LATB8
-#define LCD7I          _RB8
+#define LCD4O          (_LATB5)
+#define LCD5O          (_LATB6)
+#define LCD6O          (_LATB7)
+#define LCD7O          (_LATB8)
+#define LCD7I          (_RB8)
 
 #define CONFIG_LCD4_AS_INPUT() CONFIG_RB5_AS_DIG_INPUT()
 #define CONFIG_LCD5_AS_INPUT() CONFIG_RB6_AS_DIG_INPUT()
@@ -65,7 +65,7 @@ Tested with Hantronix HDM20416L-M.
 #define CONFIG_LCD6_AS_OUTPUT() CONFIG_RB7_AS_DIG_OUTPUT()
 #define CONFIG_LCD7_AS_OUTPUT() CONFIG_RB8_AS_DIG_OUTPUT()
 
-#define GET_BUSY_FLAG()  LCD7I
+#define GET_BUSY_FLAG()  (LCD7I)
 
 
 

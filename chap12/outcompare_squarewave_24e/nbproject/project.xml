@@ -2,8 +2,8 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>ledpwm_pic24f</name>
-            <creation-uuid>896ddbd7-8844-45cb-a7dc-c1aa8581ef10</creation-uuid>
+            <name>outcompare_squarewave_24e</name>
+            <creation-uuid>3d67c338-4640-4676-82d5-df465f9459bb</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>

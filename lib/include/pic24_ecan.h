@@ -53,8 +53,15 @@
 #define ECAN_MODE_CONFIGURE 4
 #define ECAN_LISTEN_ALL_MESSAGES 7
 
-#define ECAN_FCAN_IS_FCY 1
-#define ECAN_FCAN_IS_OSC 0
+// Deprecated & Removed from PIC24 Datasheet - rnn13
+//#define ECAN_FCAN_IS_FCY 1
+//#define ECAN_FCAN_IS_OSC 0
+
+// CANCKS: ECANx Module Clock (FCAN) Source Select Bit - rnn13
+#ifdef __dsPIC33E__ // Only enable for certain chips.
+# define ECAN_FCAN_IS_2FP 1 // FCAN is equal to 2 * FP
+# define ECAN_FCAN_IS_FP  0 // FCAN is equal to FP
+#endif
 
 
 //CiCFG2 register  (Baud rate config 2 register)
@@ -288,8 +295,6 @@ uint8_t getTxInProgressECAN1(uint8_t u8_bufNum);
 
 #endif // #if (NUM_ECAN_MODS >= 1)
 
-
-
 /*
  * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
  * All rights reserved.
@@ -345,8 +350,15 @@ uint8_t getTxInProgressECAN1(uint8_t u8_bufNum);
 #define ECAN_MODE_CONFIGURE 4
 #define ECAN_LISTEN_ALL_MESSAGES 7
 
-#define ECAN_FCAN_IS_FCY 1
-#define ECAN_FCAN_IS_OSC 0
+// Deprecated & Removed from PIC24 Datasheet - rnn13
+//#define ECAN_FCAN_IS_FCY 1
+//#define ECAN_FCAN_IS_OSC 0
+
+// CANCKS: ECANx Module Clock (FCAN) Source Select Bit - rnn13
+#ifdef __dsPIC33E__ // Only enable for certain chips.
+# define ECAN_FCAN_IS_2FP 1 // FCAN is equal to 2 * FP
+# define ECAN_FCAN_IS_FP  0 // FCAN is equal to FP
+#endif
 
 
 //CiCFG2 register  (Baud rate config 2 register)
@@ -579,6 +591,4 @@ uint8_t getTxInProgressECAN2(uint8_t u8_bufNum);
 
 
 #endif // #if (NUM_ECAN_MODS >= 2)
-
-
 

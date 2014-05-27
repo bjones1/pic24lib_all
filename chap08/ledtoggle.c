@@ -33,7 +33,7 @@
 // LED1 configuration and access
 // =============================
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
-#define LED1 _LATB14     //led1 state
+#define LED1 (_LATB14)     //led1 state
 
 // Pushbutton configuration and access
 // ===================================
@@ -50,11 +50,11 @@ void config_pb()  {
 }
 
 #if (HARDWARE_PLATFORM == EMBEDDED_C1)
-  #define PB_PRESSED()   (_RB7 == 0)
-  #define PB_RELEASED()  (_RB7 == 1)
+# define PB_PRESSED()   (_RB7 == 0)
+# define PB_RELEASED()  (_RB7 == 1)
 #else
-  #define PB_PRESSED()   (_RB13 == 0)
-  #define PB_RELEASED()  (_RB13 == 1)
+# define PB_PRESSED()   (_RB13 == 0)
+# define PB_RELEASED()  (_RB13 == 1)
 #endif
 
 // State machine
@@ -73,7 +73,8 @@ const char* apsz_state_names[] = {
 
 // Provide a convenient function to print out the state.
 void print_state(state_t e_state) {
-  static state_t e_last_state = 0xFFFF;  // Force an initial print of the state
+  // Force an initial print of the state
+  static state_t e_last_state = 0xFFFF;
 
   // Only print if the state changes.
   if (e_state != e_last_state) {
@@ -86,7 +87,7 @@ void print_state(state_t e_state) {
 }
 
 // This function defines the state machine.
-void update_state() {
+void update_state(void) {
   static state_t e_state = STATE_RELEASED;
 
   switch (e_state) {

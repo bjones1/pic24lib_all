@@ -21,43 +21,94 @@
 //    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
 //
 //    Please maintain this header in its entirety when copying/modifying
-//    these files.
+//   these files.
 //
-// ****************************************************************
-// ledsw1_timer2.c - Example of implementing a FSM in an interrupt.
-// ****************************************************************
-// Demonstrates the use of a period interrupt to sample a switch input, removes the need for debounce delays. All of the FSM work is done in the ISR.
+// ***********************************************************************
+// ledsw1_sampling.c - Example of implementing a FSM using intput sampling
+// ***********************************************************************
+// Demonstrates the use of a events to create an energy-efficient FSM implementation. All of the FSM work is done in the ISR.
 
 
+#include <stdio.h>
 #include "pic24_all.h"
 
+void update_state(void);
+
+// Configuration
+// =============
 // LED1 configuration and access
-// =============================
+// -----------------------------
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
 #define LED1 (_LATB14)
 
 // Pushbutton configuration and access
-// ===================================
-void config_pb(void)  {
+// -----------------------------------
+void config_pb()  {
   CONFIG_RB13_AS_DIG_INPUT();
   ENABLE_RB13_PULLUP();
   // Give the pullup some time to take effect.
   DELAY_US(1);
 }
 
-#define PB_PRESSED()   (_RB13 == 0)
-#define PB_RELEASED()  (_RB13 == 1)
+#if (HARDWARE_PLATFORM == EMBEDDED_C1)
+# define PB_PRESSED()   (_RB7 == 0)
+# define PB_RELEASED()  (_RB7 == 1)
+#else
+# define PB_PRESSED()   (_RB13 == 0)
+# define PB_RELEASED()  (_RB13 == 1)
+#endif
 
 // Switch configuration and access
-// ===============================
-void config_sw(void)  {
+// -------------------------------
+void config_sw()  {
   CONFIG_RB12_AS_DIG_INPUT();
   ENABLE_RB12_PULLUP();
   // Give the pullup some time to take effect.
   DELAY_US(1);
 }
 
-#define SW              (_RB12)
+#define SW (_RB12)
+
+// Timer3 interrupt configuration
+// ------------------------------
+// Timer interrupt period, in ms.
+#define ISR_PERIOD (15)
+
+// Configure the timer to produce interrupts.
+void configTimer3(void) {
+  // Ensure that Timer2,3 configured as separate timers by
+  // turning 32-bit mode off.
+  T2CONbits.T32 = 0;
+  // T3CON set like this for documentation purposes.
+  // This could be replaced by T3CON = 0x0020.
+  T3CON = T3_OFF | T3_IDLE_CON | T3_GATE_OFF
+          | T3_SOURCE_INT
+          | T3_PS_1_256;
+  // Clear the interrupt flag.
+  _T3IF = 0;
+  // Choose a priority.
+  _T3IP = 1;
+  // Enable the timer3 interrupt.
+  _T3IE = 1;
+  // Set up the timer for periodic operation.
+  PR3 = msToU16Ticks(ISR_PERIOD, getTimerPrescale(T3CONbits)) - 1;
+  // Zero then start the timer.
+  TMR3 = 0;
+  T3CONbits.TON = 1;
+}
+
+
+// Interrupts
+// ==========
+// Timer
+// -----
+// Interrupt Service Routine for Timer3
+void _ISR _T3Interrupt(void) {
+  // Clear the interrupt flag.
+  _T3IF = 0;
+  // Run our state machine.
+  update_state();
+}
 
 // State machine
 // =============
@@ -81,8 +132,10 @@ const char* apsz_state_names[] = {
 };
 
 // Provide a convenient function to print out the state.
+// Provide a convenient function to print out the state.
 void print_state(state_t e_state) {
-  static state_t e_last_state = 0xFFFF;  // Force an initial print of the state
+  // Force an initial print of the state
+  static state_t e_last_state = 0xFFFF;
 
   // Only print if the state changes.
   if (e_state != e_last_state) {
@@ -94,54 +147,65 @@ void print_state(state_t e_state) {
   }
 }
 
+// The number of times the LED was toggled in the blink state
+volatile uint16_t u16_led_toggles;
+// True if the LED should blink.
+volatile uint16_t u16_doBlink = 0;
+
 // This function defines the state machine.
 void update_state(void) {
   static state_t e_state = STATE_RELEASED1;
 
   switch (e_state) {
     case STATE_RELEASED1:
-      if (PB_PRESSED()) e_state = STATE_PRESSED1;
+      LED1 = 0;
+      if (PB_PRESSED()) {
+        e_state = STATE_PRESSED1;
+      }
       break;
 
     case STATE_PRESSED1:
       if (PB_RELEASED()) {
-        // Turn the LED on when entering STATE_RELEASED2.
         e_state = STATE_RELEASED2;
-        LED1 = 1;
       }
       break;
 
     case STATE_RELEASED2:
-      if (PB_PRESSED()) e_state = STATE_PRESSED2;
+      LED1 = 1;
+      if (PB_PRESSED()) {
+        e_state = STATE_PRESSED2;
+      }
       break;
 
     case STATE_PRESSED2:
-      if (PB_RELEASED()) {
-        if (SW) {
-          e_state = STATE_RELEASED3_BLINK;
-        } else {
-          // Turn the LED off when moving to STATE_RELEASED1.
-          e_state = STATE_RELEASED1;
-          LED1 = 0;
-        }
+      if (PB_RELEASED() && SW) {
+        e_state = STATE_RELEASED3_BLINK;
+        // Zero the toggled count when entering the blink state.
+        u16_led_toggles = 0;
+      }
+      if (PB_RELEASED() && !SW) {
+        e_state = STATE_RELEASED1;
       }
       break;
 
     case STATE_RELEASED3_BLINK:
-      LED1 = !LED1;
-      DELAY_MS(100);
+      // Toggle the LED.
+      u16_doBlink = 1;
+
+      if (u16_led_toggles >= 10) {
+        e_state = STATE_RELEASED1;
+        u16_doBlink = 0;
+      }
       if (PB_PRESSED()) {
-        // Freeze the LED on when existing the blink state.
         e_state = STATE_PRESSED3;
-        LED1 = 1;
+        u16_doBlink = 0;
       }
       break;
 
     case STATE_PRESSED3:
+      LED1 = 1;
       if (PB_RELEASED()) {
-        // Turn the LED off when moving to STATE_RELEASED1.
         e_state = STATE_RELEASED1;
-        LED1 = 0;
       }
       break;
 
@@ -152,42 +216,23 @@ void update_state(void) {
   print_state(e_state);
 }
 
-// Interrupt Service Routine for Timer3
-void _ISR _T3Interrupt(void) {
-  // Clear the interrupt flag.
-  _T3IF = 0;
-  // Inform our state machine of an event.
-  update_state();
-}
 
-
-#define ISR_PERIOD     15                // in ms
-void  configTimer3(void) {
-  //ensure that Timer2,3 configured as separate timers.
-  T2CONbits.T32 = 0;     // 32-bit mode off
-  //T3CON set like this for documentation purposes.
-  //could be replaced by T3CON = 0x0020
-  T3CON = T3_OFF |T3_IDLE_CON | T3_GATE_OFF
-          | T3_SOURCE_INT
-          | T3_PS_1_64 ;  //results in T3CON= 0x0020
-  PR3 = msToU16Ticks(ISR_PERIOD, getTimerPrescale(T3CONbits)) - 1;
-  TMR3  = 0;                       //clear timer3 value
-  _T3IF = 0;                       //clear interrupt flag
-  _T3IP = 1;                       //choose a priority
-  _T3IE = 1;                       //enable the interrupt
-  T3CONbits.TON = 1;               //turn on the timer
-}
-
-int main (void) {
+// Main
+// ====
+int main(void) {
   configBasic(HELLO_MSG);
-  // GPIO config.
   config_pb();
   config_sw();
-  CONFIG_LED1();       //config the LED
+  CONFIG_LED1();
   configTimer3();
 
-  // Idle when the ISR doesn't run to reduce power consumption.
   while (1) {
-    IDLE();
+    if (u16_doBlink) {
+      u16_led_toggles++;
+      DELAY_MS(250);
+      LED1 = !LED1;
+      printf("toggles = %d\n", u16_led_toggles);
+    }
+    doHeartbeat();
   }
 }

@@ -106,15 +106,15 @@ void __esos_configUART1(uint32_t u32_baudRate) {
   //Pin mapping macros in pic24_ports.h
 
 #if (HARDWARE_PLATFORM == EMBEDDED_C1)
-	CONFIG_RB12_AS_DIG_INPUT();
-	CONFIG_U1RX_TO_RP(RB12_RP);	// U1RX <- RB12
-	CONFIG_RC8_AS_DIG_OUTPUT();
-	CONFIG_U1TX_TO_RP(RC8_RP);	// U1TX -> RC8
+  CONFIG_RB12_AS_DIG_INPUT();
+  CONFIG_U1RX_TO_RP(RB12_RP); // U1RX <- RB12
+  CONFIG_RC8_AS_DIG_OUTPUT();
+  CONFIG_U1TX_TO_RP(RC8_RP);  // U1TX -> RC8
 #else
   CONFIG_RB10_AS_DIG_INPUT();
-  CONFIG_U1RX_TO_RP(RB10_RP);	//U1RX <- RP10
+  CONFIG_U1RX_TO_RP(RB10_RP); //U1RX <- RP10
   CONFIG_RB11_AS_DIG_OUTPUT();
-  CONFIG_U1TX_TO_RP(RB11_RP);	//U1TX -> RP11
+  CONFIG_U1TX_TO_RP(RB11_RP); //U1TX -> RP11
 #endif
 
   //UART macros defined in "pic24_uart.h"
@@ -167,9 +167,9 @@ void __esos_hw_InitCommSystem(void) {
  *
  * Output:          the maximum number of uint8_ts that the comm system will
  *                  receive in a single buffer transfer from the host -- OR --
- *					in the case of single uint8_t xfers (like RS232), the maximum
- *					number of uint8_ts that can be RX-ed before the buffers
- *					overflow
+ *          in the case of single uint8_t xfers (like RS232), the maximum
+ *          number of uint8_ts that can be RX-ed before the buffers
+ *          overflow
  *
  * Side Effects:    None
  *
@@ -180,7 +180,7 @@ void __esos_hw_InitCommSystem(void) {
  *                  it chooses to be.
  *
  *****************************************************************************/
-uint8_t	esos_GetCommSystemMaxInDataLen(void) {
+uint8_t esos_GetCommSystemMaxInDataLen(void) {
   return ESOS_SERIAL_OUT_EP_SIZE;
 } //end esos_GetCommSystemMaxInDataLen()
 
@@ -193,8 +193,8 @@ uint8_t	esos_GetCommSystemMaxInDataLen(void) {
  *
  * Output:          the maximum number of uint8_ts that the comm system will
  *                  transfer back to the host in a single buffer  -- OR --
- *					in the case of singe uint8_t xfers (like RS232), the maximum
- *					number of uint8_ts in the output buffer before overflow
+ *          in the case of singe uint8_t xfers (like RS232), the maximum
+ *          number of uint8_ts in the output buffer before overflow
  *
  * Side Effects:    None
  *

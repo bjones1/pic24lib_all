@@ -38,17 +38,17 @@ First, make sure you've read the `getting started guide <http://www.reesemicro.c
 
 These examples have minimal reliance on the libraries shipped with the PIC24 compiler, and instead use libraries that have been developed by the authors. The new libraries are meant to be more friendly to programmers who are new to the PIC24 Family, as this material and code examples are used in an introductory microprocessors class at Mississippi State University.
 
-Most of the examples are meant for a reference PIC24E128GP202 system. The projects all have a custom linker file intended for use with a serial bootloader - if you want generated hex files to be compatible with the PICKIT2 programmer then delete the linker file from the MPLAB project.
+Most of the examples are meant for a reference dsPIC33EP128GP502 system. The projects all have a custom linker file intended for use with a serial bootloader - if you want generated hex files to be compatible with the PICKit 3 programmer then delete the linker file from the MPLAB X project.
 
 If you have a different PIC24 Family member, simply change the target device in the MPLAB to that device. When you compile the files, you will get warnings that the internal oscillator with PLL is being used, and that the default configuration bit settings are being used.
 
-To change clock options, see the documentation in common/pic24_clockfreq.c and include/pic24_clockfreq.h  To change config bits, see the documentation on common/pic24_configbits.c
+To change clock options, see the documentation in `common/pic24_clockfreq.c <../pic24__clockfreq_8c.html>`_ and `include/pic24_clockfreq.h <../pic24__clockfreq_8h.html>`_  To change config bits, see the documentation on `common/pic24_configbits.c <../pic24__configbits_8c.html>`_
 
-All of the examples assume a serial port using UART1; our reference system uses pins RP10 (RX) and RP11 (TX) with a default baud rate of 230,400 baud. To change these assignments, edit the function called configUART1() in common/pic24_uart.c.  To change the default baudrate, edit the ``#define DEFAULT_BAUDRATE`` in include/pic24_libconfig.h (this file includes all of the macros for configuring user-defineable behavior for library functions).
+All of the examples assume a serial port using UART1; our reference system uses pins RP10 (RX) and RP11 (TX) with a default baud rate of 230,400 baud. To change these assignments, edit the function called configUART1() in `common/pic24_uart.c <../pic24__uart_8h.html>`_.  To change the default baudrate, edit the ``#define DEFAULT_BAUDRATE`` in `include/pic24_libconfig.h <../pic24__libconfig_8h.html>`_ (this file includes all of the macros for configuring user-defineable behavior for library functions).
 
-If the end-of-line (EOL) output behavior is not correct for the serial terminal program that you are using (i.e, printed new lines do not return to the left edge of the screen), then you can change this by selecting an appropriate value for the ``SERIAL_EOL_DEFAULT`` macro contained in include/pic24_libconfig.h. By default, the library signals an EOL using a line feed only.
+If the end-of-line (EOL) output behavior is not correct for the serial terminal program that you are using (i.e, printed new lines do not return to the left edge of the screen), then you can change this by selecting an appropriate value for the ``SERIAL_EOL_DEFAULT`` macro contained in `include/pic24_libconfig.h`_. By default, the library signals an EOL using a line feed only.
 
-Our examples also assume an LED tied to port RB15 - this is used as a 'heartbeat' and is blinked by our examples when waiting for input. You can reassign this to another port (see \ref HB_LED) or remove it entirely (see \ref USE_HEARTBEAT) by editing pic24_libconfig.h.
+Our examples also assume an LED tied to port RB15 - this is used as a 'heartbeat' and is blinked by our examples when waiting for input. You can reassign this to another port (see ``HB_LED``) or remove it entirely (see ``USE_HEARTBEAT``) by editing `include/pic24_libconfig.h`_.
 
 The best project to start with is :doc:`reset.c <chap08/reset.c>` - this just assumes basic serial port functionality.
 
@@ -69,6 +69,41 @@ Chapter 4 - Unsigned 8/16-bit arithmetic
 
    chap04/nsc.s
 
+Chapter 6 - Pointers and subroutines
+------------------------------------
+.. toctree::
+   :titlesonly:
+
+   chap06/countOnes.c
+   chap06/countOnes_assem.s
+   chap06/fib.c
+   chap06/fib_register.s
+   chap06/fib_stack.s
+   chap06/psv_intarray.s
+   chap06/psv_intarray_24E33E.s
+   chap06/psv_upcase.s
+   chap06/psv_upcase_24E33E.s
+   chap06/swapU32.s
+   chap06/upcase.s
+   chap06/upcase_cversion.c
+
+Chapter 7 - Advanced assembly language: higher math
+---------------------------------------------------
+.. toctree::
+   :titlesonly:
+
+   chap07/aschex2byte.c
+   chap07/aschex2byte_asm.s
+   chap07/bcd_test.s
+   chap07/byte2aschex.c
+   chap07/byte2aschex_asm.s
+   chap07/div_asm_tests.s
+   chap07/float_bench.c
+   chap07/float_encoding.s
+   chap07/mult_32x32_uns.s
+   chap07/mult_asm_tests.s
+   chap07/sat_add.s
+
 Chapter 8 - initial startup, parallel port examples
 ---------------------------------------------------
 .. toctree::
@@ -82,6 +117,7 @@ Chapter 8 - initial startup, parallel port examples
    chap08/ledtoggle.c
    chap08/ledsw1.c
    chap08/lcd4bit.c
+   chap08/lcd4bit_4lines.c
 
 Chapter 9: interrupts, simple timer usage
 -----------------------------------------
@@ -96,7 +132,9 @@ Chapter 9: interrupts, simple timer usage
    chap09/squarewave.c
    chap09/filt_test.c
    chap09/softfilt_test.c
-   chap09/ledsw1_timer2.c
+   chap09/ledsw1_sampling.c
+   chap09/ledsw1_cn.c
+   chap09/ledsw1_cn_revised.c
    chap09/rot_enc.c
    chap09/keypad.c
    chap09/rot_enc_trace.c

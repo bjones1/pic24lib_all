@@ -2,8 +2,8 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>pwm_dac_test</name>
-            <creation-uuid>8ce6fbbe-740f-4a9b-8527-44ea30a9cb84</creation-uuid>
+            <name>timer1_sosc</name>
+            <creation-uuid>1466f57b-deb8-459d-bebe-df472b9cef64</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>

@@ -118,26 +118,29 @@ void toggleHeartbeat(void) {
  *  \ref printResetCause.
  */
 static _PERSISTENT const char* sz_lastError;
+
 /** Persistent storage for a timeout error, to be reported
  *  if a watchdog reset occurs.
  */
 _PERSISTENT const char* sz_lastTimeoutError;
 
-#ifndef __PIC24F__
 /** Store a copy of the INTTREG register as a bitfield.
- *  This is not defined for the PIC24F, so work around
- *  with an \#ifdef. This is _PERSISTENT so that it
+ *  This is not defined for all PICs, so work around
+ *  with an \#ifdef of ILR, one of the bitfields in this register.
+ *  This is _PERSISTENT so that it
  *  survives the resets which occurs immeidately after
  *  the default interrupt handler \ref _DefaultInterrupt
  *  copies INTTREG to this variable.
  */
+#ifdef _ILR
 static _PERSISTENT INTTREGBITS INTTREGBITS_last;
+
 /** Make the \ref INTTREGBITS_last also accessible as
  *  a word. This is like <code>uint16_t u16_INTTREGlast</code>
  *  except that INTTREGBITS_last and u16_INTTREGlast
  *  refer to the same data.
  */
-#define u16_INTTREGlast BITS2WORD(INTTREGBITS_last)
+# define u16_INTTREGlast BITS2WORD(INTTREGBITS_last)
 #else
 static uint16_t u16_INTTREGlast;
 #endif
@@ -148,7 +151,7 @@ static uint16_t u16_INTTREGlast;
  *  print the error.
  */
 void _ISR _DefaultInterrupt(void) {
-#ifndef __PIC24F__
+#ifdef _ILR
   // Record the interrupt vector and priority of the
   // unhandled interrupt.
   u16_INTTREGlast = INTTREG;
@@ -262,13 +265,11 @@ void checkDeviceAndRevision(void) {
 }
 
 /** Reports the oscillator currently in use to the default
- *  serial port.
+ *  serial port. See \ref FNOSC_SEL for a table of which chips support which
+ *  clocks.
  */
 void checkOscOption(void) {
-  uint8_t u8_x;
-
-  u8_x = _COSC;   // Get current oscillator setting
-  switch (u8_x) {
+  switch (_COSC) {
     case 0:
       outString("Fast RC Osc\n");
       break;
@@ -295,8 +296,13 @@ void checkOscOption(void) {
       outString("Fast RC Osc/N\n");
       break;
 #elif defined(__PIC24F__) || defined(__PIC24FK__)
+# ifdef __PIC24FK__
+    case 6:
+      outString("Low power fast RC Osc with Postscaler\n");
+      break;
+# endif
     case 7 :
-      outString("Fast RC Osc with Postscale");
+      outString("Fast RC Osc with Postscaler\n");
       break;
 #else
 # error "Unknown processor."
@@ -389,7 +395,7 @@ void printResetCause(void) {
     outString("Error trapped: ");
     outString(sz_lastError);
     if (u16_INTTREGlast != 0) {
-#if defined(__PIC24H__) || defined(__dsPIC33F__)  || defined(__PIC24E__) || defined(__dsPIC33E__)
+#ifdef _ILR
       outString("Priority: ");
       outUint8(INTTREGBITS_last.ILR);
       outString(", Vector number: ");

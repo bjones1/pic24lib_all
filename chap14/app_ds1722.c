@@ -195,11 +195,11 @@ ESOS_USER_TASK(read_ds1722) {
     au16_data[0]= 0x01;
     au16_data[1]= 0x00;
     au16_data[2]= 0x00;
-	ESOS_TASK_WAIT_ON_AVAILABLE_SPI();
+    ESOS_TASK_WAIT_ON_AVAILABLE_SPI();
     SLAVE_ENABLE();
     ESOS_TASK_WAIT_ON_XFERNSPI1(&au16_data[0],&au16_data[0],3);
     SLAVE_DISABLE();
-	ESOS_TASK_SIGNAL_AVAILABLE_SPI();
+    ESOS_TASK_SIGNAL_AVAILABLE_SPI();
     u16_hi = au16_data[2];
     u16_lo = au16_data[1];
 #endif

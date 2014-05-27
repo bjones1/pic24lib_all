@@ -31,23 +31,24 @@
 #include "pic24_all.h"
 
 
-/// LED1
+// LED1
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
-#define LED1  _LATB14     //led1 state
+#define LED1  (_LATB14)     //led1 state
 
-//Interrupt Service Routine for Timer3
-void _ISRFAST _T3Interrupt (void) {
+// Interrupt Service Routine for Timer3
+void _ISR _T3Interrupt(void) {
   LED1 = !LED1; //toggle the LED
   _T3IF = 0;    //clear the timer interrupt bit
 }
 
-#define ISR_PERIOD     150      // in ms
+// in ms
+#define ISR_PERIOD (150)
 
 void  configTimer3(void) {
-  //ensure that Timer2,3 configured as separate timers.
+  // Ensure that Timer2,3 configured as separate timers.
   T2CONbits.T32 = 0;     // 32-bit mode off
-  //T3CON set like this for documentation purposes.
-  //could be replaced by T3CON = 0x0030
+  // T3CON set like this for documentation purposes.
+  // Could be replaced by T3CON = 0x0030
   T3CON = T3_OFF | T3_IDLE_CON | T3_GATE_OFF
           | T3_SOURCE_INT
           | T3_PS_1_256 ;  //results in T3CON= 0x0030
@@ -59,7 +60,7 @@ void  configTimer3(void) {
   T3CONbits.TON = 1;               //turn on the timer
 }
 
-int main (void) {
+int main(void) {
   configBasic(HELLO_MSG);
   /** GPIO config ***************************/
   CONFIG_LED1();       //config the LED
@@ -67,8 +68,8 @@ int main (void) {
   /** Config the Timer, use Timer3***********/
   configTimer3();
   while (1) {
-    //enter idle mode while waiting for timer to go off
-    //Timer interrupt will wake us from idle mode
+    // Enter idle mode while waiting for timer to go off
+    // Timer interrupt will wake us from idle mode
     IDLE();  //macro for  __asm__ volatile ("pwrsav #1")
   }
   // End program

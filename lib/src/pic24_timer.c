@@ -51,10 +51,10 @@
  *          milliseconds.
  */
 uint16_t msToU16Ticks(uint16_t u16_ms, uint16_t u16_pre) {
-// Use a float internally for precision purposes to accomodate wide range of FCY, u16_pre
+  // Use a float internally for precision purposes to accomodate wide range of FCY, u16_pre
   float f_ticks = FCY;
   uint16_t u16_ticks;
-  f_ticks = (f_ticks*u16_ms)/u16_pre/1000L;
+  f_ticks = (f_ticks*u16_ms)/u16_pre/1E3;
   ASSERT(f_ticks < 65535.5);
   u16_ticks = roundFloatToUint16(f_ticks);  //back to integer
   return u16_ticks;
@@ -72,7 +72,7 @@ uint16_t usToU16Ticks(uint16_t u16_us, uint16_t u16_pre) {
   // Use a float internally for precision purposes to accomodate wide range of FCY, u16_pre
   float f_ticks = FCY;
   uint16_t u16_ticks;
-  f_ticks = (f_ticks*u16_us)/u16_pre/1000000L;
+  f_ticks = (f_ticks*u16_us)/u16_pre/1E6;
   ASSERT(f_ticks < 65535.5);
   u16_ticks = roundFloatToUint16(f_ticks);  //back to integer
   return u16_ticks;
@@ -88,10 +88,10 @@ uint16_t usToU16Ticks(uint16_t u16_us, uint16_t u16_pre) {
  *          microseconds.
  */
 uint32_t usToU32Ticks(uint32_t u32_us, uint16_t u16_pre) {
-// Use a float internally for precision purposes to accomodate wide range of FCY, u16_pre
+  // Use a float internally for precision purposes to accomodate wide range of FCY, u16_pre.
   float f_ticks = FCY;
   uint32_t u32_ticks;
-  f_ticks = (f_ticks*u32_us)/u16_pre/1000000L;
+  f_ticks = (f_ticks*u32_us)/u16_pre/1E6;
   u32_ticks = roundFloatToUint32(f_ticks);  //back to integer
   return u32_ticks;
 }
@@ -103,15 +103,15 @@ uint32_t usToU32Ticks(uint32_t u32_us, uint16_t u16_pre) {
  *  \param u16_tmrPre Timer prescale value
  *  \return time in milliseconds
  */
-uint32_t ticksToMs (uint32_t u32_ticks, uint16_t u16_tmrPre) {
-  //because of the wide range of the numbers, use a float for precision
+uint32_t ticksToMs(uint32_t u32_ticks, uint16_t u16_tmrPre) {
+  // Because of the wide range of the numbers, use a float for precision.
   float f_ticks;
   uint32_t u32_timeMs;
 
   f_ticks = u32_ticks;   //convert to float
-  f_ticks = ((f_ticks * u16_tmrPre)/FCY) * 1000;
+  f_ticks = ((f_ticks*u16_tmrPre)/FCY)*1E3;
   u32_timeMs = roundFloatToUint32(f_ticks);  //back to int32_t
-  return (u32_timeMs);
+  return u32_timeMs;
 }
 
 
@@ -121,14 +121,14 @@ uint32_t ticksToMs (uint32_t u32_ticks, uint16_t u16_tmrPre) {
  *  \return time in microseconds
  */
 uint32_t ticksToUs(uint32_t u32_ticks, uint16_t u16_tmrPre) {
-  //because of the wide range of the numbers, use a float for precision
+  // Because of the wide range of the numbers, use a float for precision.
   float f_ticks;
   uint32_t u32_timeUs;
 
   f_ticks = u32_ticks;   //convert to float
-  f_ticks = ((f_ticks * u16_tmrPre)/FCY) * 1000000L;
+  f_ticks = ((f_ticks*u16_tmrPre)/FCY)*1E6;
   u32_timeUs = roundFloatToUint32(f_ticks);  //back to int32_t
-  return (u32_timeUs);
+  return u32_timeUs;
 }
 
 /** Converts timer ticks to nanoseconds
@@ -142,9 +142,9 @@ uint32_t ticksToNs(uint32_t u32_ticks, uint16_t u16_tmrPre) {
   uint32_t u32_timeNs;
 
   f_ticks = u32_ticks;   //convert to float
-  f_ticks = ((f_ticks * u16_tmrPre)/FCY) * 1000000000L;
+  f_ticks = ((f_ticks*u16_tmrPre)/FCY)*1E9;
   u32_timeNs = roundFloatToUint32(f_ticks);  //back to int32_t
-  return (u32_timeNs);
+  return u32_timeNs;
 }
 #endif // #ifndef _NOFLOAT
 
@@ -156,7 +156,7 @@ uint32_t ticksToNs(uint32_t u32_ticks, uint16_t u16_tmrPre) {
  *  \return Prescale value.
  */
 uint16_t getTimerPrescaleBits(uint8_t u8_TCKPS) {
-  uint16_t au16_prescaleValue[] = { 1, 8, 64, 256 };
+  const uint16_t au16_prescaleValue[] = { 1, 8, 64, 256 };
   ASSERT(u8_TCKPS <= 3);
   return au16_prescaleValue[u8_TCKPS];
 }
@@ -180,7 +180,7 @@ uint32_t computeDeltaTicksLong(uint16_t u16_start, uint16_t u16_end, uint16_t u1
     //now add in the delta due to the last capture
     u32_deltaTicks += u16_end;
   }
-  return (u32_deltaTicks);
+  return u32_deltaTicks;
 }
 
 /** Computes delta ticks between two Timer register captures
@@ -199,5 +199,5 @@ uint16_t computeDeltaTicks(uint16_t u16_start, uint16_t u16_end, uint16_t u16_tm
     //now add in the delta from overflow to u16_end
     u16_deltaTicks += u16_end;
   }
-  return (u16_deltaTicks);
+  return u16_deltaTicks;
 }

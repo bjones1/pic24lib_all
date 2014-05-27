@@ -61,8 +61,8 @@ typedef union _UINT8 {
   /** uint8 viewed as an uint8 */
   uint8_t u8;
   struct {
-	unsigned LSN: 4; /** Least significant nibble of the uint8 */
-	unsigned MSN: 4;    /** Most signficant nibble of the uint8 */
+    unsigned LSN: 4; /** Least significant nibble of the uint8 */
+    unsigned MSN: 4;    /** Most signficant nibble of the uint8 */
   };
   struct {
     /** bit 0 (the LSb) of the uint8 */
@@ -125,10 +125,10 @@ typedef union _UINT16 {
     uint8_t u8Msb;
   };
   struct {
-      unsigned LSBLSN: 4;
-      unsigned LSBMSN: 4;
-      unsigned MSBLSN: 4;
-      unsigned MSBMSN: 4;
+    unsigned LSBLSN: 4;
+    unsigned LSBMSN: 4;
+    unsigned MSBLSN: 4;
+    unsigned MSBMSN: 4;
   };
   struct {
     /** The uint16 viewed as an array of two (2) uint8s */
@@ -411,14 +411,14 @@ typedef enum _BOOL {
 /** another way to say \ref FALSE */
 #define FAIL            FALSE
 
-#define ON				TRUE
-#define OFF				FALSE
+#define ON        TRUE
+#define OFF       FALSE
 
-#define HIGH			TRUE
-#define LOW				FALSE
+#define HIGH      TRUE
+#define LOW       FALSE
 
-#define ENABLE			TRUE
-#define DISABLE			FALSE
+#define ENABLE      TRUE
+#define DISABLE     FALSE
 
 /** An uninitialized pointer */
 #define NULLPTR         0

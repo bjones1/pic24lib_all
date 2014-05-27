@@ -23,34 +23,111 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
-// *******************************************************************
-// ledflash_timer.c - uses a periodic timer interrupt to flash an LED.
-// *******************************************************************
-// Demonstrates use of a periodic interrupt to flash an LED. Timer3 is configured for a 150 ms interrupt to flash an LED on RB14.
+// *************************************************************************************
+// ledtoggle_timer.c - toggle an LED using a periodic interrupt to poll the switch input
+// *************************************************************************************
+// Demonstrates the use of a period interrupt to sample a switch input, removes the need for debounce delays.
 
 #include "pic24_all.h"
 
-
-/// LED1
+// LED1 configuration and access
+// =============================
 #define CONFIG_LED1() CONFIG_RB14_AS_DIG_OUTPUT()
-#define LED1  _LATB14     //led1 state
+#define LED1 (_LATB14)     //led1 state
 
-//Interrupt Service Routine for Timer3
-void _ISRFAST _T3Interrupt (void) {
-  LED1 = !LED1; //toggle the LED
-  _T3IF = 0;    //clear the timer interrupt bit
+// Pushbutton configuration and access
+// ===================================
+void config_pb()  {
+#if (HARDWARE_PLATFORM == EMBEDDED_C1)
+  CONFIG_RB7_AS_DIG_INPUT();
+  ENABLE_RB7_PULLUP();
+#else
+  CONFIG_RB13_AS_DIG_INPUT();
+  ENABLE_RB13_PULLUP();
+#endif
+  // Give the pullup some time to take effect.
+  DELAY_US(1);
 }
 
-#define ISR_PERIOD     150      // in ms
+#if (HARDWARE_PLATFORM == EMBEDDED_C1)
+# define PB_PRESSED()   (_RB7 == 0)
+# define PB_RELEASED()  (_RB7 == 1)
+#else
+# define PB_PRESSED()   (_RB13 == 0)
+# define PB_RELEASED()  (_RB13 == 1)
+#endif
 
+// State machine
+// =============
+// First, define the states, along with a human-readable version.
+
+typedef enum  {
+  STATE_PRESSED,
+  STATE_RELEASED,
+} state_t;
+
+const char* apsz_state_names[] = {
+  "STATE_PRESSED",
+  "STATE_RELEASED",
+};
+
+// Provide a convenient function to print out the state.
+void print_state(state_t e_state) {
+  // Force an initial print of the state
+  static state_t e_last_state = 0xFFFF;
+
+  // Only print if the state changes.
+  if (e_state != e_last_state) {
+    e_last_state = e_state;
+    // Verify that the state has a string representation before printing it.
+    ASSERT(e_state <= N_ELEMENTS(apsz_state_names));
+    outString(apsz_state_names[e_state]);
+    outChar('\n');
+  }
+}
+
+// This function defines the state machine.
+void update_state(void) {
+  static state_t e_state = STATE_RELEASED;
+
+  switch (e_state) {
+    case STATE_RELEASED:
+      if (PB_PRESSED()) {
+        e_state = STATE_PRESSED;
+        LED1 = !LED1;
+      }
+      break;
+
+    case STATE_PRESSED:
+      if (PB_RELEASED()) {
+        e_state = STATE_RELEASED;
+      }
+      break;
+
+    default:
+      ASSERT(0);
+  }
+
+  print_state(e_state);
+}
+
+
+//Interrupt Service Routine for Timer3
+void _ISR _T3Interrupt(void) {
+  _T3IF = 0;                 //clear the timer interrupt bit
+  update_state();
+}
+
+// in ms
+#define ISR_PERIOD (15)
 void  configTimer3(void) {
   //ensure that Timer2,3 configured as separate timers.
   T2CONbits.T32 = 0;     // 32-bit mode off
   //T3CON set like this for documentation purposes.
-  //could be replaced by T3CON = 0x0030
-  T3CON = T3_OFF | T3_IDLE_CON | T3_GATE_OFF
+  //could be replaced by T3CON = 0x0020
+  T3CON = T3_OFF |T3_IDLE_CON | T3_GATE_OFF
           | T3_SOURCE_INT
-          | T3_PS_1_256 ;  //results in T3CON= 0x0030
+          | T3_PS_1_64 ;  //results in T3CON= 0x0020
   PR3 = msToU16Ticks (ISR_PERIOD, getTimerPrescale(T3CONbits)) - 1;
   TMR3  = 0;                       //clear timer3 value
   _T3IF = 0;                       //clear interrupt flag
@@ -59,18 +136,22 @@ void  configTimer3(void) {
   T3CONbits.TON = 1;               //turn on the timer
 }
 
+// main
+// ====
+// This code initializes the system, then runs the state machine above when
+// the pushbutton's value changes.
 int main (void) {
+  // Configure the hardware.
   configBasic(HELLO_MSG);
-  /** GPIO config ***************************/
-  CONFIG_LED1();       //config the LED
-  LED1 = 1;
-  /** Config the Timer, use Timer3***********/
+  config_pb();
+  CONFIG_LED1();
   configTimer3();
+
+  // Initialize the state machine's extended state to its starting value.
+  LED1 = 0;
+
   while (1) {
-    //enter idle mode while waiting for timer to go off
-    //Timer interrupt will wake us from idle mode
-    IDLE();  //macro for  __asm__ volatile ("pwrsav #1")
+    // Blink the heartbeat LED to confirm that the program is running.
+    doHeartbeat();
   }
-  // End program
-  return 0;
 }

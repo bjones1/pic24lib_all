@@ -42,8 +42,8 @@
  */
 
 
-#ifndef		ESOS_CB_H
-#define	ESOS_CB_H
+#ifndef   ESOS_CB_H
+#define ESOS_CB_H
 
 /* I N C L U D E S **********************************************************/
 #include    "esos.h"
@@ -57,28 +57,28 @@
 * to implement ESOS task mailboxes
 **/
 typedef struct __stCIRCBUFF {
-	uint16_t				  u16_Length;												// maximum number of elements
-	uint16_t					u16_Start;												// index of oldest element
-	uint16_t					u16_Count;												// number of elements in use  
-	uint8_t*					pau8_Data;												// ptr to data area (SHOULD THIS BE A void* ?)
+  uint16_t          u16_Length;                       // maximum number of elements
+  uint16_t          u16_Start;                        // index of oldest element
+  uint16_t          u16_Count;                        // number of elements in use
+  uint8_t*          pau8_Data;                        // ptr to data area (SHOULD THIS BE A void* ?)
 } CBUFFER;
 
-typedef CBUFFER*		CBUFF_HANDLE;
+typedef CBUFFER*    CBUFF_HANDLE;
 
 /* M A C R O S ************************************************************/
-#define __ESOS_CB_FLUSH(pstCB)															(pstCB)->u16_Count = 0
-#define __ESOS_CB_IS_EMPTY(pstCB)														((pstCB)->u16_Count == 0)
-#define __ESOS_CB_IS_NOT_EMPTY(pstCB)												((pstCB)->u16_Count != 0)
-#define __ESOS_CB_IS_FULL(pstCB)														((pstCB)->u16_Length == (pstCB)->u16_Count)
-#define __ESOS_CB_GET_LENGTH(pstCB)   											((pstCB)->u16_Length)
-#define __ESOS_CB_GET_COUNT(pstCB)   												((pstCB)->u16_Count)
-#define __ESOS_CB_GET_AVAILABLE(pstCB)											(__ESOS_CB_GET_LENGTH(pstCB)-__ESOS_CB_GET_COUNT(pstCB))
-#define __ESOS_CB_IS_AVAILABLE_AT_LEAST(pstCB, x)		   			(__ESOS_CB_GOT_AVAILABLE((pstCB))>=(x))
-#define __ESOS_CB_IS_AVAILABLE_EXACTLY(pstCB, x)						(__ESOS_CB_GOT_AVAILABLE((pstCB))==(x))
+#define __ESOS_CB_FLUSH(pstCB)                              (pstCB)->u16_Count = 0
+#define __ESOS_CB_IS_EMPTY(pstCB)                           ((pstCB)->u16_Count == 0)
+#define __ESOS_CB_IS_NOT_EMPTY(pstCB)                       ((pstCB)->u16_Count != 0)
+#define __ESOS_CB_IS_FULL(pstCB)                            ((pstCB)->u16_Length == (pstCB)->u16_Count)
+#define __ESOS_CB_GET_LENGTH(pstCB)                         ((pstCB)->u16_Length)
+#define __ESOS_CB_GET_COUNT(pstCB)                          ((pstCB)->u16_Count)
+#define __ESOS_CB_GET_AVAILABLE(pstCB)                      (__ESOS_CB_GET_LENGTH(pstCB)-__ESOS_CB_GET_COUNT(pstCB))
+#define __ESOS_CB_IS_AVAILABLE_AT_LEAST(pstCB, x)           (__ESOS_CB_GOT_AVAILABLE((pstCB))>=(x))
+#define __ESOS_CB_IS_AVAILABLE_EXACTLY(pstCB, x)            (__ESOS_CB_GOT_AVAILABLE((pstCB))==(x))
 
-#define ESOS_TASK_WAIT_WHILE_CB_IS_EMPTY(pstCB)										ESOS_TASK_WAIT_WHILE(__ESOS_CB_IS_EMPTY((pstCB)))
-#define ESOS_TASK_WAIT_WHILE_CB_IS_FULL(pstCB)										ESOS_TASK_WAIT_WHILE(__ESOS_CB_IS_FULL((pstCB)))
-#define ESOS_TASK_WAIT_UNTIL_CB_HAS_AVAILABLE_AT_LEAST(pstCB,x)		ESOS_TASK_WAIT_UNTIL(__ESOS_CB_IS_AVAILABLE_AT_LEAST((pstCB),x))
+#define ESOS_TASK_WAIT_WHILE_CB_IS_EMPTY(pstCB)                   ESOS_TASK_WAIT_WHILE(__ESOS_CB_IS_EMPTY((pstCB)))
+#define ESOS_TASK_WAIT_WHILE_CB_IS_FULL(pstCB)                    ESOS_TASK_WAIT_WHILE(__ESOS_CB_IS_FULL((pstCB)))
+#define ESOS_TASK_WAIT_UNTIL_CB_HAS_AVAILABLE_AT_LEAST(pstCB,x)   ESOS_TASK_WAIT_UNTIL(__ESOS_CB_IS_AVAILABLE_AT_LEAST((pstCB),x))
 
 
 /* E X T E R N S ************************************************************/
@@ -113,4 +113,4 @@ void __esos_SendMailUint8(ESOS_TASK_HANDLE pst_Task, MAILBOX* pst_Mailbox, uint8
 
 /** @} */
 
-#endif		// ESOS_CB_H
+#endif    // ESOS_CB_H

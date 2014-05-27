@@ -65,20 +65,36 @@ void checkRxErrorSPI1() {
  */
 
 uint16_t ioMasterSPI1(uint16_t u16_c) {
+
   checkRxErrorSPI1();
+#if defined(_SRXMPT) && defined(_SPIBEN)
+  //enhanced SPI module, need to handle possibility of enhanced SPI mode
+  if (!SPI1CON2bits.SPIBEN) {//check enhanced buffer mode bit
+    //legacy mode
+    _SPI1IF = 0;    //clear interrupt flag since we are about to write new value
+    SPI1BUF = u16_c;
+    while (!_SPI1IF) { //wait for operation to complete
+      doHeartbeat();
+    }
+  } else {
+    //enhanced buffer mode
+    SPI1BUF = u16_c;
+    while (SPI1STATbits.SRXMPT) { //this flag is zero when RX buffer has data
+      doHeartbeat();
+    }
+  }
+#else
+  //legacy mode
   _SPI1IF = 0;    //clear interrupt flag since we are about to write new value
   SPI1BUF = u16_c;
   while (!_SPI1IF) { //wait for operation to complete
     doHeartbeat();
-  };
+  }
+#endif
   return(SPI1BUF);
 }
 
 #endif // #if (NUM_SPI_MODS >= 1)
-
-
-
-
 
 
 
@@ -151,20 +167,36 @@ void checkRxErrorSPI2() {
  */
 
 uint16_t ioMasterSPI2(uint16_t u16_c) {
+
   checkRxErrorSPI2();
+#if defined(_SRXMPT) && defined(_SPIBEN)
+  //enhanced SPI module, need to handle possibility of enhanced SPI mode
+  if (!SPI2CON2bits.SPIBEN) {//check enhanced buffer mode bit
+    //legacy mode
+    _SPI2IF = 0;    //clear interrupt flag since we are about to write new value
+    SPI2BUF = u16_c;
+    while (!_SPI2IF) { //wait for operation to complete
+      doHeartbeat();
+    }
+  } else {
+    //enhanced buffer mode
+    SPI2BUF = u16_c;
+    while (SPI2STATbits.SRXMPT) { //this flag is zero when RX buffer has data
+      doHeartbeat();
+    }
+  }
+#else
+  //legacy mode
   _SPI2IF = 0;    //clear interrupt flag since we are about to write new value
   SPI2BUF = u16_c;
   while (!_SPI2IF) { //wait for operation to complete
     doHeartbeat();
-  };
+  }
+#endif
   return(SPI2BUF);
 }
 
 #endif // #if (NUM_SPI_MODS >= 2)
-
-
-
-
 
 
 

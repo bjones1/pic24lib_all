@@ -197,9 +197,9 @@ void __esos_hw_InitCommSystem(void) {
  *
  * Output:          the maximum number of uint8_ts that the comm system will
  *                  receive in a single buffer transfer from the host -- OR --
- *					in the case of single uint8_t xfers (like RS232), the maximum
- *					number of uint8_ts that can be RX-ed before the buffers
- *					overflow
+ *          in the case of single uint8_t xfers (like RS232), the maximum
+ *          number of uint8_ts that can be RX-ed before the buffers
+ *          overflow
  *
  * Side Effects:    None
  *
@@ -210,7 +210,7 @@ void __esos_hw_InitCommSystem(void) {
  *                  it chooses to be.
  *
  *****************************************************************************/
-uint8_t	esos_GetCommSystemMaxInDataLen(void) {
+uint8_t esos_GetCommSystemMaxInDataLen(void) {
   return ESOS_SERIAL_OUT_EP_SIZE;
 } //end esos_GetCommSystemMaxInDataLen()
 
@@ -223,8 +223,8 @@ uint8_t	esos_GetCommSystemMaxInDataLen(void) {
  *
  * Output:          the maximum number of uint8_ts that the comm system will
  *                  transfer back to the host in a single buffer  -- OR --
- *					in the case of singe uint8_t xfers (like RS232), the maximum
- *					number of uint8_ts in the output buffer before overflow
+ *          in the case of singe uint8_t xfers (like RS232), the maximum
+ *          number of uint8_ts in the output buffer before overflow
  *
  * Side Effects:    None
  *

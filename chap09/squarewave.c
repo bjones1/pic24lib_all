@@ -29,40 +29,48 @@
 
 #include "pic24_all.h"
 
-#define WAVEOUT _LATB2           //state
-inline void CONFIG_WAVEOUT() {
-  CONFIG_RB2_AS_DIG_OUTPUT();     //use RB2 for output
+// Output the square wave on RB2.
+#define WAVEOUT (_LATB2)
+#define CONFIG_WAVEOUT() CONFIG_RB2_AS_DIG_OUTPUT()
+
+// Interrupt Service Routine for Timer2.
+void _ISR _T2Interrupt(void) {
+  // Toggle the output pin to generate a square wave.
+  WAVEOUT = !WAVEOUT;
+  // Clear the timer interrupt bit, signaling the PIC that this interrupt has been serviced.
+  _T2IF = 0;
 }
 
-//Interrupt Service Routine for Timer2
-void _ISRFAST _T2Interrupt (void) {
-  WAVEOUT = !WAVEOUT;        //toggle output
-  _T2IF = 0;                 //clear the timer interrupt bit
-}
+// Define the time, in ms, between Timer2 interrupts.
+#define ISR_PERIOD  (15)
 
-#define ISR_PERIOD  15    // in ms
 void  configTimer2(void) {
-  //T2CON set like this for documentation purposes.
-  //could be replaced by T2CON = 0x0020
+  // T2CON is set like this for documentation purposes.
+  // It could be replaced by T2CON = 0x0020.
   T2CON = T2_OFF | T2_IDLE_CON | T2_GATE_OFF
           | T2_32BIT_MODE_OFF
           | T2_SOURCE_INT
-          | T2_PS_1_64 ;  //results in T2CON = 0x0020
-  //subtract 1 from ticks value assigned to PR2 because period is PRx + 1
-  PR2 = msToU16Ticks (ISR_PERIOD, getTimerPrescale(T2CONbits)) - 1;
-  TMR2  = 0;                       //clear timer2 value
-  _T2IF = 0;                       //clear interrupt flag
-  _T2IP = 1;                       //choose a priority
-  _T2IE = 1;                       //enable the interrupt
-  T2CONbits.TON = 1;               //turn on the timer
+          | T2_PS_1_64;
+  // Subtract 1 from ticks value assigned to PR2 because period is PRx + 1.
+  PR2 = msToU16Ticks(ISR_PERIOD, getTimerPrescale(T2CONbits)) - 1;
+  // Start with a cleared timer2 value.
+  TMR2  = 0;
+  // Enable Timer2 interrupts.
+  _T2IF = 0;
+  _T2IP = 1;
+  _T2IE = 1;
+  // Start the timer only after all timer-related configuration is complete.
+  T2CONbits.TON = 1;
 }
 
 int main (void) {
   configBasic(HELLO_MSG);
-  CONFIG_WAVEOUT();   //PIO Config
-  configTimer2();      //TMR2 config
-  //interrupt does work of generating the square wave
+  CONFIG_WAVEOUT();
+  configTimer2();
+
+  // The interrupt does work of generating the square wave; no code is needed here.
   while (1) {
-    doHeartbeat(); //ensure that we are alive
-  } // end while (1)
+    // Blink the heartbeat LED to show that the PIC is running.
+    doHeartbeat();
+  }
 }

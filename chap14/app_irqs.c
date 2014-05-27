@@ -172,36 +172,36 @@ ESOS_USER_TASK(task1) {
 
   ESOS_TASK_BEGIN();
   while (TRUE) {
-	  
-	// Print prompt
-	ESOS_TASK_WAIT_ON_AVAILABLE_OUT_COMM();
-    ESOS_TASK_WAIT_ON_SEND_STRING("Press button...\r\n");
-	ESOS_TASK_SIGNAL_AVAILABLE_OUT_COMM();
 
-	// Wait on capture flag
+    // Print prompt
+    ESOS_TASK_WAIT_ON_AVAILABLE_OUT_COMM();
+    ESOS_TASK_WAIT_ON_SEND_STRING("Press button...\r\n");
+    ESOS_TASK_SIGNAL_AVAILABLE_OUT_COMM();
+
+    // Wait on capture flag
     ESOS_TASK_WAIT_UNTIL(esos_IsUserFlagSet(CAPTURED_FLAG));
 
-	// Convert processor ticks to microseconds
-	u32_pulseWidth = ticksToUs(u32_delta, getTimerPrescale(T2CONbits));
+    // Convert processor ticks to microseconds
+    u32_pulseWidth = ticksToUs(u32_delta, getTimerPrescale(T2CONbits));
 
-	// Clear capture flag
+    // Clear capture flag
     esos_ClearUserFlag(CAPTURED_FLAG);
 
-	// Print delta times
-	ESOS_TASK_WAIT_ON_AVAILABLE_OUT_COMM();
+    // Print delta times
+    ESOS_TASK_WAIT_ON_AVAILABLE_OUT_COMM();
 
-	ESOS_TASK_WAIT_ON_SEND_STRING("Ticks =\t\t");
-	ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING(u32_delta);
-	ESOS_TASK_WAIT_ON_SEND_STRING("\r\n");
+    ESOS_TASK_WAIT_ON_SEND_STRING("Ticks =\t\t");
+    ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING(u32_delta);
+    ESOS_TASK_WAIT_ON_SEND_STRING("\r\n");
 
-	ESOS_TASK_WAIT_ON_SEND_STRING("Pulse width =\t");
-	ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING(u32_pulseWidth);
-	ESOS_TASK_WAIT_ON_SEND_STRING(" us\r\n\r\n");
+    ESOS_TASK_WAIT_ON_SEND_STRING("Pulse width =\t");
+    ESOS_TASK_WAIT_ON_SEND_UINT32_AS_HEX_STRING(u32_pulseWidth);
+    ESOS_TASK_WAIT_ON_SEND_STRING(" us\r\n\r\n");
 
 
-  
 
-	ESOS_TASK_SIGNAL_AVAILABLE_OUT_COMM();
+
+    ESOS_TASK_SIGNAL_AVAILABLE_OUT_COMM();
   } // endof while
   ESOS_TASK_END();
 } // end task1()

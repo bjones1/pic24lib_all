@@ -34,7 +34,20 @@
 \page history History and release notes for this library collection.
 
 Next release:
-- CAN code ported to the dsPIC33.
+- No changes yet.
+
+3-Mar-2014 (r476):
+- Revisions to support the E family devices:
+  - CAN code ported.
+  - UART init code updated.
+  - Assembly code PSV fixes.
+  - SPI supports enhanced buffer mode, runs at 10 MHz.
+  - Timer headers updated.
+- ADC code made consistent with the textbook.
+- Bootloader now correctly enables the OSC pins for an external
+  crystal or clock.
+- FSM example rewrite.
+- Docs cleanup.
 
 4-Nov-2013 (r404 / 3a1ac95477ff):
 - Fixed ENABLE/DISABLE_Rxy_ANALOG for older (PIC24H) parts.
@@ -46,18 +59,21 @@ Next release:
 - More projects converted to MPLAB X.
 - Rewrites to chap 8, 9 files for the book.
 - Support for deviecs with hardmapped UART pins (28-pin PIC24FK, for example).
-- Combined pic24_e/fh_ports.h into a single file, added support for PIC24FK analog config.
+- Combined pic24_e/fh_ports.h into a single file, added support for PIC24FK
+  analog config.
 - Doxygen comments added to every GPIO config macro.
 - New ESOS features: mailboxes and more.
 - _NOFLOAT actually removes all floats in the library.
 
 09-Jul-2013 (r267 / 992b80bc0901):
-This is a major release / revision in the beta stage. The upcoming book will provide a full description. Just a few highlights:
+This is a major release / revision in the beta stage. The upcoming book will
+provide a full description. Just a few highlights:
 - Update to MPLAB X.
 - Revised GPIO system.
 - Updates to code examples for revision of book.
 - Updated build system.
-- Refactored bootloader now makes use of the PIC24 library, not a custom cut-and-paste.
+- Refactored bootloader now makes use of the PIC24 library, not a custom
+  cut-and-paste.
 
 23-May-2013 (r65 / f5e398dc9af3):
 - Merge the lib/ subrepo into the main repo.
@@ -65,9 +81,11 @@ This is a major release / revision in the beta stage. The upcoming book will pro
 - Updated to AStyle 2.03, ran AStyle.
 
 11-Nov-2013 (r61 / 3dfae4d8075a)
-- Changed function names 'ConfigOutputCapture1' to 'ConfigOutputCompare1' as that is what is really being configured.
+- Changed function names 'ConfigOutputCapture1' to 'ConfigOutputCompare1' as
+  that is what is really being configured.
 - Changed ledpwm.c back to reflect what is in the book/notes.
-- Added ledpwm_bullymon project that demonstrates  usage of variable monitoring in Bully Bootloader.
+- Added ledpwm_bullymon project that demonstrates  usage of variable monitoring
+  in Bully Bootloader.
 - Add: batch files to flash bootloader images
 - Fixed error in chapter 5 problem 27 solution.
 
@@ -78,13 +96,15 @@ This is a major release / revision in the beta stage. The upcoming book will pro
 
 22-May-2012 (r50 / 8173e0aa9b43):
 - Added support for PIC24E/dsPIC33E contained in MPLAB C compiler release 3.31.
-- Added initial support for PIC24E/dsPIC33E. Most examples tested with 24EP64GP202.
+- Added initial support for PIC24E/dsPIC33E. Most examples tested with
+  24EP64GP202.
 - Removed stdint.h, since v3.30 of the compiler now has it. For older compilers,
   put contents of old stdint.h in pic24-generic.h.
 - Fixed pic24_adc.h to use new-style C99 types (uint16_t, not uint16).
 
 5-Mar-2012 (r42 / 7b7f526d7bcc):
-- Updated .gld and include/devices to support new additions to the PIC24/dsPIC family.
+- Updated .gld and include/devices to support new additions to the PIC24/dsPIC
+  family.
 
 2-Mar-2012 (r38 / e76ddf28fbe5):
 - Removed unnecessary whitespace in pic24_uart.c-template
@@ -102,7 +122,8 @@ This is a major release / revision in the beta stage. The upcoming book will pro
 - Fixed bug in outUint8Decimal when x > 100
 - Fixed to doc to keep Doxygen from complaining; updated ignores, moved to
   current version of Doxygen.
-- Changed naming of Microchip include files to capital letters, to build on Linux.
+- Changed naming of Microchip include files to capital letters, to build on
+  Linux.
 - CR/LF -> CR cleanup plus a bit more via AStyle.
 - SCons build updated to produce Unix-style line endings in the generated
   template files.
@@ -124,7 +145,7 @@ This is a major release / revision in the beta stage. The upcoming book will pro
   to build for by introducing \ref HARDWARE_PLATFORM and
   appropriately refactoring the code.
 - Added support for the The Microchip 16-bit 28-pin Starter Board,
-  Part number DM300027. Thanks to István for contributing this!
+  Part number DM300027. Thanks to Istvan for contributing this!
   See \ref STARTER_BOARD_28P.
 - Merged in support for the Dangerous Prototypes web platform.
   See \ref DANGEROUS_WEB.
@@ -136,4 +157,4 @@ This is a major release / revision in the beta stage. The upcoming book will pro
 - Added this history file.
 
 Previous to this, history resided in SVN / HG. Sigh.
- */
+*/

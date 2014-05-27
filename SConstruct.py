@@ -55,6 +55,7 @@
 
 
 import os
+import psutil
 
 # Make sure SCons is recent enough.
 EnsureSConsVersion(2, 0)
@@ -85,7 +86,7 @@ env = Environment(
         CCCCOMSTR = 'Compiling $SOURCES',
         # The warnings provide some lint-like checking. Omitted options: -Wstrict-prototypes -Wold-style-definition complains about void foo(), which should be void foo(void), but isn't worth the work to change.
         CCFLAGS = '-mcpu=${MCU} -O1 -msmart-io=1 -omf=elf -Wall -Wextra -Wdeclaration-after-statement -Wlong-long -fdiagnostics-show-option',
-        LINKFLAGS = '-mcpu=${MCU} -omf=elf -Wl,--heap=100,$LINKERSCRIPT,--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io',
+        LINKFLAGS = '-mcpu=${MCU} -omf=elf -Wl,--heap=100,$LINKERSCRIPT,--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,--no-cpp',
         LINKERSCRIPT = '--script="lib/lkr/p${MCU}_bootldr.gld"',
         ARFLAGS = 'rcs',
         ARSTR = 'Create static library: $TARGET',
@@ -115,37 +116,28 @@ def bin2hex(binName, buildEnvironment, aliasString):
   # Add this hex file to a convenient alias
   buildEnvironment.Alias(aliasString, myHex)
 
-# TODO this environment appears to need to go away...... The XC compiler tools
-#  have common names across platforms now so the default environment above
-#  seems to get the job done.
-# Adjust our environment to be specific the host OS
-if os.name == 'posix_NOT_USED_ANYMORE':
-  print "Modifiying environment for Linux"
-  incDirs = Split( """include
-    /usr/pic30-elf/include
-    /usr/share/pic30-support/generic/h
-    /usr/share/pic30-support/pic24h/h
-    """)
-  libDirs = Split( """.
-    lib
-    """)
-  ## Change linux-specific environment variables
-  env.Replace(
-    CPPPATH = incDirs,
-    CC = 'pic30-elf-gcc',
-    LIBPATH = libDirs,
-    AR = 'pic30-elf-ar',
-    LINK = 'pic30-elf-gcc', # Copied from SCons\Tools\link.py with mods
-  )
-
 # adjust our default environment based on user command-line requests
 dict = env.Dictionary()
 if dict['BOOTLDR'] != 'msu':
     env.Replace(LINKERSCRIPT = '--script="p${MCU}.gld"')
 
-# By default, run two jobs at once (assume a dual-core PC)
-# For some reason I haven't yet determined, this causes build errors. Turn it off for now.
-#env.SetOption('num_jobs', 2)
+# By default, run number_of_cpus*2 jobs at once. This only works if the --no-cpp option is passed to the linker; otherwise, the linker produces a temporary file in the root build directory, which gets overwritten and confused when multiple builds run. There's some nice examples and explanation for tihs in the `SCons user guide <http://www.scons.org/doc/production/HTML/scons-user/c2092.html#AEN2183>`_.
+#
+# Some results from running on my 8-core PC:, gathered from the Total build time returned by the --debug=time scons command-line option:
+#
+# ==  ==========  ===============  ============
+# -j  Time (sec)  Time (hh:mm:ss)  Speedup
+# ==  ==========  ===============  ============
+# 32   303        0:05:03          11.66006601
+# 16   348.7      0:05:49          10.13191855
+#  8   510.9      0:08:31           6.915247602
+#  4   916        0:15:16           3.8569869
+#  2  1777        0:29:37           1.98818233
+#  1  3533        0:58:53           1
+# ==  ==========  ===============  ============
+
+env.SetOption('num_jobs', psutil.NUM_CPUS*4)
+print("Running with -j %d." % GetOption('num_jobs'))
 
 # generate some command line help for our custom options
 Help(opts.GenerateHelpText(env))

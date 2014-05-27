@@ -145,7 +145,7 @@ def deep_eq(_v1, _v2, datetime_fudge=default_fudge, _assert=False):
 
 import csv
 
-## Enumerate all ports on a PIC24 processor, returning the result as a list.
+# Enumerate all ports on a PIC24 processor, returning the result as a list.
 def enumeratePic24Ports():
     port_letters = [chr(i) for i in range(ord('A'), ord('K') + 1)]
     # The PIC series doesn't have port I.
@@ -153,14 +153,17 @@ def enumeratePic24Ports():
     return [i + str(j) for i in port_letters
                        for j in range(16)]
 
-## This routine builds pic24_ports_tables.h from a template. To do so:
+# This routine builds pic24_ports_tables.h from a template. To do so:
 #
 # #. Open the output file and write out the header.
 # #. Load in the CSV file containing pin information:
+#
 #    #. Load three rows; they should be labeled xxx RPy, xxx ANn, and xxx CNm, where xxx is the processor.
 #    #. For each Rxy value:
+#
 #       #. For F/H devices: look at the corresponding RPy, ANn, and CNm. If any are non-empty, write a table entry.
 #       #. For E devices: Write a #define for RPy or ANn if either are non-empty.
+#
 # #. Write out the footer.
 def genTablesFromTemplate(csvFileName, destFileName):
     # Read in the CSV containing device information.

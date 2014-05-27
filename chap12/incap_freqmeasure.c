@@ -1,41 +1,36 @@
-/*
- * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
- * All rights reserved.
- * (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
- * (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
- * (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
- *
- * Permission to use, copy, modify, and distribute this software and its
- * documentation for any purpose, without fee, and without written agreement is
- * hereby granted, provided that the above copyright notice, the following
- * two paragraphs and the authors appear in all copies of this software.
- *
- * IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
- * DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
- * OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
- * HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
- * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
- * ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
- * PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
- *
- * Please maintain this header in its entirety when copying/modifying
- * these files.
- *
- *
- */
+// .. "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+//    All rights reserved.
+//    (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
+//    (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
+//    (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
+//
+//    Permission to use, copy, modify, and distribute this software and its
+//    documentation for any purpose, without fee, and without written agreement is
+//    hereby granted, provided that the above copyright notice, the following
+//    two paragraphs and the authors appear in all copies of this software.
+//
+//    IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
+//    DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
+//    OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
+//    HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//    THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+//    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+//    AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+//    ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
+//    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
+//
+//    Please maintain this header in its entirety when copying/modifying
+//    these files.
+//
+// **********************************************************************
+// incap_freqmeasure.c - Uses IC1 to measure period, uses averaging mode.
+// **********************************************************************
+//Measures square wave frequency using input capture and Timer2
 
 #include "pic24_all.h"
 #include <stdio.h>
 
-/** \file
- * Measures the square wave frequency using input capture and Timer2
- * This projects uses an external crystal for accuracy.
- * CLOCK_CONFIG=PRIPLL_8MHzCrystal_40MHzFCY is defined in the MPLAB project.
- * Remove this macro if you wish to use the internal oscillator.
-*/
 
 uint8_t getPeriodAdjust (uint8_t ICMbits) {
   if (ICMbits == IC_EVERY_16_RISE_EDGE) return 16;
@@ -67,14 +62,15 @@ void _ISRFAST _IC1Interrupt() {
 
 void configInputCapture1(void) {
   CONFIG_RB13_AS_DIG_INPUT();
-#if (defined(__dsPIC33E__) || defined(__PIC24E__))
-  CONFIG_IC1_TO_RP(45);        //map IC1 to RP45/RB13
+  CONFIG_IC1_TO_RP(RB13_RP);     //map IC1 to RP13/RB13
+#ifdef IC1CON1
   IC1CON1 = IC_TIMER2_SRC |     //Timer2 source
             IC_INT_1CAPTURE |   //Interrupt every capture
-            IC_EVERY_EDGE;      //Capture every edge
-  IC1CON2 = 0x000C;            //sync to timer2
-#else
-  CONFIG_IC1_TO_RP(13);        //map IC1 to RP13/RB13
+            IC_EVERY_16_RISE_EDGE;   //capture every 16th edge
+  //      cascade off, sync mode, sync to timer 2
+  IC1CON2 = IC_IC32_OFF| IC_SYNC_MODE | IC_SYNCSEL_TIMER2;
+#endif
+#ifdef IC1CON
   IC1CON = IC_TIMER2_SRC |     //Timer2 source
            IC_INT_1CAPTURE |        //Interrupt every capture
            IC_EVERY_16_RISE_EDGE;   //capture every 16th edge
@@ -97,19 +93,22 @@ void  configTimer2(void) {
 
 int main (void) {
   uint32_t u32_maxPeriodNs;
+  float f_freqkhz;
   configBasic(HELLO_MSG);
   configTimer2();
   configInputCapture1();
-#if (defined(__dsPIC33E__) || defined(__PIC24E__))
+#ifdef IC1CON1
   u32_maxPeriodNs = ticksToNs (65536, getTimerPrescale(T2CONbits))/getPeriodAdjust(IC1CON1bits.ICM);
 #else
   u32_maxPeriodNs = ticksToNs (65536, getTimerPrescale(T2CONbits))/getPeriodAdjust(IC1CONbits.ICM);
 #endif
   printf("Maximum period is %ld ns\n",u32_maxPeriodNs);
   while (1) {
-    outString("Press button...");
+    outString("Capturing\n");
     while (!u8_captureFlag) doHeartbeat();
-    printf(" %ld ns\n",u32_period);
+    f_freqkhz = (1.0/(((double)u32_period) *1.0e-9))/1000.0;
+    printf("Period: %ld ns, Freq: %6.2f kHz\n",u32_period,(double)f_freqkhz);
     u8_captureFlag = 0;
+    DELAY_MS(500); //do not flood uart
   }
 }
