@@ -276,6 +276,8 @@ ESOS_TASK_HANDLE  esos_GetFreeChildTaskStruct();
 uint32_t    esos_GetRandomUint32();
 ESOS_TASK_HANDLE    esos_GetTaskHandle( uint8_t (*taskname)(ESOS_TASK_HANDLE pstTask) );
 ESOS_TASK_HANDLE    esos_GetTaskHandleFromID( uint16_t u16_TaskID );
+uint16_t    esos_taskname_hash_u16( void* buf, uint16_t len );
+
 
 // prototypes for ESOS software timers
 ESOS_TMR_HANDLE    esos_RegisterTimer( void (*pfnTmrFcn)(void), uint32_t u32_period );
@@ -313,6 +315,7 @@ void    __esos_InitCommSystem(void);
  */
 extern uint8_t        __esos_u8UserTasksRegistered;
 extern uint16_t       __esos_u16UserFlags, __esos_u16SystemFlags;
+extern uint32_t       __esos_u32FNVHash;
 
 /**
  * Get the current number of user task registered with the

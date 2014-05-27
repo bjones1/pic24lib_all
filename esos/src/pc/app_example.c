@@ -742,9 +742,12 @@ ESOS_USER_TASK( mailtaskMSGA ) {
   uint32_t     						u32_rnd;
   uint8_t									u8_x;
   static uint8_t					u8_cnt;
-  static MAILMESSAGE		stMsg;
+  static MAILMESSAGE		        stMsg;
+  static ESOS_TASK_HANDLE           hMSG0, hMSG1;           
 
   ESOS_TASK_BEGIN();
+  hMSG0 = esos_GetTaskHandle(mailtaskMSG0);
+  hMSG1 = esos_GetTaskHandle(mailtaskMSG1);
   while (TRUE) {
     u32_rnd = 1+(0x0F & esos_GetRandomUint32());
     u32_rnd <<= 10;
@@ -755,10 +758,11 @@ ESOS_USER_TASK( mailtaskMSGA ) {
 			__esos_ReadMailMessage(__pstSelf, &stMsg ); 
 			//PRINTF_MESSAGE( stMsg);
 			printf("Got a message from ");
-			if (ESOS_DOES_TASK_HAVE_ID(mailtaskMSG0,stMsg.u16_FromTaskID)) {
+			if ( hMSG0->u16_taskID == stMsg.u16_FromTaskID) {
 				printf("mailtaskMSG0");
 			}
-			else if (ESOS_DOES_TASK_HAVE_ID(mailtaskMSG1,stMsg.u16_FromTaskID)) {
+			else if ( hMSG1->u16_taskID == stMsg.u16_FromTaskID ) {
+			//else if (ESOS_DOES_TASK_HAVE_ID(hMSG1->u16_taskID,stMsg.u16_FromTaskID)) {
 				printf("mailtaskMSG1");
 			}
 			else {

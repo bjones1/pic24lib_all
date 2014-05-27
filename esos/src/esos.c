@@ -68,7 +68,8 @@ CBUFFER			__astCircularBuffers[MAX_NUM_USER_TASKS];
 
 // misc ESOS variables
 uint16_t			__esos_u16UserFlags, __esos_u16SystemFlags;
-uint32_t      __u32_esos_PRNG_Seed;
+uint32_t            __u32_esos_PRNG_Seed;
+uint32_t            __esos_u32FNVHash = 2166136261;
 
 /****************************************************************
 ** Embedded Systems Operating System (ESOS) code
@@ -131,7 +132,9 @@ ESOS_TASK_HANDLE    esos_RegisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstT
       // make sure this task has a non-zero task identifier
       if ( __astUserTaskPool[u8_IndexFree].u16_taskID == 0 ) {
       	__u16NumTasksEverCreated++;
-      	__astUserTaskPool[u8_IndexFree].u16_taskID = __MAKE_UINT16_TASK_ID(taskname);
+      	__astUserTaskPool[u8_IndexFree].u16_taskID = __u16NumTasksEverCreated;
+      		printf("  created task #%d\n", __astUserTaskPool[u8_IndexFree].u16_taskID );
+
      	} // endif
       return &__astUserTaskPool[u8_IndexFcn];
     } // endof if
@@ -150,7 +153,8 @@ ESOS_TASK_HANDLE    esos_RegisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstT
       __u8UserTasksRegistered++;
       // Since this is a "new" task, give it a new identifier number
       __u16NumTasksEverCreated++;
-			__astUserTaskPool[u8_IndexFree].u16_taskID = __MAKE_UINT16_TASK_ID(taskname);
+			__astUserTaskPool[u8_IndexFree].u16_taskID = __u16NumTasksEverCreated;
+      		printf("  created task ID %d \n", __astUserTaskPool[u8_IndexFree].u16_taskID );
       return &__astUserTaskPool[u8_IndexFree];
     } // endof if
     /*  we did NOT find our function in the pool OR a free struct to use, so
@@ -251,7 +255,7 @@ ESOS_TASK_HANDLE    esos_GetTaskHandle( uint8_t (*taskname)(ESOS_TASK_HANDLE pst
  *  \sa esos_UnregisterTask
 */
 ESOS_TASK_HANDLE    esos_GetTaskHandleFromID( uint16_t u16_TaskID ) {
-  uint8_t     						u8_i, u8_z;
+  uint8_t     				u8_i, u8_z;
   ESOS_TASK_HANDLE			pst_NowTask;
   ESOS_TASK_HANDLE			pst_ReturnTask = (ESOS_TASK_HANDLE) NULLPTR;
 
@@ -337,6 +341,115 @@ uint32_t    esos_GetRandomUint32(void) {
   if (lo > 0x7FFFFFFF) lo -= 0x7FFFFFFF;
   return (__u32_esos_PRNG_Seed = (uint32_t) lo );
 } // end esos_getRandomUint32()
+
+
+/*******************************************************************************
+*
+*
+*/
+uint16_t    esos_taskname_hash_u16( void* buf, uint16_t len ) {
+    unsigned char *bp = (unsigned char *)buf;	/* start of buffer */
+    unsigned char *be = bp + len;		/* beyond end of buffer */
+    uint32_t        u32_temp = 2166136261;
+
+    /*
+     * FNV-1 hash each octet in the buffer
+     */
+    while (bp < be) {
+    	/* multiply by the 32 bit FNV magic prime mod 2^32 */
+    	u32_temp += (u32_temp<<1) + (u32_temp<<4) + (u32_temp<<7) + (u32_temp<<8) + (u32_temp<<24);
+
+    	/* xor the bottom with the current octet */
+    	u32_temp ^= (uint32_t)*bp++;
+    } // end while
+    return (uint16_t) ((u32_temp >> 16) ^ (u32_temp & 0xFFFF));
+} // end esos_taskname_hash_u16
+
+
+/*
+ * fnv_32_buf - perform a 32 bit Fowler/Noll/Vo hash on a buffer
+ *
+ * input:
+ *    buf	- start of buffer to hash
+ *	len	- length of buffer in octets
+ *	hval	- previous hash value or 0 if first call
+ *
+ * returns:
+ *	32 bit hash as a static hash type
+ *
+ * NOTE: To use the 32 bit FNV-0 historic hash, use FNV0_32_INIT as the hval
+ *	 argument on the first call to either fnv_32_buf() or fnv_32_str().
+ *
+ * NOTE: To use the recommended 32 bit FNV-1 hash, use FNV1_32_INIT as the hval
+ *	 argument on the first call to either fnv_32_buf() or fnv_32_str().
+ */
+uint32_t esos_buffer_hash_u32(void *buf, uint16_t len)
+{
+    unsigned char *bp = (unsigned char *)buf;	/* start of buffer */
+    unsigned char *be = bp + len;		/* beyond end of buffer */
+
+    /*
+     * FNV-1 hash each octet in the buffer
+     */
+    while (bp < be) {
+
+	/* multiply by the 32 bit FNV magic prime mod 2^32 */
+#if defined(NO_FNV_GCC_OPTIMIZATION)
+	__esos_u32FNVHash *= FNV_32_PRIME;
+#else
+	__esos_u32FNVHash += (__esos_u32FNVHash<<1) + (__esos_u32FNVHash<<4) + (__esos_u32FNVHash<<7) + (__esos_u32FNVHash<<8) + (__esos_u32FNVHash<<24);
+#endif
+
+	/* xor the bottom with the current octet */
+	__esos_u32FNVHash ^= (uint32_t)*bp++;
+    }
+
+    /* return our new hash value */
+    return __esos_u32FNVHash;
+}
+
+
+/*
+ * fnv_32_str - perform a 32 bit Fowler/Noll/Vo hash on a string
+ *
+ * input:
+ *	str	- string to hash
+ *	hval	- previous hash value or 0 if first call
+ *
+ * returns:
+ *	32 bit hash as a static hash type
+ *
+ * NOTE: To use the 32 bit FNV-0 historic hash, use FNV0_32_INIT as the hval
+ *	 argument on the first call to either fnv_32_buf() or fnv_32_str().
+ *
+ * NOTE: To use the recommended 32 bit FNV-1 hash, use FNV1_32_INIT as the hval
+ *	 argument on the first call to either fnv_32_buf() or fnv_32_str().
+ */
+uint32_t esos_string_hash_u32(char *str)
+{
+    unsigned char *s = (unsigned char *)str;	/* unsigned string */
+
+    /*
+     * FNV-1 hash each octet in the buffer
+     */
+    while (*s) {
+
+	/* multiply by the 32 bit FNV magic prime mod 2^32 */
+#if defined(NO_FNV_GCC_OPTIMIZATION)
+	__esos_u32FNVHash *= FNV_32_PRIME;
+#else
+	__esos_u32FNVHash += (__esos_u32FNVHash<<1) + (__esos_u32FNVHash<<4) + (__esos_u32FNVHash<<7) + (__esos_u32FNVHash<<8) + (__esos_u32FNVHash<<24);
+#endif
+
+	/* xor the bottom with the current octet */
+	__esos_u32FNVHash ^= (uint32_t)*s++;
+    }
+
+    /* return our new hash value */
+    return __esos_u32FNVHash;
+}
+
+/********************************************************************************/
 
 /**
 * Returns the number of tasks we can execute

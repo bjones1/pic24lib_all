@@ -185,8 +185,10 @@ ESOS_USER_TASK( recipient_A ) {
   uint8_t									u8_x;
   static uint8_t					u8_cnt;
   static MAILMESSAGE		stMsg;
+  ESOS_TASK_HANDLE          hSenderA;
 
   ESOS_TASK_BEGIN();
+  hSenderA = esos_GetTaskHandle( sender_A );
   while (TRUE) { 
     // check for mail  
 	ESOS_TASK_WAIT_FOR_MAIL();
@@ -200,11 +202,11 @@ ESOS_USER_TASK( recipient_A ) {
         // read the message to determine the sender... then
         // read contents and "postmark" timestamp (in ESOS system ticks)
 		printf("Got a message from ");
-		if (ESOS_DOES_TASK_HAVE_ID(sender_A,stMsg.u16_FromTaskID)) {
+		if ( ESOS_IS_TASK_SENDER(hSenderA, stMsg) ) {
 			printf("sender_A");
 		}
 		else {
-			printf("UNKNOWN");
+			printf("UNKNOWN task:  (%d)", ESOS_GET_MSG_FROM_TASK(stMsg) );
 		}
 		printf (" containing %d          enroute time = %d ms\n", stMsg.au8_Contents[0], esos_GetSystemTick()-stMsg.u32_Postmark );
    	} //endof while()

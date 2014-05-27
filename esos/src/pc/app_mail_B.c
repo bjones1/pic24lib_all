@@ -189,8 +189,10 @@ ESOS_USER_TASK( recipient_B ) {
   uint8_t					u8_x;
   static uint8_t			u8_cnt;
   static MAILMESSAGE		stMsg;
+  static ESOS_TASK_HANDLE   hSenderB0;
 
   ESOS_TASK_BEGIN();
+  hSenderB0 = esos_GetTaskHandle (sender_B0);
   while (TRUE) {
   
         // create a random delay to simulate being "busy"
@@ -207,7 +209,7 @@ ESOS_USER_TASK( recipient_B ) {
 		    // make local copy of message (frees up mailbox space)
 			__esos_ReadMailMessage(__pstSelf, &stMsg );         
 			printf("Got a message from ");
-			if (ESOS_DOES_TASK_HAVE_ID( sender_B0 ,stMsg.u16_FromTaskID)) {
+			if ( ESOS_IS_TASK_SENDER( hSenderB0, stMsg) ) {
 				printf("sender_B0");
 			}
 			else {
