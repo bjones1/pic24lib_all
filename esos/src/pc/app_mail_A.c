@@ -163,7 +163,7 @@ ESOS_USER_TASK( sender_A ) {
     ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask, sizeof(uint8_t));
     
     // recipient has mailbox space, so send message
-    printf("T0 sending MESSAGE %d\n", u8_cnt);
+    printf("sender_A sending MESSAGE %d\n", u8_cnt);
 	ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
 
     // wait some random delay before we send another message

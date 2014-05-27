@@ -229,13 +229,14 @@ typedef struct __stMAILMESSAGE {
 */
 #define ESOS_TASK_FLUSH_TASK_MAILBOX(pstTask)						  __ESOS_CB_FLUSH((pstTask)->pst_Mailbox->pst_CBuffer)
 
-#define ESOS_TASK_SEND_MESSAGE(pstTask, pstMsg)										__esos_SendMailMessage( pstTask, pstMsg )
+#define ESOS_TASK_SEND_MESSAGE(pstTask, pstMsg)										__esos_SendMailMessage((pstTask),(pstMsg))
 
-#define ESOS_TASK_SEND_MESSAGE_WAIT_DELIVERY(pstTask, pstMsg)												\
-		do {																																						\
-				ESOS_TASK_SEND_MESSAGE((pstTask),(pstMsg));																	\
-				__ESOS_SET_TASK_MAILNACK_FLAG((__pstSelf));																	\
-				ESOS_TASK_WAIT_WHILE( ESOS_TASK_IS_WAITING_MAIL_DELIVERY( __pstSelf ) );		\
+#define ESOS_TASK_SEND_MESSAGE_WAIT_DELIVERY(pstTask, pstMsg)                               \
+        do{                                                                                 \
+            (pstMsg)->u8_flags |= ESOS_MAILMESSAGE_REQUEST_ACK;                             \
+			ESOS_TASK_SEND_MESSAGE((pstTask),(pstMsg));										\
+			__ESOS_SET_TASK_MAILNACK_FLAG((__pstSelf));										\
+			ESOS_TASK_WAIT_WHILE( ESOS_TASK_IS_WAITING_MAIL_DELIVERY( __pstSelf ) );		\
 		} while(0)
 
 /********************
