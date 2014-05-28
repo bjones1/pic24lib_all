@@ -689,15 +689,15 @@ ESOS_USER_TASK( mailtaskMSG0 ) {
     }
     ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask, 9);
 		if (st_Message.u8_flags & ESOS_MAILMESSAGE_REQUEST_ACK) {
-	    printf("T0 sending MESSAGE with ACK request %d\n", u8_cnt);
+	    printf("T0 sending MESSAGE with ACK request %3d\n", u8_cnt);
 			ESOS_TASK_SEND_MESSAGE_WAIT_DELIVERY(hTask, &st_Message);
 		} else {
-	    printf("T0 sending MESSAGE %d\n", u8_cnt);
+	    printf("T0 sending MESSAGE %3d\n", u8_cnt);
 			ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
 	    ESOS_TASK_WAIT_TICKS( u32_rnd);			
 		}
     u8_cnt++;
-    if (u8_cnt>50) u8_cnt=0;
+    if (u8_cnt>=100) u8_cnt=0;
   } // endof while(TRUE)
   ESOS_TASK_END();
 } // end mailtaskMSG0()
@@ -709,7 +709,7 @@ ESOS_USER_TASK( mailtaskMSG1 ) {
   static	MAILMESSAGE					st_Message;
 
   ESOS_TASK_BEGIN();
-  u8_cnt=0;
+  u8_cnt=100;
   hTask = esos_GetTaskHandle( mailtaskMSGA );
 
   while (TRUE) {
@@ -723,15 +723,15 @@ ESOS_USER_TASK( mailtaskMSG1 ) {
     }
     ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask, 9);
 		if (st_Message.u8_flags & ESOS_MAILMESSAGE_REQUEST_ACK) {
-	    printf("T1 sending MESSAGE with ACK request %d\n", u8_cnt);
+	    printf("T1 sending MESSAGE with ACK request %3d\n", u8_cnt);
 			ESOS_TASK_SEND_MESSAGE_WAIT_DELIVERY(hTask, &st_Message);
 		} else {
-	    printf("T1 sending MESSAGE %d\n", u8_cnt );
+	    printf("T1 sending MESSAGE %3d\n", u8_cnt );
 			ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
 	    ESOS_TASK_WAIT_TICKS( u32_rnd);			
 		}
     u8_cnt++;
-    if (u8_cnt>50) u8_cnt=0;
+    if (u8_cnt>=200) u8_cnt=100;
   } // endof while(TRUE)
   ESOS_TASK_END();
 } // end mailtaskMSG1()
@@ -758,17 +758,16 @@ ESOS_USER_TASK( mailtaskMSGA ) {
 			__esos_ReadMailMessage(__pstSelf, &stMsg ); 
 			//PRINTF_MESSAGE( stMsg);
 			printf("Got a message from ");
-			if ( hMSG0->u16_taskID == stMsg.u16_FromTaskID) {
+			if ( ESOS_IS_TASK_SENDER( hMSG0, stMsg) ) {
 				printf("mailtaskMSG0");
 			}
-			else if ( hMSG1->u16_taskID == stMsg.u16_FromTaskID ) {
-			//else if (ESOS_DOES_TASK_HAVE_ID(hMSG1->u16_taskID,stMsg.u16_FromTaskID)) {
+			else if ( ESOS_IS_TASK_SENDER(hMSG1, stMsg) ) {
 				printf("mailtaskMSG1");
 			}
 			else {
 				printf("UNKNOWN");
 			}
-			printf (" containing %d          delivery time = %d ms\n", stMsg.au8_Contents[0], esos_GetSystemTick()-stMsg.u32_Postmark );
+			printf (" containing %3d          delivery time = %d ms\n", stMsg.au8_Contents[0], esos_GetSystemTick()-stMsg.u32_Postmark );
    	} //endof while()
   } // endof while(TRUE)
   ESOS_TASK_END();

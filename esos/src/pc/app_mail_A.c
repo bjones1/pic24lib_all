@@ -185,7 +185,7 @@ ESOS_USER_TASK( recipient_A ) {
   uint8_t									u8_x;
   static uint8_t					u8_cnt;
   static MAILMESSAGE		stMsg;
-  ESOS_TASK_HANDLE          hSenderA;
+  static ESOS_TASK_HANDLE          hSenderA;
 
   ESOS_TASK_BEGIN();
   hSenderA = esos_GetTaskHandle( sender_A );

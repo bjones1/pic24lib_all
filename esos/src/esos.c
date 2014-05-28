@@ -131,11 +131,10 @@ ESOS_TASK_HANDLE    esos_RegisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstT
       __u8UserTasksRegistered++;
       // make sure this task has a non-zero task identifier
       if ( __astUserTaskPool[u8_IndexFree].u16_taskID == 0 ) {
+        // we will simply assign a sequential task ID number (sorta like unix does for PIDs)
       	__u16NumTasksEverCreated++;
       	__astUserTaskPool[u8_IndexFree].u16_taskID = __u16NumTasksEverCreated;
-      		printf("  created task #%d\n", __astUserTaskPool[u8_IndexFree].u16_taskID );
-
-     	} // endif
+      } // endif
       return &__astUserTaskPool[u8_IndexFcn];
     } // endof if
     /* We did NOT find our task already in the pool, so allocate a new struct
@@ -151,10 +150,9 @@ ESOS_TASK_HANDLE    esos_RegisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstT
       ESOS_TASK_FLUSH_TASK_MAILBOX(&__astUserTaskPool[u8_IndexFree]);		// reset the task mailbox
       __au8UserTaskStructIndex[__u8UserTasksRegistered] = u8_IndexFree;
       __u8UserTasksRegistered++;
-      // Since this is a "new" task, give it a new identifier number
+      // Since this is a "new" task, give it a new task ID number
       __u16NumTasksEverCreated++;
-			__astUserTaskPool[u8_IndexFree].u16_taskID = __u16NumTasksEverCreated;
-      		printf("  created task ID %d \n", __astUserTaskPool[u8_IndexFree].u16_taskID );
+	  __astUserTaskPool[u8_IndexFree].u16_taskID = __u16NumTasksEverCreated;
       return &__astUserTaskPool[u8_IndexFree];
     } // endof if
     /*  we did NOT find our function in the pool OR a free struct to use, so
@@ -366,27 +364,22 @@ uint16_t    esos_taskname_hash_u16( void* buf, uint16_t len ) {
 } // end esos_taskname_hash_u16
 
 
-/*
- * fnv_32_buf - perform a 32 bit Fowler/Noll/Vo hash on a buffer
- *
- * input:
- *    buf	- start of buffer to hash
- *	len	- length of buffer in octets
- *	hval	- previous hash value or 0 if first call
- *
- * returns:
- *	32 bit hash as a static hash type
- *
- * NOTE: To use the 32 bit FNV-0 historic hash, use FNV0_32_INIT as the hval
- *	 argument on the first call to either fnv_32_buf() or fnv_32_str().
- *
- * NOTE: To use the recommended 32 bit FNV-1 hash, use FNV1_32_INIT as the hval
- *	 argument on the first call to either fnv_32_buf() or fnv_32_str().
- */
+/**
+ * Create a 32-bit (uint32_t) hash value for a buffer of voids
+ * Routine maintains "state" in the form of variable __esos_u32FNVHash
+ * This "state" is used in all of the ESOS FNV hash functions.
+ * Based on the Fowler/Noll/Vo (FNV1a) hash algorithm and code provided
+ * at http://www.isthe.com/chongo/tech/comp/fnv/
+ * \param pointer to a buffer of voids
+ * \param length of the buffer of voids
+ * \retval uint32_t value of the resulting hash
+ *  \sa esos_string_hash_u32
+ *  \sa esos_hash_u32_to_u16
+*/
 uint32_t esos_buffer_hash_u32(void *buf, uint16_t len)
 {
     unsigned char *bp = (unsigned char *)buf;	/* start of buffer */
-    unsigned char *be = bp + len;		/* beyond end of buffer */
+    unsigned char *be = bp + len;		        /* beyond end of buffer */
 
     /*
      * FNV-1 hash each octet in the buffer
@@ -394,11 +387,11 @@ uint32_t esos_buffer_hash_u32(void *buf, uint16_t len)
     while (bp < be) {
 
 	/* multiply by the 32 bit FNV magic prime mod 2^32 */
-#if defined(NO_FNV_GCC_OPTIMIZATION)
+    #if defined(NO_FNV_GCC_OPTIMIZATION)    
 	__esos_u32FNVHash *= FNV_32_PRIME;
-#else
+    #else
 	__esos_u32FNVHash += (__esos_u32FNVHash<<1) + (__esos_u32FNVHash<<4) + (__esos_u32FNVHash<<7) + (__esos_u32FNVHash<<8) + (__esos_u32FNVHash<<24);
-#endif
+    #endif
 
 	/* xor the bottom with the current octet */
 	__esos_u32FNVHash ^= (uint32_t)*bp++;
@@ -409,46 +402,44 @@ uint32_t esos_buffer_hash_u32(void *buf, uint16_t len)
 }
 
 
-/*
- * fnv_32_str - perform a 32 bit Fowler/Noll/Vo hash on a string
- *
- * input:
- *	str	- string to hash
- *	hval	- previous hash value or 0 if first call
- *
- * returns:
- *	32 bit hash as a static hash type
- *
- * NOTE: To use the 32 bit FNV-0 historic hash, use FNV0_32_INIT as the hval
- *	 argument on the first call to either fnv_32_buf() or fnv_32_str().
- *
- * NOTE: To use the recommended 32 bit FNV-1 hash, use FNV1_32_INIT as the hval
- *	 argument on the first call to either fnv_32_buf() or fnv_32_str().
- */
-uint32_t esos_string_hash_u32(char *str)
+/**
+ * Create a 32-bit (uint32_t) hash value for a provided string
+ * Routine maintains "state" in the form of variable __esos_u32FNVHash
+ * This "state" is used in all of the ESOS FNV hash functions.
+ * Based on the Fowler/Noll/Vo (FNV1a) hash algorithm and code provided
+ * at http://www.isthe.com/chongo/tech/comp/fnv/
+ * \param pointer to zero-terminated string
+ * \retval uint32_t value of the resulting hash
+ *  \sa esos_string_hash_u32
+ *  \sa esos_hash_u32_to_u16
+*/
+uint32_t esos_string_hash_u32(char *psz_str)
 {
-    unsigned char *s = (unsigned char *)str;	/* unsigned string */
+    unsigned char *ch_s = (unsigned char *)psz_str;	/* unsigned string */
 
     /*
      * FNV-1 hash each octet in the buffer
      */
-    while (*s) {
+    while (*ch_s) {
 
 	/* multiply by the 32 bit FNV magic prime mod 2^32 */
-#if defined(NO_FNV_GCC_OPTIMIZATION)
+    #if defined(NO_FNV_GCC_OPTIMIZATION)
 	__esos_u32FNVHash *= FNV_32_PRIME;
-#else
+    #else
 	__esos_u32FNVHash += (__esos_u32FNVHash<<1) + (__esos_u32FNVHash<<4) + (__esos_u32FNVHash<<7) + (__esos_u32FNVHash<<8) + (__esos_u32FNVHash<<24);
-#endif
+    #endif
 
 	/* xor the bottom with the current octet */
-	__esos_u32FNVHash ^= (uint32_t)*s++;
+	__esos_u32FNVHash ^= (uint32_t)*ch_s++;
     }
 
     /* return our new hash value */
     return __esos_u32FNVHash;
 }
 
+inline uint16_t esos_hash_u32_to_u16(uint32_t u32_hash) {
+    return  (uint16_t) ((u32_hash>>16) ^ (u32_hash&0xFFFF));
+}
 /********************************************************************************/
 
 /**

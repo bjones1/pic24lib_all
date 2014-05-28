@@ -276,7 +276,11 @@ ESOS_TASK_HANDLE  esos_GetFreeChildTaskStruct();
 uint32_t    esos_GetRandomUint32();
 ESOS_TASK_HANDLE    esos_GetTaskHandle( uint8_t (*taskname)(ESOS_TASK_HANDLE pstTask) );
 ESOS_TASK_HANDLE    esos_GetTaskHandleFromID( uint16_t u16_TaskID );
-uint16_t    esos_taskname_hash_u16( void* buf, uint16_t len );
+
+// ESOS-provided hash functions
+uint16_t esos_hash_u32_to_u16(uint32_t u32_hash);
+uint32_t esos_string_hash_u32(char *psz_str);
+uint32_t esos_buffer_hash_u32(void *buf, uint16_t len);
 
 
 // prototypes for ESOS software timers
