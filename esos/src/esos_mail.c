@@ -52,20 +52,6 @@ void __esos_InitMailbox(MAILBOX* pst_Mailbox, uint8_t* pau8_ptr) {
 *
 * \sa ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_SPACE
 * \hideinitializer
-
-  uint8_t                 flags;            // various bits to help us decode message
-  uint16_t                u16_FromTaskID;   // task that sent message
-  uint8_t                 u8_DataLength;    // how many bytes in data payload
-  uint32_t                u32_Postmark;
-
-#define ESOS_SET_PMSG_FLAG(pstMsg, flags)           pstMsg->u8_flags=(flags)
-#define ESOS_SET_PMSG_FROM_TASK(pstMsg, fromTask)   pstMsg->u16_FromTaskID=(fromTask)
-#define ESOS_SET_PMSG_DATA_LENGTH(pstMsg, len)      pstMsg->u8_DataLength=(len)
-#define ESOS_GET_PMSG_FLAG(pstMsg)                  (pstMsg->u8_flags)
-#define ESOS_GET_PMSG_FROM_TASK(pstMsg)             (pstMsg->u16_FromTaskID)
-#define ESOS_GET_PMSG_DATA_LENGTH(pstMsg)           (pstMsg->u8_DataLength)
-#define ESOS_GET_PMSG_POSTMARK(pstMsg)              (pstMsg->u32_Postmark)
-
 */
 void __esos_SendMailMessage(ESOS_TASK_HANDLE pst_Task, MAILMESSAGE* pst_Message ) {
   uint8_t               u8_i;
@@ -73,9 +59,9 @@ void __esos_SendMailMessage(ESOS_TASK_HANDLE pst_Task, MAILMESSAGE* pst_Message 
   // first message btye:  flags in upper nibble, payload length in lower
   u8_i = ((pst_Message->u8_flags)<<4) + (pst_Message->u8_DataLength & 0x0F);
   __esos_CB_WriteUINT8( pst_Task->pst_Mailbox->pst_CBuffer, u8_i );
-  // second message byte: Task ID of sending task
-  __esos_CB_WriteUINT16( pst_Task->pst_Mailbox->pst_CBuffer, ESOS_GET_PMSG_FROM_TASK(pst_Message) );
-  // Now, timestamp the message
+  // second message word: Task ID of sending task
+  __esos_CB_WriteUINT16( pst_Task->pst_Mailbox->pst_CBuffer, ESOS_GET_PMSG_FROMTASK(pst_Message) );
+  // Now, timestamp the message with double word
   __esos_CB_WriteUINT32( pst_Task->pst_Mailbox->pst_CBuffer, esos_GetSystemTick() );
   // Now write the data depending on what type and how many
   if ( ESOS_GET_PMSG_FLAG(pst_Message) & ESOS_MAILMESSAGE_UINT8) {
@@ -134,7 +120,7 @@ void __esos_ReadMailMessage(ESOS_TASK_HANDLE pst_Task, MAILMESSAGE* pst_Message 
   } // end strings
   /* If sending task requests ACK a.k.a. "delivery confirmation, then do it */
   if ( ESOS_GET_PMSG_FLAG(pst_Message) & ESOS_MAILMESSAGE_REQUEST_ACK) {
-    pst_From = esos_GetTaskHandleFromID( ESOS_GET_PMSG_FROM_TASK(pst_Message) );
+    pst_From = esos_GetTaskHandleFromID( ESOS_GET_PMSG_FROMTASK(pst_Message) );
     if (pst_From != NULLPTR) {
       __ESOS_CLEAR_TASK_MAILNACK_FLAG( pst_From );
     } // end if ! NULLPTR

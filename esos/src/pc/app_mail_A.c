@@ -206,7 +206,7 @@ ESOS_USER_TASK( recipient_A ) {
 			printf("sender_A");
 		}
 		else {
-			printf("UNKNOWN task:  (%d)", ESOS_GET_MSG_FROM_TASK(stMsg) );
+			printf("UNKNOWN task:  (%d)", ESOS_GET_MSG_FROMTASK(stMsg) );
 		}
 		printf (" containing %d          enroute time = %d ms\n", stMsg.au8_Contents[0], esos_GetSystemTick()-stMsg.u32_Postmark );
    	} //endof while()
