@@ -301,9 +301,6 @@ ESOS_USER_TASK( recipient_C ) {
 void user_init(void) {
 
   CONFIG_LED1();
-  __esos_unsafe_PutString( HELLO_MSG );
-
-
   /*
    * Now, let's get down and dirty with ESOS and our user tasks
    *
@@ -324,4 +321,5 @@ void user_init(void) {
   esos_RegisterTask( sender_C1 );
   esos_RegisterTask( recipient_C );
 
+  __esos_unsafe_PutString( HELLO_MSG );
 } // end user_init()

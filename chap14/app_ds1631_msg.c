@@ -243,16 +243,6 @@ ESOS_USER_TASK(update) {
  ****************************************************
  */
 void user_init(void) {
-
-  // Call the hardware-provided routines to print the
-  // HELLO_MSG to the screen.  Must use this call because
-  // the ESOS communications subsystems is not yet fully
-  // initialized, since this call is in user_init()
-  //
-  // In general, users should call hardware-specific
-  // function like this.
-  __esos_unsafe_PutString( HELLO_MSG );
-
 #ifdef __linux
   // register our little ESOS task to mimic MCU's TIMER T1 IRQ which kicks off
   // the ESOS S/W timers when they expire
@@ -270,5 +260,14 @@ void user_init(void) {
 
   // register our callback function with ESOS to create a software timer
   esos_RegisterTimer( swTimerLED, 250);
+
+  // Call the hardware-provided routines to print the
+  // HELLO_MSG to the screen.  Must use this call because
+  // the ESOS communications subsystems is not yet fully
+  // initialized, since this call is in user_init()
+  //
+  // In general, users should call hardware-specific
+  // function like this.
+  __esos_unsafe_PutString( HELLO_MSG );
 
 } // end user_init()

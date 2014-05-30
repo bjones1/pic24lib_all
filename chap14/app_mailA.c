@@ -241,9 +241,6 @@ ESOS_USER_TASK( recipient_A ) {
  *
  *****************************************************************************/
 void user_init(void) {
-  __esos_unsafe_PutString( HELLO_MSG );
-  __esos_unsafe_PutString( "Good morning, Vietnam!");
-
   /*
    * Now, let's get down and dirty with ESOS and our user tasks
    *
@@ -263,4 +260,7 @@ void user_init(void) {
   esos_RegisterTimer( swTimerLED, 500 );
   esos_RegisterTask( sender_A );
   esos_RegisterTask( recipient_A );
+  
+  __esos_unsafe_PutString( HELLO_MSG );
+
 } // end user_init()

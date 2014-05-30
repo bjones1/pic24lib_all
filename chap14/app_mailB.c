@@ -257,8 +257,6 @@ ESOS_USER_TASK( recipient_B ) {
  *****************************************************************************/
 void user_init(void) {
 
-  __esos_unsafe_PutString( HELLO_MSG );
-
   /*
    * Now, let's get down and dirty with ESOS and our user tasks
    *
@@ -278,4 +276,5 @@ void user_init(void) {
   esos_RegisterTask( sender_B0 );
   esos_RegisterTask( recipient_B );
 
+  __esos_unsafe_PutString( HELLO_MSG );
 } // end user_init()
