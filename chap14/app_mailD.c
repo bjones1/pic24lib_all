@@ -49,7 +49,9 @@
 
 // DEFINEs go here
 #define CONFIG_LED1()           do{CONFIG_RB15_AS_DIG_OUTPUT();ENABLE_RB15_OPENDRAIN();}while(0)
+#define CONFIG_LED2()           CONFIG_RA0_AS_DIG_OUTPUT();
 #define LED1                    _LATB15
+#define LED2                    _LATA0
 
 /*
  * PROTOTYPEs go here
@@ -67,8 +69,6 @@ ESOS_USER_TASK(recipient_D);
 
 // timer globals
 uint32_t    u32_myT1Count = 0;
-//uint8_t     LED1 = TRUE;
-uint8_t     LED2 = TRUE;
 
 struct stTask*    pst_MyTasks[3];
 
@@ -132,6 +132,7 @@ ESOS_USER_TIMER( swTimerCounter ) {
 // user-created timer callback
 ESOS_USER_TIMER( swTimerLED ) {
   LED1 = !LED1;
+  LED2 = !LED2;
   #ifdef __linux
   printf("\a");
   fflush(stdout);
@@ -298,6 +299,7 @@ ESOS_USER_TASK( recipient_D ) {
 void user_init(void) {
 
   CONFIG_LED1();
+  CONFIG_LED2();
 
   /*
    * Now, let's get down and dirty with ESOS and our user tasks

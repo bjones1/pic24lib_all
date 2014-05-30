@@ -228,6 +228,11 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
                         'chap13', 'chap15'],
   env.Clone(MCU='33EP128GP502'), 'default')
 
+# Same as above, but for the dsPIC33EP128GP502 on a MicroStickII target
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
+                        'chap13', 'chap15'],
+  env.Clone(MCU='33EP128GP502', CPPDEFINES='HARDWARE_PLATFORM=MICROSTICK2'), 'MICROSTICK2')
+
 # Build some for the PIC24E device
 buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big', 'chap12_24E'],
   env.Clone(MCU='24EP64GP202'), 'default')
@@ -338,3 +343,5 @@ for mcu in (
            ):
     buildTargetsEsos(env, mcu)
 buildTargetsEsos(env, '33EP128GP504', 'EMBEDDED_C1')
+buildTargetsEsos(env, '33EP128GP502')
+buildTargetsEsos(env, '33EP128GP502', 'MICROSTICK2')

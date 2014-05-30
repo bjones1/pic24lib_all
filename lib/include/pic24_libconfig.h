@@ -59,7 +59,7 @@
 #define DANGEROUS_WEB 1
 
 /** The Microchip 16-bit 28-pin Starter Board,
- *  Part number DM300027. Thanks to Istv�n for contributing this!
+ *  Part number DM300027. Thanks to István for contributing this!
  *
  *  Note: When you use a Microchip 16-bit 28-pin Starter Board with this
  *  library collection or just try out the example programs of the
@@ -83,6 +83,21 @@
 /** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University. */
 #define EMBEDDED_C1 5
 
+/** 
+ * Microchip part number: dm330013-2 
+ *
+ * Microstick II delivers a complete development hardware platform for Microchip’s 16-bit and 32-bit
+ * microcontrollers and digital signal controllers. It’s the perfect solution to those looking for a
+ * low-cost, easy-to-use development platform.
+ * The USB-powered kit includes an on-board debugger/programmer, a DUT socket for easy device swapping,
+ * a user LED and reset button. It is designed for insertion into a standard prototyping board for easy
+ * connection to additional circuitry. The kit is extremely portable as well and is still about the size
+ * of a stick of gum!
+ *
+ * Supported Parts: All 3.3V PIC24FJ, PIC24E, PIC24H, dsPIC33, and PIC32 28-pin SPDIP packaged devices.
+ */
+#define MICROSTICK2 6
+
 
 /** Select one of the hardware platform above to compile for. */
 #ifndef HARDWARE_PLATFORM
@@ -92,6 +107,7 @@
 #if (HARDWARE_PLATFORM != EXPLORER16_100P)   && \
     (HARDWARE_PLATFORM != DANGEROUS_WEB)     && \
     (HARDWARE_PLATFORM != STARTER_BOARD_28P) && \
+    (HARDWARE_PLATFORM != MICROSTICK2)       && \
     (HARDWARE_PLATFORM != DEFAULT_DESIGN)    && \
     (HARDWARE_PLATFORM != HARDMAPPED_UART)   && \
     (HARDWARE_PLATFORM != EMBEDDED_C1)
@@ -340,6 +356,9 @@
 # elif (HARDWARE_PLATFORM == EMBEDDED_C1)
 #   define HB_LED _LATB15
 #   define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
+# elif (HARDWARE_PLATFORM == MICROSTICK2)
+#   define HB_LED _LATA0
+#   define CONFIG_HB_LED() CONFIG_RA0_AS_DIG_OUTPUT()
 # else // All other hardware platforms
 /** Choose a pin for the heartbeat.
  *  If \ref USE_HEARTBEAT is false, the heartbeat is disabled.
