@@ -45,43 +45,43 @@ void __esos_InitMailbox(MAILBOX* pst_Mailbox, uint8_t* pau8_ptr) {
 /**
 * Writes message data to a task's mailbox.
 *
-* \param pstTask  pointer to task structure (ESOS_TASK_HANDLE) whose mailbox will be written
-* \param pstMsg   pointer to mailbox message structure that contains data to write to the task's mailbox
+* \param pst_RcvrTask  pointer to task structure (ESOS_TASK_HANDLE) whose mailbox will be written
+* \param pst_Msg        pointer to mailbox message structure that contains data to write to the task's mailbox
 * \note This function <em>ASSUMES</em> that there is ample free space available in specified
 * mailbox.
 *
 * \sa ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_SPACE
 * \hideinitializer
 */
-void __esos_SendMailMessage(ESOS_TASK_HANDLE pst_Task, MAILMESSAGE* pst_Message ) {
+void __esos_SendMailMessage(ESOS_TASK_HANDLE pst_RcvrTask, MAILMESSAGE* pst_Msg ) {
   uint8_t               u8_i;
 
   // first message btye:  flags in upper nibble, payload length in lower
-  u8_i = ((pst_Message->u8_flags)<<4) + (pst_Message->u8_DataLength & 0x0F);
-  __esos_CB_WriteUINT8( pst_Task->pst_Mailbox->pst_CBuffer, u8_i );
+  u8_i = ((pst_Msg->u8_flags)<<4) + (pst_Msg->u8_DataLength & 0x0F);
+  __esos_CB_WriteUINT8( pst_RcvrTask->pst_Mailbox->pst_CBuffer, u8_i );
   // second message word: Task ID of sending task
-  __esos_CB_WriteUINT16( pst_Task->pst_Mailbox->pst_CBuffer, ESOS_GET_PMSG_FROMTASK(pst_Message) );
+  __esos_CB_WriteUINT16( pst_RcvrTask->pst_Mailbox->pst_CBuffer, ESOS_GET_PMSG_FROMTASK(pst_Msg) );
   // Now, timestamp the message with double word
-  __esos_CB_WriteUINT32( pst_Task->pst_Mailbox->pst_CBuffer, esos_GetSystemTick() );
+  __esos_CB_WriteUINT32( pst_RcvrTask->pst_Mailbox->pst_CBuffer, esos_GetSystemTick() );
   // Now write the data depending on what type and how many
-  if ( ESOS_GET_PMSG_FLAG(pst_Message) & ESOS_MAILMESSAGE_UINT8) {
-    for (u8_i=0; u8_i<ESOS_GET_PMSG_DATA_LENGTH(pst_Message); u8_i++) {
-      __esos_CB_WriteUINT8( pst_Task->pst_Mailbox->pst_CBuffer, pst_Message->au8_Contents[u8_i] );
+  if ( ESOS_GET_PMSG_FLAGS(pst_Msg) & ESOS_MAILMESSAGE_UINT8) {
+    for (u8_i=0; u8_i<ESOS_GET_PMSG_DATA_LENGTH(pst_Msg); u8_i++) {
+      __esos_CB_WriteUINT8( pst_RcvrTask->pst_Mailbox->pst_CBuffer, pst_Msg->au8_Contents[u8_i] );
     } // end for UINT8s
-  } else if ( ESOS_GET_PMSG_FLAG(pst_Message) & ESOS_MAILMESSAGE_UINT16) {
-    for (u8_i=0; u8_i<pst_Message->u8_DataLength; u8_i++) {
-      __esos_CB_WriteUINT16( pst_Task->pst_Mailbox->pst_CBuffer, pst_Message->au16_Contents[u8_i] );
+  } else if ( ESOS_GET_PMSG_FLAGS(pst_Msg) & ESOS_MAILMESSAGE_UINT16) {
+    for (u8_i=0; u8_i<pst_Msg->u8_DataLength; u8_i++) {
+      __esos_CB_WriteUINT16( pst_RcvrTask->pst_Mailbox->pst_CBuffer, pst_Msg->au16_Contents[u8_i] );
     } // end for UINT16s
-  } else if ( ESOS_GET_PMSG_FLAG(pst_Message) & ESOS_MAILMESSAGE_UINT32) {
-    for (u8_i=0; u8_i<pst_Message->u8_DataLength; u8_i++) {
-      __esos_CB_WriteUINT32( pst_Task->pst_Mailbox->pst_CBuffer, pst_Message->au32_Contents[u8_i] );
+  } else if ( ESOS_GET_PMSG_FLAGS(pst_Msg) & ESOS_MAILMESSAGE_UINT32) {
+    for (u8_i=0; u8_i<pst_Msg->u8_DataLength; u8_i++) {
+      __esos_CB_WriteUINT32( pst_RcvrTask->pst_Mailbox->pst_CBuffer, pst_Msg->au32_Contents[u8_i] );
     } // end for UINT32s
   } else {
   } // end for STRINGs
 } // endof __esos_SendMailMessage()
 
 /**
-* Reads a waiting message from a task's mailbox.
+* Reads the next (oldest) waiting message from a task's mailbox.
 *
 * \param pstTask  pointer to task structure (ESOS_TASK_HANDLE) whose mailbox will be written
 * \param pstMsg   pointer to mailbox message structure that contains data to write to the task's mailbox
@@ -104,22 +104,22 @@ void __esos_ReadMailMessage(ESOS_TASK_HANDLE pst_Task, MAILMESSAGE* pst_Message 
   /* Now, timestamp the message */
   pst_Message->u32_Postmark = __esos_CB_ReadUINT32( pst_Task->pst_Mailbox->pst_CBuffer );
   /* Now write the data depending on what type and how many */
-  if ( ESOS_GET_PMSG_FLAG(pst_Message) & ESOS_MAILMESSAGE_UINT8) {
+  if ( ESOS_GET_PMSG_FLAGS(pst_Message) & ESOS_MAILMESSAGE_UINT8) {
     for (u8_i=0; u8_i<ESOS_GET_PMSG_DATA_LENGTH(pst_Message); u8_i++) {
       pst_Message->au8_Contents[u8_i] = __esos_CB_ReadUINT8( pst_Task->pst_Mailbox->pst_CBuffer );
     } // end for UINT8s
-  } else if ( ESOS_GET_PMSG_FLAG(pst_Message) & ESOS_MAILMESSAGE_UINT16) {
+  } else if ( ESOS_GET_PMSG_FLAGS(pst_Message) & ESOS_MAILMESSAGE_UINT16) {
     for (u8_i=0; u8_i<pst_Message->u8_DataLength; u8_i++) {
       pst_Message->au16_Contents[u8_i] = __esos_CB_ReadUINT16( pst_Task->pst_Mailbox->pst_CBuffer );
     } // end for UINT16s
-  } else if ( ESOS_GET_PMSG_FLAG(pst_Message) & ESOS_MAILMESSAGE_UINT32) {
+  } else if ( ESOS_GET_PMSG_FLAGS(pst_Message) & ESOS_MAILMESSAGE_UINT32) {
     for (u8_i=0; u8_i<pst_Message->u8_DataLength; u8_i++) {
       pst_Message->au32_Contents[u8_i] = __esos_CB_ReadUINT32( pst_Task->pst_Mailbox->pst_CBuffer );
     } // end for UINT32s
   } else {
   } // end strings
   /* If sending task requests ACK a.k.a. "delivery confirmation, then do it */
-  if ( ESOS_GET_PMSG_FLAG(pst_Message) & ESOS_MAILMESSAGE_REQUEST_ACK) {
+  if ( ESOS_GET_PMSG_FLAGS(pst_Message) & ESOS_MAILMESSAGE_REQUEST_ACK) {
     pst_From = esos_GetTaskHandleFromID( ESOS_GET_PMSG_FROMTASK(pst_Message) );
     if (pst_From != NULLPTR) {
       __ESOS_CLEAR_TASK_MAILNACK_FLAG( pst_From );

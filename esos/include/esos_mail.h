@@ -229,40 +229,56 @@ typedef struct __stMAILMESSAGE {
 */
 #define ESOS_TASK_FLUSH_TASK_MAILBOX(pstTask)						  __ESOS_CB_FLUSH((pstTask)->pst_Mailbox->pst_CBuffer)
 
-#define ESOS_TASK_SEND_MESSAGE(pstTask, pstMsg)										__esos_SendMailMessage((pstTask),(pstMsg))
+#define ESOS_TASK_SEND_MESSAGE(pst_ToTask, pst_Msg)					  __esos_SendMailMessage((pst_ToTask),(pst_Msg))
 
-#define ESOS_TASK_SEND_MESSAGE_WAIT_DELIVERY(pstTask, pstMsg)                               \
+#define ESOS_TASK_WAIT_ON_DELIVERY(pst_ToTask, pstMsg)                               \
         do{                                                                                 \
             (pstMsg)->u8_flags |= ESOS_MAILMESSAGE_REQUEST_ACK;                             \
-			ESOS_TASK_SEND_MESSAGE((pstTask),(pstMsg));										\
+			ESOS_TASK_SEND_MESSAGE((pst_ToTask),(pstMsg));										\
 			__ESOS_SET_TASK_MAILNACK_FLAG((__pstSelf));										\
 			ESOS_TASK_WAIT_WHILE( ESOS_TASK_IS_WAITING_MAIL_DELIVERY( __pstSelf ) );		\
 		} while(0)
+
+#define ESOS_TASK_GET_NEXT_MESSAGE(pst_Msg)                           __esos_ReadMailMessage(__pstSelf, (pst_Msg))
+
+#define ESOS_TASK_GET_LAST_MESSAGE(pst_Msg)                                 \
+        do {                                                                \
+            while ( ESOS_TASK_IVE_GOT_MAIL() ) {                            \
+                __esos_ReadMailMessage(__pstSelf, (pst_Msg) );              \
+            }                                                               \
+        }while(0)                                                              
 
 /********************
 *** QUICKIE MACROS
 ********************/
 #define ESOS_IS_TASK_SENDER(hTask, stMsg)               (hTask->u16_taskID==stMsg.u16_FromTaskID)
 
-#define ESOS_SET_MSG_FLAG(stMsg, flags)					stMsg.u8_flags=(flags)
+#define ESOS_SET_MSG_FLAGS(stMsg, flags)					stMsg.u8_flags=(flags)
 #define ESOS_SET_MSG_FROMTASK(stMsg, pstFromTask)		stMsg.u16_FromTaskID=pstFromTask->u16_taskID
 #define ESOS_SET_MSG_DATA_LENGTH(stMsg, len)			stMsg.u8_DataLength=(len)
-#define ESOS_GET_MSG_FLAG(stMsg)									(stMsg.u8_flags)
+#define ESOS_GET_MSG_FLAGS(stMsg)									(stMsg.u8_flags)
 #define ESOS_GET_MSG_FROMTASK(stMsg)							(stMsg.u16_FromTaskID)
 #define ESOS_GET_MSG_DATA_LENGTH(stMsg)						(stMsg.u8_DataLength)
 #define ESOS_GET_MSG_POSTMARK(stMsg)				  		(stMsg.u32_Postmark)
 
-#define ESOS_SET_PMSG_FLAG(pstMsg, flags)						pstMsg->u8_flags=(flags)
+#define ESOS_SET_PMSG_FLAGS(pstMsg, flags)						pstMsg->u8_flags=(flags)
 #define ESOS_SET_PMSG_FROMTASK(pstMsg, pstFromTask)		pstMsg->u16_FromTaskID=pstFromTask->u16_taskID
 #define ESOS_SET_PMSG_DATA_LENGTH(pstMsg, len)			pstMsg->u8_DataLength=(len)
-#define ESOS_GET_PMSG_FLAG(pstMsg)									(pstMsg->u8_flags)
+#define ESOS_GET_PMSG_FLAGS(pstMsg)									(pstMsg->u8_flags)
 #define ESOS_GET_PMSG_FROMTASK(pstMsg)							(pstMsg->u16_FromTaskID)
 #define ESOS_GET_PMSG_DATA_LENGTH(pstMsg)						(pstMsg->u8_DataLength)
 #define ESOS_GET_PMSG_POSTMARK(pstMsg)				  		(pstMsg->u32_Postmark)
 
+#define ESOS_TASK_MAKE_MSG_EMPTY(stMsg)								\
+	do{																\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT8);			\
+	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	                    \
+	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 0);							\
+	} while(0)
+
 #define ESOS_TASK_MAKE_MSG_UINT8(stMsg, u8x)								\
 	do{																												\
-	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT8);			\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT8);			\
 	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	\
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 1);										\
 	   stMsg.au8_Contents[0] = (u8x);														\
@@ -270,7 +286,7 @@ typedef struct __stMAILMESSAGE {
 
 #define ESOS_TASK_MAKE_MSG_UINT8_X2(stMsg, u8x0, u8x1)			\
 	do{																												\
-	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT8);			\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT8);			\
 	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	\
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 2);										\
 	   stMsg.au8_Contents[0] = (u8x0);													\
@@ -279,7 +295,7 @@ typedef struct __stMAILMESSAGE {
 
 #define ESOS_TASK_MAKE_MSG_UINT8_X3(stMsg, u8x0, u8x1, u8x2)			\
 	do{																	\
-	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT8);			\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT8);			\
 	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	\
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 3);										\
 	   stMsg.au8_Contents[0] = (u8x0);													\
@@ -289,7 +305,7 @@ typedef struct __stMAILMESSAGE {
 
 #define ESOS_TASK_MAKE_MSG_UINT8_X4(stMsg, u8x0, u8x1, u8x2, u8x3)			\
 	do{																	\
-	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT8);			\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT8);			\
 	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	\
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 4);										\
 	   stMsg.au8_Contents[0] = (u8x0);													\
@@ -300,7 +316,7 @@ typedef struct __stMAILMESSAGE {
 
 #define ESOS_TASK_MAKE_MSG_AUINT8(stMsg, pau8x, len)				\
 	do{																												\
-	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT8);			\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT8);			\
 	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	\
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 1);										\
 	   for (__u8_esos_mail_routines_dummy_uint8=0; __u8_esos_mail_routines_dummy_uint8<len; __u8_esos_mail_routines_dummy_uint8++) {			\
@@ -310,7 +326,7 @@ typedef struct __stMAILMESSAGE {
 
 #define ESOS_TASK_MAKE_MSG_UINT16(stMsg, u16x)							\
 	do{																												\
-	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT16);			\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT16);			\
 	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	\
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 1);										\
 	   stMsg.au16_Contents[0] = (u16x);													\
@@ -318,7 +334,7 @@ typedef struct __stMAILMESSAGE {
 
 #define ESOS_TASK_MAKE_MSG_UINT16_X2(stMsg, u16x0, u16x1)		\
 	do{																												\
-	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT16);			\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT16);			\
 	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	\
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 2);										\
 	   stMsg.au16_Contents[0] = (u16x0);												\
@@ -327,7 +343,7 @@ typedef struct __stMAILMESSAGE {
 
 #define ESOS_TASK_MAKE_MSG_UINT16_X3(stMsg, u16x0, u16x1, u16x2)		\
 	do{																												\
-	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT16);			\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT16);			\
 	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	\
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 3);										\
 	   stMsg.au16_Contents[0] = (u16x0);												\
@@ -337,7 +353,7 @@ typedef struct __stMAILMESSAGE {
 
 #define ESOS_TASK_MAKE_MSG_UINT16_X4(stMsg, u16x0, u16x1, u16x2, u16x3)		\
 	do{																												\
-	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT16);			\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT16);			\
 	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	\
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 4);										\
 	   stMsg.au16_Contents[0] = (u16x0);												\
@@ -348,7 +364,7 @@ typedef struct __stMAILMESSAGE {
 
 #define ESOS_TASK_MAKE_MSG_UINT32(stMsg, u32x)							\
 	do{																												\
-	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT32);			\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT32);			\
 	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	\
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 1);										\
 	   stMsg.au32_Contents[0] = (u32x);													\
@@ -356,7 +372,7 @@ typedef struct __stMAILMESSAGE {
 
 #define ESOS_TASK_MAKE_MSG_UINT32_X2(stMsg, u32x0, u32x1)		\
 	do{																												\
-	   ESOS_SET_MSG_FLAG(stMsg, ESOS_MAILMESSAGE_UINT32);			\
+	   ESOS_SET_MSG_FLAGS(stMsg, ESOS_MAILMESSAGE_UINT32);			\
 	   ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf);	\
 	   ESOS_SET_MSG_DATA_LENGTH(stMsg, 2);										\
 	   stMsg.au32_Contents[0] = (u32x0);												\
@@ -366,7 +382,7 @@ typedef struct __stMAILMESSAGE {
 
 #define PRINTF_MESSAGE(stMsg)															\
 	do{																											\
-	  printf("MESSAGE u8_flags =            %02X\n",ESOS_GET_MSG_FLAG(stMsg) );	\
+	  printf("MESSAGE u8_flags =            %02X\n",ESOS_GET_MSG_FLAGS(stMsg) );	\
 	  printf("        u16_FromTaskID =      %d\n",ESOS_GET_MSG_FROMTASK(stMsg) ); \
 	  printf("        u8_DataLength =       %d\n",ESOS_GET_MSG_DATA_LENGTH(stMsg) );	\
 	  printf("        u32_PostMark =        %d\n",ESOS_GET_MSG_POSTMARK(stMsg) ); \
@@ -399,7 +415,8 @@ void __esos_InitMailbox(MAILBOX* pst_Mailbox, uint8_t* pau8_ptr);
 * \hideinitializer
 */
 void __esos_SendMailUint8(struct stTask* pst_Task, MAILBOX* pst_Mailbox, uint8_t* pau8_data, uint8_t u8_len );
-
+void __esos_ReadMailMessage(struct stTask* pst_Task, MAILMESSAGE* pst_Message );
+void __esos_SendMailMessage(struct stTask* pst_RcvrTask, MAILMESSAGE* pst_Msg );
 
 /** @} */
 

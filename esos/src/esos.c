@@ -69,7 +69,7 @@ CBUFFER			__astCircularBuffers[MAX_NUM_USER_TASKS];
 // misc ESOS variables
 uint16_t			__esos_u16UserFlags, __esos_u16SystemFlags;
 uint32_t            __u32_esos_PRNG_Seed;
-uint32_t            __esos_u32FNVHash = 2166136261;
+uint32_t            __esos_u32FNVHash = 2166136261L;
 
 /****************************************************************
 ** Embedded Systems Operating System (ESOS) code
