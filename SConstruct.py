@@ -237,9 +237,9 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
 buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big', 'chap12_24E'],
   env.Clone(MCU='24EP64GP202'), 'default')
 
-# Build some for the CAN2 rev.C1 board used in ECE4723 Embedded Systems
-buildTargetsSConscript(['embeddedC1'],
-  env.Clone(MCU='33EP128GP504', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_C1'), 'EMBEDDED_C1')
+# Build some selected chapter applications for the chip used on the Fall 2013 Embedded systems board 
+buildTargetsSConscript(['chap08', 'chap09', 'chap13ecan'],
+  env.Clone(MCU='33EP128GP504'), 'default')
 
 # Build for the explorer board
 buildTargetsSConscript(['explorer'],
@@ -343,5 +343,4 @@ for mcu in (
            ):
     buildTargetsEsos(env, mcu)
 buildTargetsEsos(env, '33EP128GP504', 'EMBEDDED_C1')
-buildTargetsEsos(env, '33EP128GP502')
 buildTargetsEsos(env, '33EP128GP502', 'MICROSTICK2')

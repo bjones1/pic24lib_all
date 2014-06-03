@@ -34,24 +34,24 @@ Illustrate CAN transmit, receive. Uses only one buffer for RX receive, and
 uses a standard data frame.
 */
 
-/**
-Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B, Example 21-9),
-Produces data rate of 1 Mbps assuming FCY = 40 MHz, quanta = 20, Prescale = 2.
-**/
-
 void configBaudECAN1(void) { //set baud rate
-// The following were removed from the PIC24 Library due to Microchip removing support for them in their recent documentation for the PIC24 - rnn13
-//  C1CTRL1bits.CANCKS = ECAN_FCAN_IS_FCY; // CANCKS = 1, sets FCAN = FCY = 40 MHz
-
-#ifdef __dsPIC33E__ // Microchip added support for CANCKS for the dsPIC33EP, but it has a different meaning now - rnn13
+// Microchip added CANCKS to the CiCTRL1 registers for the dsPIC33E family in
+// March 2011.
+//     This bit has a different meaning from the CANCKS bit that was removed
+//     from the datasheets in the older PIC24/dsPIC families
+#ifdef __dsPIC33E__ 
   // Set the ECAN Module Clock to FCY
   C1CTRL1bits.CANCKS = ECAN_FCAN_IS_FP;
 #endif
 
-
 #if FCY == GET_FCY(FRCPLL_FCY40MHz) // <- This needs to be reverified! - rnn13
-// FCAN = FCY = 40 MHz. TQ = 20. Prescale = 2, Data Rate = FCAN/(TQ * pre) = 40MHz/40 = 1 MHz.
-//20 TQ for a bit time. 20 = Sync(1) + Seg1 (8) + Seg2 (6) + Prop seg (5)
+/**
+Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B, Example 21-9),
+Produces data rate of 1 Mbps assuming FCY = 40 MHz, quanta = 20, Prescale = 2.
+**/
+// FCAN = FCY = 40 MHz. TQ = 20. Prescale = 2
+// CAN Data Rate = FCAN/(TQ * pre) = 40MHz/40 = 1 MBps.
+// 20 TQ for a bit time. 20 = Sync(1) + Seg1 (8) + Seg2 (6) + Prop seg (5)
   C1CFG2 = ECAN_NO_WAKEUP |
            ECAN_SAMPLE_3TIMES |      //sample three times at sample point
            ECAN_SEG1PH_8TQ |         //seg1 = 8 TQ
@@ -60,31 +60,29 @@ void configBaudECAN1(void) { //set baud rate
            ECAN_PRSEG_5TQ;           //propagation delay segment = 5 TQ
 
   C1CFG1 = ECAN_SYNC_JUMP_4 |    //use maximum sync jump width
-           ECAN_PRE_2x1;         //prescalers to 2x1
+           ECAN_PRE_2x1;         //prescalers to 2x1 = 2
 
 #elif FCY == GET_FCY(FRCPLL_FCY60MHz)
-// FCAN = FCY = 60 MHz. TQ = 15. Prescale = 4, Data Rate = FCAN/(TQ * Prescale) = 60MHz/60 = 1 MHz.
-// Bit Time = [ Sync Segment(1) + Propagation Delay(4) + Phase Segment 1(5) + Phase Segment 2(5) ] = 15 * TQ
+// FCAN = FCY = 60 MHz. Use TQ = 15. Prescale = 4
+// CAN Data Rate = FCAN/(TQ * Prescale) = 60MHz/60 = 1 MBps.
+// Bit Time 15TQ = SyncSeg(1) + PropSeg(4) + Seg1(4) + Seg2 (6)
   C1CFG2 = ECAN_NO_WAKEUP |
            ECAN_SAMPLE_3TIMES |      //sample three times at sample point
-           ECAN_SEG1PH_8TQ |         //seg1 = 8 TQ
+           ECAN_SEG1PH_4TQ |         //seg1 = 8 TQ
            ECAN_SEG2_PROGRAMMABLE |  //seg2 is programmable
            ECAN_SEG2PH_6TQ |         //seg2 = 6 TQ
-           ECAN_PRSEG_5TQ;           //propagation delay segment = 5 TQ
+           ECAN_PRSEG_3TQ;           //propagation delay segment = 5 TQ
 
   C1CFG1 = ECAN_SYNC_JUMP_4 |    //use maximum sync jump width
-           ECAN_PRE_2x4;         //prescalers to 2x4
-
+           ECAN_PRE_2x2;         //prescalers to 2x2 = 4
 #else
 #warning "ECAN module not configured for current processor frequency! Edit function configECAN1()."
-
 #endif
 }
 
 //minimum number of buffers, 1 for TX, 1 for RX
 #define NUM_TX_BUFS  1   //reserve 1 for TX
 #define NUM_BUFS    2   //make this a power of 2 for the alignment to work or enter alignment manually
-ECANMSG msgBuf[NUM_BUFS] __attribute__((space(dma),aligned(NUM_BUFS*16)));
 
 //base message ID
 #define MSG_ID 0x7A0    //arbitrary choice for 11-bit messsage ID

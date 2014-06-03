@@ -110,8 +110,15 @@ void configDMA0() {
   DMA0REQ = DMA_IRQ_U1RX;  //source from UART1 RX
   _U1RXIF = 0;             //clear the UART RX IF flag
 //set up ping pong buffer registers
+#if defined(__PIC24H__) || defined (__dsPIC33F__)
   DMA0STA = __builtin_dmaoffset(au8_bufferA);
   DMA0STB = __builtin_dmaoffset(au8_bufferB);
+#elif defined(__PIC24E__)
+  DMA0STAH = __builtin_dmaoffset(au8_bufferA);
+  DMA0STAL = __builtin_dmaoffset(au8_bufferA);
+  DMA0STBH = __builtin_dmaoffset(au8_bufferB);
+  DMA0STBL = __builtin_dmaoffset(au8_bufferB);
+#endif  
 //setup transfer size
   DMA0CNT =   DMA_TRANSFER_SIZE -1;
   DMA0CON =             //configure and enable the module Module
