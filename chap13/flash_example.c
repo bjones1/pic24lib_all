@@ -45,8 +45,16 @@ Illustrates run time self programming of the flash memory
 #define LAST_IMPLEMENTED_PMEM 0x0057FF
 #elif defined(__dsPIC33FJ128GP802__)
 #define LAST_IMPLEMENTED_PMEM 0x0157FF
-#elif defined(__PIC24EP64GP202__)     //PIC24E test
+#elif defined(__PIC24EP64GP202__)               // test PIC24E device
 #define LAST_IMPLEMENTED_PMEM 0x00AFFF
+#elif defined(__dsPIC33EP64GP502__)    || defined(__dsPIC33EP64GP503__)  || defined(__dsPIC33EP64GP504__) || defined(__dsPIC33EP64GP506__) 
+#define LAST_IMPLEMENTED_PMEM 0x00AFFF
+#elif defined(__dsPIC33EP128GP502__) || defined(__dsPIC33EP128GP504__) || defined(__dsPIC33EP128GP506__)
+#define LAST_IMPLEMENTED_PMEM 0x0157FF
+#elif defined(__dsPIC33EP256GP502__) || defined(__dsPIC33EP256GP504__) || defined(__dsPIC33EP256GP506__)
+#define LAST_IMPLEMENTED_PMEM 0x02AFFF
+#elif defined(__dsPIC33EP512GP502__) || defined(__dsPIC33EP512GP504__) || defined(__dsPIC33EP512GP506__)
+#define LAST_IMPLEMENTED_PMEM 0x0557FF
 #else
 #error "Define LAST_IMPLEMENTED_PMEM for your processor!"
 #endif

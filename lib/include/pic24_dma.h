@@ -90,7 +90,7 @@
 #define DMA_PAD_OC3RS       0x0918
 #define DMA_PAD_IC4BUF      0x015C
 #define DMA_PAD_OC4R        0x0924
-#define DMA_PAD_OC4R        0x0922
+#define DMA_PAD_OC4RS       0x0922
 #define DMA_PAD_SPI1BUF     0x0248
 #define DMA_PAD_SPI2BUF     0x0268
 #define DMA_PAD_SPI3BUF     0x02A8
