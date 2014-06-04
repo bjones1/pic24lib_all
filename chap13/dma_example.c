@@ -93,9 +93,18 @@ void memReadLC515(uint8_t u8_i2cAddr,  uint16_t u16_MemAddr, uint8_t *pu8_buf) {
 }
 
 #define DMA_TRANSFER_SIZE  BLKSIZE
-//DMA buffers
+
+//define DMA buffers
+#if defined(__PIC24H__) || defined (__dsPIC33F__)
 uint8_t au8_bufferA[DMA_TRANSFER_SIZE] __attribute__((space(dma)));
 uint8_t au8_bufferB[DMA_TRANSFER_SIZE] __attribute__((space(dma)));
+#elif defined(__dsPIC33E__)
+uint8_t au8_bufferA[DMA_TRANSFER_SIZE] __attribute__((space(xmemory),aligned(DMA_TRANSFER_SIZE)));
+uint8_t au8_bufferB[DMA_TRANSFER_SIZE] __attribute__((space(xmemory),aligned(DMA_TRANSFER_SIZE)));
+#else
+#error "DMA memory not properly defined for this processor."
+#endif
+
 //some one-bit flags
 typedef struct tagFLAGBITS {
 unsigned u1_activeBuffer:
@@ -105,6 +114,10 @@ unsigned u1_writeFlag:
 } FLAGBITS;
 volatile FLAGBITS flags;
 
+/***************************************************************************
+****************************************************************************
+ 2008 CODE for PIC24H
+ ***************************************************************************
 void configDMA0() {
   DMA0PAD = (unsigned int) &U1RXREG;      //peripheral address to read
   DMA0REQ = DMA_IRQ_U1RX;  //source from UART1 RX
@@ -138,6 +151,96 @@ void configDMA0() {
   _DMA0IP = 2;
   _DMA0IE = 1;
 }
+
+***************************************************************************/
+
+
+/***************************************************************************
+** Configure DMA engine 
+**
+** There are slight differences in the dsPIC33E/PIC24E devices from
+**  the previous devices (F,H, etc.)
+**
+***************************************************************************/
+#if defined(__PIC24H__) || defined (__dsPIC33F__)
+      // ECANMSG msgBuf[NUM_BUFS] __attribute__((space(dma),aligned(NUM_BUFS*16)));
+//define DMA buffers
+uint8_t au8_bufferA[DMA_TRANSFER_SIZE] __attribute__((space(dma)));
+uint8_t au8_bufferB[DMA_TRANSFER_SIZE] __attribute__((space(dma)));
+
+//configure DMA transmit buffer
+void configDMA0(void) {
+  DMACS0 = 0;
+  _DMA0IF = 0;                            // clear DMA0 IF
+  _U1RXIF = 0;                            // clear the UART RX IF  
+  DMA0PAD = (unsigned int) &U1RXREG;      // read from UART peripheral RX register
+  DMA0REQ = DMA_IRQ_U1RX;                 // DMA requests will come from UART1 RX
+  // address of two ping-pong buffers (target mem where DMA will xfer data to)
+  DMA0STA = __builtin_dmaoffset(au8_bufferA);
+  DMA0STB = __builtin_dmaoffset(au8_bufferB);
+  DMA0CNT =   DMA_TRANSFER_SIZE -1;       // number of byte/words to transfer each DMA request
+
+  // configure and enable the DMA0 module
+  // DMA0 will "READ" "BYTES" giving interrupts when buffer is full,
+  // "POSTINCREMENT" the addresses to set thru buffer, and will
+  // "PING_PONG" next transfer into a second buffer
+  DMA0CON =
+    (DMA_MODULE_ON |
+     DMA_SIZE_BYTE |
+     DMA_DIR_READ_PERIPHERAL |
+     DMA_INTERRUPT_FULL |
+     DMA_NULLW_OFF |
+     DMA_AMODE_REGISTER_POSTINC |
+     DMA_MODE_CONTINUOUS_PING_PONG);
+
+  //enable the UART1RX Error interrupt
+  _U1EIF = 0; _U1EIP = 1; _U1EIE = 1;
+  //enable DMA channel 0 interrupt
+  _DMA0IF = 0; _DMA0IP = 2; _DMA0IE = 1;
+}
+
+#elif defined(__dsPIC33E__)
+
+//ECANMSG msgBuf[NUM_BUFS] __attribute__((space(xmemory),aligned(NUM_BUFS*16)));
+uint8_t au8_bufferA[DMA_TRANSFER_SIZE] __attribute__((space(xmemory),aligned(DMA_TRANSFER_SIZE)));
+uint8_t au8_bufferB[DMA_TRANSFER_SIZE] __attribute__((space(xmemory),aligned(DMA_TRANSFER_SIZE)));
+
+//configure DMA transmit buffer
+void configDMA0(void) {
+  DMAPWC = 0; // Reset the DMA Peripheral Write Collision Status Register
+  _DMA0IF = 0;                            // clear DMA0 IF
+  _U1RXIF = 0;                            // clear the UART RX IF  
+  DMA0PAD = (unsigned int) &U1RXREG;      // read from UART peripheral RX register
+  DMA0REQ = DMA_IRQ_U1RX;                 // DMA requests will come from UART1 RX
+  // address of two ping-pong buffers (target mem where DMA will xfer data to)
+  DMA0STAL = __builtin_dmaoffset(au8_bufferA);
+  DMA0STAH = 0;
+  DMA0STBL = __builtin_dmaoffset(au8_bufferB);
+  DMA0STBH = 0;
+  DMA0CNT =   DMA_TRANSFER_SIZE -1;       // number of byte/words to transfer each DMA request
+  // configure and enable the DMA0 module
+  // DMA0 will "READ" "BYTES" giving interrupts when buffer is full,
+  // "POSTINCREMENT" the addresses to set thru buffer, and will
+  // "PING_PONG" next transfer into a second buffer
+  DMA0CON =
+    (DMA_MODULE_ON |
+     DMA_SIZE_BYTE |
+     DMA_DIR_READ_PERIPHERAL |
+     DMA_INTERRUPT_FULL |
+     DMA_NULLW_OFF |
+     DMA_AMODE_REGISTER_POSTINC |
+     DMA_MODE_CONTINUOUS_PING_PONG);
+  //enable the UART1RX Error interrupt
+  _U1EIF = 0; _U1EIP = 1; _U1EIE = 1;
+  //enable DMA channel 0 interrupt
+  _DMA0IF = 0; _DMA0IP = 2; _DMA0IE = 1;
+
+}
+
+#else
+#error "DMA has not been configured for this chip.  Edit chap13/dma_example.c."
+#endif
+
 
 //UART error interrupt, need this with DMA since DMA does not check for errors.
 void _ISRFAST _U1ErrInterrupt(void) {

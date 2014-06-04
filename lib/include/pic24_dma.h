@@ -44,23 +44,71 @@
 #define DMA_MODE_CONTINUOUS              0x0000 /* Continuous, Ping-pong modes disabled */
 #define DMA_MODE_MASK              (~DMA_MODE_ONE_SHOT_PING_PONG)
 
-
+// constants for DMAxREQ register
 #define DMA_IRQ_INT0        0x0000
 #define DMA_IRQ_IC1         0x0001
 #define DMA_IRQ_OC1         0x0002
 #define DMA_IRQ_IC2         0x0005
 #define DMA_IRQ_OC2         0x0006
+#define DMA_IRQ_IC3         0x0025
+#define DMA_IRQ_OC3         0x0019
+#define DMA_IRQ_IC4         0x0026
+#define DMA_IRQ_OC4         0x001A
 #define DMA_IRQ_TMR2        0x0007
 #define DMA_IRQ_TMR3        0x0008
+#define DMA_IRQ_TMR4        0x001B
+#define DMA_IRQ_TMR5        0x001C
 #define DMA_IRQ_SPI1        0x000A
+#define DMA_IRQ_SPI2        0x0021
+#define DMA_IRQ_SPI3        0x005B
+#define DMA_IRQ_SPI4        0x007B
 #define DMA_IRQ_U1RX        0x000B
 #define DMA_IRQ_U1TX        0x000C
-#define DMA_IRQ_ADC1        0x000D
-#define DMA_IRQ_ADC2        0x0015
 #define DMA_IRQ_U2RX        0x001E
 #define DMA_IRQ_U2TX        0x001F
-#define DMA_IRQ_SPI2        0x0021
-#define DMA_IRQ_ECAN1RX       0x0022
-#define DMA_IRQ_ECAN2RX       0x0037
-#define DMA_IRQ_ECAN1TX       0x0046
-#define DMA_IRQ_ECAN2TX       0x0047
+#define DMA_IRQ_U3RX        0x0052
+#define DMA_IRQ_U3TX        0x0053
+#define DMA_IRQ_U4RX        0x0058
+#define DMA_IRQ_U4TX        0x0059
+#define DMA_IRQ_ADC1        0x000D
+#define DMA_IRQ_ADC2        0x0015
+#define DMA_IRQ_ECAN1RX     0x0022
+#define DMA_IRQ_ECAN2RX     0x0037
+#define DMA_IRQ_ECAN1TX     0x0046
+#define DMA_IRQ_ECAN2TX     0x0047
+#define DMA_IRQ_PMP         0x002D
+
+// constants for DMAxPAD register
+#define DMA_PAD_IC1BUF      0x0144
+#define DMA_PAD_OC1R        0x0906
+#define DMA_PAD_OC1RS       0x0904
+#define DMA_PAD_IC2BUF      0x014C
+#define DMA_PAD_OC2R        0x0910
+#define DMA_PAD_OC2RS       0x090E
+#define DMA_PAD_IC3BUF      0x0154
+#define DMA_PAD_OC3R        0x091A
+#define DMA_PAD_OC3RS       0x0918
+#define DMA_PAD_IC4BUF      0x015C
+#define DMA_PAD_OC4R        0x0924
+#define DMA_PAD_OC4R        0x0922
+#define DMA_PAD_SPI1BUF     0x0248
+#define DMA_PAD_SPI2BUF     0x0268
+#define DMA_PAD_SPI3BUF     0x02A8
+#define DMA_PAD_SPI4BUF     0x02C8
+#define DMA_PAD_U1RXREG     0x0226
+#define DMA_PAD_U1TXREG     0x0224
+#define DMA_PAD_U2RXREG     0x0236
+#define DMA_PAD_U2TXREG     0x0234
+#define DMA_PAD_U3RXREG     0x0256
+#define DMA_PAD_U3TXREG     0x0254
+#define DMA_PAD_U4RXREG     0x02B6
+#define DMA_PAD_U4TXREG     0x02B4
+#define DMA_PAD_ADC1BUF0    0x0300
+#define DMA_PAD_ADC2BUF0    0x0340
+#define DMA_PAD_C1RXD       0x0440
+#define DMA_PAD_C2RXD       0x0540
+#define DMA_PAD_C1TXD       0x0442
+#define DMA_PAD_C2TXD       0x0542
+#define DMA_PAD_PMDIN1      0x0608
+
+

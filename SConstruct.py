@@ -224,8 +224,8 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap10stdio', 'chap11dma'
   env.Clone(MCU='33FJ128GP802'), 'default')
 
 # Same as above, but for the dsPIC33EP128GP502
-buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
-                        'chap13ecan', 'chap15'],
+buildTargetsSConscript(['chap08', 'chap09', 'chap10large', 'chap12',
+                        'chap13ecan', 'chap13dmaflash', 'chap15'],
   env.Clone(MCU='33EP128GP502'), 'default')
 
 # Same as above, but for the dsPIC33EP128GP502 on a MicroStickII target
