@@ -88,7 +88,7 @@ void configDMA0(void) {
   DMA0PAD = (unsigned int) &C1TXD;
   DMA0REQ = DMA_IRQ_ECAN1TX;
   DMA0STAL = (unsigned int) &msgBuf;
-  DMA0STAH = (unsigned int) &msgBuf;
+  DMA0STAH = 0;
   DMA0CNT =   sizeof(ECANMSG)/2 -1;  // == 7
   DMA0CON =   //configure and enable the module Module
     (DMA_MODULE_ON |
@@ -106,7 +106,7 @@ void configDMA1(void) {
   DMA1PAD = (unsigned int) &C1RXD;
   DMA1REQ = DMA_IRQ_ECAN1RX;
   DMA1STAL = (unsigned int) &msgBuf;
-  DMA1STAH = (unsigned int) &msgBuf;
+  DMA1STAH = 0;
   DMA1CNT =  sizeof(ECANMSG)/2 -1;  // == 7
   DMA1CON =   //configure and enable the module Module
     (DMA_MODULE_ON |

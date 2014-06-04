@@ -160,7 +160,7 @@ if 'chap13' in buildTargets:
 if 'chap13ecan' in buildTargets:
   buildWithCommonSources(['chap13/ecan_example_*.c'], PIC24SupportLibObjects, env,{},   'chap13')
 if 'chap13dmaflash' in buildTargets:
-  buildWithCommonSources(['chap13/dma_example.c'], PIC24SupportLibObjects, env,{},   'chap13')  
+  buildWithCommonSources(['chap13/dma_example.c', 'chap13/flash_example.c'], PIC24SupportLibObjects, env,{},   'chap13')  
 if 'chap15' in buildTargets:
   # Case-by-case, since this chapter's program have multiple source files
   buildProgramWithCommonSources(['chap15/audio.c', 'chap15/audio_adpcm.c', ],
