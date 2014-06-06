@@ -141,10 +141,6 @@ if 'chap10' in buildTargets:
     {'chap10\\reverse_string.c'  : { 'CPPDEFINES': 'UART1_RX_INTERRUPT'},
      'chap10\\reverse_string1.c' : { 'CPPDEFINES': ['UART1_RX_INTERRUPT', 'UART1_TX_INTERRUPT']}},
     'chap10')
-if 'chap11_24E' in buildTargets:
-  buildWithCommonSources([ 'chap11/adc_spidac_test.c',
-     'chap11/adc_test.c',
-    'chap11/adc_test_12bit.c'], PIC24SupportLibSources, env, {}, 'chap11')
 if 'chap11nodma' in buildTargets:
   buildWithCommonSources([ 'chap11/adc2pots1.c','chap11/adc4simul.c','chap11/adc7scan1.c', 'chap11/adc7scan2.c', 'chap11/adc_spidac_test.c',
      'chap11/adc_test.c',
