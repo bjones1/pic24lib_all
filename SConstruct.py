@@ -52,6 +52,8 @@
 #  - Some flags for I2C master/slave not done yet
 #  - Create some reset replacement that uses more of the functionality
 #    (calls functions from all our .c/.h files
+#
+# .. contents::
 
 
 import os
@@ -63,12 +65,14 @@ EnsureSConsVersion(2, 0)
 
 # Create a Microchip XC16 Construction Environment
 # ================================================
-
-# Define command-line options to set processor, bootloader
+# Define command-line options to set bootloader.
+# The Environment below depends on opts, so this must go here instead of with
+# the rest of the `Command-line options`_.
 opts = Variables()
 opts.Add(EnumVariable('BOOTLDR', 'Determines bootloader type', 'msu',
                     allowed_values=('msu', 'none')))
 
+# Create the environment.
 env = Environment(
         # Force SCons to set up with gnu tools to start
         # with reasonable defaults. Note: using platform = 'posix'
@@ -97,31 +101,38 @@ env = Environment(
         ENV = os.environ,
       )
 
-#
-# add the bin2hex program to the environment as a new builder
-#
+# Create a bin2hex builder
+# ------------------------
+# Add the bin2hex function to the environment as a new builder
+# This functions converts a binary (.elf or .cof) file to a hex file.
+def bin2hex(
+  # The name of the .elf/.cof file to be converted.
+  binName,
+  # An Environment in which to build these sources.
+  buildEnvironment,
+  # A string to serve as an alias for this build.
+  aliasString):
+
+  f = os.path.splitext(binName)[0]
+  myHex = buildEnvironment.Hex(f, f)
+  # Add this hex file to a convenient alias
+  buildEnvironment.Alias(aliasString, myHex)
+
 b2h = Builder(
         action = 'xc16-bin2hex $SOURCE -a -omf=elf',
         suffix = 'hex',
         src_suffix = 'elf')
 env.Append(BUILDERS = {'Hex' : b2h})
 
-# This functions converts a binary (.elf or .cof) file to a hex file.
-#  \param binName The name of the .elf/.cof file to be converted
-#  \param buildEnvinonment An Environment in which to build these sources.
-#  \param aliasString A string to serve as an alias for this build.
-def bin2hex(binName, buildEnvironment, aliasString):
-  f = os.path.splitext(binName)[0]
-  myHex = buildEnvironment.Hex(f, f)
-  # Add this hex file to a convenient alias
-  buildEnvironment.Alias(aliasString, myHex)
 
+# Command-line options
+# --------------------
 # adjust our default environment based on user command-line requests
 dict = env.Dictionary()
 if dict['BOOTLDR'] != 'msu':
     env.Replace(LINKERSCRIPT = '--script="p${MCU}.gld"')
 
-# By default, run number_of_cpus*2 jobs at once. This only works if the --no-cpp option is passed to the linker; otherwise, the linker produces a temporary file in the root build directory, which gets overwritten and confused when multiple builds run. There's some nice examples and explanation for tihs in the `SCons user guide <http://www.scons.org/doc/production/HTML/scons-user/c2092.html#AEN2183>`_.
+# By default, run number_of_cpus*4 jobs at once. This only works if the --no-cpp option is passed to the linker; otherwise, the linker produces a temporary file in the root build directory, which gets overwritten and confused when multiple builds run. There's some nice examples and explanation for this in the `SCons user guide <http://www.scons.org/doc/production/HTML/scons-user/c2092.html#AEN2183>`_.
 #
 # Some results from running on my 8-core PC:, gathered from the Total build time returned by the --debug=time scons command-line option:
 #
@@ -146,15 +157,10 @@ Help("""Additional targets:
   zipit: Build an archive for distributing end-user library contents.
   bootloader: Build the bootloader binaries only.""")
 
-#
 # A DEBUG STATEMENT to see what the scons build envrionment (env) has defined
-#
 #print   env.Dump()
-
-## @}
-
-
-
+#
+#
 # Definition of targets
 # =====================
 # First, set up for defining targets.
@@ -162,7 +168,7 @@ Help("""Additional targets:
 # Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
 
-## Create a target which zips up library files. Only built it if explicitly requested on the command line.
+# Create a target which zips up library files. Only built it if explicitly requested on the command line.
 if 'zipit' in COMMAND_LINE_TARGETS:
     zip_file = 'build/pic24_code_examples.zip'
     hg_dir = 'build/pic24lib_all'
@@ -175,13 +181,23 @@ if 'zipit' in COMMAND_LINE_TARGETS:
       # Perform zip in clean clone.
       'scons -C ' + hg_dir + ' -f SCons_zipit.py', ])
     env.Alias('zipit', zip_file)
-# Only build this if it's explicitly requested. Since the dependencies of '' are wrong, force a build using AlwaysBuild.
+    # Only build this if it's explicitly requested. Since the dependencies of '' are wrong, force a build using AlwaysBuild.
     env.AlwaysBuild(zip_file)
 
-# PIC24/dsPIC33 chip/clock variant builds
-# ---------------------------------------
-# Call SConscript with a specific buildTargets value
-def buildTargetsSConscript(buildTargets, env, hardware_platform, extra_defines = ''):
+# Library builds
+# ==============
+# Call :doc:`SCons_build.py` with a specific buildTargets value. It create a variant build
+# named ``hardware_platform _ MCU _ extra_defines``.
+def buildTargetsSConscript(
+  # A list of library targets to build, as defined in :doc:`SCons_build.py`.
+  buildTargets,
+  # The Environment to use for building. Use ``env.Clone(MCU='blah', CPPDEFINES='blah'``
+  # to choose a MCU, clock, and hardware platform as desired.
+  env,
+  # A string giving the name of the hardware platform.
+  hardware_platform,
+  #
+  extra_defines = ''):
   # Build a variant directory name, based on the hardware platform, MCU, and extra defines (if any)
   vdir = 'build/' + '_'.join([hardware_platform, env['MCU']])
   if extra_defines:
@@ -189,6 +205,8 @@ def buildTargetsSConscript(buildTargets, env, hardware_platform, extra_defines =
   SConscript('SCons_build.py', exports = 'buildTargets env bin2hex',
     variant_dir = vdir)
 
+# Build over various MCUs
+# -----------------------
 # Build small, non-DMA on the PIC24HJ32GP202
 buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11nodma', 'chap12'],
 env.Clone(MCU='24HJ32GP202'), 'default')
@@ -214,7 +232,7 @@ buildTargetsSConscript(                            ['chap10large'],
 buildTargetsSConscript(['reset', 'echo'],
   env.Clone(MCU='24F32KA302', CPPDEFINES='HARDWARE_PLATFORM=HARDMAPPED_UART'), 'default')
 
-# Build the PIC24HJGP502-compatible directories
+# Build the PIC24HJ64GP502-compatible directories.
 buildTargetsSConscript(['chap11dma', 'chap13', 'chap15'],
   env.Clone(MCU='24HJ64GP502'), 'default')
 
@@ -228,16 +246,18 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10large', 'chap12',
                         'chap13ecan', 'chap13dmaflash', 'chap15'],
   env.Clone(MCU='33EP128GP502'), 'default')
 
+# Build some for the PIC24E device
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big', 'chap12_24E'],
+  env.Clone(MCU='24EP64GP202'), 'default')
+
+# Build over various hardware platforms
+# -------------------------------------
 # Same as above, but for the dsPIC33EP128GP502 on a MicroStickII target
 buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
                         'chap13', 'chap15'],
   env.Clone(MCU='33EP128GP502', CPPDEFINES='HARDWARE_PLATFORM=MICROSTICK2'), 'MICROSTICK2')
 
-# Build some for the PIC24E device
-buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big', 'chap12_24E'],
-  env.Clone(MCU='24EP64GP202'), 'default')
-
-# Build some selected chapter applications for the chip used on the Fall 2013 Embedded systems board 
+# Build some selected chapter applications for the chip used on the Fall 2013 Embedded systems board
 buildTargetsSConscript(['chap08', 'chap09', 'chap13ecan'],
   env.Clone(MCU='33EP128GP504'), 'default')
 
@@ -247,19 +267,17 @@ buildTargetsSConscript(['explorer'],
 buildTargetsSConscript(['explorerh'],
   env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'EXPLORER16_100P')
 
-# Do a no-float build of reset
-buildTargetsSConscript(['reset'],
-  env.Clone(MCU='24HJ32GP202',  CPPDEFINES='_NOFLOAT'), 'default', 'nofloat')
-
 # Build reset on other supported platforms
 buildTargetsSConscript(['reset'],
   env.Clone(MCU='24FJ64GA002',  CPPDEFINES='HARDWARE_PLATFORM=STARTER_BOARD_28P'), 'starter_board_28p')
 buildTargetsSConscript(['reset'],
   env.Clone(MCU='33FJ128GP204', CPPDEFINES='HARDWARE_PLATFORM=DANGEROUS_WEB'), 'dangerous_web')
 
+# Build over various clocks
+# -------------------------
 # Build reset with various clock options on all processors
 for clock in ['SIM_CLOCK', 'FRCPLL_FCY16MHz', 'FRC_FCY4MHz',
-'PRI_NO_PLL_7372KHzCrystal', 'PRIPLL_8MHzCrystal_16MHzFCY']:
+  'PRI_NO_PLL_7372KHzCrystal', 'PRIPLL_8MHzCrystal_16MHzFCY']:
     buildTargetsSConscript(['reset'],
       env.Clone(MCU='24FJ64GA002', CPPDEFINES='CLOCK_CONFIG=' + clock), 'default', clock)
     buildTargetsSConscript(['reset'],
@@ -267,16 +285,29 @@ for clock in ['SIM_CLOCK', 'FRCPLL_FCY16MHz', 'FRC_FCY4MHz',
     buildTargetsSConscript(['reset'],
       env.Clone(MCU='24F32KA302', CPPDEFINES=['CLOCK_CONFIG=' + clock, 'HARDWARE_PLATFORM=HARDMAPPED_UART']), 'HARDMAPPED_UART', clock)
 for clock in ['SIM_CLOCK', 'PRI_NO_PLL_7372KHzCrystal', 'FRC_FCY3685KHz',
-'FRCPLL_FCY40MHz', 'PRIPLL_7372KHzCrystal_40MHzFCY', 'PRIPLL_8MHzCrystal_40MHzFCY']:
+  'FRCPLL_FCY40MHz', 'PRIPLL_7372KHzCrystal_40MHzFCY', 'PRIPLL_8MHzCrystal_40MHzFCY']:
     buildTargetsSConscript(['reset'],
       env.Clone(MCU='24HJ32GP202',  CPPDEFINES='CLOCK_CONFIG=' + clock), 'default', clock)
     buildTargetsSConscript(['reset'],
       env.Clone(MCU='33FJ128GP802', CPPDEFINES='CLOCK_CONFIG=' + clock), 'default', clock)
 
+# Misc builds
+# -----------
+# Do a no-float build of reset
+buildTargetsSConscript(['reset'],
+  env.Clone(MCU='24HJ32GP202',  CPPDEFINES='_NOFLOAT'), 'default', 'nofloat')
 
-# Bootloader targets
-# ------------------
-def buildTargetsBootloader(env, mcu):
+# Bootloader builds
+# =================
+# Call :doc:`SCons_bootloader.py` with a specific Environment. It creates a variant build
+# named ``default_bootloader _ MCU``.
+def buildTargetsBootloader(
+  # The build environment to use. Typically ``env``, though a ``env.Clone``
+  # can be used to configure env.
+  env,
+  # The MCU to build the bootloader for.
+  mcu):
+
     # Create an environment for building the bootloader:
     # 1. Define the MCU.
     env = env.Clone(MCU = mcu)
@@ -290,13 +321,14 @@ def buildTargetsBootloader(env, mcu):
     SConscript('SCons_bootloader.py', exports = 'env bin2hex',
       variant_dir = 'build/default_bootloader_' + mcu)
 
+# Build the bootloader for a variety of common MCUs.
 for mcu in ('24FJ32GA002',
             '24FJ64GA002',
             '24FJ32GA102',
             '24FJ64GA102',
             '24FJ64GB002',
             '24FJ64GB004',
-            
+
             '24HJ12GP202',
             '24HJ32GP202',
             '24HJ64GP502',
@@ -311,25 +343,24 @@ for mcu in ('24FJ32GA002',
             '33EP128GP504',
            ):
     buildTargetsBootloader(env, mcu)
-    
+
+# Build the bootloader for MCUs with a hardmapped UART.
 for mcu in ('24F32KA302',):
     buildTargetsBootloader(env.Clone(CPPDEFINES='HARDWARE_PLATFORM=HARDMAPPED_UART'), mcu)
-    
-
 
 
 # ESOS builds
-# -----------
+# ===========
 def buildTargetsEsos(env, mcu, hardware_platform = 'DEFAULT_DESIGN'):
     # Create an environment for building ESOS.
     env = env.Clone(MCU = mcu)
     env.Append(CPPDEFINES = ['BUILT_ON_ESOS', 'HARDWARE_PLATFORM=' + hardware_platform],
-               CPPPATH = ['esos/include', 'esos/include/pic24']) 
+               CPPPATH = ['esos/include', 'esos/include/pic24'])
 
     # Now, invoke a variant build using this environment.
     SConscript('SCons_esos.py', exports = 'env bin2hex',
       variant_dir = 'build/esos_' + mcu + '_' + hardware_platform)
-      
+
 # Build ESOS over a variety of chips.
 for mcu in (
             '24HJ64GP202',
