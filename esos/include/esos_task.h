@@ -53,13 +53,13 @@
 #include "esos_mail.h"
 
 struct stTask {
-  lc_t    							lc;
-  uint8_t   							flags;
+  lc_t                  lc;
+  uint8_t                 flags;
   uint8_t                               (*pfn) (struct stTask *pst_Task);
-  uint32_t  							u32_savedTick;
-  uint32_t  							u32_waitLen;
-  uint16_t								u16_taskID;
-  MAILBOX*							pst_Mailbox;
+  uint32_t                u32_savedTick;
+  uint32_t                u32_waitLen;
+  uint16_t                u16_taskID;
+  MAILBOX*              pst_Mailbox;
 };
 
 /** \struct ESOS_TASK_HANDLE
@@ -78,8 +78,8 @@ typedef   struct stTask*                   ESOS_TASK_HANDLE;
 ** user task functions
 *******************************/
 // typedef   uint8_t (*pfn_ESOS_USER_TASK)(struct stTask *pst_Task);
-//#define		__MAKE_UINT16_TASK_ID(pfn)						esos_taskname_hash_u16( (pfn), sizeof((pfn)) )
-//#define		ESOS_DOES_TASK_HAVE_ID(pfn,taskID)				((taskID)==__MAKE_UINT16_TASK_ID((pfn)))
+//#define   __MAKE_UINT16_TASK_ID(pfn)            esos_taskname_hash_u16( (pfn), sizeof((pfn)) )
+//#define   ESOS_DOES_TASK_HAVE_ID(pfn,taskID)        ((taskID)==__MAKE_UINT16_TASK_ID((pfn)))
 
 /* Task "return" values.  Used by scheduler to determine what to do with task **/
 #define ESOS_TASK_WAITING 0

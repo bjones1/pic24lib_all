@@ -145,8 +145,8 @@ ESOS_USER_TIMER( swTimerLED ) {
  * used.
  */
 ESOS_USER_TASK(start_ds1631) {
-  static	ESOS_TASK_HANDLE		hTask;
-  static	MAILMESSAGE				st_Message;
+  static  ESOS_TASK_HANDLE    hTask;
+  static  MAILMESSAGE       st_Message;
 
   ESOS_TASK_BEGIN();
   ESOS_TASK_WAIT_TICKS(500);
@@ -161,7 +161,7 @@ ESOS_USER_TASK(start_ds1631) {
   hTask = esos_GetTaskHandle( read_ds1631 );
   ESOS_TASK_MAKE_MSG_EMPTY(st_Message);                       // create message locally
   ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(hTask, 0);     // wait until recipient has mailbox space
-  ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);                 
+  ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
 
   ESOS_TASK_END();
 } //end task start_ds1631
@@ -172,20 +172,20 @@ ESOS_USER_TASK(start_ds1631) {
  */
 ESOS_USER_TASK(read_ds1631) {
   static uint8_t            u8_lo, u8_hi;
-  static MAILMESSAGE		st_Msg;
+  static MAILMESSAGE    st_Msg;
   static ESOS_TASK_HANDLE   h_TaskUpdate;
 
   ESOS_TASK_BEGIN();
-  // wait for mail.  The first message will be from task start_ds1631 
+  // wait for mail.  The first message will be from task start_ds1631
   // and will notify us that the DS1631 is configured and ready to go
   ESOS_TASK_WAIT_FOR_MAIL();
 
   // We got (at least) one message, so DS1631 is ready to go.
   // Contents of message are not important
   ESOS_TASK_GET_LAST_MESSAGE( &st_Msg);
-    
+
   h_TaskUpdate = esos_GetTaskHandle( update );
-  
+
   while (TRUE) {
     ESOS_TASK_WAIT_ON_AVAILABLE_I2C();
     ESOS_TASK_WAIT_ON_WRITE1I2C1(DS1631ADDR, READ_TEMP);
@@ -196,7 +196,7 @@ ESOS_USER_TASK(read_ds1631) {
     // we know that the display is updating the display
     ESOS_TASK_MAKE_MSG_UINT8_X2(st_Msg, u8_hi, u8_lo);                      // create message locally
     ESOS_TASK_WAIT_ON_TASKS_MAILBOX_HAS_AT_LEAST(h_TaskUpdate, 2*sizeof(uint8_t));     // wait until recipient has mailbox space
-    ESOS_TASK_WAIT_ON_DELIVERY(h_TaskUpdate, &st_Msg);                 
+    ESOS_TASK_WAIT_ON_DELIVERY(h_TaskUpdate, &st_Msg);
 
     // wait 3/4 second after screen updates before sending another temperature reading
     ESOS_TASK_WAIT_TICKS(750);
@@ -212,7 +212,7 @@ ESOS_USER_TASK(read_ds1631) {
  */
 ESOS_USER_TASK(update) {
   float                     f_tempC, f_tempF;
-  static  MAILMESSAGE		st_Msg;
+  static  MAILMESSAGE   st_Msg;
   int16_t                   i16_temp;
 
   ESOS_TASK_BEGIN();

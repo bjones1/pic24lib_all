@@ -83,8 +83,8 @@
 /** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University. */
 #define EMBEDDED_C1 5
 
-/** 
- * Microchip part number: dm330013-2 
+/**
+ * Microchip part number: dm330013-2
  *
  * Microstick II delivers a complete development hardware platform for Microchip’s 16-bit and 32-bit
  * microcontrollers and digital signal controllers. It’s the perfect solution to those looking for a

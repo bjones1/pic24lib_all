@@ -131,7 +131,7 @@ void configDMA0() {
   DMA0STAL = __builtin_dmaoffset(au8_bufferA);
   DMA0STBH = __builtin_dmaoffset(au8_bufferB);
   DMA0STBL = __builtin_dmaoffset(au8_bufferB);
-#endif  
+#endif
 //setup transfer size
   DMA0CNT =   DMA_TRANSFER_SIZE -1;
   DMA0CON =             //configure and enable the module Module
@@ -156,14 +156,14 @@ void configDMA0() {
 
 
 /***************************************************************************
-** Configure DMA engine 
+** Configure DMA engine
 **
 ** There are slight differences in the dsPIC33E/PIC24E devices from
 **  the previous devices (F,H, etc.)
 **
 ***************************************************************************/
 #if defined(__PIC24H__) || defined (__dsPIC33F__)
-      // ECANMSG msgBuf[NUM_BUFS] __attribute__((space(dma),aligned(NUM_BUFS*16)));
+// ECANMSG msgBuf[NUM_BUFS] __attribute__((space(dma),aligned(NUM_BUFS*16)));
 //define DMA buffers
 uint8_t au8_bufferA[DMA_TRANSFER_SIZE] __attribute__((space(dma)));
 uint8_t au8_bufferB[DMA_TRANSFER_SIZE] __attribute__((space(dma)));
@@ -172,7 +172,7 @@ uint8_t au8_bufferB[DMA_TRANSFER_SIZE] __attribute__((space(dma)));
 void configDMA0(void) {
   DMACS0 = 0;
   _DMA0IF = 0;                            // clear DMA0 IF
-  _U1RXIF = 0;                            // clear the UART RX IF  
+  _U1RXIF = 0;                            // clear the UART RX IF
   DMA0PAD = (unsigned int) &U1RXREG;      // read from UART peripheral RX register
   DMA0REQ = DMA_IRQ_U1RX;                 // DMA requests will come from UART1 RX
   // address of two ping-pong buffers (target mem where DMA will xfer data to)
@@ -194,9 +194,13 @@ void configDMA0(void) {
      DMA_MODE_CONTINUOUS_PING_PONG);
 
   //enable the UART1RX Error interrupt
-  _U1EIF = 0; _U1EIP = 1; _U1EIE = 1;
+  _U1EIF = 0;
+  _U1EIP = 1;
+  _U1EIE = 1;
   //enable DMA channel 0 interrupt
-  _DMA0IF = 0; _DMA0IP = 2; _DMA0IE = 1;
+  _DMA0IF = 0;
+  _DMA0IP = 2;
+  _DMA0IE = 1;
 }
 
 #elif defined(__dsPIC33E__)
@@ -209,7 +213,7 @@ uint8_t au8_bufferB[DMA_TRANSFER_SIZE] __attribute__((space(xmemory),aligned(DMA
 void configDMA0(void) {
   DMAPWC = 0; // Reset the DMA Peripheral Write Collision Status Register
   _DMA0IF = 0;                            // clear DMA0 IF
-  _U1RXIF = 0;                            // clear the UART RX IF  
+  _U1RXIF = 0;                            // clear the UART RX IF
   DMA0PAD = (unsigned int) &U1RXREG;      // read from UART peripheral RX register
   DMA0REQ = DMA_IRQ_U1RX;                 // DMA requests will come from UART1 RX
   // address of two ping-pong buffers (target mem where DMA will xfer data to)
@@ -231,9 +235,13 @@ void configDMA0(void) {
      DMA_AMODE_REGISTER_POSTINC |
      DMA_MODE_CONTINUOUS_PING_PONG);
   //enable the UART1RX Error interrupt
-  _U1EIF = 0; _U1EIP = 1; _U1EIE = 1;
+  _U1EIF = 0;
+  _U1EIP = 1;
+  _U1EIE = 1;
   //enable DMA channel 0 interrupt
-  _DMA0IF = 0; _DMA0IP = 2; _DMA0IE = 1;
+  _DMA0IF = 0;
+  _DMA0IP = 2;
+  _DMA0IE = 1;
 
 }
 

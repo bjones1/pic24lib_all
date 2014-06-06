@@ -55,7 +55,7 @@
 #define ECAN_LISTEN_ALL_MESSAGES 7
 
 // CANCKS in CiCTRL1 ECAN Register
-// CANCKS: ECANx Module Clock (FCAN) Source Select Bit 
+// CANCKS: ECANx Module Clock (FCAN) Source Select Bit
 //
 // The CANCKS bit was defined in the CiCTRL1 register when the initial PIC24
 // library and text was written (2008).  The following definitions were used
@@ -72,7 +72,7 @@
 // the ECAN chapter of the E-family FRM for March 2011.  However, the
 // meaning of the CANCKS bit is now completely different than original
 // CANCKS bit used in 2008-2009 [JWB May 2014]
-#ifdef __dsPIC33E__ 
+#ifdef __dsPIC33E__
 # define ECAN_FCAN_IS_2FP 1         // FCAN is equal to 2 * FP
 # define ECAN_FCAN_IS_FP  0         // FCAN is equal to FP
 #endif
@@ -309,6 +309,12 @@ uint8_t getTxInProgressECAN1(uint8_t u8_bufNum);
 
 #endif // #if (NUM_ECAN_MODS >= 1)
 
+
+
+
+
+
+
 /*
  * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
  * All rights reserved.
@@ -366,7 +372,7 @@ uint8_t getTxInProgressECAN1(uint8_t u8_bufNum);
 #define ECAN_LISTEN_ALL_MESSAGES 7
 
 // CANCKS in CiCTRL1 ECAN Register
-// CANCKS: ECANx Module Clock (FCAN) Source Select Bit 
+// CANCKS: ECANx Module Clock (FCAN) Source Select Bit
 //
 // The CANCKS bit was defined in the CiCTRL1 register when the initial PIC24
 // library and text was written (2008).  The following definitions were used
@@ -383,7 +389,7 @@ uint8_t getTxInProgressECAN1(uint8_t u8_bufNum);
 // the ECAN chapter of the E-family FRM for March 2011.  However, the
 // meaning of the CANCKS bit is now completely different than original
 // CANCKS bit used in 2008-2009 [JWB May 2014]
-#ifdef __dsPIC33E__ 
+#ifdef __dsPIC33E__
 # define ECAN_FCAN_IS_2FP 1         // FCAN is equal to 2 * FP
 # define ECAN_FCAN_IS_FP  0         // FCAN is equal to FP
 #endif
@@ -619,4 +625,10 @@ uint8_t getTxInProgressECAN2(uint8_t u8_bufNum);
 
 
 #endif // #if (NUM_ECAN_MODS >= 2)
+
+
+
+
+
+
 

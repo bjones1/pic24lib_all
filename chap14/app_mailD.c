@@ -133,10 +133,10 @@ ESOS_USER_TIMER( swTimerCounter ) {
 ESOS_USER_TIMER( swTimerLED ) {
   LED1 = !LED1;
   LED2 = !LED2;
-  #ifdef __linux
+#ifdef __linux
   printf("\a");
   fflush(stdout);
-  #endif
+#endif
 } //endof swTimerLED
 
 
@@ -147,10 +147,10 @@ ESOS_USER_TIMER( swTimerLED ) {
 ************************************************************/
 
 ESOS_USER_TASK( sender_D0 ) {
-  uint32_t     						u32_rnd;
-  static	uint8_t					u8_cnt;
-  static	ESOS_TASK_HANDLE		hTask;
-  static	MAILMESSAGE				st_Message;
+  uint32_t                u32_rnd;
+  static  uint8_t         u8_cnt;
+  static  ESOS_TASK_HANDLE    hTask;
+  static  MAILMESSAGE       st_Message;
 
   ESOS_TASK_BEGIN();
   u8_cnt=0;
@@ -158,23 +158,23 @@ ESOS_USER_TASK( sender_D0 ) {
   hTask = esos_GetTaskHandle( recipient_D );
 
   while (TRUE) {
-    
+
     // create/fill in the local copy of the message
-    // we will send a single uint8 as data payload    
+    // we will send a single uint8 as data payload
     ESOS_TASK_MAKE_MSG_UINT8(st_Message, u8_cnt);
-    
+
     // simulate a task that does other things if the
     // receipient task mailbox is full
-    
-    if (ESOS_TASK_MAILBOX_GOT_AT_LEAST_DATA_BYTES( hTask, sizeof(uint8_t) ) ) {    
-        // ESOS task mailboxes are stored locally in each task.
-        // but we already now the recipient task has enough space
-        // in their mailbox, so send message
-        printf("D0 sending MESSAGE %d\n", u8_cnt);
-	    ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
-	} else {
-	    printf("D0 doing useful work instead of mailing. Discarding MESSAGE %d.\n", u8_cnt );
-	}
+
+    if (ESOS_TASK_MAILBOX_GOT_AT_LEAST_DATA_BYTES( hTask, sizeof(uint8_t) ) ) {
+      // ESOS task mailboxes are stored locally in each task.
+      // but we already now the recipient task has enough space
+      // in their mailbox, so send message
+      printf("D0 sending MESSAGE %d\n", u8_cnt);
+      ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
+    } else {
+      printf("D0 doing useful work instead of mailing. Discarding MESSAGE %d.\n", u8_cnt );
+    }
 
     u8_cnt++;
     if (u8_cnt>=100) u8_cnt=0;
@@ -182,17 +182,17 @@ ESOS_USER_TASK( sender_D0 ) {
     // wait a random amount of time between sending mail messages
     u32_rnd = 1+(0x0F & esos_GetRandomUint32());
     u32_rnd <<= 7;
-    ESOS_TASK_WAIT_TICKS( u32_rnd);			
+    ESOS_TASK_WAIT_TICKS( u32_rnd);
 
   } // endof while(TRUE)
   ESOS_TASK_END();
 } // end sender_D0()
 
 ESOS_USER_TASK( sender_D1 ) {
-  static    uint32_t				u32_rnd;
-  static	uint8_t					u8_cnt;
-  static	ESOS_TASK_HANDLE		hTask;
-  static	MAILMESSAGE				st_Message;
+  static    uint32_t        u32_rnd;
+  static  uint8_t         u8_cnt;
+  static  ESOS_TASK_HANDLE    hTask;
+  static  MAILMESSAGE       st_Message;
 
   ESOS_TASK_BEGIN();
   u8_cnt= 100;
@@ -206,19 +206,19 @@ ESOS_USER_TASK( sender_D1 ) {
     u32_rnd = 1+(0x0F & esos_GetRandomUint32());
     // create a random message that wants delivery confirmation (1-in-4 chance)
     if ( (u32_rnd % 4) == 0 ) {
-    	st_Message.u8_flags |= ESOS_MAILMESSAGE_REQUEST_ACK;
-   	    printf("D1 sending MESSAGE with ACK request %d\n", u8_cnt);
-		ESOS_TASK_WAIT_ON_DELIVERY(hTask, &st_Message);
+      st_Message.u8_flags |= ESOS_MAILMESSAGE_REQUEST_ACK;
+      printf("D1 sending MESSAGE with ACK request %d\n", u8_cnt);
+      ESOS_TASK_WAIT_ON_DELIVERY(hTask, &st_Message);
     } else {
-   	    printf("D1 sending MESSAGE %d\n", u8_cnt );
-   		ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
+      printf("D1 sending MESSAGE %d\n", u8_cnt );
+      ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
     }
 
     u8_cnt++;
     if (u8_cnt>=200) u8_cnt=100;
-    
+
     u32_rnd <<= 7;
-    ESOS_TASK_WAIT_TICKS( u32_rnd);			
+    ESOS_TASK_WAIT_TICKS( u32_rnd);
 
   } // endof while(TRUE)
   ESOS_TASK_END();
@@ -227,36 +227,34 @@ ESOS_USER_TASK( sender_D1 ) {
 
 //TASK that doesn't check mail very often
 ESOS_USER_TASK( recipient_D ) {
-  uint32_t     						u32_rnd;
-  static MAILMESSAGE		stMsg;
+  uint32_t                u32_rnd;
+  static MAILMESSAGE    stMsg;
   static ESOS_TASK_HANDLE           hSenderD0, hSenderD1;
 
   ESOS_TASK_BEGIN();
   hSenderD0 = esos_GetTaskHandle( sender_D0);
   hSenderD1 = esos_GetTaskHandle( sender_D1);
   while (TRUE) {
-  
-        // create a random delay to simulate being "busy"
-        u32_rnd = 1+(0x0F & esos_GetRandomUint32());
-        u32_rnd <<= 10;
-		ESOS_TASK_WAIT_TICKS( u32_rnd );
-		
-		// check for incoming mail
-		ESOS_TASK_WAIT_FOR_MAIL();
-	    // get most recent message (flushes the rest)
-		ESOS_TASK_GET_LAST_MESSAGE( &stMsg );         
 
-		printf("Got a message from ");
-		if (ESOS_IS_TASK_SENDER( hSenderD0, stMsg)) {
-			printf("sender_D0");
-		}
-		else if (ESOS_IS_TASK_SENDER( hSenderD1, stMsg)) {
-			printf("sender_D1");
-		}
-		else {
-			printf("UNKNOWN");
-		}
-		printf (" containing %d          enroute time = %ld ms\n", stMsg.au8_Contents[0], esos_GetSystemTick()-ESOS_GET_MSG_POSTMARK(stMsg) );		
+    // create a random delay to simulate being "busy"
+    u32_rnd = 1+(0x0F & esos_GetRandomUint32());
+    u32_rnd <<= 10;
+    ESOS_TASK_WAIT_TICKS( u32_rnd );
+
+    // check for incoming mail
+    ESOS_TASK_WAIT_FOR_MAIL();
+    // get most recent message (flushes the rest)
+    ESOS_TASK_GET_LAST_MESSAGE( &stMsg );
+
+    printf("Got a message from ");
+    if (ESOS_IS_TASK_SENDER( hSenderD0, stMsg)) {
+      printf("sender_D0");
+    } else if (ESOS_IS_TASK_SENDER( hSenderD1, stMsg)) {
+      printf("sender_D1");
+    } else {
+      printf("UNKNOWN");
+    }
+    printf (" containing %d          enroute time = %ld ms\n", stMsg.au8_Contents[0], esos_GetSystemTick()-ESOS_GET_MSG_POSTMARK(stMsg) );
   } // endof while(TRUE)
   ESOS_TASK_END();
 } // end recipient_D()

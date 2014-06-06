@@ -142,10 +142,10 @@ ESOS_USER_TIMER( swTimerLED ) {
 **
 ************************************************************/
 ESOS_USER_TASK( sender_B0 ) {
-  uint32_t     									u32_rnd;
-  static	uint8_t								u8_cnt;
-  static	ESOS_TASK_HANDLE		hTask, hTask16, hTask32;
-  static	MAILMESSAGE					st_Message;
+  uint32_t                      u32_rnd;
+  static  uint8_t               u8_cnt;
+  static  ESOS_TASK_HANDLE    hTask, hTask16, hTask32;
+  static  MAILMESSAGE         st_Message;
 
   ESOS_TASK_BEGIN();
   u8_cnt=0;
@@ -153,31 +153,31 @@ ESOS_USER_TASK( sender_B0 ) {
   hTask = esos_GetTaskHandle( recipient_B );
 
   while (TRUE) {
-    
+
     // create/fill in the local copy of the message
-    // we will send a single uint8 as data payload    
+    // we will send a single uint8 as data payload
     ESOS_TASK_MAKE_MSG_UINT8(st_Message, u8_cnt);
-    
+
     // simulate a task that does other things if the
     // receipient task mailbox is full
-    
-    if (ESOS_TASK_MAILBOX_GOT_AT_LEAST_DATA_BYTES( hTask, sizeof(uint8_t) ) ) {    
-        // ESOS task mailboxes are stored locally in each task.
-        // but we already now the recipient task has enough space
-        // in their mailbox, so send message
-        printf("B0 sending MESSAGE %d\n", u8_cnt);
-	    ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
-	} else {
-	    printf("B0 doing useful work instead of mailing. Discarding MESSAGE %d.\n", u8_cnt );
-	}
 
-	u8_cnt++;
+    if (ESOS_TASK_MAILBOX_GOT_AT_LEAST_DATA_BYTES( hTask, sizeof(uint8_t) ) ) {
+      // ESOS task mailboxes are stored locally in each task.
+      // but we already now the recipient task has enough space
+      // in their mailbox, so send message
+      printf("B0 sending MESSAGE %d\n", u8_cnt);
+      ESOS_TASK_SEND_MESSAGE(hTask, &st_Message);
+    } else {
+      printf("B0 doing useful work instead of mailing. Discarding MESSAGE %d.\n", u8_cnt );
+    }
+
+    u8_cnt++;
     if (u8_cnt>50) u8_cnt=0;
 
     // wait a random amount of time between sending mail messages
     u32_rnd = 1+(0x0F & esos_GetRandomUint32());
     u32_rnd <<= 6;
-    ESOS_TASK_WAIT_TICKS( u32_rnd);			
+    ESOS_TASK_WAIT_TICKS( u32_rnd);
 
   } // endof while(TRUE)
   ESOS_TASK_END();
@@ -185,38 +185,37 @@ ESOS_USER_TASK( sender_B0 ) {
 
 //TASK that doesn't check mail very often
 ESOS_USER_TASK( recipient_B ) {
-  uint32_t     				u32_rnd;
-  uint8_t					u8_x;
-  static uint8_t			u8_cnt;
-  static MAILMESSAGE		stMsg;
+  uint32_t            u32_rnd;
+  uint8_t         u8_x;
+  static uint8_t      u8_cnt;
+  static MAILMESSAGE    stMsg;
   static ESOS_TASK_HANDLE   hSenderB0;
 
   ESOS_TASK_BEGIN();
   hSenderB0 = esos_GetTaskHandle (sender_B0);
   while (TRUE) {
-  
-        // create a random delay to simulate being "busy"
-        u32_rnd = 1+(0x0F & esos_GetRandomUint32());
-        u32_rnd <<= 10;
-		ESOS_TASK_WAIT_TICKS( u32_rnd );
-		
-		// check for incoming mail
-		ESOS_TASK_WAIT_FOR_MAIL();
-		u8_cnt=0;
-		
-		// keep reading mail messages until they are all processed
-		while ( ESOS_TASK_IVE_GOT_MAIL() ) {
-		    // make local copy of message (frees up mailbox space)
-			__esos_ReadMailMessage(__pstSelf, &stMsg );         
-			printf("Got a message from ");
-			if ( ESOS_IS_TASK_SENDER( hSenderB0, stMsg) ) {
-				printf("sender_B0");
-			}
-			else {
-				printf("UNKNOWN");
-			}
-			printf (" containing %d          enroute time = %d ms\n", stMsg.au8_Contents[0], esos_GetSystemTick()-stMsg.u32_Postmark );
-   	} //endof while()
+
+    // create a random delay to simulate being "busy"
+    u32_rnd = 1+(0x0F & esos_GetRandomUint32());
+    u32_rnd <<= 10;
+    ESOS_TASK_WAIT_TICKS( u32_rnd );
+
+    // check for incoming mail
+    ESOS_TASK_WAIT_FOR_MAIL();
+    u8_cnt=0;
+
+    // keep reading mail messages until they are all processed
+    while ( ESOS_TASK_IVE_GOT_MAIL() ) {
+      // make local copy of message (frees up mailbox space)
+      __esos_ReadMailMessage(__pstSelf, &stMsg );
+      printf("Got a message from ");
+      if ( ESOS_IS_TASK_SENDER( hSenderB0, stMsg) ) {
+        printf("sender_B0");
+      } else {
+        printf("UNKNOWN");
+      }
+      printf (" containing %d          enroute time = %d ms\n", stMsg.au8_Contents[0], esos_GetSystemTick()-stMsg.u32_Postmark );
+    } //endof while()
   } // endof while(TRUE)
   ESOS_TASK_END();
 } // end recipient_B()
@@ -257,8 +256,8 @@ ESOS_USER_TASK( recipient_B ) {
  *
  *****************************************************************************/
 void user_init(void) {
-  uint16_t*		pu16_ptr;
-  uint16_t		u16_junk;
+  uint16_t*   pu16_ptr;
+  uint16_t    u16_junk;
   ESOS_TMR_HANDLE    tmrhnd_t1,tmrhnd_t2,tmrhnd_t3;
 
   __esos_unsafe_PutString( HELLO_MSG );

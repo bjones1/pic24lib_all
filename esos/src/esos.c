@@ -47,9 +47,9 @@
 struct stTask       __astUserTaskPool[MAX_NUM_USER_TASKS];
 uint8_t               __au8UserTaskStructIndex[MAX_NUM_USER_TASKS];
 struct stTask       __astChildTaskPool[MAX_NUM_CHILD_TASKS];
-uint8_t	              __u8UserTasksRegistered;
+uint8_t               __u8UserTasksRegistered;
 uint8_t               __u8ChildTasksRegistered;
-uint16_t							__u16NumTasksEverCreated;
+uint16_t              __u16NumTasksEverCreated;
 
 // ESOS timer managmentment variables
 struct stTimer        __astTmrSvcs[MAX_NUM_TMRS];
@@ -61,13 +61,13 @@ static struct stTask        __stUsbCommSystem;
 #endif
 
 // ESOS task mail services
-MAILBOX			__astMailbox[MAX_NUM_USER_TASKS];
-uint8_t				__au8_MBData[MAX_NUM_USER_TASKS][MAX_SIZE_TASK_MAILBOX];
-CBUFFER			__astCircularBuffers[MAX_NUM_USER_TASKS];
+MAILBOX     __astMailbox[MAX_NUM_USER_TASKS];
+uint8_t       __au8_MBData[MAX_NUM_USER_TASKS][MAX_SIZE_TASK_MAILBOX];
+CBUFFER     __astCircularBuffers[MAX_NUM_USER_TASKS];
 
 
 // misc ESOS variables
-uint16_t			__esos_u16UserFlags, __esos_u16SystemFlags;
+uint16_t      __esos_u16UserFlags, __esos_u16SystemFlags;
 uint32_t            __u32_esos_PRNG_Seed;
 uint32_t            __esos_u32FNVHash = 2166136261L;
 
@@ -104,55 +104,55 @@ ESOS_TASK_HANDLE    esos_RegisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstT
       /* While we are looping through, take note of the first unused task
          we find in the pool.  We will assign this slot to the new task if
          we can't find it already allocated a (dead) slot
-      */ 
+      */
       if ((!u8_FoundFree) && (__astUserTaskPool[u8_i].pfn == NULLPTR)) {
         u8_FoundFree = TRUE;
         u8_IndexFree = u8_i;
       } // endof if()
     } // endof for()
-    
+
     /* OK. We looked at all the tasks in the pool.  We either
        * found the new task already allocated (u8_FoundFcn),
        OR
        * we did not.  In this case, there are two cases:
-       		# We found a dead/free task slot in our search (u8_FoundFree),
-       		OR
-       		# we did not.  (All slots are already being used.  WE ARE IN TROUBLE!)
-       
+          # We found a dead/free task slot in our search (u8_FoundFree),
+          OR
+          # we did not.  (All slots are already being used.  WE ARE IN TROUBLE!)
+
        If we found the new task already (dead but allocated) in the pool, then we need to
          1) initialize the task, its flags, and its mailbox, and
          2) add the task to the task rotation
     */
     if (u8_FoundFcn) {
-      __ESOS_INIT_TASK( &__astUserTaskPool[u8_IndexFcn]);									// reset the task state
-      __astUserTaskPool[u8_IndexFcn].flags = 0;														// reset the task flags
-      ESOS_TASK_FLUSH_TASK_MAILBOX(&__astUserTaskPool[u8_IndexFcn]);			// reset the task mailbox
+      __ESOS_INIT_TASK( &__astUserTaskPool[u8_IndexFcn]);                 // reset the task state
+      __astUserTaskPool[u8_IndexFcn].flags = 0;                           // reset the task flags
+      ESOS_TASK_FLUSH_TASK_MAILBOX(&__astUserTaskPool[u8_IndexFcn]);      // reset the task mailbox
       __au8UserTaskStructIndex[__u8UserTasksRegistered] = u8_IndexFcn;
       __u8UserTasksRegistered++;
       // make sure this task has a non-zero task identifier
       if ( __astUserTaskPool[u8_IndexFree].u16_taskID == 0 ) {
         // we will simply assign a sequential task ID number (sorta like unix does for PIDs)
-      	__u16NumTasksEverCreated++;
-      	__astUserTaskPool[u8_IndexFree].u16_taskID = __u16NumTasksEverCreated;
+        __u16NumTasksEverCreated++;
+        __astUserTaskPool[u8_IndexFree].u16_taskID = __u16NumTasksEverCreated;
       } // endif
       return &__astUserTaskPool[u8_IndexFcn];
     } // endof if
     /* We did NOT find our task already in the pool, so allocate a new struct
        It has never been registered before, or it's location was garbage collected at some
        point.
-       
+
        If we found a free task slot in the pool, then give this free slot to the new task.
     */
     if (u8_FoundFree) {
-      __astUserTaskPool[u8_IndexFree].pfn = taskname;										// attach task to the free slot
-      __ESOS_INIT_TASK(&__astUserTaskPool[u8_IndexFree]);								// reset the task state
-      __astUserTaskPool[u8_IndexFree].flags = 0;                     		// reset the task flags
-      ESOS_TASK_FLUSH_TASK_MAILBOX(&__astUserTaskPool[u8_IndexFree]);		// reset the task mailbox
+      __astUserTaskPool[u8_IndexFree].pfn = taskname;                   // attach task to the free slot
+      __ESOS_INIT_TASK(&__astUserTaskPool[u8_IndexFree]);               // reset the task state
+      __astUserTaskPool[u8_IndexFree].flags = 0;                        // reset the task flags
+      ESOS_TASK_FLUSH_TASK_MAILBOX(&__astUserTaskPool[u8_IndexFree]);   // reset the task mailbox
       __au8UserTaskStructIndex[__u8UserTasksRegistered] = u8_IndexFree;
       __u8UserTasksRegistered++;
       // Since this is a "new" task, give it a new task ID number
       __u16NumTasksEverCreated++;
-	  __astUserTaskPool[u8_IndexFree].u16_taskID = __u16NumTasksEverCreated;
+      __astUserTaskPool[u8_IndexFree].u16_taskID = __u16NumTasksEverCreated;
       return &__astUserTaskPool[u8_IndexFree];
     } // endof if
     /*  we did NOT find our function in the pool OR a free struct to use, so
@@ -217,20 +217,20 @@ uint8_t    esos_UnregisterTask( uint8_t (*taskname)(ESOS_TASK_HANDLE pstTask) ) 
  *  \sa esos_UnregisterTask
 */
 ESOS_TASK_HANDLE    esos_GetTaskHandle( uint8_t (*taskname)(ESOS_TASK_HANDLE pstTask) ) {
-  uint8_t     						u8_i, u8_z;
-  ESOS_TASK_HANDLE			pst_NowTask;
-  ESOS_TASK_HANDLE			pst_ReturnTask = (ESOS_TASK_HANDLE) NULLPTR;
+  uint8_t                 u8_i, u8_z;
+  ESOS_TASK_HANDLE      pst_NowTask;
+  ESOS_TASK_HANDLE      pst_ReturnTask = (ESOS_TASK_HANDLE) NULLPTR;
 
   /* Scan through the pool of "registered" tasks and see
-     if we can find the task function name requested 
-  */  
+     if we can find the task function name requested
+  */
   for (u8_i=0; u8_i<__u8UserTasksRegistered; u8_i++) {
- 		// get next index from array so we can get the task handle
-	  u8_z = __au8UserTaskStructIndex[u8_i];
+    // get next index from array so we can get the task handle
+    u8_z = __au8UserTaskStructIndex[u8_i];
     /* check tasks that have been allocated (not a NULLIDX) and
- 	     not been garbage collected (not REMOVE_IDX) yet.  If our
+       not been garbage collected (not REMOVE_IDX) yet.  If our
        task is among them, then return the handle to the caller
-		*/
+    */
     if ((u8_z != NULLIDX) & (u8_z != REMOVE_IDX)) {
       pst_NowTask = &__astUserTaskPool[u8_z];
       // If we find our task, save the pstXXX so we can return it
@@ -253,20 +253,20 @@ ESOS_TASK_HANDLE    esos_GetTaskHandle( uint8_t (*taskname)(ESOS_TASK_HANDLE pst
  *  \sa esos_UnregisterTask
 */
 ESOS_TASK_HANDLE    esos_GetTaskHandleFromID( uint16_t u16_TaskID ) {
-  uint8_t     				u8_i, u8_z;
-  ESOS_TASK_HANDLE			pst_NowTask;
-  ESOS_TASK_HANDLE			pst_ReturnTask = (ESOS_TASK_HANDLE) NULLPTR;
+  uint8_t             u8_i, u8_z;
+  ESOS_TASK_HANDLE      pst_NowTask;
+  ESOS_TASK_HANDLE      pst_ReturnTask = (ESOS_TASK_HANDLE) NULLPTR;
 
   /* Scan through the pool of "registered" tasks and see
-     if we can find the task function name requested 
-  */  
+     if we can find the task function name requested
+  */
   for (u8_i=0; u8_i<__u8UserTasksRegistered; u8_i++) {
- 		// get next index from array so we can get the task handle
-	  u8_z = __au8UserTaskStructIndex[u8_i];
+    // get next index from array so we can get the task handle
+    u8_z = __au8UserTaskStructIndex[u8_i];
     /* check tasks that have been allocated (not a NULLIDX) and
- 	     not been garbage collected (not REMOVE_IDX) yet.  If our
+       not been garbage collected (not REMOVE_IDX) yet.  If our
        task is among them, then return the handle to the caller
-		*/
+    */
     if ((u8_z != NULLIDX) & (u8_z != REMOVE_IDX)) {
       pst_NowTask = &__astUserTaskPool[u8_z];
       // If we find our task, save the pstXXX so we can return it
@@ -295,8 +295,8 @@ ESOS_TASK_HANDLE    esos_GetTaskHandleFromID( uint16_t u16_TaskID ) {
 * \retval TaskHandle if a child task structure is available
 * \retval ESOS_BAD_CHILD_TASK_HANDLE  if no structures are available at this time
 */
-ESOS_TASK_HANDLE	esos_GetFreeChildTaskStruct() {
-  uint16_t		u16_i = 0;
+ESOS_TASK_HANDLE  esos_GetFreeChildTaskStruct() {
+  uint16_t    u16_i = 0;
 
   while (u16_i < MAX_NUM_CHILD_TASKS) {
     if (ESOS_IS_TASK_INITED( &__astChildTaskPool[u16_i]) )
@@ -346,21 +346,21 @@ uint32_t    esos_GetRandomUint32(void) {
 *
 */
 uint16_t    esos_taskname_hash_u16( void* buf, uint16_t len ) {
-    unsigned char *bp = (unsigned char *)buf;	/* start of buffer */
-    unsigned char *be = bp + len;		/* beyond end of buffer */
-    uint32_t        u32_temp = 2166136261;
+  unsigned char *bp = (unsigned char *)buf; /* start of buffer */
+  unsigned char *be = bp + len;   /* beyond end of buffer */
+  uint32_t        u32_temp = 2166136261;
 
-    /*
-     * FNV-1 hash each octet in the buffer
-     */
-    while (bp < be) {
-    	/* multiply by the 32 bit FNV magic prime mod 2^32 */
-    	u32_temp += (u32_temp<<1) + (u32_temp<<4) + (u32_temp<<7) + (u32_temp<<8) + (u32_temp<<24);
+  /*
+   * FNV-1 hash each octet in the buffer
+   */
+  while (bp < be) {
+    /* multiply by the 32 bit FNV magic prime mod 2^32 */
+    u32_temp += (u32_temp<<1) + (u32_temp<<4) + (u32_temp<<7) + (u32_temp<<8) + (u32_temp<<24);
 
-    	/* xor the bottom with the current octet */
-    	u32_temp ^= (uint32_t)*bp++;
-    } // end while
-    return (uint16_t) ((u32_temp >> 16) ^ (u32_temp & 0xFFFF));
+    /* xor the bottom with the current octet */
+    u32_temp ^= (uint32_t)*bp++;
+  } // end while
+  return (uint16_t) ((u32_temp >> 16) ^ (u32_temp & 0xFFFF));
 } // end esos_taskname_hash_u16
 
 
@@ -376,29 +376,28 @@ uint16_t    esos_taskname_hash_u16( void* buf, uint16_t len ) {
  *  \sa esos_string_hash_u32
  *  \sa esos_hash_u32_to_u16
 */
-uint32_t esos_buffer_hash_u32(void *buf, uint16_t len)
-{
-    unsigned char *bp = (unsigned char *)buf;	/* start of buffer */
-    unsigned char *be = bp + len;		        /* beyond end of buffer */
+uint32_t esos_buffer_hash_u32(void *buf, uint16_t len) {
+  unsigned char *bp = (unsigned char *)buf; /* start of buffer */
+  unsigned char *be = bp + len;           /* beyond end of buffer */
 
-    /*
-     * FNV-1 hash each octet in the buffer
-     */
-    while (bp < be) {
+  /*
+   * FNV-1 hash each octet in the buffer
+   */
+  while (bp < be) {
 
-	/* multiply by the 32 bit FNV magic prime mod 2^32 */
-    #if defined(NO_FNV_GCC_OPTIMIZATION)    
-	__esos_u32FNVHash *= FNV_32_PRIME;
-    #else
-	__esos_u32FNVHash += (__esos_u32FNVHash<<1) + (__esos_u32FNVHash<<4) + (__esos_u32FNVHash<<7) + (__esos_u32FNVHash<<8) + (__esos_u32FNVHash<<24);
-    #endif
+    /* multiply by the 32 bit FNV magic prime mod 2^32 */
+#if defined(NO_FNV_GCC_OPTIMIZATION)
+    __esos_u32FNVHash *= FNV_32_PRIME;
+#else
+    __esos_u32FNVHash += (__esos_u32FNVHash<<1) + (__esos_u32FNVHash<<4) + (__esos_u32FNVHash<<7) + (__esos_u32FNVHash<<8) + (__esos_u32FNVHash<<24);
+#endif
 
-	/* xor the bottom with the current octet */
-	__esos_u32FNVHash ^= (uint32_t)*bp++;
-    }
+    /* xor the bottom with the current octet */
+    __esos_u32FNVHash ^= (uint32_t)*bp++;
+  }
 
-    /* return our new hash value */
-    return __esos_u32FNVHash;
+  /* return our new hash value */
+  return __esos_u32FNVHash;
 }
 
 
@@ -413,32 +412,31 @@ uint32_t esos_buffer_hash_u32(void *buf, uint16_t len)
  *  \sa esos_string_hash_u32
  *  \sa esos_hash_u32_to_u16
 */
-uint32_t esos_string_hash_u32(char *psz_str)
-{
-    unsigned char *ch_s = (unsigned char *)psz_str;	/* unsigned string */
+uint32_t esos_string_hash_u32(char *psz_str) {
+  unsigned char *ch_s = (unsigned char *)psz_str; /* unsigned string */
 
-    /*
-     * FNV-1 hash each octet in the buffer
-     */
-    while (*ch_s) {
+  /*
+   * FNV-1 hash each octet in the buffer
+   */
+  while (*ch_s) {
 
-	/* multiply by the 32 bit FNV magic prime mod 2^32 */
-    #if defined(NO_FNV_GCC_OPTIMIZATION)
-	__esos_u32FNVHash *= FNV_32_PRIME;
-    #else
-	__esos_u32FNVHash += (__esos_u32FNVHash<<1) + (__esos_u32FNVHash<<4) + (__esos_u32FNVHash<<7) + (__esos_u32FNVHash<<8) + (__esos_u32FNVHash<<24);
-    #endif
+    /* multiply by the 32 bit FNV magic prime mod 2^32 */
+#if defined(NO_FNV_GCC_OPTIMIZATION)
+    __esos_u32FNVHash *= FNV_32_PRIME;
+#else
+    __esos_u32FNVHash += (__esos_u32FNVHash<<1) + (__esos_u32FNVHash<<4) + (__esos_u32FNVHash<<7) + (__esos_u32FNVHash<<8) + (__esos_u32FNVHash<<24);
+#endif
 
-	/* xor the bottom with the current octet */
-	__esos_u32FNVHash ^= (uint32_t)*ch_s++;
-    }
+    /* xor the bottom with the current octet */
+    __esos_u32FNVHash ^= (uint32_t)*ch_s++;
+  }
 
-    /* return our new hash value */
-    return __esos_u32FNVHash;
+  /* return our new hash value */
+  return __esos_u32FNVHash;
 }
 
 inline uint16_t esos_hash_u32_to_u16(uint32_t u32_hash) {
-    return  (uint16_t) ((u32_hash>>16) ^ (u32_hash&0xFFFF));
+  return  (uint16_t) ((u32_hash>>16) ^ (u32_hash&0xFFFF));
 }
 /********************************************************************************/
 
@@ -599,7 +597,7 @@ uint8_t    esos_ChangeTimerPeriod( ESOS_TMR_HANDLE hnd_timer, uint32_t u32_perio
 } //end esos_geTimerHandle()
 
 void __esosInit(void) {
-  uint8_t			u8_i;
+  uint8_t     u8_i;
 
   // initialize the pool of available user tasks
   for (u8_i=0; u8_i<MAX_NUM_USER_TASKS; u8_i++) {
@@ -609,7 +607,7 @@ void __esosInit(void) {
     // assign each possible user task a mailbox and initialize it
     __astUserTaskPool[u8_i].pst_Mailbox = &__astMailbox[u8_i];
     (__astUserTaskPool[u8_i].pst_Mailbox)->pst_CBuffer = &__astCircularBuffers[u8_i];
-    __esos_InitMailbox(__astUserTaskPool[u8_i].pst_Mailbox, &__au8_MBData[u8_i][0]); 
+    __esos_InitMailbox(__astUserTaskPool[u8_i].pst_Mailbox, &__au8_MBData[u8_i][0]);
   }
   __esos_u16TmrActiveFlags = 0;
   for (u8_i=0; u8_i<MAX_NUM_TMRS; u8_i++) {
@@ -666,7 +664,7 @@ main_t main(void) {
   /* Keep a running counter of number of tasks we've created
   ** to serve as stupid/simple task identifier
   */
-  __u16NumTasksEverCreated = 0;					
+  __u16NumTasksEverCreated = 0;
   while (TRUE) {
     /* First, let ESOS get something done.....
      *      service communications, garbage collection, etc.
@@ -679,8 +677,8 @@ main_t main(void) {
      * change the variable __u8UserTasksRegistered as they go!
      */
     u8NumRegdTasksTemp = __u8UserTasksRegistered;
- 
- 	// if there are registered tasks, let them run (call them)
+
+    // if there are registered tasks, let them run (call them)
     while ( u8i < u8NumRegdTasksTemp  ) {
       /* Get the next task up for execution.  Call it and catch
          its state (returned value) when it gives focus back.
@@ -705,12 +703,12 @@ main_t main(void) {
       /* Now, loop over the UserTasks and pack them into
          the beginning of our arrays.  We loop through the list
          backwards.....
-        
+
           Loop over the original number of registered tasks and
           look for NULLPTRs.  If you find one, scoot all the following
           tasks down by one and make the last one a NULLPTR.  Reduce
           our count of tasks by one to make the next search shorter.
-        
+
           NOTE: we can't "break" the for-loop search because there
                 may be more than one unregistered tasks in the pool
       */

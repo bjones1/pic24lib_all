@@ -107,21 +107,21 @@ uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
 /**
 Configure ECANx peripheral to run at 1Mbps
 */
-void configBaudECAN1(void) { 
+void configBaudECAN1(void) {
 // Microchip added CANCKS to the CiCTRL1 registers for the dsPIC33E family in
 // March 2011.
 //     This bit has a different meaning from the CANCKS bit that was removed
 //     from the datasheets in the older PIC24/dsPIC families
-#ifdef __dsPIC33E__ 
+#ifdef __dsPIC33E__
   // Set the ECAN Module Clock to FCY
   C1CTRL1bits.CANCKS = ECAN_FCAN_IS_FP;
 #endif
 
 #if FCY == GET_FCY(FRCPLL_FCY40MHz) // <- This needs to be reverified! - rnn13
-/**
-Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B, Example 21-9),
-Produces data rate of 1 Mbps assuming FCY = 40 MHz, quanta = 20, Prescale = 2.
-**/
+  /**
+  Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B, Example 21-9),
+  Produces data rate of 1 Mbps assuming FCY = 40 MHz, quanta = 20, Prescale = 2.
+  **/
 // FCAN = FCY = 40 MHz. TQ = 20. Prescale = 2
 // CAN Data Rate = FCAN/(TQ * pre) = 40MHz/40 = 1 MBps.
 // 20 TQ for a bit time. 20 = Sync(1) + Seg1 (8) + Seg2 (6) + Prop seg (5)
@@ -403,12 +403,6 @@ void configRxMaskECAN1(uint8_t u8_maskNum, uint32_t u32_idMask, uint8_t u8_idTyp
 
 
 
-
-
-
-
-
-
 /*
  * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
  * All rights reserved.
@@ -518,21 +512,21 @@ uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
 /**
 Configure ECANx peripheral to run at 1Mbps
 */
-void configBaudECAN2(void) { 
+void configBaudECAN2(void) {
 // Microchip added CANCKS to the CiCTRL1 registers for the dsPIC33E family in
 // March 2011.
 //     This bit has a different meaning from the CANCKS bit that was removed
 //     from the datasheets in the older PIC24/dsPIC families
-#ifdef __dsPIC33E__ 
+#ifdef __dsPIC33E__
   // Set the ECAN Module Clock to FCY
   C1CTRL2bits.CANCKS = ECAN_FCAN_IS_FP;
 #endif
 
 #if FCY == GET_FCY(FRCPLL_FCY40MHz) // <- This needs to be reverified! - rnn13
-/**
-Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B, Example 21-9),
-Produces data rate of 1 Mbps assuming FCY = 40 MHz, quanta = 20, Prescale = 2.
-**/
+  /**
+  Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B, Example 21-9),
+  Produces data rate of 1 Mbps assuming FCY = 40 MHz, quanta = 20, Prescale = 2.
+  **/
 // FCAN = FCY = 40 MHz. TQ = 20. Prescale = 2
 // CAN Data Rate = FCAN/(TQ * pre) = 40MHz/40 = 1 MBps.
 // 20 TQ for a bit time. 20 = Sync(1) + Seg1 (8) + Seg2 (6) + Prop seg (5)
@@ -807,12 +801,6 @@ void configRxMaskECAN2(uint8_t u8_maskNum, uint32_t u32_idMask, uint8_t u8_idTyp
 }
 
 #endif // #if (NUM_ECAN_MODS >= ${x})
-
-
-
-
-
-
 
 
 
