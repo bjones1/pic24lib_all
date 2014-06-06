@@ -162,14 +162,8 @@ if 'chap13ecan' in buildTargets:
 if 'chap13dmaflash' in buildTargets:
   buildWithCommonSources(['chap13/dma_example.c', 'chap13/flash_example.c'], PIC24SupportLibObjects, env,{},   'chap13')  
 if 'chap15' in buildTargets:
-  # Case-by-case, since this chapter's program have multiple source files
-  buildProgramWithCommonSources(['chap15/audio.c', 'chap15/audio_adpcm.c', ],
-    PIC24SupportLibObjects, env, 'chap15')
-  buildProgramWithCommonSources(['chap15/reflow_oven.c', 'chap15/reflow_debug.c',
-    'chap15/reflow_flash.c', 'chap15/reflow_operate.c'], PIC24SupportLibObjects,
-    env, 'chap15')
-  buildProgramWithCommonSources(['chap15/robot.c', 'chap15/robot_ir_decode.c', ],
-    PIC24SupportLibObjects, env, 'chap15')
+  # Currently, no files.
+  pass
 if 'explorerh' in buildTargets:  # Don't build rtcc.c, since the PIC24H doesn't have it
   buildWithCommonSources(['explorer16_100p/adc_test.c', 'explorer16_100p/lcd4bit.c',
     'explorer16_100p/mcp25lc256_spi_eeprom.c', 'explorer16_100p/reset.c',
