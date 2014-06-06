@@ -32,6 +32,7 @@
 #include <stdint.h>
 #include "pic24_unions.h"
 #include "pic24_chip.h"
+#include "pic24_clockfreq.h"
 
 // Only include if this ECAN Module exists.
 #if (NUM_ECAN_MODS >= 1)
@@ -53,16 +54,28 @@
 #define ECAN_MODE_CONFIGURE 4
 #define ECAN_LISTEN_ALL_MESSAGES 7
 
-// Deprecated & Removed from PIC24 Datasheet - rnn13
+// CANCKS in CiCTRL1 ECAN Register
+// CANCKS: ECANx Module Clock (FCAN) Source Select Bit 
+//
+// The CANCKS bit was defined in the CiCTRL1 register when the initial PIC24
+// library and text was written (2008).  The following definitions were used
+// for the CANCKS bit.  In May 2009, datasheet revision history says
+//      Changed bit 11 in the ECAN Control Register 1 (CiCTRL1) to Reserved
+//      (see Register 19-1).
+// Thus, these definitions are no longer needed in the non-E families of the
+// PIC24/dsPIC   [JWB May 2014]
 //#define ECAN_FCAN_IS_FCY 1
 //#define ECAN_FCAN_IS_OSC 0
 
-// CANCKS: ECANx Module Clock (FCAN) Source Select Bit - rnn13
-#ifdef __dsPIC33E__ // Only enable for certain chips.
-# define ECAN_FCAN_IS_2FP 1 // FCAN is equal to 2 * FP
-# define ECAN_FCAN_IS_FP  0 // FCAN is equal to FP
+// The CANCKS bit was returned to the "E" family in the same register
+// (CiCTRL1) and bit location (bit 11).  See the revision history entry in
+// the ECAN chapter of the E-family FRM for March 2011.  However, the
+// meaning of the CANCKS bit is now completely different than original
+// CANCKS bit used in 2008-2009 [JWB May 2014]
+#ifdef __dsPIC33E__ 
+# define ECAN_FCAN_IS_2FP 1         // FCAN is equal to 2 * FP
+# define ECAN_FCAN_IS_FP  0         // FCAN is equal to FP
 #endif
-
 
 //CiCFG2 register  (Baud rate config 2 register)
 #define ECAN_NO_WAKEUP 0x4000
@@ -281,6 +294,7 @@ inline static void CHANGE_MODE_ECAN1(uint16_t u16_mode) {
  */
 #define GET_FIFO_READBUFFER_ECAN1() (C1FIFO & 0x1F)
 
+void configBaudECAN1(void);
 void clrRxFullFlagECAN1(uint8_t u8_bufNum);
 uint8_t getRxFullFlagECAN1(uint8_t u8_bufNum);
 void clrRxFullOvfFlagsECAN1(void);
@@ -329,6 +343,7 @@ uint8_t getTxInProgressECAN1(uint8_t u8_bufNum);
 #include <stdint.h>
 #include "pic24_unions.h"
 #include "pic24_chip.h"
+#include "pic24_clockfreq.h"
 
 // Only include if this ECAN Module exists.
 #if (NUM_ECAN_MODS >= 2)
@@ -350,16 +365,28 @@ uint8_t getTxInProgressECAN1(uint8_t u8_bufNum);
 #define ECAN_MODE_CONFIGURE 4
 #define ECAN_LISTEN_ALL_MESSAGES 7
 
-// Deprecated & Removed from PIC24 Datasheet - rnn13
+// CANCKS in CiCTRL1 ECAN Register
+// CANCKS: ECANx Module Clock (FCAN) Source Select Bit 
+//
+// The CANCKS bit was defined in the CiCTRL1 register when the initial PIC24
+// library and text was written (2008).  The following definitions were used
+// for the CANCKS bit.  In May 2009, datasheet revision history says
+//      Changed bit 11 in the ECAN Control Register 1 (CiCTRL1) to Reserved
+//      (see Register 19-1).
+// Thus, these definitions are no longer needed in the non-E families of the
+// PIC24/dsPIC   [JWB May 2014]
 //#define ECAN_FCAN_IS_FCY 1
 //#define ECAN_FCAN_IS_OSC 0
 
-// CANCKS: ECANx Module Clock (FCAN) Source Select Bit - rnn13
-#ifdef __dsPIC33E__ // Only enable for certain chips.
-# define ECAN_FCAN_IS_2FP 1 // FCAN is equal to 2 * FP
-# define ECAN_FCAN_IS_FP  0 // FCAN is equal to FP
+// The CANCKS bit was returned to the "E" family in the same register
+// (CiCTRL1) and bit location (bit 11).  See the revision history entry in
+// the ECAN chapter of the E-family FRM for March 2011.  However, the
+// meaning of the CANCKS bit is now completely different than original
+// CANCKS bit used in 2008-2009 [JWB May 2014]
+#ifdef __dsPIC33E__ 
+# define ECAN_FCAN_IS_2FP 1         // FCAN is equal to 2 * FP
+# define ECAN_FCAN_IS_FP  0         // FCAN is equal to FP
 #endif
-
 
 //CiCFG2 register  (Baud rate config 2 register)
 #define ECAN_NO_WAKEUP 0x4000
@@ -578,6 +605,7 @@ inline static void CHANGE_MODE_ECAN2(uint16_t u16_mode) {
  */
 #define GET_FIFO_READBUFFER_ECAN2() (C2FIFO & 0x1F)
 
+void configBaudECAN2(void);
 void clrRxFullFlagECAN2(uint8_t u8_bufNum);
 uint8_t getRxFullFlagECAN2(uint8_t u8_bufNum);
 void clrRxFullOvfFlagsECAN2(void);

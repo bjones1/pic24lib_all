@@ -104,6 +104,54 @@ uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
 #define ECAN_1TIME_CODE_DEFS
 #endif
 
+/**
+Configure ECANx peripheral to run at 1Mbps
+*/
+void configBaudECAN1(void) { 
+// Microchip added CANCKS to the CiCTRL1 registers for the dsPIC33E family in
+// March 2011.
+//     This bit has a different meaning from the CANCKS bit that was removed
+//     from the datasheets in the older PIC24/dsPIC families
+#ifdef __dsPIC33E__ 
+  // Set the ECAN Module Clock to FCY
+  C1CTRL1bits.CANCKS = ECAN_FCAN_IS_FP;
+#endif
+
+#if FCY == GET_FCY(FRCPLL_FCY40MHz) // <- This needs to be reverified! - rnn13
+/**
+Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B, Example 21-9),
+Produces data rate of 1 Mbps assuming FCY = 40 MHz, quanta = 20, Prescale = 2.
+**/
+// FCAN = FCY = 40 MHz. TQ = 20. Prescale = 2
+// CAN Data Rate = FCAN/(TQ * pre) = 40MHz/40 = 1 MBps.
+// 20 TQ for a bit time. 20 = Sync(1) + Seg1 (8) + Seg2 (6) + Prop seg (5)
+  C1CFG2 = ECAN_NO_WAKEUP |
+           ECAN_SAMPLE_3TIMES |      //sample three times at sample point
+           ECAN_SEG1PH_8TQ |         //seg1 = 8 TQ
+           ECAN_SEG2_PROGRAMMABLE |  //seg2 is programmable
+           ECAN_SEG2PH_6TQ |         //seg2 = 6 TQ
+           ECAN_PRSEG_5TQ;           //propagation delay segment = 5 TQ
+
+  C1CFG1 = ECAN_SYNC_JUMP_4 |    //use maximum sync jump width
+           ECAN_PRE_2x1;         //prescalers to 2x1 = 2
+
+#elif FCY == GET_FCY(FRCPLL_FCY60MHz)
+// FCAN = FCY = 60 MHz. Use TQ = 15. Prescale = 4
+// CAN Data Rate = FCAN/(TQ * Prescale) = 60MHz/60 = 1 MBps.
+// Bit Time 15TQ = SyncSeg(1) + PropSeg(4) + Seg1(4) + Seg2 (6)
+  C1CFG2 = ECAN_NO_WAKEUP |
+           ECAN_SAMPLE_3TIMES |      //sample three times at sample point
+           ECAN_SEG1PH_4TQ |         //seg1 = 8 TQ
+           ECAN_SEG2_PROGRAMMABLE |  //seg2 is programmable
+           ECAN_SEG2PH_6TQ |         //seg2 = 6 TQ
+           ECAN_PRSEG_3TQ;           //propagation delay segment = 5 TQ
+
+  C1CFG1 = ECAN_SYNC_JUMP_4 |    //use maximum sync jump width
+           ECAN_PRE_2x2;         //prescalers to 2x2 = 4
+#else
+#warning "ECAN module not configured for current processor frequency! Edit function configECAN1()."
+#endif
+}
 
 
 /**
@@ -467,6 +515,54 @@ uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
 #define ECAN_1TIME_CODE_DEFS
 #endif
 
+/**
+Configure ECANx peripheral to run at 1Mbps
+*/
+void configBaudECAN2(void) { 
+// Microchip added CANCKS to the CiCTRL1 registers for the dsPIC33E family in
+// March 2011.
+//     This bit has a different meaning from the CANCKS bit that was removed
+//     from the datasheets in the older PIC24/dsPIC families
+#ifdef __dsPIC33E__ 
+  // Set the ECAN Module Clock to FCY
+  C1CTRL2bits.CANCKS = ECAN_FCAN_IS_FP;
+#endif
+
+#if FCY == GET_FCY(FRCPLL_FCY40MHz) // <- This needs to be reverified! - rnn13
+/**
+Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B, Example 21-9),
+Produces data rate of 1 Mbps assuming FCY = 40 MHz, quanta = 20, Prescale = 2.
+**/
+// FCAN = FCY = 40 MHz. TQ = 20. Prescale = 2
+// CAN Data Rate = FCAN/(TQ * pre) = 40MHz/40 = 1 MBps.
+// 20 TQ for a bit time. 20 = Sync(1) + Seg1 (8) + Seg2 (6) + Prop seg (5)
+  C2CFG2 = ECAN_NO_WAKEUP |
+           ECAN_SAMPLE_3TIMES |      //sample three times at sample point
+           ECAN_SEG1PH_8TQ |         //seg1 = 8 TQ
+           ECAN_SEG2_PROGRAMMABLE |  //seg2 is programmable
+           ECAN_SEG2PH_6TQ |         //seg2 = 6 TQ
+           ECAN_PRSEG_5TQ;           //propagation delay segment = 5 TQ
+
+  C2CFG1 = ECAN_SYNC_JUMP_4 |    //use maximum sync jump width
+           ECAN_PRE_2x1;         //prescalers to 2x1 = 2
+
+#elif FCY == GET_FCY(FRCPLL_FCY60MHz)
+// FCAN = FCY = 60 MHz. Use TQ = 15. Prescale = 4
+// CAN Data Rate = FCAN/(TQ * Prescale) = 60MHz/60 = 1 MBps.
+// Bit Time 15TQ = SyncSeg(1) + PropSeg(4) + Seg1(4) + Seg2 (6)
+  C2CFG2 = ECAN_NO_WAKEUP |
+           ECAN_SAMPLE_3TIMES |      //sample three times at sample point
+           ECAN_SEG1PH_4TQ |         //seg1 = 8 TQ
+           ECAN_SEG2_PROGRAMMABLE |  //seg2 is programmable
+           ECAN_SEG2PH_6TQ |         //seg2 = 6 TQ
+           ECAN_PRSEG_3TQ;           //propagation delay segment = 5 TQ
+
+  C2CFG1 = ECAN_SYNC_JUMP_4 |    //use maximum sync jump width
+           ECAN_PRE_2x2;         //prescalers to 2x2 = 4
+#else
+#warning "ECAN module not configured for current processor frequency! Edit function configECAN1()."
+#endif
+}
 
 
 /**
