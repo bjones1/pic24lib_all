@@ -31,8 +31,11 @@
 #include <pic24_all.h>
 
 #ifndef _LPOSCEN
-#error "This example only works with a device that has a secondary oscillator."
-#endif
+# warning "This example only works with a device that has a secondary oscillator."
+int main(void) {
+  return 0;
+}
+#else
 
 
 volatile uint16_t u16_seconds = 0;
@@ -67,3 +70,4 @@ int main(void) {
     SLEEP();
   }
 }
+#endif

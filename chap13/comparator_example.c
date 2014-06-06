@@ -33,6 +33,13 @@
 Illustrates a simple usage of the comparator module
 */
 
+#if defined(__dsPIC33E__) || defined(__PIC24E__)
+# warning "This example does not work with the dsPIC33E/PIC24E families."
+int main(void) {
+  return 0;
+}
+#else
+
 void configComparator(void) {
   CMCON = CMP_IDLE_STOP | CMP1_ENABLE | CMP2_DISABLE |
           CMP1_OUTPUT_DISABLE | CMP1_NORMAL_OUTPUT |
@@ -62,3 +69,4 @@ int main (void) {
     DELAY_MS(100);
   } //end while
 }//end main
+#endif

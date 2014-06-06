@@ -31,12 +31,13 @@
 #include "pic24_all.h"
 #include <stdio.h>
 
-#ifndef _LPOSCEN
-#error "This example only works with a device that has a secondary oscillator."
-#endif
-#ifndef _RTCSYNC
-#error "This example only works with a device that has an RTCC module."
-#endif
+#if !defined(_LPOSCEN) || !defined(_RTCSYNC)
+# warning "This example only works with a device that has a secondary oscillator."
+# warning "and an RTCC module."
+int main(void) {
+  return 0;
+}
+#else
 
 
 typedef union _unionRTCC {
@@ -113,3 +114,4 @@ int main(void) {
     DELAY_MS(30);
   }
 }
+#endif

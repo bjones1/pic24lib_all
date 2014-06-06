@@ -229,7 +229,7 @@ buildTargetsSConscript(['chap11dma', 'chap13', 'chap15'],
   env.Clone(MCU='24HJ64GP502'), 'default')
 
 # Same as above, but for the dsPIC
-buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11dma',  'chap12big','chap12',
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11dma', 'chap12',
                         'chap13', 'chap15'],
   env.Clone(MCU='33FJ128GP802'), 'default')
 
@@ -239,7 +239,7 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
   env.Clone(MCU='33EP128GP502'), 'default')
 
 # Build some for the PIC24E device
-buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12big', 'chap12_24E'],
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11_24E',  'chap12'],
   env.Clone(MCU='24EP64GP202'), 'default')
 
 # Build over various hardware platforms

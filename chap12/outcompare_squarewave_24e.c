@@ -33,8 +33,10 @@
 
 #include "pic24_all.h"
 #if (! (defined(__dsPIC33E__) || defined(__PIC24E__)))
-#error "This example only works with the dsPIC33E/PIC24E families"
-#endif
+int main(void) {
+  return 0;
+}
+#else
 
 #define SQWAVE_PERIOD 5000   // desired period, in us
 void  configTimer2(void) {
@@ -66,3 +68,4 @@ int main (void) {
   T2CONbits.TON = 1;       //turn on Timer2 to start sqwave
   while (1) doHeartbeat(); //nothing to do, squarewave generated in hardware
 }
+#endif

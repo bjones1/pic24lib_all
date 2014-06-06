@@ -153,20 +153,8 @@ if 'chap11dma' in buildTargets:
   buildWithCommonSources(['chap11/adc4simul_dma.c', 'chap11/adc7scan1_dma_conv_order.c',
     'chap11/adc7scan1_dma_scatter_gather_1.c'],
     PIC24SupportLibObjects, env, {}, 'chap11dma')
-if 'chap12_24E' in buildTargets:
-  buildWithCommonSources(['chap12/incap_freqmeasure.c','chap12/incap_switch_pulse_measure.c',
-  'chap12/ir_biphase_decode.c', 'chap12/manual_switch_pulse_measure.c',
-  'chap12/outcompare_contpulse.c', 'chap12/outcompare_squarewave.c',
-  'chap12/outputcompare_multiservo.c','chap12/outputcompare_oneservo.c',
-  'chap12/pwm_dac.c', 'chap12/pwm_dac_test.c', 'chap12/timer32bit_switch_pulse_measure.c'], PIC24SupportLibSources, env, {}, 'chap12')
 if 'chap12' in buildTargets:
-  buildWithCommonSources(['chap12/incap_freqmeasure.c','chap12/incap_switch_pulse_measure.c',
-  'chap12/ir_biphase_decode.c', 'chap12/ledpwm_pic24f.c', 'chap12/manual_switch_pulse_measure.c',
-  'chap12/outcompare_contpulse.c', 'chap12/outcompare_squarewave.c',
-  'chap12/outputcompare_multiservo.c','chap12/outputcompare_oneservo.c',
-  'chap12/pwm_dac.c', 'chap12/pwm_dac_test.c', 'chap12/timer32bit_switch_pulse_measure.c'], PIC24SupportLibSources, env, {}, 'chap12')
-if 'chap12big' in buildTargets:
-  buildWithCommonSources(['chap12/ledpwm.c'], PIC24SupportLibSources, env, {}, 'chap12')
+  buildWithCommonSources(['chap12/*.c'], PIC24SupportLibSources, env, {}, 'chap12')
 if 'chap13' in buildTargets:
   buildWithCommonSources(['chap13/*.c'], PIC24SupportLibObjects, env,
   {'chap13\\i2c_multmaster_rstring.c' :  { 'CPPDEFINES': 'CPU_ID=1' },
