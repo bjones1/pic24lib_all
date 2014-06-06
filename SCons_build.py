@@ -146,8 +146,7 @@ if 'chap11nodma' in buildTargets:
      'chap11/adc_test.c',
     'chap11/adc_test_12bit.c', 'chap11/dac_r2r.c'], PIC24SupportLibSources, env, {}, 'chap11')
 if 'chap11dma' in buildTargets:
-  buildWithCommonSources(['chap11/adc4simul_dma.c', 'chap11/adc7scan1_dma_conv_order.c',
-    'chap11/adc7scan1_dma_scatter_gather_1.c'],
+  buildWithCommonSources(['chap11/*.c'],
     PIC24SupportLibObjects, env, {}, 'chap11dma')
 if 'chap12' in buildTargets:
   buildWithCommonSources(['chap12/*.c'], PIC24SupportLibSources, env, {}, 'chap12')

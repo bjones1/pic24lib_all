@@ -31,9 +31,11 @@
 #include "stdio.h"
 
 #ifdef _DMA0IF
-#error "This processor selection has the DMA module; this code example is incompatible with a PIC24 CPU that has DMA."
-
-#endif
+# warning "This processor selection has the DMA module; this code example is incompatible with a PIC24 CPU that has DMA."
+int main(void) {
+  return 0;
+}
+#else
 
 #define CONFIG_LED2()       CONFIG_RB0_AS_DIG_OUTPUT()
 #define LED2                _LATB0
@@ -130,4 +132,4 @@ int main (void) {
     DELAY_MS(1500);
   } //endof while()
 } // endof main()
-
+#endif
