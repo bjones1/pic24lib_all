@@ -31,18 +31,7 @@ The utilities below provide support for library development and maintenance.
 
 Build tools
 ===========
-`SCons <http://www.scons.org/>`_ provides automated library building and testing. See :doc:`SConstruct.py` for documentation of this process. Capabilities include:
-
-- Automated build of almost all code in the library.
-- Automated build of the bootloader over many PICs.
-- Automated build of a .zip file and associated documentation.
-- Support for multiple copies of a device, such as the UART, I\ :sup:`2`\ C, and SPI, is auto-generated from templates which contain a single copy of the code. The templates/  directory contains the templates from which these files are built.
-
-
-The code resides in a `Mercurial <http://mercurial.selenic.com/>`_ publicly-readable, web-accessible `repository <http://bitbucket.org/bjones/pic24lib_all>`_. Please send any updates or fixes to the authors for incorporation into the library!
-
-Contents
---------
+`SCons <http://www.scons.org/>`_ provides automated library building and testing.Capabilities include:
 
 .. toctree::
    :titlesonly:
@@ -50,18 +39,11 @@ Contents
    runAStyle.bat
    runscons.bat
    SConstruct.py
-   SCons_bootloader.py
-   SCons_build.py
-   SCons_esos.py
-   SCons_zipit.py
-   templates/SConscript.py
+
    
 Code generation tools
 =====================
 The files below assist in generating and maintaining a mapping between the Rxy pins on a PIC and its associated CNm, ANn pins for many processors.
-
-Contents
---------
 
 .. toctree::
    :titlesonly:
@@ -71,12 +53,10 @@ Contents
    templates/build-exe.bat
    templates/data_sheet_to_csv.bat
 
+
 Testing
 =======
 The following programs provide some unit testing of various libary-related routines.
-
-Contents
---------
 
 .. toctree::
    :titlesonly:
