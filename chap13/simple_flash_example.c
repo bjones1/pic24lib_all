@@ -33,32 +33,40 @@
 A simple example of run time self programming - reads/writes a single 16-bit value to flash.
 */
 
-#ifdef __PIC24F__
-#warning "For a PIC24F, the DATA_FLASH_PAGE is set to the second to last flash page instead of the last page,"
-#warning "as the last flash page in the 24F family contains the configuration bits."
+#if (defined(__PIC24F__) || defined(__PIC24E__) || defined(__dsPIC33E__))
+# warning "For all PIC24F and some PIC24E/dsPIC33E family members, the DATA_FLASH_PAGE is set to the second to last flash page instead of the last page,"
+# warning "as the last flash page in the 24F family contains the configuration bits."
 #endif
 
 
 #if defined(__PIC24HJ64GP502__) || defined(__PIC24FJ64GA002__)
-#define LAST_IMPLEMENTED_PMEM 0x00ABFF
+# define LAST_IMPLEMENTED_PMEM 0x00ABFF
 #elif defined(__PIC24HJ32GP202__) || defined(__PIC24FJ32GA002__) || defined(__dsPIC33FJ32GP202__)
-#define LAST_IMPLEMENTED_PMEM 0x0057FF
-#elif defined(__dsPIC33FJ128GP802__) || defined(__dsPIC33EP128GP502__)
-#define LAST_IMPLEMENTED_PMEM 0x0157FF
-#elif defined(__PIC24EP64GP202__)     //PIC24E test
-#define LAST_IMPLEMENTED_PMEM 0x00AFFF
+# define LAST_IMPLEMENTED_PMEM 0x0057FF
+#elif defined(__dsPIC33FJ128GP802__)
+# define LAST_IMPLEMENTED_PMEM 0x0157FF
+#elif defined(__PIC24EP64GP202__)               // test PIC24E device
+# define LAST_IMPLEMENTED_PMEM 0x00AFFF
+#elif defined(__dsPIC33EP64GP502__) || defined(__dsPIC33EP64GP503__) || defined(__dsPIC33EP64GP504__) || defined(__dsPIC33EP64GP506__)
+# define LAST_IMPLEMENTED_PMEM 0x00AFFF
+#elif defined(__dsPIC33EP128GP502__) || defined(__dsPIC33EP128GP504__) || defined(__dsPIC33EP128GP506__)
+# define LAST_IMPLEMENTED_PMEM 0x0157FF
+#elif defined(__dsPIC33EP256GP502__) || defined(__dsPIC33EP256GP504__) || defined(__dsPIC33EP256GP506__)
+# define LAST_IMPLEMENTED_PMEM 0x02AFFF
+#elif defined(__dsPIC33EP512GP502__) || defined(__dsPIC33EP512GP504__) || defined(__dsPIC33EP512GP506__)
+# define LAST_IMPLEMENTED_PMEM 0x0557FF
 #else
-#error "Define LAST_IMPLEMENTED_PMEM for your processor!"
+# error "Define LAST_IMPLEMENTED_PMEM for your processor!"
 #endif
 
 
 //calculate starting address of a flash page to store data
 //some PIC24H/dsPIC33 store configuration bits on last page, so skip that
 #if (defined(__PIC24F__) || defined(__PIC24E__)|| defined(__dsPIC33E__))
-#define DATA_FLASH_PAGE (((LAST_IMPLEMENTED_PMEM/FLASH_PAGESIZE)*FLASH_PAGESIZE)-FLASH_PAGESIZE)  //2nd to last page of flash
+# define DATA_FLASH_PAGE (((LAST_IMPLEMENTED_PMEM/FLASH_PAGESIZE)*FLASH_PAGESIZE)-FLASH_PAGESIZE)  //2nd to last page of flash
 #endif
-#if (defined(__PIC24H__)|| defined(__dsPIC33F__))
-#define DATA_FLASH_PAGE ((LAST_IMPLEMENTED_PMEM/FLASH_PAGESIZE)*FLASH_PAGESIZE)  //last page of flash
+#if (defined(__PIC24H__) || defined(__dsPIC33F__))
+# define DATA_FLASH_PAGE ((LAST_IMPLEMENTED_PMEM/FLASH_PAGESIZE)*FLASH_PAGESIZE)  //last page of flash
 #endif
 
 

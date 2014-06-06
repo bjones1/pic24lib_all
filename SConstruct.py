@@ -235,7 +235,7 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11dma',  'chap12big',
 
 # Same as above, but for the dsPIC33EP128GP502
 buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
-                        'chap13ecan', 'chap13dmaflash', 'chap15'],
+                        'chap13', 'chap15'],
   env.Clone(MCU='33EP128GP502'), 'default')
 
 # Build some for the PIC24E device
@@ -250,7 +250,7 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
   env.Clone(MCU='33EP128GP502', CPPDEFINES='HARDWARE_PLATFORM=MICROSTICK2'), 'MICROSTICK2')
 
 # Build some selected chapter applications for the chip used on the Fall 2013 Embedded systems board
-buildTargetsSConscript(['chap08', 'chap09', 'chap13ecan'],
+buildTargetsSConscript(['chap08', 'chap09', 'chap13'],
   env.Clone(MCU='33EP128GP504'), 'default')
 
 # Build for the explorer board

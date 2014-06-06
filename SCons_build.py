@@ -172,10 +172,6 @@ if 'chap13' in buildTargets:
   {'chap13\\i2c_multmaster_rstring.c' :  { 'CPPDEFINES': 'CPU_ID=1' },
    'chap13\\i2c_multmaster_rstring1.c' : { 'CPPDEFINES': 'CPU_ID=2' }},
   'chap13')
-if 'chap13ecan' in buildTargets:
-  buildWithCommonSources(['chap13/ecan_example_*.c'], PIC24SupportLibObjects, env,{},   'chap13')
-if 'chap13dmaflash' in buildTargets:
-  buildWithCommonSources(['chap13/dma_example.c', 'chap13/flash_example.c'], PIC24SupportLibObjects, env,{},   'chap13')
 if 'chap15' in buildTargets:
   # Currently, no files.
   pass
