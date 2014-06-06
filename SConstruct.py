@@ -208,24 +208,16 @@ def buildTargetsSConscript(
 # Build over various MCUs
 # -----------------------
 # Build small, non-DMA on the PIC24HJ32GP202
-buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11nodma', 'chap12'],
-env.Clone(MCU='24HJ32GP202'), 'default')
-
-# Build the large files on the PIC24HJ64GP202
-buildTargetsSConscript(                            ['chap10large', ],
-  env.Clone(MCU='24HJ64GP202'), 'default')
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11dma', 'chap12'],
+env.Clone(MCU='24HJ64GP202'), 'default')
 
 # Build everything on the PIC24FJ64GA002
-buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap10large', 'chap11nodma', 'chap12',
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11nodma', 'chap12',
                         'chap15'],
   env.Clone(MCU='24FJ64GA002'), 'default')
 
 # Build small, non-DMA on the dsPIC33FJ32GP202
-buildTargetsSConscript(['chap08', 'chap09', 'chap10',                'chap11nodma', 'chap12'],
-  env.Clone(MCU='33FJ32GP202'), 'default')
-
-# Build the large files on the dsPIC33FJ64GP202
-buildTargetsSConscript(                            ['chap10large'],
+buildTargetsSConscript(['chap08', 'chap09', 'chap10',                'chap11dma', 'chap12'],
   env.Clone(MCU='33FJ64GP202'), 'default')
 
 # Minimally test the 24F16KA102. It has hardmapped UART pins.
@@ -237,12 +229,12 @@ buildTargetsSConscript(['chap11dma', 'chap13', 'chap15'],
   env.Clone(MCU='24HJ64GP502'), 'default')
 
 # Same as above, but for the dsPIC
-buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap10stdio', 'chap11dma',  'chap12big','chap12',
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11dma',  'chap12big','chap12',
                         'chap13', 'chap15'],
   env.Clone(MCU='33FJ128GP802'), 'default')
 
 # Same as above, but for the dsPIC33EP128GP502
-buildTargetsSConscript(['chap08', 'chap09', 'chap10large', 'chap12',
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
                         'chap13ecan', 'chap13dmaflash', 'chap15'],
   env.Clone(MCU='33EP128GP502'), 'default')
 

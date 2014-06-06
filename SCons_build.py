@@ -136,22 +136,11 @@ if 'chap08' in buildTargets:
 if 'chap09' in buildTargets:
   buildWithCommonSources(['chap09/*.c'], PIC24SupportLibObjects, env, {}, 'chap09')
 if 'chap10' in buildTargets:
-  buildWithCommonSources([
-                          'chap10/mcp24lc515_i2c_eeprom.c',
-                          'chap10/reverse_string.c',
-                          'chap10/reverse_string1.c',
-                          'chap10/soft_uart.c',
-                          'chap10/spi_master_revstring.c',
-                          'chap10/spi_slave_revstring.c'],
+  buildWithCommonSources(['chap10/*.c'],
     PIC24SupportLibObjects, env,
     {'chap10\\reverse_string.c'  : { 'CPPDEFINES': 'UART1_RX_INTERRUPT'},
      'chap10\\reverse_string1.c' : { 'CPPDEFINES': ['UART1_RX_INTERRUPT', 'UART1_TX_INTERRUPT']}},
     'chap10')
-if 'chap10large' in buildTargets:   # These files usually need a larger device (64K) to compile
-  buildWithCommonSources(['chap10/stdio_test.c',
-                          'chap10/reverse_string_stdio.c', 'chap10/ds1621_i2c.c', 'chap10/ds1631_i2c.c','chap10/ds1722_spi_tempsense.c',
-                          'chap10/mcp41xxx_spi_pot.c',],
-    PIC24SupportLibObjects, env, {}, 'chap10stdio')
 if 'chap11_24E' in buildTargets:
   buildWithCommonSources([ 'chap11/adc_spidac_test.c',
      'chap11/adc_test.c',
