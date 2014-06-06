@@ -32,9 +32,11 @@
 
 
 #ifndef _DMA0IF
-#error "This processor selection does not have a DMA module; this code example is incompatible with a PIC24 CPU that does not have DMA."
-
-#endif
+# warning "This processor selection does not have a DMA module; this code example is incompatible with a PIC24 CPU that does not have DMA."
+int main(void) {
+  return 0;
+}
+#else
 
 // setup an output to help us measure ADC IRQ responses
 #define CONFIG_LED2()       CONFIG_RB5_AS_DIG_OUTPUT()
@@ -201,3 +203,4 @@ int main (void) {
     printf("\n");
   } //endof while()
 } // endof main()
+#endif

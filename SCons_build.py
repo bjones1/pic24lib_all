@@ -141,13 +141,8 @@ if 'chap10' in buildTargets:
     {'chap10\\reverse_string.c'  : { 'CPPDEFINES': 'UART1_RX_INTERRUPT'},
      'chap10\\reverse_string1.c' : { 'CPPDEFINES': ['UART1_RX_INTERRUPT', 'UART1_TX_INTERRUPT']}},
     'chap10')
-if 'chap11nodma' in buildTargets:
-  buildWithCommonSources([ 'chap11/adc2pots1.c','chap11/adc4simul.c','chap11/adc7scan1.c', 'chap11/adc7scan2.c', 'chap11/adc_spidac_test.c',
-     'chap11/adc_test.c',
-    'chap11/adc_test_12bit.c', 'chap11/dac_r2r.c'], PIC24SupportLibSources, env, {}, 'chap11')
-if 'chap11dma' in buildTargets:
-  buildWithCommonSources(['chap11/*.c'],
-    PIC24SupportLibObjects, env, {}, 'chap11dma')
+if 'chap11' in buildTargets:
+  buildWithCommonSources(['chap11/*.c'], PIC24SupportLibObjects, env, {}, 'chap11')
 if 'chap12' in buildTargets:
   buildWithCommonSources(['chap12/*.c'], PIC24SupportLibSources, env, {}, 'chap12')
 if 'chap13' in buildTargets:
@@ -158,10 +153,6 @@ if 'chap13' in buildTargets:
 if 'chap15' in buildTargets:
   # Currently, no files.
   pass
-if 'explorerh' in buildTargets:  # Don't build rtcc.c, since the PIC24H doesn't have it
-  buildWithCommonSources(['explorer16_100p/adc_test.c', 'explorer16_100p/lcd4bit.c',
-    'explorer16_100p/mcp25lc256_spi_eeprom.c', 'explorer16_100p/reset.c',
-    'explorer16_100p/timer1_sosc.c'], PIC24SupportLibObjects, env, {}, 'explorerh')
 if 'explorer' in buildTargets:
   buildWithCommonSources(['explorer16_100p/*.c'], PIC24SupportLibObjects, env, {}, 'explorer')
 if 'embeddedC1' in buildTargets:

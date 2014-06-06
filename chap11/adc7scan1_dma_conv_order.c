@@ -31,9 +31,11 @@
 #include "stdio.h"
 
 #ifndef _DMA0IF
-#error "This processor selection does not have a DMA module; this code example is incompatible with a PIC24 CPU that does not have DMA."
-
-#endif
+# warning "This processor selection does not have a DMA module; this code example is incompatible with a PIC24 CPU that does not have DMA."
+int main(void) {
+  return 0;
+}
+#else
 
 /** \file
  *  Performs a basic config of the ADC and samples seven channels sequentially
@@ -281,4 +283,4 @@ int main (void) {
     DELAY_MS(1500);
   } //endof while()
 } // endof main()
-
+#endif
