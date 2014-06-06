@@ -30,8 +30,9 @@
 #include "pic24_all.h"
 #include "stdio.h"
 
-#ifndef _DMA0IF
+#if !defined(_DMA0IF) || defined(__PIC24E__) || defined(__dsPIC33E__)
 # warning "This processor selection does not have a DMA module; this code example is incompatible with a PIC24 CPU that does not have DMA."
+# warning "OR this is a E family processor, which this example does not support."
 int main(void) {
   return 0;
 }

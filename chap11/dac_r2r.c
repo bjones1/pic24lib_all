@@ -30,6 +30,13 @@
 #include "pic24_all.h"
 #include "stdio.h"
 
+#if defined(__PIC24E__) || defined(__dsPIC33E__)
+# warning "This is a E family processor, which this example does not support."
+int main(void) {
+  return 0;
+}
+#else
+
 // uncomment the next line to setup this project for a 12-bit ADC
 #define USE_12BIT_ADC
 
@@ -93,7 +100,7 @@ void  writeDAC(uint16_t u16_x, uint16_t u16_y) {
 #endif
 
 #ifdef __DAC_MAX548A
-#warning "DAC_R2R.C built for SPI-based dual 8-bit MAX548A DAC connected to RP14(SDO) and RP13(SCLK)."
+#warning "DAC_R2R.C built for SPI-based dual 8-bit MAX548A DAC connected to RB14(SDO) and RB13(SCLK)."
 #define CONFIG_MAX548A_ENABLE()    CONFIG_RA2_AS_DIG_OUTPUT()
 #define MAX548A_ENABLE()            _LATA2 = 0
 #define MAX548A_DISABLE()           _LATA2 = 1
@@ -109,9 +116,9 @@ void configDAC(void) {
 
   //configure pins. Only need SDO, SCLK since MAX548 is output only
   CONFIG_RB14_AS_DIG_OUTPUT();
-  CONFIG_SDO1_TO_RP(14);      //use RP14 for SDO
+  CONFIG_SDO1_TO_RP(RB14_RP);      //use RB14 for SDO
   CONFIG_RB13_AS_DIG_OUTPUT();
-  CONFIG_SCK1OUT_TO_RP(13);   //use RP13 for SCLK
+  CONFIG_SCK1OUT_TO_RP(RB13_RP);   //use RB13 for SCLK
   SPI1STATbits.SPIEN = 1;     //enable SPI mode
   CONFIG_MAX548A_ENABLE();      //chip select for MAX548
   MAX548A_DISABLE();            //disable the chip select
@@ -137,7 +144,7 @@ void writeDAC(uint16_t u16_x, uint16_t u16_y) {
 #endif
 
 #ifdef __DAC_MAX5353
-#warning "DAC_R2R.C built for SPI-based 12-bit MAX5353 DAC connected to RP14(SDO) and RP13(SCLK)."
+#warning "DAC_R2R.C built for SPI-based 12-bit MAX5353 DAC connected to RB14(SDO) and RB13(SCLK)."
 #define CONFIG_MAX5353_ENABLE()    CONFIG_RA3_AS_DIG_OUTPUT()
 #define MAX5353_CMD_ANDMASK        0x1FFE
 #define MAX5353_ENABLE()           _LATA3 = 0
@@ -154,9 +161,9 @@ void configDAC(void) {
 
   //configure pins. Only need SDO, SCLK since MAX548 is output only
   CONFIG_RB14_AS_DIG_OUTPUT();
-  CONFIG_SDO1_TO_RP(14);      //use RP14 for SDO
+  CONFIG_SDO1_TO_RP(RB14_RP);      //use RB14 for SDO
   CONFIG_RB13_AS_DIG_OUTPUT();
-  CONFIG_SCK1OUT_TO_RP(13);   //use RP13 for SCLK
+  CONFIG_SCK1OUT_TO_RP(RB13_RP);   //use RB13 for SCLK
   SPI1STATbits.SPIEN = 1;     //enable SPI mode
   CONFIG_MAX5353_ENABLE();      //chip select for MAX548
   MAX5353_DISABLE();            //disable the chip select
@@ -275,3 +282,4 @@ int main (void) {
       u8_uiCount--;
   } //endof while()
 } // endof main()
+#endif

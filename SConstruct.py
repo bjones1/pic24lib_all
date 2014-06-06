@@ -47,14 +47,11 @@
 #  to this build and ``SCons -H`` for generic SCons
 #  options.
 #
-#  To do:
+# The generated build targets follow the naming convention:
 #
-#  - Some flags for I2C master/slave not done yet
-#  - Create some reset replacement that uses more of the functionality
-#    (calls functions from all our .c/.h files
+#    [bootloader/esos]_hardware platform_mcu_[clock/nofloat]
 #
 # .. contents::
-
 
 import os
 import psutil
@@ -187,7 +184,7 @@ if 'zipit' in COMMAND_LINE_TARGETS:
 # Library builds
 # ==============
 # Call :doc:`SCons_build.py` with a specific buildTargets value. It create a variant build
-# named ``hardware_platform _ MCU _ extra_defines``.
+# named ``hardware_platform _ MCU _ clock``.
 def buildTargetsSConscript(
   # A list of library targets to build, as defined in :doc:`SCons_build.py`.
   buildTargets,
@@ -196,7 +193,8 @@ def buildTargetsSConscript(
   env,
   # A string giving the name of the hardware platform.
   hardware_platform,
-  #
+  # The same of the clock chosen, or of some special build option (such as
+  # nofloat).
   extra_defines = ''):
   # Build a variant directory name, based on the hardware platform, MCU, and extra defines (if any)
   vdir = 'build/' + '_'.join([hardware_platform, env['MCU']])
@@ -208,16 +206,16 @@ def buildTargetsSConscript(
 # Build over various MCUs
 # -----------------------
 # Build small, non-DMA on the PIC24HJ32GP202
-buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11dma', 'chap12'],
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11', 'chap12'],
 env.Clone(MCU='24HJ64GP202'), 'default')
 
 # Build everything on the PIC24FJ64GA002
-buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11nodma', 'chap12',
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11', 'chap12',
                         'chap15'],
   env.Clone(MCU='24FJ64GA002'), 'default')
 
 # Build small, non-DMA on the dsPIC33FJ32GP202
-buildTargetsSConscript(['chap08', 'chap09', 'chap10',                'chap11dma', 'chap12'],
+buildTargetsSConscript(['chap08', 'chap09', 'chap10',                'chap11', 'chap12'],
   env.Clone(MCU='33FJ64GP202'), 'default')
 
 # Minimally test the 24F16KA102. It has hardmapped UART pins.
@@ -225,11 +223,11 @@ buildTargetsSConscript(['reset', 'echo'],
   env.Clone(MCU='24F32KA302', CPPDEFINES='HARDWARE_PLATFORM=HARDMAPPED_UART'), 'default')
 
 # Build the PIC24HJ64GP502-compatible directories.
-buildTargetsSConscript(['chap11dma', 'chap13', 'chap15'],
+buildTargetsSConscript(['chap11', 'chap13', 'chap15'],
   env.Clone(MCU='24HJ64GP502'), 'default')
 
 # Same as above, but for the dsPIC
-buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11dma', 'chap12',
+buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11', 'chap12',
                         'chap13', 'chap15'],
   env.Clone(MCU='33FJ128GP802'), 'default')
 
@@ -251,12 +249,12 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
 
 # Build some selected chapter applications for the chip used on the Fall 2013 Embedded systems board
 buildTargetsSConscript(['chap08', 'chap09', 'chap13'],
-  env.Clone(MCU='33EP128GP504'), 'default')
+  env.Clone(MCU='33EP128GP504', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_C1'), 'EMBEDDED_C1')
 
 # Build for the explorer board
 buildTargetsSConscript(['explorer'],
   env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'EXPLORER16_100P')
-buildTargetsSConscript(['explorerh'],
+buildTargetsSConscript(['explorer'],
   env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'EXPLORER16_100P')
 
 # Build reset on other supported platforms
@@ -311,7 +309,7 @@ def buildTargetsBootloader(
 
     # Now, invoke a variant build using this environment.
     SConscript('SCons_bootloader.py', exports = 'env bin2hex',
-      variant_dir = 'build/default_bootloader_' + mcu)
+      variant_dir = 'build/bootloader_default_' + mcu)
 
 # Build the bootloader for a variety of common MCUs.
 for mcu in ('24FJ32GA002',
@@ -351,7 +349,7 @@ def buildTargetsEsos(env, mcu, hardware_platform = 'DEFAULT_DESIGN'):
 
     # Now, invoke a variant build using this environment.
     SConscript('SCons_esos.py', exports = 'env bin2hex',
-      variant_dir = 'build/esos_' + mcu + '_' + hardware_platform)
+      variant_dir = 'build/esos_' + hardware_platform  + '_' + mcu)
 
 # Build ESOS over a variety of chips.
 for mcu in (
