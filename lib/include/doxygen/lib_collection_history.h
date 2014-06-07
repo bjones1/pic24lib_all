@@ -34,7 +34,15 @@
 \page history History and release notes for this library collection.
 
 Next release:
-- No changes yet.
+- Fixes to DMA and ECAM code for E family devices.
+- Significant rewrite and simplifcation of build system.
+  - Now, individual C files which require a specific peripheral will
+    issue a warning if that peripheral is missing and compile and empty main().
+  - Consistent naming convention establed for esos, bootloader, and library
+    builds.
+- Significant ESOS additions, including new examples and mailboxes.
+- Added MicroStik II target platform.
+- Docs cleanup.
 
 3-Mar-2014 (r476):
 - Revisions to support the E family devices:
