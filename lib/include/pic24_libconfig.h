@@ -80,12 +80,6 @@
 /** A device with hard-mapped pins for UART TX and RX. */
 #define HARDMAPPED_UART 4
 
-/** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University (Fall 2013) */
-#define EMBEDDED_C1 5
-
-/** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University (Fall 2014) */
-#define EMBEDDED_F14 6
-
 /**
  * Microchip part number: dm330013-2
  *
@@ -99,8 +93,13 @@
  *
  * Supported Parts: All 3.3V PIC24FJ, PIC24E, PIC24H, dsPIC33, and PIC32 28-pin SPDIP packaged devices.
  */
-#define MICROSTICK2 6
+#define MICROSTICK2 5
 
+/** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University (Fall 2013) */
+#define EMBEDDED_C1 472313
+
+/** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University (Fall 2014) */
+#define EMBEDDED_F14 472314
 
 /** Select one of the hardware platform above to compile for. */
 #ifndef HARDWARE_PLATFORM
@@ -357,20 +356,6 @@
 # elif (HARDWARE_PLATFORM == DANGEROUS_WEB)
 #   define HB_LED _LATA8
 #   define CONFIG_HB_LED() CONFIG_RA8_AS_DIG_OUTPUT()
-//
-// These two cases should NOT be needed.... the default case
-// below should work because HB_LED is wired to RB15 and
-// the chips may or may not have OPENDRAIN on RB15
-// HOWEVER, if you comment out the next two cases, the build dies
-// because HB_LED is being mapped to A0 (like on the microstick2)
-// [JWB - 5SEP2014]
-//
-# elif (HARDWARE_PLATFORM == EMBEDDED_C1)
-#   define HB_LED _LATB15
-#   define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
-# elif (HARDWARE_PLATFORM == EMBEDDED_F14)
-#   define HB_LED _LATB15
-#   define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
 # elif (HARDWARE_PLATFORM == MICROSTICK2)
 #   define HB_LED _LATA0
 #   define CONFIG_HB_LED() CONFIG_RA0_AS_DIG_OUTPUT()
