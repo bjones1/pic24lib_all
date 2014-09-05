@@ -39,11 +39,20 @@
 
 
 void config_led1() {
-#if (HARDWARE_PLATFORM == EMBEDDED_C1)
-  CONFIG_RB15_AS_DIG_OUTPUT();
-#else
+// Setup the RB15 pin to drive the LED
+// Our normal procedure is to wire up the RB15 LED as opendrain.
+// however, some chips do NOT support OD on RB15, so we need to
+// first determine if the chip supports OD on RB15.  We will do
+// that by seeing if the device header file has define the OD enable
+// bit for RB15.  Unfortunately, Microchip has used two different
+// names for this bit over the years, so we must check for both.
+// If that SFR bit is not defined, then setup a normal CMOS digital
+// output on RB15
+#if (defined(_ODCB15) || defined(_ODB15))
   CONFIG_RB15_AS_DIG_OUTPUT();
   ENABLE_RB15_OPENDRAIN();
+#else
+   CONFIG_RB15_AS_DIG_OUTPUT();
 #endif
 }
 

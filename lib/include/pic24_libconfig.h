@@ -80,8 +80,11 @@
 /** A device with hard-mapped pins for UART TX and RX. */
 #define HARDMAPPED_UART 4
 
-/** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University. */
+/** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University (Fall 2013) */
 #define EMBEDDED_C1 5
+
+/** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University (Fall 2014) */
+#define EMBEDDED_F14 6
 
 /**
  * Microchip part number: dm330013-2
@@ -110,7 +113,8 @@
     (HARDWARE_PLATFORM != MICROSTICK2)       && \
     (HARDWARE_PLATFORM != DEFAULT_DESIGN)    && \
     (HARDWARE_PLATFORM != HARDMAPPED_UART)   && \
-    (HARDWARE_PLATFORM != EMBEDDED_C1)
+    (HARDWARE_PLATFORM != EMBEDDED_C1)       && \
+    (HARDWARE_PLATFORM != EMBEDDED_F14)
 # error "Invalid hardware platform selected."
 #endif
 //@}
@@ -353,9 +357,15 @@
 # elif (HARDWARE_PLATFORM == DANGEROUS_WEB)
 #   define HB_LED _LATA8
 #   define CONFIG_HB_LED() CONFIG_RA8_AS_DIG_OUTPUT()
-# elif (HARDWARE_PLATFORM == EMBEDDED_C1)
-#   define HB_LED _LATB15
-#   define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
+// These two cases should NOT be needed.... the default case
+// below should work because HB_LED is wired to RB15 and
+// the chips may or may not have OPENDRAIN on RB15
+//# elif (HARDWARE_PLATFORM == EMBEDDED_C1)
+//#   define HB_LED _LATB15
+//#   define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
+//# elif (HARDWARE_PLATFORM == EMBEDDED_F14)
+//#   define HB_LED _LATB15
+//#   define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
 # elif (HARDWARE_PLATFORM == MICROSTICK2)
 #   define HB_LED _LATA0
 #   define CONFIG_HB_LED() CONFIG_RA0_AS_DIG_OUTPUT()

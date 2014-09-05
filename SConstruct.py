@@ -226,7 +226,7 @@ buildTargetsSConscript(['reset', 'echo'],
 buildTargetsSConscript(['chap11', 'chap13', 'chap15'],
   env.Clone(MCU='24HJ64GP502'), 'default')
 
-# Same as above, but for the dsPIC
+# Same as above, but for a dsPIC
 buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11', 'chap12',
                         'chap13', 'chap15'],
   env.Clone(MCU='33FJ128GP802'), 'default')
@@ -245,23 +245,27 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap11',  'chap12'],
 # Same as above, but for the dsPIC33EP128GP502 on a MicroStickII target
 buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
                         'chap13', 'chap15'],
-  env.Clone(MCU='33EP128GP502', CPPDEFINES='HARDWARE_PLATFORM=MICROSTICK2'), 'MICROSTICK2')
+  env.Clone(MCU='33EP128GP502', CPPDEFINES='HARDWARE_PLATFORM=MICROSTICK2'), 'microstick2')
 
 # Build some selected chapter applications for the chip used on the Fall 2013 Embedded systems board
 buildTargetsSConscript(['chap08', 'chap09', 'chap13'],
-  env.Clone(MCU='33EP128GP504', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_C1'), 'EMBEDDED_C1')
+  env.Clone(MCU='33EP128GP504', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_C1'), 'embeddedC1')
 
+# Build some for the CAN2 rev.F14 board used in ECE4723 Embedded Systems
+buildTargetsSConscript(['chap08'],
+  env.Clone(MCU='33EP512GP806', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_F14'), 'embeddedF14')
+ 
 # Build for the explorer board
 buildTargetsSConscript(['explorer'],
-  env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'EXPLORER16_100P')
+  env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'explorer16100p')
 buildTargetsSConscript(['explorer'],
-  env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'EXPLORER16_100P')
+  env.Clone(MCU='24HJ256GP610', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'explorer16100p')
 
 # Build reset on other supported platforms
 buildTargetsSConscript(['reset'],
-  env.Clone(MCU='24FJ64GA002',  CPPDEFINES='HARDWARE_PLATFORM=STARTER_BOARD_28P'), 'starter_board_28p')
+  env.Clone(MCU='24FJ64GA002',  CPPDEFINES='HARDWARE_PLATFORM=STARTER_BOARD_28P'), 'starterboard28p')
 buildTargetsSConscript(['reset'],
-  env.Clone(MCU='33FJ128GP204', CPPDEFINES='HARDWARE_PLATFORM=DANGEROUS_WEB'), 'dangerous_web')
+  env.Clone(MCU='33FJ128GP204', CPPDEFINES='HARDWARE_PLATFORM=DANGEROUS_WEB'), 'dangerousweb')
 
 # Build over various clocks
 # -------------------------
@@ -331,6 +335,7 @@ for mcu in ('24FJ32GA002',
 
             '33EP128GP502',
             '33EP128GP504',
+            '33EP512GP806',            
            ):
     buildTargetsBootloader(env, mcu)
 
@@ -341,7 +346,7 @@ for mcu in ('24F32KA302',):
 
 # ESOS builds
 # ===========
-def buildTargetsEsos(env, mcu, hardware_platform = 'DEFAULT_DESIGN'):
+def buildTargetsEsos(env, mcu, hardware_platform = 'DEFAULT_DESIGN', hardware_alias = 'default'):
     # Create an environment for building ESOS.
     env = env.Clone(MCU = mcu)
     env.Append(CPPDEFINES = ['BUILT_ON_ESOS', 'HARDWARE_PLATFORM=' + hardware_platform],
@@ -349,7 +354,7 @@ def buildTargetsEsos(env, mcu, hardware_platform = 'DEFAULT_DESIGN'):
 
     # Now, invoke a variant build using this environment.
     SConscript('SCons_esos.py', exports = 'env bin2hex',
-      variant_dir = 'build/esos_' + hardware_platform  + '_' + mcu)
+      variant_dir = 'build/esos_' + hardware_alias + '_' + mcu)
 
 # Build ESOS over a variety of chips.
 for mcu in (
@@ -361,7 +366,10 @@ for mcu in (
             '33FJ128GP802',
             '33EP128GP502',
             '33EP128GP504',
+            '33EP512GP806',
            ):
     buildTargetsEsos(env, mcu)
-buildTargetsEsos(env, '33EP128GP504', 'EMBEDDED_C1')
-buildTargetsEsos(env, '33EP128GP502', 'MICROSTICK2')
+    
+buildTargetsEsos(env, mcu='33EP128GP504', hardware_platform='EMBEDDED_C1', hardware_alias='embeddedC1')
+buildTargetsEsos(env, mcu='33EP512GP806', hardware_platform='EMBEDDED_F14', hardware_alias='embeddedF14')
+buildTargetsEsos(env, mcu='33EP128GP502', hardware_platform='MICROSTICK2', hardware_alias='microstick2')

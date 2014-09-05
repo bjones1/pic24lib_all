@@ -557,26 +557,30 @@ _FICD(JTAGEN_OFF & ICS_PGD1 & 0xFFEF);
 # endif
 
 
+
 # ifdef __dsPIC33E__
-
+/***********************************************************************************
+*** The dsPIC33ExxGP5xx and dsPIC33ExxGP8xx devices we use have slightly different
+*** config bits defined.  So we will look for our device and setup config bits
+*** accordingly.  As other devices are added, hopefull they won't differ from these
+*** two cases....
+*** .. until Microchip makes another small, subtle change in the datasheets (UGH!)
+***********************************************************************************/
+#if defined(__dsPIC33EP128GP502__) || (__dsPIC33EP128GP504__)
 // DSPIC33EP128GP502 Configuration Bit Settings
-
 // FICD
 #   pragma config ICS = PGD1               // ICD Communication Channel Select bits (Communicate on PGEC1 and PGED1)
 #   pragma config JTAGEN = OFF             // JTAG Enable bit (JTAG is disabled)
-
 // FPOR
 #   pragma config ALTI2C1 = ON             // Alternate I2C1 pins (I2C1 mapped to ASDA1/ASCL1 pins)
 #   pragma config ALTI2C2 = OFF            // Alternate I2C2 pins (I2C2 mapped to SDA2/SCL2 pins)
 #   pragma config WDTWIN = WIN25           // Watchdog Window Select bits (WDT Window is 25% of WDT period)
-
 // FWDT
 #   pragma config WDTPOST = PS512          // Watchdog Timer Postscaler bits (1:512)
 #   pragma config WDTPRE = PR128           // Watchdog Timer Prescaler bit (1:128)
 #   pragma config PLLKEN = ON              // PLL Lock Enable bit (Clock switch to PLL source will wait until the PLL lock signal is valid.)
 #   pragma config WINDIS = OFF             // Watchdog Timer Window Enable bit (Watchdog Timer in Non-Window mode)
 #   pragma config FWDTEN = OFF             // Watchdog Timer Enable bit (Watchdog timer enabled/disabled by user software)
-
 // FOSC
 // Use the old-style config here, since #pragmas don't work with #defined
 // constants.
@@ -588,24 +592,75 @@ _FOSC(OSCPIN_CONFIG & FCKSM_CSECMD & IOL1WAY_OFF);
 // FOSCSEL
 #   pragma config FNOSC = FRC              // Oscillator Source Selection (Internal Fast RC (FRC))
 #   pragma config IESO = OFF               // Two-speed Oscillator Start-up Enable bit (Start up with user-selected oscillator source)
-
 // FGS
 #   pragma config GWRP = OFF               // General Segment Write-Protect bit (General Segment may be written)
 #   pragma config GCP = OFF                // General Segment Code-Protect bit (General Segment Code protect is Disabled)
-
-
-#   ifndef __dsPIC33EP128GP502__
-#     warning "Using default config bit settings for the dsPIC33E family."
-#     warning "Edit this file to define bits for your processor!"
-#   endif
 ///\cond doxygen_ignore
 #   define CONFIG_BITS_DEFINED
 ///\endcond
-# endif // #ifdef __dsPIC33E__
+#endif   // #ifdefined  (__dsPIC33EP128GP502__) || (__dsPIC33EP128GP504__)
+
+#if defined(__dsPIC33EP512GP806__)
+// DSPIC33EP512GP806 Configuration Bit Settings
+// FICD
+#pragma config ICS = PGD1               // ICD Communication Channel Select bits (Communicate on PGEC1 and PGED1)
+#pragma config JTAGEN = OFF             // JTAG Enable bit (JTAG is disabled)
+
+// FPOR
+#pragma config ALTI2C1 = ON             // Alternate I2C1 pins (I2C1 mapped to ASDA1/ASCL1 pins)
+#pragma config BOREN = ON               // BROWN-OUT RESET DETECTION MUST BE ENABLED (per datasheet DS70616G p.479)
+#pragma config FPWRT = PWR1             // POWER ON RESET TIMER DISABLED?
+
+
+// FWDT
+#pragma config WDTPOST = PS512          // Watchdog Timer Postscaler bits (1:512)
+#pragma config WDTPRE = PR128           // Watchdog Timer Prescaler bit (1:128)
+#pragma config PLLKEN = ON              // PLL Lock Enable bit (Clock switch to PLL source will wait until the PLL lock signal is valid.)
+#pragma config WINDIS = OFF             // Watchdog Timer Window Enable bit (Watchdog Timer in Non-Window mode)
+#pragma config FWDTEN = OFF             // Watchdog Timer Enable bit (Watchdog timer enabled/disabled by user software)
+
+// FOSC
+#if   POSCMD_SEL == POSCMD_EC
+#pragma config POSCMD = EC              // Primary Oscillator Mode Select bits (EC Crystal Oscillator Mode)
+#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
+#elif POSCMD_SEL == POSCMD_XT
+#pragma config POSCMD = XT              // Primary Oscillator Mode Select bits (XT Crystal Oscillator Mode)
+#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
+#elif POSCMD_SEL == POSCMD_HS
+#pragma config POSCMD = HS              // Primary Oscillator Mode Select bits (HS Crystal Oscillator Mode)
+#pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
+#elif POSCMD_SEL == POSCMD_NONE
+#pragma config POSCMD = NONE            // Primary Oscillator Mode Select bits (Primary Oscillator disabled)
+#pragma config OSCIOFNC = ON            // OSC2 Pin Function bit (OSC2 is general purpose digital I/O pin)
+#else
+# error "Unknown primary oscillator selection."
+#endif
+
+#pragma config IOL1WAY = OFF            // Peripheral pin select configuration (Allow multiple reconfigurations)
+#pragma config FCKSM = CSECMD           // Clock Switching Mode bits (Clock switching is enabled,Fail-safe Clock Monitor is disabled)
+
+// FOSCSEL
+#pragma config FNOSC = FRC              // Oscillator Source Selection (Internal Fast RC (FRC))
+#pragma config IESO = OFF               // Two-speed Oscillator Start-up Enable bit (Start up with user-selected oscillator source)
+
+// FGS
+#pragma config GWRP = OFF               // General Segment Write-Protect bit (General Segment may be written)
+#pragma config GSS = OFF                // General Segment Code-Protect bit (General Segment Code protect is Disabled)
+#pragma config GSSK = OFF               // General Segment KEY bit (General Segment protect is Disabled)
+
+#define CONFIG_BITS_DEFINED
+///\endcond
+#endif  // #ifdefined  (__dsPIC33EP512GP806__)
+
+#endif // #ifdef __dsPIC33E__
 
 #endif // #ifndef CONFIG_BITS_DEFINED
 
-
+//
+//  If the chip currently-in-use has not be detected, the config bits
+//     have not be setup properly, so issue an error.
+//  Other chips can be added to this file as we use/need them.
+//
 #ifndef CONFIG_BITS_DEFINED
 # error "Edit common/pic24_configbits.c to add config bits for your processor!"
 #endif
