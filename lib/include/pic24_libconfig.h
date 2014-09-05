@@ -357,15 +357,20 @@
 # elif (HARDWARE_PLATFORM == DANGEROUS_WEB)
 #   define HB_LED _LATA8
 #   define CONFIG_HB_LED() CONFIG_RA8_AS_DIG_OUTPUT()
+//
 // These two cases should NOT be needed.... the default case
 // below should work because HB_LED is wired to RB15 and
 // the chips may or may not have OPENDRAIN on RB15
-//# elif (HARDWARE_PLATFORM == EMBEDDED_C1)
-//#   define HB_LED _LATB15
-//#   define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
-//# elif (HARDWARE_PLATFORM == EMBEDDED_F14)
-//#   define HB_LED _LATB15
-//#   define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
+// HOWEVER, if you comment out the next two cases, the build dies
+// because HB_LED is being mapped to A0 (like on the microstick2)
+// [JWB - 5SEP2014]
+//
+# elif (HARDWARE_PLATFORM == EMBEDDED_C1)
+#   define HB_LED _LATB15
+#   define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
+# elif (HARDWARE_PLATFORM == EMBEDDED_F14)
+#   define HB_LED _LATB15
+#   define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
 # elif (HARDWARE_PLATFORM == MICROSTICK2)
 #   define HB_LED _LATA0
 #   define CONFIG_HB_LED() CONFIG_RA0_AS_DIG_OUTPUT()
