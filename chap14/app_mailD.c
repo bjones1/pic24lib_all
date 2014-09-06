@@ -48,10 +48,16 @@
 
 
 // DEFINEs go here
-#define CONFIG_LED1()           do{CONFIG_RB15_AS_DIG_OUTPUT();ENABLE_RB15_OPENDRAIN();}while(0)
-#define CONFIG_LED2()           CONFIG_RA0_AS_DIG_OUTPUT();
-#define LED1                    _LATB15
-#define LED2                    _LATA0
+#if (HARDWARE_PLATFORM == EMBEDDED_F14)
+  #define CONFIG_LED1()		CONFIG_RF4_AS_DIG_OUTPUT()
+  #define LED1			_LATF4
+#else
+  #define CONFIG_LED1()         do{CONFIG_RB15_AS_DIG_OUTPUT();ENABLE_RB15_OPENDRAIN();}while(0)
+  #define LED1                  _LATB15
+#endif
+
+#define CONFIG_LED2()		CONFIG_RB14_AS_DIG_OUTPUT()
+#define LED2			_LATB14
 
 /*
  * PROTOTYPEs go here

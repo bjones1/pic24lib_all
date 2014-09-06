@@ -65,11 +65,16 @@
 #define READ_TEMP 0xAA
 
 #ifndef __linux
-#define   CONFIG_LED1()   do{CONFIG_RB15_AS_DIG_OUTPUT();ENABLE_RB15_OPENDRAIN();}while(0)
-#define   LED1            _LATB15
+  #if (HARDWARE_PLATFORM == EMBEDDED_F14)
+    #define CONFIG_LED1()		CONFIG_RB15_AS_DIG_OUTPUT()
+    #define LED1			_LATB15
+  #else
+    #define CONFIG_LED1()         do{CONFIG_RB15_AS_DIG_OUTPUT();ENABLE_RB15_OPENDRAIN();}while(0)
+    #define LED1                  _LATB15
+  #endif
 #else
-#define   CONFIG_LED1()   printf("called CONFIG_LED1()\n");
-uint8_t     LED1 = TRUE;      // LED1 is initially "on"
+  #define   CONFIG_LED1()   printf("called CONFIG_LED1()\n");
+  uint8_t     LED1 = TRUE;      // LED1 is initially "on"
 #endif
 
 // PROTOTYPEs go here

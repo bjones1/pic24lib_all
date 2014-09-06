@@ -33,23 +33,31 @@
 //      After that, the user can include what they need
 #include    "esos.h"
 #ifdef __linux
-#include    "esos_pc.h"
-#include    "esos_pc_stdio.h"
-// INCLUDE these so our printf and other PC hacks work
-#include <stdio.h>
-#include <sys/select.h>
-#include <termios.h>
-#include <unistd.h>
+  #include    "esos_pc.h"
+  #include    "esos_pc_stdio.h"
+  // INCLUDE these so our printf and other PC hacks work
+  #include <stdio.h>
+  #include <sys/select.h>
+  #include <termios.h>
+  #include <unistd.h>
 #else
-#include    "esos_pic24.h"
-#include    "esos_pic24_rs232.h"
-#include <stdio.h>
+  #include    "esos_pic24.h"
+  #include    "esos_pic24_rs232.h"
+  #include <stdio.h>
 #endif
 
-
-// DEFINEs go here
-#define CONFIG_LED1()           do{CONFIG_RB15_AS_DIG_OUTPUT();ENABLE_RB15_OPENDRAIN();}while(0)
-#define LED1                    _LATB15
+#ifdef __linux
+  uint8_t	LED1 = TRUE;
+  #define CONFIG_LED1()
+#else
+    #if (HARDWARE_PLATFORM == EMBEDDED_F14)
+      #define CONFIG_LED1()         CONFIG_RF4_AS_DIG_OUTPUT()
+      #define LED1                  _LATF4
+    #else
+      #define CONFIG_LED1()         do{CONFIG_RB15_AS_DIG_OUTPUT();ENABLE_RB15_OPENDRAIN();}while(0)
+      #define LED1                  _LATB15
+  #endif
+#endif
 
 /*
  * PROTOTYPEs go here
@@ -66,9 +74,7 @@ ESOS_USER_TASK(recipient_C);
 //  Generally, the user-created semaphores will be defined/allocated here
 
 // timer globals
-uint32_t    u32_myT1Count = 0;
-//uint8_t     LED1 = TRUE;
-uint8_t     LED2 = TRUE;
+uint32_t        u32_myT1Count = 0;
 
 struct stTask*    pst_MyTasks[3];
 
