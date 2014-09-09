@@ -34,7 +34,7 @@ Import('env bin2hex')
 ## Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
 
-targetName = 'p${MCU}_bootloader'
+targetName = 'p${MCU}_${HW}_bootloader'
 # Compile the bootloader to a .cof file.
 env.Program(target = targetName, source =
   ['bootloader/pic24_dspic33_bootloader.X/main.c',

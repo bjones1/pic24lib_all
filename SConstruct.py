@@ -220,7 +220,7 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10',                'chap11', '
 
 # Minimally test the 24F16KA102. It has hardmapped UART pins.
 buildTargetsSConscript(['reset', 'echo'],
-  env.Clone(MCU='24F32KA302', CPPDEFINES='HARDWARE_PLATFORM=HARDMAPPED_UART'), 'default')
+  env.Clone(MCU='24F32KA302', CPPDEFINES='HARDWARE_PLATFORM=HARDMAPPED_UART'), 'hardmappedUART')
 
 # Build the PIC24HJ64GP502-compatible directories.
 buildTargetsSConscript(['chap11', 'chap13', 'chap15'],
@@ -277,7 +277,7 @@ for clock in ['SIM_CLOCK', 'FRCPLL_FCY16MHz', 'FRC_FCY4MHz',
     buildTargetsSConscript(['reset'],
       env.Clone(MCU='24FJ64GA102', CPPDEFINES='CLOCK_CONFIG=' + clock), 'default', clock)
     buildTargetsSConscript(['reset'],
-      env.Clone(MCU='24F32KA302', CPPDEFINES=['CLOCK_CONFIG=' + clock, 'HARDWARE_PLATFORM=HARDMAPPED_UART']), 'HARDMAPPED_UART', clock)
+      env.Clone(MCU='24F32KA302', CPPDEFINES=['CLOCK_CONFIG=' + clock, 'HARDWARE_PLATFORM=HARDMAPPED_UART']), 'harmappedUART', clock)
 for clock in ['SIM_CLOCK', 'PRI_NO_PLL_7372KHzCrystal', 'FRC_FCY3685KHz',
   'FRCPLL_FCY40MHz', 'PRIPLL_7372KHzCrystal_40MHzFCY', 'PRIPLL_8MHzCrystal_40MHzFCY']:
     buildTargetsSConscript(['reset'],
@@ -300,20 +300,24 @@ def buildTargetsBootloader(
   # can be used to configure env.
   env,
   # The MCU to build the bootloader for.
-  mcu):
+  mcu,
+  # The DEFINEd name of the target platform
+  hardware_platform = 'DEFAULT_DESIGN',
+  # The string to use in the target build directory name
+  hardware_alias = 'default'):
 
     # Create an environment for building the bootloader:
-    # 1. Define the MCU.
-    env = env.Clone(MCU = mcu)
+    # 1. Define the MCU and the target hardware platform
+    env = env.Clone(MCU = mcu, HW = hardware_alias)
     # 2. Use the custom bootloader linker script.
     env.Replace(
         LINKERSCRIPT = '--script=bootloader/pic24_dspic33_bootloader.X/lkr/p${MCU}.gld',
     )
-    env.Append(CPPDEFINES = ['BOOTLOADER'])
+    env.Append(CPPDEFINES = ['BOOTLOADER', 'HARDWARE_PLATFORM=' + hardware_platform])
 
     # Now, invoke a variant build using this environment.
     SConscript('SCons_bootloader.py', exports = 'env bin2hex',
-      variant_dir = 'build/bootloader_default_' + mcu)
+      variant_dir = 'build/bootloader_' + hardware_alias + '_' + mcu)
 
 # Build the bootloader for a variety of common MCUs.
 for mcu in ('24FJ32GA002',
@@ -341,8 +345,25 @@ for mcu in ('24FJ32GA002',
 
 # Build the bootloader for MCUs with a hardmapped UART.
 for mcu in ('24F32KA302',):
-    buildTargetsBootloader(env.Clone(CPPDEFINES='HARDWARE_PLATFORM=HARDMAPPED_UART'), mcu)
+    buildTargetsBootloader(env, mcu,
+		hardware_platform='HARDMAPPED_UART',
+		hardware_alias='hardmappedUART')
 
+# Build bootload for MCUs on specific hardware platforms
+buildTargetsBootloader(env,
+		mcu='33EP128GP504',
+		hardware_platform='EMBEDDED_C1',
+		hardware_alias='embeddedC1')
+
+buildTargetsBootloader(env,
+		mcu='33EP512GP806',
+		hardware_platform='EMBEDDED_F14',
+		hardware_alias='embeddedF14')
+
+buildTargetsBootloader(env,
+		mcu='33EP128GP502',
+		hardware_platform='MICROSTICK2',
+		hardware_alias='microstick2')
 
 # ESOS builds
 # ===========
