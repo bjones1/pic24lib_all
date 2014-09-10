@@ -319,7 +319,9 @@ def buildTargetsBootloader(
     SConscript('SCons_bootloader.py', exports = 'env bin2hex',
       variant_dir = 'build/bootloader_' + hardware_alias + '_' + mcu)
 
-# Build the bootloader for a variety of common MCUs.
+# Build the bootloader for a variety of common MCUs
+# that can have UART in the "default" location, e.g.
+# RB10=MCUrx and RB11=MCUtx
 for mcu in ('24FJ32GA002',
             '24FJ64GA002',
             '24FJ32GA102',
@@ -339,7 +341,6 @@ for mcu in ('24FJ32GA002',
 
             '33EP128GP502',
             '33EP128GP504',
-            '33EP512GP806',            
            ):
     buildTargetsBootloader(env, mcu)
 
@@ -349,7 +350,7 @@ for mcu in ('24F32KA302',):
 		hardware_platform='HARDMAPPED_UART',
 		hardware_alias='hardmappedUART')
 
-# Build bootload for MCUs on specific hardware platforms
+# Build bootloader for MCUs on specific hardware platforms
 buildTargetsBootloader(env,
 		mcu='33EP128GP504',
 		hardware_platform='EMBEDDED_C1',
@@ -377,7 +378,9 @@ def buildTargetsEsos(env, mcu, hardware_platform = 'DEFAULT_DESIGN', hardware_al
     SConscript('SCons_esos.py', exports = 'env bin2hex',
       variant_dir = 'build/esos_' + hardware_alias + '_' + mcu)
 
-# Build ESOS over a variety of chips.
+# Build ESOS over a variety of chips
+# that can have UART in the "default" location, e.g.
+# RB10=MCUrx and RB11=MCUtx
 for mcu in (
             '24HJ64GP202',
             '24FJ64GA002',
@@ -387,7 +390,6 @@ for mcu in (
             '33FJ128GP802',
             '33EP128GP502',
             '33EP128GP504',
-            '33EP512GP806',
            ):
     buildTargetsEsos(env, mcu)
     
