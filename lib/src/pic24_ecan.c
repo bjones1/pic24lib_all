@@ -519,7 +519,7 @@ void configBaudECAN2(void) {
 //     from the datasheets in the older PIC24/dsPIC families
 #ifdef __dsPIC33E__
   // Set the ECAN Module Clock to FCY
-  C1CTRL2bits.CANCKS = ECAN_FCAN_IS_FP;
+  C2CTRL1bits.CANCKS = ECAN_FCAN_IS_FP;
 #endif
 
 #if FCY == GET_FCY(FRCPLL_FCY40MHz) // <- This needs to be reverified! - rnn13
