@@ -1,18 +1,42 @@
-/** \file
- *  \brief Implements unit tests for the PIC comm protocol.
- *
- *  A very simple test runner, runAllTests(), executes the
- *  tests. \ref ASSERT statements provide verification.
- */
+// .. "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+//    All rights reserved.
+//    (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
+//    (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
+//    (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
+//
+//    Permission to use, copy, modify, and distribute this software and its
+//    documentation for any purpose, without fee, and without written agreement is
+//    hereby granted, provided that the above copyright notice, the following
+//    two paragraphs and the authors appear in all copies of this software.
+//
+//    IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
+//    DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
+//    OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
+//    HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//    THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+//    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+//    AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+//    ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
+//    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
+//
+//    Please maintain this header in its entirety when copying/modifying
+//    these files.
+//
+// ************************************************************
+// unitTest.c - Implements unit tests for the PIC comm protocol
+// ************************************************************
+// A very simple test runner, runAllTests(), executes the
+// tests. ASSERT statements provide verification.
 
 #include "dataXfer.h"
 #include <string.h>
 #include <stdio.h>
 
-/// \name Tests for the command-finding state machine
-//@{
+// Tests for the command-finding state machine
+// ===========================================
 
-/// Run all normal chars through the machine
+// Run all normal chars through the machine
 void findChar() {
   char c_in, c_out;
 
@@ -28,7 +52,7 @@ void findChar() {
   }
 }
 
-/// Run an escaped command through the machine.
+// Run an escaped command through the machine.
 void findEscapedCommandChar() {
   char c_out;
 
@@ -39,7 +63,7 @@ void findEscapedCommandChar() {
   ASSERT(c_out == CMD_TOKEN);
 }
 
-/// Look for all the normal (unescaped) commands.
+// Look for all the normal (unescaped) commands.
 void findCommand() {
   char c_in, c_out;
 
@@ -59,7 +83,7 @@ void findCommand() {
   }
 }
 
-/// Run an escaped command through the machine
+// Run an escaped command through the machine
 void findEscapedCommand() {
   char c_out;
 
@@ -72,8 +96,8 @@ void findEscapedCommand() {
   ASSERT(c_out == CMD_TOKEN);
 }
 
-/// Verify that the sequence CMD_TOKEN CMD_TOKEN CMD_TOKEN is recognized
-/// as a repeated wait.
+// Verify that the sequence CMD_TOKEN CMD_TOKEN CMD_TOKEN is recognized
+// as a repeated wait.
 void findRepeatedWait() {
   char c_out;
 
@@ -85,9 +109,10 @@ void findRepeatedWait() {
   ASSERT(cmdOutput == OUTPUT_CMD_REPEATED_WAIT);
 }
 
-/// \todo Cases still to unit test:
-/// - (repeated wait)
-/// - CMD_TOKEN CMD_TOKEN c (repeated command)
+// **todo**: Cases still to unit test:
+//
+// - (repeated wait)
+// - CMD_TOKEN CMD_TOKEN c (repeated command)
 void findRepeatedCommand() {
   char c_out;
 
@@ -99,48 +124,45 @@ void findRepeatedCommand() {
   ASSERT(cmdOutput == OUTPUT_CMD_REPEATED_CMD);
   ASSERT(c_out == 0);
 }
-//@}
 
 
-
-
-
-/// \name Tests for the receive state machine
-//@{
+// Tests for the receive state machine
+// ===================================
 
 void sendData(uint8_t* pu8_data, uint u_len);
 
 
-/// Sending a normal char shold report that char receivd
-/// \param c_charToSend The character to send. This character will NOT
-///                     be esacaped -- an 0x55 will be sent as just an
-///                     0x55.
-void sendOneNormalChar(char c_charToSend) {
+// Sending a normal char shold report that char received.
+void sendOneNormalChar(
+ // The character to send. This character will NOT
+ // be esacaped -- an 0x55 will be sent as just an
+ // 0x55.
+ char c_charToSend) {
   stepReceiveMachine(c_charToSend);
   ASSERT(isReceiveMachineChar());
   ASSERT(getReceiveMachineOutChar() == c_charToSend);
 };
 
 
-/// Sending a letter should report that letter received
+// Sending a letter should report that letter received
 void sendLetter() {
   sendOneNormalChar('c');
 }
 
 
-/// Sending the char 0x00 shold report that char receivd
+// Sending the char 0x00 shold report that char receivd
 void send0x00() {
   sendOneNormalChar(0x00);
 }
 
 
-/// Sending the char 0xFF shold report that char receivd
+// Sending the char 0xFF shold report that char receivd
 void send0xFF() {
   sendOneNormalChar((char) 0xFF);
 }
 
 
-/// Check sending an escaped command
+// Check sending an escaped command
 void sendEscapedCommand() {
   uint8_t au8_data[] = { CMD_TOKEN, ESCAPED_CMD };
   sendData(au8_data, 2);
@@ -149,11 +171,13 @@ void sendEscapedCommand() {
   ASSERT(getReceiveMachineOutChar() == CMD_TOKEN);
 }
 
-/// Set up the xferData structure for receiving
-/// some data.
-/// \param u_index Index of data to be received
-/// \param u_len Length (in bytes) of data to be received
-void setupXferData(uint u_index, uint u_len) {
+// Set up the xferData structure for receiving
+// some data.
+void setupXferData(
+ // Index of data to be received
+ uint u_index,
+ // Length (in bytes) of data to be received
+ uint u_len) {
   // A place to store the max amount of data.
   static uint8_t au_data[256];
 
@@ -167,8 +191,8 @@ void setupXferData(uint u_index, uint u_len) {
   assignBit(u_index, TRUE);
 }
 
-/// Check sending a one-byte piece of data
-/// 0x00 == 000000 00 : index 0, length 0 (1 byte)
+// Check sending a one-byte piece of data
+// 0x00 == 000000 00 : index 0, length 0 (1 byte)
 void sendOneByteData() {
   // Set up index 0 for 1 byte of data
   setupXferData(0, 1);
@@ -181,7 +205,7 @@ void sendOneByteData() {
 }
 
 
-/// Check sending a four-byte piece of data
+// Check sending a four-byte piece of data
 void sendFourBytesData() {
   setupXferData(0, 4);
   // 0x03: index 0, length 3 (4 bytes); following are data bytes
@@ -196,9 +220,9 @@ void sendFourBytesData() {
 }
 
 
-/// Check sending a four-byte piece of data which
-/// contains four \ref CMD_TOKEN bytes.
-/// 0x00 == 000000 11 : index 0, length 3 (4 bytes)
+// Check sending a four-byte piece of data which
+// contains four CMD_TOKEN bytes.
+// 0x00 == 000000 11 : index 0, length 3 (4 bytes)
 void sendFourBytesCmdTokenData() {
   setupXferData(0, 4);
   // 0x03: index 0, length 3; following are data bytes
@@ -215,8 +239,8 @@ void sendFourBytesCmdTokenData() {
 }
 
 
-/// Send a repeated command and make sure both an error is reported
-/// and data can be received (error recovery works).
+// Send a repeated command and make sure both an error is reported
+// and data can be received (error recovery works).
 void sendRepeatedCommand() {
   // 0x00: index 0, length 1.
   uint8_t au8_data[] = { CMD_TOKEN, CMD_TOKEN, 0x00, 0xFF };
@@ -235,7 +259,7 @@ void sendRepeatedCommand() {
 }
 
 
-/// Send a command of CMD_TOKEN
+// Send a command of CMD_TOKEN
 void sendCommandCmdToken() {
   // Set up and send command
   uint u_index = getVarIndex(CMD_TOKEN);
@@ -255,7 +279,7 @@ void sendCommandCmdToken() {
 }
 
 
-/// Send a repeated command followed by a command of CMD_TOKEN
+// Send a repeated command followed by a command of CMD_TOKEN
 void sendRepeatedCommandCmdToken() {
   // Set up and send command
   uint u_index = getVarIndex(CMD_TOKEN);
@@ -280,7 +304,7 @@ void sendRepeatedCommandCmdToken() {
     ASSERT(xferVar[u_index].pu8_data[u] == u);
 }
 
-/// Test timeout detection.
+// Test timeout detection.
 void sendWithTimeout() {
   setupXferData(0, 4);
   // 0x03: index 0, length 3 (4 bytes); following are data bytes
@@ -303,7 +327,7 @@ void sendWithTimeout() {
   }
 }
 
-/// Test sending a second command before the first completes.
+// Test sending a second command before the first completes.
 void sendInterruptedCommand() {
   setupXferData(0, 4);
   // CMD_TOKEN, 0x03: index 0, length 3 (4 bytes)
@@ -324,7 +348,7 @@ void sendInterruptedCommand() {
     ASSERT(xferVar[0].pu8_data[i] == i);
 }
 
-/// Test sending data to an unspecified index
+// Test sending data to an unspecified index
 void sendToUnspecifiedIndex() {
   // CMD_TOKEN, 0x03: index 0, length 3 (4 bytes)
   uint8_t au8_data[] = { CMD_TOKEN, 0x03 };
@@ -334,8 +358,8 @@ void sendToUnspecifiedIndex() {
   ASSERT(re == ERR_UNSPECIFIED_INDEX);
 }
 
-/// Test sending data to an index beyond the end of the variable
-/// storage area
+// Test sending data to an index beyond the end of the variable
+// storage area
 void sendToHighIndex() {
   // This test only works if NUM_XFER_VARS is less than the max;
   // otherwise, there's no "beyond" index to test.
@@ -348,7 +372,7 @@ void sendToHighIndex() {
   ASSERT(re == ERR_INDEX_TOO_HIGH);
 }
 
-/// Test sending incorrectly-sized data to a variable.
+// Test sending incorrectly-sized data to a variable.
 void sendWithWrongSize() {
   setupXferData(0, 4);
   // CMD_TOKEN, 0x03: index 0, length 2 (3 bytes)
@@ -358,7 +382,7 @@ void sendWithWrongSize() {
   ASSERT(re == ERR_VAR_SIZE_MISMATCH);
 }
 
-/// Test sending long data to an unspecified index
+// Test sending long data to an unspecified index
 void sendLongToUnspecifiedIndex() {
   // CMD_TOKEN, CMD_LONG_VAR, 0x03: index 0, length 3 (4 bytes)
   uint8_t au8_data[] = { CMD_TOKEN, CMD_LONG_VAR, 0x03 };
@@ -368,8 +392,8 @@ void sendLongToUnspecifiedIndex() {
   ASSERT(re == ERR_UNSPECIFIED_INDEX);
 }
 
-/// Test sending long data to an index beyond the end of the variable
-/// storage area
+// Test sending long data to an index beyond the end of the variable
+// storage area
 void sendLongToHighIndex() {
   // This test only works if NUM_XFER_VARS is less than the max;
   // otherwise, there's no "beyond" index to test.
@@ -382,7 +406,7 @@ void sendLongToHighIndex() {
   ASSERT(re == ERR_INDEX_TOO_HIGH);
 }
 
-/// Test sending incorrectly-sized data to a long variable.
+// Test sending incorrectly-sized data to a long variable.
 void sendLongWithWrongSize() {
   setupXferData(0, 4);
   // CMD_TOKEN, CMD_LONG_BAR, index 0, length 2 (3 bytes)
@@ -392,7 +416,7 @@ void sendLongWithWrongSize() {
   ASSERT(re == ERR_VAR_SIZE_MISMATCH);
 }
 
-/// Test sending 256 bytes of data.
+// Test sending 256 bytes of data.
 void sendLongData() {
   uint i;
 
@@ -415,7 +439,7 @@ void sendLongData() {
 }
 
 #ifdef __PIC__
-/// Test sending data to a read-only variable. Only applies to the PIC.
+// Test sending data to a read-only variable. Only applies to the PIC.
 void sendReadOnly() {
   // Set up index 0 for 1 byte of data, read-only
   setupXferData(0, 1);
@@ -428,7 +452,7 @@ void sendReadOnly() {
 }
 
 
-/// Test sending a var spec
+// Test sending a var spec
 void sendVarSpecPic() {
   // Set up index 0 for 1 byte of data, read-only
   setupXferData(0, 1);
@@ -441,12 +465,12 @@ void sendVarSpecPic() {
 #endif
 
 #ifndef __PIC__
-/// Used to create strings with commands in them below.
+// Used to create strings with commands in them below.
 #define CMD_TOKEN_STR "\xAA"
 #define CMD_SEND_ONLY_STR "\xFE"
 #define CMD_SEND_RECEIVE_VAR_STR "\xFF"
 
-/// Test sending a variable specification
+// Test sending a variable specification
 void sendVarSpec() {
   //                                                   index, length, size,   format,   name,       description
   uint8_t au8_data[17] = CMD_TOKEN_STR CMD_SEND_ONLY_STR "\x00" "\x0C"  "\x03"  "%x\x00"  "test\x00"  "ing";
@@ -460,7 +484,7 @@ void sendVarSpec() {
   ASSERT(strcmp(xferVar[0].psz_desc, "ing") == 0);
 }
 
-/// Test sending a variable specification, then sending a different spec
+// Test sending a variable specification, then sending a different spec
 void resendVarSpec() {
   sendVarSpec();
   //                                                   index, length, size,   format,   name,       description
@@ -475,7 +499,7 @@ void resendVarSpec() {
   ASSERT(strcmp(xferVar[0].psz_desc, "let") == 0);
 }
 
-/// Test sending a variable specification
+// Test sending a variable specification
 void sendWriteableVarSpec() {
   //                                                          index, length, size,   format,   name,       description
   uint8_t au8_data[17] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x0C"  "\x03"  "%x\x00"  "test\x00"  "ing";
@@ -489,7 +513,7 @@ void sendWriteableVarSpec() {
   ASSERT(strcmp(xferVar[0].psz_desc, "ing") == 0);
 }
 
-/// Test sending a variable specification with no strings
+// Test sending a variable specification with no strings
 void sendEmptyVarSpec() {
   //                                                         index, length, size
   uint8_t au8_data[6] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x00"  "\x03";
@@ -503,7 +527,7 @@ void sendEmptyVarSpec() {
   ASSERT(strcmp(xferVar[0].psz_desc, "") == 0);
 }
 
-/// Test sending a variable specification with only a format
+// Test sending a variable specification with only a format
 void sendFormatOnlyVarSpec() {
   //                                                         index, length, size,  format
   uint8_t au8_data[8] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x03"  "\x03" "%x";
@@ -517,7 +541,7 @@ void sendFormatOnlyVarSpec() {
   ASSERT(strcmp(xferVar[0].psz_desc, "") == 0);
 }
 
-/// Test sending a variable specification with only a format
+// Test sending a variable specification with only a format
 void sendNameOnlyVarSpec() {
   //                                                          index, length, size, format, name
   uint8_t au8_data[11] = CMD_TOKEN_STR CMD_SEND_RECEIVE_VAR_STR "\x00" "\x06" "\x03" "\x00"  "test";
@@ -531,7 +555,7 @@ void sendNameOnlyVarSpec() {
   ASSERT(strcmp(xferVar[0].psz_desc, "") == 0);
 }
 
-/// Test sending a spec followed by actual data
+// Test sending a spec followed by actual data
 void sendVarSpecAndData() {
   sendVarSpec();
 
@@ -546,9 +570,9 @@ void sendVarSpecAndData() {
 }
 #endif
 
-/// Run a sequence of characters through the receive state machine,
-/// verifying that nothing is received until the final character
-/// and that no errors occurred.
+// Run a sequence of characters through the receive state machine,
+// verifying that nothing is received until the final character
+// and that no errors occurred.
 void sendData(uint8_t* pu8_data, uint u_len) {
   while (u_len--) {
     RECEIVE_ERROR re = stepReceiveMachine(*pu8_data++);
@@ -559,27 +583,27 @@ void sendData(uint8_t* pu8_data, uint u_len) {
 }
 //@}
 
-/// \name Tests for the specify and send functions
+// \name Tests for the specify and send functions
 //@{
 
-/// The length of an array of characters used to check OUT_CHAR's usage.
+// The length of an array of characters used to check OUT_CHAR's usage.
 static size_t st_outCharLen = 0;
 
-/// An index into the array of check characters.
+// An index into the array of check characters.
 static size_t st_outCharIndex = 0;
 
-/// A pointer to an array containing the expected characters to be output.
+// A pointer to an array containing the expected characters to be output.
 static uint8_t* au8_outCharData = NULL;
 
-/// Reset all the OUT_CHAR associated data (the variables above).
+// Reset all the OUT_CHAR associated data (the variables above).
 void clearOutChar() {
   st_outCharLen = 0;
   st_outCharIndex = 0;
   au8_outCharData = NULL;
 }
 
-/// An outChar function which simply checks to see that the output character
-/// matches the expected string.
+// An outChar function which simply checks to see that the output character
+// matches the expected string.
 #ifdef __cplusplus
 extern "C"
 #endif
@@ -614,17 +638,17 @@ ASSERT(au8_outCharData[st_outCharIndex++] == c);
 #define REQUIRE_ASSERT(code, expectedMsg) (void) 0
 #endif
 
-/// Send to a index that's too high
+// Send to a index that's too high
 void testSendIndexTooHigh() {
   REQUIRE_ASSERT(sendVar(NUM_XFER_VARS + 1), "sendVar:indexTooHigh");
 }
 
-/// Send to an unconfigured index
+// Send to an unconfigured index
 void testSendIndexUnspecificed() {
   REQUIRE_ASSERT(sendVar(0), "sendVar:indexNotSpecified");
 }
 
-/// Send to a read-only variable (PC only)
+// Send to a read-only variable (PC only)
 #ifndef __PIC__
 void testSendToReadOnly() {
   // Set up index 0 for 1 byte of data, read-only
@@ -635,7 +659,7 @@ void testSendToReadOnly() {
 }
 #endif
 
-/// A macro to send a variable and check the resulting output
+// A macro to send a variable and check the resulting output
 void checkSendVar(uint8_t u8_index, uint u_len, uint8_t* au8_data) {
   au8_outCharData = au8_data;
   st_outCharLen = u_len;
@@ -643,7 +667,7 @@ void checkSendVar(uint8_t u8_index, uint u_len, uint8_t* au8_data) {
   ASSERT(st_outCharIndex == st_outCharLen);
 }
 
-/// Send a one-byte variable
+// Send a one-byte variable
 void testSendOneByteVar() {
   // Set up index 0 for 1 byte of data
   setupXferData(0, 1);
@@ -654,7 +678,7 @@ void testSendOneByteVar() {
   checkSendVar(0, 3, au8_data);
 }
 
-/// Send a one-byte variable that needs to be escaped
+// Send a one-byte variable that needs to be escaped
 void testSendOneEscapedByteVar() {
   // Set up index 0 for 1 byte of data
   setupXferData(0, 1);
@@ -665,7 +689,7 @@ void testSendOneEscapedByteVar() {
   checkSendVar(0, 4, au8_data);
 }
 
-/// Send a four-byte variable
+// Send a four-byte variable
 void testSendFourByteVar() {
   // Set up index 0 for 4 bytes of data
   setupXferData(0, 4);
@@ -678,7 +702,7 @@ void testSendFourByteVar() {
   checkSendVar(0, 6, au8_data);
 }
 
-/// Send a 256-byte variable
+// Send a 256-byte variable
 void testSend256ByteVar() {
   // Set up index 0 for 256 bytes of data
   setupXferData(0, 256);
@@ -699,7 +723,7 @@ void testSend256ByteVar() {
   checkSendVar(0, 261, au8_data);
 }
 
-/// Specify an index that's too high
+// Specify an index that's too high
 void testSpecifyIndexTooHigh() {
   // Dummy buffer to hold variable data
   uint8_t au8_buf[1];
@@ -707,13 +731,13 @@ void testSpecifyIndexTooHigh() {
                  "specifyVar:indexTooHigh");
 }
 
-/// Specify with NULL data
+// Specify with NULL data
 void testSpecifyNullData() {
   REQUIRE_ASSERT(specifyVar(0, NULL, 1, TRUE, "", "", ""),
                  "specifyVar:nullData");
 }
 
-/// Specify with an invalid size
+// Specify with an invalid size
 void testSpecifyInvalidSize() {
   // Dummy buffer to hold variable data
   uint8_t au8_buf[1];
@@ -723,7 +747,7 @@ void testSpecifyInvalidSize() {
                  "specifyVar:invalidSize");
 }
 
-/// Minimally specify a variable
+// Minimally specify a variable
 void testSpecifyMinimalVar() {
   // Dummy buffer to hold variable data
   uint8_t au8_buf[1];
@@ -743,8 +767,8 @@ void testSpecifyMinimalVar() {
   ASSERT(isVarWriteable(0));
 }
 
-/// Test specifying a var with a format string which exceeds the max length.
-/// Also check a send-only variable.
+// Test specifying a var with a format string which exceeds the max length.
+// Also check a send-only variable.
 void testSpecifyLongFormat() {
   // Dummy buffer to hold variable data
   uint8_t au8_buf[1];
@@ -774,8 +798,8 @@ void testSpecifyLongFormat() {
   ASSERT(!isVarWriteable(0));
 }
 
-/// Test specifying a var with a name string which exceeds the max length.
-/// Also check a send-only variable.
+// Test specifying a var with a name string which exceeds the max length.
+// Also check a send-only variable.
 void testSpecifyLongName() {
   // Dummy buffer to hold variable data
   uint8_t au8_buf[1];
@@ -805,8 +829,8 @@ void testSpecifyLongName() {
   ASSERT(!isVarWriteable(0));
 }
 
-/// Test specifying a var with a description string which exceeds the max length.
-/// Also check a send-only variable.
+// Test specifying a var with a description string which exceeds the max length.
+// Also check a send-only variable.
 void testSpecifyLongDesc() {
   // Dummy buffer to hold variable data
   uint8_t au8_buf[1];
@@ -835,22 +859,21 @@ void testSpecifyLongDesc() {
   ASSERT(!isVarWriteable(0));
 }
 
-/// Send to a index that's too high
+// Send to a index that's too high
 void testFormatIndexTooHigh() {
   char psz_buf[200];
   REQUIRE_ASSERT(formatVar(NUM_XFER_VARS + 1, psz_buf), "formatVar:indexTooHigh");
 }
 
-/// Send to an unconfigured index
+// Send to an unconfigured index
 void testFormatIndexUnspecificed() {
   char psz_buf[200];
   REQUIRE_ASSERT(formatVar(0, psz_buf), "formatVar:indexNotSpecified");
 }
 
-//@}
 
-/// A list of functions which comprise tests to be run,
-/// terminated with a NULL.
+// A list of functions which comprise tests to be run,
+// terminated with a NULL.
 void (*afp_testList[])() = {
   findChar,
   findEscapedCommandChar,
@@ -909,17 +932,18 @@ void (*afp_testList[])() = {
 };
 
 
-/// Execute one test. This resets the state machines before a run to
-/// create a clean slate for every test.
-/// \param u_index Index of test to run. NO BOUNDS CHECKING is performed
-///                on this index. Be careful.
-void runTest(uint u_index) {
+// Execute one test. This resets the state machines before a run to
+// create a clean slate for every test.
+void runTest(
+ // Index of test to run. NO BOUNDS CHECKING is performed
+ // on this index. Be careful.
+ uint u_index) {
   initDataXfer();
   clearOutChar();
   (afp_testList[u_index])();  // Execute the specified test
 }
 
-/// Run all the tests by executing everything in the list of tests.
+// Run all the tests by executing everything in the list of tests.
 void runAllTests() {
   uint u_index;
   for (u_index = 0; afp_testList[u_index] != NULL; u_index++) {

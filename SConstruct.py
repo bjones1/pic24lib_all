@@ -40,7 +40,8 @@
 #     exist.
 #  #. From the command line, change to the directory in which
 #     this file lies.
-#  #. Execute ``SCons``, which builds everything. Optionally use :doc:`runscons.bat <runscons.bat>` to filter through the resulting warnings.
+#  #. Execute ``SCons``, which builds everything. Optionally use
+#     :doc:`runscons.bat <runscons.bat>` to filter through the resulting warnings.
 #
 #  The build process can be modified by passing options to
 #  SCons. See ``SCons --help`` for options specific
@@ -50,6 +51,20 @@
 # The generated build targets follow the naming convention:
 #
 #    [bootloader/esos]_hardware platform_mcu_[clock/nofloat]
+#
+# This module perfoms builds over a variety of CPUs and configurations.
+# The files listed below specify a set of targets used in each of these builds.
+#
+# .. toctree::
+#    :maxdepth: 3
+#
+#    SCons_bootloader.py
+#    SCons_build.py
+#    SCons_esos.py
+#    SCons_zipit.py
+#    templates/SConscript.py
+#
+# The overall structure of this file is:
 #
 # .. contents::
 
@@ -254,7 +269,7 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap13'],
 # Build some for the CAN2 rev.F14 board used in ECE4723 Embedded Systems
 buildTargetsSConscript(['chap08', 'chap09'],
   env.Clone(MCU='33EP512GP806', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_F14'), 'embeddedF14')
- 
+
 # Build for the explorer board
 buildTargetsSConscript(['explorer'],
   env.Clone(MCU='24FJ128GA010', CPPDEFINES='HARDWARE_PLATFORM=EXPLORER16_100P'), 'explorer16100p')
@@ -392,7 +407,7 @@ for mcu in (
             '33EP128GP504',
            ):
     buildTargetsEsos(env, mcu)
-    
+
 buildTargetsEsos(env, mcu='33EP128GP504', hardware_platform='EMBEDDED_C1', hardware_alias='embeddedC1')
 buildTargetsEsos(env, mcu='33EP512GP806', hardware_platform='EMBEDDED_F14', hardware_alias='embeddedF14')
 buildTargetsEsos(env, mcu='33EP128GP502', hardware_platform='MICROSTICK2', hardware_alias='microstick2')

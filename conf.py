@@ -71,7 +71,7 @@ pygments_style = 'sphinx'
 ##needs_sphinx = '1.0'
 
 # Add any Sphinx extension module names here, as strings. They can be extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones. **Important:** The ``CodeChat.CodeToRest`` extension is mandatory; without it, CodeChat will not translate source code to reST and the (via Sphinx) to html.
-extensions = ['CodeChat.CodeToRest']
+extensions = ['CodeChat.CodeToRestSphinx']
 
 # `templates_path <http://sphinx-doc.org/config.html#confval-templates_path>`_: Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -103,12 +103,32 @@ exclude_patterns = ['_build',
                     'conf.py.rst',
                     # Used only for SCons build
                     'chap10/reverse_string1.c.rst',
+                    'chap13/i2c_multmaster_rstring1.c.rst',
                     # Ignore MPLAB X auto-generated files.
                     '**.X/build',
                     '**.X/dist',
                     '**.X/nbproject',
                     # Ignore Mercurial's repo. Not doing this makes the build *much* slower.
-                    '.hg'
+                    '.hg',
+                    # When authoring, optionally disable subdirectories to speed
+                    # the build process.
+#                    'chap01',
+#                    'chap02',
+#                    'chap03',
+#                    'chap04',
+#                    'chap05',
+#                    'chap06',
+#                    'chap07',
+#                    'chap08',
+#                    'chap09',
+#                    'chap10',
+#                    'chap11',
+#                    'chap12',
+#                    'chap13',
+#                    'chap14',
+#                    'explorer16_100p',
+#                    'templates',
+#                    'util',
                     ]
 
 # `default_role <http://sphinx-doc.org/config.html#confval-default_role>`_: The reST default role (used for this markup: `text`) to use for all documents.

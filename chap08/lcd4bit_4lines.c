@@ -23,19 +23,18 @@
 //    Please maintain this header in its entirety when copying/modifying
 //    these files.
 //
+// ***********************************************************
+// lcd4bit_4lines.c - Demonstrates a 4-line 20x4 Character LCD
+// ***********************************************************
+// This program uses the industry standard parallel interface in 4-bit mode.
+// Assumes a 5V LCD; digital-only IO pins are assumed
+// to be used for the four-bit data bus because they are
+// 5V input tolerant.
+//
+// Tested with Hantronix HDM20416L-M.
 
 #include "pic24_all.h"
 
-
-/** \file
-Demonstrates a 4-line 20x4 Character LCD using the industry
-standard parallel interface in 4-bit mode.
-Assumes a 5V LCD; digital-only IO pins are assumed
-to be used for the four-bit data bus because they are
-5V input tolerant.
-
-Tested with Hantronix HDM20416L-M.
-*/
 
 #define RS_HIGH()        (_LATB9 = 1)
 #define RS_LOW()         (_LATB9 = 0)
@@ -187,7 +186,7 @@ void outStringLCD(char *psz_s) {
 }
 
 
-int main (void) {
+int main(void) {
   configBasic(HELLO_MSG);      // Set up heartbeat, UART, print hello message and diags
 
   configControlLCD();      //configure the LCD control lines

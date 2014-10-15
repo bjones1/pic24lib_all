@@ -1,31 +1,49 @@
-/*
- * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
- * All rights reserved.
- * (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
- * (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
- * (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
- *
- * Permission to use, copy, modify, and distribute this software and its
- * documentation for any purpose, without fee, and without written agreement is
- * hereby granted, provided that the above copyright notice, the following
- * two paragraphs and the authors appear in all copies of this software.
- *
- * IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
- * DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
- * OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
- * HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
- * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
- * ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
- * PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
- *
- * Please maintain this header in its entirety when copying/modifying
- * these files.
- *
- *
- */
+// .. "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+//    All rights reserved.
+//    (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
+//    (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
+//    (J. W. Bruce, jwbruce_AT_ece.msstate.edu, Mississippi State University)
+//
+//    Permission to use, copy, modify, and distribute this software and its
+//    documentation for any purpose, without fee, and without written agreement is
+//    hereby granted, provided that the above copyright notice, the following
+//    two paragraphs and the authors appear in all copies of this software.
+//
+//    IN NO EVENT SHALL THE "AUTHORS" BE LIABLE TO ANY PARTY FOR
+//    DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT
+//    OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE "AUTHORS"
+//    HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//    THE "AUTHORS" SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+//    INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+//    AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+//    ON AN "AS IS" BASIS, AND THE "AUTHORS" HAS NO OBLIGATION TO
+//    PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
+//
+//    Please maintain this header in its entirety when copying/modifying
+//    these files.
+//
+// *************************************************************************************************************************
+// adc7scan1_dma_scatter_gather_1.c - Samples 7 channels sequentially with automatic channel scanning in scatter/gather mode
+// *************************************************************************************************************************
+// Performs a basic config of the ADC and samples seven channels sequentially
+// with automatic channel scanning.  ADC values are 10-bit results.
+// Samples are obtained continuously, and DMA is used to write a memory buffer.
+// The DMA is done using Scatter/Gather mode, with a block size determined by CONVERSIONS_PER_INPUT.
+// For block size = 1 and scatter/gather mode, this
+// means that AN0 result is written to DMA buffer[0], AN1 result to the DMA buffer[1],
+// AN15 to DMA buffer[15], etc.
+// Uses DMA completion interrupts to get values from the DMA memory buffer.
+// The DMA mode for Scatter/Gather mode should be DMA_AMODE_PERIPHERAL_INDIRECT (peripheral indirect)
+// Main routine fetches the "latest" values  from memory.
+// This code assumes a maximum of 16 ANx inputs.
+// For block size > 1, the main code averages the values for a given channel.
+// Compare the main averaging code with 'adc7scan1_dma2.c' to see the difference in
+// how results are stored in the buffer for 'ordered' mode versus 'scatter/gather'.
+//
+// Conversion results are printed to screen to match adc2pots1.c project
+// (HEX values and voltages are printed.)
+// This is only for PIC24 CPUs with DMA; see the Appendix H online supplement.
 
 #include "pic24_all.h"
 #include "stdio.h"
@@ -38,27 +56,6 @@ int main(void) {
   return 0;
 }
 #else
-
-/** \file
- *  Performs a basic config of the ADC and samples seven channels sequentially
- *  with automatic channel scanning.  ADC values are 10-bit results.
- *  Samples are obtained continuously, and DMA is used to write a memory buffer.
- *  The DMA is done using Scatter/Gather mode, with a block size determined by CONVERSIONS_PER_INPUT.
- *  For block size = 1 and scatter/gather mode, this
- *  means that AN0 result is written to DMA buffer[0], AN1 result to the DMA buffer[1],
- *  AN15 to DMA buffer[15], etc.
- *  Uses DMA completion interrupts to get values from the DMA memory buffer.
- *  The DMA mode for Scatter/Gather mode should be DMA_AMODE_PERIPHERAL_INDIRECT (peripheral indirect)
- *  Main routine fetches the "latest" values  from memory.
- *  This code assumes a maximum of 16 ANx inputs.
- *  For block size > 1, the main code averages the values for a given channel.
- *  Compare the main averaging code with 'adc7scan1_dma2.c' to see the difference in
- *  how results are stored in the buffer for 'ordered' mode versus 'scatter/gather'.
- *
- *  Conversion results are printed to screen to match adc2pots1.c project
- *  (HEX values and voltages are printed.)
- *  This is only for PIC24 CPUs with DMA.
-*/
 
 #define CONFIG_LED2()       CONFIG_RB5_AS_DIG_OUTPUT()
 #define LED2                _LATB5
