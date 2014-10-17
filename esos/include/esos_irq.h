@@ -39,8 +39,9 @@
 //#include    "user_config.h"
 #include    "all_generic.h"
 
-void    _esos_hw_InitUserInterrupts(void);
+#define NUM_USER_IRQS       16
 
+void    _esos_hw_InitUserInterrupts(void);
 
 #if 0
 // a helpful macro used to declare and prototype user ISRs
