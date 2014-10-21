@@ -106,17 +106,17 @@ void __esos_configUART1(uint32_t u32_baudRate) {
   //Pin mapping macros in pic24_ports.h
 
 #if (HARDWARE_PLATFORM == EMBEDDED_C1)
-  #warning Building configUART${x}() for the Rev.C1 Embedded Systems target.
+# warning Building configUART1() for the Rev.C1 Embedded Systems target.
   CONFIG_RB12_AS_DIG_INPUT();
   CONFIG_U1RX_TO_RP(RB12_RP); // U1RX <- RB12
   CONFIG_RC8_AS_DIG_OUTPUT();
   CONFIG_U1TX_TO_RP(RC8_RP);  // U1TX -> RC8
 #elif (HARDWARE_PLATFORM == EMBEDDED_F14)
-  #warning Building configUART${x}() for the Rev.F14 Embedded Systems target.
+# warning Building configUART1() for the Rev.F14 Embedded Systems target.
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB10_RP);           // U1RX <- RB10
   CONFIG_RF0_AS_DIG_OUTPUT();           // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RF0_RP);            // U1TX -> RF0???  (Use RF0 for now.)  
+  CONFIG_U1TX_TO_RP(RF0_RP);            // U1TX -> RF0???  (Use RF0 for now.)
 #else
   CONFIG_RB10_AS_DIG_INPUT();
   CONFIG_U1RX_TO_RP(RB10_RP); //U1RX <- RP10

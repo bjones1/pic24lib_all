@@ -134,10 +134,10 @@ void sendData(uint8_t* pu8_data, uint u_len);
 
 // Sending a normal char shold report that char received.
 void sendOneNormalChar(
- // The character to send. This character will NOT
- // be esacaped -- an 0x55 will be sent as just an
- // 0x55.
- char c_charToSend) {
+// The character to send. This character will NOT
+// be esacaped -- an 0x55 will be sent as just an
+// 0x55.
+  char c_charToSend) {
   stepReceiveMachine(c_charToSend);
   ASSERT(isReceiveMachineChar());
   ASSERT(getReceiveMachineOutChar() == c_charToSend);
@@ -174,10 +174,11 @@ void sendEscapedCommand() {
 // Set up the xferData structure for receiving
 // some data.
 void setupXferData(
- // Index of data to be received
- uint u_index,
- // Length (in bytes) of data to be received
- uint u_len) {
+  // Index of data to be received
+  uint u_index,
+  // Length (in bytes) of data to be received
+  uint u_len) {
+
   // A place to store the max amount of data.
   static uint8_t au_data[256];
 
@@ -935,9 +936,9 @@ void (*afp_testList[])() = {
 // Execute one test. This resets the state machines before a run to
 // create a clean slate for every test.
 void runTest(
- // Index of test to run. NO BOUNDS CHECKING is performed
- // on this index. Be careful.
- uint u_index) {
+// Index of test to run. NO BOUNDS CHECKING is performed
+// on this index. Be careful.
+  uint u_index) {
   initDataXfer();
   clearOutChar();
   (afp_testList[u_index])();  // Execute the specified test

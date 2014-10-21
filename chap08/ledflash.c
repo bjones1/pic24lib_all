@@ -52,7 +52,7 @@ void config_led1() {
   CONFIG_RB15_AS_DIG_OUTPUT();
   ENABLE_RB15_OPENDRAIN();
 #else
-   CONFIG_RB15_AS_DIG_OUTPUT();
+  CONFIG_RB15_AS_DIG_OUTPUT();
 #endif
 }
 

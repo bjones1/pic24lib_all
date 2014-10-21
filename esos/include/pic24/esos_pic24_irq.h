@@ -128,7 +128,7 @@
 ***  TODO: make a thorough search through the datasheets
 ***        for all device families, models, etc to make
 ***        sure Microchip did NOT change the name of these
-***        interrupt flags over the years.  (They have 
+***        interrupt flags over the years.  (They have
 ***        a nasty habit of doing that quietly when new
 ***        chips come out.)
 ***

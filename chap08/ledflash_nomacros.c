@@ -58,17 +58,17 @@ int main(void) {
   ** opendrain on RB15.  If no SRB bit is defined, make
   ** RB15 a normal CMOS digital output
   *********************************************************/
-  
+
 #ifdef _ODB15          //PIC24F CPU header files define this instead of ODCB15
-   _ODB15 = 1;         //enable open drain with _ODB15 bit (if it exists)
+  _ODB15 = 1;         //enable open drain with _ODB15 bit (if it exists)
 #endif
 #ifdef _ODCB15
-   _ODCB15 = 1;        //enable open drain with _ODCB15 bit (if it exists)
+  _ODCB15 = 1;        //enable open drain with _ODCB15 bit (if it exists)
 #endif
-   _TRISB15 = 0;       //Config RB15 as output
-   _LATB15 = 0;        //RB15 initially low
-   
- /************** LOOP **************/
+  _TRISB15 = 0;       //Config RB15 as output
+  _LATB15 = 0;        //RB15 initially low
+
+  /************** LOOP **************/
   while (1) {           //infinite while loop
     a_delay();          //call delay function
     _LATB15 = !_LATB15;  //Toggle LED attached to RB15

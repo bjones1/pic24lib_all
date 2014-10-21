@@ -464,9 +464,9 @@
 /*****************************************************************************
 ***
 *** Look for a way so that the compiler can determine whether or not the
-*** target chip supports remappable perihperals.  So, we will look for 
+*** target chip supports remappable perihperals.  So, we will look for
 *** a bit field in the lowest possible RPORx registers.  Unfortunately,
-*** Microchip has redefined these over the families and even within families. 
+*** Microchip has redefined these over the families and even within families.
 ***
 ***  xxxxxx       devices start with _RP0R
 ***  dsPIC33E 50x devices start with _RP20R

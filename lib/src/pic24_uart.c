@@ -260,13 +260,13 @@ void configUART1(uint32_t u32_baudRate) {
   // The following pin mappings will apply only to UART 1.
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
-  #warning Building configUART1() for the Dangerous Web target.
+#   warning Building configUART1() for the Dangerous Web target.
   CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB14_RP);           // U1RX <- RB14
   CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RB15_RP);           // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
-  #warning Building configUART1() for the StarterBoard_28P target.
+#   warning Building configUART1() for the StarterBoard_28P target.
   CONFIG_RB9_AS_DIG_INPUT();            // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB9_RP);            // U1RX <- RB9
   CONFIG_RB8_AS_DIG_OUTPUT();           // TX pin must be digital output
@@ -277,17 +277,17 @@ void configUART1(uint32_t u32_baudRate) {
   CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RB11_RP);           // U1TX -> RB11
 # elif (HARDWARE_PLATFORM == EMBEDDED_C1)
-  #warning Building configUART1() for the Rev.C1 Embedded Systems target.
+#   warning Building configUART1() for the Rev.C1 Embedded Systems target.
   CONFIG_RB12_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB12_RP);           // U1RX <- RB12
   CONFIG_RC8_AS_DIG_OUTPUT();           // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RC8_RP);            // U1TX -> RC8
 # elif (HARDWARE_PLATFORM == EMBEDDED_F14)
-  #warning Building configUART1() for the Rev.F14 Embedded Systems target.
+#   warning Building configUART1() for the Rev.F14 Embedded Systems target.
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB10_RP);           // U1RX <- RB10
   CONFIG_RF0_AS_DIG_OUTPUT();           // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RF0_RP);            // U1TX -> RF0???  (Use RF0 for now.)  
+  CONFIG_U1TX_TO_RP(RF0_RP);            // U1TX -> RF0???  (Use RF0 for now.)
 # else
 #   error "Unknown hardware platform."
 # endif
@@ -388,10 +388,6 @@ void configUART1(uint32_t u32_baudRate) {
 #endif // #if !defined(BOOTLOADER) || (DEFAULT_UART == 1)
 
 #endif // #if (NUM_UARTS >= 1)
-
-
-
-
 /*
  * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
  * All rights reserved.
@@ -654,13 +650,13 @@ void configUART2(uint32_t u32_baudRate) {
   // The following pin mappings will apply only to UART 1.
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
-  #warning Building configUART2() for the Dangerous Web target.
+#   warning Building configUART2() for the Dangerous Web target.
   CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB14_RP);           // U1RX <- RB14
   CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RB15_RP);           // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
-  #warning Building configUART2() for the StarterBoard_28P target.
+#   warning Building configUART2() for the StarterBoard_28P target.
   CONFIG_RB9_AS_DIG_INPUT();            // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB9_RP);            // U1RX <- RB9
   CONFIG_RB8_AS_DIG_OUTPUT();           // TX pin must be digital output
@@ -671,17 +667,17 @@ void configUART2(uint32_t u32_baudRate) {
   CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RB11_RP);           // U1TX -> RB11
 # elif (HARDWARE_PLATFORM == EMBEDDED_C1)
-  #warning Building configUART2() for the Rev.C1 Embedded Systems target.
+#   warning Building configUART2() for the Rev.C1 Embedded Systems target.
   CONFIG_RB12_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB12_RP);           // U1RX <- RB12
   CONFIG_RC8_AS_DIG_OUTPUT();           // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RC8_RP);            // U1TX -> RC8
 # elif (HARDWARE_PLATFORM == EMBEDDED_F14)
-  #warning Building configUART2() for the Rev.F14 Embedded Systems target.
+#   warning Building configUART2() for the Rev.F14 Embedded Systems target.
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB10_RP);           // U1RX <- RB10
   CONFIG_RF0_AS_DIG_OUTPUT();           // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RF0_RP);            // U1TX -> RF0???  (Use RF0 for now.)  
+  CONFIG_U1TX_TO_RP(RF0_RP);            // U1TX -> RF0???  (Use RF0 for now.)
 # else
 #   error "Unknown hardware platform."
 # endif
@@ -782,10 +778,6 @@ void configUART2(uint32_t u32_baudRate) {
 #endif // #if !defined(BOOTLOADER) || (DEFAULT_UART == 2)
 
 #endif // #if (NUM_UARTS >= 2)
-
-
-
-
 /*
  * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
  * All rights reserved.
@@ -1048,13 +1040,13 @@ void configUART3(uint32_t u32_baudRate) {
   // The following pin mappings will apply only to UART 1.
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
-  #warning Building configUART3() for the Dangerous Web target.
+#   warning Building configUART3() for the Dangerous Web target.
   CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB14_RP);           // U1RX <- RB14
   CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RB15_RP);           // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
-  #warning Building configUART3() for the StarterBoard_28P target.
+#   warning Building configUART3() for the StarterBoard_28P target.
   CONFIG_RB9_AS_DIG_INPUT();            // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB9_RP);            // U1RX <- RB9
   CONFIG_RB8_AS_DIG_OUTPUT();           // TX pin must be digital output
@@ -1065,17 +1057,17 @@ void configUART3(uint32_t u32_baudRate) {
   CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RB11_RP);           // U1TX -> RB11
 # elif (HARDWARE_PLATFORM == EMBEDDED_C1)
-  #warning Building configUART3() for the Rev.C1 Embedded Systems target.
+#   warning Building configUART3() for the Rev.C1 Embedded Systems target.
   CONFIG_RB12_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB12_RP);           // U1RX <- RB12
   CONFIG_RC8_AS_DIG_OUTPUT();           // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RC8_RP);            // U1TX -> RC8
 # elif (HARDWARE_PLATFORM == EMBEDDED_F14)
-  #warning Building configUART3() for the Rev.F14 Embedded Systems target.
+#   warning Building configUART3() for the Rev.F14 Embedded Systems target.
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB10_RP);           // U1RX <- RB10
   CONFIG_RF0_AS_DIG_OUTPUT();           // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RF0_RP);            // U1TX -> RF0???  (Use RF0 for now.)  
+  CONFIG_U1TX_TO_RP(RF0_RP);            // U1TX -> RF0???  (Use RF0 for now.)
 # else
 #   error "Unknown hardware platform."
 # endif
@@ -1176,10 +1168,6 @@ void configUART3(uint32_t u32_baudRate) {
 #endif // #if !defined(BOOTLOADER) || (DEFAULT_UART == 3)
 
 #endif // #if (NUM_UARTS >= 3)
-
-
-
-
 /*
  * "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
  * All rights reserved.
@@ -1442,13 +1430,13 @@ void configUART4(uint32_t u32_baudRate) {
   // The following pin mappings will apply only to UART 1.
   // Change them as necessary for your device.
 # if (HARDWARE_PLATFORM == DANGEROUS_WEB)
-  #warning Building configUART4() for the Dangerous Web target.
+#   warning Building configUART4() for the Dangerous Web target.
   CONFIG_RB14_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB14_RP);           // U1RX <- RB14
   CONFIG_RB15_AS_DIG_OUTPUT();          // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RB15_RP);           // U1TX -> RB15
 # elif (HARDWARE_PLATFORM == STARTER_BOARD_28P)
-  #warning Building configUART4() for the StarterBoard_28P target.
+#   warning Building configUART4() for the StarterBoard_28P target.
   CONFIG_RB9_AS_DIG_INPUT();            // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB9_RP);            // U1RX <- RB9
   CONFIG_RB8_AS_DIG_OUTPUT();           // TX pin must be digital output
@@ -1459,17 +1447,17 @@ void configUART4(uint32_t u32_baudRate) {
   CONFIG_RB11_AS_DIG_OUTPUT();          // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RB11_RP);           // U1TX -> RB11
 # elif (HARDWARE_PLATFORM == EMBEDDED_C1)
-  #warning Building configUART4() for the Rev.C1 Embedded Systems target.
+#   warning Building configUART4() for the Rev.C1 Embedded Systems target.
   CONFIG_RB12_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB12_RP);           // U1RX <- RB12
   CONFIG_RC8_AS_DIG_OUTPUT();           // TX pin must be digital output
   CONFIG_U1TX_TO_RP(RC8_RP);            // U1TX -> RC8
 # elif (HARDWARE_PLATFORM == EMBEDDED_F14)
-  #warning Building configUART4() for the Rev.F14 Embedded Systems target.
+#   warning Building configUART4() for the Rev.F14 Embedded Systems target.
   CONFIG_RB10_AS_DIG_INPUT();           // RX pin must be digital input
   CONFIG_U1RX_TO_RP(RB10_RP);           // U1RX <- RB10
   CONFIG_RF0_AS_DIG_OUTPUT();           // TX pin must be digital output
-  CONFIG_U1TX_TO_RP(RF0_RP);            // U1TX -> RF0???  (Use RF0 for now.)  
+  CONFIG_U1TX_TO_RP(RF0_RP);            // U1TX -> RF0???  (Use RF0 for now.)
 # else
 #   error "Unknown hardware platform."
 # endif
@@ -1570,7 +1558,3 @@ void configUART4(uint32_t u32_baudRate) {
 #endif // #if !defined(BOOTLOADER) || (DEFAULT_UART == 4)
 
 #endif // #if (NUM_UARTS >= 4)
-
-
-
-
