@@ -84,7 +84,7 @@ void _ISRFAST _T1Interrupt (void) {
 ********************************************************/
 void    __esos_hw_InitSystemTick(void) {
   // a local copy of OSCCON register to manipulate
-  OSCCONBITS				OSCCONBITS_copy;
+  OSCCONBITS        OSCCONBITS_copy;
 
   // FOR NOW, we will init our usual PIC24 development setup here.
   //  THIS REALLY DOESN'T BELONG HERE!!!!!!!
@@ -92,36 +92,35 @@ void    __esos_hw_InitSystemTick(void) {
 
   // TODO: testing an experimental tick using an external watch xtal
   //       on the PIC24 secondary oscillator (SOSC) pins.
-  if(1) {
-	  /**********************************************
-	   * USE FCY (instruction clock) to drive T1
-	   *      operate during IDLE, use a 64x prescaler,
-	   *      and the internal clock 
-	   ********************************************************/
-	  T1CON = T1_IDLE_CON + T1_PS_1_64 + T1_SOURCE_INT;
-	  PR1 = MS_TO_TICKS(1, 64);        // 1 ms interrupt interval
-  }
-  else {
-	  /**********************************************
-	   * USE 32.768kHz watch xtal (SOSC) to drive T1
-	   *      operate during IDLE, use a 1x prescaler,
-	   *      and the secondary oscillator (must enable
-	   *      it via LPOSCEN in the OSCCON register)
-	   *      Not exactly 1ms tick (but neither is the
-	   *      instruction clock version)  
-	   ********************************************************/
-		asm("DISI #0x3FFF"); // Disable interrupts for a long time
-		OSCCONBITS_copy = OSCCONbits;        // Copy OSCCON register bits
-		OSCCONBITS_copy.LPOSCEN = 1;         // ENABLE secondary oscillator
-		// First write high byte, containing new clock source NOSC
-		__builtin_write_OSCCONH(BITS2BYTEH(OSCCONBITS_copy));
-		// Then write low byte, requesting clock switch with OSWEN
-		__builtin_write_OSCCONL(BITS2BYTEL(OSCCONBITS_copy));
-		asm("DISI #0");     // Re-enable IRQs at the next instruction
+#if 1
+  /**********************************************
+   * USE FCY (instruction clock) to drive T1
+   *      operate during IDLE, use a 64x prescaler,
+   *      and the internal clock
+   ********************************************************/
+  T1CON = T1_IDLE_CON + T1_PS_1_64 + T1_SOURCE_INT;
+  PR1 = MS_TO_TICKS(1, 64);        // 1 ms interrupt interval
+#else
+  /**********************************************
+   * USE 32.768kHz watch xtal (SOSC) to drive T1
+   *      operate during IDLE, use a 1x prescaler,
+   *      and the secondary oscillator (must enable
+   *      it via LPOSCEN in the OSCCON register)
+   *      Not exactly 1ms tick (but neither is the
+   *      instruction clock version)
+   ********************************************************/
+  asm("DISI #0x3FFF"); // Disable interrupts for a long time
+  OSCCONBITS_copy = OSCCONbits;        // Copy OSCCON register bits
+  OSCCONBITS_copy.LPOSCEN = 1;         // ENABLE secondary oscillator
+  // First write high byte, containing new clock source NOSC
+  __builtin_write_OSCCONH(BITS2BYTEH(OSCCONBITS_copy));
+  // Then write low byte, requesting clock switch with OSWEN
+  __builtin_write_OSCCONL(BITS2BYTEL(OSCCONBITS_copy));
+  asm("DISI #0");     // Re-enable IRQs at the next instruction
 
-		T1CON = T1_IDLE_CON + T1_PS_1_1 + T1_SOURCE_EXT + T1_SYNC_EXT_OFF;
-		PR1 = 32;        // 32/32.768 = 0.9765625ms interrupt
-  }
+  T1CON = T1_IDLE_CON + T1_PS_1_1 + T1_SOURCE_EXT + T1_SYNC_EXT_OFF;
+  PR1 = 32;        // 32/32.768 = 0.9765625ms interrupt
+#endif
 
   TMR1  = 0;                       // clear T1's count
   _T1IF = 0;                       // clear interrupt flag
@@ -149,4 +148,3 @@ void    __esos_hw_InitSystemTick(void) {
 uint32_t   __esos_hw_GetSystemTickCount(void) {
   return  esos_tick_count;
 }  // end __esos_hw_GetSystemTickCount()
-

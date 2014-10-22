@@ -69,7 +69,7 @@ CBUFFER     __astCircularBuffers[MAX_NUM_USER_TASKS];
 // misc ESOS variables
 uint16_t      __esos_u16UserFlags, __esos_u16SystemFlags;
 uint32_t            __u32_esos_PRNG_Seed;
-uint32_t            __esos_u32FNVHash = 2166136261L;
+uint32_t            __esos_u32FNVHash = 2166136261uL;
 
 /****************************************************************
 ** Embedded Systems Operating System (ESOS) code
@@ -348,7 +348,7 @@ uint32_t    esos_GetRandomUint32(void) {
 uint16_t    esos_taskname_hash_u16( void* buf, uint16_t len ) {
   unsigned char *bp = (unsigned char *)buf; /* start of buffer */
   unsigned char *be = bp + len;   /* beyond end of buffer */
-  uint32_t        u32_temp = 2166136261;
+  uint32_t        u32_temp = 2166136261uL;
 
   /*
    * FNV-1 hash each octet in the buffer
