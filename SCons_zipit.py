@@ -34,7 +34,7 @@ env = Environment(ENV = {'PATH' : os.environ['PATH']})
 env.Execute('doxygen')
 
 # Copy updated CodeChat docs into Doxygen output.
-env.Execute('..\..\..\..\documentation\code_chat.py')
+env.Execute('sphinx-build -d _build\\doctrees . _build\\html')
 env.Execute(Delete('docs/sphinx', must_exist = 0))
 env.Execute(Copy('docs/sphinx', '_build/html'))
 
