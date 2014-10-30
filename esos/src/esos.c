@@ -370,8 +370,8 @@ uint16_t    esos_taskname_hash_u16( void* buf, uint16_t len ) {
  * This "state" is used in all of the ESOS FNV hash functions.
  * Based on the Fowler/Noll/Vo (FNV1a) hash algorithm and code provided
  * at http://www.isthe.com/chongo/tech/comp/fnv/
- * \param pointer to a buffer of voids
- * \param length of the buffer of voids
+ * \param buf pointer to a buffer of voids
+ * \param len length of the buffer of voids
  * \retval uint32_t value of the resulting hash
  *  \sa esos_string_hash_u32
  *  \sa esos_hash_u32_to_u16
@@ -407,7 +407,7 @@ uint32_t esos_buffer_hash_u32(void *buf, uint16_t len) {
  * This "state" is used in all of the ESOS FNV hash functions.
  * Based on the Fowler/Noll/Vo (FNV1a) hash algorithm and code provided
  * at http://www.isthe.com/chongo/tech/comp/fnv/
- * \param pointer to zero-terminated string
+ * \param psz_str pointer to zero-terminated string
  * \retval uint32_t value of the resulting hash
  *  \sa esos_string_hash_u32
  *  \sa esos_hash_u32_to_u16

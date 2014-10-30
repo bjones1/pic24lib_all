@@ -76,7 +76,7 @@ void __esos_CB_Init(CBUFFER* pst_CBuffer, uint8_t* pau8_ptr, uint16_t u16_Len) {
 /**
 * Writes byte data to a circular buffer
 *
-* \param pstTask  pointer to task structure (ESOS_TASK_HANDLE) describing the circular buffer
+* \param pst_CBuffer  pointer to structure (CBUFFER) describing the circular buffer
 * \param u8_x     data to write to the circular buffer
 * \note This function <em>ASSUMES</em> that there is ample free space available in specified
 * circular buffer.
@@ -175,5 +175,3 @@ void __esos_CB_ReadUINT8Buffer(CBUFFER* pst_CBuffer, uint8_t* pu8_x, uint16_t u1
     __READ_CB_UINT8(pst_CBuffer, pu8_x[u16_i]);
   }
 } // end __esos_CB_ReadUINT8Buffer()
-
-

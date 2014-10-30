@@ -112,7 +112,7 @@ typedef struct __stMAILMESSAGE {
 /**
  * Determines if a task has mail ready to be read/consumed.
  *
- * \param TaskHandle The \ref ESOS_TASK_HANDLE of the task being queried
+ * \param pstTask A pointer to the \ref ESOS_TASK_HANDLE of the task being queried
  * \sa ESOS_TASK_GET_TASK_HANDLE
  * \hideinitializer
  */
@@ -168,8 +168,8 @@ typedef struct __stMAILMESSAGE {
 * has room for the specified message
 *
 * \param pstTask  pointer to task structure (ESOS_TASK_HANDLE)
-* \param x    number of bytes to check for
-* \retval TRUE   if task's mailbox has  x bytes <em>or more</em>
+* \param pstMsg   message for which room must be found
+* \retval TRUE   if task's mailbox has  x bytes <em>or more</em>;
 * \retval FALSE   otherwise
 *
 * \hideinitializer
