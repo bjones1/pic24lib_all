@@ -67,7 +67,7 @@ developers to take advantage of the wide range of peripherals offered by the
 PIC24. The collection consists of the
 <a href="http://www.reesemicro.com/Home/pic24-software-library-collection/getting-started">getting
 started guide</a>; the \ref PIC24_support "PIC24 support library"; and
-\ref ESOS, the Embedded Systems Operating System.
+\ref ESOS "ESOS", the Embedded Systems Operating System.
 
 
 \section internalStarted Getting started
@@ -88,7 +88,7 @@ provide working sample code to guide newcomers to using the library.
 
 
 \section internalESOS ESOS
-\ref ESOS, the Embedded Systems Operating System, is a cooperative multitasking operating system with
+\ref ESOS "ESOS", the Embedded Systems Operating System, is a cooperative multitasking operating system with
 very low memory overhead. ESOS is a task-driven programming paradigm within an event-driven framework.
 ESOS gives the user timer, interrupt, and communication services commonly needed in embedded systems programs.
 
