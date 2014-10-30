@@ -59,7 +59,6 @@ env.Default(env.Zip(zip_file, [
   'chap12',
   'chap13',
   'chap14',
-  'chap15',
   'esos',
   'lib/lkr',
   'lib/src',
