@@ -28,7 +28,7 @@
 Textbook examples
 *****************
 
-This page gives example PIC24 code accompanying the textbook titled `"Microcontrollers: From Assembly to C with the PIC24 Family" <http://www.reesemicro.com>`_ by R. Reese, B. Jones and J.W. Bruce published by Cengage Learning in December 2008.
+This page gives example PIC24 code accompanying the second edition of textbook titled `"Microcontrollers: From Assembly to C with the PIC24 Family" <http://www.reesemicro.com>`_, by B. Jones, R. Reese, and J.W. Bruce published by Cengage Learning in August 2014.
 
 The next section discussing using the example code, while the `example code directory`_ lists all available examples.
 
@@ -40,17 +40,17 @@ These examples have minimal reliance on the libraries shipped with the PIC24 com
 
 Most of the examples are meant for a reference dsPIC33EP128GP502 system. The projects all have a custom linker file intended for use with a serial bootloader - if you want generated hex files to be compatible with the PICKit 3 programmer then delete the linker file from the MPLAB X project.
 
-If you have a different PIC24 Family member, simply change the target device in the MPLAB to that device. When you compile the files, you will get warnings that the internal oscillator with PLL is being used, and that the default configuration bit settings are being used.
+If you have a different PIC24 family member, simply change the target device in the MPLAB to that device. When you compile the files, you will get warnings that the internal oscillator with PLL is being used, and that the default configuration bit settings are being used.
 
 To change clock options, see the documentation in `common/pic24_clockfreq.c <../pic24__clockfreq_8c.html>`_ and `include/pic24_clockfreq.h <../pic24__clockfreq_8h.html>`_  To change config bits, see the documentation on `common/pic24_configbits.c <../pic24__configbits_8c.html>`_
 
-All of the examples assume a serial port using UART1; our reference system uses pins RP10 (RX) and RP11 (TX) with a default baud rate of 230,400 baud. To change these assignments, edit the function called configUART1() in `common/pic24_uart.c <../pic24__uart_8h.html>`_.  To change the default baudrate, edit the ``#define DEFAULT_BAUDRATE`` in `include/pic24_libconfig.h <../pic24__libconfig_8h.html>`_ (this file includes all of the macros for configuring user-defineable behavior for library functions).
+All of the examples assume a serial port using UART1; our reference system uses pins RP10 (RX) and RP11 (TX) with a default baud rate of 230,400 baud. To change these assignments, edit the function called ``configUART1()`` in `common/pic24_uart.c <../pic24__uart_8h.html>`_.  To change the default baudrate, edit the ``#define DEFAULT_BAUDRATE`` macro in `include/pic24_libconfig.h <../pic24__libconfig_8h.html>`_ (this file includes all of the macros for configuring user-defineable behavior for library functions).
 
 If the end-of-line (EOL) output behavior is not correct for the serial terminal program that you are using (i.e, printed new lines do not return to the left edge of the screen), then you can change this by selecting an appropriate value for the ``SERIAL_EOL_DEFAULT`` macro contained in `include/pic24_libconfig.h`_. By default, the library signals an EOL using a line feed only.
 
 Our examples also assume an LED tied to port RB15 - this is used as a 'heartbeat' and is blinked by our examples when waiting for input. You can reassign this to another port (see ``HB_LED``) or remove it entirely (see ``USE_HEARTBEAT``) by editing `include/pic24_libconfig.h`_.
 
-The best project to start with is :doc:`reset.c <chap08/reset.c>` - this just assumes basic serial port functionality.
+The best project to start with is :doc:`reset.c <chap08/reset.c>` - this only assumes basic serial port functionality.
 
 Example code directory
 ======================
