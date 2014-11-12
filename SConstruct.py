@@ -267,7 +267,7 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap13'],
   env.Clone(MCU='33EP128GP504', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_C1'), 'embeddedC1')
 
 # Build some for the CAN2 rev.F14 board used in ECE4723 Embedded Systems
-buildTargetsSConscript(['chap08', 'chap09'],
+buildTargetsSConscript(['chap08', 'chap09', 'chap13'],
   env.Clone(MCU='33EP512GP806', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_F14'), 'embeddedF14')
 
 # Build for the explorer board

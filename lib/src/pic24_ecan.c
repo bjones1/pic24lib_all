@@ -114,7 +114,7 @@ void configBaudECAN1(void) {
 //     from the datasheets in the older PIC24/dsPIC families
 #ifdef __dsPIC33E__
   // Set the ECAN Module Clock to FCY
-  C1CTRL1bits.CANCKS = ECAN_FCAN_IS_FP;
+  C1CTRL1bits.CANCKS = ECAN_FCAN_IS_2FP;
 #endif
 
 #if FCY == GET_FCY(FRCPLL_FCY40MHz) // <- This needs to be reverified! - rnn13
@@ -138,16 +138,16 @@ void configBaudECAN1(void) {
 #elif FCY == GET_FCY(FRCPLL_FCY60MHz)
 // FCAN = FCY = 60 MHz. Use TQ = 15. Prescale = 4
 // CAN Data Rate = FCAN/(TQ * Prescale) = 60MHz/60 = 1 MBps.
-// Bit Time 15TQ = SyncSeg(1) + PropSeg(4) + Seg1(4) + Seg2 (6)
+// Bit Time 15TQ = SyncSeg(1) + PropSeg(5) + Seg1(4) + Seg2 (6)
   C1CFG2 = ECAN_NO_WAKEUP |
            ECAN_SAMPLE_3TIMES |      //sample three times at sample point
-           ECAN_SEG1PH_4TQ |         //seg1 = 8 TQ
+           ECAN_SEG1PH_8TQ |         //seg1 = 8 TQ
            ECAN_SEG2_PROGRAMMABLE |  //seg2 is programmable
            ECAN_SEG2PH_6TQ |         //seg2 = 6 TQ
-           ECAN_PRSEG_3TQ;           //propagation delay segment = 5 TQ
+           ECAN_PRSEG_5TQ;           //propagation delay segment = 5 TQ
 
   C1CFG1 = ECAN_SYNC_JUMP_4 |    //use maximum sync jump width
-           ECAN_PRE_2x2;         //prescalers to 2x2 = 4
+           ECAN_PRE_2x4;         //prescalers to 2x4 = 4
 #else
 #warning "ECAN module not configured for current processor frequency! Edit function configECAN1()."
 #endif
