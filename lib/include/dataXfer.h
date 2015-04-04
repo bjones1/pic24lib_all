@@ -149,7 +149,7 @@ char
 inCharXfer();
 #else
   /** Receive a character or a variable. Any errors that occur are
-  *  reported via outString.
+  *  reported via outString. <b>PC only.</b>
   *  \param c_in  Character just received, which will be processed.
   *  \param pc_out Pointer to space for storing the received character, if
   *                a character was received (see pu16_index).
