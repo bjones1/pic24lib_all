@@ -24,6 +24,7 @@ outCharXfer(char c) {
     OUT_CHAR(ESCAPED_CMD);
 }
 
+#if defined(__PIC__) || defined(__DOXYGEN__) || defined(UNIT_TESTS)
 void
 specifyVar(uint u_varIndex, volatile void* pv_data, uint u_size,
            BOOL b_isWriteable, char* psz_format, char* psz_name,
@@ -72,6 +73,7 @@ specifyVar(uint u_varIndex, volatile void* pv_data, uint u_size,
     outCharXfer(*psz_desc);
   } while (*psz_desc++);
 }
+#endif
 
 void
 sendVar(uint u_varIndex) {

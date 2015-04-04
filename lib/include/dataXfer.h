@@ -69,7 +69,7 @@ void
 initDataXfer();
 
 #if defined(__PIC__) || defined(__DOXYGEN__) || defined(UNIT_TESTS)
-/** Specify a variable to be sent or received.
+/** Specify a variable to be sent or received. <b>uC only.</b>
  *  \param u_varIndex       A value from 0-\ref NUM_XFER_VARS, unique for each var
  *  \param pv_data          A pointer to the data to be sent
  *  \param u_size           Size of the data in bytes; must be from 1 to 256.
@@ -89,7 +89,7 @@ specifyVar(uint u_varIndex, volatile void* pv_data, uint u_size,
            char* psz_desc);
 
 /** For simplicity, define a macro that specifies a variable with
- *  default names.
+ *  default names. <b>uC only.</b>
  *  \param u_varIndex    A value from 0-\ref NUM_XFER_VARS, unique for each var
  *  \param data          A pointer to the data to be sent
  *  \param isWriteable   True if the PC is allowed to change this
@@ -112,7 +112,7 @@ sendVar(uint u_varIndex);
 
 #if !defined(__PIC__) || defined(__DOXYGEN__)
 /** Return a string with the data stored in the given variable formatted using
- *  the format string contained in the variable. Limitation: current, use of
+ *  the format string contained in the variable. Limitation: currently, use of
  *  a string (%s format) will probably crash the program. <b>PC only.</b>
  *  \param u_varIndex The index of the variable to send; must be from 0 to
  *                    \ref NUM_XFER_VARS.
@@ -147,6 +147,8 @@ receiveVar(char* c);
  */
 char
 inCharXfer();
+#else
+
 #endif
 
 
