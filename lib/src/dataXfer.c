@@ -186,4 +186,38 @@ inCharXfer() {
   while (receiveVar(&c) != CHAR_RECEIVED_INDEX);
   return c;
 }
+
+#else
+BOOL receiveVar(char c_in, char* pc_out, uint16_t* pu16_index,
+                uint64_t u64_timeMs, char** psz_error) {
+
+  static uint16_t u64_timeLastMs = 0;
+  uint64_t u64_timeDeltaMs;
+  RECEIVE_ERROR re;
+
+  // Check for 100 ms timeout.
+  u64_timeDeltaMs = u64_time - u64_timeLastMs;
+  u64_timeLastMs = u64_timeMs;
+  if (u64_timeDeltaMs > 100)
+    notifyOfTimeout();
+
+  // Step the machine
+  re = stepReceiveMachine(c_in);
+  if (re != ERR_NONE) {
+    *psz_error = getReceiveErrorString();
+    return false;
+  } else {
+    *psz_error = NULL;
+  }
+  if (isReceiveMachineChar()) {
+    *pc_out = getReceiveMachineOutChar();
+    *pu16_index = CHAR_RECEIVED_INDEX;
+    return true;
+  }
+  if (isReceiveMachineData()) {
+    *pu16_index = getReceiveMachineIndex();
+    return true;
+  }
+  return false;
+}
 #endif

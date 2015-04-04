@@ -148,7 +148,21 @@ receiveVar(char* c);
 char
 inCharXfer();
 #else
-
+  /** Receive a character or a variable. Any errors that occur are
+  *  reported via outString.
+  *  \param c_in  Character just received, which will be processed.
+  *  \param pc_out Pointer to space for storing the received character, if
+  *                a character was received (see pu16_index).
+  *  \param pu16_index A pointer to the index to the variable, if a variable was received;
+  *                    \ref CHAR_RECEIVED_INDEX if a character was received.
+  *  \param u64_timeMs Current system time, in ms.
+  *  \param psz_error NULL if no error occurred; otherwise, a pointer to the
+  *                  error string.
+  *  \return True if a character or variable was received. True also implies that
+  *          pu16_index is valid.
+  */
+BOOL receiveVar(char c_in, char* pc_out, uint16_t* pu16_index,
+                uint64_t u64_timeMs, char** psz_error);
 #endif
 
 
