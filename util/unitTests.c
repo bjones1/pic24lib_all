@@ -774,16 +774,17 @@ void testSpecifyLongFormat() {
   // Dummy buffer to hold variable data
   uint8_t au8_buf[1];
   // Expected transmission
-  uint8_t au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
-                                255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */
+  uint8_t au8_data[5 + 255] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
+                                255 /* length of rest - 1 */, 0 /* var size - 1 */,
+                                /* format string -- filled in below */
                               };
   uint u_i;
-  for (u_i = 5; u_i < 5 + 256; u_i++)
+  for (u_i = 5; u_i < 5 + 255; u_i++)
     au8_data[u_i] = ' ';
 
   // Test it out
   au8_outCharData = au8_data;
-  st_outCharLen = 5 + 256;
+  st_outCharLen = 4 + 256;
   specifyVar(0 /* u_varIndex */, au8_buf, 1 /* u_size */,
              FALSE /* b_isWriteable */, // a looong format string
              "                                                                                "
@@ -791,7 +792,7 @@ void testSpecifyLongFormat() {
              "                                                                                "
              "                                                                                "
              "                                                                                ",
-             "", "");
+             "" /* name */, "" /* description */);
   ASSERT(st_outCharIndex == st_outCharLen);
   // Make sure data structure was updated
   ASSERT(xferVar[0].pu8_data == au8_buf);
@@ -805,24 +806,26 @@ void testSpecifyLongName() {
   // Dummy buffer to hold variable data
   uint8_t au8_buf[1];
   // Expected transmission
-  uint8_t au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
-                                255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */ 0
+  uint8_t au8_data[6 + 254] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
+                                255 /* length of rest - 1 */, 0 /* var size - 1 */,
+				0 /* empty format string */,
+				/* name -- filled in below */
                               };
   uint u_i;
-  for (u_i = 6; u_i < 6 + 256; u_i++)
+  for (u_i = 6; u_i < 6 + 254; u_i++)
     au8_data[u_i] = ' ';
 
   // Test it out
   au8_outCharData = au8_data;
-  st_outCharLen = 5 + 256;
+  st_outCharLen = 4 + 256;
   specifyVar(0 /* u_varIndex */, au8_buf, 1 /* u_size */,
-             FALSE /* b_isWriteable */, "", // a looong name string
+             FALSE /* b_isWriteable */, "" /* format */, // a looong name string
              "                                                                                "
              "                                                                                "
              "                                                                                "
              "                                                                                "
              "                                                                                ",
-             "");
+             "" /* description */);
   ASSERT(st_outCharIndex == st_outCharLen);
   // Make sure data structure was updated
   ASSERT(xferVar[0].pu8_data == au8_buf);
@@ -836,18 +839,21 @@ void testSpecifyLongDesc() {
   // Dummy buffer to hold variable data
   uint8_t au8_buf[1];
   // Expected transmission
-  uint8_t au8_data[5 + 256] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
-                                255 /* length of rest - 1 */, /* var size - 1 */ 0, /* data -- filled in below */ 0, 0
+  uint8_t au8_data[7 + 253] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
+                                255 /* length of rest - 1 */, 0 /* var size - 1 */,
+				/* empty format string */ 0, /* empty name string */ 0,
+				/* description -- filled in below */
                               };
   uint u_i;
-  for (u_i = 7; u_i < 7 + 256; u_i++)
+  for (u_i = 7; u_i < 7 + 253; u_i++)
     au8_data[u_i] = ' ';
 
   // Test it out
   au8_outCharData = au8_data;
-  st_outCharLen = 5 + 256;
+  st_outCharLen = 4 + 256;
   specifyVar(0 /* u_varIndex */, au8_buf, 1 /* u_size */,
-             FALSE /* b_isWriteable */, "", "", // a looong description string
+             FALSE /* b_isWriteable */, "" /* format */, "" /* name */,
+	     // a looong description string
              "                                                                                "
              "                                                                                "
              "                                                                                "

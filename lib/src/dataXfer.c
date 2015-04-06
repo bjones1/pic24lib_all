@@ -52,24 +52,26 @@ specifyVar(uint u_varIndex, volatile void* pv_data, uint u_size,
   // Include the space taken by the three NULL characters, minus one since a
   // length of 1 is sent as 0, plus one for the variable size byte.
   u_len = strlen(psz_format) + strlen(psz_name) + strlen(psz_desc) + 3 - 1 + 1;
-  // Allow a maximum string length of 255.
+  // Allow a maximum data length of 256. Cap at 255, since all lengths are
+  // (actual length - 1).
   outCharXfer(u_len <= UINT8_MAX ? u_len : UINT8_MAX);
 
   // Send the size of this variable, minus 1 since a size of 1 is sent as a 0.
   outCharXfer(u_size - 1);
 
-  // Send the strings
-  u_len = 1;
+  // Send the strings; do not send more than 255 chars (the size just sent makes
+  // the 256th character, the maximum length).
+  u_len = 0;
   do {
-    if (u_len++ > 256) return;
+    if (++u_len > UINT8_MAX) return;
     outCharXfer(*psz_format);
   } while (*psz_format++);
   do {
-    if (u_len++ > 256) return;
+    if (++u_len > UINT8_MAX) return;
     outCharXfer(*psz_name);
   } while (*psz_name++);
   do {
-    if (u_len++ > 256) return;
+    if (++u_len > UINT8_MAX) return;
     outCharXfer(*psz_desc);
   } while (*psz_desc++);
 }
