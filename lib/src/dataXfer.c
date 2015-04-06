@@ -115,7 +115,7 @@ sendVar(uint u_varIndex) {
   pu8_data = pXferVar->pu8_data;
   do {
     outCharXfer(*pu8_data++);
-  } while (--u8_size);
+  } while (u8_size--);
 }
 
 //@}
