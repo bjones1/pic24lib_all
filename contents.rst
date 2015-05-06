@@ -6,8 +6,4 @@ Table of Contents
    textbook_examples
    utilities
 
-Indices and tables
-------------------
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+:ref:`search`
