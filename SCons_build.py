@@ -41,7 +41,7 @@ import os
 Import('buildTargets env bin2hex')
 
 ## Inform SCons about the dependencies in the template-based files
-SConscript('templates/SConscript', 'env')
+SConscript('templates/SConscript.py', 'env')
 
 
 # Common sources used for the PIC24 support library
