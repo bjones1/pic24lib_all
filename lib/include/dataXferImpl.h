@@ -187,11 +187,11 @@ extern "C" {
 // @}
 
 /// An abbreviation for an unsigned integer.
-typedef unsigned int uint;
+  typedef unsigned int uint;
 
 #ifndef MICROCONTROLLER
 /// An abbreviation for an 8-bit unsigned integer.
-typedef unsigned char uint8_t;
+  typedef unsigned char uint8_t;
 #endif
 
 

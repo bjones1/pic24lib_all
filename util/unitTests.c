@@ -747,8 +747,8 @@ void testSpecifyNullData() {
 
 // Specify with an invalid size
 void testSpecifyInvalidSize() {
-    // Dummy buffer to hold variable data. Initialize it to something to
-    // avoid "unreferenced local variable" warnings.
+  // Dummy buffer to hold variable data. Initialize it to something to
+  // avoid "unreferenced local variable" warnings.
   uint8_t au8_buf[1] = {0};
   REQUIRE_ASSERT(specifyVar(0, au8_buf, 0, TRUE, "", "", ""),
                  "specifyVar:invalidSize");
@@ -816,8 +816,8 @@ void testSpecifyLongName() {
   // Expected transmission
   uint8_t au8_data[6 + 254] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
                                 255 /* length of rest - 1 */, 0 /* var size - 1 */,
-				0 /* empty format string */,
-				/* name -- filled in below */
+                                0 /* empty format string */,
+                                /* name -- filled in below */
                               };
   uint u_i;
   for (u_i = 6; u_i < 6 + 254; u_i++)
@@ -849,8 +849,8 @@ void testSpecifyLongDesc() {
   // Expected transmission
   uint8_t au8_data[7 + 253] = { CMD_TOKEN, CMD_SEND_ONLY, 0 /* u_varIndex */,
                                 255 /* length of rest - 1 */, 0 /* var size - 1 */,
-				/* empty format string */ 0, /* empty name string */ 0,
-				/* description -- filled in below */
+                                /* empty format string */ 0, /* empty name string */ 0,
+                                /* description -- filled in below */
                               };
   uint u_i;
   for (u_i = 7; u_i < 7 + 253; u_i++)
@@ -861,7 +861,7 @@ void testSpecifyLongDesc() {
   st_outCharLen = 4 + 256;
   specifyVar(0 /* u_varIndex */, au8_buf, 1 /* u_size */,
              FALSE /* b_isWriteable */, "" /* format */, "" /* name */,
-	     // a looong description string
+             // a looong description string
              "                                                                                "
              "                                                                                "
              "                                                                                "
