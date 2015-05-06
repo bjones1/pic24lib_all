@@ -142,8 +142,7 @@ master_doc = 'contents'
 # directories to ignore when looking for source files. **CodeChat note:** By
 # default, Enki will instruct Sphinx to place all Sphinx output in ``_build``;
 # this directory should therefore be excluded from the list of source files.
-exclude_patterns = ['.hg',
-                    '_build',
+exclude_patterns = ['_build',
                     'bin',
                     'build',
                     'docs',
