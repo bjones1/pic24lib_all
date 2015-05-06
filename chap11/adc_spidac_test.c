@@ -77,7 +77,8 @@ void writeDAC (uint8_t dacval) {
   SLAVE_DISABLE();
 }
 
-#define VREF 3.3  //assume Vref = 3.3 volts
+// assume Vref = 3.3 volts
+#define VREF (3.3)
 
 int main (void) {
   uint16_t u16_adcVal;
