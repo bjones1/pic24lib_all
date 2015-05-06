@@ -27,11 +27,7 @@ templates/data_sheet_to_csv.csv
 templates/pic24_devices_combined.csv
 # CodeChat files
 _build/
-*.py.rst
-*.c.rst
-*.h.rst
-*.s.rst
-*.bat.rst
+sphinx-enki-info.txt
 docs/sphinx/
 # Temporary stuff (output of pyinstaller)
 templates/dist/

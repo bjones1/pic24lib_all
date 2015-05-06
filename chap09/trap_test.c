@@ -26,7 +26,7 @@
 // ******************************************************************
 // trap_test.c - Code which causes a math error (divide by zero) trap
 // ******************************************************************
-// Perform a divide by 0. Because there is no handler defined for the math error trap, the \ref _DefaultInterrupt will catch it and report an error.  Code in :doc:`trap_test_handled.c <trap_test_handled.c>` gives an example of an ISR that handles this trap.
+// Perform a divide by 0. Because there is no handler defined for the math error trap, the ``_DefaultInterrupt`` will catch it and report an error.  Code in :doc:`trap_test_handled.c <trap_test_handled>` gives an example of an ISR that handles this trap.
 
 #include "pic24_all.h"
 

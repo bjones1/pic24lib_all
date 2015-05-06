@@ -34,14 +34,14 @@
 # - buildTargets: a list of strings specifying what to build
 #   (see if statements toward the end of this file).
 #
-# This file delegates to :doc:`templates/SConscript.py` to build all
+# This file delegates to :doc:`templates/SConscript` to build all
 # templates.
 
 import os
 Import('buildTargets env bin2hex')
 
 ## Inform SCons about the dependencies in the template-based files
-SConscript('templates/SConscript.py', 'env')
+SConscript('templates/SConscript', 'env')
 
 
 # Common sources used for the PIC24 support library

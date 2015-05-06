@@ -27,7 +27,7 @@
 // spi_master_revstring.c - SPI master uses slave to reverse strings
 // *****************************************************************
 // SPI example: PIC24 uC in Master mode talking to a PIC24 uC in slave mode, using
-// the slave PIC24 uC (:doc:`spi_slave_revstring.c`) to reverse strings. The master
+// the slave PIC24 uC (:doc:`spi_slave_revstring`) to reverse strings. The master
 // expects the slave to assert a PIO output (SLAVE_ORDY in code) when a string
 // has been reversed; the master then reads the string from the slave.
 

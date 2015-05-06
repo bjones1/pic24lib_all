@@ -41,7 +41,7 @@
 #  #. From the command line, change to the directory in which
 #     this file lies.
 #  #. Execute ``SCons``, which builds everything. Optionally use
-#     :doc:`runscons.bat <runscons.bat>` to filter through the resulting warnings.
+#     :doc:`runscons.bat <runscons>` to filter through the resulting warnings.
 #
 #  The build process can be modified by passing options to
 #  SCons. See ``SCons --help`` for options specific
@@ -198,10 +198,10 @@ if 'zipit' in COMMAND_LINE_TARGETS:
 
 # Library builds
 # ==============
-# Call :doc:`SCons_build.py` with a specific buildTargets value. It create a variant build
+# Call :doc:`SCons_build` with a specific buildTargets value. It create a variant build
 # named ``hardware_platform _ MCU _ clock``.
 def buildTargetsSConscript(
-  # A list of library targets to build, as defined in :doc:`SCons_build.py`.
+  # A list of library targets to build, as defined in :doc:`SCons_build`.
   buildTargets,
   # The Environment to use for building. Use ``env.Clone(MCU='blah', CPPDEFINES='blah'``
   # to choose a MCU, clock, and hardware platform as desired.
@@ -308,7 +308,7 @@ buildTargetsSConscript(['reset'],
 
 # Bootloader builds
 # =================
-# Call :doc:`SCons_bootloader.py` with a specific Environment. It creates a variant build
+# Call :doc:`SCons_bootloader` with a specific Environment. It creates a variant build
 # named ``default_bootloader _ MCU``.
 def buildTargetsBootloader(
   # The build environment to use. Typically ``env``, though a ``env.Clone``

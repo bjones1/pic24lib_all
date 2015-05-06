@@ -17,7 +17,7 @@
 ; *************************************************************
 ; mptst_byte.s - translation of 8-bit *C* aritmetic to assembly
 ; *************************************************************
-; Like :doc:`mptst_word.s`, this file demonstrates translating a *C* program into assembly; however, this *C* project uses 8-bit, rather than 16-bit, values.
+; Like :doc:`mptst_word`, this file demonstrates translating a *C* program into assembly; however, this *C* project uses 8-bit, rather than 16-bit, values.
 ;
 ; .. code-block:: c
 ;    :linenos:
