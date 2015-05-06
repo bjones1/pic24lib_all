@@ -1,3 +1,7 @@
+// ********************************************
+// mem.c - Read/write the PIC's program memory.
+// ********************************************
+
 #include <xc.h>
 
 typedef short          Word16;

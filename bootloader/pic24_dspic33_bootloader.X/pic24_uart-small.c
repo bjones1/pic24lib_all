@@ -27,6 +27,10 @@
  *
  */
 
+// **********************************************************************************
+// pic24_uart-small.c - Slimmed-down version of pic24_lib.c to fit in the bootloader.
+// **********************************************************************************
+
 #include <libpic30.h>
 #include <stdint.h>
 #include "pic24_uart.h"

@@ -31,7 +31,7 @@ The utilities below provide support for library development and maintenance.
 
 Build tools
 ===========
-`SCons <http://www.scons.org/>`_ provides automated library building and testing.Capabilities include:
+`SCons <http://www.scons.org/>`_ provides automated library building and testing. Capabilities include:
 
 .. toctree::
    :titlesonly:
@@ -39,7 +39,18 @@ Build tools
    runAStyle.bat
    runscons.bat
    SConstruct.py
+   
+Bootloader
+==========
+The bootloader allows the PIC to be programmed from the serial port. It's based around Microchip's :download:`AN1094 <bootloader/AN1094 - Bootloader for dsPIC30F,33F and PIC24F,24H Devices (01094a).pdf>`.
 
+.. toctree::
+   :titlesonly:
+
+   bootloader/pic24_dspic33_bootloader.X/main.c
+   bootloader/pic24_dspic33_bootloader.X/mem.c
+   bootloader/pic24_dspic33_bootloader.X/pic24_uart-small.c
+   bootloader/pic24_dspic33_bootloader.X/pic24_uart-small.h
 
 Code generation tools
 =====================

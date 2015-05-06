@@ -1,3 +1,7 @@
+// **********************************
+// main.c - PIC Bootloader core code.
+// **********************************
+
 /** This has been modified from the original source
 provided by Microchip. It now works with both the PIC24H
 and PIC24F families.
@@ -17,8 +21,8 @@ Modifications by R. Reese (reese@ece.msstate.edu).
 * Software License Agreement
 *
 * The software supplied herewith by Microchip Technology Incorporated
-* (the “Company”) for its PICmicro® Microcontroller is intended and
-* supplied to you, the Company’s customer, for use solely and
+* (the "Company") for its PICmicro (C) Microcontroller is intended and
+* supplied to you, the Company's customer, for use solely and
 * exclusively on Microchip PICmicro Microcontroller products. The
 * software is owned by the Company and/or its supplier, and is
 * protected under applicable copyright laws. All rights are reserved.
@@ -27,7 +31,7 @@ Modifications by R. Reese (reese@ece.msstate.edu).
 * civil liability for the breach of the terms and conditions of this
 * license.
 *
-* THIS SOFTWARE IS PROVIDED IN AN “AS IS” CONDITION. NO WARRANTIES,
+* THIS SOFTWARE IS PROVIDED IN AN "AS IS" CONDITION. NO WARRANTIES,
 * WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED
 * TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
 * PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. THE COMPANY SHALL NOT,
@@ -71,7 +75,7 @@ TO 0x400!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #define INSTR_PER_ROW 32   //number of instructions per row
 #define PM_ROW_SIZE INSTR_PER_ROW * 4   //maximum instructions transferred to RAM for programming
-#define PM_ERASE_SIZE INSTR_PER_ROW*4   //can only 
+#define PM_ERASE_SIZE INSTR_PER_ROW*4   //can only
 
 #elif (defined(__PIC24HJ12GP202__) || defined(__PIC24HJ12GP201__) )
 
@@ -87,7 +91,7 @@ and we need to do a fresh erase. If the address
 is evenly divisible by 1536, then do an erase.
 */
 #define INSTR_PER_ROW 64   //number of instructions per row
-#define PM_ROW_SIZE INSTR_PER_ROW * 4     //number of instructions transferred to RAM to be programmed 
+#define PM_ROW_SIZE INSTR_PER_ROW * 4     //number of instructions transferred to RAM to be programmed
 #define PM_ERASE_SIZE INSTR_PER_ROW*8     //erases a full page, but RAM can only hold 1/2 page
 #elif ( defined(__PIC24E__) || defined(__dsPIC33E__))
 #define INSTR_PER_ROW 2   //number of instructions per row
@@ -122,7 +126,7 @@ is evenly divisible by 1536, then do an erase.
 #define PM_ROW_ERASE   0x4042 //erase entire page (8 rows)
 #define PM_ROW_WRITE   0x4001 //write 1 row
 #elif (defined(__PIC24E__) || defined(__dsPIC33E__))
-#define PM_ROW_ERASE   0x4003 //erase entire page 
+#define PM_ROW_ERASE   0x4003 //erase entire page
 #define PM_ROW_WRITE   0x4001 //write double word
 #else
 #error "This family is not supported by bootloader."
@@ -517,6 +521,4 @@ void WritePM(char * ptrData, uReg32 SourceAddr) {
 
 
 /******************************************************************************/
-
-
 

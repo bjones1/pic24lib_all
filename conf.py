@@ -144,10 +144,7 @@ master_doc = 'contents'
 # this directory should therefore be excluded from the list of source files.
 exclude_patterns = ['.hg',
                     '_build',
-                    'appg',
-                    'asee_*',
                     'bin',
-                    'bootloader',
                     'build',
                     'docs',
                     'esos',

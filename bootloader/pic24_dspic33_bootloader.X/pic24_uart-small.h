@@ -1,7 +1,6 @@
-/*
-Header file that includes all pic24*.h files
-*/
-
+// **********************************************************************************
+// pic24_uart-small.h - Slimmed-down version of pic24_lib.h to fit in the bootloader.
+// **********************************************************************************
 
 #pragma once
 
@@ -44,4 +43,3 @@ Header file that includes all pic24*.h files
 # error "DEFAULT_UART value invalid."
 
 #endif
-
