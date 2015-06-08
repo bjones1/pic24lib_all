@@ -173,7 +173,7 @@ void clearReceiveMachineError() {
 #ifndef MICROCONTROLLER
 /** Free memory associted with a variable.
  *
- *  \param u_varIndex    A value from 0-\ref NUM_XFER_VARS, unique for each var.
+ *  \param u_index    A value from 0-\ref NUM_XFER_VARS, unique for each var.
  */
 static void freeVariable(uint u_index) {
   if (xferVar[u_index].pu8_data != NULL) {
