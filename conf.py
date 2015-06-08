@@ -28,7 +28,7 @@
 #
 import sys, os
 import sphinx
-from CodeChat.LanguageSpecificOptions import LanguageSpecificOptions
+import CodeChat.CodeToRestSphinx
 
 # If extensions (or modules to document with autodoc) are in another directory, add these directories to sys.path here. If the directory is relative to the documentation root, use os.path.abspath to make it absolute, as shown here.
 ##sys.path.insert(0, os.path.abspath('.'))
@@ -120,7 +120,7 @@ try:
     # Make source_suffix a list if it isn't already.
     if not isinstance(source_suffix, list):
         source_suffix = [source_suffix]
-    source_suffix += LanguageSpecificOptions.extension_to_options.keys()
+    source_suffix += CodeChat.CodeToRestSphinx.SUPPORTED_EXTENSIONS
 except:
     pass
 
@@ -201,9 +201,8 @@ html_theme = 'alabaster'
 
 # `html_theme_options <http://sphinx-doc.org/config.html#confval-html_theme_options>`_:
 # Theme options are theme-specific and customize the look and feel of a theme
-# further. **CodeChat note:** Enki shows code next to HTML output; including the
-# sidebar wastes valuable space. Turn this off by default.
-html_theme_options = { "nosidebar" : "true" }
+# further.
+##html_theme_options = {}
 
 # `html_style <http://sphinx-doc.org/config.html#confval-html_style>`_: The
 # style sheet to use for HTML pages.
