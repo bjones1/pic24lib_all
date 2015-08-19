@@ -159,7 +159,7 @@ if dict['BOOTLDR'] != 'msu':
 #  1  3533        0:58:53           1
 # ==  ==========  ===============  ============
 
-env.SetOption('num_jobs', psutil.NUM_CPUS*4)
+env.SetOption('num_jobs', psutil.cpu_count()*4)
 print("Running with -j %d." % GetOption('num_jobs'))
 
 # generate some command line help for our custom options
@@ -266,7 +266,7 @@ buildTargetsSConscript(['chap08', 'chap09', 'chap10', 'chap12',
 buildTargetsSConscript(['chap08', 'chap09', 'chap13'],
   env.Clone(MCU='33EP128GP504', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_C1'), 'embeddedC1')
 
-# Build some for the CAN2 rev.F14 board used in ECE4723 Embedded Systems
+# Build some selected chapter applications for the CAN2 rev.F14 board used in ECE4723 Embedded Systems
 buildTargetsSConscript(['chap08', 'chap09'],
   env.Clone(MCU='33EP512GP806', CPPDEFINES='HARDWARE_PLATFORM=EMBEDDED_F14'), 'embeddedF14')
 
