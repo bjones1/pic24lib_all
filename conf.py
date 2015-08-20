@@ -124,6 +124,11 @@ try:
 except:
     pass
 
+# CodeChat: A dict of {glob, lexer_alias}, which uses lexer_alias to analyze
+# any file wihch matches the given glob.
+CodeChat_lexer_for_glob = {'*.s' : 'NASM',
+                           'CodeChat.css' : 'CSS'}
+
 # `source_encoding <http://sphinx-doc.org/config.html#confval-source_encoding>`_:
 # The encoding of source files.
 ##source_encoding = 'utf-8-sig'
