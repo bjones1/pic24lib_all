@@ -21,6 +21,7 @@ hex/
 *.X/nbproject/Makefile-local-default.mk
 *.X/nbproject/Makefile-variables.mk
 *.X/nbproject/Package-default.bash
+*.X/nbproject/Makefile-genesis.properties
 # Python files
 *.pyc
 templates/data_sheet_to_csv.csv
@@ -33,9 +34,4 @@ docs/sphinx/
 templates/dist/
 templates/build/
 templates/data_sheet_to_csv.spec
-# MSVC++
-*/Release/
-*/Debug/
-*.user
-*.ncb
-*.suo
+
