@@ -83,9 +83,6 @@ void _ISRFAST _T1Interrupt (void) {
 * count is consistent.
 ********************************************************/
 void    __esos_hw_InitSystemTick(void) {
-  // a local copy of OSCCON register to manipulate
-  OSCCONBITS        OSCCONBITS_copy;
-
   // FOR NOW, we will init our usual PIC24 development setup here.
   //  THIS REALLY DOESN'T BELONG HERE!!!!!!!
   configClock();                //config clock
@@ -109,6 +106,8 @@ void    __esos_hw_InitSystemTick(void) {
    *      Not exactly 1ms tick (but neither is the
    *      instruction clock version)
    ********************************************************/
+  // a local copy of OSCCON register to manipulate
+  OSCCONBITS        OSCCONBITS_copy;
   asm("DISI #0x3FFF"); // Disable interrupts for a long time
   OSCCONBITS_copy = OSCCONbits;        // Copy OSCCON register bits
   OSCCONBITS_copy.LPOSCEN = 1;         // ENABLE secondary oscillator
