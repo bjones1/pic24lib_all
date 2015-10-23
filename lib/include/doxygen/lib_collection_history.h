@@ -34,6 +34,9 @@
 \page history History and release notes for this library collection.
 
 Next release:
+- No changes yet.
+
+23-Oct-2015 (6b0cc69cc70a):
 - Switch to new bootloader based on Qt.
 - dataXfer protocol updates for the new bootloader.
 - Docs updated to new Sphinx theme.
