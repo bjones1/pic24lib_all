@@ -29,6 +29,13 @@ Utilities
 *********
 The utilities below provide support for library development and maintenance.
 
+:doc:`pic24H_pic24E_differences` explains the approach used to create a library which builds on both E and H families.
+
+.. toctree::
+   :hidden:
+
+   pic24H_pic24E_differences.rst
+
 Build tools
 ===========
 `SCons <http://www.scons.org/>`_ provides automated library building and testing. Capabilities include:
@@ -39,7 +46,7 @@ Build tools
    runAStyle.bat
    runscons.bat
    SConstruct.py
-   
+
 Bootloader
 ==========
 The bootloader allows the PIC to be programmed from the serial port. It's based around Microchip's :download:`AN1094 <bootloader/AN1094 - Bootloader for dsPIC30F,33F and PIC24F,24H Devices (01094a).pdf>`.
@@ -85,3 +92,5 @@ The following programs provide some unit testing of various libary-related routi
    util/test_ports.X/test_ports.c
    util/unitTests.c
    util/unittest_rounding.c
+
+
