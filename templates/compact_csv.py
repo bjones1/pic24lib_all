@@ -23,10 +23,12 @@
 #    Please maintain this header in its entirety when copying/modifying
 #    these files.
 #
+# .. highlight:: Python
+#
 # **********************************************************************
 # compect_csv.py - Group all processors with identical mappings together
 # **********************************************************************
-
+#
 # From https://gist.github.com/samuraisam/901117
 # ==============================================
 import datetime, time, functools, operator, types

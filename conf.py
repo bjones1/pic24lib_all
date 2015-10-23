@@ -127,7 +127,8 @@ except:
 # CodeChat: A dict of {glob, lexer_alias}, which uses lexer_alias to analyze
 # any file wihch matches the given glob.
 CodeChat_lexer_for_glob = {'*.s' : 'NASM',
-                           'CodeChat.css' : 'CSS'}
+                           '*.pl' : 'Perl',
+                          }
 
 # `source_encoding <http://sphinx-doc.org/config.html#confval-source_encoding>`_:
 # The encoding of source files.

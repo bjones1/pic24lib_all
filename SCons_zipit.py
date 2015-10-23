@@ -23,6 +23,8 @@
 #    Please maintain this header in its entirety when copying/modifying
 #    these files.
 #
+# .. highlight:: Python
+#
 # ***************************************************************
 # SCons_zipit.py - Build docs then create a .zip for distribution
 # ***************************************************************

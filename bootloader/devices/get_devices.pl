@@ -1,5 +1,8 @@
-
-
+# .. highlight:: Perl
+#
+# **************
+# get_devices.pl
+# **************
 
 while (<STDIN>) {
  chop;
@@ -10,8 +13,8 @@ while (<STDIN>) {
  if (@words > 1) {
    if ($words[0] eq "#include") {
      print "$words[1]\n";
-   
+
      }
  }
- 
+
 }

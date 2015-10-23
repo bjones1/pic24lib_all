@@ -23,6 +23,8 @@
 #    Please maintain this header in its entirety when copying/modifying
 #    these files.
 #
+# .. highlight:: Python
+#
 # ************************************************
 # SConscript.py - Build source files from template
 # ************************************************

@@ -1,3 +1,9 @@
+# .. highlight:: Perl
+#
+# *********************
+# parse_pickit2_data.pl
+# *********************
+
 #parse dev id
 
 
@@ -19,22 +25,22 @@ $offset = 0x0520;  #starting offset
 while ($offset < $bufsize) {
 #look for "PIC"
 #printf("%x\n",$buf[$offset]);
- 
+
  if ( (($buf[$offset] == 0x50) &&($buf[$offset+1] == 0x49) && ($buf[$offset+2] == 0x43)) ||
       (($buf[$offset] == 0x64) &&($buf[$offset+1] == 0x73))
       ) {
 	 $len = $buf[$offset-1];
 	 $devname = "";
-	 for ($k=0;$k<$len;$k++){	   
+	 for ($k=0;$k<$len;$k++){
 	  $devname = $devname . chr($buf[$offset+$k]);
 	 }
 	 $devid = $buf[$offset+$len+2] + $buf[$offset+$len+3]*256;
-	 
+
 	 printf("$devname  %04x\n",$devid);
-	 $offset = $offset + $len + 4;	 
+	 $offset = $offset + $len + 4;
   } else {
    $offset = $offset + 1;
-  } 
+  }
   if ( ($buf[$offset] == 0x48) &&($buf[$offset+1] == 0x56) && ($buf[$offset+2] == 0x50)
         && ($buf[$offset+3] == 0x72) && ($buf[$offset+4] == 0x6f)) {
 		last;

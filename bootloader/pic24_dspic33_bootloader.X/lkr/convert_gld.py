@@ -1,4 +1,9 @@
-#convert GLD files
+# .. highlight:: Python
+#
+# **************
+# convert_gld.py
+# **************
+# convert GLD files
 
 import os, sys, string
 

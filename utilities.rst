@@ -52,6 +52,17 @@ The bootloader allows the PIC to be programmed from the serial port. It's based 
    bootloader/pic24_dspic33_bootloader.X/pic24_uart-small.c
    bootloader/pic24_dspic33_bootloader.X/pic24_uart-small.h
 
+Bootloader support
+------------------
+These utilities help create files needed by the bootloader, or linker files for use with the bootloader.
+
+.. toctree::
+   :titlesonly:
+
+   bootloader/devices/get_devices.pl
+   bootloader/devices/parse_pickit2_data.pl
+   bootloader/pic24_dspic33_bootloader.X/lkr/convert_gld.py
+
 Code generation tools
 =====================
 The files below assist in generating and maintaining a mapping between the Rxy pins on a PIC and its associated CNm, ANn pins for many processors.

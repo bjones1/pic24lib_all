@@ -23,6 +23,8 @@
 #    Please maintain this header in its entirety when copying/modifying
 #    these files.
 #
+# .. highlight:: Python
+#
 # *****************************************************************************************
 # data_sheet_to_csv.py - GUI to assist in translating Microchip data sheets to pin mappings
 # *****************************************************************************************
