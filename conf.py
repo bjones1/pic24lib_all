@@ -157,6 +157,7 @@ exclude_patterns = ['_build',
                     'lib',
                     'misc',
                     'conf.py',
+                    'CodeChat.css',
                     # Used only for SCons build
                     'chap10/reverse_string1.c',
                     'chap13/i2c_multmaster_rstring1.c',
@@ -164,6 +165,8 @@ exclude_patterns = ['_build',
                     '**.X/build',
                     '**.X/dist',
                     '**.X/nbproject',
+                    '*.bash',
+                    '*.mk',
                     # Ignore Mercurial's repo. Not doing this makes the build *much* slower.
                     '.hg',
                     # When authoring, optionally disable subdirectories to speed
