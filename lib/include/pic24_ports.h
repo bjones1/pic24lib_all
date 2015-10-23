@@ -375,14 +375,14 @@
 /// see <a href="#remappableInputs">remappable peripheral input support</a>
 /// for more informatino.
 #if defined(_C1RXR) || defined(__DOXYGEN__)
-#define CONFIG_C1RXR_TO_RP(pin) _C1RXR = pin
+#define CONFIG_C1RX_TO_RP(pin) _C1RXR = pin
 #endif
 
 /// Maps C2RX to a remappable pin;
 /// see <a href="#remappableInputs">remappable peripheral input support</a>
 /// for more informatino.
 #if defined(_C2RXR) || defined(__DOXYGEN__)
-#define CONFIG_C2RXR_TO_RP(pin) _C2RXR = pin
+#define CONFIG_C2RX_TO_RP(pin) _C2RXR = pin
 #endif
 
 /// \todo More mappings, starting with U3RX for the dsPIC33E.
