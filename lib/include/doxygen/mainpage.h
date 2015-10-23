@@ -48,11 +48,9 @@ The latest version of this document is located
 Welcome to the PIC24 library collection! These downloadable libraries are
 available in two versions:
 - The <a href="http://www.ece.msstate.edu/courses/ece3724/main_pic24/labs/files/pic24_code_examples.zip">latest version</a>
-  that uses MPLAB X and is currently in flux as of August 2013 as it is being
-  modified for a second edition of the textbook. The base device for projects in
+  that uses MPLAB X and to support the second edition of the textbook. The base device for projects in
   this library is the dsPIC33EP128GP502 (which is pin and function compatible
-  with the PIC24EP128GP202). Modifications to this library will be completed by
-  May 2014.
+  with the PIC24EP128GP202).
 - A <a href="http://www.ece.msstate.edu/courses/ece3724/main_pic24/labs/files/pic24_code_examples_mplab8.zip">frozen version</a>
   consisting of the last library snapshot before the move to MPLAB X; this
   version uses MPLAB 8 and matches what is in the first edition of the textbook
