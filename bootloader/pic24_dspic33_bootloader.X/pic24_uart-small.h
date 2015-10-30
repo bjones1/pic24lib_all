@@ -1,6 +1,6 @@
-// **********************************************************************************
-// pic24_uart-small.h - Slimmed-down version of pic24_lib.h to fit in the bootloader.
-// **********************************************************************************
+// ************************************************************************************
+// pic24_uart-small.h - Headers for bare minimum UART functionality for the bootloader.
+// ************************************************************************************
 
 #pragma once
 
@@ -38,8 +38,8 @@
 # define DEFAULT_UART_UTXBF U4STAbits.UTXBF
 # define DEFAULT_UART_TXREG U4TXREG
 
-
 #else
+
 # error "DEFAULT_UART value invalid."
 
 #endif
