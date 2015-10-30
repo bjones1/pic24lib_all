@@ -27,9 +27,9 @@
  *
  */
 
-// **********************************************************************************
-// pic24_uart-small.c - Slimmed-down version of pic24_lib.c to fit in the bootloader.
-// **********************************************************************************
+// *****************************************************************************************
+// pic24_lib-small.c - Slimmed-down version of two pic24 libraries to fit in the bootloader.
+// *****************************************************************************************
 
 #include <libpic30.h>
 #include <stdint.h>
@@ -40,6 +40,7 @@
 // of pic24_util.c.
 void doHeartbeat(void) {
 }
+
 
 // Copied from the pic24_util.c, the _NOFLOAT version, but with ASSERTs removed.
 uint16_t compute_brg(uint32_t u32_fcy, uint16_t u16_brgh, uint32_t u32_baudrate) {
@@ -63,8 +64,7 @@ uint16_t compute_brg(uint32_t u32_fcy, uint16_t u16_brgh, uint32_t u32_baudrate)
 }
 
 
-
-// Text below copied and pasted from portions of pic24_uart.c.
+// Text below copied and pasted from portions of pic24_serial.c.
 /** Configures a UART based compiler setting of DEFAULT_UART
  *  and sets __C30_UART to the default UART.
  *  If you want to configure a different UART, then call the configUARTx function explicitly.
