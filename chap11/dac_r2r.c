@@ -174,6 +174,8 @@ void configDAC(void) {
 }
 
 void writeDAC(uint16_t u16_x, uint16_t u16_y) {
+  UNUSED(u16_y);
+  
   MAX5353_ENABLE();                 //assert chipselect
   //write DAC B data (with command bits and sub-bit cleared)
   ioMasterSPI1((u16_x>>3) & MAX5353_CMD_ANDMASK);
