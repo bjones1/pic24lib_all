@@ -2,7 +2,7 @@
 // mem.c - Read/write the PIC's program memory.
 // ********************************************
 
-#include <xc.h>
+#include "pic24_util.h"
 
 typedef short          Word16;
 typedef unsigned short UWord16;
@@ -11,9 +11,6 @@ typedef unsigned long  UWord32;
 
 //write these in C so that can use the
 //__PIC24H__, __PIC24F__ defines.
-
-// This macro suppressed the "unused parameter" warnings.
-#define UNUSED(x) (void)(x)
 
 void WriteMem(UWord16 val) {
   UNUSED(val);

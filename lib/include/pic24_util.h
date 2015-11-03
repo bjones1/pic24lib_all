@@ -59,6 +59,10 @@
 #define BITS2BYTEH(sfrBitfield) ( ((uint8_t*)  &sfrBitfield)[1] )
 //@}
 
+// This macro suppresses "unused parameter" warnings.
+#define UNUSED(x) (void)(x)
+
+
 /** Report an error on reset via \ref reportError,
  *  also printing the file and
  *  line number where this macro was called via
