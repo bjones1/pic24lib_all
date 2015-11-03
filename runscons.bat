@@ -76,7 +76,7 @@ REM
 REM Work around compiler warnings I can't figure out how to suppress
 REM ================================================================
 findstr > err3.txt /V ^
-/C:"\bootloader\pic24_dspic33_bootloader.X\mem.c:106:1: warning: control reaches end of non-void function" ^
+/C:"\bootloader\pic24_dspic33_bootloader.X\mem.c:119:1: warning: control reaches end of non-void function" ^
 /C:"warning: Taking the address of '" ^
 err2.txt
 REM
