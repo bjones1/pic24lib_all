@@ -34,7 +34,11 @@
 \page history History and release notes for this library collection.
 
 Next release:
-- No changes yet.
+- Added the UNUSED macro to pic24_util.h.
+- ESOS build fixes.
+- Clarifed bootloader source file naming.
+- Cleanup of unnecessary warnings during scons builds.
+- Additional 40 MHz clocks now supported by the ECAN module.
 
 23-Oct-2015 (6b0cc69cc70a):
 - Switch to new bootloader based on Qt.
@@ -178,5 +182,5 @@ provide a full description. Just a few highlights:
 - Ran astyle, moving the files to unix-style line ends.
 - Added this history file.
 
-Previous to this, history resided in SVN / HG. Sigh.
+Previous to this, history resided in SVN. Sigh.
 */
