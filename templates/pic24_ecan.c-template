@@ -120,8 +120,8 @@ void configBaudECAN${x}(void) {
 #endif
 
 // These need to be reverified! - rnn13
-#if (FCY == GET_FCY(FRCPLL_FCY40MHz))  ||
-    (FCY == GET_FCY(PRIPLL_7372KHzCrystal_40MHzFCY)) ||
+#if (FCY == GET_FCY(FRCPLL_FCY40MHz))  || \
+    (FCY == GET_FCY(PRIPLL_7372KHzCrystal_40MHzFCY)) || \
     (FCY == GET_FCY(PRIPLL_8MHzCrystal_40MHzFCY))
   // Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B,
   // Example 21-9). Produces data rate of 1 Mbps assuming FCY = 40 MHz,

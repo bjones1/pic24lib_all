@@ -119,7 +119,10 @@ void configBaudECAN1(void) {
   C1CTRL1bits.CANCKS = ECAN_FCAN_IS_FP;
 #endif
 
-#if FCY == GET_FCY(FRCPLL_FCY40MHz) // <- This needs to be reverified! - rnn13
+// These need to be reverified! - rnn13
+#if (FCY == GET_FCY(FRCPLL_FCY40MHz))  || \
+    (FCY == GET_FCY(PRIPLL_7372KHzCrystal_40MHzFCY)) || \
+    (FCY == GET_FCY(PRIPLL_8MHzCrystal_40MHzFCY))
   // Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B,
   // Example 21-9). Produces data rate of 1 Mbps assuming FCY = 40 MHz,
   // quanta = 20, Prescale = 2.
@@ -536,7 +539,10 @@ void configBaudECAN2(void) {
   C2CTRL1bits.CANCKS = ECAN_FCAN_IS_FP;
 #endif
 
-#if FCY == GET_FCY(FRCPLL_FCY40MHz) // <- This needs to be reverified! - rnn13
+// These need to be reverified! - rnn13
+#if (FCY == GET_FCY(FRCPLL_FCY40MHz))  || \
+    (FCY == GET_FCY(PRIPLL_7372KHzCrystal_40MHzFCY)) || \
+    (FCY == GET_FCY(PRIPLL_8MHzCrystal_40MHzFCY))
   // Clock config taken from the PIC24H FRM ECAN datasheet (DS70226B,
   // Example 21-9). Produces data rate of 1 Mbps assuming FCY = 40 MHz,
   // quanta = 20, Prescale = 2.
