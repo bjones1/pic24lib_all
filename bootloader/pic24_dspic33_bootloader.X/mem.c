@@ -99,11 +99,23 @@ UWord32 ReadLatch(UWord16 addrhi, UWord16 addrlo) {
   asm("	mov	W0,TBLPAG");
   asm("	tblrdl [W1],W0");
   asm("	tblrdh [W1],W1");
-  //this gives a compiler warning because not explicitly returning
-  //a value from the function, but since this is assembly, do not
-  //know how to prevent warning.  The function is correct, since
-  //W1:W0 being used to return the tblrdl,tblrdh. Could write
-  //less efficient code and use a temporary UWord32.
+  // This gives a compiler warning because not explicitly returning
+  // a value from the function, but since this is assembly, do not
+  // know how to prevent warning.  The function is correct, since
+  // W1:W0 being used to return the tblrdl,tblrdh. Could write
+  // less efficient code and use a temporary UWord32.
+  //
+  // Attempts to suppress following warning:
+  //
+  // bootloader\pic24_dspic33_bootloader.X\mem.c:110:1: warning: control reaches 
+  // end of non-void function [-Wreturn-type]
+  //
+  // #pragma GCC diagnostic warning "-Wreturn-type" works.
+  // However, if I later re-enable it at any point in this file with a
+  // #pragma GCC diagnostic warning "-Wreturn-type", then the warning still
+  // appears. So, leave the warning for now, rather than possibly hide future
+  // warnings. See https://gcc.gnu.org/onlinedocs/gcc/Diagnostic-Pragmas.html
+  // for more information.
 }
 
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
