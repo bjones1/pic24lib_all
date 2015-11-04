@@ -281,10 +281,19 @@ typedef struct _ECANMSG {
   ECANW7  w7;
 } ECANMSG;
 
-
+#ifdef __dsPIC33EP512GP806__
+// dsPIC33EP512GP806 must be handled differently than the rest of the family
+// due to errata in the DMA subsystem (see document DS80000526E - silicon issue
+// 15). DPRAM must be used to ensure that the DMA cannot be held in the "OFF"
+// state by the system arbiter. [Ryan Taylor; November 2015]
+void formatStandardDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len);
+void formatExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len);
+uint32_t getIdExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg);
+#else
 void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len);
 void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len);
 uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg);
+#endif
 
 #define ECAN_1TIME_HEADER_DEFS
 #endif
