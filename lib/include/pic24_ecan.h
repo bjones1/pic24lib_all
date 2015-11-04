@@ -72,9 +72,18 @@
 // the ECAN chapter of the E-family FRM for March 2011.  However, the
 // meaning of the CANCKS bit is now completely different than original
 // CANCKS bit used in 2008-2009 [JWB May 2014]
-#ifdef __dsPIC33E__
-# define ECAN_FCAN_IS_2FP 1         // FCAN is equal to 2 * FP
-# define ECAN_FCAN_IS_FP  0         // FCAN is equal to FP
+//
+// For certain silicon revisions, the CANCKS bit does not behave in the way
+// that the datasheet specifies. Based on Silicon Issue 11 of document
+// DS80000526E, it functions reverse of its intended operation. This directly
+// affects the Embedded Systems Rev.F14 PCB that uses the dsPIC33EP512GP806.
+// [Ryan Taylor; November 2015]
+#ifdef __dsPIC33EP512GP806__
+#define ECAN_FCAN_IS_2FP 0         // FCAN is equal to 2*FCY
+#define ECAN_FCAN_IS_FP  1         // FCAN is equal to FCY
+#elif __dsPIC33E__
+#define ECAN_FCAN_IS_2FP 1         // FCAN is equal to 2 * FP
+#define ECAN_FCAN_IS_FP  0         // FCAN is equal to FP
 #endif
 
 //CiCFG2 register  (Baud rate config 2 register)
