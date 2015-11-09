@@ -77,6 +77,51 @@ void configDMA1(void) {
      DMA_MODE_CONTINUOUS);
 
 }
+#elif defined(__dsPIC33EP512GP806__)
+// dsPIC33EP512GP806 must be handled differently than the rest of the family
+// due to errata in the DMA subsystem (see document DS80000526E - silicon issue
+// 15). DPRAM must be used to ensure that the DMA cannot be held in the "OFF"
+// state by the system arbiter. [Ryan Taylor; November 2015]
+
+__eds__ ECANMSG msgBuf[NUM_BUFS] __attribute__((space(dma),aligned(NUM_BUFS*16),eds));
+
+//configure DMA transmit buffer
+void configDMA0(void) {
+  DMAPWC = 0; // Reset the DMA Peripheral Write Collision Status Register
+  _DMA0IF = 0;
+  DMA0PAD = (unsigned int) &C1TXD;
+  DMA0REQ = DMA_IRQ_ECAN1TX;
+  DMA0STAL = (unsigned long int) &msgBuf;
+  DMA0STAH = 0;
+  DMA0CNT =   sizeof(ECANMSG)/2 -1;  // == 7
+  DMA0CON =   //configure and enable the module Module
+    (DMA_MODULE_ON |
+     DMA_SIZE_WORD |
+     DMA_DIR_WRITE_PERIPHERAL |
+     DMA_INTERRUPT_FULL |
+     DMA_NULLW_OFF |
+     DMA_AMODE_PERIPHERAL_INDIRECT |
+     DMA_MODE_CONTINUOUS);
+}
+
+//configure DMA receive buffer
+void configDMA1(void) {
+  _DMA1IF = 0;
+  DMA1PAD = (unsigned int) &C1RXD;
+  DMA1REQ = DMA_IRQ_ECAN1RX;
+  DMA1STAL = (unsigned long int) &msgBuf;
+  DMA1STAH = 0;
+  DMA1CNT =  sizeof(ECANMSG)/2 -1;  // == 7
+  DMA1CON =   //configure and enable the module Module
+    (DMA_MODULE_ON |
+     DMA_SIZE_WORD |
+     DMA_DIR_READ_PERIPHERAL |
+     DMA_INTERRUPT_FULL |
+     DMA_NULLW_OFF |
+     DMA_AMODE_PERIPHERAL_INDIRECT |
+     DMA_MODE_CONTINUOUS);
+}
+
 #elif defined(__dsPIC33E__)
 
 ECANMSG msgBuf[NUM_BUFS] __attribute__((space(xmemory),aligned(NUM_BUFS*16)));
