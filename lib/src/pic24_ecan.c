@@ -52,11 +52,17 @@ Format a standard data frame \em u8_n  for TX
 \param u8_len  Number of data bytes in the message
 */
 
-#ifdef __dsPIC33EP512GP806__
 // dsPIC33EP512GP806 must be handled differently than the rest of the family
 // due to errata in the DMA subsystem (see document DS80000526E - silicon issue
 // 15). DPRAM must be used to ensure that the DMA cannot be held in the "OFF"
-// state by the system arbiter. [Ryan Taylor; November 2015]
+// state by the system arbiter.
+// The following functions are affected in this file:
+//   formatStandardDataFrameECAN()
+//   formatExtendedDataFrameECAN()
+//   getIdExtendedDataFrameECAN()
+// [Ryan Taylor; November 2015]
+
+#if defined(__dsPIC33EP512GP806__)
 
 void formatStandardDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len) {
   p_ecanmsg->w0.IDE = 0;
@@ -71,7 +77,7 @@ void formatStandardDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint16_t u16_id, u
 }
 
 #else
-
+	
 void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len) {
   p_ecanmsg->w0.IDE = 0;
   p_ecanmsg->w0.SRR = 0;
@@ -93,11 +99,9 @@ Format an extended data frame \em u8_n  for TX
 \param u8_len  Number of data bytes in the message
 */
 
-#ifdef __dsPIC33EP512GP806__
-// dsPIC33EP512GP806 must be handled differently than the rest of the family
-// due to errata in the DMA subsystem (see document DS80000526E - silicon issue
-// 15). DPRAM must be used to ensure that the DMA cannot be held in the "OFF"
-// state by the system arbiter. [Ryan Taylor; November 2015]
+// See comment on formatStandardDataFrameECAN(). [Ryan Taylor; November 2015]
+
+#if defined(__dsPIC33EP512GP806__)
 
 void formatExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len) {
 
@@ -113,7 +117,7 @@ void formatExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint32_t u32_id, u
 }
 
 #else
-
+	
 void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len) {
 
   p_ecanmsg->w0.IDE = 1;
@@ -135,11 +139,9 @@ Extract the 29-bit message id from an extended data frame
 \return 29-bit message id
 */
 
-#ifdef __dsPIC33EP512GP806__
-// dsPIC33EP512GP806 must be handled differently than the rest of the family
-// due to errata in the DMA subsystem (see document DS80000526E - silicon issue
-// 15). DPRAM must be used to ensure that the DMA cannot be held in the "OFF"
-// state by the system arbiter. [Ryan Taylor; November 2015]
+// See comment on formatStandardDataFrameECAN(). [Ryan Taylor; November 2015]
+
+#if defined(__dsPIC33EP512GP806__)
 
 uint32_t getIdExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg) {
   uint32_t u32_id, u32_tmp;
@@ -151,7 +153,7 @@ uint32_t getIdExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg) {
 }
 
 #else
-
+	
 uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
   uint32_t u32_id, u32_tmp;
   u32_tmp = p_ecanmsg->w0.SID;
@@ -534,7 +536,32 @@ Format a standard data frame \em u8_n  for TX
 \param u8_len  Number of data bytes in the message
 */
 
+// dsPIC33EP512GP806 must be handled differently than the rest of the family
+// due to errata in the DMA subsystem (see document DS80000526E - silicon issue
+// 15). DPRAM must be used to ensure that the DMA cannot be held in the "OFF"
+// state by the system arbiter.
+// The following functions are affected in this file:
+//   formatStandardDataFrameECAN()
+//   formatExtendedDataFrameECAN()
+//   getIdExtendedDataFrameECAN()
+// [Ryan Taylor; November 2015]
 
+#if defined(__dsPIC33EP512GP806__)
+
+void formatStandardDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len) {
+  p_ecanmsg->w0.IDE = 0;
+  p_ecanmsg->w0.SRR = 0;
+  p_ecanmsg->w0.SID = u16_id;
+  p_ecanmsg->w1.EID17_6 = 0;
+  p_ecanmsg->w2.EID5_0 = 0;
+  p_ecanmsg->w2.RTR = 0;
+  p_ecanmsg->w2.RB1 = 0;
+  p_ecanmsg->w2.RB0 = 0;
+  p_ecanmsg->w2.DLC = u8_len;     //length of the message
+}
+
+#else
+	
 void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len) {
   p_ecanmsg->w0.IDE = 0;
   p_ecanmsg->w0.SRR = 0;
@@ -547,6 +574,7 @@ void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u
   p_ecanmsg->w2.DLC = u8_len;     //length of the message
 }
 
+#endif
 
 /**
 Format an extended data frame \em u8_n  for TX
@@ -555,6 +583,25 @@ Format an extended data frame \em u8_n  for TX
 \param u8_len  Number of data bytes in the message
 */
 
+// See comment on formatStandardDataFrameECAN(). [Ryan Taylor; November 2015]
+
+#if defined(__dsPIC33EP512GP806__)
+
+void formatExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len) {
+
+  p_ecanmsg->w0.IDE = 1;
+  p_ecanmsg->w0.SRR = 0;
+  p_ecanmsg->w0.SID =  (u32_id >> 18) & 0x7FF;
+  p_ecanmsg->w1.EID17_6 = (u32_id >> 6) & 0xFFF;
+  p_ecanmsg->w2.EID5_0 = u32_id & 0x3F;
+  p_ecanmsg->w2.RTR = 0;
+  p_ecanmsg->w2.RB1 = 0;
+  p_ecanmsg->w2.RB0 = 0;
+  p_ecanmsg->w2.DLC = u8_len;   //length of the message
+}
+
+#else
+	
 void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len) {
 
   p_ecanmsg->w0.IDE = 1;
@@ -568,12 +615,29 @@ void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u
   p_ecanmsg->w2.DLC = u8_len;   //length of the message
 }
 
+#endif
+
 /**
 Extract the 29-bit message id from an extended data frame
 \param p_ecanmsg pointer to RX message buffer (ECANMSG* )
 \return 29-bit message id
 */
 
+// See comment on formatStandardDataFrameECAN(). [Ryan Taylor; November 2015]
+
+#if defined(__dsPIC33EP512GP806__)
+
+uint32_t getIdExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg) {
+  uint32_t u32_id, u32_tmp;
+  u32_tmp = p_ecanmsg->w0.SID;
+  u32_id = u32_tmp << 18;
+  u32_tmp = p_ecanmsg->w1.EID17_6;
+  u32_id = u32_id | (u32_tmp << 6) | p_ecanmsg->w2.EID5_0;
+  return u32_id;
+}
+
+#else
+	
 uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
   uint32_t u32_id, u32_tmp;
   u32_tmp = p_ecanmsg->w0.SID;
@@ -582,6 +646,8 @@ uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
   u32_id = u32_id | (u32_tmp << 6) | p_ecanmsg->w2.EID5_0;
   return u32_id;
 }
+
+#endif
 
 #define ECAN_1TIME_CODE_DEFS
 #endif
