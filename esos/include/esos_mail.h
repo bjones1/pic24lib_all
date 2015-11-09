@@ -412,6 +412,9 @@ void __esos_InitMailbox(MAILBOX* pst_Mailbox, uint8_t* pau8_ptr);
 /**
 * Writes a mail message into some task's mailbox
 * \param  pst_Task    handle tretval verNum   Version number.  Exact value and meaning depends on hardware
+* \param  pst_Mailbox Pointer to struct instance of MAILBOX.
+* \param  pau8_data   Pointer to mail data to send.
+* \param  u8_len      Local instance of length of message.
 * \hideinitializer
 */
 void __esos_SendMailUint8(struct stTask* pst_Task, MAILBOX* pst_Mailbox, uint8_t* pau8_data, uint8_t u8_len );
