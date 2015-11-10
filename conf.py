@@ -112,17 +112,6 @@ templates_path = ['_templates']
 # `source_suffix <http://sphinx-doc.org/config.html#confval-source_suffix>`_:
 # The suffix of source filenames.
 source_suffix = '.rst'
-# **CodeChat note:** Sphinx v1.3 allows source_suffix to be a list. Take
-# advantage of this if possible by adding suffixes for all supported source
-# files.
-try:
-    assert sphinx.version_info[0] >= 1 and sphinx.version_info[1] >= 3
-    # Make source_suffix a list if it isn't already.
-    if not isinstance(source_suffix, list):
-        source_suffix = [source_suffix]
-    source_suffix += CodeChat.CodeToRestSphinx.SUPPORTED_EXTENSIONS
-except:
-    pass
 
 # CodeChat: A dict of {glob, lexer_alias}, which uses lexer_alias to analyze
 # any file wihch matches the given glob.

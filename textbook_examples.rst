@@ -50,7 +50,7 @@ If the end-of-line (EOL) output behavior is not correct for the serial terminal 
 
 Our examples also assume an LED tied to port RB15 - this is used as a 'heartbeat' and is blinked by our examples when waiting for input. You can reassign this to another port (see ``HB_LED``) or remove it entirely (see ``USE_HEARTBEAT``) by editing `include/pic24_libconfig.h`_.
 
-The best project to start with is :doc:`reset.c <chap08/reset>` - this only assumes basic serial port functionality.
+The best project to start with is :doc:`reset.c <chap08/reset.c>` - this only assumes basic serial port functionality.
 
 Example code directory
 ======================

@@ -96,7 +96,7 @@ ESOS_USER_TASK( __simulated_isr ) {
  * Returns a random number with a value between the two arguments.
  *
  * /todo  Yes, I know this routine is cheesy.  But, it works and
- * I am in a really big hurry right now.
+ *        I am in a really big hurry right now.
  */
 
 uint32_t    randomNumInRange(uint32_t u32_lo, uint32_t u32_hi) {

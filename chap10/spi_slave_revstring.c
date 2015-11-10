@@ -27,7 +27,7 @@
 // spi_slave_revstring.c - SPI slave reverse a string provided by a master
 // ***********************************************************************
 // SPI example: PIC24 uC in slave mode talking to PIC24 uC in master mode
-// (see :doc:`spi_master_revstring`), which is using this slave PIC24 uC to
+// (see :doc:`spi_master_revstring.c`), which is using this slave PIC24 uC to
 // reverse strings.
 
 #include "pic24_all.h"

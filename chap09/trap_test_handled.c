@@ -31,7 +31,7 @@
 //  silently handles the call or not (it does). If the trap
 //  is not handled, then _DefaultInterrupt will
 //  catch it and report an error. See the
-//  :doc:`trap_test.c <trap_test>` file for an example of an unhandled
+//  :doc:`trap_test.c <trap_test.c>` file for an example of an unhandled
 //  math error trap.
 
 #include "pic24_all.h"

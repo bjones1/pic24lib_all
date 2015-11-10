@@ -56,7 +56,7 @@ The bootloader allows the PIC to be programmed from the serial port. It's based 
 
    bootloader/pic24_dspic33_bootloader.X/main.c
    bootloader/pic24_dspic33_bootloader.X/mem.c
-   bootloader/pic24_dspic33_bootloader.X/pic24_uart-small.c
+   bootloader/pic24_dspic33_bootloader.X/pic24_lib-small.c
    bootloader/pic24_dspic33_bootloader.X/pic24_uart-small.h
 
 Bootloader support

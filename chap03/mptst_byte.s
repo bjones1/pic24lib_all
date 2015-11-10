@@ -17,7 +17,9 @@
 ; *************************************************************
 ; mptst_byte.s - translation of 8-bit *C* aritmetic to assembly
 ; *************************************************************
-; Like :doc:`mptst_word`, this file demonstrates translating a *C* program into assembly; however, this *C* project uses 8-bit, rather than 16-bit, values.
+; Like :doc:`mptst_word.s`, this file demonstrates translating a *C* program
+; into assembly; however, this *C* project uses 8-bit, rather than 16-bit,
+; values.
 ;
 ; .. code-block:: c
 ;    :linenos:
@@ -44,7 +46,8 @@ u8_i:   .space 1
 u8_j:   .space 1
 ;; uint8_t u8_k;
 u8_k:   .space 1
-; This isn't used, but makes the MPLAB X v. 1.80 watch window display the size of the ``u8_k`` variable above correctly.
+; This isn't used, but makes the MPLAB X v. 1.80 watch window display the size
+; of the ``u8_k`` variable above correctly.
 u8_bug: .space 2
 
 ; Code
@@ -57,7 +60,9 @@ __reset:
   ;; u8_i = 100;
   ; Input
   mov.b #100, W0
-  ; Output. **Important note:** When MOVing directly from memory to register or vice versa, you must always target WREG (the 8-bit name for W0). You may not use W1, W2, etc.
+  ; Output. **Important note:** When MOVing directly from memory to register or
+  ; vice versa, you must always target WREG (the 8-bit name for W0). You may not
+  ; use W1, W2, etc.
   mov.b WREG, u8_i
 
   ; This statement requires no register assignments.
@@ -79,7 +84,8 @@ __reset:
   ; To make this a bit easier, we'll re-use W0 to hold both u8_j and u8_k.
   ;;  W0     W0     W1
   ;; u8_k = u8_j + u8_i
-  ; Input. First, load u8_i, since it overwrites WREG; then, load u8_j into WREG.
+  ; Input. First, load u8_i, since it overwrites WREG; then, load u8_j into
+  ; WREG.
   mov.b u8_i, WREG
   mov.b W0, W1
   mov.b u8_j, WREG

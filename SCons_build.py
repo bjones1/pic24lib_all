@@ -36,7 +36,7 @@
 # - buildTargets: a list of strings specifying what to build
 #   (see if statements toward the end of this file).
 #
-# This file delegates to :doc:`templates/SConscript` to build all
+# This file delegates to :doc:`templates/SConscript.py` to build all
 # templates.
 
 import os
@@ -44,8 +44,7 @@ Import('buildTargets env bin2hex')
 
 ## Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
-
-
+#
 # Common sources used for the PIC24 support library
 # =================================================
 PIC24SupportLibSources = [
@@ -62,8 +61,7 @@ PIC24SupportLibSources = [
   'lib/src/pic24_timer.c',
   'lib/src/pic24_uart.c',
   'lib/src/pic24_util.c' ]
-
-
+#
 # Functions used to build the library
 # ===================================
 # This function builds a program which includes the PIC24 library.
@@ -111,8 +109,8 @@ def buildWithCommonSources(
           # Yes, so modify environment with dict of changes.
           be = buildEnvironment.Clone()
           flags = exceptionDict[sourceFile]
-#          print flags
-#          be.MergeFlags(flags) # produces weird
+##          print flags
+##          be.MergeFlags(flags) # produces weird
           # errors, so hand-code a simple alternative
           # TODO: This overwrites flags, which is a BAD thing
           for a in flags:
@@ -127,8 +125,7 @@ def buildWithCommonSources(
 # Compile the support library into objects for the default
 # environment.
 PIC24SupportLibObjects = env.Object(PIC24SupportLibSources)
-
-
+#
 # Definition of targets
 # =====================
 if 'reset' in buildTargets:
