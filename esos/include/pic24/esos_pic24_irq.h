@@ -2121,8 +2121,8 @@ DCI
 // this macro sets the IRQ's IPL number in its corresponding IPC register
 #define __PUT_IPL_INTO_IPCX(ipc,ipcb,ipl)                             \
     do {                                                            \
-    BIT_CLEAR_MASK( *(&IPC0+(ipc)), 0x07<<ipcb) + (ipl<<ipcb);  \
-    *(&IPC0+ipc) += (ipl<<ipcb); \
+    BIT_CLEAR_MASK( (*((&IPC0)+(ipc))), ((0x07<<ipcb) + (ipl<<ipcb)));  \
+    (*((&IPC0)+ipc)) += (ipl<<ipcb); \
       }while(0)
 
 /**
@@ -2305,7 +2305,7 @@ DCI
  * \sa ESOS_MARK_PIC24_USER_INTERRUPT_SERVICED
  */
 #define  ESOS_DISABLE_PIC24_USER_INTERRUPT(desc)       __xDISABLE_PIC24_USER_INTERRUPT(desc)
-#define  __xDISABLE_PIC24_USER_INTERRUPT(attrib, ivt, ifsr, ifsb, ipcr, ipcb)       BIT_CLEAR(*(&IEC0+ifsr), ifsb)
+#define  __xDISABLE_PIC24_USER_INTERRUPT(attrib, ivt, ifsr, ifsb, ipcr, ipcb)       BIT_CLEAR(*((&IEC0)+ifsr), ifsb)
 
 #endif          // ESOS_PIC24_IRQ_H
 

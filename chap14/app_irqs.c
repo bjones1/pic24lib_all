@@ -245,7 +245,7 @@ void user_init(void) {
 
   // Configure INT1
   esos_SetUserFlag(WAITING_FOR_FALLING_EDGE);
-  _INT1EP = 1;     //negative edge triggerred
+  _INT1EP = 1;     //negative edge triggered
   ESOS_REGISTER_PIC24_USER_INTERRUPT( ESOS_IRQ_PIC24_INT1, ESOS_USER_IRQ_LEVEL1, _INT1Interrupt);
   ESOS_ENABLE_PIC24_USER_INTERRUPT(ESOS_IRQ_PIC24_INT1);
 
