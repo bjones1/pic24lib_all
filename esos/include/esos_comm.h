@@ -339,7 +339,7 @@ uint8_t __esos_unsafe_GetUint8(void);
 * \hideinitializer
 */
 #define   ESOS_TASK_WAIT_ON_GET_UINT16( u16_in )                                    \
-            ESOS_TASK_SPAWN_AND_WAIT( (ESOS_TASK_HANDLE)&__stChildTaskRx, __esos_getBuffer, (uint8*) &(u16_in), 2 )
+            ESOS_TASK_SPAWN_AND_WAIT( (ESOS_TASK_HANDLE)&__stChildTaskRx, __esos_getBuffer, (uint8_t*) &(u16_in), 2 )
 
 /**
 * Create, spawn and wait on a child task to get a quad-byte value (uint32) from the ESOS "in" communications buffer
@@ -355,7 +355,7 @@ uint8_t __esos_unsafe_GetUint8(void);
 * \hideinitializer
 */
 #define   ESOS_TASK_WAIT_ON_GET_UINT32( u32_in )                                    \
-            ESOS_TASK_SPAWN_AND_WAIT( (ESOS_TASK_HANDLE)&__stChildTaskRx, __esos_getBuffer, (uint8*) &(u32_in), 4 )
+            ESOS_TASK_SPAWN_AND_WAIT( (ESOS_TASK_HANDLE)&__stChildTaskRx, __esos_getBuffer, (uint8_t*) &(u32_in), 4 )
 
 
 
