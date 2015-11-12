@@ -607,7 +607,7 @@ _FOSC(OSCPIN_CONFIG & FCKSM_CSECMD & IOL1WAY_OFF);
 #pragma config JTAGEN = OFF             // JTAG Enable bit (JTAG is disabled)
 
 // FPOR
-#pragma config ALTI2C1 = ON             // Alternate I2C1 pins (I2C1 mapped to ASDA1/ASCL1 pins)
+#pragma config ALTI2C1 = OFF            // Alternate I2C1 pins (I2C1 mapped to ASDA1/ASCL1 pins)
 #pragma config BOREN = ON               // BROWN-OUT RESET DETECTION MUST BE ENABLED (per datasheet DS70616G p.479)
 #pragma config FPWRT = PWR1             // POWER ON RESET TIMER DISABLED?
 
