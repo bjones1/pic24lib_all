@@ -1,2 +1,5 @@
-# All code is in SConstruct.py. Execute that.
+# *******************************************
+# SConstruct - Define the SCons build process
+# *******************************************
+# All code is in :doc:`SConstruct.py`. Execute that.
 SConscript('SConstruct.py')

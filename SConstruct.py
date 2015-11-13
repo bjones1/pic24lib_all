@@ -66,6 +66,7 @@
 #    SCons_esos.py
 #    SCons_zipit.py
 #    templates/SConscript.py
+#    SConstruct
 #
 # The overall structure of this file is:
 #
