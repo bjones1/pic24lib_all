@@ -39,6 +39,10 @@ Next release:
 - Clarifed bootloader source file naming.
 - Cleanup of unnecessary warnings during scons builds.
 - Additional 40 MHz clocks now supported by the ECAN module.
+- Use the SCL1/SDA1 pins for dsPIC33EP512GP806, not the ASCL1/ADSDA1 pins by
+  default.
+- ECAN code fixes based on errata for the dsPIC33EPxxxGP806/810/814.
+- Documentation cleanup.
 
 23-Oct-2015 (6b0cc69cc70a):
 - Switch to new bootloader based on Qt.
