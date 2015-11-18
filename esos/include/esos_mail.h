@@ -320,7 +320,7 @@ typedef struct __stMAILMESSAGE {
      ESOS_SET_MSG_FROMTASK(stMsg, __pstSelf); \
      ESOS_SET_MSG_DATA_LENGTH(stMsg, 1);                    \
      for (__u8_esos_mail_routines_dummy_uint8=0; __u8_esos_mail_routines_dummy_uint8<len; __u8_esos_mail_routines_dummy_uint8++) {      \
-       stMsg.au8_Contents[__u8_esos_mail_routines_dummy_uint] = pau8x[__u8_esos_mail_routines_dummy_uint8];                             \
+       stMsg.au8_Contents[__u8_esos_mail_routines_dummy_uint8] = pau8x[__u8_esos_mail_routines_dummy_uint8];                             \
      }                                                      \
   } while(0)
 
