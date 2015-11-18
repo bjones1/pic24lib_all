@@ -51,6 +51,7 @@ void __esos_InitCommSystem(void);
 uint8_t __esos_u8_GetMSBHexCharFromUint8(uint8_t u8_x);
 uint8_t __esos_u8_GetLSBHexCharFromUint8(uint8_t u8_x);
 ESOS_CHILD_TASK( __esos_OutChar, uint8_t u8_c);
+ESOS_CHILD_TASK( __esos_OutUint8AsDecString, uint8_t u8_x);
 ESOS_CHILD_TASK( __esos_OutUint8AsHexString, uint8_t u8_x);
 ESOS_CHILD_TASK( __esos_OutUint32AsHexString, uint32_t u32_x);
 ESOS_CHILD_TASK( __esos_OutCharBuffer, uint8_t* pu8_out, uint8_t u8_len);
