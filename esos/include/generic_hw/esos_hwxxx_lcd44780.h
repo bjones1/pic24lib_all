@@ -46,6 +46,7 @@
 /* HW-SPECIFIC MACROS *******************************************************/
 #define  __esos_hw_lcd44780_writeByte           __esos_hwxxx_lcd44780_writeByte
 #define  __esos_hw_lcd44780_readByte           __esos_hwxxx_lcd44780_readByte
+#define  __esos_hw_lcd44780_config		__esos_hwxxx_lcd44780_config
 
 #define  __esos_lcd44780_hw_setDataPins \
     __esos_lcd44780_hwxxx_setDataPins
@@ -53,7 +54,7 @@
     __esos_lcd44780_hwxxx_getDataPins
 #define  __esos_lcd44780_hw_configDataPinsAsInput \
     __esos_lcd44780_hwxxx_configDataPinsAsInput
-#define  __esos_lcd44780_hw_configDataPinsAsaOutput \
+#define  __esos_lcd44780_hw_configDataPinsAsOutput \
     __esos_lcd44780_hwxxx_configDataPinsAsOutput
 
 #define  __ESOS_LCD44780_HW_SET_E_HIGH          __ESOS_LCD44780_HWXXX_SET_E_HIGH       // E=1
@@ -89,10 +90,10 @@
 #define  __ESOS_LCD44780_HW_GET_D7              __ESOS_LCD44780_HWXXX_GET_D7
 
 /* P U B L I C  P R O T O T Y P E S *****************************************/
-void esos_hwxxx_config_lcd44780 ( void );
+void esos_hwxxx_lcd44780_config ( void );
 
 /* P R I V A T E  P R O T O T Y P E S ***************************************/
-void __esos_hwxxx_lcd44780_readByte( uint8_t u8_data, BOOL u8_isData, BOOL u8_useBusyFlag );
-void __esos_hwxxx_lcd44780_writeByte( uint8_t u8_data, BOOL u8_isData, BOOL u8_useBusyFlag );
+void __esos_hwxxx_lcd44780_readByte( uint8_t u8_data, BOOL b_isData, BOOL b_useBusyFlag );
+void __esos_hwxxx_lcd44780_writeByte( uint8_t u8_data, BOOL b_isData, BOOL b_useBusyFlag );
     
 #endif
