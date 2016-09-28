@@ -36,7 +36,7 @@
 #include <esos.h>
 #include <stdlib.h>
 
-// Hidden LCD service task
+// Hidden LCD character moduel service/housekeeping task
 ESOS_USER_TASK( __esos_lcd44780_service )
 {
 	// Can first initialized the LCD module hardware and setup the LCD service software structures
@@ -44,6 +44,8 @@ ESOS_USER_TASK( __esos_lcd44780_service )
 	// The LCD service hidden task will need to maintain a buffer containing the LCD character display
 	ESOS_TASK_BEGIN();
 
+
+	// TODO: remove the magic numbers in this section
 	ESOS_TASK_WAIT_TICKS(100);			// Wait >15 msec after power is applied
 	ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND_NOWAIT(0x30);
 	ESOS_TASK_WAIT_TICKS(10);			// must wait 5ms, busy flag not available
@@ -155,7 +157,17 @@ void esos_lcd44780_configDisplay( void )
 
 void esos_lcd44780_init( void )
 {
-    	esos_RegisterTask( __esos_lcd44780_service );
+	// Set up the hardware aspects of the HWxxx interface of the LCD module service
+	//    direction, thresholds, etc
+	__esos_lcd44780_hw_configDataPinsAsOutput();
+	__ESOS_LCD44780_HW_SET_RW_WRITE();
+	__ESOS_LCD44780_HW_SET_RS_REGISTERS();
+	
+	// give HW specific code a chance to do anything else to init/config
+	__esos_lcd44780_hw_config();
+
+	// install our LCD housekeeping task into the scheduler
+	esos_RegisterTask( __esos_lcd44780_service );
 }
 
 void esos_lcd44780_clearScreen( void )
@@ -183,6 +195,7 @@ void esos_lcd44780_setCursorHome( void )
 void esos_lcd44780_setCursor( uint8_t u8_row, uint8_t u8_column )
 {
     // Move cursor to (u8_row,u8_column) without changing memory buffer or the display
+	// TODO:  Write hardware-independent code here
 }
 
 void esos_lcd44780_writeChar( uint8_t u8_row, uint8_t u8_column, uint8_t u8_data )
@@ -199,56 +212,67 @@ uint8_t esos_lcd44780_getChar( uint8_t u8_row, uint8_t u8_column )
 void esos_lcd44780_writeBuffer( uint8_t u8_row, uint8_t u8_column, uint8_t *pu8_data, uint8_t u8_bufflen )
 {
     // Write u8_bufflen characters from pu8_data to (u8_row,u8_column)
+	// TODO:  Write hardware-independent code here
 }
 
 void esos_lcd44780_getBuffer( uint8_t u8_row, uint8_t u8_column, uint8_t *pu8_data, uint8_t u8_bufflen )
 {
     // Return pu8_data with u8_bufflen characters currently displayed beginning at (u8_row,u8_column)
+	// TODO:  Write hardware-independent code here
 }
 
 void esos_lcd44780_writeString( uint8_t u8_row, uint8_t u8_column, char *psz_data )
 {
     // Write zero-terminated string psz_data to location starting at (u8_row,u8_column)
+	// TODO:  Write hardware-independent code here
 }
 
 void esos_lcd44780_setCursorDisplay( BOOL u8_state )
 {
     // Set cursor display state to u8_state
+	// TODO:  Write hardware-independent code here
 }
 
 BOOL esos_lcd44780_getCursorDisplay( void )
 {
     // Return cursor display state
+	// TODO:  Write hardware-independent code here
 }
 
 void esos_lcd44780_setCursorBlink( BOOL u8_state )
 {
     // Set cursor blink state to u8_state
+	// TODO:  Write hardware-independent code here
 }
 
 BOOL esos_lcd44780_getCursorBlink( void )
 {
     // Return cursor blink state
+	// TODO:  Write hardware-independent code here
 }
 
 void esos_lcd44780_setDisplayVisible( BOOL u8_state )
 {
     // Set display visible state to u8_state
+	// TODO:  Write hardware-independent code here
 }
 
 BOOL esos_lcd44780_getDisplayVisible( void )
 {
     // Return display visible state
+	// TODO:  Write hardware-independent code here
 }
 
 void esos_lcd44780_setCustomChar( uint8_t u8_charSlot, uint8_t *pu8_charData )
 {
     // Set custom character memory for u8_charSlot to data in pu8_charData
+	// TODO:  Write hardware-independent code here
 }
 
 void esos_lcd44780_getCustomChar( uint8_t u8_charSlot, uint8_t *pu8_charData )
 {
     // Return pu8_charData with custom character memory for u8_charSlot
+	// TODO:  Write hardware-independent code here
 }
 
 BOOL esos_lcd44780_isCurrent( void )
@@ -278,7 +302,7 @@ BOOL esos_lcd44780_isCurrent( void )
 	return TRUE;
 }
 
-ESOS_CHILD_TASK(__esos_pic24_lcd_readByte, uint8_t *pu8_data, BOOL b_isData, BOOL b_useBusyFlag)
+ESOS_CHILD_TASK(__esos_lcd44780_read_u8, uint8_t *pu8_data, BOOL b_isData, BOOL b_useBusyFlag)
 {
 	ESOS_TASK_BEGIN();
 
@@ -299,15 +323,15 @@ ESOS_CHILD_TASK(__esos_pic24_lcd_readByte, uint8_t *pu8_data, BOOL b_isData, BOO
 	__esos_lcd44780_hw_configDataPinsAsInput();
 
 	__ESOS_LCD44780_HW_SET_E_HIGH();
-	ESOS_TASK_WAIT_TICKS(1);
+	ESOS_TASK_YIELD();
 	*pu8_data = __esos_lcd44780_hw_getDataPins();
 	__ESOS_LCD44780_HW_SET_E_LOW();
-	ESOS_TASK_WAIT_TICKS(1);
+	ESOS_TASK_YIELD();
 
 	ESOS_TASK_END();
 }
 
-ESOS_CHILD_TASK(__esos_pic24_lcd_writeByte, uint8_t u8_data, BOOL b_isData, BOOL b_useBusyFlag)
+ESOS_CHILD_TASK(__esos_lcd44780_write_u8, uint8_t u8_data, BOOL b_isData, BOOL b_useBusyFlag)
 {
 	ESOS_TASK_BEGIN();
 
@@ -325,14 +349,14 @@ ESOS_CHILD_TASK(__esos_pic24_lcd_writeByte, uint8_t u8_data, BOOL b_isData, BOOL
     }
 	
     __ESOS_LCD44780_HW_SET_RW_WRITE();
-	__esos_lcd44780_hw_configDataPinsAsaOutput();
+	__esos_lcd44780_hw_configDataPinsAsOutput();
     
     __esos_lcd44780_hw_setDataPins( u8_data );
 
 	__ESOS_LCD44780_HW_SET_E_HIGH();
-	ESOS_TASK_WAIT_TICKS(1);
+	ESOS_TASK_YIELD();
 	__ESOS_LCD44780_HW_SET_E_LOW();
-	ESOS_TASK_WAIT_TICKS(1);
+	ESOS_TASK_YIELD();
 
 	ESOS_TASK_END();
 }

@@ -36,11 +36,34 @@
 #include "esos_hwxxx_lcd.h"
 
 /*** T H E   C O D E *************************************************/
-void esos_hwxxx_config_lcd44780 ( void )
+void __esos_lcd44780_hwxxx_config ( void )
 {
     // Set up the hardware aspects of the HWxxx interface of the LCD module service
-    //    direction, thresholds, etc
-    __esos_lcd44780_hw_configDataPinsAsaOutput();
-    __ESOS_LCD44780_HW_SET_RW_WRITE();
-    __ESOS_LCD44780_HW_SET_RS_REGISTERS();
+    //    direction, thresholds, etc beyond what is already done in esos_lcd44780_config()
+
+
+}
+
+void __esos_lcd44780_hwxxx_setDataPins( uint8_t u8_data) {
+	// write the hardware-specific code to take the u8_data passed in
+	// and place it on the appropriate data pins
+	
+}
+
+uint8_t __esos_lcd44780_hwxxx_getDataPins( void ) {
+	// write the hardware-specific code to read the appropriate data pins
+	// and create the uint8 data to return to the caller
+	
+}
+
+void __esos_lcd44780_hwxxx_configDataPinsAsInput( void ) {
+	// write the hardware-specific code to set the LCD character module
+	// data pins to be "inputs" to prepare for a read of the LCD module
+	
+}
+
+void __esos_lcd44780_hwxxx_configDataPinsAsOutput( void ) {
+	// write the hardware-specific code to set the LCD character module
+	// data pins to be "outputs" to prepare for a write to the LCD module
+	
 }
