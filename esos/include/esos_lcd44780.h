@@ -122,8 +122,11 @@ struct {
 	esos_lcd44780_char_t ast_customChar[ESOS_LCD44780_NUM_CUSTOM_CHARS];
 } esos_lcd44780_vars;
 
-***
+// allocate space for the child task used by the LCD character module
+//  service.  Only one child should ever be active at a time.
 static ESOS_TASK_HANDLE th_lcd44780_child;
+
+#define ESOS_TASK_WAIT_ON_LCD44780_REFRESH()		ESOS_TASK_WAIT_WHILE( esos_lcd44780_vars.b_displayVisibleNeedsUpdate )
 
 /* P U B L I C  P R O T O T Y P E S *****************************************/
 void esos_lcd44780_configDisplay( void );
@@ -145,7 +148,6 @@ BOOL esos_lcd44780_getDisplayVisible( void );
 void esos_lcd44780_setCustomChar( uint8_t u8_charSlot, uint8_t *pu8_charData );
 void esos_lcd44780_getCustomChar( uint8_t u8_charSlot, uint8_t *pu8_charData );
 BOOL esos_lcd44780_isCurrent( void );
-
 
 ESOS_CHILD_TASK( __esos_task_wait_lcd44780_while_busy  );
 ESOS_CHILD_TASK(__esos_lcd44780_write_u8, uint8_t u8_data, BOOL b_isData, BOOL b_useBusyFlag);
