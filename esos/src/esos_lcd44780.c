@@ -32,7 +32,7 @@
  * @{
  */
  
-#include "esos_lcd.h"
+#include "esos_lcd44780.h"
 #include <esos.h>
 #include <stdlib.h>
 
@@ -59,13 +59,13 @@ ESOS_USER_TASK( __esos_lcd44780_service )
 	ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND(0x06);
 
 	// Send startup sequence from datasheet
-	ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND(  LCD44780_CMD_DISPLAY_ON_OFF);
-	ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND(  LCD44780_CMD_FUNCTION_SET | 0b00011100);
-	ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND(  LCD44780_CMD_DISPLAY_ON_OFF |
-                                            LCD44780_CMD_DISPLAY_ON_OFF_CUR |
-                                            LCD44780_CMD_DISPLAY_ON_OFF_DISP);
-	ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND(  LCD44780_CMD_ENTRY_MODE_SET |
-                                            LCD44780_CMD_ENTRY_MODE_SET_INC);
+	ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND(  ESOS_LCD44780_CMD_DISPLAY_ON_OFF);
+	ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND(  ESOS_LCD44780_CMD_FUNCTION_SET | 0b00011100);
+	ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND(  ESOS_LCD44780_CMD_DISPLAY_ON_OFF |
+                                            ESOS_LCD44780_CMD_DISPLAY_ON_OFF_CUR |
+                                            ESOS_LCD44780_CMD_DISPLAY_ON_OFF_DISP);
+	ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND(  ESOS_LCD44780_CMD_ENTRY_MODE_SET |
+                                            ESOS_LCD44780_CMD_ENTRY_MODE_SET_INC);
 
 	while(TRUE) {
 		static uint8_t i, u8_col, u8_row;
@@ -82,10 +82,10 @@ ESOS_USER_TASK( __esos_lcd44780_service )
 			esos_lcd44780_vars.b_cursorShownNeedsUpdate = FALSE;
 			esos_lcd44780_vars.b_cursorBlinkNeedsUpdate = FALSE;
 			esos_lcd44780_vars.b_displayVisibleNeedsUpdate = FALSE;
-			ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND( LCD44780_CMD_DISPLAY_ON_OFF |
-				(esos_lcd44780_vars.b_cursorShown ? LCD44780_CMD_DISPLAY_ON_OFF_CUR : 0) |
-				(esos_lcd44780_vars.b_cursorBlink ? LCD44780_CMD_DISPLAY_ON_OFF_BLINK : 0) |
-				(esos_lcd44780_vars.b_displayVisible ? LCD44780_CMD_DISPLAY_ON_OFF_DISP : 0));
+			ESOS_TASK_WAIT_LCD44780_WRITE_COMMAND( ESOS_LCD44780_CMD_DISPLAY_ON_OFF |
+				(esos_lcd44780_vars.b_cursorShown ? ESOS_LCD44780_CMD_DISPLAY_ON_OFF_CUR : 0) |
+				(esos_lcd44780_vars.b_cursorBlink ? ESOS_LCD44780_CMD_DISPLAY_ON_OFF_BLINK : 0) |
+				(esos_lcd44780_vars.b_displayVisible ? ESOS_LCD44780_CMD_DISPLAY_ON_OFF_DISP : 0));
 		}
 
 		for(u8_row = 0; u8_row < ESOS_LCD44780_MEM_HEIGHT; ++u8_row) {
@@ -139,7 +139,7 @@ void esos_lcd44780_configDisplay( void )
 	unsigned int u8_column;
 
 	// Configures the hardware-independent aspect of the LCD character module service
-	esos_pic24_config_char_lcd();
+	esos_hw_config_char_lcd();
 
 	esos_lcd44780_vars.b_displayVisible = TRUE;
 	esos_lcd44780_vars.b_displayVisibleNeedsUpdate = TRUE;
