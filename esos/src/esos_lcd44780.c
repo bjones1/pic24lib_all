@@ -36,6 +36,28 @@
 #include <esos.h>
 #include <stdlib.h>
 
+// Main data structure for updating lcd44780
+struct {
+	BOOL b_cursorPositionNeedsUpdate;
+	uint8_t u8_cursorRow;
+	uint8_t u8_cursorCol;
+
+	BOOL b_cursorShownNeedsUpdate;
+	BOOL b_cursorShown;
+
+	BOOL b_cursorBlinkNeedsUpdate;
+	BOOL b_cursorBlink;
+
+	BOOL b_displayVisibleNeedsUpdate;
+	BOOL b_displayVisible;
+
+	BOOL ab_lcdBufferNeedsUpdate[ESOS_LCD44780_MEM_HEIGHT][ESOS_LCD44780_MEM_WIDTH];
+	char aac_lcdBuffer[ESOS_LCD44780_MEM_HEIGHT][ESOS_LCD44780_MEM_WIDTH];
+
+	BOOL ab_customCharNeedsUpdate[ESOS_LCD44780_NUM_CUSTOM_CHARS];
+	esos_lcd44780_char_t ast_customChar[ESOS_LCD44780_NUM_CUSTOM_CHARS];
+} esos_lcd44780_vars;
+
 // Hidden LCD character moduel service/housekeeping task
 ESOS_USER_TASK( __esos_lcd44780_service )
 {
@@ -319,7 +341,7 @@ ESOS_CHILD_TASK(__esos_lcd44780_read_u8, uint8_t *pu8_data, BOOL b_isData, BOOL 
         __ESOS_LCD44780_HW_SET_RS_REGISTERS();
     }
     
-    __ESOS_LCD44780_HW_SET_RW_READ
+    __ESOS_LCD44780_HW_SET_RW_READ();
 	__esos_lcd44780_hw_configDataPinsAsInput();
 
 	__ESOS_LCD44780_HW_SET_E_HIGH();

@@ -103,27 +103,6 @@ typedef struct {
 	uint8_t au8_data[8];
 } esos_lcd44780_char_t;
 
-struct {
-	BOOL b_cursorPositionNeedsUpdate;
-	uint8_t u8_cursorRow;
-	uint8_t u8_cursorCol;
-
-	BOOL b_cursorShownNeedsUpdate;
-	BOOL b_cursorShown;
-
-	BOOL b_cursorBlinkNeedsUpdate;
-	BOOL b_cursorBlink;
-
-	BOOL b_displayVisibleNeedsUpdate;
-	BOOL b_displayVisible;
-
-	BOOL ab_lcdBufferNeedsUpdate[ESOS_LCD44780_MEM_HEIGHT][ESOS_LCD44780_MEM_WIDTH];
-	char aac_lcdBuffer[ESOS_LCD44780_MEM_HEIGHT][ESOS_LCD44780_MEM_WIDTH];
-
-	BOOL ab_customCharNeedsUpdate[ESOS_LCD44780_NUM_CUSTOM_CHARS];
-	esos_lcd44780_char_t ast_customChar[ESOS_LCD44780_NUM_CUSTOM_CHARS];
-} esos_lcd44780_vars;
-
 // allocate space for the child task used by the LCD character module
 //  service.  Only one child should ever be active at a time.
 static ESOS_TASK_HANDLE th_lcd44780_child;
