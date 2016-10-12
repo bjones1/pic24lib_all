@@ -128,6 +128,7 @@ void esos_lcd44780_setCustomChar( uint8_t u8_charSlot, uint8_t *pu8_charData );
 void esos_lcd44780_getCustomChar( uint8_t u8_charSlot, uint8_t *pu8_charData );
 BOOL esos_lcd44780_isCurrent( void );
 
+ESOS_USER_TASK( __esos_lcd44780_service );
 ESOS_CHILD_TASK( __esos_task_wait_lcd44780_while_busy  );
 ESOS_CHILD_TASK(__esos_lcd44780_write_u8, uint8_t u8_data, BOOL b_isData, BOOL b_useBusyFlag);
 ESOS_CHILD_TASK(__esos_lcd44780_read_u8, uint8_t *pu8_data, BOOL b_isData, BOOL b_useBusyFlag);

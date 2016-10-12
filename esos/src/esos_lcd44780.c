@@ -33,6 +33,7 @@
  */
  
 #include "esos_lcd44780.h"
+#include "esos_pic24_lcd44780.h"
 #include <esos.h>
 #include <stdlib.h>
 
@@ -159,9 +160,6 @@ ESOS_USER_TASK( __esos_lcd44780_service )
 void esos_lcd44780_configDisplay( void )
 {
 	unsigned int u8_column;
-
-	// Configures the hardware-independent aspect of the LCD character module service
-	esos_hw_config_char_lcd();
 
 	esos_lcd44780_vars.b_displayVisible = TRUE;
 	esos_lcd44780_vars.b_displayVisibleNeedsUpdate = TRUE;
@@ -331,7 +329,7 @@ ESOS_CHILD_TASK(__esos_lcd44780_read_u8, uint8_t *pu8_data, BOOL b_isData, BOOL 
 	if(b_useBusyFlag) {
 		do {
             ESOS_ALLOCATE_CHILD_TASK(th_lcd44780_child);
-            ESOS_TASK_SPAWN_AND_WAIT( __esos_task_wait_lcd44780_while_busy );
+            ESOS_TASK_SPAWN_AND_WAIT( th_lcd44780_child, __esos_task_wait_lcd44780_while_busy );
         } while (FALSE);
 	}
 
@@ -360,7 +358,7 @@ ESOS_CHILD_TASK(__esos_lcd44780_write_u8, uint8_t u8_data, BOOL b_isData, BOOL b
 	if(b_useBusyFlag) {
 		do {
             ESOS_ALLOCATE_CHILD_TASK(th_lcd44780_child);
-            ESOS_TASK_SPAWN_AND_WAIT( __esos_task_wait_lcd44780_while_busy );
+            ESOS_TASK_SPAWN_AND_WAIT( th_lcd44780_child, __esos_task_wait_lcd44780_while_busy );
         } while (FALSE);
 	}
 
@@ -400,7 +398,7 @@ ESOS_CHILD_TASK( __esos_task_wait_lcd44780_while_busy  )
             ESOS_TASK_YIELD();
         } else {
             ESOS_TASK_EXIT();
-        )
+        }
 	};
     
     ESOS_TASK_END();
