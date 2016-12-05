@@ -26,12 +26,12 @@
  *
  *
  */
- 
+
  /**
  * \addtogroup ESOS_Task_ECAN_Service
  * @{
  */
- 
+
  /** \file
  *  This file contains macros, prototypes, and definitions for
  *  ECAN services for ESOS tasks.
@@ -45,6 +45,12 @@
 
 /* D E F I N E S ************************************************************/
 #define MAX_CANFACTORY_CLIENTS  32
+#define DEFAULT_MSG_ID			0x7a0
+#define DEBUG_MODE				ESOS_USER_FLAG_F
+
+#define ENABLE_DEBUG_MODE()		esos_SetUserFlag(DEBUG_MODE)
+#define DISABLE_DEBUG_MODE()	esos_ClearUserFlag(DEBUG_MODE)
+#define CHECK_DEBUG_MODE_ENABLED()		esos_IsUserFlagSet(DEBUG_MODE)
 
 #define TRUE                    1
 #define FALSE                   0
@@ -59,13 +65,14 @@ typedef struct {
     uint16_t        u16_canID;
     uint16_t        u16_idMask;
     maskcontrol_t   m_idMaskControl;
-    uint8_t (*pf_task) (ESOS_TASK_HANDLE);
+	uint8_t (*pf_task) (ESOS_TASK_HANDLE pst_Task);
+	//uint8_t(*pfn) (struct stTask *pst_Task);
 } client_t;
 
 /* P U B L I C  P R O T O T Y P E S *****************************************/
 /**
  * esos_ecan_send():
- * 
+ *
  * Send a message using the CANFactory user task.
  *
  * u16_can_id:  CAN ID to be attached to the message. This should follow the
@@ -95,9 +102,9 @@ typedef struct {
 
 /**
  * esos_ecan_canfactory_subscribe():
- * 
+ *
  * Enroll a task/mask combination in the CANFactory system.
- * 
+ *
  * pst_Task:        ESOS user task to be subscribed in the CANFactory. This is
  *                  the task that is responsible for receiving relevant
  *                  messages through the ESOS mail system.
@@ -120,27 +127,41 @@ typedef struct {
  *                                              this mask exactly, it will not
  *                                              be sent to the pst_Task mailbox.
  */
-void esos_ecan_canfactory_subscribe ( ESOS_TASK_HANDLE pst_Task, uint16_t u16_can_id, uint16_t u16_mask, maskcontrol_t m_mask_control );
+void esos_ecan_canfactory_subscribe(ESOS_TASK_HANDLE pst_Task, uint16_t u16_can_id, uint16_t u16_mask, maskcontrol_t m_mask_control);
 
 /**
  * esos_ecan_canfactory_unsubscribe():
- * 
+ *
  * Unsubscribe a task/mask combination in the CANFactory system.
- * 
+ *
  * pst_Task:        Task handle of the task that should be removed from
  *                  CANFactory's data structure.
  * u16_can_id:      CAN ID of the task that should be removed from
  *                  CANFactory's data structure.
- * u16_mask:        Mask of the task/mask combination that should be 
+ * u16_mask:        Mask of the task/mask combination that should be
  *                  removed from the CANFactory's data structure.
  * m_mask_control:  Mask control specifier of the task/mask combination that
  *                  should be removed from the CANFactory's data structure.
  */
-void esos_ecan_canfactory_unsubscribe ( ESOS_TASK_HANDLE pst_Task, uint16_t u16_can_id, uint16_t u16_mask, maskcontrol_t m_mask_control );
+void esos_ecan_canfactory_unsubscribe(uint8_t(*pst_Task) (ESOS_TASK_HANDLE), uint16_t u16_can_id, uint16_t u16_mask, maskcontrol_t m_mask_control);
+
+/**
+ * esos_ecan_mask_check():
+ *
+ * Check subscribed messages against recieved messages according to the mask.
+ *
+ * u16_subscribed:  ID of the subscribed task.
+ *
+ * u16_recieved:    CAN ID of the message recieved.
+ *
+ * u16_mask:        Mask ID to be checked against.
+ *
+ */
+BOOL esos_ecan_mask_check (uint16_t u16_subscribed, uint16_t u16_recieved, uint16_t u16_mask);
 
 /**
  * CANFactory user task:
- * 
+ *
  * Handles the management of the ECAN peripheral so that the API can be used.
  *
  * Note: the user should register this task from user_init in addition to using the API in this file.
