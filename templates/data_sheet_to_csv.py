@@ -41,21 +41,17 @@ import sys
 import csv
 import os
 
-import sip
-sip.setapi('QString', 2)
-sip.setapi('QVariant', 2)
-
-# The excellent `PyQt4 library <http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/classes.html>`_ provides the GUI for this package.
-from PyQt4 import QtGui, QtCore, uic
+# The excellent `PyQt5 library <http://pyqt.sourceforge.net/Docs/PyQt5/>`_ provides the GUI for this package.
+from PyQt5 import QtWidgets, QtGui, QtCore, uic
 
 from compact_csv import enumeratePic24Ports
 
 
 def text_pinout_to_mapping(text):
     pins = text.split()
-    RPy = { }
-    ANn = { }
-    CNm = { }
+    RPy = {}
+    ANn = {}
+    CNm = {}
     last_failure = ''
     last_pin = ''
     for pin in pins:
@@ -98,10 +94,10 @@ def text_pinout_to_mapping(text):
 
 form_class, base_class = uic.loadUiType('data_sheet_to_csv.ui')
 
-class main_dialog(QtGui.QMainWindow, form_class):
+class main_dialog(QtWidgets.QMainWindow, form_class):
     def __init__(self):
         # Let Qt and PyQt run their init first.
-        QtGui.QDialog.__init__(self)
+        super().__init__()
         self.setupUi(self)
 
         # Store portlist, which is used several times.
@@ -131,7 +127,7 @@ class main_dialog(QtGui.QMainWindow, form_class):
 
     # A helper to create an uneditable QTableWidgetItem
     def QTableWidgetItemUneditable(self, o):
-        qtwi = QtGui.QTableWidgetItem(o)
+        qtwi = QtWidgets.QTableWidgetItem(o)
         qtwi.setFlags(qtwi.flags() & ~QtCore.Qt.ItemIsEditable)
         return qtwi
 
@@ -150,7 +146,7 @@ class main_dialog(QtGui.QMainWindow, form_class):
 
                 self.results_table_widget.setItem(row, 2, self.QTableWidgetItemUneditable(CNm.get(Rxy, '')))
 
-                self.results_table_widget.setVerticalHeaderItem(row, QtGui.QTableWidgetItem(Rxy))
+                self.results_table_widget.setVerticalHeaderItem(row, QtWidgets.QTableWidgetItem(Rxy))
 
                 row += 1
 
@@ -161,7 +157,7 @@ class main_dialog(QtGui.QMainWindow, form_class):
         processor_names, RPy, ANn, CNm = self.parse_gui_text()
 
         # Prepare for appending to the CSV.
-        with open('pic24_devices.csv', 'a+b') as outFile:
+        with open('pic24_devices.csv', 'a+', newline='', encoding='utf-8') as outFile:
             csv_dict_writer = csv.DictWriter(outFile, self.portlist)
             # Write the header only if the file is empty. (Leaving out the seek always reports 0 for the tell).
             outFile.seek(0, os.SEEK_END)
@@ -185,7 +181,7 @@ class main_dialog(QtGui.QMainWindow, form_class):
 # This routine runs the CodeChat GUI.
 def main():
     # Instantiate the app and GUI.
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     window = main_dialog()
     # Run the program.
     window.show()
