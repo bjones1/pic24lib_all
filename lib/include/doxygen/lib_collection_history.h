@@ -43,6 +43,7 @@ Next release:
   default.
 - ECAN code fixes based on errata for the dsPIC33EPxxxGP806/810/814.
 - Documentation cleanup.
+- Added support for additional chips.
 
 23-Oct-2015 (6b0cc69cc70a):
 - Switch to new bootloader based on Qt.
