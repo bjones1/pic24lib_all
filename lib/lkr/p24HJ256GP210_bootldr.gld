@@ -1,13 +1,56 @@
-/* GLD file for PIC24 application using the Bully bootloader */
+/* GLD file for PIC24 application using the Bully bootloader. */
 /*
-** Linker script for PIC24HJ256GP210
-*/
+ * Linker script for PIC24HJ256GP210
+ * (c) Copyright 2013 Microchip Technology, Inc
+ * Part support version 1.30.A(22-Nov-2016)
+ *
+ * This software is developed by Microchip Technology Inc. and its
+ * subsidiaries ("Microchip").
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are 
+ * met:
+ * 
+ * 1.      Redistributions of source code must retain the above copyright
+ *         notice, this list of conditions and the following disclaimer.
+ * 2.      Redistributions in binary form must reproduce the above 
+ *         copyright notice, this list of conditions and the following 
+ *         disclaimer in the documentation and/or other materials provided 
+ *         with the distribution.
+ * 3.      Microchip's name may not be used to endorse or promote products
+ *         derived from this software without specific prior written 
+ *         permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR PURPOSE ARE DISCLAIMED. IN NO EVENT 
+ * SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ */
+
 
 OUTPUT_ARCH("24HJ256GP210")
 CRT0_STARTUP(crt0_standard.o)
 CRT1_STARTUP(crt1_standard.o)
+#if __XC16_VERSION__ > 1027
+/*
+ * Define how to startup, by default we initialize
+ * everything as normal; change to crt_start_mode to
+ * preserve preserved data on a restart
+ *
+ * Or define your own __crt_start_mode fucntion
+ */
+CRT_STARTMODE(crt_start_mode_normal)
+#endif
 
 OPTIONAL(-lp24HJ256GP210)
+OPTIONAL(-lfx)
 
 /*
 ** Memory Regions
@@ -19,8 +62,8 @@ MEMORY
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   _reserved      : ORIGIN = 0x100,         LENGTH = 0x4
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  j_ivt          : ORIGIN = 0xc00,   	   LENGTH = 0x200
-  program (xr)   : ORIGIN = 0xe00,         LENGTH = 0x29dfe
+  j_ivt          : ORIGIN = 0xc00,          LENGTH = 0x200
+  program (xr)   : ORIGIN = 0xe00,         LENGTH = 0x29e00
   FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
   FSS            : ORIGIN = 0xF80002,      LENGTH = 0x2
   FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
@@ -174,15 +217,15 @@ __FUID0 = 0xF80010;
 __FUID1 = 0xF80012;
 __FUID2 = 0xF80014;
 __FUID3 = 0xF80016;
-
+__CODE_BASE = 0x200;
+__CODE_LENGTH = 0x2AA00;
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
+
 __DATA_BASE = 0x800;
 __DATA_LENGTH = 0x4000;
 __DMA_BASE = 0x4000;
 __DMA_END = 0x47FF;
-__CODE_BASE = 0x200;
-__CODE_LENGTH = 0x2AA00;
 
 
 /*
@@ -195,6 +238,7 @@ SECTIONS
   */
 
 
+#if !defined(__CORESIDENT) || defined(__DEFINE_RESET)
   /*
   ** Reset Instruction
   */
@@ -205,6 +249,7 @@ SECTIONS
         SHORT((ABSOLUTE(__reset) >> 16) & 0x7F);
         SHORT(0);
   } >reset
+#endif
 
 
   /*
@@ -1194,6 +1239,10 @@ SECTIONS
   { KEEP (*(__FUID3.sec*))    } >FUID3
 
 
+
+
+
+
   /*
   ** =========== Data Memory ===========
   */
@@ -1252,6 +1301,14 @@ SECTIONS
 ** ================= End of Section Map ================
 */
 
+#if 1  // Always include the IVT. Was: #if __XC16_VERSION < 1026
+/*
+** These definitions are not required for XC16 versions
+** later than XC16 v1.25 as the linker defines the addresses.
+**
+** These definitons will cause a link error on a newer compiler
+**
+*/
 /*
 ** Section Map for Interrupt Vector Tables
 */
@@ -1525,6 +1582,7 @@ LONG(J__Interrupt116);
 LONG(J__Interrupt117);
   } >aivt
 } /* SECTIONS */
+#endif
 
 
 /*

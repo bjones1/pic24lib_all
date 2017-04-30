@@ -1,13 +1,56 @@
 /* GLD file for Bully bootloader firmware */
 /*
-** Linker script for PIC33FJ06GS001
-*/
+ * Linker script for PIC33FJ06GS001
+ * (c) Copyright 2013 Microchip Technology, Inc
+ * Part support version 1.30.A(22-Nov-2016)
+ *
+ * This software is developed by Microchip Technology Inc. and its
+ * subsidiaries ("Microchip").
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are 
+ * met:
+ * 
+ * 1.      Redistributions of source code must retain the above copyright
+ *         notice, this list of conditions and the following disclaimer.
+ * 2.      Redistributions in binary form must reproduce the above 
+ *         copyright notice, this list of conditions and the following 
+ *         disclaimer in the documentation and/or other materials provided 
+ *         with the distribution.
+ * 3.      Microchip's name may not be used to endorse or promote products
+ *         derived from this software without specific prior written 
+ *         permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR PURPOSE ARE DISCLAIMED. IN NO EVENT 
+ * SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ */
+
 
 OUTPUT_ARCH("33FJ06GS001")
 CRT0_STARTUP(crt0_standard.o)
 CRT1_STARTUP(crt1_standard.o)
+#if __XC16_VERSION__ > 1027
+/*
+ * Define how to startup, by default we initialize
+ * everything as normal; change to crt_start_mode to
+ * preserve preserved data on a restart
+ *
+ * Or define your own __crt_start_mode fucntion
+ */
+CRT_STARTMODE(crt_start_mode_normal)
+#endif
 
 OPTIONAL(-lp33FJ06GS001)
+OPTIONAL(-lfx)
 
 /*
 ** Memory Regions
@@ -19,7 +62,7 @@ MEMORY
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   _reserved      : ORIGIN = 0x100,         LENGTH = 0x4
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0xDEE
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0xDF0
   FICD           : ORIGIN = 0xFF0,         LENGTH = 0x2
   FWDT           : ORIGIN = 0xFF4,         LENGTH = 0x2
   FOSC           : ORIGIN = 0xFF6,         LENGTH = 0x2
@@ -158,16 +201,15 @@ __FWDT = 0xFF4;
 __FOSC = 0xFF6;
 __FOSCSEL = 0xFF8;
 __FGS = 0xFFA;
-
 __NO_HANDLES = 1;          /* Suppress handles on this device  */
-
+__CODE_BASE = 0x200;
+__CODE_LENGTH = 0xDF0;
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
+
 __DATA_BASE = 0x800;
 __DATA_LENGTH = 0x100;
 __YDATA_BASE = 0x880;
-__CODE_BASE = 0x200;
-__CODE_LENGTH = 0xDF0;
 
 
 /*
@@ -180,6 +222,7 @@ SECTIONS
   */
 
 
+#if !defined(__CORESIDENT) || defined(__DEFINE_RESET)
   /*
   ** Reset Instruction
   */
@@ -190,6 +233,7 @@ SECTIONS
         SHORT((ABSOLUTE(__reset) >> 16) & 0x7F);
         SHORT(0);
   } >reset
+#endif
 
 
   /*
@@ -278,6 +322,10 @@ SECTIONS
   { KEEP (*(__FGS.sec*))    } >FGS
 
 
+
+
+
+
   /*
   ** =========== Data Memory ===========
   */
@@ -336,6 +384,14 @@ SECTIONS
 ** ================= End of Section Map ================
 */
 
+#if 1  // Always include the IVT. Was: #if __XC16_VERSION < 1026
+/*
+** These definitions are not required for XC16 versions
+** later than XC16 v1.25 as the linker defines the addresses.
+**
+** These definitons will cause a link error on a newer compiler
+**
+*/
 /*
 ** Section Map for Interrupt Vector Tables
 */
@@ -609,6 +665,7 @@ LONG(J__ADCP6Interrupt);
 LONG(J__Interrupt117);
   } >aivt
 } /* SECTIONS */
+#endif
 
 
 /*

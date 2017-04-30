@@ -1,13 +1,56 @@
-/* GLD file for PIC24 application using the Bully bootloader */
+/* GLD file for PIC24 application using the Bully bootloader. */
 /*
-** Linker script for PIC33EP128GP502
-*/
+ * Linker script for PIC33EP128GP502
+ * (c) Copyright 2013 Microchip Technology, Inc
+ * Part support version 1.30.A(22-Nov-2016)
+ *
+ * This software is developed by Microchip Technology Inc. and its
+ * subsidiaries ("Microchip").
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are 
+ * met:
+ * 
+ * 1.      Redistributions of source code must retain the above copyright
+ *         notice, this list of conditions and the following disclaimer.
+ * 2.      Redistributions in binary form must reproduce the above 
+ *         copyright notice, this list of conditions and the following 
+ *         disclaimer in the documentation and/or other materials provided 
+ *         with the distribution.
+ * 3.      Microchip's name may not be used to endorse or promote products
+ *         derived from this software without specific prior written 
+ *         permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR PURPOSE ARE DISCLAIMED. IN NO EVENT 
+ * SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ */
+
 
 OUTPUT_ARCH("33EP128GP502")
 CRT0_STARTUP(crt0_extendedep.o)
 CRT1_STARTUP(crt1_extendedep.o)
+#if __XC16_VERSION__ > 1027
+/*
+ * Define how to startup, by default we initialize
+ * everything as normal; change to crt_start_mode to
+ * preserve preserved data on a restart
+ *
+ * Or define your own __crt_start_mode fucntion
+ */
+CRT_STARTMODE(crt_start_mode_normal)
+#endif
 
 OPTIONAL(-lp33EP128GP502)
+OPTIONAL(-lfx)
 
 /*
 ** Memory Regions
@@ -17,8 +60,8 @@ MEMORY
   data  (a!xr)   : ORIGIN = 0x1000,        LENGTH = 0x4000
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0x1FC
-  j_ivt          : ORIGIN = 0x1000,   	   LENGTH = 0x300
-  program (xr)   : ORIGIN = 0x1300,         LENGTH = 0x144ea
+  j_ivt          : ORIGIN = 0x1000,          LENGTH = 0x300
+  program (xr)   : ORIGIN = 0x1300,         LENGTH = 0x144ec
   FICD           : ORIGIN = 0x157F0,       LENGTH = 0x2
   FPOR           : ORIGIN = 0x157F2,       LENGTH = 0x2
   FWDT           : ORIGIN = 0x157F4,       LENGTH = 0x2
@@ -201,13 +244,13 @@ __FUID0 = 0x800FF8;
 __FUID1 = 0x800FFA;
 __FUID2 = 0x800FFC;
 __FUID3 = 0x800FFE;
-
+__CODE_BASE = 0x200;
+__CODE_LENGTH = 0x155EC;
 __IVT_BASE  = 0x4;
+
 __DATA_BASE = 0x1000;
 __DATA_LENGTH = 0x4000;
 __YDATA_BASE = 0x3000;
-__CODE_BASE = 0x200;
-__CODE_LENGTH = 0x155EC;
 
 
 /*
@@ -220,6 +263,7 @@ SECTIONS
   */
 
 
+#if !defined(__CORESIDENT) || defined(__DEFINE_RESET)
   /*
   ** Reset Instruction
   */
@@ -230,6 +274,7 @@ SECTIONS
         SHORT((ABSOLUTE(__reset) >> 16) & 0x7F);
         SHORT(0);
   } >reset
+#endif
 
 
   /*
@@ -1446,6 +1491,10 @@ SECTIONS
   { KEEP (*(__FUID3.sec*))    } >FUID3
 
 
+
+
+
+
   /*
   ** =========== Data Memory ===========
   */
@@ -1457,7 +1506,7 @@ SECTIONS
   ** This section provides optional storage for
   ** the ICD2 debugger. Define a global symbol
   ** named __ICD2RAM to enable ICD2. This section
-  ** must be loaded at data address 0x800.
+  ** must be loaded at data address 0x1000.
   */
   .icd __DATA_BASE (NOLOAD):
   {
@@ -1504,6 +1553,14 @@ SECTIONS
 ** ================= End of Section Map ================
 */
 
+#if 1  // Always include the IVT. Was: #if __XC16_VERSION < 1026
+/*
+** These definitions are not required for XC16 versions
+** later than XC16 v1.25 as the linker defines the addresses.
+**
+** These definitons will cause a link error on a newer compiler
+**
+*/
 /*
 ** Section Map for Interrupt Vector Tables
 */
@@ -1676,6 +1733,7 @@ LONG(J__PTG2Interrupt);
 LONG(J__PTG3Interrupt);
   } >ivt
 } /* SECTIONS */
+#endif
 
 
 /*
@@ -2106,7 +2164,6 @@ _C1RXF0EID    = 0x442;
 _C1RXF0EIDbits = 0x442;
  C1TXD        = 0x442;
 _C1TXD        = 0x442;
-_C1TXDbits    = 0x442;
  C1RXF1SID    = 0x444;
 _C1RXF1SID    = 0x444;
 _C1RXF1SIDbits = 0x444;

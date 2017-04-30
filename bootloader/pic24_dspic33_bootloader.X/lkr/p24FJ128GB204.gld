@@ -1,13 +1,61 @@
 /* GLD file for Bully bootloader firmware */
 /*
-** Linker script for PIC24FJ128GB204
-*/
+ * Linker script for PIC24FJ128GB204
+ * (c) Copyright 2013 Microchip Technology, Inc
+ * Part support version 1.30.A(22-Nov-2016)
+ *
+ * This software is developed by Microchip Technology Inc. and its
+ * subsidiaries ("Microchip").
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are 
+ * met:
+ * 
+ * 1.      Redistributions of source code must retain the above copyright
+ *         notice, this list of conditions and the following disclaimer.
+ * 2.      Redistributions in binary form must reproduce the above 
+ *         copyright notice, this list of conditions and the following 
+ *         disclaimer in the documentation and/or other materials provided 
+ *         with the distribution.
+ * 3.      Microchip's name may not be used to endorse or promote products
+ *         derived from this software without specific prior written 
+ *         permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR PURPOSE ARE DISCLAIMED. IN NO EVENT 
+ * SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ */
+
 
 OUTPUT_ARCH("24FJ128GB204")
+#if __XC16_VERSION__ > 1027
+CRT0_STARTUP(crt0_extended24.o)
+CRT1_STARTUP(crt1_extended24.o)
+#else
 CRT0_STARTUP(crt0_extended.o)
 CRT1_STARTUP(crt1_extended.o)
+#endif
+#if __XC16_VERSION__ > 1027
+/*
+ * Define how to startup, by default we initialize
+ * everything as normal; change to crt_start_mode to
+ * preserve preserved data on a restart
+ *
+ * Or define your own __crt_start_mode fucntion
+ */
+CRT_STARTMODE(crt_start_mode_normal)
+#endif
 
 OPTIONAL(-lpPIC24Fxxx)
+OPTIONAL(-lfx)
 
 /*
 ** Memory Regions
@@ -19,7 +67,7 @@ MEMORY
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   _reserved      : ORIGIN = 0x100,         LENGTH = 0x4
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x155F6
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x155F8
   CONFIG4        : ORIGIN = 0x157F8,       LENGTH = 0x2
   CONFIG3        : ORIGIN = 0x157FA,       LENGTH = 0x2
   CONFIG2        : ORIGIN = 0x157FC,       LENGTH = 0x2
@@ -156,13 +204,13 @@ __CONFIG4 = 0x157F8;
 __CONFIG3 = 0x157FA;
 __CONFIG2 = 0x157FC;
 __CONFIG1 = 0x157FE;
-
-__IVT_BASE  = 0x4;
-__AIVT_BASE = 0x104;
-__DATA_BASE = 0x800;
-__DATA_LENGTH = 0x2000;
 __CODE_BASE = 0x200;
 __CODE_LENGTH = 0x155F8;
+__IVT_BASE  = 0x4;
+__AIVT_BASE = 0x104;
+
+__DATA_BASE = 0x800;
+__DATA_LENGTH = 0x2000;
 
 
 /*
@@ -175,6 +223,7 @@ SECTIONS
   */
 
 
+#if !defined(__CORESIDENT) || defined(__DEFINE_RESET)
   /*
   ** Reset Instruction
   */
@@ -185,6 +234,7 @@ SECTIONS
         SHORT((ABSOLUTE(__reset) >> 16) & 0x7F);
         SHORT(0);
   } >reset
+#endif
 
 
   /*
@@ -271,6 +321,10 @@ SECTIONS
   { KEEP (*(__CONFIG1.sec*))    } >CONFIG1
 
 
+
+
+
+
   /*
   ** =========== Data Memory ===========
   */
@@ -329,6 +383,14 @@ SECTIONS
 ** ================= End of Section Map ================
 */
 
+#if 1  // Always include the IVT. Was: #if __XC16_VERSION < 1026
+/*
+** These definitions are not required for XC16 versions
+** later than XC16 v1.25 as the linker defines the addresses.
+**
+** These definitons will cause a link error on a newer compiler
+**
+*/
 /*
 ** Section Map for Interrupt Vector Tables
 */
@@ -602,6 +664,7 @@ LONG(J__Interrupt116);
 LONG(J__JTAGInterrupt);
   } >aivt
 } /* SECTIONS */
+#endif
 
 
 /*
@@ -858,11 +921,6 @@ _DSWAKEbits   = 0x110;
 _DSGPR0       = 0x112;
  DSGPR1       = 0x114;
 _DSGPR1       = 0x114;
- NVMCON       = 0x116;
-_NVMCON       = 0x116;
-_NVMCONbits   = 0x116;
- NVMKEY       = 0x11C;
-_NVMKEY       = 0x11C;
  ALRMVAL      = 0x11E;
 _ALRMVAL      = 0x11E;
  ALCFGRPT     = 0x120;
@@ -941,9 +999,15 @@ _CRCWDAT      = 0x164;
 _CRCWDATL     = 0x164;
  CRCWDATH     = 0x166;
 _CRCWDATH     = 0x166;
+ REFOCON1     = 0x168;
+_REFOCON1     = 0x168;
+_REFOCON1bits = 0x168;
  REFOCONL     = 0x168;
 _REFOCONL     = 0x168;
 _REFOCONLbits = 0x168;
+ REFOCON2     = 0x16A;
+_REFOCON2     = 0x16A;
+_REFOCON2bits = 0x16A;
  REFOCONH     = 0x16A;
 _REFOCONH     = 0x16A;
 _REFOCONHbits = 0x16A;
@@ -1024,9 +1088,15 @@ _ANCFGbits    = 0x19E;
  PADCFG1      = 0x1A0;
 _PADCFG1      = 0x1A0;
 _PADCFG1bits  = 0x1A0;
+ CRYCON1      = 0x1A4;
+_CRYCON1      = 0x1A4;
+_CRYCON1bits  = 0x1A4;
  CRYCONL      = 0x1A4;
 _CRYCONL      = 0x1A4;
 _CRYCONLbits  = 0x1A4;
+ CRYCON2      = 0x1A6;
+_CRYCON2      = 0x1A6;
+_CRYCON2bits  = 0x1A6;
  CRYCONH      = 0x1A6;
 _CRYCONH      = 0x1A6;
 _CRYCONHbits  = 0x1A6;
@@ -1189,6 +1259,8 @@ _AD1CHITLbits = 0x234;
  AD1CTMENL    = 0x238;
 _AD1CTMENL    = 0x238;
 _AD1CTMENLbits = 0x238;
+ AD1DMBUF     = 0x23A;
+_AD1DMBUF     = 0x23A;
  AD1RESDMA    = 0x23A;
 _AD1RESDMA    = 0x23A;
  CTMUCON1     = 0x23C;
@@ -1394,12 +1466,18 @@ _I2C1TRN      = 0x2DC;
 _I2C1TRNbits  = 0x2DC;
  I2C1BRG      = 0x2DE;
 _I2C1BRG      = 0x2DE;
- I2C1CONH     = 0x2E0;
-_I2C1CONH     = 0x2E0;
-_I2C1CONHbits = 0x2E0;
- I2C1CONL     = 0x2E2;
-_I2C1CONL     = 0x2E2;
-_I2C1CONLbits = 0x2E2;
+ I2C1CON1     = 0x2E0;
+_I2C1CON1     = 0x2E0;
+_I2C1CON1bits = 0x2E0;
+ I2C1CONL     = 0x2E0;
+_I2C1CONL     = 0x2E0;
+_I2C1CONLbits = 0x2E0;
+ I2C1CON2     = 0x2E2;
+_I2C1CON2     = 0x2E2;
+_I2C1CON2bits = 0x2E2;
+ I2C1CONH     = 0x2E2;
+_I2C1CONH     = 0x2E2;
+_I2C1CONHbits = 0x2E2;
  I2C1STAT     = 0x2E4;
 _I2C1STAT     = 0x2E4;
 _I2C1STATbits = 0x2E4;
@@ -1417,12 +1495,18 @@ _I2C2TRN      = 0x2EC;
 _I2C2TRNbits  = 0x2EC;
  I2C2BRG      = 0x2EE;
 _I2C2BRG      = 0x2EE;
- I2C2CONH     = 0x2F0;
-_I2C2CONH     = 0x2F0;
-_I2C2CONHbits = 0x2F0;
- I2C2CONL     = 0x2F2;
-_I2C2CONL     = 0x2F2;
-_I2C2CONLbits = 0x2F2;
+ I2C2CON1     = 0x2F0;
+_I2C2CON1     = 0x2F0;
+_I2C2CON1bits = 0x2F0;
+ I2C2CONL     = 0x2F0;
+_I2C2CONL     = 0x2F0;
+_I2C2CONLbits = 0x2F0;
+ I2C2CON2     = 0x2F2;
+_I2C2CON2     = 0x2F2;
+_I2C2CON2bits = 0x2F2;
+ I2C2CONH     = 0x2F2;
+_I2C2CONH     = 0x2F2;
+_I2C2CONHbits = 0x2F2;
  I2C2STAT     = 0x2F4;
 _I2C2STAT     = 0x2F4;
 _I2C2STATbits = 0x2F4;
@@ -1441,17 +1525,28 @@ _MDSRCbits    = 0x2FC;
  MDCAR        = 0x2FE;
 _MDCAR        = 0x2FE;
 _MDCARbits    = 0x2FE;
+ SPI1CON1     = 0x300;
+_SPI1CON1     = 0x300;
+_SPI1CON1bits = 0x300;
  SPI1CON1L    = 0x300;
 _SPI1CON1L    = 0x300;
 _SPI1CON1Lbits = 0x300;
  SPI1CON1H    = 0x302;
 _SPI1CON1H    = 0x302;
 _SPI1CON1Hbits = 0x302;
+ SPI1CON2     = 0x302;
+_SPI1CON2     = 0x302;
+_SPI1CON2bits = 0x302;
  SPI1CON2L    = 0x304;
 _SPI1CON2L    = 0x304;
 _SPI1CON2Lbits = 0x304;
+ SPI1CON3     = 0x304;
+_SPI1CON3     = 0x304;
+_SPI1CON3bits = 0x304;
  SPI1CON2H    = 0x306;
 _SPI1CON2H    = 0x306;
+ SPI1CON4     = 0x306;
+_SPI1CON4     = 0x306;
  SPI1STATL    = 0x308;
 _SPI1STATL    = 0x308;
 _SPI1STATLbits = 0x308;
@@ -1460,34 +1555,55 @@ _SPI1STATH    = 0x30A;
 _SPI1STATHbits = 0x30A;
  SPI1BUFL     = 0x30C;
 _SPI1BUFL     = 0x30C;
+_SPI1BUFLbits = 0x30C;
  SPI1BUFH     = 0x30E;
 _SPI1BUFH     = 0x30E;
+_SPI1BUFHbits = 0x30E;
  SPI1BRGL     = 0x310;
 _SPI1BRGL     = 0x310;
 _SPI1BRGLbits = 0x310;
  SPI1BRGH     = 0x312;
 _SPI1BRGH     = 0x312;
+ SPI1IMSK1    = 0x314;
+_SPI1IMSK1    = 0x314;
+_SPI1IMSK1bits = 0x314;
  SPI1IMSKL    = 0x314;
 _SPI1IMSKL    = 0x314;
 _SPI1IMSKLbits = 0x314;
+ SPI1IMSK2    = 0x316;
+_SPI1IMSK2    = 0x316;
+_SPI1IMSK2bits = 0x316;
  SPI1IMSKH    = 0x316;
 _SPI1IMSKH    = 0x316;
 _SPI1IMSKHbits = 0x316;
  SPI1URDTL    = 0x318;
 _SPI1URDTL    = 0x318;
+_SPI1URDTLbits = 0x318;
  SPI1URDTH    = 0x31A;
 _SPI1URDTH    = 0x31A;
+_SPI1URDTHbits = 0x31A;
+ SPI2CON1     = 0x31C;
+_SPI2CON1     = 0x31C;
+_SPI2CON1bits = 0x31C;
  SPI2CON1L    = 0x31C;
 _SPI2CON1L    = 0x31C;
 _SPI2CON1Lbits = 0x31C;
  SPI2CON1H    = 0x31E;
 _SPI2CON1H    = 0x31E;
 _SPI2CON1Hbits = 0x31E;
+ SPI2CON2     = 0x31E;
+_SPI2CON2     = 0x31E;
+_SPI2CON2bits = 0x31E;
  SPI2CON2L    = 0x320;
 _SPI2CON2L    = 0x320;
 _SPI2CON2Lbits = 0x320;
+ SPI2CON3     = 0x320;
+_SPI2CON3     = 0x320;
+_SPI2CON3bits = 0x320;
  SPI2CON2H    = 0x322;
 _SPI2CON2H    = 0x322;
+ SPI2CON4     = 0x322;
+_SPI2CON4     = 0x322;
  SPI2STATL    = 0x324;
 _SPI2STATL    = 0x324;
 _SPI2STATLbits = 0x324;
@@ -1496,34 +1612,55 @@ _SPI2STATH    = 0x326;
 _SPI2STATHbits = 0x326;
  SPI2BUFL     = 0x328;
 _SPI2BUFL     = 0x328;
+_SPI2BUFLbits = 0x328;
  SPI2BUFH     = 0x32A;
 _SPI2BUFH     = 0x32A;
+_SPI2BUFHbits = 0x32A;
  SPI2BRGL     = 0x32C;
 _SPI2BRGL     = 0x32C;
 _SPI2BRGLbits = 0x32C;
  SPI2BRGH     = 0x32E;
 _SPI2BRGH     = 0x32E;
+ SPI2IMSK1    = 0x330;
+_SPI2IMSK1    = 0x330;
+_SPI2IMSK1bits = 0x330;
  SPI2IMSKL    = 0x330;
 _SPI2IMSKL    = 0x330;
 _SPI2IMSKLbits = 0x330;
+ SPI2IMSK2    = 0x332;
+_SPI2IMSK2    = 0x332;
+_SPI2IMSK2bits = 0x332;
  SPI2IMSKH    = 0x332;
 _SPI2IMSKH    = 0x332;
 _SPI2IMSKHbits = 0x332;
  SPI2URDTL    = 0x334;
 _SPI2URDTL    = 0x334;
+_SPI2URDTLbits = 0x334;
  SPI2URDTH    = 0x336;
 _SPI2URDTH    = 0x336;
+_SPI2URDTHbits = 0x336;
+ SPI3CON1     = 0x338;
+_SPI3CON1     = 0x338;
+_SPI3CON1bits = 0x338;
  SPI3CON1L    = 0x338;
 _SPI3CON1L    = 0x338;
 _SPI3CON1Lbits = 0x338;
  SPI3CON1H    = 0x33A;
 _SPI3CON1H    = 0x33A;
 _SPI3CON1Hbits = 0x33A;
+ SPI3CON2     = 0x33A;
+_SPI3CON2     = 0x33A;
+_SPI3CON2bits = 0x33A;
  SPI3CON2L    = 0x33C;
 _SPI3CON2L    = 0x33C;
 _SPI3CON2Lbits = 0x33C;
+ SPI3CON3     = 0x33C;
+_SPI3CON3     = 0x33C;
+_SPI3CON3bits = 0x33C;
  SPI3CON2H    = 0x33E;
 _SPI3CON2H    = 0x33E;
+ SPI3CON4     = 0x33E;
+_SPI3CON4     = 0x33E;
  SPI3STATL    = 0x340;
 _SPI3STATL    = 0x340;
 _SPI3STATLbits = 0x340;
@@ -1532,23 +1669,33 @@ _SPI3STATH    = 0x342;
 _SPI3STATHbits = 0x342;
  SPI3BUFL     = 0x344;
 _SPI3BUFL     = 0x344;
+_SPI3BUFLbits = 0x344;
  SPI3BUFH     = 0x346;
 _SPI3BUFH     = 0x346;
+_SPI3BUFHbits = 0x346;
  SPI3BRGL     = 0x348;
 _SPI3BRGL     = 0x348;
 _SPI3BRGLbits = 0x348;
  SPI3BRGH     = 0x34A;
 _SPI3BRGH     = 0x34A;
+ SPI3IMSK1    = 0x34C;
+_SPI3IMSK1    = 0x34C;
+_SPI3IMSK1bits = 0x34C;
  SPI3IMSKL    = 0x34C;
 _SPI3IMSKL    = 0x34C;
 _SPI3IMSKLbits = 0x34C;
+ SPI3IMSK2    = 0x34E;
+_SPI3IMSK2    = 0x34E;
+_SPI3IMSK2bits = 0x34E;
  SPI3IMSKH    = 0x34E;
 _SPI3IMSKH    = 0x34E;
 _SPI3IMSKHbits = 0x34E;
  SPI3URDTL    = 0x350;
 _SPI3URDTL    = 0x350;
+_SPI3URDTLbits = 0x350;
  SPI3URDTH    = 0x352;
 _SPI3URDTH    = 0x352;
+_SPI3URDTHbits = 0x352;
  RPINR0       = 0x38C;
 _RPINR0       = 0x38C;
 _RPINR0bits   = 0x38C;
@@ -1840,9 +1987,9 @@ _DMACNT5      = 0x492;
  U1MODE       = 0x500;
 _U1MODE       = 0x500;
 _U1MODEbits   = 0x500;
- U1STAL       = 0x502;
-_U1STAL       = 0x502;
-_U1STALbits   = 0x502;
+ U1STA        = 0x502;
+_U1STA        = 0x502;
+_U1STAbits    = 0x502;
  U1TXREG      = 0x504;
 _U1TXREG      = 0x504;
 _U1TXREGbits  = 0x504;
@@ -1850,9 +1997,9 @@ _U1TXREGbits  = 0x504;
 _U1RXREG      = 0x506;
  U1BRG        = 0x508;
 _U1BRG        = 0x508;
- U1STAH       = 0x50A;
-_U1STAH       = 0x50A;
-_U1STAHbits   = 0x50A;
+ U1ADMD       = 0x50A;
+_U1ADMD       = 0x50A;
+_U1ADMDbits   = 0x50A;
  U1SCCON      = 0x50C;
 _U1SCCON      = 0x50C;
 _U1SCCONbits  = 0x50C;
@@ -1871,9 +2018,9 @@ _U1WTCHbits   = 0x514;
  U2MODE       = 0x516;
 _U2MODE       = 0x516;
 _U2MODEbits   = 0x516;
- U2STAL       = 0x518;
-_U2STAL       = 0x518;
-_U2STALbits   = 0x518;
+ U2STA        = 0x518;
+_U2STA        = 0x518;
+_U2STAbits    = 0x518;
  U2TXREG      = 0x51A;
 _U2TXREG      = 0x51A;
 _U2TXREGbits  = 0x51A;
@@ -1881,9 +2028,9 @@ _U2TXREGbits  = 0x51A;
 _U2RXREG      = 0x51C;
  U2BRG        = 0x51E;
 _U2BRG        = 0x51E;
- U2STAH       = 0x520;
-_U2STAH       = 0x520;
-_U2STAHbits   = 0x520;
+ U2ADMD       = 0x520;
+_U2ADMD       = 0x520;
+_U2ADMDbits   = 0x520;
  U2SCCON      = 0x522;
 _U2SCCON      = 0x522;
 _U2SCCONbits  = 0x522;
@@ -1902,9 +2049,9 @@ _U2WTCHbits   = 0x52A;
  U3MODE       = 0x52C;
 _U3MODE       = 0x52C;
 _U3MODEbits   = 0x52C;
- U3STAL       = 0x52E;
-_U3STAL       = 0x52E;
-_U3STALbits   = 0x52E;
+ U3STA        = 0x52E;
+_U3STA        = 0x52E;
+_U3STAbits    = 0x52E;
  U3TXREG      = 0x530;
 _U3TXREG      = 0x530;
 _U3TXREGbits  = 0x530;
@@ -1912,15 +2059,15 @@ _U3TXREGbits  = 0x530;
 _U3RXREG      = 0x532;
  U3BRG        = 0x534;
 _U3BRG        = 0x534;
- U3STAH       = 0x536;
-_U3STAH       = 0x536;
-_U3STAHbits   = 0x536;
+ U3ADMD       = 0x536;
+_U3ADMD       = 0x536;
+_U3ADMDbits   = 0x536;
  U4MODE       = 0x538;
 _U4MODE       = 0x538;
 _U4MODEbits   = 0x538;
- U4STAL       = 0x53A;
-_U4STAL       = 0x53A;
-_U4STALbits   = 0x53A;
+ U4STA        = 0x53A;
+_U4STA        = 0x53A;
+_U4STAbits    = 0x53A;
  U4TXREG      = 0x53C;
 _U4TXREG      = 0x53C;
 _U4TXREGbits  = 0x53C;
@@ -1928,9 +2075,14 @@ _U4TXREGbits  = 0x53C;
 _U4RXREG      = 0x53E;
  U4BRG        = 0x540;
 _U4BRG        = 0x540;
- U4STAH       = 0x542;
-_U4STAH       = 0x542;
-_U4STAHbits   = 0x542;
+ U4ADMD       = 0x542;
+_U4ADMD       = 0x542;
+_U4ADMDbits   = 0x542;
+ NVMCON       = 0x760;
+_NVMCON       = 0x760;
+_NVMCONbits   = 0x760;
+ NVMKEY       = 0x766;
+_NVMKEY       = 0x766;
 /*
 ** ======= Base Addresses for Various Peripherals and ACC ======
 */

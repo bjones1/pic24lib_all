@@ -1,13 +1,56 @@
 /* GLD file for Bully bootloader firmware */
 /*
-** Linker script for PIC33EP512GM304
-*/
+ * Linker script for PIC33EP512GM304
+ * (c) Copyright 2013 Microchip Technology, Inc
+ * Part support version 1.30.A(22-Nov-2016)
+ *
+ * This software is developed by Microchip Technology Inc. and its
+ * subsidiaries ("Microchip").
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are 
+ * met:
+ * 
+ * 1.      Redistributions of source code must retain the above copyright
+ *         notice, this list of conditions and the following disclaimer.
+ * 2.      Redistributions in binary form must reproduce the above 
+ *         copyright notice, this list of conditions and the following 
+ *         disclaimer in the documentation and/or other materials provided 
+ *         with the distribution.
+ * 3.      Microchip's name may not be used to endorse or promote products
+ *         derived from this software without specific prior written 
+ *         permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR PURPOSE ARE DISCLAIMED. IN NO EVENT 
+ * SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ */
+
 
 OUTPUT_ARCH("33EP512GM304")
 CRT0_STARTUP(crt0_extendedep.o)
 CRT1_STARTUP(crt1_extendedep.o)
+#if __XC16_VERSION__ > 1027
+/*
+ * Define how to startup, by default we initialize
+ * everything as normal; change to crt_start_mode to
+ * preserve preserved data on a restart
+ *
+ * Or define your own __crt_start_mode fucntion
+ */
+CRT_STARTMODE(crt_start_mode_normal)
+#endif
 
 OPTIONAL(-lp33EP512GM304)
+OPTIONAL(-lfx)
 
 /*
 ** Memory Regions
@@ -17,7 +60,7 @@ MEMORY
   data  (a!xr)   : ORIGIN = 0x1000,        LENGTH = 0xC000
   reset          : ORIGIN = 0x0,           LENGTH = 0x4
   ivt            : ORIGIN = 0x4,           LENGTH = 0x1FC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x555EA
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x555EC
   FICD           : ORIGIN = 0x557F0,       LENGTH = 0x2
   FPOR           : ORIGIN = 0x557F2,       LENGTH = 0x2
   FWDT           : ORIGIN = 0x557F4,       LENGTH = 0x2
@@ -199,13 +242,13 @@ __FUID0 = 0x800FF8;
 __FUID1 = 0x800FFA;
 __FUID2 = 0x800FFC;
 __FUID3 = 0x800FFE;
-
+__CODE_BASE = 0x200;
+__CODE_LENGTH = 0x555EC;
 __IVT_BASE  = 0x4;
+
 __DATA_BASE = 0x1000;
 __DATA_LENGTH = 0xC000;
 __YDATA_BASE = 0x9000;
-__CODE_BASE = 0x200;
-__CODE_LENGTH = 0x555EC;
 
 
 /*
@@ -218,6 +261,7 @@ SECTIONS
   */
 
 
+#if !defined(__CORESIDENT) || defined(__DEFINE_RESET)
   /*
   ** Reset Instruction
   */
@@ -228,6 +272,7 @@ SECTIONS
         SHORT((ABSOLUTE(__reset) >> 16) & 0x7F);
         SHORT(0);
   } >reset
+#endif
 
 
   /*
@@ -326,6 +371,10 @@ SECTIONS
   { KEEP (*(__FUID3.sec*))    } >FUID3
 
 
+
+
+
+
   /*
   ** =========== Data Memory ===========
   */
@@ -337,7 +386,7 @@ SECTIONS
   ** This section provides optional storage for
   ** the ICD2 debugger. Define a global symbol
   ** named __ICD2RAM to enable ICD2. This section
-  ** must be loaded at data address 0x800.
+  ** must be loaded at data address 0x1000.
   */
   .icd __DATA_BASE (NOLOAD):
   {
@@ -384,6 +433,14 @@ SECTIONS
 ** ================= End of Section Map ================
 */
 
+#if 1  // Always include the IVT. Was: #if __XC16_VERSION < 1026
+/*
+** These definitions are not required for XC16 versions
+** later than XC16 v1.25 as the linker defines the addresses.
+**
+** These definitons will cause a link error on a newer compiler
+**
+*/
 /*
 ** Section Map for Interrupt Vector Tables
 */
@@ -556,6 +613,7 @@ LONG(J__PTG2Interrupt);
 LONG(J__PTG3Interrupt);
   } >ivt
 } /* SECTIONS */
+#endif
 
 
 /*
@@ -1123,426 +1181,49 @@ _AD2CSSLbits  = 0x370;
  AD2CON4      = 0x372;
 _AD2CON4      = 0x372;
 _AD2CON4bits  = 0x372;
- C1CTRL1      = 0x400;
-_C1CTRL1      = 0x400;
-_C1CTRL1bits  = 0x400;
- C1CTRL2      = 0x402;
-_C1CTRL2      = 0x402;
-_C1CTRL2bits  = 0x402;
- C1VEC        = 0x404;
-_C1VEC        = 0x404;
-_C1VECbits    = 0x404;
- C1FCTRL      = 0x406;
-_C1FCTRL      = 0x406;
-_C1FCTRLbits  = 0x406;
- C1FIFO       = 0x408;
-_C1FIFO       = 0x408;
-_C1FIFObits   = 0x408;
- C1INTF       = 0x40A;
-_C1INTF       = 0x40A;
-_C1INTFbits   = 0x40A;
- C1INTE       = 0x40C;
-_C1INTE       = 0x40C;
-_C1INTEbits   = 0x40C;
- C1EC         = 0x40E;
-_C1EC         = 0x40E;
-_C1ECbits     = 0x40E;
- C1RERRCNT    = 0x40E;
-_C1RERRCNT    = 0x40E;
- C1TERRCNT    = 0x40F;
-_C1TERRCNT    = 0x40F;
- C1CFG1       = 0x410;
-_C1CFG1       = 0x410;
-_C1CFG1bits   = 0x410;
- C1CFG2       = 0x412;
-_C1CFG2       = 0x412;
-_C1CFG2bits   = 0x412;
- C1FEN1       = 0x414;
-_C1FEN1       = 0x414;
-_C1FEN1bits   = 0x414;
- C1FMSKSEL1   = 0x418;
-_C1FMSKSEL1   = 0x418;
-_C1FMSKSEL1bits = 0x418;
- C1FMSKSEL2   = 0x41A;
-_C1FMSKSEL2   = 0x41A;
-_C1FMSKSEL2bits = 0x41A;
- C1BUFPNT1    = 0x420;
-_C1BUFPNT1    = 0x420;
-_C1BUFPNT1bits = 0x420;
- C1RXFUL1     = 0x420;
-_C1RXFUL1     = 0x420;
-_C1RXFUL1bits = 0x420;
- C1BUFPNT2    = 0x422;
-_C1BUFPNT2    = 0x422;
-_C1BUFPNT2bits = 0x422;
- C1RXFUL2     = 0x422;
-_C1RXFUL2     = 0x422;
-_C1RXFUL2bits = 0x422;
- C1BUFPNT3    = 0x424;
-_C1BUFPNT3    = 0x424;
-_C1BUFPNT3bits = 0x424;
- C1BUFPNT4    = 0x426;
-_C1BUFPNT4    = 0x426;
-_C1BUFPNT4bits = 0x426;
- C1RXOVF1     = 0x428;
-_C1RXOVF1     = 0x428;
-_C1RXOVF1bits = 0x428;
- C1RXOVF2     = 0x42A;
-_C1RXOVF2     = 0x42A;
-_C1RXOVF2bits = 0x42A;
- C1RXM0SID    = 0x430;
-_C1RXM0SID    = 0x430;
-_C1RXM0SIDbits = 0x430;
- C1TR01CON    = 0x430;
-_C1TR01CON    = 0x430;
-_C1TR01CONbits = 0x430;
- C1RXM0EID    = 0x432;
-_C1RXM0EID    = 0x432;
-_C1RXM0EIDbits = 0x432;
- C1TR23CON    = 0x432;
-_C1TR23CON    = 0x432;
-_C1TR23CONbits = 0x432;
- C1RXM1SID    = 0x434;
-_C1RXM1SID    = 0x434;
-_C1RXM1SIDbits = 0x434;
- C1TR45CON    = 0x434;
-_C1TR45CON    = 0x434;
-_C1TR45CONbits = 0x434;
- C1RXM1EID    = 0x436;
-_C1RXM1EID    = 0x436;
-_C1RXM1EIDbits = 0x436;
- C1TR67CON    = 0x436;
-_C1TR67CON    = 0x436;
-_C1TR67CONbits = 0x436;
- C1RXM2SID    = 0x438;
-_C1RXM2SID    = 0x438;
-_C1RXM2SIDbits = 0x438;
- C1RXM2EID    = 0x43A;
-_C1RXM2EID    = 0x43A;
-_C1RXM2EIDbits = 0x43A;
- C1RXD        = 0x440;
-_C1RXD        = 0x440;
- C1RXF0SID    = 0x440;
-_C1RXF0SID    = 0x440;
-_C1RXF0SIDbits = 0x440;
- C1RXF0EID    = 0x442;
-_C1RXF0EID    = 0x442;
-_C1RXF0EIDbits = 0x442;
- C1TXD        = 0x442;
-_C1TXD        = 0x442;
-_C1TXDbits    = 0x442;
- C1RXF1SID    = 0x444;
-_C1RXF1SID    = 0x444;
-_C1RXF1SIDbits = 0x444;
- C1RXF1EID    = 0x446;
-_C1RXF1EID    = 0x446;
-_C1RXF1EIDbits = 0x446;
- C1RXF2SID    = 0x448;
-_C1RXF2SID    = 0x448;
-_C1RXF2SIDbits = 0x448;
- C1RXF2EID    = 0x44A;
-_C1RXF2EID    = 0x44A;
-_C1RXF2EIDbits = 0x44A;
- C1RXF3SID    = 0x44C;
-_C1RXF3SID    = 0x44C;
-_C1RXF3SIDbits = 0x44C;
- C1RXF3EID    = 0x44E;
-_C1RXF3EID    = 0x44E;
-_C1RXF3EIDbits = 0x44E;
- C1RXF4SID    = 0x450;
-_C1RXF4SID    = 0x450;
-_C1RXF4SIDbits = 0x450;
- C1RXF4EID    = 0x452;
-_C1RXF4EID    = 0x452;
-_C1RXF4EIDbits = 0x452;
- C1RXF5SID    = 0x454;
-_C1RXF5SID    = 0x454;
-_C1RXF5SIDbits = 0x454;
- C1RXF5EID    = 0x456;
-_C1RXF5EID    = 0x456;
-_C1RXF5EIDbits = 0x456;
- C1RXF6SID    = 0x458;
-_C1RXF6SID    = 0x458;
-_C1RXF6SIDbits = 0x458;
- C1RXF6EID    = 0x45A;
-_C1RXF6EID    = 0x45A;
-_C1RXF6EIDbits = 0x45A;
- C1RXF7SID    = 0x45C;
-_C1RXF7SID    = 0x45C;
-_C1RXF7SIDbits = 0x45C;
- C1RXF7EID    = 0x45E;
-_C1RXF7EID    = 0x45E;
-_C1RXF7EIDbits = 0x45E;
- C1RXF8SID    = 0x460;
-_C1RXF8SID    = 0x460;
-_C1RXF8SIDbits = 0x460;
- C1RXF8EID    = 0x462;
-_C1RXF8EID    = 0x462;
-_C1RXF8EIDbits = 0x462;
- C1RXF9SID    = 0x464;
-_C1RXF9SID    = 0x464;
-_C1RXF9SIDbits = 0x464;
- C1RXF9EID    = 0x466;
-_C1RXF9EID    = 0x466;
-_C1RXF9EIDbits = 0x466;
- C1RXF10SID   = 0x468;
-_C1RXF10SID   = 0x468;
-_C1RXF10SIDbits = 0x468;
- C1RXF10EID   = 0x46A;
-_C1RXF10EID   = 0x46A;
-_C1RXF10EIDbits = 0x46A;
- C1RXF11SID   = 0x46C;
-_C1RXF11SID   = 0x46C;
-_C1RXF11SIDbits = 0x46C;
- C1RXF11EID   = 0x46E;
-_C1RXF11EID   = 0x46E;
-_C1RXF11EIDbits = 0x46E;
- C1RXF12SID   = 0x470;
-_C1RXF12SID   = 0x470;
-_C1RXF12SIDbits = 0x470;
- C1RXF12EID   = 0x472;
-_C1RXF12EID   = 0x472;
-_C1RXF12EIDbits = 0x472;
- C1RXF13SID   = 0x474;
-_C1RXF13SID   = 0x474;
-_C1RXF13SIDbits = 0x474;
- C1RXF13EID   = 0x476;
-_C1RXF13EID   = 0x476;
-_C1RXF13EIDbits = 0x476;
- C1RXF14SID   = 0x478;
-_C1RXF14SID   = 0x478;
-_C1RXF14SIDbits = 0x478;
- C1RXF14EID   = 0x47A;
-_C1RXF14EID   = 0x47A;
-_C1RXF14EIDbits = 0x47A;
- C1RXF15SID   = 0x47C;
-_C1RXF15SID   = 0x47C;
-_C1RXF15SIDbits = 0x47C;
- C1RXF15EID   = 0x47E;
-_C1RXF15EID   = 0x47E;
-_C1RXF15EIDbits = 0x47E;
- C2CTRL1      = 0x500;
-_C2CTRL1      = 0x500;
-_C2CTRL1bits  = 0x500;
- C2CTRL2      = 0x502;
-_C2CTRL2      = 0x502;
-_C2CTRL2bits  = 0x502;
- C2VEC        = 0x504;
-_C2VEC        = 0x504;
-_C2VECbits    = 0x504;
- C2FCTRL      = 0x506;
-_C2FCTRL      = 0x506;
-_C2FCTRLbits  = 0x506;
- C2FIFO       = 0x508;
-_C2FIFO       = 0x508;
-_C2FIFObits   = 0x508;
- C2INTF       = 0x50A;
-_C2INTF       = 0x50A;
-_C2INTFbits   = 0x50A;
- C2INTE       = 0x50C;
-_C2INTE       = 0x50C;
-_C2INTEbits   = 0x50C;
- C2EC         = 0x50E;
-_C2EC         = 0x50E;
-_C2ECbits     = 0x50E;
- C2RERRCNT    = 0x50E;
-_C2RERRCNT    = 0x50E;
- C2TERRCNT    = 0x50F;
-_C2TERRCNT    = 0x50F;
- C2CFG1       = 0x510;
-_C2CFG1       = 0x510;
-_C2CFG1bits   = 0x510;
- C2CFG2       = 0x512;
-_C2CFG2       = 0x512;
-_C2CFG2bits   = 0x512;
- C2FEN1       = 0x514;
-_C2FEN1       = 0x514;
-_C2FEN1bits   = 0x514;
- C2FMSKSEL1   = 0x518;
-_C2FMSKSEL1   = 0x518;
-_C2FMSKSEL1bits = 0x518;
- C2FMSKSEL2   = 0x51A;
-_C2FMSKSEL2   = 0x51A;
-_C2FMSKSEL2bits = 0x51A;
- C2BUFPNT1    = 0x520;
-_C2BUFPNT1    = 0x520;
-_C2BUFPNT1bits = 0x520;
- C2RXFUL1     = 0x520;
-_C2RXFUL1     = 0x520;
-_C2RXFUL1bits = 0x520;
- C2BUFPNT2    = 0x522;
-_C2BUFPNT2    = 0x522;
-_C2BUFPNT2bits = 0x522;
- C2RXFUL2     = 0x522;
-_C2RXFUL2     = 0x522;
-_C2RXFUL2bits = 0x522;
- C2BUFPNT3    = 0x524;
-_C2BUFPNT3    = 0x524;
-_C2BUFPNT3bits = 0x524;
- C2BUFPNT4    = 0x526;
-_C2BUFPNT4    = 0x526;
-_C2BUFPNT4bits = 0x526;
- C2RXOVF1     = 0x528;
-_C2RXOVF1     = 0x528;
-_C2RXOVF1bits = 0x528;
- C2RXOVF2     = 0x52A;
-_C2RXOVF2     = 0x52A;
-_C2RXOVF2bits = 0x52A;
- C2RXM0SID    = 0x530;
-_C2RXM0SID    = 0x530;
-_C2RXM0SIDbits = 0x530;
- C2TR01CON    = 0x530;
-_C2TR01CON    = 0x530;
-_C2TR01CONbits = 0x530;
- C2RXM0EID    = 0x532;
-_C2RXM0EID    = 0x532;
-_C2RXM0EIDbits = 0x532;
- C2TR23CON    = 0x532;
-_C2TR23CON    = 0x532;
-_C2TR23CONbits = 0x532;
- C2RXM1SID    = 0x534;
-_C2RXM1SID    = 0x534;
-_C2RXM1SIDbits = 0x534;
- C2TR45CON    = 0x534;
-_C2TR45CON    = 0x534;
-_C2TR45CONbits = 0x534;
- C2RXM1EID    = 0x536;
-_C2RXM1EID    = 0x536;
-_C2RXM1EIDbits = 0x536;
- C2TR67CON    = 0x536;
-_C2TR67CON    = 0x536;
-_C2TR67CONbits = 0x536;
- C2RXM2SID    = 0x538;
-_C2RXM2SID    = 0x538;
-_C2RXM2SIDbits = 0x538;
- C2RXM2EID    = 0x53A;
-_C2RXM2EID    = 0x53A;
-_C2RXM2EIDbits = 0x53A;
- C2RXD        = 0x540;
-_C2RXD        = 0x540;
- C2RXF0SID    = 0x540;
-_C2RXF0SID    = 0x540;
-_C2RXF0SIDbits = 0x540;
- C2RXF0EID    = 0x542;
-_C2RXF0EID    = 0x542;
-_C2RXF0EIDbits = 0x542;
- C2TXD        = 0x542;
-_C2TXD        = 0x542;
-_C2TXDbits    = 0x542;
- C2RXF1SID    = 0x544;
-_C2RXF1SID    = 0x544;
-_C2RXF1SIDbits = 0x544;
- C2RXF1EID    = 0x546;
-_C2RXF1EID    = 0x546;
-_C2RXF1EIDbits = 0x546;
- C2RXF2SID    = 0x548;
-_C2RXF2SID    = 0x548;
-_C2RXF2SIDbits = 0x548;
- C2RXF2EID    = 0x54A;
-_C2RXF2EID    = 0x54A;
-_C2RXF2EIDbits = 0x54A;
- C2RXF3SID    = 0x54C;
-_C2RXF3SID    = 0x54C;
-_C2RXF3SIDbits = 0x54C;
- C2RXF3EID    = 0x54E;
-_C2RXF3EID    = 0x54E;
-_C2RXF3EIDbits = 0x54E;
- C2RXF4SID    = 0x550;
-_C2RXF4SID    = 0x550;
-_C2RXF4SIDbits = 0x550;
- C2RXF4EID    = 0x552;
-_C2RXF4EID    = 0x552;
-_C2RXF4EIDbits = 0x552;
- C2RXF5SID    = 0x554;
-_C2RXF5SID    = 0x554;
-_C2RXF5SIDbits = 0x554;
- C2RXF5EID    = 0x556;
-_C2RXF5EID    = 0x556;
-_C2RXF5EIDbits = 0x556;
- C2RXF6SID    = 0x558;
-_C2RXF6SID    = 0x558;
-_C2RXF6SIDbits = 0x558;
- C2RXF6EID    = 0x55A;
-_C2RXF6EID    = 0x55A;
-_C2RXF6EIDbits = 0x55A;
- C2RXF7SID    = 0x55C;
-_C2RXF7SID    = 0x55C;
-_C2RXF7SIDbits = 0x55C;
- C2RXF7EID    = 0x55E;
-_C2RXF7EID    = 0x55E;
-_C2RXF7EIDbits = 0x55E;
- C2RXF8SID    = 0x560;
-_C2RXF8SID    = 0x560;
-_C2RXF8SIDbits = 0x560;
- C2RXF8EID    = 0x562;
-_C2RXF8EID    = 0x562;
-_C2RXF8EIDbits = 0x562;
- C2RXF9SID    = 0x564;
-_C2RXF9SID    = 0x564;
-_C2RXF9SIDbits = 0x564;
- C2RXF9EID    = 0x566;
-_C2RXF9EID    = 0x566;
-_C2RXF9EIDbits = 0x566;
- C2RXF10SID   = 0x568;
-_C2RXF10SID   = 0x568;
-_C2RXF10SIDbits = 0x568;
- C2RXF10EID   = 0x56A;
-_C2RXF10EID   = 0x56A;
-_C2RXF10EIDbits = 0x56A;
- C2RXF11SID   = 0x56C;
-_C2RXF11SID   = 0x56C;
-_C2RXF11SIDbits = 0x56C;
- C2RXF11EID   = 0x56E;
-_C2RXF11EID   = 0x56E;
-_C2RXF11EIDbits = 0x56E;
- C2RXF12SID   = 0x570;
-_C2RXF12SID   = 0x570;
-_C2RXF12SIDbits = 0x570;
- C2RXF12EID   = 0x572;
-_C2RXF12EID   = 0x572;
-_C2RXF12EIDbits = 0x572;
- C2RXF13SID   = 0x574;
-_C2RXF13SID   = 0x574;
-_C2RXF13SIDbits = 0x574;
- C2RXF13EID   = 0x576;
-_C2RXF13EID   = 0x576;
-_C2RXF13EIDbits = 0x576;
- C2RXF14SID   = 0x578;
-_C2RXF14SID   = 0x578;
-_C2RXF14SIDbits = 0x578;
- C2RXF14EID   = 0x57A;
-_C2RXF14EID   = 0x57A;
-_C2RXF14EIDbits = 0x57A;
- C2RXF15SID   = 0x57C;
-_C2RXF15SID   = 0x57C;
-_C2RXF15SIDbits = 0x57C;
- C2RXF15EID   = 0x57E;
-_C2RXF15EID   = 0x57E;
-_C2RXF15EIDbits = 0x57E;
- PMCON        = 0x600;
-_PMCON        = 0x600;
-_PMCONbits    = 0x600;
- PMMODE       = 0x602;
-_PMMODE       = 0x602;
-_PMMODEbits   = 0x602;
- PMADDR       = 0x604;
-_PMADDR       = 0x604;
-_PMADDRbits   = 0x604;
- PMDOUT1      = 0x604;
-_PMDOUT1      = 0x604;
-_PMDOUT1bits  = 0x604;
- PMDOUT2      = 0x606;
-_PMDOUT2      = 0x606;
- PMDIN1       = 0x608;
-_PMDIN1       = 0x608;
- PMDIN2       = 0x60A;
-_PMDIN2       = 0x60A;
- PMAEN        = 0x60C;
-_PMAEN        = 0x60C;
-_PMAENbits    = 0x60C;
- PMSTAT       = 0x60E;
-_PMSTAT       = 0x60E;
-_PMSTATbits   = 0x60E;
+ QEI2CON      = 0x5C0;
+_QEI2CON      = 0x5C0;
+_QEI2CONbits  = 0x5C0;
+ QEI2IOC      = 0x5C2;
+_QEI2IOC      = 0x5C2;
+_QEI2IOCbits  = 0x5C2;
+ QEI2STAT     = 0x5C4;
+_QEI2STAT     = 0x5C4;
+_QEI2STATbits = 0x5C4;
+ POS2CNTL     = 0x5C6;
+_POS2CNTL     = 0x5C6;
+ POS2CNTH     = 0x5C8;
+_POS2CNTH     = 0x5C8;
+ POS2HLD      = 0x5CA;
+_POS2HLD      = 0x5CA;
+ VEL2CNT      = 0x5CC;
+_VEL2CNT      = 0x5CC;
+ INT2TMRL     = 0x5CE;
+_INT2TMRL     = 0x5CE;
+ INT2TMRH     = 0x5D0;
+_INT2TMRH     = 0x5D0;
+ INT2HLDL     = 0x5D2;
+_INT2HLDL     = 0x5D2;
+ INT2HLDH     = 0x5D4;
+_INT2HLDH     = 0x5D4;
+ INDX2CNTL    = 0x5D6;
+_INDX2CNTL    = 0x5D6;
+ INDX2CNTH    = 0x5D8;
+_INDX2CNTH    = 0x5D8;
+ INDX2HLD     = 0x5DA;
+_INDX2HLD     = 0x5DA;
+ QEI2GECL     = 0x5DC;
+_QEI2GECL     = 0x5DC;
+ QEI2ICL      = 0x5DC;
+_QEI2ICL      = 0x5DC;
+ QEI2GECH     = 0x5DE;
+_QEI2GECH     = 0x5DE;
+ QEI2ICH      = 0x5DE;
+_QEI2ICH      = 0x5DE;
+ QEI2LECL     = 0x5E0;
+_QEI2LECL     = 0x5E0;
+ QEI2LECH     = 0x5E2;
+_QEI2LECH     = 0x5E2;
  ALRMVAL      = 0x620;
 _ALRMVAL      = 0x620;
  ALCFGRPT     = 0x622;
@@ -1712,11 +1393,11 @@ _NVMADRU      = 0x72C;
 _NVMADRUbits  = 0x72C;
  NVMKEY       = 0x72E;
 _NVMKEY       = 0x72E;
- NVMSRCADRH   = 0x730;
-_NVMSRCADRH   = 0x730;
-_NVMSRCADRHbits = 0x730;
- NVMSRCADRL   = 0x732;
-_NVMSRCADRL   = 0x732;
+ NVMSRCADRL   = 0x730;
+_NVMSRCADRL   = 0x730;
+ NVMSRCADRH   = 0x732;
+_NVMSRCADRH   = 0x732;
+_NVMSRCADRHbits = 0x732;
  RCON         = 0x740;
 _RCON         = 0x740;
 _RCONbits     = 0x740;
@@ -1862,9 +1543,6 @@ _IPC15bits    = 0x85E;
  IPC16        = 0x860;
 _IPC16        = 0x860;
 _IPC16bits    = 0x860;
- IPC17        = 0x862;
-_IPC17        = 0x862;
-_IPC17bits    = 0x862;
  IPC18        = 0x864;
 _IPC18        = 0x864;
 _IPC18bits    = 0x864;
@@ -2262,6 +1940,7 @@ _PTCON2bits   = 0xC02;
 _PTPER        = 0xC04;
  SEVTCMP      = 0xC06;
 _SEVTCMP      = 0xC06;
+_SEVTCMPbits  = 0xC06;
  MDC          = 0xC0A;
 _MDC          = 0xC0A;
  STCON        = 0xC0E;
@@ -2274,6 +1953,7 @@ _STCON2bits   = 0xC10;
 _STPER        = 0xC12;
  SSEVTCMP     = 0xC14;
 _SSEVTCMP     = 0xC14;
+_SSEVTCMPbits = 0xC14;
  CHOP         = 0xC1A;
 _CHOP         = 0xC1A;
 _CHOPbits     = 0xC1A;
@@ -2501,18 +2181,18 @@ _TRIG6bits    = 0xCD2;
  TRGCON6      = 0xCD4;
 _TRGCON6      = 0xCD4;
 _TRGCON6bits  = 0xCD4;
- PWMCAP6      = 0xCD6;
-_PWMCAP6      = 0xCD6;
-_PWMCAP6bits  = 0xCD6;
- LEBCON6      = 0xCD8;
-_LEBCON6      = 0xCD8;
-_LEBCON6bits  = 0xCD8;
- LEBDLY6      = 0xCDA;
-_LEBDLY6      = 0xCDA;
-_LEBDLY6bits  = 0xCDA;
- AUXCON6      = 0xCDC;
-_AUXCON6      = 0xCDC;
-_AUXCON6bits  = 0xCDC;
+ PWMCAP6      = 0xCD8;
+_PWMCAP6      = 0xCD8;
+_PWMCAP6bits  = 0xCD8;
+ LEBCON6      = 0xCDA;
+_LEBCON6      = 0xCDA;
+_LEBCON6bits  = 0xCDA;
+ LEBDLY6      = 0xCDC;
+_LEBDLY6      = 0xCDC;
+_LEBDLY6bits  = 0xCDC;
+ AUXCON6      = 0xCDE;
+_AUXCON6      = 0xCDE;
+_AUXCON6bits  = 0xCDE;
  TRISA        = 0xE00;
 _TRISA        = 0xE00;
 _TRISAbits    = 0xE00;
@@ -2585,23 +2265,26 @@ _CNPDCbits    = 0xE2C;
  ANSELC       = 0xE2E;
 _ANSELC       = 0xE2E;
 _ANSELCbits   = 0xE2E;
- _APPO        = 0xF62;
-__APPO        = 0xF62;
- _APPIN       = 0xF64;
-__APPIN       = 0xF64;
- APPS         = 0xF66;
-_APPS         = 0xF66;
-_APPSbits     = 0xF66;
- STROUTL      = 0xF68;
-_STROUTL      = 0xF68;
- STROUTH      = 0xF6A;
-_STROUTH      = 0xF6A;
- STROVCNT     = 0xF6C;
-_STROVCNT     = 0xF6C;
- JDATAH       = 0xFB2;
-_JDATAH       = 0xFB2;
- JDATAL       = 0xFB4;
-_JDATAL       = 0xFB4;
+ PADCFG1      = 0xEFE;
+_PADCFG1      = 0xEFE;
+_PADCFG1bits  = 0xEFE;
+ _APPO        = 0xFA0;
+__APPO        = 0xFA0;
+ _APPIN       = 0xFA2;
+__APPIN       = 0xFA2;
+ APPS         = 0xFA4;
+_APPS         = 0xFA4;
+_APPSbits     = 0xFA4;
+ STROUTL      = 0xFA6;
+_STROUTL      = 0xFA6;
+ STROUTH      = 0xFA8;
+_STROUTH      = 0xFA8;
+ STROVCNT     = 0xFAA;
+_STROVCNT     = 0xFAA;
+ JDATAH       = 0xFF0;
+_JDATAH       = 0xFF0;
+ JDATAL       = 0xFF2;
+_JDATAL       = 0xFF2;
 /*
 ** ======= Base Addresses for Various Peripherals and ACC ======
 */
@@ -2610,10 +2293,6 @@ _JDATAL       = 0xFB4;
 _ACCA         = 0x22;
  ACCB         = 0x28;
 _ACCB         = 0x28;
- CAN1         = 0x440;
-_CAN1         = 0x440;
- CAN2         = 0x540;
-_CAN2         = 0x540;
  IC1          = 0x144;
 _IC1          = 0x144;
  IC2          = 0x14C;

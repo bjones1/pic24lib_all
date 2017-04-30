@@ -1,13 +1,56 @@
 /* GLD file for Bully bootloader firmware */
 /*
-** Linker script for PIC24FJ64GA108
-*/
+ * Linker script for PIC24FJ64GA108
+ * (c) Copyright 2013 Microchip Technology, Inc
+ * Part support version 1.30.A(22-Nov-2016)
+ *
+ * This software is developed by Microchip Technology Inc. and its
+ * subsidiaries ("Microchip").
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are 
+ * met:
+ * 
+ * 1.      Redistributions of source code must retain the above copyright
+ *         notice, this list of conditions and the following disclaimer.
+ * 2.      Redistributions in binary form must reproduce the above 
+ *         copyright notice, this list of conditions and the following 
+ *         disclaimer in the documentation and/or other materials provided 
+ *         with the distribution.
+ * 3.      Microchip's name may not be used to endorse or promote products
+ *         derived from this software without specific prior written 
+ *         permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR PURPOSE ARE DISCLAIMED. IN NO EVENT 
+ * SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ */
+
 
 OUTPUT_ARCH("24FJ64GA108")
 CRT0_STARTUP(crt0_standard.o)
 CRT1_STARTUP(crt1_standard.o)
+#if __XC16_VERSION__ > 1027
+/*
+ * Define how to startup, by default we initialize
+ * everything as normal; change to crt_start_mode to
+ * preserve preserved data on a restart
+ *
+ * Or define your own __crt_start_mode fucntion
+ */
+CRT_STARTMODE(crt_start_mode_normal)
+#endif
 
 OPTIONAL(-lpPIC24Fxxx)
+OPTIONAL(-lfx)
 
 /*
 ** Memory Regions
@@ -19,7 +62,7 @@ MEMORY
   ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
   _reserved      : ORIGIN = 0x100,         LENGTH = 0x4
   aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
-  program (xr)   : ORIGIN = 0x200,         LENGTH = 0xA9F6
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0xA9F8
   CONFIG3        : ORIGIN = 0xABFA,        LENGTH = 0x2
   CONFIG2        : ORIGIN = 0xABFC,        LENGTH = 0x2
   CONFIG1        : ORIGIN = 0xABFE,        LENGTH = 0x2
@@ -154,15 +197,14 @@ J__Interrupt117 = 0xdf6;
 __CONFIG3 = 0xABFA;
 __CONFIG2 = 0xABFC;
 __CONFIG1 = 0xABFE;
-
 __NO_HANDLES = 1;          /* Suppress handles on this device  */
-
-__IVT_BASE  = 0x4;
-__AIVT_BASE = 0x104;
-__DATA_BASE = 0x800;
-__DATA_LENGTH = 0x4000;
 __CODE_BASE = 0x200;
 __CODE_LENGTH = 0xA9F8;
+__IVT_BASE  = 0x4;
+__AIVT_BASE = 0x104;
+
+__DATA_BASE = 0x800;
+__DATA_LENGTH = 0x4000;
 
 
 /*
@@ -175,6 +217,7 @@ SECTIONS
   */
 
 
+#if !defined(__CORESIDENT) || defined(__DEFINE_RESET)
   /*
   ** Reset Instruction
   */
@@ -185,6 +228,7 @@ SECTIONS
         SHORT((ABSOLUTE(__reset) >> 16) & 0x7F);
         SHORT(0);
   } >reset
+#endif
 
 
   /*
@@ -269,6 +313,10 @@ SECTIONS
   { KEEP (*(__CONFIG1.sec*))    } >CONFIG1
 
 
+
+
+
+
   /*
   ** =========== Data Memory ===========
   */
@@ -327,6 +375,14 @@ SECTIONS
 ** ================= End of Section Map ================
 */
 
+#if 1  // Always include the IVT. Was: #if __XC16_VERSION < 1026
+/*
+** These definitions are not required for XC16 versions
+** later than XC16 v1.25 as the linker defines the addresses.
+**
+** These definitons will cause a link error on a newer compiler
+**
+*/
 /*
 ** Section Map for Interrupt Vector Tables
 */
@@ -600,6 +656,7 @@ LONG(J__Interrupt116);
 LONG(J__Interrupt117);
   } >aivt
 } /* SECTIONS */
+#endif
 
 
 /*
