@@ -106,7 +106,7 @@ env = Environment(
         CCCCOMSTR = 'Compiling $SOURCES',
         # The warnings provide some lint-like checking. Omitted options: -Wstrict-prototypes -Wold-style-definition complains about void foo(), which should be void foo(void), but isn't worth the work to change.
         CCFLAGS = '-mcpu=${MCU} -O1 -msmart-io=1 -omf=elf -Wall -Wextra -Wdeclaration-after-statement -Wlong-long -fdiagnostics-show-option',
-        LINKFLAGS = '-mcpu=${MCU} -omf=elf -Wl,--heap=100,$LINKERSCRIPT,--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,--no-cpp',
+        LINKFLAGS = '-mcpu=${MCU} -omf=elf -Wl,--heap=100,$LINKERSCRIPT,--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io',
         LINKERSCRIPT = '--script="lib/lkr/p${MCU}_bootldr.gld"',
         ARFLAGS = 'rcs',
         ARSTR = 'Create static library: $TARGET',
@@ -366,24 +366,24 @@ for mcu in ('24FJ32GA002',
 # Build the bootloader for MCUs with a hardmapped UART.
 for mcu in ('24F32KA302',):
     buildTargetsBootloader(env, mcu,
-		hardware_platform='HARDMAPPED_UART',
-		hardware_alias='hardmappedUART')
+    hardware_platform='HARDMAPPED_UART',
+    hardware_alias='hardmappedUART')
 
 # Build bootloader for MCUs on specific hardware platforms
 buildTargetsBootloader(env,
-		mcu='33EP128GP504',
-		hardware_platform='EMBEDDED_C1',
-		hardware_alias='embeddedC1')
+    mcu='33EP128GP504',
+    hardware_platform='EMBEDDED_C1',
+    hardware_alias='embeddedC1')
 
 buildTargetsBootloader(env,
-		mcu='33EP512GP806',
-		hardware_platform='EMBEDDED_F14',
-		hardware_alias='embeddedF14')
+    mcu='33EP512GP806',
+    hardware_platform='EMBEDDED_F14',
+    hardware_alias='embeddedF14')
 
 buildTargetsBootloader(env,
-		mcu='33EP128GP502',
-		hardware_platform='MICROSTICK2',
-		hardware_alias='microstick2')
+    mcu='33EP128GP502',
+    hardware_platform='MICROSTICK2',
+    hardware_alias='microstick2')
 
 # ESOS builds
 # ===========

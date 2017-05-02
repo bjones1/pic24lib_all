@@ -78,7 +78,11 @@ def buildProgramWithCommonSources(
   aliasString):
 
   be = buildEnvironment
-  be.Program(sourceFileList + commonSources)
+  p = be.Program(sourceFileList + commonSources)
+  # .. _no parallel link:
+  #
+  # The linker uses a preprocessor by default on linker scripts, which creates a temp file, which causes parallel builds to fail. This can be disabled via ``--no-cpp``, but then the link fails due to the presence of preprocessor directorive. So, prevent parallel links. See http://scons.org/faq.html#How_do_I_prevent_commands_from_being_executed_in_parallel.3F, https://bitbucket.org/scons/scons/wiki/SConsMethods/SideEffect, ``SideEffect`` in http://scons.org/doc/2.5.1/HTML/scons-man.html.
+  be.SideEffect('/dummy', p)
   # Pick the name of the target to be the first c file in the list
   bin2hex(sourceFileList[0], be, aliasString)
 

@@ -38,13 +38,15 @@ SConscript('templates/SConscript.py', 'env')
 
 targetName = 'p${MCU}_${HW}_bootloader'
 # Compile the bootloader to a .cof file.
-env.Program(target=targetName, source=
+p = env.Program(target=targetName, source=
   ['bootloader/pic24_dspic33_bootloader.X/main.c',
    'bootloader/pic24_dspic33_bootloader.X/mem.c',
    'bootloader/pic24_dspic33_bootloader.X/pic24_lib-small.c',
    'lib/src/pic24_clockfreq.c',
    'lib/src/pic24_uart.c',
    'lib/src/pic24_configbits.c'])
+# See `no parallel link`_.
+env.SideEffect('/dummy', p)
 # Convert it to a .hex
 bin2hex(targetName, env, 'bootloader')
 # Copy the .hex to the hex/ directory.

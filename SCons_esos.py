@@ -37,7 +37,7 @@ SConscript('templates/SConscript.py', 'env')
 ## Walk through each source file and build it
 for sourceFile in Glob('chap14/*.c', True, True, True):
     # Compile the ESOS application.
-    env.Program(
+    p = env.Program(
       [ sourceFile,
         'lib/src/pic24_clockfreq.c',
         'lib/src/pic24_configbits.c',
@@ -54,5 +54,7 @@ for sourceFile in Glob('chap14/*.c', True, True, True):
         'esos/src/pic24/esos_pic24_rs232.c',
         'esos/src/pic24/esos_pic24_spi.c',
         'esos/src/pic24/esos_pic24_tick.c', ])
+    # See `no parallel link`_.
+    env.SideEffect('/dummy', p)
     # Convert it to a .hex
     bin2hex(sourceFile, env, 'esos')
