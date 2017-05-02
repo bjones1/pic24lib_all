@@ -1299,7 +1299,7 @@ SECTIONS
 ** ================= End of Section Map ================
 */
 
-#if 1  // Always include the IVT. Was: #if __XC16_VERSION < 1026
+#if 1  /* Always include the IVT. Was: #if __XC16_VERSION < 1026 */
 /*
 ** These definitions are not required for XC16 versions
 ** later than XC16 v1.25 as the linker defines the addresses.

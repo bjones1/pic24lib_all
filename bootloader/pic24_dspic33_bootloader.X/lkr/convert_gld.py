@@ -153,7 +153,7 @@ def makeAppGld(infileName, bootGldName, vectorList, startAddr, family):
         if state == 5:
             # Look for a #if that excludes the IVT.
             if line.startswith('#if __XC16_VERSION < 1026'):
-                outfile.write('#if 1  // Always include the IVT. Was: #if __XC16_VERSION < 1026\n')
+                outfile.write('#if 1  /* Always include the IVT. Was: #if __XC16_VERSION < 1026 */\n')
                 state += 1
                 continue
             outfile.write(line)
