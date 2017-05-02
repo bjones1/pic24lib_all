@@ -401,66 +401,6 @@
  */
 //@{
 
-/// Define peripheral pins.
-/// This is defined in pps.h or PPS.h as e.g. OUT_FN_PPS_U1TX, but that file doesn't exist for the 24H, 33F, 24E, or 33E.
-#if defined(__PIC24E__) || defined(__dsPIC33E__)
-# define RPMAP_NONE     0
-# define RPMAP_U1TX     1
-# define RPMAP_U1RTS    2
-# define RPMAP_U2TX     3
-# define RPMAP_U2RTS    4
-# define RPMAP_SD01     5
-# define RPMAP_SCK1OUT  6
-# define RPMAP_SS1OUT   7
-# define RPMAP_SDO2     8
-# define RPMAP_SCK2OUT  9
-# define RPMAP_SS2OUT  10
-# define RPMAP_CSDO    11
-# define RPMAP_CSCKOUT 12
-# define RPMAP_COFSOUT 13
-# define RPMAP_C1TX    14
-# define RPMAP_C2TX    15
-# define RPMAP_OC1     16
-# define RPMAP_OC2     17
-# define RPMAP_OC3     18
-# define RPMAP_OC4     19
-# define RPMAP_OC5     20
-# define RPMAP_OC6     21
-# define RPMAP_OC7     22
-# define RPMAP_OC8     23
-# define RPMAP_C1OUT   24
-# define RPMAP_C2OUT   25
-# define RPMAP_C3OUT   26
-/// \todo More mappings for the dsPIC33E.
-# define RPMAP_SYNCO1  45
-# define RPMAP_QE1CCMP 47
-# define RPMAP_REFCLKO 49
-# define RPMAP_C4OUT   50
-
-#else
-
-# define RPMAP_NONE     0
-# define RPMAP_C1OUT    1
-# define RPMAP_C2OUT    2
-# define RPMAP_U1TX     3
-# define RPMAP_U1RTS    4
-# define RPMAP_U2TX     5
-# define RPMAP_U2RTS    6
-# define RPMAP_SD01     7
-# define RPMAP_SCK1OUT  8
-# define RPMAP_SS1OUT   9
-# define RPMAP_SDO2    10
-# define RPMAP_SCK2OUT 11
-# define RPMAP_SS2OUT  12
-# define RPMAP_C1TX    16
-# define RPMAP_OC1     18
-# define RPMAP_OC2     19
-# define RPMAP_OC3     20
-# define RPMAP_OC4     21
-# define RPMAP_OC5     22
-
-#endif
-
 /*****************************************************************************
 ***
 *** Look for a way so that the compiler can determine whether or not the
@@ -474,118 +414,153 @@
 ***
 *****************************************************************************/
 #if defined(_RP0R) || defined(_RP20R)  || defined(_RP64R) || defined(__DOXYGEN__)
-
 ///  CONFIG_NULL_TO_RP(n) returns RPn to an 'unmapped' state
 /// (i.e, the reset condition).
 # define CONFIG_NULL_TO_RP(Rxy_RP)  _CONFIG_NULL_TO_RP(Rxy_RP)
-# define _CONFIG_NULL_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_NONE)
+# define _CONFIG_NULL_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = 0)
+#endif
 
 /// Maps C1OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_C1OUT) || defined(__DOXYGEN__)
 # define CONFIG_C1OUT_TO_RP(Rxy_RP)  _CONFIG_C1OUT_TO_RP(Rxy_RP)
-# define _CONFIG_C1OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_C1OUT)
+# define _CONFIG_C1OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_C1OUT)
+#endif
 
 /// Maps C2OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_C2OUT) || defined(__DOXYGEN__)
 # define CONFIG_C2OUT_TO_RP(Rxy_RP)  _CONFIG_C2OUT_TO_RP(Rxy_RP)
-# define _CONFIG_C2OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_C2OUT)
+# define _CONFIG_C2OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_C2OUT)
+#endif
 
 /// Maps U1TX to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_U1TX) || defined(__DOXYGEN__)
 # define CONFIG_U1TX_TO_RP(Rxy_RP)  _CONFIG_U1TX_TO_RP(Rxy_RP)
-# define _CONFIG_U1TX_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_U1TX)
+# define _CONFIG_U1TX_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_U1TX)
+#endif
 
 /// Maps U1RTS to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_U1RTS) || defined(__DOXYGEN__)
 # define CONFIG_U1RTS_TO_RP(Rxy_RP)  _CONFIG_U1RTS_TO_RP(Rxy_RP)
-# define _CONFIG_U1RTS_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_U1RTS)
+# define _CONFIG_U1RTS_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_U1RTS)
+#endif
 
 /// Maps U2TX to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_U2TX) || defined(__DOXYGEN__)
 # define CONFIG_U2TX_TO_RP(Rxy_RP)  _CONFIG_U2TX_TO_RP(Rxy_RP)
-# define _CONFIG_U2TX_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_U2TX)
+# define _CONFIG_U2TX_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_U2TX)
+#endif
 
 /// Maps U2RTS to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_U2RTS) || defined(__DOXYGEN__)
 # define CONFIG_U2RTS_TO_RP(Rxy_RP)  _CONFIG_U2RTS_TO_RP(Rxy_RP)
-# define _CONFIG_U2RTS_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_U2RTS)
+# define _CONFIG_U2RTS_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_U2RTS)
+#endif
 
 /// Maps SDO1 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_SDO1) || defined(__DOXYGEN__)
 # define CONFIG_SDO1_TO_RP(Rxy_RP)  _CONFIG_SDO1_TO_RP(Rxy_RP)
-# define _CONFIG_SDO1_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SD01)
+# define _CONFIG_SDO1_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_SDO1)
+#endif
 
 /// Maps SCK1OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_SCK1OUT) || defined(__DOXYGEN__)
 # define CONFIG_SCK1OUT_TO_RP(Rxy_RP)  _CONFIG_SCK1OUT_TO_RP(Rxy_RP)
-# define _CONFIG_SCK1OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SCK1OUT)
+# define _CONFIG_SCK1OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_SCK1OUT)
+#endif
 
 /// Maps SS11OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_SS1OUT) || defined(__DOXYGEN__)
 # define CONFIG_SS1OUT_TO_RP(Rxy_RP)  _CONFIG_SS1OUT_TO_RP(Rxy_RP)
-# define _CONFIG_SS1OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SS1OUT)
+# define _CONFIG_SS1OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_SS1OUT)
+#endif
 
 /// Maps SDO2 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_SDO2) || defined(__DOXYGEN__)
 # define CONFIG_SDO2_TO_RP(Rxy_RP)  _CONFIG_SDO2_TO_RP(Rxy_RP)
-# define _CONFIG_SDO2_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SDO2)
+# define _CONFIG_SDO2_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_SDO2)
+#endif
 
 /// Maps SCK2OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_SCK2OUT) || defined(__DOXYGEN__)
 # define CONFIG_SCK2OUT_TO_RP(Rxy_RP)  _CONFIG_SCK2OUT_TO_RP(Rxy_RP)
-# define _CONFIG_SCK2OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SCK2OUT)
+# define _CONFIG_SCK2OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_SCK2OUT)
+#endif
 
 /// Maps SS2OUT to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_SS2OUT) || defined(__DOXYGEN__)
 # define CONFIG_SS2OUT_TO_RP(Rxy_RP)  _CONFIG_SS2OUT_TO_RP(Rxy_RP)
-# define _CONFIG_SS2OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_SS2OUT)
+# define _CONFIG_SS2OUT_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_SS2OUT)
+#endif
 
 /// Maps C1TX to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_C1TX) || defined(__DOXYGEN__)
 # define CONFIG_C1TX_TO_RP(Rxy_RP)  _CONFIG_C1TX_TO_RP(Rxy_RP)
-# define _CONFIG_C1TX_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_C1TX)
+# define _CONFIG_C1TX_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_C1TX)
+#endif
 
 /// Maps OC1 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_OC1) || defined(__DOXYGEN__)
 # define CONFIG_OC1_TO_RP(Rxy_RP)  _CONFIG_OC1_TO_RP(Rxy_RP)
-# define _CONFIG_OC1_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_OC1)
+# define _CONFIG_OC1_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_OC1)
+#endif
 
 /// Maps OC2 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_OC2) || defined(__DOXYGEN__)
 # define CONFIG_OC2_TO_RP(Rxy_RP)  _CONFIG_OC2_TO_RP(Rxy_RP)
-# define _CONFIG_OC2_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_OC2)
+# define _CONFIG_OC2_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_OC2)
+#endif
 
 /// Maps OC3 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_OC3) || defined(__DOXYGEN__)
 # define CONFIG_OC3_TO_RP(Rxy_RP)  _CONFIG_OC3_TO_RP(Rxy_RP)
-# define _CONFIG_OC3_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_OC3)
+# define _CONFIG_OC3_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_OC3)
+#endif
 
 /// Maps OC4 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_OC4) || defined(__DOXYGEN__)
 # define CONFIG_OC4_TO_RP(Rxy_RP)  _CONFIG_OC4_TO_RP(Rxy_RP)
-# define _CONFIG_OC4_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_OC4)
+# define _CONFIG_OC4_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_OC4)
+#endif
 
 /// Maps OC5 to a remappable pin;
 /// see <a href="#remappableOutputs">remappable peripheral output support</a>
 /// for more information.
+#if defined(_RPOUT_OC5) || defined(__DOXYGEN__)
 # define CONFIG_OC5_TO_RP(Rxy_RP)  _CONFIG_OC5_TO_RP(Rxy_RP)
-# define _CONFIG_OC5_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = RPMAP_OC5)
-#endif      //END THE BIG LONG #ifdefined _RP0R || _RP20R || _RP64R) || __DOXYGEN__
+# define _CONFIG_OC5_TO_RP(Rxy_RP) (_RP##Rxy_RP##R = _RPOUT_OC5)
+#endif
 //@}
