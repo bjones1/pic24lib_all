@@ -31,7 +31,7 @@
 # This builds the bootloader for a given configuration. It should be invoked
 # from the main SConstruct.py script.
 import os
-Import('env bin2hex')
+Import('env bin2hex linker_side_effect')
 
 ## Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
@@ -45,8 +45,7 @@ p = env.Program(target=targetName, source=
    'lib/src/pic24_clockfreq.c',
    'lib/src/pic24_uart.c',
    'lib/src/pic24_configbits.c'])
-# See `no parallel link`_.
-env.SideEffect('/dummy', p)
+linker_side_effect(env, p)
 # Convert it to a .hex
 bin2hex(targetName, env, 'bootloader')
 # Copy the .hex to the hex/ directory.

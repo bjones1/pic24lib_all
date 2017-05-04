@@ -106,8 +106,8 @@ env = Environment(
         CCCCOMSTR = 'Compiling $SOURCES',
         # The warnings provide some lint-like checking. Omitted options: -Wstrict-prototypes -Wold-style-definition complains about void foo(), which should be void foo(void), but isn't worth the work to change.
         CCFLAGS = '-mcpu=${MCU} -O1 -msmart-io=1 -omf=elf -Wall -Wextra -Wdeclaration-after-statement -Wlong-long -fdiagnostics-show-option',
-        LINKFLAGS = '-mcpu=${MCU} -omf=elf -Wl,--heap=100,$LINKERSCRIPT,--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io',
-        LINKERSCRIPT = '--script="lib/lkr/p${MCU}_bootldr.gld"',
+        LINKFLAGS = '-mcpu=${MCU} -omf=elf -Wl,--heap=100,--script="$LINKERSCRIPT",--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io',
+        LINKERSCRIPT = 'lib/lkr/p${MCU}_bootldr.gld',
         ARFLAGS = 'rcs',
         ARSTR = 'Create static library: $TARGET',
         OBJSUFFIX = '.o',
@@ -116,7 +116,7 @@ env = Environment(
         # so scons can find the build tools and related env vars.
         ENV = os.environ,
       )
-
+#
 # Create a bin2hex builder
 # ------------------------
 # Add the bin2hex function to the environment as a new builder
@@ -139,18 +139,26 @@ b2h = Builder(
         suffix = 'hex',
         src_suffix = 'elf')
 env.Append(BUILDERS = {'Hex' : b2h})
-
-
+#
+# .. _no parallel link:
+#
+# Linker dependencies
+# -------------------
+def linker_side_effect(env, program):
+  # The linker as of xc16 v1.30 uses a preprocessor by default on linker scripts, which creates a temp file named linker_script.00 (where linker_script is the name of the linker script), which causes parallel builds to fail. This can be disabled via ``--no-cpp``, but then the link fails due to the presence of preprocessor directorive. So, prevent parallel links of the same-named linker script. See http://scons.org/faq.html#How_do_I_prevent_commands_from_being_executed_in_parallel.3F, https://bitbucket.org/scons/scons/wiki/SConsMethods/SideEffect, ``SideEffect`` in http://scons.org/doc/2.5.1/HTML/scons-man.html.
+  #
+  # Note that the raw ``be['LINKERSCRIPT']`` string contains un-expanded variables, which makes scons unhappy. For example, providing ``bootloader/pic24_dspic33_bootloader.X/lkr/p${MCU}.gld.00`` as a SideEffect the produces errors like ``Internal Error: no cycle found for node build\esos_microstick2_33EP128GP502\chap14\app_ds1722.elf (<SCons.Node.FS.File object at 0x04A2BC60>) in state pending``. So, produce a full, valid file name using subst.
+  linker_temp_file = '/' + env.subst(os.path.basename(env['LINKERSCRIPT'])) + '.00'
+  env.SideEffect(linker_temp_file, program)
+#
 # Command-line options
 # --------------------
 # adjust our default environment based on user command-line requests
 dict = env.Dictionary()
 if dict['BOOTLDR'] != 'msu':
-    env.Replace(LINKERSCRIPT = '--script="p${MCU}.gld"')
+    env.Replace(LINKERSCRIPT = 'p${MCU}.gld')
 
-# By default, run number_of_cpus*4 jobs at once. This only works if the --no-cpp option is passed to the linker; otherwise, the linker produces a temporary file in the root build directory, which gets overwritten and confused when multiple builds run. There's some nice examples and explanation for this in the `SCons user guide <http://www.scons.org/doc/production/HTML/scons-user/c2092.html#AEN2183>`_.
-#
-# Some results from running on my 8-core PC:, gathered from the Total build time returned by the --debug=time scons command-line option:
+# By default, run number_of_cpus*4 jobs at once. Some results from running on my 8-core PC, gathered from the Total build time returned by the --debug=time scons command-line option:
 #
 # ==  ==========  ===============  ============
 # -j  Time (sec)  Time (hh:mm:ss)  Speedup
@@ -174,7 +182,7 @@ Help("""Additional targets:
   bootloader: Build the bootloader binaries only.""")
 
 # A DEBUG STATEMENT to see what the scons build envrionment (env) has defined
-#print   env.Dump()
+#print(env.Dump())
 #
 #
 # Definition of targets
@@ -219,7 +227,7 @@ def buildTargetsSConscript(
   vdir = 'build/' + '_'.join([hardware_platform, env['MCU']])
   if extra_defines:
     vdir += '_' + extra_defines
-  SConscript('SCons_build.py', exports = 'buildTargets env bin2hex',
+  SConscript('SCons_build.py', exports = 'buildTargets env bin2hex linker_side_effect',
     variant_dir = vdir)
 
 # Build over various MCUs
@@ -330,12 +338,12 @@ def buildTargetsBootloader(
     env = env.Clone(MCU = mcu, HW = hardware_alias)
     # 2. Use the custom bootloader linker script.
     env.Replace(
-        LINKERSCRIPT = '--script=bootloader/pic24_dspic33_bootloader.X/lkr/p${MCU}.gld',
+        LINKERSCRIPT = 'bootloader/pic24_dspic33_bootloader.X/lkr/p${MCU}.gld',
     )
     env.Append(CPPDEFINES = ['BOOTLOADER', 'HARDWARE_PLATFORM=' + hardware_platform])
 
     # Now, invoke a variant build using this environment.
-    SConscript('SCons_bootloader.py', exports = 'env bin2hex',
+    SConscript('SCons_bootloader.py', exports = 'env bin2hex linker_side_effect',
       variant_dir = 'build/bootloader_' + hardware_alias + '_' + mcu)
 
 # Build the bootloader for a variety of common MCUs
@@ -394,7 +402,7 @@ def buildTargetsEsos(env, mcu, hardware_platform = 'DEFAULT_DESIGN', hardware_al
                CPPPATH = ['esos/include', 'esos/include/pic24'])
 
     # Now, invoke a variant build using this environment.
-    SConscript('SCons_esos.py', exports = 'env bin2hex',
+    SConscript('SCons_esos.py', exports = 'env bin2hex linker_side_effect',
       variant_dir = 'build/esos_' + hardware_alias + '_' + mcu)
 
 # Build ESOS over a variety of chips

@@ -29,7 +29,7 @@
 # SCons_esos.py - Build ESOS chapter 14 applications
 # **************************************************
 import os
-Import('env bin2hex')
+Import('env bin2hex linker_side_effect')
 
 ## Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
@@ -55,6 +55,6 @@ for sourceFile in Glob('chap14/*.c', True, True, True):
         'esos/src/pic24/esos_pic24_spi.c',
         'esos/src/pic24/esos_pic24_tick.c', ])
     # See `no parallel link`_.
-    env.SideEffect('/dummy', p)
+    linker_side_effect(env, p)
     # Convert it to a .hex
     bin2hex(sourceFile, env, 'esos')

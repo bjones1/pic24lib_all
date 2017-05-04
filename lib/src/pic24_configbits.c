@@ -32,8 +32,8 @@
 // this file won't be documented.
 /** \file
  *  This file contains configuration bit settings. To add more chips:
- *  
- *  1. Add the appropriate #if __chip_name__ / #endif pair (copy the format of 
+ *
+ *  1. Add the appropriate #if __chip_name__ / #endif pair (copy the format of
  *     other chips below.)
  *  2. Open the configuration bits editor in the MPLAB X IDE and select the
  *     appropriate bits for your chip.
