@@ -107,7 +107,7 @@ UWord32 ReadLatch(UWord16 addrhi, UWord16 addrlo) {
   //
   // Attempts to suppress following warning:
   //
-  // bootloader\pic24_dspic33_bootloader.X\mem.c:110:1: warning: control reaches 
+  // bootloader\pic24_dspic33_bootloader.X\mem.c:110:1: warning: control reaches
   // end of non-void function [-Wreturn-type]
   //
   // #pragma GCC diagnostic warning "-Wreturn-type" works.

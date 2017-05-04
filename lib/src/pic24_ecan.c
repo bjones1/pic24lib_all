@@ -77,7 +77,7 @@ void formatStandardDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint16_t u16_id, u
 }
 
 #else
-	
+
 void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len) {
   p_ecanmsg->w0.IDE = 0;
   p_ecanmsg->w0.SRR = 0;
@@ -117,7 +117,7 @@ void formatExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint32_t u32_id, u
 }
 
 #else
-	
+
 void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len) {
 
   p_ecanmsg->w0.IDE = 1;
@@ -153,7 +153,7 @@ uint32_t getIdExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg) {
 }
 
 #else
-	
+
 uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
   uint32_t u32_id, u32_tmp;
   u32_tmp = p_ecanmsg->w0.SID;
@@ -561,7 +561,7 @@ void formatStandardDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint16_t u16_id, u
 }
 
 #else
-	
+
 void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len) {
   p_ecanmsg->w0.IDE = 0;
   p_ecanmsg->w0.SRR = 0;
@@ -601,7 +601,7 @@ void formatExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint32_t u32_id, u
 }
 
 #else
-	
+
 void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len) {
 
   p_ecanmsg->w0.IDE = 1;
@@ -637,7 +637,7 @@ uint32_t getIdExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg) {
 }
 
 #else
-	
+
 uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg) {
   uint32_t u32_id, u32_tmp;
   u32_tmp = p_ecanmsg->w0.SID;

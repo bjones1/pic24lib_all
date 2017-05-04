@@ -82,7 +82,7 @@
 
 // Translate the selected primary oscillator source to # pragma-style configs for the FOSC register.
 #if defined(__PIC24F__) || defined(__PIC24FK__)
-  // The PIC24F/FK calls this config bit POSCMOD.
+// The PIC24F/FK calls this config bit POSCMOD.
 # if    POSCMD_SEL == POSCMD_EC
 #   pragma config POSCMOD = EC              // Primary Oscillator Mode Select bits (EC Crystal Oscillator Mode)
 #  elif POSCMD_SEL == POSCMD_XT
@@ -95,7 +95,7 @@
 #   error "Unknown primary oscillator selection."
 # endif
 #else
-  // All other processors call it POSCMD.
+// All other processors call it POSCMD.
 # if    POSCMD_SEL == POSCMD_EC
 #   pragma config POSCMD = EC              // Primary Oscillator Mode Select bits (EC Crystal Oscillator Mode)
 #  elif POSCMD_SEL == POSCMD_XT
