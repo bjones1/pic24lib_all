@@ -41,20 +41,21 @@ REM Likewise, I can't use the ^ line continuation character following lines wher
 REM the ``"`` symbols don't match.
 findstr > err1.txt /V ^
 /C:"warning: Options have been disabled due to expired license" ^
-/C:"#warning \"Baud rates of 19200 or lower recommended for this clock choice.\""  ^
-/C:"#warning \"Baud rates of 9600 or lower recommended for this clock choice.\""  ^
-/C:"#warning \"Using dummy function for configPinsForLowPower() in common/pic24_util.c.\"" ^
-/C:"#warning \"Edit this file to define bits for your processor!\""  ^
-/C:"#warning \"Clock configured" /C:"#warning \"Using default config bit settings for the " err.txt
+/C:"warning: #warning \"Baud rates of 19200 or lower recommended for this clock choice.\""  ^
+/C:"warning: #warning \"Baud rates of 9600 or lower recommended for this clock choice.\""  ^
+/C:"warning: #warning \"Using dummy function for configPinsForLowPower() in common/pic24_util.c.\"" ^
+/C:"warning: #warning \"Edit this file to define bits for your processor!\""  ^
+/C:"warning: #warning \"Clock configured" ^
+/C:"warning: #warning \"Using default config bit settings for the " err.txt
 
 findstr > err2.txt /V ^
-/C:"#warning \"UART2 pin mappings not defined. See comments below for more info.\"" ^
-/C:"#warning \"UART3 pin mappings not defined. See comments below for more info.\"" ^
-/C:"#warning \"UART4 pin mappings not defined. See comments below for more info.\"" ^
-/C:"#warning \"UART1 RX pin configured to RP10(RB10), UART1 TX pin configured to RP11(RB11).\"" ^
-/C:"#warning \"UART1 RX pin configured to RP42(RB10), UART1 TX pin configured to RP43(RB11).\"" ^
-/C:"#warning \"Using dummy function for configPinsForLowPower().\"" ^
-/C:"#warning \"PLL Enabled.\"" ^
+/C:"warning: #warning \"UART2 pin mappings not defined. See comments below for more info.\"" ^
+/C:"warning: #warning \"UART3 pin mappings not defined. See comments below for more info.\"" ^
+/C:"warning: #warning \"UART4 pin mappings not defined. See comments below for more info.\"" ^
+/C:"warning: #warning \"UART1 RX pin configured to RP10(RB10), UART1 TX pin configured to RP11(RB11).\"" ^
+/C:"warning: #warning \"UART1 RX pin configured to RP42(RB10), UART1 TX pin configured to RP43(RB11).\"" ^
+/C:"warning: #warning \"Using dummy function for configPinsForLowPower().\"" ^
+/C:"warning: #warning \"PLL Enabled.\"" ^
 /C:"lib\src\pic24_ecan.c:152:2: warning: #warning \"ECAN module not configured for current processor frequency! Edit function configECAN1().\"" ^
 /C:"lib\src\pic24_uart.c:263:5: warning: #warning Building configUART1() for the Dangerous Web target." ^
 /C:"warning: #warning \"This example only works with the dsPIC33E/PIC24E families\"" ^
@@ -71,7 +72,8 @@ findstr > err2.txt /V ^
 /C:"warning: #warning Building configUART1() for the Rev.F14 Embedded Systems target." ^
 /C:"warning: #warning Building configUART1() for the Rev.C1 Embedded Systems target." ^
 /C:"warning: #warning Building configUART1() for the StarterBoard_28P target." ^
-/C:"#warning \"Ensure that the PLLDIV value is set to divide by 2 in the configuration bits for " err1.txt
+/C:"warning: #warning \"Ensure that the PLLDIV value is set to divide by 2 in the configuration bits for " ^
+/C:"warning: #warning \"Edit common/pic24_configbits.c to add config bits for your processor!\"" err1.txt
 REM
 REM Work around compiler warnings I can't figure out how to suppress
 REM ================================================================
