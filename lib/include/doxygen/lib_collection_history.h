@@ -44,6 +44,9 @@ Next release:
 - ECAN code fixes based on errata for the dsPIC33EPxxxGP806/810/814.
 - Documentation cleanup.
 - Added support for additional chips.
+- Updated config bits to use new-style \#pragma settings.
+- Updated linker scripts to v1.30 of xc16.
+- Use Microchip-defined remappable peripheral info in macros.
 
 23-Oct-2015 (6b0cc69cc70a):
 - Switch to new bootloader based on Qt.
