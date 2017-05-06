@@ -56,7 +56,10 @@ def makeAppGld(infileName, bootGldName, vectorList, startAddr, family):
 
         # State 1: in the memory region definition.
         if state == 1:
-            # Look for the line (word indexes added above; ``ws`` represents leading whitespace)::
+            # Look for the line (word indexes added above; ``ws`` represents leading whitespace):
+            #
+            # .. code-block:: none
+            #   :linenos:
             #
             #   ws   0      1    2    3   4    5              6   7    8
             #     program (xr)   : ORIGIN = 0x200,         LENGTH = 0x55EC
@@ -107,7 +110,10 @@ def makeAppGld(infileName, bootGldName, vectorList, startAddr, family):
         # State 3: until the end of the reset instruction.
         if state == 3:
             outfile.write(line)
-            # Look for the line::
+            # Look for the line:
+            #
+            # .. code-block:: none
+            #   :linenos:
             #
             #   ws0   1
             #     } >reset
@@ -118,7 +124,10 @@ def makeAppGld(infileName, bootGldName, vectorList, startAddr, family):
         # State 4: until the end of the Interrupt Vector Tables comment.
         if state == 4:
             outfile.write(line)
-            # The previous lines::
+            # The previous lines:
+            #
+            # .. code-block:: none
+            #   :linenos:
             #
             #   ws 0
             #     /*
@@ -161,7 +170,10 @@ def makeAppGld(infileName, bootGldName, vectorList, startAddr, family):
         # State 6: until the _`beginning of the IVT`.
         if state == 6:
             outfile.write(line)
-            # Replace it with the address of the remapped IVT. The expected line is::
+            # Replace it with the address of the remapped IVT. The expected line is:
+            #
+            # .. code-block:: none
+            #   :linenos:
             #
             #     0      1      2
             #   .ivt __IVT_BASE :
@@ -176,7 +188,10 @@ def makeAppGld(infileName, bootGldName, vectorList, startAddr, family):
         # State 7: until the _`end of the IVT`.
         if state == 7:
             # Skip everything until the closing brace.
-            # The expected line is::
+            # The expected line is:
+            #
+            # .. code-block:: none
+            #   :linenos:
             #
             #   ws0  1
             #     } >ivt
@@ -199,7 +214,10 @@ def makeAppGld(infileName, bootGldName, vectorList, startAddr, family):
 
         # State 9: until the _`end of the AIVT`.
         if state == 9:
-            # The expected line is::
+            # The expected line is:
+            #
+            # .. code-block:: none
+            #   :linenos:
             #
             #   ws0  1
             #     } >aivt
@@ -341,7 +359,10 @@ def parseGldFile(infileName, bootGldName, appGldName, family):
             # When the AIVT starts, we're done.
             if words[0] == '.aivt':
                 break
-            # Look for interrupt vectors. The expected line (recall that parents will becomes spaces)::
+            # Look for interrupt vectors. The expected line (recall that parents will becomes spaces):
+            #
+            # .. code-block:: none
+            #   :linenos:
             #
             #   ws0      1            2            3    4             5
             #   LONG( DEFINED(__OscillatorFail)    ? ABSOLUTE(__OscillatorFail)    :

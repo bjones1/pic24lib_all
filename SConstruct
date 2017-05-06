@@ -1,3 +1,5 @@
+# .. highlight:: Python
+#
 # *******************************************
 # SConstruct - Define the SCons build process
 # *******************************************

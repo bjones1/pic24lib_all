@@ -54,7 +54,6 @@ for sourceFile in Glob('chap14/*.c', True, True, True):
         'esos/src/pic24/esos_pic24_rs232.c',
         'esos/src/pic24/esos_pic24_spi.c',
         'esos/src/pic24/esos_pic24_tick.c', ])
-    # See `no parallel link`_.
     linker_side_effect(env, p)
     # Convert it to a .hex
     bin2hex(sourceFile, env, 'esos')

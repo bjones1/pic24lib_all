@@ -33,12 +33,12 @@
 /** \file
  *  This file contains configuration bit settings. To add more chips:
  *
- *  1. Add the appropriate #if __chip_name__ / #endif pair (copy the format of
+ *  1. Add the appropriate \#if __chip_name__ / \#endif pair (copy the format of
  *     other chips below.)
  *  2. Open the configuration bits editor in the MPLAB X IDE and select the
  *     appropriate bits for your chip.
  *  3. Click "Generate Source Code To Output", then copy and paste the output
- *     inside the #if / #endif pair you added.
+ *     inside the \#if / \#endif pair you added.
  *  4. Delete the settings for FNOSC, POSCMD / POSCMOD, and OSCIOFNC; these
  *     will be set based on the clock configuration.
  *

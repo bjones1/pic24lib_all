@@ -140,8 +140,6 @@ b2h = Builder(
         src_suffix = 'elf')
 env.Append(BUILDERS = {'Hex' : b2h})
 #
-# .. _no parallel link:
-#
 # Linker dependencies
 # -------------------
 def linker_side_effect(env, program):
