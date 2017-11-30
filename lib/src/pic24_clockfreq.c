@@ -92,14 +92,14 @@ void checkClockTimeout(void) {
 # else
 #   error "Unknown processor."
 # endif
-// Since the FRC is slow, and we only want to transmit, pick a baud rate divisor 
+// Since the FRC is slow, and we only want to transmit, pick a baud rate divisor
 // of 4 (BRGH == 1). In this case:
 //
 // * For the PIC24F/FK: given FCY == 4 MHz and DEFAULT_BAUDRATE == 57600:
-//   U1BRG = FCY/(4*baud) - 1 = 16. This gives an actual 
-//   baud rate of baud = FCY/(4*(U1BRG + 1)) = 58,823 baud for an error of 2.1%. 
+//   U1BRG = FCY/(4*baud) - 1 = 16. This gives an actual
+//   baud rate of baud = FCY/(4*(U1BRG + 1)) = 58,823 baud for an error of 2.1%.
 // * If FCY == 3.685 MHz and DEFAULT_BAUDRATE == 230400:
-//   U1BRG = 3. This gives and actual baud rate of 230,312 for an error of 
+//   U1BRG = 3. This gives and actual baud rate of 230,312 for an error of
 //   0.04%.
 # define FRC_BRGH 1
 
@@ -121,32 +121,32 @@ void checkClockTimeout(void) {
 # define DASH_CYCLES (DOT_CYCLES*3)
 
 static void morse_blink(const char* sz_morse_code) {
-    for (;*sz_morse_code; ++sz_morse_code) {
-        switch (*sz_morse_code) {
-            case  '.':
-            SET_HB_LED(1);
-            __delay32(DOT_CYCLES);
-            break;
-            
-            case '-':
-            SET_HB_LED(1);
-            __delay32(DASH_CYCLES);
-            break;
-            
-            default:
-            // Anything not a dot or dash is a inter-letter gap (3 time units).
-            // There's always a dot delay at the end, so do 2 units here and 1 units there.
-            __delay32(DOT_CYCLES*2);
-        }
-        
-        // Insert an inter-element gap.
-        SET_HB_LED(0);
+  for (; *sz_morse_code; ++sz_morse_code) {
+    switch (*sz_morse_code) {
+      case  '.':
+        SET_HB_LED(1);
         __delay32(DOT_CYCLES);
+        break;
+
+      case '-':
+        SET_HB_LED(1);
+        __delay32(DASH_CYCLES);
+        break;
+
+      default:
+        // Anything not a dot or dash is a inter-letter gap (3 time units).
+        // There's always a dot delay at the end, so do 2 units here and 1 units there.
+        __delay32(DOT_CYCLES*2);
     }
-    
-    // Insert medium gap (between words) of 7 units. We've already has a 1 unit 
-    // gap, so delay 6 more.
-    __delay32(DOT_CYCLES*6);
+
+    // Insert an inter-element gap.
+    SET_HB_LED(0);
+    __delay32(DOT_CYCLES);
+  }
+
+  // Insert medium gap (between words) of 7 units. We've already has a 1 unit
+  // gap, so delay 6 more.
+  __delay32(DOT_CYCLES*6);
 }
 
 
@@ -186,7 +186,7 @@ static void checkClockTimeout(void) {
   // indicate a failure.
   configFrcUART();
   configHeartbeat();
-  
+
   while(1) {
     // If the string below was printed out, either:
     // 1. Check the crystal / oscillator attached to your chip. It doesn't work.
@@ -199,9 +199,9 @@ static void checkClockTimeout(void) {
     // 3. Make sure that clock switching is allowed -- the FOSC configuration register
     //    bit field FCKSM must **not** be set to CSDCMD (which disables clock
     //    switching).
-    outString("\n\nYour clock choice failed to initialize. See " __FILE__ 
+    outString("\n\nYour clock choice failed to initialize. See " __FILE__
               " line " TOSTRING(__LINE__) " for more details.");
-    
+
     // Blink SOS on the heartbeat LED.
     morse_blink("... --- ...");
   }
