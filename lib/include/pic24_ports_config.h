@@ -1,5 +1,5 @@
 /*
- * "Copyright (c) 2015 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+ * "Copyright (c) 2017 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
  * All rights reserved.
  * (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
  * (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
