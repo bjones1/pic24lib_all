@@ -1,4 +1,4 @@
-# .. "Copyright (c) 2008 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+# .. "Copyright (c) 2017 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
 #    All rights reserved.
 #    (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
 #    (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
@@ -65,16 +65,16 @@ def searchAndReplace(
 # template to perform the search and replace operation.
   mapping,
 #  Mode with which to open the destination file.
-#  Use the default of 'wb' to overwrite the
-#  destination file with the replaced source file. Use 'ab' to
+#  Use the default of 'w' to overwrite the
+#  destination file with the replaced source file. Use 'a' to
 #  append the replaced source file to the destination file.
-#  The 'b' at end end of 'wb'/'ab' keeps line endings Unix-style,
-#  even when run under Windows.
- openMode='wb'):
+ openMode='w'):
 
-  outFile = open(destFileName, openMode)
-  template = Template(open(sourceFile).read())
-  outFile.write(template.substitute(mapping))
+  # Use newline='' to preserve current line endings; in particular, this
+  # keeps line endings Unix-style, even when run under Windows.
+  with open(destFileName, openMode, encoding='utf-8', newline='') as outFile:
+    template = Template(open(sourceFile).read())
+    outFile.write(template.substitute(mapping))
 
 # A function to create a .c/.h file from multiple replaces through
 #  a template.
@@ -90,11 +90,11 @@ def genFromTemplate(
 # iteration number.
   iters):
 
-  openMode = 'wb'
+  openMode = 'w'
   for i in range(1, iters + 1):
     searchAndReplace(templateFileName, destFileName,
       {'x' : str(i)}, openMode)
-    openMode = 'ab'
+    openMode = 'a'
 
 # Builds a .c from a template -- SCons Builder function formation.
 # Function will build the .c as requested.  Has the proper
@@ -128,10 +128,10 @@ def c_template_builder(
 # #. For each port/pin, write a replaced template.
 def genConfigFromTemplate(templateFileName, destFileName):
   # Read in the template.
-  with open(templateFileName, "rb") as templateFile:
+  with open(templateFileName, "r", encoding='utf-8', newline='') as templateFile:
     template = Template(templateFile.read())
   # Open the output file.
-  with open(destFileName, "wb") as outFile:
+  with open(destFileName, "w", encoding='utf-8', newline='') as outFile:
     # Write the header
     outFile.write(c_license_header)
     outFile.write('/// \\brief Define GPIO configuration macros for all pins of a device.\n' +
@@ -168,10 +168,10 @@ def splitProcessorNames(port_dict):
 def genTablesFromTemplate(csvFileName, destFileName):
   portlist = enumeratePic24Ports()
   # Read in the CSV containing device information.
-  with open(csvFileName, "rb") as csvFile:
+  with open(csvFileName, "r", encoding='utf-8') as csvFile:
     csv_dict_reader = csv.DictReader(csvFile).__iter__()
     # Open the output file.
-    with open(destFileName, "wb") as outFile:
+    with open(destFileName, "w", encoding='utf-8', newline='') as outFile:
       # Write the header
       outFile.write(c_license_header)
       outFile.write('/// \\brief Define device-specific mappings from Rxy to RPy, ANn, and CNm pins.\n\n#if 0\n')
@@ -179,9 +179,9 @@ def genTablesFromTemplate(csvFileName, destFileName):
       while True:
           # Read three rows
           try:
-              RPy = csv_dict_reader.next()
-              ANn = csv_dict_reader.next()
-              CNm = csv_dict_reader.next()
+              RPy = csv_dict_reader.__next__()
+              ANn = csv_dict_reader.__next__()
+              CNm = csv_dict_reader.__next__()
           except StopIteration:
               break
           # Gather processor information. Make sure all three rows refer to the same processors and to the expected ports.
@@ -299,7 +299,7 @@ env.Alias('template-build', ['../lib/include/pic24_uart.h',
 
 # Header, containing the license as a C comment.
 c_license_header = """/*
- * "Copyright (c) 2015 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
+ * "Copyright (c) 2017 Robert B. Reese, Bryan A. Jones, J. W. Bruce ("AUTHORS")"
  * All rights reserved.
  * (R. Reese, reese_AT_ece.msstate.edu, Mississippi State University)
  * (B. A. Jones, bjones_AT_ece.msstate.edu, Mississippi State University)
