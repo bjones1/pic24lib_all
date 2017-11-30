@@ -72,7 +72,7 @@
 // the ECAN chapter of the E-family FRM for March 2011.  However, the
 // meaning of the CANCKS bit is now completely different than original
 // CANCKS bit used in 2008-2009 [JWB May 2014]
-// 
+//
 // For certain silicon revisions, the CANCKS bit does not behave in the way
 // that the datasheet specifies. Based on silicon issue 11 of document
 // DS80000526E, it functions reverse of its intended operation for a certain
@@ -296,7 +296,7 @@ void formatExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg, uint32_t u32_id, u
 uint32_t getIdExtendedDataFrameECAN (__eds__ ECANMSG* p_ecanmsg);
 
 #else
-	
+
 void formatStandardDataFrameECAN (ECANMSG* p_ecanmsg, uint16_t u16_id, uint8_t u8_len);
 void formatExtendedDataFrameECAN (ECANMSG* p_ecanmsg, uint32_t u32_id, uint8_t u8_len);
 uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg);
