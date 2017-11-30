@@ -45,7 +45,7 @@
  *  #if GET_IS_SUPPORTED(FRCPLL_FCY16MHz)
  *  void configClockFRCPLL_FCY16MHz(void) {
  *  ... code to configure this clock ...
- *    // Typically, after setup code above, swtich to
+ *    // Typically, after setup code above, switch to
  *    // the newly configured oscillator.
  *    switchClock(OSC_SEL_BITS);
  *  }
@@ -64,6 +64,7 @@
  * (when it's guaranteed to be safe), then switch back to the PLL.
  */
 
+#include <libpic30.h>    // Has ___delay3232
 #include "pic24_clockfreq.h"
 #include "pic24_util.h"
 #include "pic24_serial.h"
@@ -72,43 +73,86 @@
 #if SIM
 // The simulator doesn't call this function, so omit it.
 #elif !USE_CLOCK_TIMEOUT
-//empty functions
+// With no clock timeout support, define an empty function.
 void checkClockTimeout(void) {
 }
 #else
 /*
-The purpose of the clock timeout functions is
-output a meaningful error in case the clock switch
-does not occur.
-
-*/
+ * The purpose of the clock timeout functions is
+ * output a meaningful error in case the clock switch
+ * does not occur. In this case, we assume the startup
+ * oscillator (the FRC) is still running.
+ */
 # define CLOCKTIMEOUT_MAX 200000L
-# if  ( defined(__PIC24H__) || defined(__dsPIC33F__) )
-#   define FRC_FCY 40000000L
+# if   ( defined(__PIC24H__) || defined(__dsPIC33F__) ||  \
+         defined(__PIC24E__) || defined(__dsPIC33E__) )
+#   define FRC_FCY 3685000L
 # elif ( defined(__PIC24F__) || defined(__PIC24FK__) )
-#   define FRC_FCY 16000000L
-# elif  ( defined(__PIC24E__) || defined(__dsPIC33E__) )
-#   define FRC_FCY 60000000L
+#   define FRC_FCY 4000000L
 # else
 #   error "Unknown processor."
 # endif
-# define FRC_BRGH 0
+// Since the FRC is slow, and we only want to transmit, pick a baud rate divisor 
+// of 4 (BRGH == 1). In this case:
+//
+// * For the PIC24F/FK: given FCY == 4 MHz and DEFAULT_BAUDRATE == 57600:
+//   U1BRG = FCY/(4*baud) - 1 = 16. This gives an actual 
+//   baud rate of baud = FCY/(4*(U1BRG + 1)) = 58,823 baud for an error of 2.1%. 
+// * If FCY == 3.685 MHz and DEFAULT_BAUDRATE == 230400:
+//   U1BRG = 3. This gives and actual baud rate of 230,312 for an error of 
+//   0.04%.
+# define FRC_BRGH 1
+
+# if USE_HEARTBEAT
+#   define SET_HB_LED(x) (HB_LED = x)
+# else
+#   define SET_HB_LED(x) ((void) x)
+# endif
+
+// Per https://en.wikipedia.org/wiki/Morse_code#Representation.2C_timing.2C_and_speeds:
+//
+// 1. short mark, dot or "dit": "dot duration" is one time unit long
+// 2. longer mark, dash or "dah": three time units long
+// 3. inter-element gap between the dots and dashes within a character: one dot duration or one unit long
+// 4. short gap (between letters): three time units long
+// 5. medium gap (between words): seven time units long
+# define FRC_CYCLE_PER_MS (FRC_FCY*0.001)
+# define DOT_CYCLES (FRC_CYCLE_PER_MS*100)
+# define DASH_CYCLES (DOT_CYCLES*3)
+
+static void morse_blink(const char* sz_morse_code) {
+    for (;*sz_morse_code; ++sz_morse_code) {
+        switch (*sz_morse_code) {
+            case  '.':
+            SET_HB_LED(1);
+            __delay32(DOT_CYCLES);
+            break;
+            
+            case '-':
+            SET_HB_LED(1);
+            __delay32(DASH_CYCLES);
+            break;
+            
+            default:
+            // Anything not a dot or dash is a inter-letter gap (3 time units).
+            // There's always a dot delay at the end, so do 2 units here and 1 units there.
+            __delay32(DOT_CYCLES*2);
+        }
+        
+        // Insert an inter-element gap.
+        SET_HB_LED(0);
+        __delay32(DOT_CYCLES);
+    }
+    
+    // Insert medium gap (between words) of 7 units. We've already has a 1 unit 
+    // gap, so delay 6 more.
+    __delay32(DOT_CYCLES*6);
+}
 
 
 static void configFrcUART(void) {
-  // First, switch to a known-good clock
-# if ( defined(__PIC24H__) || defined(__dsPIC33F__) )
-  configClockFRCPLL_FCY40MHz();
-# elif ( defined(__PIC24E__) || defined(__dsPIC33E__) )
-  configClockFRCPLL_FCY60MHz();
-# elif ( defined(__PIC24F__) || defined(__PIC24FK__) )
-  // Safe choice: FCY=16 MHz, FRC+PLL.
-  configClockFRCPLL_FCY16MHz();
-# else
-#  error "Unknown processor."
-#endif
-
-  // Second, get UART I/O pins mapped and general config done.
+  // Assume we're running on the FRC, since the initial clock switch failed.
+  // Get UART I/O pins mapped and general config done.
   configDefaultUART(DEFAULT_BAUDRATE);
 
   // BRG register is probably wrong since it uses FCY, not FRC_FCY. Fix it.
@@ -131,31 +175,35 @@ static void configFrcUART(void) {
 
 static uint32_t u32_timeoutCount;
 static void checkClockTimeout(void) {
-
-  // See if the clock has already failed. If so, return to allow
-  // diagnostic code to perform (hopefully safe) clock switches
-  // in order to report errors.
-  if (u32_timeoutCount == 0xFFFFFFFF) return;
-
-  // Otherwise, update timeout. If we the switch hasn't failed,
-  // simple return to wait for the switch a bit more.
+  // Update the timeout. If the switch hasn't failed,
+  // simply return to wait for the switch a bit more.
   u32_timeoutCount++;
-  if (u32_timeoutCount < CLOCKTIMEOUT_MAX) return;
+  if (u32_timeoutCount < CLOCKTIMEOUT_MAX) {
+    return;
+  }
 
+  // The clock has failed. Initialize the minimal peripherals necessary to
+  // indicate a failure.
   configFrcUART();
-  outString("\n\nYour clock choice failed to initialize. See " __FILE__ " line " TOSTRING(__LINE__) " for more details.");
-  // If the above string was printed out, either:
-  // 1. Check the crystal / oscillator attached to your chip. It doesn't work.
-  // 2. Tell the library to use the built-in oscillator, instead of an external one.
-  //    To do thi, check your setting for the 'CLOCK_CONFIG' macro.
-  //    Watch the compiler output window when pic24_clockfreq.c is compiled; a warning message
-  //    there will tell you the selected value for CLOCK_CONFIG. Change this value to
-  //    something that doesn't require an oscillator. See pic24_clockfreq.h for a list
-  //    of valid choices.
-
-
+  configHeartbeat();
+  
   while(1) {
-    doHeartbeat();  // never return.
+    // If the string below was printed out, either:
+    // 1. Check the crystal / oscillator attached to your chip. It doesn't work.
+    // 2. Tell the library to use the built-in oscillator, instead of an external one.
+    //    To do this, check your setting for the 'CLOCK_CONFIG' macro.
+    //    Watch the compiler output window when pic24_clockfreq.c is compiled; a warning message
+    //    there will tell you the selected value for CLOCK_CONFIG. Change this value to
+    //    something that doesn't require an oscillator. See pic24_clockfreq.h for a list
+    //    of valid choices.
+    // 3. Make sure that clock switching is allowed -- the FOSC configuration register
+    //    bit field FCKSM must **not** be set to CSDCMD (which disables clock
+    //    switching).
+    outString("\n\nYour clock choice failed to initialize. See " __FILE__ 
+              " line " TOSTRING(__LINE__) " for more details.");
+    
+    // Blink SOS on the heartbeat LED.
+    morse_blink("... --- ...");
   }
 }
 #endif
@@ -177,9 +225,10 @@ void switchClock(uint8_t u8_source) {
   asm("DISI #0x3FFF"); // Disable interrupts for a long time
   // 2. Switch to the PLL. Use compiler built-ins to unlock
   //    clock switch registers. See 7.11.1 of the FRM rev B.
-  OSCCONBITS_copy = OSCCONbits;      // Copy OSCCON bits
-  OSCCONBITS_copy.NOSC = u8_source;  // Select new clock source
-  OSCCONBITS_copy.OSWEN = 1;         // Request clock switch
+  OSCCONBITS_copy = OSCCONbits;      // Copy OSCCON bits.
+  OSCCONBITS_copy.NOSC = u8_source;  // Select new clock source.
+  OSCCONBITS_copy.CLKLOCK = 0;       // Allow clock switches.
+  OSCCONBITS_copy.OSWEN = 1;         // Request clock switch.
   // First write high byte, containing new clock source NOSC
   __builtin_write_OSCCONH(BITS2BYTEH(OSCCONBITS_copy));
   // Then write low byte, requesting clock switch with OSWEN

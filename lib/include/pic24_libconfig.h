@@ -51,12 +51,12 @@
 /** The Microchip Explorer 16 Development Board
  *  with a 100-pin plug-in module, part number DM240001.
  */
-#define EXPLORER16_100P 0
+#define EXPLORER16_100P (0)
 
 /** The Dangerous Prototypes web platform.
  *  See http://dangerousprototypes.com/docs/Web_platform_hardware_design
  */
-#define DANGEROUS_WEB 1
+#define DANGEROUS_WEB (1)
 
 /** The Microchip 16-bit 28-pin Starter Board,
  *  Part number DM300027. Thanks to István for contributing this!
@@ -65,7 +65,7 @@
  *  library collection or just try out the example programs of the
  *  texbook, the SW2 switch shoud be set in the USB/debug state.
  */
-#define STARTER_BOARD_28P 2
+#define STARTER_BOARD_28P (2)
 
 /** Any of three targets, which share the same hardware configuration:
  *  1. The schematic on pg. 255 of the book
@@ -75,10 +75,10 @@
  *  3. The Sparkfun Breakout Board for PIC24HJ32 - mini-Bully
  *     sku: BOB-08787
  */
-#define DEFAULT_DESIGN 3
+#define DEFAULT_DESIGN (3)
 
 /** A device with hard-mapped pins for UART TX and RX. */
-#define HARDMAPPED_UART 4
+#define HARDMAPPED_UART (4)
 
 /**
  * Microchip part number: dm330013-2
@@ -93,13 +93,13 @@
  *
  * Supported Parts: All 3.3V PIC24FJ, PIC24E, PIC24H, dsPIC33, and PIC32 28-pin SPDIP packaged devices.
  */
-#define MICROSTICK2 5
+#define MICROSTICK2 (5)
 
 /** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University (Fall 2013) */
-#define EMBEDDED_C1 472313
+#define EMBEDDED_C1 (472313)
 
 /** The CAN2 rev C1 board used for Embedded Systems, ECE 4723, at Mississippi State University (Fall 2014) */
-#define EMBEDDED_F14 472314
+#define EMBEDDED_F14 (472314)
 
 /** Select one of the hardware platform above to compile for. */
 #ifndef HARDWARE_PLATFORM
@@ -120,15 +120,15 @@
 
 // Defines for compiling the bootloader
 #ifdef BOOTLOADER
-# define USE_HEARTBEAT 0
-# define USE_CLOCK_TIMEOUT 0
+# define USE_HEARTBEAT (0)
+# define USE_CLOCK_TIMEOUT (0)
 # define _NOASSERT
 # define _NOFLOAT
 #endif
 
 // Defines for compiling ESOS.
 #ifdef BUILT_ON_ESOS
-# define USE_HEARTBEAT 0
+# define USE_HEARTBEAT (0)
 # define _NOASSERT
 # define _NOFLOAT
 #endif
@@ -215,7 +215,8 @@
  *  switches. The value is specified in milliseconds.
  */
 #ifndef DEBOUNCE_DLY
-# define DEBOUNCE_DLY  15   //in milliseconds
+  // In milliseconds.
+# define DEBOUNCE_DLY  (15)   
 #endif
 
 /// @}
@@ -230,19 +231,19 @@
  *  send a CR with every LF in outString.
  *  PuTTY uses this, expects "\n\r".
  */
-#define SERIAL_EOL_CR_LF 0
+#define SERIAL_EOL_CR_LF (0)
 
 /** Set \ref SERIAL_EOL_DEFAULT to this value to
  *  send a carriage return only ("\r") to end a line.
  */
-#define SERIAL_EOL_CR   1
+#define SERIAL_EOL_CR   (1)
 
 /** Set \ref SERIAL_EOL_DEFAULT to this value to
  *  sends a new line only ("\n"). This
  *  works for Bully Bootloader, MPLAB SIM, TeraTerm,
  *  RealTerm.
  */
-#define SERIAL_EOL_LF   2
+#define SERIAL_EOL_LF   (2)
 
 /** This macro defines end-of-line output behavior
  *  when the \ref outString() function is passed a new line ("\n").
@@ -270,9 +271,9 @@
  */
 #ifndef DEFAULT_UART
 # if (HARDWARE_PLATFORM == EXPLORER16_100P)
-#   define DEFAULT_UART 2
+#   define DEFAULT_UART (2)
 # else
-#   define DEFAULT_UART 1
+#   define DEFAULT_UART (1)
 # endif
 #endif
 
@@ -284,20 +285,21 @@
 #ifndef DEFAULT_BAUDRATE
 // For convenience, common baud rates (uncomment one):
 // If none are select, a default will be chosen below.
-//# define DEFAULT_BAUDRATE  230400
-//# define DEFAULT_BAUDRATE  115200
-//# define DEFAULT_BAUDRATE   57600
-//# define DEFAULT_BAUDRATE   38400
-//# define DEFAULT_BAUDRATE   19200
-//# define DEFAULT_BAUDRATE    9600
+//# define DEFAULT_BAUDRATE  (230400)
+//# define DEFAULT_BAUDRATE  (115200)
+//# define DEFAULT_BAUDRATE   (57600)
+//# define DEFAULT_BAUDRATE   (38400)
+//# define DEFAULT_BAUDRATE   (19200)
+//# define DEFAULT_BAUDRATE    (9600)
 #endif
 
 #ifndef DEFAULT_BAUDRATE
 # if defined(__PIC24F__) || defined(__PIC24FK__)
-//  The PIC24F/FK's 16 MHz max frequency using the inaccurate FRC means a lower default baud rate is a safer choice.
-#   define DEFAULT_BAUDRATE   57600
+// The PIC24F/FK's 16 MHz max frequency using the inaccurate FRC means a lower 
+// default baud rate is a safer choice.
+#   define DEFAULT_BAUDRATE   (57600)
 # else
-#   define DEFAULT_BAUDRATE  230400
+#   define DEFAULT_BAUDRATE  (230400)
 # endif
 #endif
 
@@ -310,7 +312,7 @@
  *  - BRGH = 1 - the baud rate divisor is 4
  */
 #ifndef DEFAULT_BRGH
-# define DEFAULT_BRGH  0
+# define DEFAULT_BRGH  (0)
 #endif
 
 #if (DEFAULT_BRGH != 0) && (DEFAULT_BRGH != 1)
@@ -329,9 +331,9 @@
  */
 #ifndef USE_CLOCK_TIMEOUT
 # ifdef BUILT_ON_ESOS
-#   define USE_CLOCK_TIMEOUT 0
+#   define USE_CLOCK_TIMEOUT (0)
 # else
-#   define USE_CLOCK_TIMEOUT 1
+#   define USE_CLOCK_TIMEOUT (1)
 # endif
 #endif
 
@@ -345,7 +347,7 @@
 /** If this macro is true, heartbeat functionality is enabled.
  *  If false, heartbeat is disabled.
  */
-# define USE_HEARTBEAT 1
+# define USE_HEARTBEAT (1)
 #endif
 
 
@@ -363,7 +365,7 @@
 /** Choose a pin for the heartbeat.
  *  If \ref USE_HEARTBEAT is false, the heartbeat is disabled.
  */
-#   define HB_LED _LATB15
+#   define HB_LED (_LATB15)
 /** Define a config function for the heartbeat pin. */
 #   if (defined(_ODCB15) || defined(_ODB15))
 #     define CONFIG_HB_LED()            \
@@ -374,7 +376,7 @@
 #   else
 #     define CONFIG_HB_LED() CONFIG_RB15_AS_DIG_OUTPUT()
 #   endif
-# endif //if (HARDWARE_PLATFORM == EXPLORER16_100P)
+# endif
 #endif // #ifndef HB_LED
 
 /// @}
