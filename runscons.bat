@@ -38,19 +38,14 @@ REM
 REM Therefore, I can't use the ^ line continuation character following lines where
 REM the ``"`` symbols don't match.
 findstr > err1.txt /V ^
-/C:"warning: Options have been disabled due to expired license" ^
 /C:"warning: #warning \"Baud rates of 19200 or lower recommended for this clock choice.\""  ^
-/C:"warning: #warning \"Baud rates of 9600 or lower recommended for this clock choice.\""  ^
 /C:"warning: #warning \"Using dummy function for configPinsForLowPower() in common/pic24_util.c.\"" ^
-/C:"warning: #warning \"Edit this file to define bits for your processor!\"" ^
 /C:"warning: #warning \"Using default config bit settings for the " /C:"warning: #warning \"Clock configured" err.txt
 
 findstr > err2.txt /V ^
 /C:"warning: #warning \"UART2 pin mappings not defined. See comments below for more info.\"" ^
 /C:"warning: #warning \"UART3 pin mappings not defined. See comments below for more info.\"" ^
 /C:"warning: #warning \"UART4 pin mappings not defined. See comments below for more info.\"" ^
-/C:"warning: #warning \"UART1 RX pin configured to RP10(RB10), UART1 TX pin configured to RP11(RB11).\"" ^
-/C:"warning: #warning \"UART1 RX pin configured to RP42(RB10), UART1 TX pin configured to RP43(RB11).\"" ^
 /C:"warning: #warning \"Using dummy function for configPinsForLowPower().\"" ^
 /C:"warning: #warning \"PLL Enabled.\"" ^
 /C:"lib\src\pic24_ecan.c:233:2: warning: #warning \"ECAN module not configured for current processor frequency! Edit function configECAN1().\"" ^
