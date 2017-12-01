@@ -23,8 +23,6 @@
 ;    Please maintain this header in its entirety when copying/modifying these
 ;    files.
 ;
-; .. highlight:: nasm
-;
 ; ***********************************************************************
 ; psv_intarray.s - Initialize array from program memory (PIC24H/dsPIC33F)
 ; ***********************************************************************

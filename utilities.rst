@@ -66,8 +66,6 @@ These utilities help create files needed by the bootloader, or linker files for 
 .. toctree::
    :titlesonly:
 
-   bootloader/devices/get_devices.pl
-   bootloader/devices/parse_pickit2_data.pl
    bootloader/pic24_dspic33_bootloader.X/lkr/convert_gld.py
 
 Code generation tools

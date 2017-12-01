@@ -12,8 +12,6 @@
 ;
 ;    Please maintain this header in its entirety when copying/modifying these files.
 ;
-; .. highlight:: nasm
-;
 ; *****************
 ; aschex2byte_asm.s
 ; *****************

@@ -23,8 +23,6 @@
 ;    Please maintain this header in its entirety when copying/modifying these
 ;    files.
 ;
-; .. highlight:: nasm
-;
 ; *****************************************************************************
 ; psv_upcase_24E33E.s - Initialize string from program memory (PIC24E/dsPIC33E)
 ; *****************************************************************************

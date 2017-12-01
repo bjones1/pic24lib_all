@@ -1,4 +1,4 @@
-# .. -*- coding: utf-8 -*-
+# ..
 #
 #    Copyright (C) 2012-2013 Bryan A. Jones.
 #
@@ -26,10 +26,7 @@
 # * All configuration values have a default; values that are commented out serve
 #   to show the default.
 #
-import sys, os
-import sphinx
-import CodeChat.CodeToRestSphinx
-
+#
 # If extensions (or modules to document with autodoc) are in another directory, add these directories to sys.path here. If the directory is relative to the documentation root, use os.path.abspath to make it absolute, as shown here.
 ##sys.path.insert(0, os.path.abspath('.'))
 #
@@ -39,7 +36,7 @@ import CodeChat.CodeToRestSphinx
 # `copyright <http://sphinx-doc.org/config.html#confval-copyright>`_:
 # General information about the project. **Change this** for your project.
 project = u'Microcontrollers: From Assembly Language to C Using the PIC24 family, second edition'
-copyright = u'2015, Bryan A. Jones, Robert B. Reese, and J. W. Bruce'
+copyright = u'2017, Bryan A. Jones, Robert B. Reese, and J. W. Bruce'
 
 # The version info for the project you're documenting, acts as replacement for
 # ``|version|`` and ``|release|``, also used in various other places throughout
@@ -94,10 +91,8 @@ pygments_style = 'sphinx'
 # `General configuration <http://sphinx-doc.org/config.html#general-configuration>`_
 # -----------------------------------------------------------------------------------
 # `extensions <http://sphinx-doc.org/config.html#confval-extensions>`_: If your
-# documentation needs a minimal Sphinx version, state it here. **CodeChat
-# note:** CodeChat has been tested with Sphinx 1.1 and above. Older versions may
-# or may not work.
-needs_sphinx = '1.1'
+# documentation needs a minimal Sphinx version, state it here.
+##needs_sphinx = '1.1'
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones. **CodeChat
@@ -109,15 +104,26 @@ extensions = ['CodeChat.CodeToRestSphinx']
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
+# `rst_epilog <http://www.sphinx-doc.org/en/stable/config.html#confval-rst_epilog>`_:
+# A string of reStructuredText that will be included at the end of every source
+# file that is read.
+rst_epilog = (
+# Provide a convenient way to refer to a source file's name.
+"""
+
+.. |docname| replace:: :docname:`name`
+"""
+)
+
 # `source_suffix <http://sphinx-doc.org/config.html#confval-source_suffix>`_:
 # The suffix of source filenames.
 source_suffix = '.rst'
 
 # CodeChat: A dict of {glob, lexer_alias}, which uses lexer_alias to analyze
 # any file wihch matches the given glob.
-CodeChat_lexer_for_glob = {'*.s' : 'NASM',
-                           '*.pl' : 'Perl',
-                          }
+CodeChat_lexer_for_glob = {
+   '*.s' : 'PIC24',
+}
 
 # `source_encoding <http://sphinx-doc.org/config.html#confval-source_encoding>`_:
 # The encoding of source files.
@@ -137,51 +143,56 @@ master_doc = 'contents'
 # directories to ignore when looking for source files. **CodeChat note:** By
 # default, Enki will instruct Sphinx to place all Sphinx output in ``_build``;
 # this directory should therefore be excluded from the list of source files.
-exclude_patterns = ['_build',
-                    'bin',
-                    'build',
-                    'docs',
-                    'esos',
-                    'hex',
-                    'lib',
-                    'misc',
-                    'conf.py',
-                    'CodeChat.css',
-                    # Used only for SCons build
-                    'chap10/reverse_string1.c',
-                    'chap13/i2c_multmaster_rstring1.c',
-                    # Ignore MPLAB X auto-generated files.
-                    '**.X/build',
-                    '**.X/dist',
-                    '**.X/nbproject',
-                    '*.bash',
-                    '*.mk',
-                    # Ignore Mercurial's repo. Not doing this makes the build *much* slower.
-                    '.hg',
-                    # When authoring, optionally disable subdirectories to speed
-                    # the build process.
-#                    'chap01',
-#                    'chap02',
-#                    'chap03',
-#                    'chap04',
-#                    'chap05',
-#                    'chap06',
-#                    'chap07',
-#                    'chap08',
-#                    'chap09',
-#                    'chap10',
-#                    'chap11',
-#                    'chap12',
-#                    'chap13',
-#                    'chap14',
-#                    'explorer16_100p',
-#                    'templates',
-#                    'util',
-                    ]
+exclude_patterns = [
+    '_build',
+    'bin',
+    'build',
+    'docs',
+    'esos',
+    'hex',
+    'lib',
+    'misc',
+    'conf.py',
+    'CodeChat.css',
+    # Used only for SCons build
+    'chap10/reverse_string1.c',
+    'chap13/i2c_multmaster_rstring1.c',
+    # Ignore MPLAB X auto-generated files.
+    '**.X/build',
+    '**.X/dist',
+    '**.X/nbproject',
+    '*.bash',
+    '*.mk',
+    # Ignore Mercurial's repo. Not doing this makes the build *much* slower.
+    '.hg',
+    # When authoring, optionally disable subdirectories to speed
+    # the build process.
+    #'chap01',
+    #'chap02',
+    #'chap03',
+    #'chap04',
+    #'chap05',
+    #'chap06',
+    #'chap07',
+    #'chap08',
+    #'chap09',
+    #'chap10',
+    #'chap11',
+    #'chap12',
+    #'chap13',
+    #'chap14',
+    #'explorer16_100p',
+    #'templates',
+    #'util',
+]
 
-# `default_role <http://sphinx-doc.org/config.html#confval-default_role>`_: The
-# reST default role (used for this markup: `text`) to use for all documents.
-##default_role = None
+# `default_role <http://www.sphinx-doc.org/en/stable/config.html#confval-default_role>`_
+# The name of a reST role (builtin or Sphinx extension) to use as the default
+# role, that is, for text marked up ```like this```.
+#
+# See the `:any: role <http://www.sphinx-doc.org/en/stable/markup/inline.html#role-any>`_,
+# which suggests this use.
+default_role = 'any'
 
 # `keep_warnings <http://sphinx-doc.org/config.html#confval-keep_warnings>`_: If
 # true, keep warnings as "system message" paragraphs in the built documents.
@@ -242,11 +253,6 @@ html_static_path = ['CodeChat.css']
 # using the given strftime format.
 html_last_updated_fmt = '%b, %d, %Y'
 
-# `html_use_smartypants <http://sphinx-doc.org/config.html#confval-html_use_smartypants>`_:
-# If true, `SmartyPants <http://daringfireball.net/projects/smartypants/>`_ will
-# be used to convert quotes and dashes to typographically correct entities.
-html_use_smartypants = True
-
 # `html_sidebars <http://sphinx-doc.org/config.html#confval-html_sidebars>`_:
 # Custom sidebar templates, maps document names to template names.
 ##html_sidebars = {}
@@ -262,15 +268,24 @@ html_use_smartypants = True
 
 # `html_use_index <http://sphinx-doc.org/config.html#confval-html_use_index>`_:
 # If false, no index is generated.
-##html_use_index = True
+html_use_index = False
 
 # `html_split_index <http://sphinx-doc.org/config.html#confval-html_split_index>`_:
 # If true, the index is split into individual pages for each letter.
 ##html_split_index = False
 
+# `html_copy_source <http://sphinx-doc.org/config.html#confval-html_copy_source>`_:
+# If true, the reST sources are included in the HTML build as _sources/name.
+html_copy_source = True
+
 # `html_show_sourcelink <http://sphinx-doc.org/config.html#confval-html_show_sourcelink>`_:
 # If true, links to the reST sources are added to the pages.
 html_show_sourcelink = True
+
+# `html_sourcelink_suffix <http://sphinx-doc.org/config.html#confval-html_sourcelink_suffix>`_:
+# Suffix to be appended to source links (see html_show_sourcelink), unless they
+# have this suffix already.
+html_sourcelink_suffix = ''
 
 # `html_show_sphinx <http://sphinx-doc.org/config.html#confval-html_show_sphinx>`_:
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
@@ -289,13 +304,3 @@ html_show_sourcelink = True
 # `html_file_suffix <http://sphinx-doc.org/config.html#confval-html_file_suffix>`_:
 # This is the file name suffix for HTML files (e.g. ".xhtml").
 ##html_file_suffix = None
-# **CodeChat note:** `Enki <http://enki-editor.org/>`_, which hosts CodeChat,
-# needs to know this value. So, save it to a file for Enki_ to read.
-import codecs
-try:
-    with codecs.open('sphinx-enki-info.txt', 'wb', 'utf-8') as f:
-        f.write(html_file_suffix)
-except NameError, TypeError:
-    # If ``html_file_suffix`` isn't defined (NameError) or is None (TypeError),
-    # Enki will assume ``.html``.
-    pass

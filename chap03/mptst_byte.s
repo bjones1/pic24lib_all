@@ -12,8 +12,6 @@
 ;
 ;    Please maintain this header in its entirety when copying/modifying these files.
 ;
-; .. highlight:: nasm
-;
 ; *************************************************************
 ; mptst_byte.s - translation of 8-bit *C* aritmetic to assembly
 ; *************************************************************

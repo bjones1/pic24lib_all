@@ -23,8 +23,6 @@
 #    Please maintain this header in its entirety when copying/modifying
 #    these files.
 #
-# .. highlight:: Python
-#
 # **************************************************
 # SCons_esos.py - Build ESOS chapter 14 applications
 # **************************************************

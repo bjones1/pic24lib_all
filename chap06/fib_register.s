@@ -23,8 +23,6 @@
 ;    Please maintain this header in its entirety when copying/modifying these
 ;    files.
 ;
-; .. highlight:: nasm
-;
 ; ******************************************************************************
 ; fib_register.s - A recursive subroutine example to compute a Fibonnachi number
 ; ******************************************************************************

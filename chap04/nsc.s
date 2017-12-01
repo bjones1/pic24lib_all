@@ -12,14 +12,12 @@
 ;
 ;    Please maintain this header in its entirety when copying/modifying these files.
 ;
-; .. highlight:: nasm
-;
 ; **********************************************************************
-; nsc.s - Implement the Number Sequencing Computering in PIC24 assembly. 
+; nsc.s - Implement the Number Sequencing Computering in PIC24 assembly.
 ; **********************************************************************
 
     .include "xc.inc"
-    .global __reset          ;The label for the first line of code. 
+    .global __reset          ;The label for the first line of code.
 
          .bss        ;unitialized data section
 
@@ -37,19 +35,19 @@ loop_top:
    btsc.b  loc,#0    ;skip next if loc<0> is 0
    goto    loc_lsb_is_1
    ;loc<0> is 0 if reach here
-   mov.b   #3,W0     
-   mov.b   WREG,dout  ;dout = 3    
-   mov.b   #2,W0     
-   mov.b   WREG,dout  ;dout = 2    
-   mov.b   #4,W0     
-   mov.b   WREG,dout  ;dout = 4    
+   mov.b   #3,W0
+   mov.b   WREG,dout  ;dout = 3
+   mov.b   #2,W0
+   mov.b   WREG,dout  ;dout = 2
+   mov.b   #4,W0
+   mov.b   WREG,dout  ;dout = 4
 loc_lsb_is_1:
-   mov.b   #8,W0     
-   mov.b   WREG,dout  ;dout = 8    
-   mov.b   #5,W0     
-   mov.b   WREG,dout  ;dout = 5    
-   mov.b   #6,W0     
-   mov.b   WREG,dout  ;dout = 6    
-   mov.b   #1,W0     
+   mov.b   #8,W0
+   mov.b   WREG,dout  ;dout = 8
+   mov.b   #5,W0
+   mov.b   WREG,dout  ;dout = 5
+   mov.b   #6,W0
+   mov.b   WREG,dout  ;dout = 6
+   mov.b   #1,W0
    mov.b   WREG,dout  ;dout = 1
    goto    loop_top  ;loop forever

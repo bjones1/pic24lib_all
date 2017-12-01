@@ -23,8 +23,6 @@
 #    Please maintain this header in its entirety when copying/modifying
 #    these files.
 #
-# .. highlight:: Python
-#
 # **********************************************************************
 # compect_csv.py - Group all processors with identical mappings together
 # **********************************************************************

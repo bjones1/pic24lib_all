@@ -12,8 +12,6 @@
 ;
 ;    Please maintain this header in its entirety when copying/modifying these files.
 ;
-; .. highlight:: nasm
-;
 ; **************************************************************
 ; mptst_word.s - translation of 16-bit *C* aritmetic to assembly
 ; **************************************************************

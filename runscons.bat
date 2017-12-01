@@ -23,14 +23,12 @@ REM
 REM     Please maintain this header in its entirety when copying/modifying
 REM     these files.
 REM
-REM .. highlight:: bat
-REM
 REM ***********************************************************
 REM runscons.bat - Run SCons, collecting and filtering warnings
 REM ***********************************************************
 REM First, run the build, collecting all errors and warnings into ``err.txt``.
 call scons -j 1 %* > err.txt 2>&1
-REM
+
 REM Remove #warnings generated during compiles
 REM ==========================================
 REM Note: the ``> errn.txt`` was placed immediately after findstr below, since the
@@ -72,14 +70,14 @@ findstr > err2.txt /V ^
 /C:"warning: #warning Building configUART1() for the Rev.C1 Embedded Systems target." ^
 /C:"warning: #warning Building configUART1() for the StarterBoard_28P target." ^
 /C:"warning: #warning \"Ensure that the PLLDIV value is set to divide by 2 in the configuration bits for " /C:"warning: #warning \"Edit common/pic24_configbits.c to add config bits for your processor!\"" err1.txt
-REM
+
 REM Work around compiler warnings I can't figure out how to suppress
 REM ================================================================
 findstr > err3.txt /V ^
 /C:"\bootloader\pic24_dspic33_bootloader.X\mem.c:119:1: warning: control reaches end of non-void function" ^
 /C:"warning: Taking the address of '" ^
 err2.txt
-REM
+
 REM Output only errors and warnings
 REM ===============================
 findstr /C:"warning" /C:"error" err3.txt > build_errors.txt

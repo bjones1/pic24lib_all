@@ -23,8 +23,6 @@
 ;    Please maintain this header in its entirety when copying/modifying these
 ;    files.
 ;
-; .. highlight:: nasm
-;
 ; *******************************************************
 ; swapU32.s - Swap two U32 values referenced by a pointer
 ; *******************************************************

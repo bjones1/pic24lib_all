@@ -23,8 +23,6 @@
 #    Please maintain this header in its entirety when copying/modifying
 #    these files.
 #
-# .. highlight:: Python
-#
 # *************************************************
 # SCons_build.py - Build all libraries and examples
 # *************************************************
@@ -44,7 +42,7 @@ Import('buildTargets env bin2hex linker_side_effect')
 
 ## Inform SCons about the dependencies in the template-based files
 SConscript('templates/SConscript.py', 'env')
-#
+
 # Common sources used for the PIC24 support library
 # =================================================
 PIC24SupportLibSources = [
@@ -61,7 +59,7 @@ PIC24SupportLibSources = [
   'lib/src/pic24_timer.c',
   'lib/src/pic24_uart.c',
   'lib/src/pic24_util.c' ]
-#
+
 # Functions used to build the library
 # ===================================
 # This function builds a program which includes the PIC24 library.
@@ -126,7 +124,7 @@ def buildWithCommonSources(
 # Compile the support library into objects for the default
 # environment.
 PIC24SupportLibObjects = env.Object(PIC24SupportLibSources)
-#
+
 # Definition of targets
 # =====================
 if 'reset' in buildTargets:

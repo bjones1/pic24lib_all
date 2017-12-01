@@ -23,13 +23,10 @@ REM
 REM     Please maintain this header in its entirety when copying/modifying
 REM     these files.
 REM
-REM .. highlight:: bat
-REM
 REM *************************************************
 REM runAStyle.bat - enforce code formatting standards
 REM *************************************************
 REM To maintain a consistent style, this batch file runs the `Artistic Style <http://astyle.sourceforge.net/>`_ code formatter on all sources in the library.
-
 bin\astyle --brackets=attach --indent-switches --indent=spaces=2 --recursive --exclude=build --lineend=linux --suffix=none --formatted --convert-tabs *.c *.h
 @echo off
 REM Notes on options (see http://astyle.sourceforge.net/astyle.html for more information):
