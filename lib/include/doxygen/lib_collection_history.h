@@ -36,7 +36,9 @@
 Next release:
 - No changes yet
 
-1-Nov-2017:
+1-Dec-2017:
+- Added bootloader builds for the Microstick II.
+- Make HARDWARE_PLATFORM more robust to user errors.
 - Improve clock fail detection and reporting.
 - Added ESOS UI service.
 - Added the UNUSED macro to pic24_util.h.

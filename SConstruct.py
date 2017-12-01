@@ -317,7 +317,7 @@ buildTargetsSConscript(['reset'],
 # Bootloader builds
 # =================
 # Call :doc:`SCons_bootloader.py` with a specific Environment. It creates a
-# variant build named ``default_bootloader _ MCU``.
+# variant build named ``bootloader _ hardware_alias _ MCU``.
 def buildTargetsBootloader(
   # The build environment to use. Typically ``env``, though a ``env.Clone``
   # can be used to configure env.
@@ -345,26 +345,27 @@ def buildTargetsBootloader(
 # Build the bootloader for a variety of common MCUs
 # that can have UART in the "default" location, e.g.
 # RB10=MCUrx and RB11=MCUtx
-for mcu in ('24FJ32GA002',
-            '24FJ64GA002',
-            '24FJ32GA102',
-            '24FJ64GA102',
-            '24FJ64GB002',
-            '24FJ64GB004',
+for mcu in (
+    '24FJ32GA002',
+    '24FJ64GA002',
+    '24FJ32GA102',
+    '24FJ64GA102',
+    '24FJ64GB002',
+    '24FJ64GB004',
 
-            '24HJ12GP202',
-            '24HJ32GP202',
-            '24HJ64GP502',
-            '24HJ128GP502',
+    '24HJ12GP202',
+    '24HJ32GP202',
+    '24HJ64GP502',
+    '24HJ128GP502',
 
-            '24EP64GP202',
+    '24EP64GP202',
 
-            '33FJ32GP202',
-            '33FJ128GP802',
+    '33FJ32GP202',
+    '33FJ128GP802',
 
-            '33EP128GP502',
-            '33EP128GP504',
-           ):
+    '33EP128GP502',
+    '33EP128GP504',
+):
     buildTargetsBootloader(env, mcu)
 
 # Build the bootloader for MCUs with a hardmapped UART.
@@ -373,7 +374,7 @@ for mcu in ('24F32KA302',):
     hardware_platform='HARDMAPPED_UART',
     hardware_alias='hardmappedUART')
 
-# Build bootloader for MCUs on specific hardware platforms
+# Build bootloader for MCUs on specific hardware platforms.
 buildTargetsBootloader(env,
     mcu='33EP128GP504',
     hardware_platform='EMBEDDED_C1',
@@ -384,10 +385,15 @@ buildTargetsBootloader(env,
     hardware_platform='EMBEDDED_F14',
     hardware_alias='embeddedF14')
 
-buildTargetsBootloader(env,
-    mcu='33EP128GP502',
-    hardware_platform='MICROSTICK2',
-    hardware_alias='microstick2')
+for mcu in (
+    '24FJ64GB002',
+    '24HJ128GP502',
+    '33EP128GP502',
+):
+    buildTargetsBootloader(env,
+        mcu,
+        hardware_platform='MICROSTICK2',
+        hardware_alias='microstick2')
 
 # ESOS builds
 # ===========
