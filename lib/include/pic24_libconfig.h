@@ -46,12 +46,16 @@
 /** @name Supported hardware platforms
  *  This library supports the following hardware platforms.
  *  More can easily be added.
+ *
+ * Note: Do NOT #define MY_HARDWARE_PLATFORM (0). If the user then tries
+ * -D HARDWARE_PLATFORM=FOO, FOO will evaluate to 0, making it an
+ * accidentally default choice.
  */
 //@{
 /** The Microchip Explorer 16 Development Board
  *  with a 100-pin plug-in module, part number DM240001.
  */
-#define EXPLORER16_100P (0)
+#define EXPLORER16_100P (-1)
 
 /** The Dangerous Prototypes web platform.
  *  See http://dangerousprototypes.com/docs/Web_platform_hardware_design
