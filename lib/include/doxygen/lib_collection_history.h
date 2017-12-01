@@ -34,6 +34,11 @@
 \page history History and release notes for this library collection.
 
 Next release:
+- No changes yet
+
+1-Nov-2017:
+- Improve clock fail detection and reporting.
+- Added ESOS UI service.
 - Added the UNUSED macro to pic24_util.h.
 - ESOS build fixes.
 - Clarifed bootloader source file naming.
