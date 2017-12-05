@@ -121,27 +121,22 @@ UWord32 ReadLatch(UWord16 addrhi, UWord16 addrlo) {
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
 void ResetDevice(void) {
 
-//  asm(" goto 0xc02");
   asm(" goto 0x1300");
 }
 
 void ResetDeviceasPOR(void) {
   _POR = 1;
-//  asm(" goto 0xc02");
-  asm(" goto 0x1300");
 }
 
 #else
 void ResetDevice(void) {
 
-//  asm(" goto 0xc02");
-  asm(" goto 0xe00");
+  asm(" goto 0x0E00");
 }
 
 void ResetDeviceasPOR(void) {
   _POR = 1;
-//  asm(" goto 0xc02");
-  asm(" goto 0xe00");
+  ResetDevice();
 }
 #endif
 

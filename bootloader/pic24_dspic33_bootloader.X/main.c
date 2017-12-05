@@ -51,9 +51,6 @@ TO 0x400!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #include "pic24_uart-small.h"
 #include "pic24_clockfreq.h"
 #include "pic24_serial.h"
-#include <xc.h>
-
-
 
 
 #define COMMAND_NACK     0x00
@@ -136,16 +133,10 @@ is evenly divisible by 1536, then do an erase.
 
 
 
-#define CONFIG_LED1()   CONFIG_RB0_AS_DIG_OUTPUT()
-/// LED1 state macro.
-#define LED1  _LATB0
-
 typedef short          Word16;
 typedef unsigned short UWord16;
 typedef long           Word32;
 typedef unsigned long  UWord32;
-
-
 
 typedef union tuReg32 {
   UWord32 Val32;
@@ -159,8 +150,6 @@ typedef union tuReg32 {
 } uReg32;
 
 
-void ResetDeviceasPOR(void);
-
 UWord32 ReadLatch(UWord16 addrhi, UWord16 addrlo);
 void PutChar(char);
 void GetChar(char *);
@@ -169,72 +158,68 @@ void ReadPM(char *, uReg32);
 void WritePM(char *, uReg32);
 void WriteMem(UWord16 val);
 void LoadAddr(UWord16 nvmadru, UWord16 nvmadr);
-void WriteLatch(UWord16 addrhi,UWord16 addrlo, UWord16 wordhi, UWord16 wordlo);
+void WriteLatch(UWord16 addrhi, UWord16 addrlo, UWord16 wordhi, UWord16 wordlo);
 void ResetDevice(void);
+void ResetDeviceasPOR(void);
 void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val );
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
 void LoadTwoWords(UWord16 addrhi, UWord16 addrlo, UWord16 wordhi, UWord16 wordlo, UWord16 word2hi, UWord16 word2lo);
 void WriteMem2(UWord16 addrhi, UWord16 addrlo, UWord16 val);
 #endif
 
-/* this needs to be persistent so as to not step on persisent variables
-in user's program
-*/
+// This needs to be persistent so as to not step on persistent variables
+// in the user's program.
+//
+// The *3 is because each instruction is 3 bytes.
+_PERSISTENT char Buffer[PM_ROW_SIZE*3 + 1];    
 
-_PERSISTENT char Buffer[PM_ROW_SIZE*3 + 1];    //the *3 is because each instruction is 3 bytes
-
-
-int main(void)
-
-{
-
-  uReg32 SourceAddr;
-  uReg32 Delay;
-
-  T2CON = 0x0000;
-  T3CON = 0x0000;
-  U1MODE = 0x0000;
-
-  configClock();          //clock configuration
-
-
-  RCONbits.SWDTEN=0;            /* Disable Watch Dog Timer*/
-
+// Define the address at which the bootloader delay is located.
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
-  SourceAddr.Val32 = 0x1000;
+# define DELAYADDR (0x001000L)
 #else
-  SourceAddr.Val32 = 0xc00;
+# define DELAYADDR (0x000C00L)
 #endif
 
-  Delay.Val32 = ReadLatch(SourceAddr.Word.HW, SourceAddr.Word.LW);
 
-  if (_SWR) ResetDevice();
+int main(void) {
+  uReg32 Delay;
 
-  if (Delay.Val[0] == 0 || (_POR==0 && _EXTR==0)) {
+  configClock();
+
+  // Disable the Watch Dog Timer. The bootloader doesn't clear the WDT during operation.
+  RCONbits.SWDTEN = 0;            
+  
+  // Get the requested delay time, in seconds.
+  Delay.Val32 = ReadLatch(DELAYADDR >> 16, DELAYADDR & 0xFFFF);
+
+  // Only enter the bootloader on a power-on reset or a master clear reset. Never enter on a software reset.
+  if (_SWR || (_POR == 0 && _EXTR == 0)) {
     ResetDevice();
   }
 
+  // The UART is now needed. Set it up.
+  configDefaultUART(DEFAULT_BAUDRATE);
 
-  //must be power-on or MCLR reset in order to enter the bootloader.
-  //This is so if application executes a software reset, then we do not enter bootloader.
+  // Configure the Timers 2-3 to generate a delay.
+  T2CON = 0x0000;
+  T3CON = 0x0000;
+  // Use a 32-bit timer for improved resolution.
+  T2CONbits.T32 = 1;
+  // Clear the Timer3 Interrupt Flag.
+  IFS0bits.T3IF = 0; 
+  // Disable Timer3 Interrupt Service Routine. Everything here is polling.
+  IEC0bits.T3IE = 0; 
 
-  T2CONbits.T32 = 1; /* to increment every instruction cycle */
-  IFS0bits.T3IF = 0; /* Clear the Timer3 Interrupt Flag */
-  IEC0bits.T3IE = 0; /* Disable Timer3 Interrup Service Routine */
-
-
+  // See if we should delay, or wait forever (0xFF delay).
   if ((Delay.Val32 & 0x000000FF) != 0xFF) {
-    /* Convert seconds into timer count value */
+    // Convert seconds into timer ticks.
     Delay.Val32 = ((UWord32)(FCY)) * ((UWord32)(Delay.Val[0]));
-
     PR3 = Delay.Word.HW;
     PR2 = Delay.Word.LW;
 
-    /* Enable Timer */
-    T2CONbits.TON=1;
+    // Enable the timer.
+    T2CONbits.TON = 1;
   }
-
-  configDefaultUART(DEFAULT_BAUDRATE);
 
   while (1) {
     char Command;
@@ -385,30 +370,34 @@ int main(void)
 /******************************************************************************/
 
 
-void GetChar(char * ptrChar) {
+void GetChar(char* ptrChar) {
   char c;
   while (1) {
     /* if timer expired, signal to application to jump to user code */
     if (IFS0bits.T3IF == 1) {
-      * ptrChar = COMMAND_NACK;
+      *ptrChar = COMMAND_NACK;
       break;
     }
-    /* check for receive errors */
+    // check for receive errors.
     if (DEFAULT_UART_FERR == 1) {
-      c = DEFAULT_UART_RXREG;     //clear framing error
-      __asm__ volatile ("reset");  //we are hosed...
+      // Clear framing error.
+      c = DEFAULT_UART_RXREG;
+      // Panic!
+      __asm__ volatile ("reset");
     }
 
-    /* must clear the overrun error to keep uart receiving */
+    // must clear the overrun error to keep uart receiving.
     if (DEFAULT_UART_OERR == 1) {
       DEFAULT_UART_OERR = 0;
-      __asm__ volatile ("reset");  //we are hosed...
+      // Panic!
+      __asm__ volatile ("reset");
     }
 
-    /* get the data */
+    // get the data.
     if (DEFAULT_UART_URXDA == 1) {
-      T2CONbits.TON=0; /* Disable timer countdown */
-      * ptrChar = DEFAULT_UART_RXREG;
+      // Disable timer countdown.
+      T2CONbits.TON = 0; 
+      *ptrChar = DEFAULT_UART_RXREG;
       break;
     }
   }
@@ -423,9 +412,9 @@ void ReadPM(char * ptrData, uReg32 SourceAddr) {
   for (Size = 0; Size < PM_ROW_SIZE; Size++) {
     Temp.Val32 = ReadLatch(SourceAddr.Word.HW, SourceAddr.Word.LW);
 
-    ptrData[0] = Temp.Val[2];;
-    ptrData[1] = Temp.Val[1];;
-    ptrData[2] = Temp.Val[0];;
+    ptrData[0] = Temp.Val[2];
+    ptrData[1] = Temp.Val[1];
+    ptrData[2] = Temp.Val[0];
 
     ptrData = ptrData + 3;
 
@@ -444,7 +433,6 @@ void WriteBuffer(char * ptrData, int Size) {
 /******************************************************************************/
 
 void PutChar(char Char) {
-  ///putchar(Char);
   while (DEFAULT_UART_UTXBF);    //transmit buffer is full
   DEFAULT_UART_TXREG = Char;
 }
@@ -484,18 +472,17 @@ void WritePM(char * ptrData, uReg32 SourceAddr) {
 
 #else
 void WritePM(char * ptrData, uReg32 SourceAddr) {
-  int    Size,Size1;
+  int    Size, Size1;
   uReg32 Temp;
   uReg32 TempAddr;
   uReg32 TempData;
 
-  for (Size = 0,Size1=0; Size < PM_ROW_SIZE; Size++) {
-
-    Temp.Val[0]=ptrData[Size1+0];
-    Temp.Val[1]=ptrData[Size1+1];
-    Temp.Val[2]=ptrData[Size1+2];
+  for (Size = 0, Size1 = 0; Size < PM_ROW_SIZE; Size++) {
+    Temp.Val[0]=ptrData[Size1 + 0];
+    Temp.Val[1]=ptrData[Size1 + 1];
+    Temp.Val[2]=ptrData[Size1 + 2];
     Temp.Val[3]=0;
-    Size1+=3;
+    Size1 +=3;
 
     WriteLatch(SourceAddr.Word.HW, SourceAddr.Word.LW,Temp.Word.HW,Temp.Word.LW);
 
@@ -518,7 +505,3 @@ void WritePM(char * ptrData, uReg32 SourceAddr) {
 
 }
 #endif
-
-
-/******************************************************************************/
-
