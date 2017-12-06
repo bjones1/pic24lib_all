@@ -177,7 +177,7 @@ Help("""Additional targets:
   zipit: Build an archive for distributing end-user library contents.
   bootloader: Build the bootloader binaries only.""")
 
-# A DEBUG STATEMENT to see what the scons build envrionment (env) has defined
+# A DEBUG STATEMENT to see what the scons build envrionment (env) has defined.
 #print(env.Dump())
 #
 #
@@ -185,10 +185,10 @@ Help("""Additional targets:
 # =====================
 # First, set up for defining targets.
 #
-# Inform SCons about the dependencies in the template-based files
+# Inform SCons about the dependencies in the template-based files.
 SConscript('templates/SConscript.py', 'env')
 
-# Create a target which zips up library files. Only built it if explicitly requested on the command line.
+# Create a target which zips up library files. Only build it if explicitly requested on the command line.
 if 'zipit' in COMMAND_LINE_TARGETS:
     zip_file = 'build/pic24_code_examples.zip'
     hg_dir = 'build/pic24lib_all'
@@ -199,9 +199,10 @@ if 'zipit' in COMMAND_LINE_TARGETS:
       # Copy over hex files from the build.
       Copy(hg_dir + '/hex', 'hex'),
       # Perform zip in clean clone.
-      'scons -C ' + hg_dir + ' -f SCons_zipit.py', ])
+      'scons -C ' + hg_dir + ' -f SCons_zipit.py',
+    ])
     env.Alias('zipit', zip_file)
-    # Only build this if it's explicitly requested. Since the dependencies of '' are wrong, force a build using AlwaysBuild.
+    # Only build this if it's explicitly requested. Since the dependencies of ``zip_fil`` are wrong, force a build using AlwaysBuild.
     env.AlwaysBuild(zip_file)
 
 # Library builds

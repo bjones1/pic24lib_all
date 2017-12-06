@@ -47,7 +47,7 @@
  *  This library supports the following hardware platforms.
  *  More can easily be added.
  *
- * Note: Do NOT #define MY_HARDWARE_PLATFORM (0). If the user then tries
+ * Note: Do NOT \#define MY_HARDWARE_PLATFORM (0). If the user then tries
  * -D HARDWARE_PLATFORM=FOO, FOO will evaluate to 0, making it an
  * accidentally default choice.
  */

@@ -36,7 +36,11 @@
 Next release:
 - No changes yet
 
-1-Dec-2017:
+6-Dec-2017:
+- Update bootloader to blink the heartbeat LED quickly.
+- Ensure the bootloader won't be disabled (a timeout of 0 no longer disables bootloading).
+
+1-Dec-2017 (17f5f0196989):
 - Added bootloader builds for the Microstick II.
 - Make HARDWARE_PLATFORM more robust to user errors.
 - Improve clock fail detection and reporting.
