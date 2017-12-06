@@ -51,6 +51,7 @@ TO 0x400!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #include "pic24_uart-small.h"
 #include "pic24_clockfreq.h"
 #include "pic24_serial.h"
+#include "pic24_util.h"
 
 
 #define COMMAND_NACK     0x00
@@ -170,8 +171,8 @@ void WriteMem2(UWord16 addrhi, UWord16 addrlo, UWord16 val);
 // This needs to be persistent so as to not step on persistent variables
 // in the user's program.
 //
-// The *3 is because each instruction is 3 bytes.
-_PERSISTENT char Buffer[PM_ROW_SIZE*3 + 1];    
+// The * 3 is because each instruction is 3 bytes.
+_PERSISTENT char Buffer[PM_ROW_SIZE*3 + 1];
 
 // Define the address at which the bootloader delay is located.
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
@@ -187,8 +188,8 @@ int main(void) {
   configClock();
 
   // Disable the Watch Dog Timer. The bootloader doesn't clear the WDT during operation.
-  RCONbits.SWDTEN = 0;            
-  
+  RCONbits.SWDTEN = 0;
+
   // Get the requested delay time, in seconds.
   Delay.Val32 = ReadLatch(DELAYADDR >> 16, DELAYADDR & 0xFFFF);
 
@@ -199,6 +200,8 @@ int main(void) {
 
   // The UART is now needed. Set it up.
   configDefaultUART(DEFAULT_BAUDRATE);
+  // Blink the heartbeat LED.
+  configHeartbeat();
 
   // Configure the Timers 2-3 to generate a delay.
   T2CON = 0x0000;
@@ -206,9 +209,9 @@ int main(void) {
   // Use a 32-bit timer for improved resolution.
   T2CONbits.T32 = 1;
   // Clear the Timer3 Interrupt Flag.
-  IFS0bits.T3IF = 0; 
+  IFS0bits.T3IF = 0;
   // Disable Timer3 Interrupt Service Routine. Everything here is polling.
-  IEC0bits.T3IE = 0; 
+  IEC0bits.T3IE = 0;
 
   // See if we should delay, or wait forever (0xFF delay).
   if ((Delay.Val32 & 0x000000FF) != 0xFF) {
@@ -373,6 +376,8 @@ int main(void) {
 void GetChar(char* ptrChar) {
   char c;
   while (1) {
+    doHeartbeat();
+
     /* if timer expired, signal to application to jump to user code */
     if (IFS0bits.T3IF == 1) {
       *ptrChar = COMMAND_NACK;
@@ -396,7 +401,7 @@ void GetChar(char* ptrChar) {
     // get the data.
     if (DEFAULT_UART_URXDA == 1) {
       // Disable timer countdown.
-      T2CONbits.TON = 0; 
+      T2CONbits.TON = 0;
       *ptrChar = DEFAULT_UART_RXREG;
       break;
     }
@@ -433,7 +438,10 @@ void WriteBuffer(char * ptrData, int Size) {
 /******************************************************************************/
 
 void PutChar(char Char) {
-  while (DEFAULT_UART_UTXBF);    //transmit buffer is full
+  // Transmit buffer is full.
+  while (DEFAULT_UART_UTXBF) {
+      doHeartbeat();
+  }
   DEFAULT_UART_TXREG = Char;
 }
 

@@ -32,7 +32,7 @@
 // Documentation for this file. If the \file tag isn't present,
 // this file won't be documented.
 /** \file
- *  This file contains implmentations for functions prototyped
+ *  This file contains implementations for functions prototyped
  *  in pic24_util.h.
  */
 
@@ -64,15 +64,22 @@ void toggleHeartbeat(void) {
  *
  */
 /** The current heartbeat count. When this value reaches
- *  \ref u32_heartbeatMax, the heatbeat LED is toggled by
+ *  \ref HEARTBEAT_MAX, the heartbeat LED is toggled by
  *   doHeartbeat().
  * \see doHeartbeat
  */
-uint32_t u32_heartbeatCount;
+_PERSISTENT uint32_t u32_heartbeatCount;
 /** When u32_heartbeatCount reaches this maximum, the
- *  heatbeat LED is toggled by doHeartbeat().
+ *  heartbeat LED is toggled by doHeartbeat().
  */
-static uint32_t u32_heartbeatMax;
+#ifdef BOOTLOADER
+# define MS_PER_HEARTBEAT (1)
+#else
+# define MS_PER_HEARTBEAT (10)
+#endif
+
+/// The approximate half period, in processor cycles, of the heartbeat.
+#define HEARTBEAT_MAX (CYCLES_PER_MS * MS_PER_HEARTBEAT)
 
 
 /** Configures a GPIO pin for use with the heartbeat and sets
@@ -83,28 +90,27 @@ void configHeartbeat(void) {
   CONFIG_HB_LED();
   /* long enough to see LED toggle. Incrementing the heartbeat
   takes several cycles - CYCLES_PER_MS used as the multiplier so that
-  we are tied to FCY
+  we are tied to FCY.
   */
-  u32_heartbeatMax = CYCLES_PER_MS * 10;
-  u32_heartbeatCount = 0;
-  HB_LED = 0; // Turn LED off to show we started running
-  doHeartbeat();    // do Heartbeat   at least once
+  u32_heartbeatCount = HEARTBEAT_MAX;
+  // Turn LED off to show we started running
+  HB_LED = 0;
 }
 
 /** This heartbeat function should be called
  *  repeatedly in any sort of blocking wait loop. It will
- *  periodically toggle an LED after \ref u32_heartbeatMax increments.
+ *  periodically toggle an LED after \ref HEARTBEAT_MAX increments.
  */
 void doHeartbeat(void) {
-  u32_heartbeatCount++;
-  if (u32_heartbeatCount > u32_heartbeatMax) {
+  --u32_heartbeatCount;
+  if (u32_heartbeatCount == 0) {
     toggleHeartbeat();
-    u32_heartbeatCount = 0;
+    u32_heartbeatCount = HEARTBEAT_MAX;
   }
 }
 
 
-/** A function which toggles the hearbeat LED.
+/** A function which toggles the heartbeat LED.
     \see doHeartbeat
   */
 void toggleHeartbeat(void) {
@@ -112,6 +118,9 @@ void toggleHeartbeat(void) {
 }
 /// @}
 #endif
+
+
+#ifndef BOOTLOADER
 
 /** Persistent storage for an error message, typically
  *  set by \ref reportError and reported at reset by
@@ -132,7 +141,7 @@ _PERSISTENT const char* sz_lastTimeoutError;
  *  the default interrupt handler \ref _DefaultInterrupt
  *  copies INTTREG to this variable.
  */
-#ifdef _ILR
+# ifdef _ILR
 static _PERSISTENT INTTREGBITS INTTREGBITS_last;
 
 /** Make the \ref INTTREGBITS_last also accessible as
@@ -140,10 +149,10 @@ static _PERSISTENT INTTREGBITS INTTREGBITS_last;
  *  except that INTTREGBITS_last and u16_INTTREGlast
  *  refer to the same data.
  */
-# define u16_INTTREGlast BITS2WORD(INTTREGBITS_last)
-#else
+#   define u16_INTTREGlast BITS2WORD(INTTREGBITS_last)
+# else
 static uint16_t u16_INTTREGlast;
-#endif
+# endif
 
 /** Provide a default interrupt handler which records what
  *  interrupt was not handled then resets the chip. Typically,
@@ -151,15 +160,15 @@ static uint16_t u16_INTTREGlast;
  *  print the error.
  */
 void _ISR _DefaultInterrupt(void) {
-#ifdef _ILR
+# ifdef _ILR
   // Record the interrupt vector and priority of the
   // unhandled interrupt.
   u16_INTTREGlast = INTTREG;
-#else
+# else
   // Any non-zero value causes reportError to report
   // this. This register doesn't exist on the PIC24F.
   u16_INTTREGlast = 1;
-#endif
+# endif
   reportError("Unhandled interrupt, ");
 }
 
@@ -197,9 +206,9 @@ uint32_t readProgramMemory(uint32_t u32_address) {
  *  for the chip it is running on.
  */
 void checkDeviceAndRevision(void) {
-#ifdef SIM
+# ifdef SIM
   outString("**** SIMULATION MODE: cannot read device and revision ID ****\n");
-#else
+# else
   uint32_t devID = readProgramMemory(DEV_ID_LOCATION);
   uint32_t revision = readProgramMemory(REVISION_LOCATION);
   uint8_t correctChip = 1;
@@ -215,26 +224,26 @@ void checkDeviceAndRevision(void) {
     case EXPECTED_REVISION1 :
       revisionStr = EXPECTED_REVISION1_STR;
       break;
-# ifdef EXPECTED_REVISION2
+#   ifdef EXPECTED_REVISION2
     case EXPECTED_REVISION2 :
       revisionStr = EXPECTED_REVISION2_STR;
       break;
-# endif
-# ifdef EXPECTED_REVISION3
+#   endif
+#   ifdef EXPECTED_REVISION3
     case EXPECTED_REVISION3 :
       revisionStr = EXPECTED_REVISION3_STR;
       break;
-# endif
-# ifdef EXPECTED_REVISION4
+#   endif
+#   ifdef EXPECTED_REVISION4
     case EXPECTED_REVISION4 :
       revisionStr = EXPECTED_REVISION4_STR;
       break;
-# endif
-# ifdef EXPECTED_REVISION5
+#   endif
+#   ifdef EXPECTED_REVISION5
     case EXPECTED_REVISION5 :
       revisionStr = EXPECTED_REVISION5_STR;
       break;
-# endif
+#   endif
   }
 
   outString("Device ID = ");
@@ -261,7 +270,7 @@ void checkDeviceAndRevision(void) {
               "* On the PIC24H32GP202, not connecting AVDD          *\n"
               "* produces this message only at power-up.            *\n"
               "******************************************************\n");
-#endif
+# endif
 }
 
 /** Reports the oscillator currently in use to the default
@@ -288,25 +297,25 @@ void checkOscOption(void) {
     case 5:
       outString("Low Power RC Osc\n");
       break;
-#if defined(__PIC24H__) || defined(__dsPIC33F__) || defined(__PIC24E__) || defined(__dsPIC33E__)
+# if defined(__PIC24H__) || defined(__dsPIC33F__) || defined(__PIC24E__) || defined(__dsPIC33E__)
     case 6:
       outString("Fast RC Osc/16\n");
       break;
     case 7:
       outString("Fast RC Osc/N\n");
       break;
-#elif defined(__PIC24F__) || defined(__PIC24FK__)
-# ifdef __PIC24FK__
+# elif defined(__PIC24F__) || defined(__PIC24FK__)
+#   ifdef __PIC24FK__
     case 6:
       outString("Low power fast RC Osc with Postscaler\n");
       break;
-# endif
+#   endif
     case 7 :
       outString("Fast RC Osc with Postscaler\n");
       break;
-#else
+# else
 # error "Unknown processor."
-#endif
+# endif
     default :
       reportError("Unknown oscillator type.");
       break;
@@ -379,13 +388,13 @@ void printResetCause(void) {
       outString("Illegal Condition.\n");
       _IOPUWR = 0;
     }
-#ifdef _CM
+# ifdef _CM
     if (_CM) {
       u8_resetIdentified = 1;
       outString("Configuration Mismatch.\n");
       _CM = 0;
     }
-#endif
+# endif
   } //end non-POR
 
   if (!u8_resetIdentified) {
@@ -395,14 +404,14 @@ void printResetCause(void) {
     outString("Error trapped: ");
     outString(sz_lastError);
     if (u16_INTTREGlast != 0) {
-#ifdef _ILR
+# ifdef _ILR
       outString("Priority: ");
       outUint8(INTTREGBITS_last.ILR);
       outString(", Vector number: ");
       outUint8(INTTREGBITS_last.VECNUM);
-#else
+# else
       outString("Unknown priority/vector");
-#endif
+# endif
     }
     outString("\n\n");
     sz_lastError = NULL;
@@ -429,7 +438,7 @@ void configBasic(const char* sz_helloMsg) {
   printResetCause();
   outString(sz_helloMsg);
 }
-
+#endif
 
 #ifndef _NOFLOAT
 /** Round a floating-point number to the nearest integer.
@@ -456,7 +465,7 @@ uint16_t roundFloatToUint16(float f_x) {
   else return u16_y+1;
 }
 
-/**  Choose UART baud rate, based on u32_fct.
+/**  Choose UART baud rate, based on u32_fcy.
   *  NOTE: Be careful about using BRGH=1 - this uses only four clock
   *  periods to sample each bit and can be very intolerant of
   *  baud rate % error - you may see framing errors. BRGH is selected

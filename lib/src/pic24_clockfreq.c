@@ -106,7 +106,7 @@ void checkClockTimeout(void) {
 # if USE_HEARTBEAT
 #   define SET_HB_LED(x) (HB_LED = x)
 # else
-#   define SET_HB_LED(x) ((void) x)
+#   define SET_HB_LED(x) (void) x
 # endif
 
 // Per https://en.wikipedia.org/wiki/Morse_code#Representation.2C_timing.2C_and_speeds:
@@ -264,15 +264,17 @@ void switchClock(uint8_t u8_source) {
 #if IS_CLOCK_CONFIG(SIM_CLOCK)
 # warning "Clock configured for simulation, FCY = 1 Mhz."
 #endif
-#if GET_IS_SUPPORTED(SIM_CLOCK)
-void configClockSim(void) { }
+#if (GET_IS_SUPPORTED(SIM_CLOCK) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(SIM_CLOCK)
+void configClockSim(void) 
+{ 
+}
 #endif
 
 
 #if IS_CLOCK_CONFIG(FRCPLL_FCY16MHz)
 # warning "Clock configured for FRCPLL, FCY = 16 MHz."
 #endif
-#if GET_IS_SUPPORTED(FRCPLL_FCY16MHz)
+#if (GET_IS_SUPPORTED(FRCPLL_FCY16MHz) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(FRCPLL_FCY16MHz)
 void configClockFRCPLL_FCY16MHz(void) {
   // To be safe: if this was run by a bootloader that chose FRCPLL mode,
   // then we can't change the bits below. To do so, first switch to FRC,
@@ -313,7 +315,7 @@ void configClockFRCPLL_FCY16MHz(void) {
 # warning "Clock configured for FRC, FCY = 4 MHz."
 # warning "Baud rates of 19200 or lower recommended for this clock choice."
 #endif
-#if GET_IS_SUPPORTED(FRC_FCY4MHz)
+#if (GET_IS_SUPPORTED(FRC_FCY4MHz) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(FRC_FCY4MHz)
 void configClockFRC_FCY4MHz(void) {
   // Ensure that the FRC postscaler is at '1' and not its reset default of '2' (PIC24F family)
   _RCDIV = 0;
@@ -325,7 +327,7 @@ void configClockFRC_FCY4MHz(void) {
 #if IS_CLOCK_CONFIG(PRI_NO_PLL_7372KHzCrystal)
 # warning "Clock configured for a 7.372 MHz crystal primary oscillator, no PLL."
 #endif
-#if GET_IS_SUPPORTED(PRI_NO_PLL_7372KHzCrystal)
+#if (GET_IS_SUPPORTED(PRI_NO_PLL_7372KHzCrystal) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(PRI_NO_PLL_7372KHzCrystal)
 void configClockPRI_NO_PLL_7372KHzCrystal(void) {
   switchClock(GET_OSC_SEL_BITS(FNOSC_PRI));
 }
@@ -335,7 +337,7 @@ void configClockPRI_NO_PLL_7372KHzCrystal(void) {
 #if IS_CLOCK_CONFIG(FRC_FCY3685KHz)
 # warning "Clock configured for FRC, FCY = 3.685 MHz."
 #endif
-#if GET_IS_SUPPORTED(FRC_FCY3685KHz)
+#if (GET_IS_SUPPORTED(FRC_FCY3685KHz) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(FRC_FCY3685KHz)
 void configClockFRC_FCY3685KHz(void) {
   switchClock(GET_OSC_SEL_BITS(FNOSC_FRC));
   // Choose no tuning on FRC to get 7.37 MHz nominal FOSC.
@@ -350,7 +352,7 @@ void configClockFRC_FCY3685KHz(void) {
 #if IS_CLOCK_CONFIG(FRCPLL_FCY40MHz)
 # warning "Clock configured for FRCPLL, FCY = 40 MHz."
 #endif
-#if GET_IS_SUPPORTED(FRCPLL_FCY40MHz)
+#if (GET_IS_SUPPORTED(FRCPLL_FCY40MHz) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(FRCPLL_FCY40MHz)
 void configClockFRCPLL_FCY40MHz(void) {
   // To be safe: if this was run by a bootloader that chose FRCPLL mode,
   // then we can't change the bits below. To do so, first switch to FRC,
@@ -382,7 +384,7 @@ void configClockFRCPLL_FCY40MHz(void) {
 #if IS_CLOCK_CONFIG(FRCPLL_FCY60MHz)
 # warning "Clock configured for FRCPLL, FCY = 60 MHz."
 #endif
-#if GET_IS_SUPPORTED(FRCPLL_FCY60MHz)
+#if (GET_IS_SUPPORTED(FRCPLL_FCY60MHz) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(FRCPLL_FCY60MHz)
 void configClockFRCPLL_FCY60MHz(void) {
   // To be safe: if this was run by a bootloader that chose FRCPLL mode,
   // then we can't change the bits below. To do so, first switch to FRC,
@@ -410,7 +412,7 @@ void configClockFRCPLL_FCY60MHz(void) {
 #if IS_CLOCK_CONFIG(FRCPLL_FCY70MHz)
 # warning "Clock configured for FRCPLL, FCY = 70 MHz."
 #endif
-#if GET_IS_SUPPORTED(FRCPLL_FCY70MHz)
+#if (GET_IS_SUPPORTED(FRCPLL_FCY70MHz) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(FRCPLL_FCY70MHz)
 void configClockFRCPLL_FCY70MHz(void) {
   // To be safe: if this was run by a bootloader that chose FRCPLL mode,
   // then we can't change the bits below. To do so, first switch to FRC,
@@ -440,7 +442,7 @@ void configClockFRCPLL_FCY70MHz(void) {
 #if IS_CLOCK_CONFIG(PRIPLL_7372KHzCrystal_40MHzFCY)
 # warning "Clock configured for PRIPLL using a 7.3727 Mhz primary oscillator, FCY = 40 MHz."
 #endif
-#if GET_IS_SUPPORTED(PRIPLL_7372KHzCrystal_40MHzFCY)
+#if (GET_IS_SUPPORTED(PRIPLL_7372KHzCrystal_40MHzFCY) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(PRIPLL_7372KHzCrystal_40MHzFCY)
 void configClockPRIPLL_7372KHzCrystal_40MHzFCY(void) {
   // To be safe: if this was run by a bootloader that chose PRIPLL mode,
   // then we can't change the bits below. To do so, first switch to FRC,
@@ -457,7 +459,7 @@ void configClockPRIPLL_7372KHzCrystal_40MHzFCY(void) {
 #if IS_CLOCK_CONFIG(PRIPLL_8MHzCrystal_40MHzFCY)
 # warning "Clock configured for PRIPLL using an 8.0 Mhz primary oscillator, FCY = 40 MHz."
 #endif
-#if GET_IS_SUPPORTED(PRIPLL_8MHzCrystal_40MHzFCY)
+#if (GET_IS_SUPPORTED(PRIPLL_8MHzCrystal_40MHzFCY) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(PRIPLL_8MHzCrystal_40MHzFCY)
 void configClockPRIPLL_8MHzCrystal_40MHzFCY(void) {
   //settings for Cycle time = 40 MHz, primary oscillator with PLL
   //These PLL settings will give an FCY == Crystal Freq * 10/2, or FOSC = Crystal Freq * 10
@@ -478,7 +480,7 @@ void configClockPRIPLL_8MHzCrystal_40MHzFCY(void) {
 #if IS_CLOCK_CONFIG(PRIPLL_8MHzCrystal_16MHzFCY)
 # warning "Clock configured for PRIPLL using a 8.0 Mhz primary oscillator, FCY = 16 MHz."
 #endif
-#if GET_IS_SUPPORTED(PRIPLL_8MHzCrystal_16MHzFCY)
+#if (GET_IS_SUPPORTED(PRIPLL_8MHzCrystal_16MHzFCY) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(PRIPLL_8MHzCrystal_16MHzFCY)
 void configClockPRIPLL_8MHzCrystal_16MHzFCY(void) {
   // To be safe: if this was run by a bootloader that chose FRCPLL mode,
   // then we can't change the bits below. To do so, first switch to FRC,
@@ -519,7 +521,7 @@ void configClockPRIPLL_8MHzCrystal_16MHzFCY(void) {
 # warning "Clock configured for PRI using a 8.0 Mhz primary oscillator, FCY = 4 MHz."
 # warning "Baud rates of 19200 or lower recommended for this clock choice."
 #endif
-#if GET_IS_SUPPORTED(PRI_8MHzCrystal_4MHzFCY)
+#if (GET_IS_SUPPORTED(PRI_8MHzCrystal_4MHzFCY) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(PRI_8MHzCrystal_4MHzFCY)
 void configClockPRI_8MHzCrystal_4MHzFCY(void) {
   // To be safe: if this was run by a bootloader that chose FRCPLL mode,
   // then we can't change the bits below. To do so, first switch to FRC,

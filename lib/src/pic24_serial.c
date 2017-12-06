@@ -43,10 +43,11 @@
  * Public functions intended to be called by other files *
  *********************************************************/
 
-#ifdef BUILT_ON_ESOS
+#ifndef BOOTLOADER
+# ifdef BUILT_ON_ESOS
 # include "esos.h"
 # define outChar      __esos_unsafe_PutUint8
-#else
+# else
 /** Write a character to the serial port.
  *  This function blocks until a character is
  *  written. The UART used
@@ -56,31 +57,31 @@
  */
 void outChar(uint8_t u8_c) {
   switch (__C30_UART) {
-#if (NUM_UART_MODS >= 1)
+#   if (NUM_UART_MODS >= 1)
     case 1 :
       outChar1(u8_c);
       break;
-#endif
-#if (NUM_UART_MODS >= 2)
+#   endif
+#   if (NUM_UART_MODS >= 2)
     case 2 :
       outChar2(u8_c);
       break;
-#endif
-#if (NUM_UART_MODS >= 3)
+#   endif
+#   if (NUM_UART_MODS >= 3)
     case 3 :
       outChar3(u8_c);
       break;
-#endif
-#if (NUM_UART_MODS >= 4)
+#   endif
+#   if (NUM_UART_MODS >= 4)
     case 4 :
       outChar4(u8_c);
       break;
-#endif
+#   endif
     default :
       REPORT_ERROR("Invalid UART");
   }
 }
-#endif
+# endif
 
 /** Write a null-terminated string to the serial port.
 See file documentation for End-of-line behavior when passed a "\n" (newline).
@@ -89,17 +90,17 @@ See file documentation for End-of-line behavior when passed a "\n" (newline).
 void outString(const char* psz_s) {
   while (*psz_s) {
 
-#if (SERIAL_EOL_DEFAULT == SERIAL_EOL_CR_LF)
+# if (SERIAL_EOL_DEFAULT == SERIAL_EOL_CR_LF)
     if (*psz_s == '\n') outChar(0x0D);
     outChar(*psz_s);
-#endif
-#if (SERIAL_EOL_DEFAULT == SERIAL_EOL_CR)
+# elif (SERIAL_EOL_DEFAULT == SERIAL_EOL_CR)
     if (*psz_s == '\n') outChar(0x0D);
     else outChar(*psz_s);
-#endif
-#if (SERIAL_EOL_DEFAULT == SERIAL_EOL_LF)
+# elif (SERIAL_EOL_DEFAULT == SERIAL_EOL_LF)
 //no translation
     outChar(*psz_s);
+# else
+#   error "Invalid SERIAL_EOL_DEFAULT."
 #endif
     psz_s++;
   }
@@ -275,22 +276,22 @@ void outUint16Decimal(uint16_t u16_x) {
  */
 uint8_t inChar(void) {
   switch (__C30_UART) {
-#if (NUM_UART_MODS >= 1)
+# if (NUM_UART_MODS >= 1)
     case 1 :
       return inChar1();
-#endif
-#if (NUM_UART_MODS >= 2)
+# endif
+# if (NUM_UART_MODS >= 2)
     case 2 :
       return inChar2();
-#endif
-#if (NUM_UART_MODS >= 3)
+# endif
+# if (NUM_UART_MODS >= 3)
     case 3 :
       return inChar3();
-#endif
-#if (NUM_UART_MODS >= 4)
+# endif
+# if (NUM_UART_MODS >= 4)
     case 4 :
       return inChar4();
-#endif
+# endif
     default :
       REPORT_ERROR("Invalid UART");
       return 0;
@@ -314,28 +315,28 @@ uint8_t inCharEcho(void) {
  */
 uint8_t isCharReady(void) {
   switch (__C30_UART) {
-#if (NUM_UART_MODS >= 1)
+# if (NUM_UART_MODS >= 1)
     case 1 :
       return isCharReady1();
-#endif
-#if (NUM_UART_MODS >= 2)
+# endif
+# if (NUM_UART_MODS >= 2)
     case 2 :
       return isCharReady2();
-#endif
-#if (NUM_UART_MODS >= 3)
+# endif
+# if (NUM_UART_MODS >= 3)
     case 3 :
       return isCharReady3();
-#endif
-#if (NUM_UART_MODS >= 4)
+# endif
+# if (NUM_UART_MODS >= 4)
     case 4 :
       return isCharReady4();
-#endif
+# endif
     default :
       REPORT_ERROR("Invalid UART");
       return 0;
   }
 }
-
+#endif
 
 
 /** Configures a UART based compiler setting of DEFAULT_UART
@@ -344,7 +345,9 @@ uint8_t isCharReady(void) {
  *  \param u32_baudRate The baud rate to use.
  */
 void configDefaultUART(uint32_t u32_baudRate) {
+#ifndef BOOTLOADER
   __C30_UART = DEFAULT_UART;
+#endif
 
 #if DEFAULT_UART == 1
   configUART1(u32_baudRate);

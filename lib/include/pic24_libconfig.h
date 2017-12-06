@@ -124,7 +124,7 @@
 
 // Defines for compiling the bootloader
 #ifdef BOOTLOADER
-# define USE_HEARTBEAT (0)
+# define USE_HEARTBEAT (1)
 # define USE_CLOCK_TIMEOUT (0)
 # define _NOASSERT
 # define _NOFLOAT
