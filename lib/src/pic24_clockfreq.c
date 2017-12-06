@@ -265,8 +265,7 @@ void switchClock(uint8_t u8_source) {
 # warning "Clock configured for simulation, FCY = 1 Mhz."
 #endif
 #if (GET_IS_SUPPORTED(SIM_CLOCK) && !defined(BOOTLOADER)) || IS_CLOCK_CONFIG(SIM_CLOCK)
-void configClockSim(void) 
-{ 
+void configClockSim(void) {
 }
 #endif
 

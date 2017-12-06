@@ -440,7 +440,7 @@ void WriteBuffer(char * ptrData, int Size) {
 void PutChar(char Char) {
   // Transmit buffer is full.
   while (DEFAULT_UART_UTXBF) {
-      doHeartbeat();
+    doHeartbeat();
   }
   DEFAULT_UART_TXREG = Char;
 }
