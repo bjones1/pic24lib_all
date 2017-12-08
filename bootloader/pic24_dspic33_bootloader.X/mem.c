@@ -9,19 +9,18 @@ typedef unsigned short UWord16;
 typedef long           Word32;
 typedef unsigned long  UWord32;
 
-//write these in C so that can use the
-//__PIC24H__, __PIC24F__ defines.
-
+// Write these in C so that can we use the __PIC24H__, __PIC24F__ defines.
 void WriteMem(UWord16 val) {
   UNUSED(val);
 
-  asm("mov	W0,NVMCON");
+  asm("mov W0, NVMCON");
   __builtin_write_NVM();
 
-  asm("1:	btsc NVMCON,#15");    //  ;Wait for write end
-  asm("	bra 1b");
-
+  // Wait for write end.
+  asm("1: btsc NVMCON, #15");
+  asm("bra 1b");
 }
+
 
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
 void WriteMem2(UWord16 addrhi, UWord16 addrlo, UWord16 val) {
@@ -29,22 +28,24 @@ void WriteMem2(UWord16 addrhi, UWord16 addrlo, UWord16 val) {
   UNUSED(addrlo);
   UNUSED(val);
 
-  asm("mov     w0,NVMADRU");           //; Init Pointer to page to be erased
-  asm("mov     w1,NVMADR");           //; Init Pointer to offset to be erased
-  asm("mov	W2,NVMCON");
+  // Init Pointer to page to be erased.
+  asm("mov W0, NVMADRU");
+  // Init Pointer to offset to be erased.
+  asm("mov W1, NVMADR");
+  asm("mov W2, NVMCON");
   //__builtin_write_NVM();
   asm("disi #06");
-  asm("mov #0x55,W0");
+  asm("mov #0x55, W0");
   asm("mov W0, NVMKEY");
-  asm("mov #0xAA,W0");
-  asm("mov W0,NVMKEY");
-  asm("bset NVMCON,#15");
+  asm("mov #0xAA, W0");
+  asm("mov W0, NVMKEY");
+  asm("bset NVMCON, #15");
   asm("nop");
   asm("nop");
 
-  asm("1:	btsc NVMCON,#15");    //  ;Wait for write end
-  asm("	bra 1b");
-
+  // Wait for write end.
+  asm("1: btsc NVMCON, #15");
+  asm(" bra 1b");
 }
 #endif
 
@@ -54,8 +55,8 @@ void LoadAddr(UWord16 nvmadru, UWord16 nvmadr) {
   UNUSED(nvmadru);
   UNUSED(nvmadr);
 
-  asm("mov	W0,TBLPAG");
-  asm("mov	W1,W1");
+  asm("mov W0, TBLPAG");
+  asm("mov W1, W1");
 }
 
 //_WriteLatch: ;W0=TBLPAG,W1=Wn,W2=WordHi,W3=WordLo - no return values
@@ -65,10 +66,11 @@ void WriteLatch(UWord16 addrhi,UWord16 addrlo, UWord16 wordhi, UWord16 wordlo) {
   UNUSED(wordhi);
   UNUSED(wordlo);
 
-  asm("	mov	W0,TBLPAG");
-  asm("	tblwtl W3,[W1]");
-  asm("	tblwth W2,[W1]");
+  asm("mov W0, TBLPAG");
+  asm("tblwtl W3, [W1]");
+  asm("tblwth W2, [W1]");
 }
+
 
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
 //_LoadTwoWords: ;W0=TBLPAG,W1=Wn,W2=WordHi,W3=WordLo W4=Word2Hi,W5=Word2Lo
@@ -81,24 +83,25 @@ void LoadTwoWords(UWord16 addrhi, UWord16 addrlo, UWord16 wordhi, UWord16 wordlo
   UNUSED(word2hi);
   UNUSED(word2lo);
 
-  asm("	mov	#0xFA,W0");
-  asm(" mov W0, TBLPAG");
-  asm("	mov	#0,W1");
-  asm("	tblwtl W3,[W1]");
-  asm("	tblwth W2,[W1++]");
-  asm("	tblwtl W5,[W1]");
-  asm("	tblwth W4,[W1++]");
+  asm("mov #0xFA,W0");
+  asm("mov W0, TBLPAG");
+  asm("mov #0, W1");
+  asm("tblwtl W3, [W1]");
+  asm("tblwth W2, [W1++]");
+  asm("tblwtl W5, [W1]");
+  asm("tblwth W4, [W1++]");
 }
 #endif
+
 
 //_ReadLatch: ;W0=TBLPAG,W1=Wn - data in W1:W0
 UWord32 ReadLatch(UWord16 addrhi, UWord16 addrlo) {
   UNUSED(addrhi);
   UNUSED(addrlo);
 
-  asm("	mov	W0,TBLPAG");
-  asm("	tblrdl [W1],W0");
-  asm("	tblrdh [W1],W1");
+  asm("mov W0, TBLPAG");
+  asm("tblrdl [W1], W0");
+  asm("tblrdh [W1], W1");
   // This gives a compiler warning because not explicitly returning
   // a value from the function, but since this is assembly, do not
   // know how to prevent warning.  The function is correct, since
@@ -118,27 +121,20 @@ UWord32 ReadLatch(UWord16 addrhi, UWord16 addrlo) {
   // for more information.
 }
 
+
+void ResetDevice(void) {
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
-void ResetDevice(void) {
-
-  asm(" goto 0x1300");
-}
-
-void ResetDeviceasPOR(void) {
-  _POR = 1;
-}
-
+  asm("goto 0x1300");
 #else
-void ResetDevice(void) {
-
-  asm(" goto 0x0E00");
+  asm("goto 0x0E00");
+#endif
 }
+
 
 void ResetDeviceasPOR(void) {
   _POR = 1;
   ResetDevice();
 }
-#endif
 
 
 #if (defined(__PIC24E__) || defined(__dsPIC33E__))
@@ -147,27 +143,30 @@ void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val) {
   UNUSED(addrlo);
   UNUSED(val);
 
-  asm("mov	W2,NVMCON");
+  asm("mov W2,NVMCON");
 
-  asm("mov     w0,NVMADRU");           //; Init Pointer to page to be erased
-  asm("mov     w1,NVMADR");           //; Init Pointer to offset to be erased
+  // Init Pointer to page to be erased.
+  asm("mov W0, NVMADRU");
+  // Init Pointer to offset to be erased.
+  asm("mov W1, NVMADR");
 
   //__builtin_write_NVM();
 
   asm("disi #06");
-  asm("mov #0x55,W0");
+  asm("mov #0x55, W0");
   asm("mov W0, NVMKEY");
-  asm("mov #0xAA,W0");
-  asm("mov W0,NVMKEY");
-  asm("bset NVMCON,#15");
+  asm("mov #0xAA, W0");
+  asm("mov W0, NVMKEY");
+  asm("bset NVMCON, #15");
   asm("nop");
   asm("nop");
 
-  asm("1:	btsc NVMCON,#15");    //  ;Wait for write end
-  asm("	bra 1b");
-
-
+  // Wait for write end.
+  asm("1: btsc NVMCON, #15");
+  asm(" bra 1b");
 }
+
+
 #else
 //_Erase:
 void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val) {
@@ -175,18 +174,20 @@ void Erase(UWord16 addrhi, UWord16 addrlo, UWord16 val) {
   UNUSED(addrlo);
   UNUSED(val);
 
-  asm("push    TBLPAG");
-  asm("mov	W2,NVMCON");
+  asm("push TBLPAG");
+  asm("mov W2, NVMCON");
 
-  asm("mov     w0,TBLPAG");           //; Init Pointer to page to be erased
-  asm("tblwtl  w1,[w1]");           //; Dummy write to select the row
+  // Init Pointer to page to be erased.
+  asm("mov W0, TBLPAG");
+  // Dummy write to select the row.
+  asm("tblwtl W1,[W1]");
 
   __builtin_write_NVM();
 
+  //  Wait for write end.
+  asm("1: btsc NVMCON, #15");
+  asm(" bra 1b");
 
-  asm("1:	btsc NVMCON,#15");    //  ;Wait for write end
-  asm("	bra 1b");
-
-  asm("pop     TBLPAG");
+  asm("pop TBLPAG");
 }
 #endif
