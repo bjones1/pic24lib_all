@@ -36,8 +36,8 @@
 Next release:
 - No changes yet
 
-6-Dec-2017:
-- Update bootloader to blink the heartbeat LED quickly.
+8-Dec-2017:
+- Update bootloader to blink the heartbeat LED quickly when the bootloader is waiting.
 - Ensure the bootloader won't be disabled (a timeout of 0 no longer disables bootloading).
 
 1-Dec-2017 (17f5f0196989):
