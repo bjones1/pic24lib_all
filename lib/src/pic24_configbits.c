@@ -298,7 +298,7 @@
 *** two cases....
 *** .. until Microchip makes another small, subtle change in the datasheets (UGH!)
 ***********************************************************************************/
-#if defined(__dsPIC33EP128GP502__) || (__dsPIC33EP128GP504__)
+#if defined(__dsPIC33EP128GP502__) || defined(__dsPIC33EP256GP502__) || defined(__dsPIC33EP128GP504__)
 
 // FICD
 # pragma config ICS = PGD1               // ICD Communication Channel Select bits (Communicate on PGEC1 and PGED1)
