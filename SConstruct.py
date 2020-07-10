@@ -195,7 +195,7 @@ if 'zipit' in COMMAND_LINE_TARGETS:
     env.Command(zip_file, '', [
       # Clone the repo to create a clean distribution.
       Delete(hg_dir, must_exist = 0),
-      'hg clone . ' + hg_dir,
+      'git clone . ' + hg_dir,
       # Copy over hex files from the build.
       Copy(hg_dir + '/hex', 'hex'),
       # Perform zip in clean clone.
