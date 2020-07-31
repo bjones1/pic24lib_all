@@ -212,9 +212,6 @@ uint8_t isCharReady${x}(void) {
 * \return Character read from UART${x} RX.
 */
 uint8_t inChar${x}(void) {
-  //do heartbeat while waiting for character.
-  // Use a do-while to insure error checks
-  // are always run.
   while (!IS_CHAR_READY_UART${x}())
     doHeartbeat();
   checkRxErrorUART${x}();

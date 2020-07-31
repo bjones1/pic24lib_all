@@ -75,7 +75,8 @@ void startI2C1(void) {
   _SWDTEN = 1; //enable WDT
   I2C1CONbits.SEN = 1; // initiate start
   // wait until start finished
-  while (I2C1CONbits.SEN);
+  while (I2C1CONbits.SEN)
+    doHeartbeat();
   _SWDTEN = u8_wdtState;  //restore WDT
   sz_lastTimeoutError = NULL;
 }
@@ -91,7 +92,8 @@ void rstartI2C1(void) { // repeated start
   _SWDTEN = 1;  //enable WDT
   I2C1CONbits.RSEN = 1; // initiate start
   // wait until start finished
-  while (I2C1CONbits.RSEN);
+  while (I2C1CONbits.RSEN)
+    doHeartbeat();
   _SWDTEN = u8_wdtState;  //restore WDT
   sz_lastTimeoutError = NULL;
 }
@@ -107,7 +109,8 @@ void stopI2C1(void) {
   _SWDTEN = 1;  //enable WDT
   I2C1CONbits.PEN=1;   // initiate stop, PEN=1
   //wait until stop finished
-  while (I2C1CONbits.PEN);
+  while (I2C1CONbits.PEN)
+    doHeartbeat();
   _SWDTEN = u8_wdtState;  //restore WDT
   sz_lastTimeoutError = NULL;
 }
@@ -123,7 +126,8 @@ void putI2C1(uint8_t u8_val) {
   u8_wdtState = _SWDTEN;  //save WDT state
   _SWDTEN = 1;       //enable WDT
   I2C1TRN = u8_val;  // write byte
-  while (I2C1STATbits.TRSTAT); // wait for 8bits+ ack bit to finish
+  while (I2C1STATbits.TRSTAT) // wait for 8bits+ ack bit to finish
+    doHeartbeat();
   _SWDTEN = u8_wdtState;  //restore WDT
   sz_lastTimeoutError = NULL;
   if (I2C1STATbits.ACKSTAT != I2C_ACK) {
@@ -145,7 +149,8 @@ uint8_t putNoAckCheckI2C1(uint8_t u8_val) {
   u8_wdtState = _SWDTEN;  //save WDT state
   _SWDTEN = 1;       //enable WDT
   I2C1TRN = u8_val;  // write byte
-  while (I2C1STATbits.TRSTAT); // wait for 8bits+ ack bit to finish
+  while (I2C1STATbits.TRSTAT) // wait for 8bits+ ack bit to finish
+    doHeartbeat();
   _SWDTEN = u8_wdtState;  //restore WDT
   sz_lastTimeoutError = NULL;
   return(I2C1STATbits.ACKSTAT);
@@ -163,16 +168,20 @@ uint8_t getI2C1(uint8_t u8_ack2Send) {
   sz_lastTimeoutError = "I2C1 Get";
   u8_wdtState = _SWDTEN;              //save WDT state
   _SWDTEN = 1;                        //enable WDT
-  while (I2C1CON & 0x1F);         //wait for idle condition
+  while (I2C1CON & 0x1F)           //wait for idle condition
+    doHeartbeat();
   I2C1CONbits.RCEN = 1;           //enable receive
-  while (!I2C1STATbits.RBF);      //wait for receive byte
+  while (!I2C1STATbits.RBF)      //wait for receive byte
+    doHeartbeat();
   CLRWDT();
   u8_inByte = I2C1RCV;            //read byte;
   //wait for idle condition before attempting ACK
-  while (I2C1CON & 0x1F);         //lower 5 bits must be 0
+  while (I2C1CON & 0x1F)          //lower 5 bits must be 0
+    doHeartbeat();
   I2C1CONbits.ACKDT = u8_ack2Send; //ACK bit to send back on receive
   I2C1CONbits.ACKEN = 1;          //enable ACKbit transmittion
-  while (I2C1CONbits.ACKEN);      //wait for completion
+  while (I2C1CONbits.ACKEN)       //wait for completion
+    doHeartbeat();
   _SWDTEN = u8_wdtState;              //restore WDT
   sz_lastTimeoutError = NULL;
   return(u8_inByte);                  //return the value
@@ -353,7 +362,8 @@ void startI2C2(void) {
   _SWDTEN = 1; //enable WDT
   I2C2CONbits.SEN = 1; // initiate start
   // wait until start finished
-  while (I2C2CONbits.SEN);
+  while (I2C2CONbits.SEN)
+    doHeartbeat();
   _SWDTEN = u8_wdtState;  //restore WDT
   sz_lastTimeoutError = NULL;
 }
@@ -369,7 +379,8 @@ void rstartI2C2(void) { // repeated start
   _SWDTEN = 1;  //enable WDT
   I2C2CONbits.RSEN = 1; // initiate start
   // wait until start finished
-  while (I2C2CONbits.RSEN);
+  while (I2C2CONbits.RSEN)
+    doHeartbeat();
   _SWDTEN = u8_wdtState;  //restore WDT
   sz_lastTimeoutError = NULL;
 }
@@ -385,7 +396,8 @@ void stopI2C2(void) {
   _SWDTEN = 1;  //enable WDT
   I2C2CONbits.PEN=1;   // initiate stop, PEN=1
   //wait until stop finished
-  while (I2C2CONbits.PEN);
+  while (I2C2CONbits.PEN)
+    doHeartbeat();
   _SWDTEN = u8_wdtState;  //restore WDT
   sz_lastTimeoutError = NULL;
 }
@@ -401,7 +413,8 @@ void putI2C2(uint8_t u8_val) {
   u8_wdtState = _SWDTEN;  //save WDT state
   _SWDTEN = 1;       //enable WDT
   I2C2TRN = u8_val;  // write byte
-  while (I2C2STATbits.TRSTAT); // wait for 8bits+ ack bit to finish
+  while (I2C2STATbits.TRSTAT) // wait for 8bits+ ack bit to finish
+    doHeartbeat();
   _SWDTEN = u8_wdtState;  //restore WDT
   sz_lastTimeoutError = NULL;
   if (I2C2STATbits.ACKSTAT != I2C_ACK) {
@@ -423,7 +436,8 @@ uint8_t putNoAckCheckI2C2(uint8_t u8_val) {
   u8_wdtState = _SWDTEN;  //save WDT state
   _SWDTEN = 1;       //enable WDT
   I2C2TRN = u8_val;  // write byte
-  while (I2C2STATbits.TRSTAT); // wait for 8bits+ ack bit to finish
+  while (I2C2STATbits.TRSTAT) // wait for 8bits+ ack bit to finish
+    doHeartbeat();
   _SWDTEN = u8_wdtState;  //restore WDT
   sz_lastTimeoutError = NULL;
   return(I2C2STATbits.ACKSTAT);
@@ -441,16 +455,20 @@ uint8_t getI2C2(uint8_t u8_ack2Send) {
   sz_lastTimeoutError = "I2C2 Get";
   u8_wdtState = _SWDTEN;              //save WDT state
   _SWDTEN = 1;                        //enable WDT
-  while (I2C2CON & 0x1F);         //wait for idle condition
+  while (I2C2CON & 0x1F)           //wait for idle condition
+    doHeartbeat();
   I2C2CONbits.RCEN = 1;           //enable receive
-  while (!I2C2STATbits.RBF);      //wait for receive byte
+  while (!I2C2STATbits.RBF)      //wait for receive byte
+    doHeartbeat();
   CLRWDT();
   u8_inByte = I2C2RCV;            //read byte;
   //wait for idle condition before attempting ACK
-  while (I2C2CON & 0x1F);         //lower 5 bits must be 0
+  while (I2C2CON & 0x1F)          //lower 5 bits must be 0
+    doHeartbeat();
   I2C2CONbits.ACKDT = u8_ack2Send; //ACK bit to send back on receive
   I2C2CONbits.ACKEN = 1;          //enable ACKbit transmittion
-  while (I2C2CONbits.ACKEN);      //wait for completion
+  while (I2C2CONbits.ACKEN)       //wait for completion
+    doHeartbeat();
   _SWDTEN = u8_wdtState;              //restore WDT
   sz_lastTimeoutError = NULL;
   return(u8_inByte);                  //return the value

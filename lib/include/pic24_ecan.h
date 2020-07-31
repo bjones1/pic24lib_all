@@ -33,6 +33,7 @@
 #include "pic24_unions.h"
 #include "pic24_chip.h"
 #include "pic24_clockfreq.h"
+#include "pic24_util.h"
 
 // Only include if this ECAN Module exists.
 #if (NUM_ECAN_MODS >= 1)
@@ -313,7 +314,8 @@ uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg);
 /** Waits until all characters placed in the UART have been sent. */
 inline static void CHANGE_MODE_ECAN1(uint16_t u16_mode) {
   C1CTRL1bits.REQOP = u16_mode;
-  while(C1CTRL1bits.OPMODE != u16_mode);
+  while(C1CTRL1bits.OPMODE != u16_mode)
+    doHeartbeat();
 }
 
 /** Return the number (0-31) of the next ECAN FIFO read buffer
@@ -376,6 +378,7 @@ uint8_t getTxInProgressECAN1(uint8_t u8_bufNum);
 #include "pic24_unions.h"
 #include "pic24_chip.h"
 #include "pic24_clockfreq.h"
+#include "pic24_util.h"
 
 // Only include if this ECAN Module exists.
 #if (NUM_ECAN_MODS >= 2)
@@ -656,7 +659,8 @@ uint32_t getIdExtendedDataFrameECAN (ECANMSG* p_ecanmsg);
 /** Waits until all characters placed in the UART have been sent. */
 inline static void CHANGE_MODE_ECAN2(uint16_t u16_mode) {
   C2CTRL1bits.REQOP = u16_mode;
-  while(C2CTRL1bits.OPMODE != u16_mode);
+  while(C2CTRL1bits.OPMODE != u16_mode)
+    doHeartbeat();
 }
 
 /** Return the number (0-31) of the next ECAN FIFO read buffer

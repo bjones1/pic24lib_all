@@ -212,9 +212,6 @@ uint8_t isCharReady1(void) {
 * \return Character read from UART1 RX.
 */
 uint8_t inChar1(void) {
-  //do heartbeat while waiting for character.
-  // Use a do-while to insure error checks
-  // are always run.
   while (!IS_CHAR_READY_UART1())
     doHeartbeat();
   checkRxErrorUART1();
@@ -602,9 +599,6 @@ uint8_t isCharReady2(void) {
 * \return Character read from UART2 RX.
 */
 uint8_t inChar2(void) {
-  //do heartbeat while waiting for character.
-  // Use a do-while to insure error checks
-  // are always run.
   while (!IS_CHAR_READY_UART2())
     doHeartbeat();
   checkRxErrorUART2();
@@ -992,9 +986,6 @@ uint8_t isCharReady3(void) {
 * \return Character read from UART3 RX.
 */
 uint8_t inChar3(void) {
-  //do heartbeat while waiting for character.
-  // Use a do-while to insure error checks
-  // are always run.
   while (!IS_CHAR_READY_UART3())
     doHeartbeat();
   checkRxErrorUART3();
@@ -1382,9 +1373,6 @@ uint8_t isCharReady4(void) {
 * \return Character read from UART4 RX.
 */
 uint8_t inChar4(void) {
-  //do heartbeat while waiting for character.
-  // Use a do-while to insure error checks
-  // are always run.
   while (!IS_CHAR_READY_UART4())
     doHeartbeat();
   checkRxErrorUART4();
